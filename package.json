@@ -3,6 +3,9 @@
   "version": "0.0.2",
   "private": true,
   "scripts": {
+    "start": "react-native start",
+    "ios": : "react-native run-ios",
+    "android": : "react-native run-android"
   },
   "dependencies": {
     "color": "^0.11.3",
