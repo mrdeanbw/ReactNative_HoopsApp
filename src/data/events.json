@@ -1,0 +1,104 @@
+[
+  {
+    "id": 0,
+    "date": "2016-06-26T17:00:00.000Z",
+    "duration": 1.5,
+    "image": "basketball",
+    "title": "Basketball scrimmage",
+    "activity": "Basketball",
+    "gender": "male",
+    "players": 12,
+    "maxPlayers": 15,
+    "level": "Casual",
+    "venue": "Sudgen Sports Centre",
+    "address": "202 King Street, E15 3FS, London",
+    "distance": "0.8 mi",
+    "ageGroup": "adult",
+    "private": true,
+    "courtType": "Outdoor",
+    "coverImage": "basketballCover",
+    "organizer": 8,
+    "entryFee": "5",
+    "invites": [
+      { "user": 0, "status": "confirmed" },
+      { "user": 1, "status": "confirmed" },
+      { "user": 2, "status": "pending" },
+      { "user": 3, "status": "rejected" }
+    ],
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "rules": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    "notes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    "gallery": [
+      { "title": "05.07 Game Photos", "count": 21, "cover": "http://facebook.github.io/react/img/logo_og.png" },
+      { "title": "Moments", "count": 5, "cover": "http://facebook.github.io/react/img/logo_og.png" },
+      { "title": "After Game Outing", "count": 14, "cover": "http://facebook.github.io/react/img/logo_og.png" },
+      { "title": "Motivational", "count": 14,"cover": "http://facebook.github.io/react/img/logo_og.png" },
+      { "title": "MVP", "count": 7, "cover": "http://facebook.github.io/react/img/logo_og.png" },
+    ]
+  },
+  {
+    "id": 1,
+    "date": "2016-06-28T10:00:00.000Z",
+    "duration": 1,
+    "image": "footballNet",
+    "title": "Football 5-a-side",
+    "players": 12,
+    "maxPlayers": 15,
+    "level": "Open",
+    "venue": "Sudgen Sports Centre",
+    "distance": "2.6 mi",
+    "organizer": 8,
+    "invites": [
+      { "user": 2, "status": "confirmed" },
+      { "user": 5, "status": "pending" },
+      { "user": 1, "status": "pending" },
+      { "user": 3, "status": "pending" }
+    ],
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "rules": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    "notes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+  },
+  {
+    "id": 2,
+    "date": "2016-08-13T19:30:00.000Z",
+    "duration": 0.5,
+    "image": "basketballNet",
+    "title": "Basketball 3x3 tournament",
+    "players": 12,
+    "maxPlayers": 15,
+    "level": "Casual",
+    "venue": "Sudgen Sports Centre",
+    "distance": "3.7 mi",
+    "organizer": 8,
+    "invites": [
+      { "user": 7, "status": "rejected" },
+      { "user": 3, "status": "rejected" },
+      { "user": 6, "status": "confirmed" }
+    ],
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "rules": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    "notes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+  },
+  {
+    "id": 3,
+    "date": "2016-12-24T20:15:00.000Z",
+    "duration": 0.75,
+    "image": "football",
+    "title": "Football 5-a-side",
+    "players": 12,
+    "maxPlayers": 15,
+    "level": "Competitive",
+    "venue": "Sudgen Sports Centre",
+    "distance": "2.8 mi",
+    "private": true,
+    "organizer": 8,
+    "invites": [
+      { "user": 1, "status": "pending" },
+      { "user": 4, "status": "rejected" },
+      { "user": 3, "status": "pending" }
+    ],
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "rules": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    "notes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+  }
+]

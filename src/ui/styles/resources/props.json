@@ -1,0 +1,37 @@
+{
+  "fonts": {
+    "default": "Source Sans Pro"
+  },
+  "colors": {
+    "transparent": "transparent",
+    "black20": "rgba(0,0,0,0.2)",
+    "black40": "rgba(0,0,0,0.4)",
+    "black50": "rgba(0,0,0,0.5)",
+    "yellow": "#c4b10d",
+    "green": "#7ed04d",
+    "grey": "#bcc0c8",
+    "lightGrey": "#eaeaea",
+    "black": "#292c34",
+    "pink": "#e8436f",
+    "window": "#f8f9f9",
+    "placeholderText": "#7b7b7b",
+    "white": "#ffffff",
+    "facebookBlue": "#3b5998",
+
+    "pink0": "#de708e",
+    "pink1": "#e06485",
+    "pink2": "#e2587d",
+    "pink3": "#e45078",
+    "pink4": "#e8436f",
+    "pink5": "#e43c69",
+    "pink6": "#de3663",
+    "pink7": "#d6335f",
+
+    "dashboard0": "#e06485",
+    "dashboard1": "#db5478",
+    "dashboard2": "#db426b",
+    "dashboard3": "#d33e66",
+    "dashboard4": "#d6335f",
+    "dashboard5": "#c43057"
+  }
+}
