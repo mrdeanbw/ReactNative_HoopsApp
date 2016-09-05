@@ -4,6 +4,8 @@ import {colors} from '../resources';
 export default StyleSheet => StyleSheet.extend({
   underlayColor: colors.lightGrey,
 
+  disclosureUnderlayColor: colors.transparent,
+
   container: {
     height: 85,
     borderStyle: 'solid',

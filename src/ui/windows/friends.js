@@ -34,12 +34,21 @@ export default class Friends extends React.Component {
     nextProps.initialTab = Home;
   }
 
+  onPressDisclosure = (user) => {
+    this.props.window.showModal(
+      <Dialog
+        popup={true}
+        style={StyleSheet.dialog.optionsMenu}
+        onClose={() => this.props.window.hideModal()}
+      >
+        <Button type="alertVertical" text={_('inviteToAnEvent')} onPress={() => this.onPressInvite(user)} />
+        <Button type="alertVertical" text={_('message')} onPress={() => this.onPressMessage(user)} />
+        <Button type="alertVerticalDefault" text={_('remove')} onPress={() => this.onPressRemove(user)} />
+      </Dialog>
+    );
+  };
+
   onPressUser = (user) => {
-    this.props.window.showModal(<Dialog popup={true} style={StyleSheet.dialog.optionsMenu}>
-      <Button type="alertVertical" text={_('inviteToAnEvent')} onPress={() => this.onPressInvite(user)} />
-      <Button type="alertVertical" text={_('message')} onPress={() => this.onPressMessage(user)} />
-      <Button type="alertVerticalDefault" text={_('remove')} onPress={() => this.onPressRemove(user)} />
-    </Dialog>);
   };
 
   onPressInvite = (user) => {
@@ -74,7 +83,7 @@ export default class Friends extends React.Component {
                     lastName={user.name.last}
                     location={user.location}
                     dob={user.dob}
-                    onPressDisclosure={() => this.onPressUser(user)} />)}
+                    onPressDisclosure={() => this.onPressDisclosure(user)} />)}
         </ScrollView>
       </View>
     );

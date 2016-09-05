@@ -57,11 +57,16 @@ export default class UserListItem extends React.Component {
             </View>
           </View>
 
-          <View style={StyleSheet.buttons.bar}>
-            {(checked === false) && <Button type="checkDisclosure" icon="plusGrey" onPress={this.props.onPressCheck} />}
-            {(checked === true) && <Button type="checkDisclosure" icon="check" onPress={this.props.onPressCheck}  style={StyleSheet.buttons.checkDisclosure.activeStyle} />}
-            <Icon name="menu" />
-          </View>
+          <TouchableHighlight
+            onPress={this.props.onPressDisclosure}
+            underlayColor={StyleSheet.userListItem.disclosureUnderlayColor}
+          >
+            <View style={StyleSheet.buttons.bar}>
+              {(checked === false) && <Button type="checkDisclosure" icon="plusGrey" onPress={this.props.onPressCheck} />}
+              {(checked === true) && <Button type="checkDisclosure" icon="check" onPress={this.props.onPressCheck}  style={StyleSheet.buttons.checkDisclosure.activeStyle} />}
+              <Icon name="menu" />
+            </View>
+          </TouchableHighlight>
         </View>
       </TouchableHighlight>
     );
