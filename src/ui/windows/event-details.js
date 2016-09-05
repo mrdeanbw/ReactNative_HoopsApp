@@ -55,6 +55,9 @@ export default class EventDetails extends React.Component {
 
   onPressInvite = () => {
     this.props.window.showModal(<EventInvite
+      onClose={() => {
+        this.props.window.hideModal();
+      }}
       onPressFacebook={() => {
         this.props.window.hideModal();
       }}
@@ -210,7 +213,7 @@ EventInfo.Bar = class EventInfoBar extends React.Component {
 class EventInvite extends React.Component {
   render() {
     return (
-      <Dialog popup={true} style={StyleSheet.dialog.optionsMenu}>
+      <Dialog popup={true} onClose={this.props.onClose} style={StyleSheet.dialog.optionsMenu}>
         <Button type="alertVertical" text={_('facebook')} onPress={this.props.onPressFacebook} />
         <Button type="alertVertical" text={_('twitter')} onPress={this.props.onPressTwitter} />
         <Button type="alertVertical" text={_('email')} onPress={this.props.onPressEmail} />
