@@ -1,6 +1,7 @@
 
 import _ from '../i18n';
 import React from 'react';
+import ReactNative from 'react-native';
 import {View,Text,ScrollView, Image} from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
@@ -76,6 +77,15 @@ export default class CreateEvent extends React.Component {
     }
   };
 
+  scrollToInput = (scrollRef, inputRef) => {
+    let scrollResponder = scrollRef.getScrollResponder();
+    scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
+      ReactNative.findNodeHandle(inputRef),
+      150,
+      true
+    );
+  };
+
   render() {
     return (
       <Dialog ref="dialog" title={_('createEvent')} onClose={this.props.onClose}>
@@ -85,10 +95,42 @@ export default class CreateEvent extends React.Component {
 
           <Wizard.Step>
             <ScrollView contentContainerStyle={StyleSheet.padding}>
-              <TextInput type="flat" style={StyleSheet.halfMarginTop} placeholder={_('eventName')} />
-              <TextInput type="flat" style={StyleSheet.halfMarginTop}  placeholder={_('activity')} />
-              <TextInput type="flat" style={StyleSheet.halfMarginTop}  placeholder={_('city')} />
-              <TextInput type="flat" style={StyleSheet.halfMarginTop}  placeholder={_('country')} />
+              <TextInput
+                type="flat"
+                style={StyleSheet.halfMarginTop}
+                placeholder={_('eventName')}
+                blurOnSubmit={false}
+                onSubmitEditing={() => {
+                  this.refs.activityInput.focus();
+                }}
+              />
+              <TextInput
+                ref="activityInput"
+                type="flat"
+                style={StyleSheet.halfMarginTop}
+                placeholder={_('activity')}
+                blurOnSubmit={false}
+                onSubmitEditing={() => {
+                  this.refs.cityInput.focus();
+                }}
+              />
+              <TextInput
+                ref="cityInput"
+                type="flat"
+                style={StyleSheet.halfMarginTop}
+                placeholder={_('city')}
+                blurOnSubmit={false}
+                onSubmitEditing={() => {
+                  this.refs.countryInput.focus();
+                }}
+              />
+              <TextInput
+                ref="countryInput"
+                type="flat"
+                style={StyleSheet.halfMarginTop}
+                placeholder={_('country')}
+                blurOnSubmit={true}
+              />
 
               <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMargin, {alignSelf: 'center'}]}>
                 <Button type="image" icon="male" active={this.state.gender == 'male'} onPress={() => this.setState({gender: 'male'})}/>
@@ -133,7 +175,7 @@ export default class CreateEvent extends React.Component {
 
 
           <Wizard.Step>
-            <ScrollView contentContainerStyle={StyleSheet.padding}>
+            <ScrollView ref="scrollView2" contentContainerStyle={StyleSheet.padding}>
               <DateInput type="flat" placeholder={_('dateTime')} value={this.state.date}
                      rightBar={<Icon name="listIndicator" />}
                      modalProvider={() => this.refs.dialog}
@@ -153,11 +195,45 @@ export default class CreateEvent extends React.Component {
               </View>
 
               <View style={StyleSheet.doubleMarginTop}>
-                <TextInput type="flat" placeholder={_('venueName')} />
-                <TextInput type="flat" style={StyleSheet.halfMarginTop}  placeholder={_('venueAddress')} />
+                <TextInput
+                  ref="venueNameInput"
+                  type="flat"
+                  placeholder={_('venueName')}
+                  blurOnSubmit={false}
+                  onSubmitEditing={() => {
+                    this.refs.venueAddressInput.focus();
+                  }}
+                  onFocus={() => {
+                    this.scrollToInput(this.refs.scrollView2, this.refs.venueNameInput);
+                  }}
+                />
+                <TextInput
+                  ref="venueAddressInput"
+                  type="flat"
+                  style={StyleSheet.halfMarginTop}
+                  placeholder={_('venueAddress')}
+                  blurOnSubmit={false}
+                  onSubmitEditing={() => {
+                    this.refs.costInput.focus();
+                  }}
+                  onFocus={() => {
+                    this.scrollToInput(this.refs.scrollView2, this.refs.venueAddressInput);
+                  }}
+                />
 
                 <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
-                  <TextInput type="flat" keyboardType="numeric" placeholder={_('costPP')} value={this.state.costPP || ''} onChange={value => this.setState({costPP: value, freeCost: false})} style={{flex: 1, marginRight: 25}} />
+                  <TextInput
+                    ref="costInput"
+                    type="flat"
+                    keyboardType="numeric"
+                    placeholder={_('costPP')}
+                    value={this.state.costPP || ''}
+                    onChange={value => this.setState({costPP: value, freeCost: false})}
+                    style={{flex: 1, marginRight: 25}}
+                    onFocus={() => {
+                      this.scrollToInput(this.refs.scrollView2, this.refs.costInput);
+                    }}
+                  />
                   <Button type="roundedGrey" active={this.state.freeCost === true} text={_('free')} onPress={() => this.setState({costPP: null, freeCost: true})} style={{width: 110}}/>
                 </View>
 
