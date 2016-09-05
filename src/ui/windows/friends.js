@@ -62,7 +62,7 @@ export default class Friends extends React.Component {
         <View style={{flex: null, height: 50}}>
           <TextInput type="search"
                  icon="searchGrey"
-                 placeholder={_('searchActivities')}
+                 placeholder={_('searchFriends')}
                  onChange={() => this.setState({ search: value })} />
         </View>
         <ScrollView style={{flex: 1}}>

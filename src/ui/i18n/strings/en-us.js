@@ -264,6 +264,7 @@ export const usa = 'USA';
 export const selectActivities = 'Select Activities';
 export const searchActivities = 'Search activities...';
 
+export const searchFriends = 'Search Friends...';
 
 export const preferences = 'Preferences';
 export const editAccount = 'Edit Account';
