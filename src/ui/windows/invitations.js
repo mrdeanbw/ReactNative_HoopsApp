@@ -14,6 +14,14 @@ import Button from '../components/button';
 import Window from '../components/window';
 import Calendar from './calendar';
 
+const MenuIcon = StyleSheet.icons.menu;
+const {
+  basketball: BasketballImage,
+  basketballNet: BasketballNetImage,
+  football: FootballImage,
+  footballNet: FootballNetImage,
+} = StyleSheet.images;
+
 export default class Invitations extends React.Component {
 
   static getTest(close) {
@@ -94,106 +102,39 @@ export default class Invitations extends React.Component {
   };
 
   showReceivedPopup = (invitation) => {
-    this.props.window.showModal(<Dialog popup={true} style={[StyleSheet.popupContainer]}>
-      <TouchableHighlight style={StyleSheet.popupButtonContainer}
-                onPress={() => this.onPressAccept(invitation) }
-                activeOpacity={HighlightOpacity}
-                underlayColor={TabButtonHighlight}>
-        <View style={[StyleSheet.popupButton]}>
-          <Text style={[StyleSheet.text, StyleSheet.popupButtonText, StyleSheet.greenText]}>{_('accept').toUpperCase()}</Text>
-        </View>
-      </TouchableHighlight>
+    let name = invitation.sender.name;
 
-      <TouchableHighlight style={StyleSheet.popupButtonContainer}
-                onPress={() => this.onPressDecline(invitation) }
-                activeOpacity={HighlightOpacity}
-                underlayColor={TabButtonHighlight}>
-        <View style={[StyleSheet.popupButton]}>
-          <Text style={[StyleSheet.text, StyleSheet.popupButtonText, StyleSheet.redText]}>{_('decline').toUpperCase()}</Text>
-        </View>
-      </TouchableHighlight>
-
-      <TouchableHighlight style={StyleSheet.popupButtonContainer}
-                onPress={() => this.onPressEventDetails(invitation.event) }
-                activeOpacity={HighlightOpacity}
-                underlayColor={TabButtonHighlight}>
-        <View style={[StyleSheet.popupButton]}>
-          <Text style={[StyleSheet.text, StyleSheet.popupButtonText]}>{_('eventDetails').toUpperCase()}</Text>
-        </View>
-      </TouchableHighlight>
-
-      <TouchableHighlight style={StyleSheet.popupButtonContainer}
-                onPress={() => this.onPressUserDetails(invitation.sender) }
-                activeOpacity={HighlightOpacity}
-                underlayColor={TabButtonHighlight}>
-        <View style={[StyleSheet.popupButton]}>
-          <Text style={[StyleSheet.text, StyleSheet.popupButtonText]}>{_('userDetails').toUpperCase()}</Text>
-        </View>
-      </TouchableHighlight>
-
-      <TouchableHighlight style={StyleSheet.popupButtonContainer}
-                onPress={() => this.onPressBlock(invitation.sender) }
-                activeOpacity={HighlightOpacity}
-                underlayColor={TabButtonHighlight}>
-        <View style={[StyleSheet.popupButton]}>
-          <Text style={[StyleSheet.text, StyleSheet.popupButtonText]}>{_('block').toUpperCase()} "{invitation.sender.name}"</Text>
-        </View>
-      </TouchableHighlight>
+    this.props.window.showModal(<Dialog
+      popup={true}
+      style={[StyleSheet.popupContainer]}
+      onClose={() => this.props.window.hideModal()}
+    >
+      <Button type="alertVerticalGreen" text={_('accept')} onPress={() => this.onPressAccept(invitation)} />
+      <Button type="alertVerticalDefault" text={_('decline')} onPress={() => this.onPressDecline(invitation)} />
+      <Button type="alertVertical" text={_('eventDetails')} onPress={() => this.onPressEventDetails(invitation.event)} />
+      <Button type="alertVertical" text={_('userDetails')} onPress={() => this.onPressUserDetails(invitation.sender)} />
+      <Button type="alertVertical" text={_('block') + ' "' + name + '"'} onPress={() => this.onPressBlock(invitation.sender)} />
     </Dialog>);
   };
 
   showSentPopup = (invitation) => {
-    this.props.window.showModal(<Dialog popup={true} style={[StyleSheet.popupContainer]}>
-      <TouchableHighlight style={StyleSheet.popupButtonContainer}
-                onPress={() => this.onPressRemove(invitation) }
-                activeOpacity={HighlightOpacity}
-                underlayColor={TabButtonHighlight}>
-        <View style={[StyleSheet.popupButton]}>
-          <Text style={[StyleSheet.text, StyleSheet.popupButtonText, StyleSheet.redText]}>{_('remove').toUpperCase()}</Text>
-        </View>
-      </TouchableHighlight>
-
-      <TouchableHighlight style={StyleSheet.popupButtonContainer}
-                onPress={() => this.onPressEventDetails(invitation.event) }
-                activeOpacity={HighlightOpacity}
-                underlayColor={TabButtonHighlight}>
-        <View style={[StyleSheet.popupButton]}>
-          <Text style={[StyleSheet.text, StyleSheet.popupButtonText]}>{_('eventDetails').toUpperCase()}</Text>
-        </View>
-      </TouchableHighlight>
-
-      <TouchableHighlight style={StyleSheet.popupButtonContainer}
-                onPress={() => this.onPressUserDetails(invitation.recipient) }
-                activeOpacity={HighlightOpacity}
-                underlayColor={TabButtonHighlight}>
-        <View style={[StyleSheet.popupButton]}>
-          <Text style={[StyleSheet.text, StyleSheet.popupButtonText]}>{_('userDetails').toUpperCase()}</Text>
-        </View>
-      </TouchableHighlight>
+    this.props.window.showModal(<Dialog
+      popup={true}
+      style={[StyleSheet.popupContainer]}
+      onClose={() => this.props.window.hideModal()}
+    >
+      <Button type="alertVerticalDefault" text={_('remove') + ' "' + name + '"'} onPress={() => this.onPressRemove(invitation)} />
+      <Button type="alertVertical" text={_('eventDetails') + ' "' + name + '"'} onPress={() => this.onPressEventDetails(invitation.event)} />
+      <Button type="alertVertical" text={_('userDetails') + ' "' + name + '"'} onPress={() => this.onPressEventDetails(invitation.recipient)} />
     </Dialog>);
   };
 
   render() {
     return (
       <View>
-        <View style={StyleSheet.tabBar}>
-          <TouchableHighlight style={StyleSheet.tabButtonContainer}
-                    onPress={() => this.setState({ tab: 'received' }) }
-                    activeOpacity={HighlightOpacity}
-                    underlayColor={TabButtonHighlight}>
-            <View style={[StyleSheet.tabButton, this.state.tab === 'received' ? StyleSheet.activeTabButton : null]}>
-              <Text style={[StyleSheet.text, StyleSheet.tabButtonText, this.state.tab === 'received' ? StyleSheet.activeTabButtonText : null]}>{_('received').toUpperCase()}</Text>
-            </View>
-          </TouchableHighlight>
-
-          <TouchableHighlight style={StyleSheet.tabButtonContainer}
-                    onPress={() => this.setState({ tab: 'sent' }) }
-                    activeOpacity={HighlightOpacity}
-                    underlayColor={TabButtonHighlight}>
-            <View style={[StyleSheet.tabButton, this.state.tab === 'sent' ? StyleSheet.activeTabButton : null]}>
-              <Text style={[StyleSheet.text, StyleSheet.tabButtonText, this.state.tab === 'sent' ? StyleSheet.activeTabButtonText : null]}>{_('sent').toUpperCase()}</Text>
-            </View>
-          </TouchableHighlight>
+        <View style={StyleSheet.buttons.bar}>
+          <Button type="top" text={_('received')} active={this.state.tab === 'received'} onPress={() => this.setState({ tab: 'received' })} />
+          <Button type="top" text={_('sent')} active={this.state.tab === 'sent'} onPress={() => this.setState({ tab: 'sent' })} />
         </View>
 
         <ScrollView contentContainerStyle={StyleSheet.container}>

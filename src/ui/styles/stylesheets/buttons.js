@@ -772,6 +772,26 @@ export default StyleSheet => StyleSheet.extend({
     }
   }),
 
+  alertVerticalGreen: StyleSheet.extend({
+    underlayColor: colors.lightGrey,
+
+    style: {
+      width: 270,
+      backgroundColor: colors.transparent,
+      borderStyle: 'solid',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: colors.grey,
+      height: 55
+    },
+
+    textStyle: {
+      fontSize: 13,
+      fontWeight: 'bold',
+      color: colors.green,
+      lineHeight: 0
+    }
+  }),
+
   dialogGreen: StyleSheet.extend({
     underlayColor: colors.highlightGreen,
 
