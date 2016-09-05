@@ -318,7 +318,7 @@ Window.Participant = class ParticipantWindow extends BaseWindow {
           active={this.isTabButtonActive(windows.Invitations)}
           onPress={() => this.onChangeTab(windows.Invitations)} />,
 
-      <Button type="menu" icon="calendar" text={_('calendar')}
+      <Menu.Item icon="calendar" text={_('calendar')}
           onPress={() => this.onShowModal(windows.Calendar)} />
     );
   }
