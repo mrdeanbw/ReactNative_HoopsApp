@@ -111,7 +111,6 @@ export default StyleSheet => StyleSheet.extend({
 
   eventInfoStyle: {
     alignItems: 'center',
-    flex: 1,
     marginLeft: 5,
     marginRight: 5
   },

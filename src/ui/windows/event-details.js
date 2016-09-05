@@ -272,7 +272,7 @@ EventDetails.Join = class EventJoin extends React.Component {
           <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, { textAlign: 'center' }]}>{_('youAreAboutToJoin').toUpperCase()}</Text>
           <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, {textAlign: 'center', color: StyleSheet.colors.pink}]}>{this.props.event.title.toUpperCase()}</Text>
 
-          <EventInfo.Bar style={[StyleSheet.singleMarginTop]}>
+          <EventInfo.Bar style={[StyleSheet.doubleMarginTop]}>
             <EventInfo.Summary icon="calendarBig" style={{width: 90}}>
               <Text style={StyleSheet.eventDetails.lightTextStyle}>{formatDate(this.props.event.date)}</Text>
               {'\n'}
