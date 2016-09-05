@@ -1,0 +1,10 @@
+#JavaScript
+node_modules
+
+#Android
+android/app/src/main/assets
+
+#iOS
+ios/build/
+project.xcworkspace
+xcuserdata
