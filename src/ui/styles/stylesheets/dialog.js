@@ -72,6 +72,7 @@ export default StyleSheet => StyleSheet.extend({
 
   popupContainerStyle: {
     backgroundColor: colors.white,
+    margin: 20,
     shadowRadius: 20,
     shadowOffset: { width: 0, height: 3 },
     shadowColor: '#000',
