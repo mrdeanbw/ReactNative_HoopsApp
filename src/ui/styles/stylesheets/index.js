@@ -15,6 +15,7 @@ import _interests from './interests';
 import _invitations from './invitations';
 import _login from './login';
 import _mapView from './map-view';
+import _menu from './menu';
 import _picker from './picker';
 import _profile from './profile';
 import _search from './search';
@@ -38,6 +39,7 @@ export default {
   invitations: _invitations,
   login: _login,
   mapView: _mapView,
+  menu: _menu,
   picker: _picker,
   profile: _profile,
   search: _search,

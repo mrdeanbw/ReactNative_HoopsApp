@@ -99,64 +99,6 @@ export default StyleSheet => StyleSheet.extend({
     paddingRight: 10
   },
 
-  menuContainer: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    right: 0,
-    bottom: 50
-  },
-
-  menuOverlay: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(41,44,52,0.5)',
-  },
-
-  menu: {
-    position: 'absolute',
-    right: -115,
-    top: 0,
-    bottom: 0,
-    width: 115,
-    backgroundColor: 'white'
-  },
-
-  avatarContainer: {
-    height: 160,
-    backgroundColor: colors.black,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 20
-  },
-
-  avatar: {
-    width: 70,
-    height: 70,
-    backgroundColor: colors.highlightBlack,
-    borderRadius: 35,
-    overflow: 'hidden'
-  },
-
-  avatarImage: {
-    flex: 1,
-    width: null,
-    height: null
-  },
-
-  avatarText: {
-    color: colors.white,
-    fontSize: 13,
-    lineHeight: 13,
-    letterSpacing: 1,
-    marginTop: 10,
-    textAlign: 'center'
-  },
-
-
   menuIcon: {
     overflow: 'visible'
   },
@@ -165,27 +107,6 @@ export default StyleSheet => StyleSheet.extend({
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'space-around'
-  },
-
-  badge: {
-    color: colors.white,
-    backgroundColor: 'transparent',
-    lineHeight: 11.5,
-    fontSize: 11
-  },
-
-  badgeContainer: {
-    position: 'absolute',
-    backgroundColor: colors.pink,
-    left: 12,
-    top: -7,
-    paddingTop: 2,
-    paddingBottom: 2,
-    paddingLeft: 5,
-    paddingRight: 5,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center'
   },
 
   modal: {

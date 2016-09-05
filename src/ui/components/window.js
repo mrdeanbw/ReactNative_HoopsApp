@@ -106,6 +106,17 @@ export default class Window extends React.Component {
 
         </View>
 
+        {this.state.menuVisible && (
+          <Menu
+            animation={this.state.menuAnimation}
+            onPressBackground={() => {
+              this.hideMenu();
+            }}
+          >
+            {menuButtons}
+          </Menu>
+        )}
+
         <View style={StyleSheet.window.tabBarStyle}>
           {tabButtons}
 
@@ -113,10 +124,6 @@ export default class Window extends React.Component {
               active={this.state.menuVisible}
               onPress={() => this.state.menuVisible ? this.hideMenu() : this.showMenu()} />
         </View>
-
-        {this.state.menuVisible && <Menu animation={this.state.menuAnimation}>
-          {menuButtons}
-        </Menu>}
 
         {this.state.modal && <Modal animationType={this.state.modalAnimation || 'fade'} transparent={this.state.modalTransparent}>{this.state.modal}</Modal>}
       </View>
@@ -247,15 +254,15 @@ class BaseWindow extends React.Component {
       buttons[0],
       buttons[1],
 
-      <Button type="menu" icon="help" text={_('help')}
+      <Menu.Item icon="help" text={_('help')}
           onPress={() => this.onShowModal(windows.Help)}/>,
-      <Button type="menu" icon="settings" text={_('settings')}
+      <Menu.Item icon="settings" text={_('settings')}
           onPress={() => this.onShowModal(windows.Settings)}/>,
-      <Button type="menu" icon="payments" text={_('payments')}
+      <Menu.Item icon="payments" text={_('payments')}
           onPress={() => this.onShowModal(windows.Payments)}/>,
-      <Button type="menu" icon="notifications" text={_('notifications')} badge={this.props.notifications}
+      <Menu.Item icon="notifications" text={_('notifications')} badge={this.props.notifications}
           onPress={() => this.onShowModal(windows.Notifications)}/>,
-      <Button type="menu" icon="friends" text={_('friends')}
+      <Menu.Item icon="friends" text={_('friends')}
           onPress={() => this.onShowModal(windows.Friends)}/>
     ].concat(buttons.slice(2));
 
