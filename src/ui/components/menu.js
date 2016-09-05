@@ -77,7 +77,7 @@ Menu.Item = class MenuItem extends React.Component {
 };
 
 Menu.Item.propTypes = {
-  title: React.PropTypes.string.isRequired,
+  text: React.PropTypes.string.isRequired,
   badge: React.PropTypes.number,
   icon: React.PropTypes.string.isRequired,
   onPress: React.PropTypes.func,
