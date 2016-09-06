@@ -105,7 +105,18 @@ export default class Profile extends React.Component {
         </View>
 
         <View style={[StyleSheet.dialog.titleStyle, StyleSheet.profile.upcomingBarStyle]}>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.titleTextStyle]}>{_(owner ? 'yourUpcomingEvents' : 'theirUpcomingEvents').replace(/\$1/g, name).toUpperCase()}</Text>
+          <Text
+            style={[
+              StyleSheet.text,
+              StyleSheet.dialog.titleTextStyle,
+              StyleSheet.profile.upcomingBarText,
+            ]}
+          >
+            {_(owner ? 'yourUpcomingEvents' : 'theirUpcomingEvents')
+              .replace(/\$1/g, name)
+              .toUpperCase()
+            }
+          </Text>
         </View>
 
         {EventData.map(event =>

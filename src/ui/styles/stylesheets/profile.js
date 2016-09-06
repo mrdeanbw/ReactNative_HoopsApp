@@ -122,6 +122,11 @@ export default StyleSheet => StyleSheet.extend({
     paddingTop: 0
   },
 
+  upcomingBarText: {
+    fontSize: 13,
+    lineHeight: 13,
+  },
+
   fieldLabelText: {
     color: colors.pink,
     fontSize: 12,
