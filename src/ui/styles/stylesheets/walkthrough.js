@@ -31,9 +31,10 @@ export default StyleSheet => StyleSheet.extend({
 
   paginator: {
     position: 'absolute',
+    alignItems: 'flex-start',
     top: 160,
     left: 0,
-    bottom: null,
+    bottom: 0,
     right: 0,
     zIndex: 100
   },
@@ -62,17 +63,23 @@ export default StyleSheet => StyleSheet.extend({
 
   buttonBar: {
     flexDirection: 'row',
-    height: 50
+    height: 50,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 
   page: {
-    alignItems: 'center'
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 100,
   },
 
   pageText: {
     textAlign: 'center',
     color: colors.white,
-    marginBottom: 24
   },
 
   pageTextHighlight: {
@@ -81,6 +88,6 @@ export default StyleSheet => StyleSheet.extend({
 
   pageImage: {
     resizeMode: 'contain',
-    width: 275
+    width: 300,
   }
 });
