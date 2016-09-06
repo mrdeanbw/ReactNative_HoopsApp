@@ -45,8 +45,11 @@ export default class Members extends React.Component {
     this.props.window.setView(Members.InviteMore, { event: this.props.event });
   }
 
-  onPressUser(user) {
+  onPressDisclosure(user) {
     this.props.window.showModal(<MemberOptions
+      onClose={() => {
+        this.props.window.hideModal();
+      }}
       onPressViewProfile={() => {
         this.props.window.hideModal();
         setTimeout(() => this.props.window.showModal(<Profile
@@ -62,6 +65,9 @@ export default class Members extends React.Component {
         this.props.window.hideModal();
       }}
     />);
+  }
+
+  onPressUser(user) {
   }
 
   render() {
@@ -83,7 +89,7 @@ export default class Members extends React.Component {
                   location={user.location}
                   dob={user.dob}
                   status={user.status}
-                  onPressDisclosure={() => this.onPressUser(user)} />)}
+                  onPressDisclosure={() => this.onPressDisclosure(user)} />)}
       </ScrollView>
     );
   }
@@ -126,6 +132,9 @@ Members.InviteMore = class InviteMembers extends React.Component {
 
   onPressImportContacts() {
     this.props.window.showModal(<ImportContacts
+      onClose={() => {
+        this.props.window.hideModal();
+      }}
       onPressImportContacts={() => {
         this.props.window.hideModal();
       }}
@@ -155,6 +164,9 @@ Members.InviteMore = class InviteMembers extends React.Component {
   onPressUser(user) {
     this.props.window.showModal(<MemberInviteOptions
       user={user} selected={!!this.state.selected[user.id]}
+      onClose={() => {
+        this.props.window.hideModal();
+      }}
       onPressInvite={() => {
         this.props.window.hideModal();
         this.addUser(user);
@@ -234,7 +246,7 @@ Members.InviteMore = class InviteMembers extends React.Component {
 class MemberOptions extends React.Component {
   render() {
     return (
-      <Dialog popup={true} style={StyleSheet.dialog.optionsMenu}>
+      <Dialog popup={true} style={StyleSheet.dialog.optionsMenu} onClose={this.props.onClose}>
         <Button type="alertVertical" text={_('viewProfile')} onPress={this.props.onPressViewProfile} />
         <Button type="alertVertical" text={_('message')} onPress={this.props.onPressMessage} />
         <Button type="alertVerticalDefault" text={_('remove')} onPress={this.props.onPressRemove} />
@@ -246,7 +258,7 @@ class MemberOptions extends React.Component {
 class MemberInviteOptions extends React.Component {
   render() {
     return (
-      <Dialog popup={true} style={StyleSheet.dialog.optionsMenu}>
+      <Dialog popup={true} style={StyleSheet.dialog.optionsMenu} onClose={this.props.onClose}>
         {!!this.props.selected && <Button type="alertVertical" text={_('remove')} onPress={this.props.onPressRemove} />}
         {!this.props.selected && <Button type="alertVerticalDefault" text={_('invite')} onPress={this.props.onPressInvite} />}
         <Button type="alertVertical" text={_('message')} onPress={this.props.onPressMessage} />
@@ -259,7 +271,7 @@ class MemberInviteOptions extends React.Component {
 class ImportContacts extends React.Component {
   render() {
     return (
-      <Dialog popup={true} style={StyleSheet.dialog.optionsMenu}>
+      <Dialog popup={true} style={StyleSheet.dialog.optionsMenu} onClose={this.props.onClose}>
         <Button type="alertVertical"
             text={_('importFromContacts')}
             onPress={this.props.onPressImportContacts} />
