@@ -101,16 +101,21 @@ export default class SignUp extends React.Component {
                selectTextOnFocus={true}
                clearTextOnFocus={true}
                enablesReturnKeyAutomatically={true}
-               onSubmitEditing={() => this.onSubmitEditing("dob")}
                icon="password">
           <Button type="disclosure" active={this.state.showPassword} icon="eye" onPress={() => this.setState({showPassword: !this.state.showPassword})}/>
         </TextInput>
 
-        <DateInput type="flat" ref="dob" placeholder={_('dob')} icon="nappy"
-               onShowModal={c => this.refs.dialog.showModal(c)}
-               onHideModal={() => this.refs.dialog.hideModal()}>
-          <Button type="disclosure" icon="info" onPress={() => this.setState({showDobInfo: !this.state.showDobInfo})}/>
-        </DateInput>
+        <DateInput
+          type="flat"
+          ref="dob"
+          placeholder={_('dob')}
+          icon="nappy"
+          modalProvider={() => this.refs.dialog}
+          date={true}
+          time={false}
+          value={this.state.dob}
+          onChange={(dob) => {console.log({dob}); this.setState({dob})}}
+        />
 
         <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMargin]}>
           <Button type="image" icon="male" active={this.state.gender == 'male'} onPress={this.onPressMale}/>
