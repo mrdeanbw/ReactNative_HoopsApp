@@ -114,7 +114,7 @@ export default class SignUp extends React.Component {
           date={true}
           time={false}
           value={this.state.dob}
-          onChange={(dob) => {console.log({dob}); this.setState({dob})}}
+          onChange={(dob) => this.setState({dob})}
         />
 
         <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMargin]}>
