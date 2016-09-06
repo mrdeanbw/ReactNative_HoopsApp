@@ -88,8 +88,10 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   status: {
-    width: 16,
-    alignSelf: 'stretch'
+    width: 20,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   statuses: StyleSheet.escape({

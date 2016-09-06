@@ -36,7 +36,16 @@ export default class UserListItem extends React.Component {
                 activeOpacity={1.0}
                 underlayColor={StyleSheet.userListItem.underlayColor}>
         <View style={StyleSheet.userListItem.wrapper}>
-          {status && <View style={[StyleSheet.userListItem.status, StyleSheet.userListItem.statuses[status]]} />}
+          {status && (
+            <View
+              style={[
+                StyleSheet.userListItem.status,
+                StyleSheet.userListItem.statuses[status]
+              ]}
+            >
+              <Image source={StyleSheet.icons[status]} />
+            </View>
+          )}
           <Animated.View style={[StyleSheet.userListItem.status, {backgroundColor: StyleSheet.colors.pink}, {
             width: this.state.checkedAnimation.interpolate({ inputRange: [0, 1], outputRange: [0, 8] })
           }]}/>
@@ -73,3 +82,6 @@ export default class UserListItem extends React.Component {
   }
 };
 
+UserListItem.propTypes = {
+  status: React.PropTypes.oneOf(['pending', 'confirmed', 'rejected']),
+};
