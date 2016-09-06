@@ -842,8 +842,8 @@ export default StyleSheet => StyleSheet.extend({
       borderWidth: 1,
       borderColor: colors.black,
       height: 30,
-      paddingLeft: 10,
-      paddingRight: 10,
+      paddingLeft: 20,
+      paddingRight: 20,
       marginRight: 10
     },
 
@@ -868,8 +868,8 @@ export default StyleSheet => StyleSheet.extend({
       borderColor: colors.pink,
       borderRadius: 15,
       height: 30,
-      paddingLeft: 10,
-      paddingRight: 10,
+      paddingLeft: 20,
+      paddingRight: 20,
       marginRight: 10
     },
 
