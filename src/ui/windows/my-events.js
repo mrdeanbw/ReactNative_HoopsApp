@@ -59,6 +59,9 @@ export default class MyEvents extends React.Component {
   }
 
   onPressEvent = (event) => {
+  };
+
+  onPressDisclosure = (event) => {
     switch(this.state.tab) {
       case 'upcoming': return this.onPressUpcomingEvent(event);
       case 'saved': return this.onPressSavedEvent(event);
@@ -159,6 +162,8 @@ export default class MyEvents extends React.Component {
                      players={event.players} maxPlayers={event.maxPlayers}
                      level={event.level}
                      venue={event.venue}
+                     disclosure={StyleSheet.icons.menu}
+                     onPressDisclosure={() => this.onPressDisclosure(event)}
                      distance={event.distance}
                      date={event.date} />)}
         </ScrollView>

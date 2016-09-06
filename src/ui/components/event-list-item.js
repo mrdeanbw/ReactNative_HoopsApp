@@ -34,7 +34,15 @@ export default class EventListItem extends React.Component {
             </Text>
           </View>
 
-          <Image source={this.props.disclosure || StyleSheet.icons.chevronRight} style={StyleSheet.eventListItem.disclosure} />
+          <TouchableHighlight
+            underlayColor={StyleSheet.colors.transparent}
+            onPress={this.props.onPressDisclosure}
+          >
+            <Image
+              source={this.props.disclosure || StyleSheet.icons.chevronRight}
+              style={StyleSheet.eventListItem.disclosure}
+            />
+          </TouchableHighlight>
 
           {this.props.free && <Image source={StyleSheet.icons.free} style={StyleSheet.eventListItem.freeIcon} />}
         </View>
