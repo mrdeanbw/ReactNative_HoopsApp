@@ -6,7 +6,7 @@ import {Router, Scene, Actions, Modal, ActionConst} from 'react-native-router-fl
 
 import {user as actions} from '../../actions';
 
-import {Walkthrough, Preferences, Login, SignUp, Home} from './';
+import {Walkthrough, Preferences, Login, SignUp, SelectMode, Home} from './';
 
 const RouterWithReact = connect()(Router);
 
@@ -20,6 +20,7 @@ export default class Root extends Component {
 
           <Scene key="login" component={Login}/>
           <Scene key="signup" component={SignUp} />
+          <Scene key="selectMode" component={SelectMode} type="reset" title="Select Mode" />
 
           <Scene key="home" type="reset" component={Home} title="Home" />
         </Scene>

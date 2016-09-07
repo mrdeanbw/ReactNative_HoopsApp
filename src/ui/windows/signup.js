@@ -3,7 +3,7 @@ import _ from '../i18n';
 
 import React from 'react';
 
-import {View, Text, TouchableHighlight, TouchableWithoutFeedback, Image, Modal} from 'react-native';
+import {View, Text, TouchableHighlight, TouchableWithoutFeedback, Image} from 'react-native';
 
 import Dialog from '../components/dialog';
 import Button from '../components/button';
@@ -30,7 +30,11 @@ export default class SignUp extends React.Component {
     this.state = {
       showPassword: false,
       showDobInfo: false,
-      dobVisible: false,
+      name: '',
+      email: '',
+      username: '',
+      password: '',
+      dob: null,
       gender: null
     };
   }
@@ -48,60 +52,81 @@ export default class SignUp extends React.Component {
   };
 
   onPressSignUp = () => {
-    this.props.application.setRootView(Interests);
+    this.props.onSignUp(this.state.email, this.state.password);
   };
 
   onPressFacebookConnect = () => {
-    this.props.application.setRootView(Interests);
+    //TODO
   };
 
   render() {
     return (
       <Dialog ref="dialog" scrollContent={true} title={_('signup')} onClose={this.props.onClose} contentStyle={StyleSheet.signup.style}>
 
-        <TextInput type="flat" ref="name" placeholder={_('name')}
-               style={StyleSheet.halfMarginBottom}
-               autoCapitalize="words"
-               autoCorrect={false}
-               autoFocus={true}
-               returnKeyType="next"
-               selectTextOnFocus={true}
-               enablesReturnKeyAutomatically={true}
-               onSubmitEditing={() => this.onSubmitEditing("email")}
-               icon="name" />
+        <TextInput
+          value={this.state.name}
+          onChangeText={(name) => this.setState({name})}
+          type="flat"
+          ref="name"
+          placeholder={_('name')}
+          style={StyleSheet.halfMarginBottom}
+          autoCapitalize="words"
+          autoCorrect={false}
+          autoFocus={true}
+          returnKeyType="next"
+          selectTextOnFocus={true}
+          enablesReturnKeyAutomatically={true}
+          onSubmitEditing={() => this.onSubmitEditing("email")}
+          icon="name"
+        />
 
-        <TextInput type="flat" ref="email"
-               placeholder={_('email')}
-               style={StyleSheet.halfMarginBottom}
-               autoCapitalize="none"
-               autoCorrect={false}
-               returnKeyType="next"
-               selectTextOnFocus={true}
-               enablesReturnKeyAutomatically={true}
-               keyboardType="email-address"
-               onSubmitEditing={() => this.onSubmitEditing("username")}
-               icon="email" />
+        <TextInput
+          value={this.state.email}
+          onChangeText={(email) => this.setState({email})}
+          type="flat"
+          ref="email"
+          placeholder={_('email')}
+          style={StyleSheet.halfMarginBottom}
+          autoCapitalize="none"
+          autoCorrect={false}
+          returnKeyType="next"
+          selectTextOnFocus={true}
+          enablesReturnKeyAutomatically={true}
+          keyboardType="email-address"
+          onSubmitEditing={() => this.onSubmitEditing("username")}
+          icon="email"
+        />
 
-        <TextInput type="flat" ref="username"
-               placeholder={_('username')}
-               style={StyleSheet.halfMarginBottom}
-               autoCapitalize="none"
-               autoCorrect={false}
-               returnKeyType="next"
-               selectTextOnFocus={true}
-               enablesReturnKeyAutomatically={true}
-               onSubmitEditing={() => this.onSubmitEditing("password")}
-               icon="username" />
+        <TextInput
+          value={this.state.username}
+          onChangeText={(username) => this.setState({username})}
+          type="flat"
+          ref="username"
+          placeholder={_('username')}
+          style={StyleSheet.halfMarginBottom}
+          autoCapitalize="none"
+          autoCorrect={false}
+          returnKeyType="next"
+          selectTextOnFocus={true}
+          enablesReturnKeyAutomatically={true}
+          onSubmitEditing={() => this.onSubmitEditing("password")}
+          icon="username"
+        />
 
-        <TextInput type="flat" ref="password"
-               placeholder={_('password')}
-               style={StyleSheet.halfMarginBottom}
-               secureTextEntry={!this.state.showPassword}
-               returnKeyType="next"
-               selectTextOnFocus={true}
-               clearTextOnFocus={true}
-               enablesReturnKeyAutomatically={true}
-               icon="password">
+        <TextInput
+          value={this.state.password}
+          onChangeText={(password) => this.setState({password})}
+          type="flat"
+          ref="password"
+          placeholder={_('password')}
+          style={StyleSheet.halfMarginBottom}
+          secureTextEntry={!this.state.showPassword}
+          returnKeyType="next"
+          selectTextOnFocus={true}
+          clearTextOnFocus={true}
+          enablesReturnKeyAutomatically={true}
+          icon="password"
+        >
           <Button type="disclosure" active={this.state.showPassword} icon="eye" onPress={() => this.setState({showPassword: !this.state.showPassword})}/>
         </TextInput>
 
@@ -123,25 +148,35 @@ export default class SignUp extends React.Component {
           <Button type="image" icon="female" active={this.state.gender == 'female'} onPress={this.onPressFemale}/>
         </View>
 
-        <TextInput type="flat" ref="city"
-               placeholder={_('city')}
-               style={StyleSheet.halfMarginBottom}
-               autoCapitalize="none"
-               autoCorrect={false}
-               returnKeyType="next"
-               selectTextOnFocus={true}
-               enablesReturnKeyAutomatically={true}
-               icon="city"/>
+        <TextInput
+          value={this.state.city}
+          onChangeText={(city) => this.setState({city})}
+          type="flat"
+          ref="city"
+          placeholder={_('city')}
+          style={StyleSheet.halfMarginBottom}
+          autoCapitalize="none"
+          autoCorrect={false}
+          returnKeyType="next"
+          selectTextOnFocus={true}
+          enablesReturnKeyAutomatically={true}
+          icon="city"
+        />
 
-        <TextInput type="flat" ref="phone"
-               placeholder={_('optionalPhone')}
-               autoCapitalize="none"
-               autoCorrect={false}
-               returnKeyType="next"
-               selectTextOnFocus={true}
-               enablesReturnKeyAutomatically={true}
-               keyboardType="phone-pad"
-               icon="phone" />
+        <TextInput
+          value={this.state.phone}
+          onChangeText={(phone) => this.setState({phone})}
+          type="flat"
+          ref="phone"
+          placeholder={_('optionalPhone')}
+          autoCapitalize="none"
+          autoCorrect={false}
+          returnKeyType="next"
+          selectTextOnFocus={true}
+          enablesReturnKeyAutomatically={true}
+          keyboardType="phone-pad"
+          icon="phone"
+        />
 
         <Button type="roundedDefault" text={_('signup')} onPress={this.onPressSignUp} style={StyleSheet.doubleMarginTop}/>
         <HorizontalRule text={_('or')} style={StyleSheet.doubleMargin} />
@@ -149,4 +184,8 @@ export default class SignUp extends React.Component {
       </Dialog>
     );
   }
+};
+
+SignUp.propTypes = {
+  onSignUp: React.PropTypes.func.isRequired,
 };
