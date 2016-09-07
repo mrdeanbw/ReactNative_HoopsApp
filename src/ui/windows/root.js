@@ -1,39 +1,29 @@
 
 import React, {Component} from 'react';
-import {View, Text, TouchableHighlight} from 'react-native';
+import {Navigator, View, Text, TouchableHighlight} from 'react-native';
 import {connect} from 'react-redux';
+import {Router, Scene, Actions, Modal, ActionConst} from 'react-native-router-flux';
 
 import {user as actions} from '../../actions';
 
-class Root extends Component {
+import {Walkthrough, Preferences, Login, SignUp, Home} from './';
 
-  onPress() {
-    let username = "mike@mikemonteith.com";
-    let password = "abcdef";
-    this.props.signIn(username, password);
-  }
+const RouterWithReact = connect()(Router);
+
+export default class Root extends Component {
 
   render() {
     return (
-      <View>
-        <Text>{this.props.user.isSigningIn ? 'loading' : null}</Text>
-        <Text>UID: {this.props.user.uid}</Text>
+      <RouterWithReact>
+        <Scene hideNavBar={true} key="root">
+          <Scene key="walkthrough" component={Walkthrough} title="Walkthrough" />
 
-        <TouchableHighlight onPress={this.onPress.bind(this)}>
-          <Text>Sign In</Text>
-        </TouchableHighlight>
+          <Scene key="login" component={Login}/>
+          <Scene key="signup" component={SignUp} />
 
-        <Text>{this.props.user.signInError && this.props.user.signInError.code}</Text>
-      </View>
+          <Scene key="home" type="reset" component={Home} title="Home" />
+        </Scene>
+      </RouterWithReact>
     );
   }
 }
-
-export default connect(
-  (state) => ({
-    user: state.user,
-  }),
-  (dispatch) => ({
-    signIn: (username, password) => dispatch(actions.signIn(username, password)),
-  }),
-)(Root);
