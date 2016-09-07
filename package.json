@@ -15,7 +15,12 @@
     "react-native-i18n": "0.0.8",
     "react-native-keyboard-spacer": "^0.3.0",
     "react-native-side-menu": "^0.20.0",
-    "react-native-swiper": "^1.4.7"
+    "react-native-swiper": "^1.4.7",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0",
+    "redux-actions": "^0.12.0",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.1.0"
   },
   "rnpm": {
     "assets": [
