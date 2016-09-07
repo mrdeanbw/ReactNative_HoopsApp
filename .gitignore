@@ -8,3 +8,6 @@ android/app/src/main/assets
 ios/build/
 project.xcworkspace
 xcuserdata
+#Pods
+ios/Podfile.lock
+ios/Pods
