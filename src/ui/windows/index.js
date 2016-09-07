@@ -16,6 +16,7 @@ import _MyEvents from './my-events';
 import _Preferences from './preferences';
 import _Profile from './profile';
 import _Search from './search';
+import _SelectMode from './select-mode';
 import _SignUp from './signup';
 import _Walkthrough from './walkthrough';
 
@@ -33,5 +34,6 @@ export const MyEvents = _MyEvents;
 export const Preferences = _Preferences;
 export const Profile = _Profile;
 export const Search = _Search;
+export const SelectMode = _SelectMode;
 export const SignUp = _SignUp;
 export const Walkthrough = _Walkthrough;

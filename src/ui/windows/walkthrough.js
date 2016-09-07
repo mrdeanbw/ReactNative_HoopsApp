@@ -2,18 +2,18 @@
 import _ from '../i18n';
 
 import React from 'react';
-import {View, Image, TouchableHighlight, Text, Modal} from 'react-native';
+import {View, Image, TouchableHighlight, Text} from 'react-native';
 import Swiper from 'react-native-swiper';
 import StyleSheet from '../styles';
 
-
-import Login from './login';
-import SignUp from './signup';
+import {connect} from 'react-redux';
+import {user as actions} from '../../actions';
+import {Actions as RouterActions} from 'react-native-router-flux';
 
 import Button from '../components/button';
 import HighlightText from '../components/highlight-text';
 
-export default class Walkthrough extends React.Component {
+export class Walkthrough extends React.Component {
 
   static getTest(close) {
     return {
@@ -23,13 +23,11 @@ export default class Walkthrough extends React.Component {
     };
   }
 
-  constructor() {
-    super();
-
-    this.state = {
-      loginVisible: false,
-      signUpVisible: false
-    };
+  componentWillReceiveProps(nextProps) {
+    if(this.props.user.uid === null && nextProps.user.uid){
+      //user has become signed in
+      RouterActions.selectMode();
+    }
   }
 
   render() {
@@ -52,23 +50,18 @@ export default class Walkthrough extends React.Component {
           </Swiper>
         </View>
         <View style={StyleSheet.walkthrough.buttonBar}>
-          <Button type="dialog" text={_('login')}
-              onPress={() => this.setState({loginVisible: true})} />
+          <Button
+            type="dialog"
+            text={_('login')}
+            onPress={() => RouterActions.login({onSignIn: this.props.onSignIn})}
+          />
 
-          <Button type="dialogDefault" text={_('signup')}
-              onPress={() => this.setState({signUpVisible: true})} />
+          <Button
+            type="dialogDefault"
+            text={_('signup')}
+            onPress={() => RouterActions.signup({onSignUp: this.props.onSignUp})}
+          />
         </View>
-
-        <Modal visible={this.state.loginVisible} animationType="slide"
-             onRequestClose={() => this.setState({loginVisible: false})}>
-          <Login application={this.props.application}
-               onClose={() => this.setState({loginVisible: false})}/>
-        </Modal>
-        <Modal visible={this.state.signUpVisible} animationType="slide"
-             onRequestClose={() => this.setState({signUpVisible: false})}>
-          <SignUp application={this.props.application}
-              onClose={() => this.setState({signUpVisible: false})}/>
-        </Modal>
       </Image>
     );
   }
@@ -87,3 +80,14 @@ class WalkthroughPage extends React.Component {
     );
   }
 };
+
+export default connect(
+  (state) => ({
+    user: state.user,
+    router: state.router,
+  }),
+  (dispatch) => ({
+    onSignIn: (username, password) => dispatch(actions.signIn(username, password)),
+    onSignUp: (username, password) => dispatch(actions.signUp(username, password)),
+  }),
+)(Walkthrough);

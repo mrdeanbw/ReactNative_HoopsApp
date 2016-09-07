@@ -1,4 +1,8 @@
 
 import {Application} from './components';
 import {Demo} from './windows';
-Application.register('Hoops', Demo);
+import App from './App';
+
+//Application.register('Hoops', Demo);
+Application.register('Hoops', App);
+

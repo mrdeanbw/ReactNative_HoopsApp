@@ -47,7 +47,7 @@ export default class Interests extends React.Component {
   };
 
   onPressDone = () => {
-    this.props.application.setRootView(SelectMode);
+    //TODO
   };
 
   render() {
@@ -87,38 +87,6 @@ export default class Interests extends React.Component {
         </ScrollView>
 
       </Dialog>
-    );
-  }
-};
-
-class SelectMode extends React.Component {
-
-  onPressOrganize = () => {
-    this.props.application.setRootView(Window.Organizer);
-  };
-
-  onPressParticipate = () => {
-    this.props.application.setRootView(Window.Participant);
-  };
-
-  render() {
-    return (
-      <View style={StyleSheet.interests.selectModeStyle}>
-        <TouchableWithoutFeedback onPress={this.onPressOrganize}>
-          <Image source={StyleSheet.images.organize} style={[StyleSheet.interests.selectModeImageStyle, StyleSheet.interests.organizeImage]}>
-            <HighlightText highlight={_('organize')} text={_('organizeMode')}
-                     style={[StyleSheet.text, StyleSheet.interests.selectModeTextStyle]}
-                     highlightStyle={StyleSheet.interests.selectModeHighlightTextStyle} />
-          </Image>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={this.onPressParticipate}>
-          <Image source={StyleSheet.images.participate} style={[StyleSheet.interests.selectModeImageStyle, StyleSheet.interests.participateImage]}>
-            <HighlightText highlight={_('participate')} text={_('participateMode')}
-                     style={[StyleSheet.text, StyleSheet.interests.selectModeTextStyle]}
-                     highlightStyle={StyleSheet.interests.selectModeHighlightTextStyle} />
-          </Image>
-        </TouchableWithoutFeedback>
-      </View>
     );
   }
 };
