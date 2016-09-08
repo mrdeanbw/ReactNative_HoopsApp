@@ -2,7 +2,7 @@
 import _ from '../i18n';
 
 import React from 'react';
-import {View, Image, TouchableHighlight, Text} from 'react-native';
+import {View, Image} from 'react-native';
 import Swiper from 'react-native-swiper';
 import StyleSheet from '../styles';
 
@@ -25,6 +25,7 @@ export class Walkthrough extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if(this.props.user.uid === null && nextProps.user.uid){
+      console.log("signed in props", this.props.user.uid, nextProps.user.uid);
       //user has become signed in
       RouterActions.selectMode();
     }
@@ -39,7 +40,7 @@ export class Walkthrough extends React.Component {
           <Image source={StyleSheet.images.logo} style={StyleSheet.walkthrough.logo} />
         </View>
         <View style={StyleSheet.walkthrough.swiperContainer}>
-          <Swiper autoplay={true} style={StyleSheet.walkthrough.swiper}
+          <Swiper autoplay={false} style={StyleSheet.walkthrough.swiper}
               paginationStyle={StyleSheet.walkthrough.paginator}
               dot={<View style={StyleSheet.walkthrough.dot}/>}
               activeDot={<View style={StyleSheet.walkthrough.activeDot}/>}>
@@ -71,7 +72,7 @@ export class Walkthrough extends React.Component {
       </Image>
     );
   }
-};
+}
 
 
 class WalkthroughPage extends React.Component {
@@ -85,7 +86,7 @@ class WalkthroughPage extends React.Component {
       </View>
     );
   }
-};
+}
 
 export default connect(
   (state) => ({
@@ -95,7 +96,9 @@ export default connect(
   (dispatch) => ({
     onSignIn: (username, password) => dispatch(actions.signIn(username, password)),
     onFacebookSignIn: () => dispatch(actions.facebookSignIn()),
-    onSignUp: (username, password) => dispatch(actions.signUp(username, password)),
+    onSignUp: (username, password, extra) => {
+      dispatch(actions.signUp(username, password, extra));
+    },
     onFacebookSignUp: () => dispatch(actions.facebookSignUp()),
   }),
 )(Walkthrough);

@@ -16,9 +16,18 @@ export const registerWithStore = (store) => {
    * Listen to firebase auth changes (e.g when re-signing in a user saved locally)
    * and dispatch an event so that stores can react to it
    */
-  firebase.auth().onAuthStateChanged((user) => {
-    store.dispatch({type: 'FIREBASE_AUTH', uid: user.uid});
+  let unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    //There is a bug where errors in this handler are silently swallowed. Be careful.
+    if(user) {
+      store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: user.uid});
+    }
+
+    //Only listen to the first auth state
+    unsubscribe();
   }, error => {
     console.warn(error);
   });
+
 };
+
+export const firebaseDb = firebaseApp.database().ref();
