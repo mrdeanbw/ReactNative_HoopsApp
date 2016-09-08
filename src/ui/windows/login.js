@@ -41,7 +41,7 @@ export default class Login extends React.Component {
   };
 
   onPressFacebookLogin = () => {
-    //TODO
+    this.props.onFacebookSignIn();
   };
 
   render() {
@@ -101,7 +101,7 @@ export default class Login extends React.Component {
       </ScrollView>
     );
   }
-};
+}
 
 Login.propTypes = {
   onSignIn: React.PropTypes.func.isRequired,
