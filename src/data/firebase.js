@@ -7,7 +7,9 @@ const firebaseConfig = {
   storageBucket: "hoops-21a72.appspot.com",
 };
 
-export default firebase.initializeApp(firebaseConfig);
+export default firebase;
+
+export const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 export const registerWithStore = (store) => {
   /*
@@ -19,5 +21,4 @@ export const registerWithStore = (store) => {
   }, error => {
     console.warn(error);
   });
-
-}
+};

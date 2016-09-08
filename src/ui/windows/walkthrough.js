@@ -53,13 +53,19 @@ export class Walkthrough extends React.Component {
           <Button
             type="dialog"
             text={_('login')}
-            onPress={() => RouterActions.login({onSignIn: this.props.onSignIn})}
+            onPress={() => RouterActions.login({
+              onSignIn: this.props.onSignIn,
+              onFacebookSignIn: this.props.onFacebookSignIn,
+            })}
           />
 
           <Button
             type="dialogDefault"
             text={_('signup')}
-            onPress={() => RouterActions.signup({onSignUp: this.props.onSignUp})}
+            onPress={() => RouterActions.signup({
+              onSignUp: this.props.onSignUp,
+              onFacebookSignUp: this.props.onFacebookSignUp,
+            })}
           />
         </View>
       </Image>
@@ -88,6 +94,8 @@ export default connect(
   }),
   (dispatch) => ({
     onSignIn: (username, password) => dispatch(actions.signIn(username, password)),
+    onFacebookSignIn: () => dispatch(actions.facebookSignIn()),
     onSignUp: (username, password) => dispatch(actions.signUp(username, password)),
+    onFacebookSignUp: () => dispatch(actions.facebookSignUp()),
   }),
 )(Walkthrough);

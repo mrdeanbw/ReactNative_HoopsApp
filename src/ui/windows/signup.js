@@ -3,14 +3,13 @@ import _ from '../i18n';
 
 import React from 'react';
 
-import {View, Text, TouchableHighlight, TouchableWithoutFeedback, Image} from 'react-native';
+import {View} from 'react-native';
 
 import Dialog from '../components/dialog';
 import Button from '../components/button';
 import HorizontalRule from '../components/horizontal-rule';
 import TextInput from '../components/text-input';
 import DateInput from '../components/date-input';
-import Interests from './interests';
 
 import StyleSheet from '../styles';
 
@@ -56,7 +55,7 @@ export default class SignUp extends React.Component {
   };
 
   onPressFacebookConnect = () => {
-    //TODO
+    this.props.onFacebookSignUp();
   };
 
   render() {
@@ -184,7 +183,7 @@ export default class SignUp extends React.Component {
       </Dialog>
     );
   }
-};
+}
 
 SignUp.propTypes = {
   onSignUp: React.PropTypes.func.isRequired,
