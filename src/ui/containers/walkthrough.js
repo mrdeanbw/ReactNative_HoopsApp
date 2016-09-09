@@ -9,7 +9,7 @@ class Walkthrough extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if(this.props.user.uid === null && nextProps.user.uid){
-      if(!nextProps.mode) {
+      if(!nextProps.user.mode) {
         RouterActions.selectMode();
       }else{ 
         RouterActions.home();
