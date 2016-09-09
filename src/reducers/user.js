@@ -18,7 +18,7 @@ const initialState = {
   isSigningUp: false,
   signUpError: null,
 
-  mode: 'PARTICIPATE',
+  mode: null,
 };
 
 export default handleActions({

@@ -1,22 +1,33 @@
 
 import React, {Component} from 'react';
-import {Provider} from 'react-redux';
+import {Provider, connect} from 'react-redux';
 import createStore from '../createStore';
+import {Router, Scene} from 'react-native-router-flux';
 
-import firebase, {registerWithStore as registerFirebase} from '../data/firebase';
+import {registerWithStore as registerFirebase} from '../data/firebase';
 
-import Root from './windows/root';
+import * as containers from './containers';
 
 const store = createStore();
 
+const RouterWithReact = connect()(Router);
 registerFirebase(store);
 
 export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Root/>
+        <RouterWithReact>
+          <Scene hideNavBar={true} key="root">
+            <Scene key="walkthrough" component={containers.Walkthrough} />
+            <Scene key="logIn" component={containers.Login}/>
+            <Scene key="signUp" component={containers.SignUp} />
+            <Scene key="selectMode" component={containers.SelectMode} type="reset" />
+
+            <Scene key="home" type="reset" component={containers.Home} title="Home" />
+          </Scene>
+        </RouterWithReact>
       </Provider>
     );
   }
-};
+}
