@@ -1,14 +1,17 @@
 
 import React, {Component} from 'react';
+import {AsyncStorage} from 'react-native';
 import {Provider, connect} from 'react-redux';
 import createStore from '../createStore';
 import {Router, Scene} from 'react-native-router-flux';
+import {persistStore} from 'redux-persist';
 
 import {registerWithStore as registerFirebase} from '../data/firebase';
 
 import * as containers from './containers';
 
 const store = createStore();
+persistStore(store, {storage: AsyncStorage});
 
 const RouterWithReact = connect()(Router);
 registerFirebase(store);
