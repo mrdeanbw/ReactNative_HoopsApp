@@ -20,6 +20,8 @@ export const registerWithStore = (store) => {
     //There is a bug where errors in this handler are silently swallowed. Be careful.
     if(user) {
       store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: user.uid});
+    }else{
+      store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: null});
     }
 
     //Only listen to the first auth state

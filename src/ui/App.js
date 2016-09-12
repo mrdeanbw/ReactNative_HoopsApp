@@ -7,21 +7,29 @@ import {Router, Scene} from 'react-native-router-flux';
 import {persistStore} from 'redux-persist';
 
 import {registerWithStore as registerFirebase} from '../data/firebase';
+import * as listeners from '../data/listeners';
 
 import * as containers from './containers';
 
 const store = createStore();
-persistStore(store, {storage: AsyncStorage});
+persistStore(store, {
+  storage: AsyncStorage,
+});
 
 const RouterWithReact = connect()(Router);
 registerFirebase(store);
 
 export default class App extends Component {
+  componentWillMount() {
+    listeners.startAll(store.dispatch);
+  }
+
   render() {
     return (
       <Provider store={store}>
         <RouterWithReact>
           <Scene hideNavBar={true} key="root">
+          {/* TODO <Scene key="loading" component={containers.Loading} />*/}
             <Scene key="walkthrough" component={containers.Walkthrough} />
             <Scene key="logIn" component={containers.Login}/>
             <Scene key="signUp" component={containers.SignUp} />
