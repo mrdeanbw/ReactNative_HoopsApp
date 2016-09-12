@@ -50,7 +50,6 @@ export default class Walkthrough extends React.Component {
             type="dialogDefault"
             text={_('signup')}
             onPress={() => {
-              console.log("onpress");
               this.props.onPressSignUp();
             }}
           />

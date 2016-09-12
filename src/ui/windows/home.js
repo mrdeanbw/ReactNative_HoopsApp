@@ -3,15 +3,16 @@ import _ from '../i18n';
 
 import React from 'react';
 
-import {View, ScrollView, Text, Image, MapView} from 'react-native';
+import {View, ScrollView, Text, Image, MapView, StatusBar} from 'react-native';
 
 import StyleSheet from '../styles';
 import Button from '../components/button';
 import EventListItem from '../components/event-list-item';
 import Window from '../components/window';
-import EventData from '../../data/events.json';
 import EventDetails from './event-details';
 import Search from './search';
+
+import {TabBar, Header} from '../components';
 
 export default class Home extends React.Component {
 
@@ -23,75 +24,67 @@ export default class Home extends React.Component {
     };
   }
 
-  static getTitle(props) {
-    return _('upcomingEvents');
-  }
-
-  static getActionButton(props) {
-    if(props.mode === 'organizer') {
-      return <Button type="actionDefault" icon="actionAdd" text={_('create')} onPress={this.prototype.onPressCreate} />;
-    } else {
-      return <Button type="actionDefault" icon="actionSearch" text={_('search')} onPress={this.prototype.onPressSearch} />;
-    }
-  }
-
   onPressCreate() {
-
+    //TODO
   };
 
   onPressSearch() {
-    this.props.window.showModal(<Search onClose={() => this.props.window.hideModal()} />, 'slide', false);
-  };
-
-  onPressEvent = (event) => {
-    this.props.window.setView(EventDetails, {
-      event: event,
-      onClose: () => {
-        this.props.window.setView(Home, this.props);
-      }
-    });
+    //TODO
   };
 
   render() {
     return (
-      <ScrollView contentContainerStyle={StyleSheet.container}>
-        {EventData.map(event =>
-          <EventListItem key={event.id}
-                   onPress={() => this.onPressEvent(event)}
-                   image={StyleSheet.images[event.image]}
-                   title={event.title}
-                   players={event.players} maxPlayers={event.maxPlayers}
-                   level={event.level}
-                   venue={event.venue}
-                   date={event.date}
-                   distance={this.props.mode === 'participant' ? event.distance : null} />)}
+      <TabBar
+        currentTab="home"
+        actionIcon={this.props.mode === 'ORGANIZE' ? "actionAdd" : "actionSearch"}
+        actionText={_(this.props.mode === 'ORGANIZE' ? 'create' : 'search')}
+        onActionPress={() => {}}
+      >
+        <StatusBar barStyle="light-content"/>
+        <Header
+          mode={this.props.mode}
+          title={_('upcomingEvents')}
+          onChangeMode={this.props.onChangeMode}
+        />
+        <ScrollView contentContainerStyle={StyleSheet.container}>
+          {this.props.events.map(event =>
+            <EventListItem key={event.id}
+                     onPress={() => this.props.onPressEvent(event)}
+                     image={StyleSheet.images[event.image]}
+                     title={event.title}
+                     players={event.players} maxPlayers={event.maxPlayers}
+                     level={event.level}
+                     venue={event.venue}
+                     date={event.date}
+                     distance={this.props.mode === 'PARTICIPATE' ? event.distance : null} />)}
 
-        {this.props.mode === 'participant' && <View style={StyleSheet.nearbyContainer}>
+          {this.props.mode === 'PARTICIPATE' && <View style={StyleSheet.nearbyContainer}>
 
-          <View style={StyleSheet.nearbyTitle}>
-            <Text style={[StyleSheet.text, StyleSheet.nearbyTitleText]}>{_('nearbyEvents').toUpperCase()}</Text>
-            <Image source={StyleSheet.icons.list} style={[StyleSheet.icon]} />
-          </View>
+            <View style={StyleSheet.nearbyTitle}>
+              <Text style={[StyleSheet.text, StyleSheet.nearbyTitleText]}>{_('nearbyEvents').toUpperCase()}</Text>
+              <Image source={StyleSheet.icons.list} style={[StyleSheet.icon]} />
+            </View>
 
-          <View style={StyleSheet.nearbyMapContainer}>
-            <MapView style={StyleSheet.map}
-                 zoomEnabled={false}
-                 pitchEnabled={false}
-                 rotateEnabled={false}
-                 scrollEnabled={false}
-                 showsCompass={false}
-                 showsPointsOfInterest={false}
-                 followUserLocation={true}
-                 showsUserLocation={true}
-                 region={{
-                   latitude: 0,
-                   longitude: 0,
-                   latitudeDelta: 0.08,
-                   longitudeDelta: 0.08
-                 }} />
-          </View>
-        </View>}
-      </ScrollView>
+            <View style={StyleSheet.nearbyMapContainer}>
+              <MapView style={StyleSheet.map}
+                   zoomEnabled={false}
+                   pitchEnabled={false}
+                   rotateEnabled={false}
+                   scrollEnabled={false}
+                   showsCompass={false}
+                   showsPointsOfInterest={false}
+                   followUserLocation={true}
+                   showsUserLocation={true}
+                   region={{
+                     latitude: 0,
+                     longitude: 0,
+                     latitudeDelta: 0.08,
+                     longitudeDelta: 0.08
+                   }} />
+            </View>
+          </View>}
+        </ScrollView>
+      </TabBar>
     );
   }
 };

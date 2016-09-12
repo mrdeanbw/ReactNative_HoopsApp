@@ -2,7 +2,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Actions as RouterActions} from 'react-native-router-flux';
-console.log(RouterActions);
 import {Walkthrough as _Walkthrough} from '../windows';
 
 class Walkthrough extends React.Component {
@@ -12,7 +11,7 @@ class Walkthrough extends React.Component {
       if(!nextProps.user.mode) {
         RouterActions.selectMode();
       }else{ 
-        RouterActions.home();
+        RouterActions.tabs();
       }
     }
   }
@@ -20,14 +19,8 @@ class Walkthrough extends React.Component {
   render() {
     return (
       <_Walkthrough
-        onPressLogIn={() => {
-          console.log("login");
-          //RouterActions.logIn
-        }}
-        onPressSignUp={() => {
-          console.log("pawmdpawomdpawo");
-          RouterActions.signUp();
-        }}
+        onPressLogIn={RouterActions.logIn}
+        onPressSignUp={RouterActions.signUp}
       />
     );
   }
@@ -39,8 +32,6 @@ export default connect(
     router: state.router,
   }),
   (dispatch) => ({
-    onSignIn: (username, password) => dispatch(actions.signIn(username, password)),
-    onFacebookSignIn: () => dispatch(actions.facebookSignIn()),
     onSignUp: (username, password, extra) => {
       dispatch(actions.signUp(username, password, extra));
     },

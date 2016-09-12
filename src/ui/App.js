@@ -27,7 +27,13 @@ export default class App extends Component {
             <Scene key="signUp" component={containers.SignUp} />
             <Scene key="selectMode" component={containers.SelectMode} type="reset" />
 
-            <Scene key="home" type="reset" component={containers.Home} title="Home" />
+            <Scene key="tabs" tabs={true} type="reset">
+              <Scene key="homeTab">
+                <Scene key="home" hideNavBar={true} component={containers.Home} />
+                <Scene key="eventDetails" hideNavBar={true} component={containers.EventDetails} />
+              </Scene>
+            </Scene>
+
           </Scene>
         </RouterWithReact>
       </Provider>

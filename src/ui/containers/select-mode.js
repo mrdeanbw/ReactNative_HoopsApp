@@ -7,12 +7,17 @@ import {user as actions} from '../../actions';
 
 class SelectMode extends React.Component {
 
+  componentWillUpdate(nextProps) {
+    if(nextProps.user.mode) {
+      RouterActions.tabs();
+    }
+  }
+
   render() {
     return (
       <_SelectMode
         onSetMode={(mode) => {
           this.props.onSetMode(mode);
-          RouterActions.home();
         }}
       />
     );
