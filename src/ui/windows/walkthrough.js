@@ -2,18 +2,15 @@
 import _ from '../i18n';
 
 import React from 'react';
-import {View, Image, TouchableHighlight, Text} from 'react-native';
+import {View, Image} from 'react-native';
 import Swiper from 'react-native-swiper';
 import StyleSheet from '../styles';
 
-import {connect} from 'react-redux';
-import {user as actions} from '../../actions';
-import {Actions as RouterActions} from 'react-native-router-flux';
 
 import Button from '../components/button';
 import HighlightText from '../components/highlight-text';
 
-export class Walkthrough extends React.Component {
+export default class Walkthrough extends React.Component {
 
   static getTest(close) {
     return {
@@ -21,13 +18,6 @@ export class Walkthrough extends React.Component {
       view: Walkthrough,
       viewProps: { onClose: close }
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if(this.props.user.uid === null && nextProps.user.uid){
-      //user has become signed in
-      RouterActions.selectMode();
-    }
   }
 
   render() {
@@ -39,7 +29,7 @@ export class Walkthrough extends React.Component {
           <Image source={StyleSheet.images.logo} style={StyleSheet.walkthrough.logo} />
         </View>
         <View style={StyleSheet.walkthrough.swiperContainer}>
-          <Swiper autoplay={true} style={StyleSheet.walkthrough.swiper}
+          <Swiper autoplay={false} style={StyleSheet.walkthrough.swiper}
               paginationStyle={StyleSheet.walkthrough.paginator}
               dot={<View style={StyleSheet.walkthrough.dot}/>}
               activeDot={<View style={StyleSheet.walkthrough.activeDot}/>}>
@@ -53,24 +43,25 @@ export class Walkthrough extends React.Component {
           <Button
             type="dialog"
             text={_('login')}
-            onPress={() => RouterActions.login({
-              onSignIn: this.props.onSignIn,
-              onFacebookSignIn: this.props.onFacebookSignIn,
-            })}
+            onPress={this.props.onPressLogIn}
           />
 
           <Button
             type="dialogDefault"
             text={_('signup')}
-            onPress={() => RouterActions.signup({
-              onSignUp: this.props.onSignUp,
-              onFacebookSignUp: this.props.onFacebookSignUp,
-            })}
+            onPress={() => {
+              this.props.onPressSignUp();
+            }}
           />
         </View>
       </Image>
     );
   }
+}
+
+Walkthrough.propTypes = {
+  onPressSignUp: React.PropTypes.func.isRequired,
+  onPressLogIn: React.PropTypes.func.isRequired,
 };
 
 
@@ -85,17 +76,4 @@ class WalkthroughPage extends React.Component {
       </View>
     );
   }
-};
-
-export default connect(
-  (state) => ({
-    user: state.user,
-    router: state.router,
-  }),
-  (dispatch) => ({
-    onSignIn: (username, password) => dispatch(actions.signIn(username, password)),
-    onFacebookSignIn: () => dispatch(actions.facebookSignIn()),
-    onSignUp: (username, password) => dispatch(actions.signUp(username, password)),
-    onFacebookSignUp: () => dispatch(actions.facebookSignUp()),
-  }),
-)(Walkthrough);
+}

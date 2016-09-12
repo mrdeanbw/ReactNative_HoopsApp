@@ -29,12 +29,12 @@ export default class SignUp extends React.Component {
     this.state = {
       showPassword: false,
       showDobInfo: false,
-      name: '',
-      email: '',
-      username: '',
-      password: '',
-      dob: null,
-      gender: null
+      name: 'Test Tester',
+      email: Math.random() + '@mikemonteith.com',
+      username: 'testuser',
+      password: 'testtest',
+      dob: new Date("1989-08-22"),
+      gender: 'male',
     };
   }
 
@@ -51,7 +51,12 @@ export default class SignUp extends React.Component {
   };
 
   onPressSignUp = () => {
-    this.props.onSignUp(this.state.email, this.state.password);
+    this.props.onSignUp(this.state.email, this.state.password, {
+      name: this.state.name,
+      username: this.state.username,
+      dob: this.state.dob,
+      gender: this.state.gender,
+    });
   };
 
   onPressFacebookConnect = () => {

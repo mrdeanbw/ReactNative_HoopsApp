@@ -3,6 +3,13 @@ import {handleActions} from 'redux-actions';
 const initialState = {
   uid: null,
 
+  personal: {
+    name: null,
+    username: null,
+    gender: null,
+    dob: null,
+  },
+
   //Signing in
   isSigningIn: false,
   signInError: null,
@@ -11,12 +18,12 @@ const initialState = {
   isSigningUp: false,
   signUpError: null,
 
-  mode: 'PARTICIPATE',
+  mode: null,
 };
 
 export default handleActions({
 
-  FIREBASE_AUTH: (state, action) => {
+  FIREBASE_AUTH_INIT: (state, action) => {
     return {
       ...state,
       uid: action.uid,
@@ -31,9 +38,17 @@ export default handleActions({
   },
 
   USER_SIGN_IN_SUCCESS: (state, action) => {
+    let extra = action.extra || {};
     return {
       ...state,
       uid: action.uid,
+      personal: {
+        email: extra.email,
+        name: extra.name,
+        username: extra.username,
+        dob: extra.dob,
+        gender: extra.gender,
+      },
       isSigningIn: false,
       signInError: null,
     };
@@ -43,6 +58,10 @@ export default handleActions({
     return {
       ...state,
       uid: null,
+      name: null,
+      username: null,
+      personal: {},
+
       isSigningIn: false,
       signInError: action.err,
     };

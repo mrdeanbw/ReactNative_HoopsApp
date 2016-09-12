@@ -20,7 +20,6 @@ import UserData from '../../data/users.json';
 export default class Menu extends React.Component {
 
   render() {
-    console.log(this.props);
     return (
       <View style={StyleSheet.menu.menuContainer}>
 

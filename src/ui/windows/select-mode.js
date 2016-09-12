@@ -2,8 +2,6 @@
 import _ from '../i18n';
 
 import React from 'react';
-import {Actions as RouterActions} from 'react-native-router-flux';
-import {user as UserActions} from '../../actions';
 
 import {View, Image, TouchableWithoutFeedback} from 'react-native';
 import StyleSheet from '../styles';
@@ -13,13 +11,11 @@ import HighlightText from '../components/highlight-text';
 export default class SelectMode extends React.Component {
 
   onPressOrganize = () => {
-    UserActions.setMode('ORGANIZE');
-    RouterActions.home();
+    this.props.onSetMode('ORGANIZE');
   };
 
   onPressParticipate = () => {
-    UserActions.setMode('PARTICIPATE');
-    RouterActions.home();
+    this.props.onSetMode('PARTICIPATE');
   };
 
   render() {
@@ -42,4 +38,8 @@ export default class SelectMode extends React.Component {
       </View>
     );
   }
+}
+
+SelectMode.propTypes = {
+  onSetMode: React.PropTypes.func.isRequired,
 };

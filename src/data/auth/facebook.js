@@ -12,6 +12,9 @@ const provider = firebase.auth.FacebookAuthProvider;
 const loginPermissions = ['public_profile', 'user_birthday', 'user_location'];
 const userUri = '/me?fields=id,name,last_name,email,gender,birthday,location';
 
+/**
+ * @returns {Promise} with firebase user
+ */
 export const signIn = () => {
   return LoginManager.logInWithReadPermissions(loginPermissions)
     .then((loginResult) => {
