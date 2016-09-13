@@ -5,17 +5,19 @@ import {Actions as RouterActions} from 'react-native-router-flux';
 import {Home as _Home} from '../windows';
 import {user as actions} from '../../actions';
 
-import {View} from 'react-native';
-
 class Home extends React.Component {
 
   onPressEvent(event) {
-    RouterActions.eventDetails({id: event.id});
+    if(this.props.user.mode === 'ORGANIZE') {
+      RouterActions.eventDashboard({id: event.id});
+    }else{
+      RouterActions.eventDetails({id: event.id});
+    }
   }
 
   render() {
     let events = [];
-    for(id in this.props.events.eventsById) {
+    for(let id in this.props.events.eventsById) {
       events.push(this.props.events.eventsById[id]);
     }
 
@@ -25,7 +27,7 @@ class Home extends React.Component {
 
     return (
       <_Home
-        onPressEvent={this.onPressEvent}
+        onPressEvent={this.onPressEvent.bind(this)}
         events={events}
         mode={this.props.user.mode}
         onChangeMode={() => {

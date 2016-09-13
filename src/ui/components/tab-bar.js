@@ -4,9 +4,10 @@ import _ from '../i18n';
 
 import StyleSheet from '../styles';
 
-import {View, Animated} from 'react-native';
+import {View, Animated, StatusBar} from 'react-native';
 import Button from './button';
 import Menu from './menu';
+import Header from './header';
 
 export default class TabBar extends React.Component {
 
@@ -51,6 +52,13 @@ export default class TabBar extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
+        <StatusBar barStyle="light-content"/>
+        <Header
+          mode={this.props.mode}
+          title={this.props.title}
+          onChangeMode={this.props.onChangeMode}
+        />
+
         <View style={{flex: 1}}>
           {this.props.children}
         </View>
@@ -77,7 +85,7 @@ export default class TabBar extends React.Component {
           <Button type="tab" icon="manage" text={_('manage')}
             active={this.props.currentTab === "manage"}
           />
-          <Button type="actionDefault" icon={this.props.actionIcon} text={this.props.actionText} onPress={this.props.onActionPress} />
+          <Button type={this.props.actionType} icon={this.props.actionIcon} text={this.props.actionText} onPress={this.props.onActionPress} />
           <Button type="tab" icon="calendar" text={_('calendar')}
             active={this.props.currentTab === "calendar"}
           />
@@ -90,3 +98,16 @@ export default class TabBar extends React.Component {
     );
   }
 }
+
+TabBar.propTypes = {
+  ...Header.propTypes,
+
+  currentTab: React.PropTypes.string.isRequired,
+  actionText: React.PropTypes.string.isRequired,
+  actionIcon: React.PropTypes.string.isRequired,
+  actionType: React.PropTypes.string,
+};
+
+TabBar.defaultProps = {
+  actionType: "actionDefault",
+};
