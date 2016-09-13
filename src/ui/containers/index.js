@@ -1,6 +1,7 @@
 
 import _Calendar from './calendar';
 import _CreateEvent from './create-event';
+import _EventDashboard from './event-dashboard';
 import _EventDetails from './event-details';
 import _Friends from './friends';
 import _Gallery from './gallery';
@@ -19,6 +20,7 @@ import _Walkthrough from './walkthrough';
 
 export const Calendar = _Calendar;
 export const CreateEvent = _CreateEvent;
+export const EventDashboard = _EventDashboard;
 export const EventDetails = _EventDetails;
 export const Friends = _Friends;
 export const Gallery = _Gallery;
