@@ -10,6 +10,9 @@ const initialState = {
     dob: null,
   },
 
+  organizer: [],
+  participant: [],
+
   //Signing in
   isSigningIn: false,
   signInError: null,
@@ -98,5 +101,44 @@ export default handleActions({
       mode: action.mode,
     };
   },
+
+  EVENT_ADD_ORGANIZER: (state, action) => {
+    let organizer = state.organizer.slice(0);
+    if(organizer.indexOf(action.id) === -1){
+      organizer.push(action.id);
+    }
+    return {
+      ...state,
+      organizer,
+    };
+  },
+
+  EVENT_REMOVE_ORGANIZER: (state, action) => {
+    let organizer = state.organizer.slice(0);
+    return {
+      ...state,
+      organizer: organizer.filter(eventId => eventId !== action.id),
+    };
+  },
+
+  EVENT_ADD_PARTICIPANT: (state, action) => {
+    let participant = state.participant.slice(0);
+    if(participant.indexOf(action.id) === -1){
+      participant.push(action.id);
+    }
+    return {
+      ...state,
+      participant,
+    };
+  },
+
+  EVENT_REMOVE_PARTICIPANT: (state, action) => {
+    let participant = state.participant.slice(0);
+    return {
+      ...state,
+      participant: participant.filter(eventId => eventId !== action.id),
+    };
+  },
+
 
 }, initialState);

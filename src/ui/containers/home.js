@@ -16,10 +16,13 @@ class Home extends React.Component {
   }
 
   render() {
-    let events = [];
-    for(let id in this.props.events.eventsById) {
-      events.push(this.props.events.eventsById[id]);
-    }
+    let eventIds = (this.props.user.mode === 'ORGANIZE') ?
+      this.props.user.organizer :
+      this.props.user.participant;
+
+    let events = eventIds.map((id) => {
+      return this.props.events.eventsById[id];
+    });
 
     events = events.sort((a, b) => {
       return a.date > b.date ? 1 : -1;

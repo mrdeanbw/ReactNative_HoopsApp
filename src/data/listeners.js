@@ -4,6 +4,8 @@ import {firebaseDb} from './firebase';
 import * as actions from '../actions';
 
 export const startAll = (dispatch) => {
+
+
   firebaseDb.child('events').on('value', (snapshot) => {
     let events = snapshot.val();
     dispatch(actions.events.valueChange(events));

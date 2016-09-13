@@ -5,8 +5,8 @@ import {Provider, connect} from 'react-redux';
 import createStore from '../createStore';
 import {Router, Scene} from 'react-native-router-flux';
 import {persistStore} from 'redux-persist';
+import * as userActions from '../actions/user';
 
-import {registerWithStore as registerFirebase} from '../data/firebase';
 import * as listeners from '../data/listeners';
 
 import * as containers from './containers';
@@ -17,12 +17,9 @@ persistStore(store, {
 });
 
 const RouterWithReact = connect()(Router);
-registerFirebase(store);
+userActions.registerWithStore(store);
 
 export default class App extends Component {
-  componentWillMount() {
-    listeners.startAll(store.dispatch);
-  }
 
   render() {
     return (
@@ -41,6 +38,7 @@ export default class App extends Component {
                 <Scene key="eventDetails" hideNavBar={true} component={containers.EventDetails} />
                 <Scene key="eventDashboard" hideNavBar={true} component={containers.EventDashboard} />
                 <Scene key="eventMembers" hideNavBar={true} component={containers.EventMembers} />
+                <Scene key="profile" hideNavBar={true} component={containers.Profile} />
               </Scene>
             </Scene>
 

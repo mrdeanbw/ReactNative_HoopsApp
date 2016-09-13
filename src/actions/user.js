@@ -1,7 +1,11 @@
 
+import firebase from '../data/firebase';
+
 import * as emailAuth from '../data/auth/email';
 import * as facebookAuth from '../data/auth/facebook';
 import * as userDb from '../data/user';
+
+import * as eventsActions from './events';
 
 export const signIn = (email, password) => {
   let uid;
@@ -29,11 +33,17 @@ export const signIn = (email, password) => {
  * @param user.uid {String} user id
  * @param user.extra {Object} additional user data such as email, date-of-birth...
  */
-export const signInSuccess = (user) => ({
-  type: 'USER_SIGN_IN_SUCCESS',
-  uid: user.uid,
-  extra: user.extra,
-});
+export const signInSuccess = (user) => {
+  return dispatch => {
+    listenToEvents()(dispatch);
+
+    dispatch({
+      type: 'USER_SIGN_IN_SUCCESS',
+      uid: user.uid,
+      extra: user.extra,
+    });
+  };
+};
 
 export const signInFailure = (err) => ({
   type: 'USER_SIGN_IN_FAILURE',
@@ -81,7 +91,7 @@ export const signUp = (email, password, extraData) => {
         let user = {
           uid,
           extra: userData,
-        }
+        };
         dispatch(signUpSuccess(user));
       }).catch((err) => {
         dispatch(signUpFailure(err));
@@ -132,3 +142,55 @@ export const setMode = (mode) => ({
   type: 'SET_UI_MODE',
   mode,
 });
+
+const listenToEvents = () => {
+  return dispatch => {
+    userDb.listenToOrganizer((id) => {
+      dispatch({
+        type: 'EVENT_ADD_ORGANIZER',
+        id,
+      });
+      dispatch(eventsActions.load(id));
+    }, (id) => {
+      dispatch({
+        type: 'EVENT_REMOVE_ORGANIZER',
+        id,
+      });
+    });
+
+    userDb.listenToParticipant((id) => {
+      dispatch({
+        type: 'EVENT_ADD_PARTICIPANT',
+        id,
+      });
+      dispatch(eventsActions.load(id));
+    }, (id) => {
+      dispatch({
+        type: 'EVENT_REMOVE_PARTICIPANT',
+        id,
+      });
+    });
+  };
+};
+
+export const registerWithStore = (store) => {
+  /*
+   * Listen to firebase auth changes (e.g when re-signing in a user saved locally)
+   * and dispatch an event so that stores can react to it
+   */
+  let unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    //There is a bug where errors in this handler are silently swallowed. Be careful.
+    if(user) {
+      store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: user.uid});
+      listenToEvents()(store.dispatch);
+    }else{
+      store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: null});
+    }
+
+    //Only listen to the first auth state
+    unsubscribe();
+  }, error => {
+    console.warn(error);
+  });
+
+};
