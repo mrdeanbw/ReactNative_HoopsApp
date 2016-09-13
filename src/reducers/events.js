@@ -4,6 +4,9 @@ const initialState = {
   isLoading: false,
 
   eventsById: {},
+
+  organizer: [],
+  participant: [],
 };
 
 export default handleActions({
@@ -19,7 +22,20 @@ export default handleActions({
     return {
       ...state,
       isLoading: false,
-      eventsById: action.events,
+      eventsById: {
+        ...state.eventsById,
+        ...action.events,
+      },
+    };
+  },
+
+  EVENT_REMOVED: (state, action) => {
+    let eventsById = state.eventsById;
+    delete eventsById[action.id];
+
+    return {
+      ...state,
+      eventsById,
     };
   },
 

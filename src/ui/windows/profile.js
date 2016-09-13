@@ -3,7 +3,7 @@ import _ from '../i18n';
 import React from 'react';
 import {View,Text,Image,ScrollView} from 'react-native';
 
-import {Window, Button, Dialog, EventListItem, TextInput, SwitchButton, CheckButton, ListInput, DateInput, Icon} from '../components';
+import {Button, Dialog, EventListItem, TextInput, SwitchButton, CheckButton, ListInput, DateInput, Icon} from '../components';
 import StyleSheet from '../styles';
 
 import UserData from '../../data/users.json';
@@ -52,9 +52,9 @@ export default class Profile extends React.Component {
   };
 
   render() {
-    const profile = this.props.profile, user = this.props.user;
-    const name = [profile.name.first, profile.name.last].join(' ');
-    const owner = profile.id === this.props.user.id;
+    const profile = this.props.profile;
+    const name = profile.name;
+    const owner = profile.id === this.props.me.uid;
 
     const age = (date) => (((new Date().getTime() - new Date(date).getTime()) / (365.25*24*3600*1000)) | 0);
 

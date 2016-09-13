@@ -3,16 +3,13 @@ import _ from '../i18n';
 
 import React from 'react';
 
-import {View, ScrollView, Text, Image, MapView, StatusBar} from 'react-native';
+import {View, ScrollView, Text, Image, MapView} from 'react-native';
 
 import StyleSheet from '../styles';
-import Button from '../components/button';
 import EventListItem from '../components/event-list-item';
 import Window from '../components/window';
-import EventDetails from './event-details';
-import Search from './search';
 
-import {TabBar, Header} from '../components';
+import {TabBar} from '../components';
 
 export default class Home extends React.Component {
 
@@ -26,11 +23,11 @@ export default class Home extends React.Component {
 
   onPressCreate() {
     //TODO
-  };
+  }
 
   onPressSearch() {
     //TODO
-  };
+  }
 
   render() {
     return (
@@ -39,13 +36,10 @@ export default class Home extends React.Component {
         actionIcon={this.props.mode === 'ORGANIZE' ? "actionAdd" : "actionSearch"}
         actionText={_(this.props.mode === 'ORGANIZE' ? 'create' : 'search')}
         onActionPress={() => {}}
+        mode={this.props.mode}
+        title={_('upcomingEvents')}
+        onChangeMode={this.props.onChangeMode}
       >
-        <StatusBar barStyle="light-content"/>
-        <Header
-          mode={this.props.mode}
-          title={_('upcomingEvents')}
-          onChangeMode={this.props.onChangeMode}
-        />
         <ScrollView contentContainerStyle={StyleSheet.container}>
           {this.props.events.map(event =>
             <EventListItem key={event.id}
@@ -87,4 +81,4 @@ export default class Home extends React.Component {
       </TabBar>
     );
   }
-};
+}

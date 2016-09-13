@@ -37,3 +37,27 @@ export const read = () => {
     return data.val();
   });
 }
+
+export const listenToOrganizer = (addCallback, removeCallback) => {
+  let user = firebaseApp.auth().currentUser;
+
+  let userRef = usersRef.child(user.uid);
+  userRef.child('organizing').on('child_added', (snapshot) => {
+    addCallback(snapshot.key);
+  });
+  userRef.child('organizing').on('child_removed', (oldSnapshot) => {
+    removeCallback(oldSnapshot.key);
+  });
+};
+
+export const listenToParticipant = (addCallback, removeCallback) => {
+  let user = firebaseApp.auth().currentUser;
+
+  let userRef = usersRef.child(user.uid);
+  userRef.child('participating').on('child_added', (snapshot) => {
+    addCallback(snapshot.key);
+  });
+  userRef.child('participating').on('child_removed', (oldSnapshot) => {
+    removeCallback(oldSnapshot.key);
+  });
+};
