@@ -20,6 +20,7 @@ export default class Members extends React.Component {
       popupOptionsMember: null,
     };
   }
+
   static getTabHighlight(props) {
     return Manage;
   }
@@ -56,13 +57,6 @@ export default class Members extends React.Component {
   }
 
   render() {
-    const users = (this.props.event.invites || []).map(invite => {
-      return {
-        status: invite.status,
-        ...UserData.find(x => x.id === invite.user)
-      };
-    });
-
     return (
       <TabBar
         title={(
@@ -78,6 +72,7 @@ export default class Members extends React.Component {
         actionType="action"
         actionIcon="actionBack"
         onActionPress={this.props.onPressBack}
+        mode={this.props.mode}
       >
         <MemberOptions
           visible={!!this.state.popupOptionsMember}
@@ -85,16 +80,26 @@ export default class Members extends React.Component {
           onPressViewProfile={this.onPressViewProfile.bind(this)}
         />
         <ScrollView contentContainerStyle={StyleSheet.container}>
-          {users.map((user) =>
-            <UserListItem key={user.id}
-                    onPress={() => this.onPressUser(user)}
-                    avatar={StyleSheet.images[user.avatar]}
-                    firstName={user.name.first}
-                    lastName={user.name.last}
-                    location={user.location}
-                    dob={user.dob}
-                    status={user.status}
-                    onPressDisclosure={() => this.onPressDisclosure(user)} />)}
+          {this.props.invites.map((invite) => {
+            let user = invite.user;
+            if(!user) {
+              return null;
+            }
+
+            return (
+              <UserListItem
+                key={user.id}
+                onPress={() => this.onPressUser(user)}
+                avatar={StyleSheet.images[user.avatar]}
+                firstName={user.name}
+                lastName={user.name}
+                location={user.location}
+                dob={user.dob}
+                status={invite.status}
+                onPressDisclosure={() => this.onPressDisclosure(user)}
+              />
+            );
+          })}
         </ScrollView>
       </TabBar>
     );

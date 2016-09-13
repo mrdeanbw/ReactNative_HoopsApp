@@ -5,6 +5,13 @@ import * as actions from '../actions';
 
 export const startAll = (dispatch) => {
   firebaseDb.child('events').on('value', (snapshot) => {
-    dispatch(actions.events.valueChange(snapshot.val()));
+    let events = snapshot.val();
+    dispatch(actions.events.valueChange(events));
+
+    for(let id in events) {
+      let event = events[id];
+      let userIds = event.invites.map(invite => invite.user);
+      dispatch(actions.users.load(userIds));
+    }
   });
 };

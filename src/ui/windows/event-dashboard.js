@@ -36,6 +36,7 @@ export default class EventDashboard extends React.Component {
         actionType="action"
         onActionPress={this.onCancel.bind(this)}
         currentTab="manage"
+        mode={this.props.mode}
       >
         <CancelEventPopup
           visible={this.state.showCancelPopup}

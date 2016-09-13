@@ -45,6 +45,7 @@ class EventDashboard extends React.Component {
         onPressGallery={this.onPressGallery.bind(this)}
         onPressFinances={this.onPressFinances.bind(this)}
         onPressRequests={this.onPressRequests.bind(this)}
+        mode={this.props.user.mode}
       />
     );
   }
@@ -56,6 +57,7 @@ EventDashboard.propTypes = {
 
 export default connect(
   (state) => ({
+    user: state.user,
     router: state.router,
     events: state.events,
   }),
