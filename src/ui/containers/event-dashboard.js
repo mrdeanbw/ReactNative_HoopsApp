@@ -11,27 +11,27 @@ class EventDashboard extends React.Component {
   }
 
   onPressDetails() {
-    RouterActions.eventDetails();
+    RouterActions.eventDetails({id: this.props.id});
   }
 
   onPressMembers() {
-    RouterActions.eventMembers();
+    RouterActions.eventMembers({id: this.props.id});
   }
 
   onPressMessages() {
-    RouterActions.eventMessages();
+    RouterActions.eventMessages({id: this.props.id});
   }
 
   onPressGallery() {
-    RouterActions.eventGallery();
+    RouterActions.eventGallery({id: this.props.id});
   }
 
   onPressFinances() {
-    RouterActions.eventFinances();
+    RouterActions.eventFinances({id: this.props.id});
   }
 
   onPressRequests() {
-    RouterActions.eventRequests();
+    RouterActions.eventRequests({id: this.props.id});
   }
 
   render() {
