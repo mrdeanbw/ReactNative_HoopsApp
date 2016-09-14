@@ -214,7 +214,8 @@
     "react/react-in-jsx-scope": 0,
     "react/self-closing-comp": 1,
     "react/wrap-multilines": 0,
-    "react/jsx-no-undef": 2
+    "react/jsx-no-undef": 2,
+    "react/jsx-indent": [1, 2]
   }
 
 
