@@ -1,5 +1,5 @@
 
-import firebase from '../data/firebase';
+import firebase, {firebaseDb} from '../data/firebase';
 
 import * as emailAuth from '../data/auth/email';
 import * as facebookAuth from '../data/auth/facebook';
@@ -144,6 +144,22 @@ export const setMode = (mode) => ({
   type: 'SET_UI_MODE',
   mode,
 });
+
+/*
+ * Set the user's availability
+ */
+export const setAvailability = (value) => {
+  return (dispatch, getState) => {
+    //Update local state first
+    dispatch({
+      type: 'USER_SET_AVAILABILITY',
+      value,
+    });
+
+    //Update the database
+    firebaseDb.child(`users/${getState().user.uid}/availability`).set(value);
+  }
+};
 
 const listenToEvents = () => {
   return dispatch => {

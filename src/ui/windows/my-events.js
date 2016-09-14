@@ -1,16 +1,12 @@
 
 import _ from '../i18n';
 import React from 'react';
-import {View,Text,ScrollView} from 'react-native';
+import {View, ScrollView} from 'react-native';
 
-import {Window, Button, Dialog, EventListItem, SwitchButton} from '../components';
+import {Window, Button, Popup, EventListItem, SwitchButton, TabBar} from '../components';
 import StyleSheet from '../styles';
-import EventData from '../../data/events.json';
 
 import Manage from './manage';
-import EventDetails from './event-details';
-import Search from './search';
-
 
 export default class MyEvents extends React.Component {
 
@@ -22,131 +18,94 @@ export default class MyEvents extends React.Component {
     };
   }
 
-  static getTitle(props) {}
-
-  static getActionButton(props) {
-    return <Button type="actionDefault" icon="actionSearch" text={_('search')} onPress={this.prototype.onPressSearch} />;
-  }
-
   constructor() {
     super();
     this.state = {
-      tab: 'upcoming'
+      tab: 'upcoming',
+      disclosureEvent: null,
     };
   }
 
-  componentWillMount() {
-    this.componentWillReceiveProps(this.props);
-    this.onChangeSwitch(true);
+  onChangeSwitch(switchValue) {
+    this.props.onChangeAvailability(switchValue);
   }
-
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.tab) this.setState({ tab: nextProps.tab });
-  }
-
-  onChangeSwitch = (switchValue) => {
-    this.setState({switchValue});
-
-    this.props.window.setAccessoryViews(
-      <SwitchButton value={switchValue}
-              onChange={this.onChangeSwitch}
-      />
-    );
-  };
 
   onChangeMode(nextMode, nextProps) {
     nextProps.initialTab = Manage;
   }
 
-  onPressEvent = (event) => {
-  };
+  onPressEvent(event) {
+    this.props.onPressEvent(event);
+  }
 
-  onPressDisclosure = (event) => {
-    switch(this.state.tab) {
-      case 'upcoming': return this.onPressUpcomingEvent(event);
-      case 'saved': return this.onPressSavedEvent(event);
-      case 'history': return this.onPressHistoryEvent(event);
-    }
-  };
+  onPressDisclosure(event) {
+    this.setState({disclosureEvent: event});
+  }
 
-  onPressUpcomingEvent = (event) => {
-    close = (fn) => () => {
-      this.props.window.hideModal();
-      if(fn) fn(event);
-    };
-    this.props.window.showModal(
-      <Dialog popup={true} style={StyleSheet.dialog.optionsMenu} onClose={close()}>
-        <Button type="alertVertical" text={_('dropOut')} onPress={close(this.onPressDropOut)} />
-        <Button type="alertVertical" text={_('eventDetails')} onPress={close(this.onPressEventDetails)} />
-        <Button type="alertVertical" text={_('organizerDetails')} onPress={close(this.onPressOrganizerDetails)} />
-      </Dialog>
-    );
-  };
+  onPressDropOut() {
+    //TODO
+    //let event = this.state.disclosureEvent;
+    this.setState({disclosureEvent: null});
+  }
 
-  onPressSavedEvent = (event) => {
-    close = (fn) => () => {
-      this.props.window.hideModal();
-      if(fn) fn(event);
-    };
-    this.props.window.showModal(
-      <Dialog popup={true} style={StyleSheet.dialog.optionsMenu} onClose={close()}>
-        <Button type="alertVertical" text={_('join')} onPress={close(this.onPressJoin)} />
-        <Button type="alertVertical" text={_('eventDetails')} onPress={close(this.onPressEventDetails)} />
-        <Button type="alertVertical" text={_('organizerDetails')} onPress={close(this.onPressOrganizerDetails)} />
-        <Button type="alertVerticalDefault" text={_('remove')} onPress={close(this.onPressRemove)} />
-      </Dialog>
-    );
-  };
+  onPressEventDetails() {
+    this.props.onPressEvent(this.state.disclosureEvent);
+    this.setState({disclosureEvent: null});
+  }
 
-  onPressHistoryEvent = (event) => {
-    close = (fn) => () => {
-      this.props.window.hideModal();
-      if(fn) fn(event);
-    };
-    this.props.window.showModal(
-      <Dialog popup={true} style={StyleSheet.dialog.optionsMenu} onClose={close()}>
-        <Button type="alertVertical" text={_('participateAgain')} onPress={close(this.onPressParticipateAgain)} />
-        <Button type="alertVertical" text={_('eventDetails')} onPress={close(this.onPressEventDetails)} />
-        <Button type="alertVertical" text={_('organizerDetails')} onPress={close(this.onPressOrganizerDetails)} />
-      </Dialog>
-    );
-  };
+  onPressOrganizerDetails() {
+    //TODO
+    this.setState({disclosureEvent: null});
+  }
 
-  onPressDropOut = (event) => {
+  onPressJoin() {
+    //TODO
+    this.setState({disclosureEvent: null});
+  }
 
-  };
+  onPressRemove() {
+    //TODO
+    this.setState({disclosureEvent: null});
+  }
 
-  onPressEventDetails = (event) => {
-    this.props.window.setView(EventDetails, { event: event, onClose: () => {
-      this.props.window.setView(MyEvents, { tab: this.state.tab });
-    }});
-  };
-
-  onPressOrganizerDetails = (event) => {
-
-  };
-
-  onPressJoin = (event) => {
-    EventDetails.joinEvent(this.props.window, event, () => {
-      this.props.window.setView(MyEvents, { tab: this.state.tab });
-    });
-  };
-
-  onPressParticipateAgain = (event) => {
-
-  };
-
-  onPressRemove = (event) => {
-
-  };
-
-  onPressSearch() {
-    this.props.window.showModal(<Search onClose={() => this.props.window.hideModal()} />, 'slide', false);
-  };
+  onPressParticipateAgain() {
+    //TODO
+    this.setState({disclosureEvent: null});
+  }
 
   render() {
+    let events = {
+      upcoming: this.props.upcoming,
+      saved: this.props.saved,
+      history: this.props.history,
+    }[this.state.tab];
+
     return (
-      <View style={{flex: 1}}>
+      <TabBar
+        title={undefined}
+        mode={this.props.mode}
+        actionIcon="actionSearch"
+        actionText={_('search')}
+        onActionPress={this.props.onPressSearch}
+        accessoryViews={(
+          <SwitchButton value={this.props.availability} onChange={this.onChangeSwitch.bind(this)}/>
+        )}
+        onTabPress={this.props.onTabPress}
+        currentTab="myEvents"
+      >
+        <DisclosurePopup
+          type={this.state.tab}
+          visible={!!this.state.disclosureEvent}
+          onClose={() => this.setState({disclosureEvent: null})}
+
+          onPressDropOut={this.onPressDropOut.bind(this)}
+          onPressEventDetails={this.onPressEventDetails.bind(this)}
+          onPressOrganizerDetails={this.onPressOrganizerDetails.bind(this)}
+          onPressJoin={this.onPressJoin.bind(this)}
+          onPressRemove={this.onPressRemove.bind(this)}
+          onPressParticipateAgain={this.onPressParticipateAgain.bind(this)}
+        />
+
         <View style={StyleSheet.buttons.bar}>
           <Button type="top" text={_('upcoming')} active={this.state.tab === 'upcoming'} onPress={() => this.setState({ tab: 'upcoming' })} />
           <Button type="top" text={_('saved')} active={this.state.tab === 'saved'} onPress={() => this.setState({ tab: 'saved' })} />
@@ -154,7 +113,7 @@ export default class MyEvents extends React.Component {
         </View>
 
         <ScrollView contentContainerStyle={StyleSheet.container}>
-          {EventData.map(event =>
+          {events.map(event =>
             <EventListItem key={event.id}
                      onPress={() => this.onPressEvent(event)}
                      image={StyleSheet.images[event.image]}
@@ -167,7 +126,62 @@ export default class MyEvents extends React.Component {
                      distance={event.distance}
                      date={event.date} />)}
         </ScrollView>
+      </TabBar>
+    );
+  }
+}
+
+class DisclosurePopup extends React.Component {
+
+  _renderUpcomingOptions() {
+    return (
+      <View>
+        <Button type="alertVertical" text={_('dropOut')} onPress={this.props.onPressDropOut} />
+        <Button type="alertVertical" text={_('eventDetails')} onPress={this.props.onPressEventDetails} />
+        <Button type="alertVertical" text={_('organizerDetails')} onPress={this.props.onPressOrganizerDetails} />
       </View>
     );
   }
-};
+
+  _renderSavedOptions() {
+    return (
+      <View>
+        <Button type="alertVertical" text={_('join')} onPress={this.props.onPressJoin} />
+        <Button type="alertVertical" text={_('eventDetails')} onPress={this.props.onPressEventDetails} />
+        <Button type="alertVertical" text={_('organizerDetails')} onPress={this.props.onPressOrganizerDetails} />
+        <Button type="alertVerticalDefault" text={_('remove')} onPress={this.props.onPressRemove} />
+      </View>
+    );
+  }
+
+  _renderHistoryOptions() {
+    return (
+      <View>
+        <Button type="alertVertical" text={_('participateAgain')} onPress={this.props.onPressParticipateAgain} />
+        <Button type="alertVertical" text={_('eventDetails')} onPress={this.props.onPressEventDetails} />
+        <Button type="alertVertical" text={_('organizerDetails')} onPress={this.props.onPressOrganizerDetails} />
+      </View>
+    );
+  }
+
+  render() {
+    let buttons;
+    if(this.props.type === 'upcoming'){
+      buttons = this._renderUpcomingOptions();
+    }else if(this.props.type === 'saved') {
+      buttons = this._renderSavedOptions();
+    }else{
+      buttons = this._renderHistoryOptions();
+    }
+
+    return (
+      <Popup
+        visible={this.props.visible}
+        onClose={this.props.onClose}
+        style={StyleSheet.dialog.optionsMenu}
+      >
+        {buttons}
+      </Popup>
+    );
+  }
+}

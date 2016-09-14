@@ -10,6 +10,8 @@ const initialState = {
     dob: null,
   },
 
+  availability: true,
+
   organizer: [], //Events that this user organizes
   participant: [], //Events that this user participates in
 
@@ -101,6 +103,13 @@ export default handleActions({
     return {
       ...state,
       mode: action.mode,
+    };
+  },
+
+  USER_SET_AVAILABILITY: (state, action) => {
+    return {
+      ...state,
+      availability: action.value,
     };
   },
 

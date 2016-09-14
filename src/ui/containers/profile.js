@@ -2,6 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import _Profile from '../windows/profile';
+import {user as actions} from '../../actions';
 
 class Profile extends React.Component {
   render() {
@@ -9,6 +10,7 @@ class Profile extends React.Component {
       <_Profile
         profile={this.props.users.usersById[this.props.id]}
         me={this.props.user}
+        onChangeAvailability={this.props.onChangeAvailability}
       />
     );
   }
@@ -24,5 +26,6 @@ export default connect(
     users: state.users,
   }),
   (dispatch) => ({
+    onChangeAvailability: (value) => dispatch(actions.setAvailability(value)),
   }),
 )(Profile);

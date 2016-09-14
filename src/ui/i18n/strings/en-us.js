@@ -107,7 +107,7 @@ export const block = 'Block';
 
 export const remove = 'Remove';
 
-export const yourActiveEvents = 'Your Active Events';
+export const manageYourEvents = 'Manage Your Events';
 export const dashboard = 'Dashboard';
 export const details = 'Details';
 export const members = 'Members';

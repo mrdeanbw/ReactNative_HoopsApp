@@ -39,6 +39,7 @@ export default class Home extends React.Component {
         mode={this.props.mode}
         title={_('upcomingEvents')}
         onChangeMode={this.props.onChangeMode}
+        onTabPress={this.props.onTabPress}
       >
         <ScrollView contentContainerStyle={StyleSheet.container}>
           {this.props.events.map(event =>

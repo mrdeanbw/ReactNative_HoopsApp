@@ -42,6 +42,13 @@ class Home extends React.Component {
 
           RouterActions.home();
         }}
+        onTabPress={(tab) => {
+          if(tab === 'manage'){
+            RouterActions.manageTab();
+          }else if(tab === 'myEvents'){
+            RouterActions.myEventsTab();
+          }
+        }}
       />
     );
   }
