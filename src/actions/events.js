@@ -14,7 +14,7 @@ export const load = (id) => {
       let userIds = event.invites.map((invite) => {
         return invite.user;
       });
-      dispatch(usersActions.load(userIds));
+      dispatch(usersActions.loadMany(userIds));
     });
   };
 };

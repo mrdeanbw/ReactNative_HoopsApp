@@ -38,6 +38,7 @@ export default class App extends Component {
                 <Scene key="eventDetails" hideNavBar={true} component={containers.EventDetails} />
                 <Scene key="eventDashboard" hideNavBar={true} component={containers.EventDashboard} />
                 <Scene key="eventMembers" hideNavBar={true} component={containers.EventMembers} />
+                <Scene key="eventInvites" hideNavBar={true} component={containers.EventInvites} />
                 <Scene key="profile" hideNavBar={true} component={containers.Profile} />
               </Scene>
             </Scene>

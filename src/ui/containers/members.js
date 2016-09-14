@@ -32,6 +32,9 @@ class Members extends React.Component {
         onPressUserProfile={(user) => {
           RouterActions.profile({id: user.id});
         }}
+        onPressInviteMore={() => {
+          RouterActions.eventInvites({id: event.id})
+        }}
       />
     );
   }
