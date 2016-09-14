@@ -31,7 +31,7 @@ export default class Profile extends React.Component {
   }
 
   onChangeAvailability = (value) => {
-    this.setState({ availability: value });
+    this.props.onChangeAvailability(value);
   };
 
   onPressEvent = (event) => {
@@ -61,14 +61,14 @@ export default class Profile extends React.Component {
     return (
       <Dialog ref="dialog" scrollContent style={StyleSheet.flex}
           title={(owner ? _('yourProfile') : _('profileTemplate')).replace(/\$1/g, name)}
-          leftBar={owner && <View style={StyleSheet.profile.switchButton}><SwitchButton value={this.state.availability} onChange={this.onChangeAvailability}/></View> }
+          leftBar={owner && <View style={StyleSheet.profile.switchButton}><SwitchButton value={this.props.me.availability} onChange={this.onChangeAvailability}/></View> }
           onClose={this.props.onClose}>
 
         <View style={StyleSheet.profile.headlineBarStyle}>
           <Image source={StyleSheet.images[profile.avatar]} style={StyleSheet.profile.avatarImageStyle} />
           <View style={StyleSheet.profile.headlineDetailStyle}>
             <View style={StyleSheet.profile.nameTextContainerStyle}>
-              <View style={[StyleSheet.profile.availableIndicator, !this.state.availability && {backgroundColor: StyleSheet.colors.grey}]}/>
+              <View style={[StyleSheet.profile.availableIndicator, !profile.availability && {backgroundColor: StyleSheet.colors.grey}]}/>
               <Text style={[StyleSheet.text, StyleSheet.profile.nameTextStyle]}>{name}</Text>
             </View>
 

@@ -39,12 +39,13 @@ export default class Home extends React.Component {
         mode={this.props.mode}
         title={_('upcomingEvents')}
         onChangeMode={this.props.onChangeMode}
+        onTabPress={this.props.onTabPress}
       >
         <ScrollView contentContainerStyle={StyleSheet.container}>
           {this.props.events.map(event =>
             <EventListItem key={event.id}
                      onPress={() => this.props.onPressEvent(event)}
-                     image={StyleSheet.images[event.image]}
+                     image={{uri: event.imageSrc}}
                      title={event.title}
                      players={event.players} maxPlayers={event.maxPlayers}
                      level={event.level}

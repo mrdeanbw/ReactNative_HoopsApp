@@ -82,14 +82,34 @@ export default class TabBar extends React.Component {
         <View style={[{flex: 0}, StyleSheet.window.tabBarStyle]}>
           <Button type="tab" icon="home" text={_('home')}
             active={this.props.currentTab === "home"}
+            onPress={() => this.props.onTabPress('home')}
           />
-          <Button type="tab" icon="manage" text={_('manage')}
-            active={this.props.currentTab === "manage"}
-          />
+          {this.props.mode === 'ORGANIZE' ? (
+            <Button type="tab" icon="manage" text={_('manage')}
+              active={this.props.currentTab === "manage"}
+              onPress={() => this.props.onTabPress('manage')}
+            />
+          ) : (
+            <Button type="tab" icon="myEvents" text={_('myEvents')}
+              active={this.props.currentTab === "myEvents"}
+              onPress={() => this.props.onTabPress('myEvents')}
+            />
+          )}
+
           <Button type={this.props.actionType} icon={this.props.actionIcon} text={this.props.actionText} onPress={this.props.onActionPress} />
-          <Button type="tab" icon="calendar" text={_('calendar')}
-            active={this.props.currentTab === "calendar"}
-          />
+
+          {this.props.mode === 'ORGANIZE' ? (
+            <Button type="tab" icon="calendar" text={_('calendar')}
+              active={this.props.currentTab === "calendar"}
+              onPress={() => this.props.onTabPress('calendar')}
+            />
+          ) : (
+            <Button type="tab" icon="calendar" text={_('invitations')}
+              active={this.props.currentTab === 'invitations'}
+              onPress={() => this.props.onTabPress('invitations')}
+            />
+          )}
+
           <Button type="tab" icon="more" text={_('more')}
             active={this.state.menuVisible}
             onPress={() => this.state.menuVisible ? this.hideMenu() : this.showMenu()}
@@ -107,6 +127,8 @@ TabBar.propTypes = {
   actionText: React.PropTypes.string.isRequired,
   actionIcon: React.PropTypes.string.isRequired,
   actionType: React.PropTypes.string,
+
+  onTabPress: React.PropTypes.func.isRequired,
 };
 
 TabBar.defaultProps = {
