@@ -61,3 +61,11 @@ export const listenToParticipant = (addCallback, removeCallback) => {
     removeCallback(oldSnapshot.key);
   });
 };
+
+export const listenToFriends = (addCallback, removeCallback) => {
+  let user = firebaseApp.auth().currentUser;
+  let friendsRef = usersRef.child(user.uid).child('friends');
+
+  friendsRef.on('child_added', snapshot => addCallback(snapshot.key));
+  friendsRef.on('child_removed', snapshot => removeCallback(snapshot.key));
+};

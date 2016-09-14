@@ -56,6 +56,7 @@ export default class TabBar extends React.Component {
         <Header
           mode={this.props.mode}
           title={this.props.title}
+          accessoryViews={this.props.accessoryViews}
           onChangeMode={this.props.onChangeMode}
         />
 

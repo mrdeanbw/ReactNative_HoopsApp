@@ -6,6 +6,7 @@ import * as facebookAuth from '../data/auth/facebook';
 import * as userDb from '../data/user';
 
 import * as eventsActions from './events';
+import * as usersActions from './users';
 
 export const signIn = (email, password) => {
   let uid;
@@ -36,6 +37,7 @@ export const signIn = (email, password) => {
 export const signInSuccess = (user) => {
   return dispatch => {
     listenToEvents()(dispatch);
+    listenToFriends()(dispatch);
 
     dispatch({
       type: 'USER_SIGN_IN_SUCCESS',
@@ -173,6 +175,23 @@ const listenToEvents = () => {
   };
 };
 
+const listenToFriends = () => {
+  return dispatch => {
+    userDb.listenToFriends((id) => {
+      dispatch({
+        type: 'USER_ADD_FRIEND',
+        id,
+      });
+      dispatch(usersActions.load(id));
+    }, (id) => {
+      dispatch({
+        type: 'USER_REMOVE_FRIEND',
+        id,
+      });
+    });
+  };
+};
+
 export const registerWithStore = (store) => {
   /*
    * Listen to firebase auth changes (e.g when re-signing in a user saved locally)
@@ -183,6 +202,7 @@ export const registerWithStore = (store) => {
     if(user) {
       store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: user.uid});
       listenToEvents()(store.dispatch);
+      listenToFriends()(store.dispatch);
     }else{
       store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: null});
     }

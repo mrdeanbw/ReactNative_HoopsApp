@@ -10,8 +10,10 @@ const initialState = {
     dob: null,
   },
 
-  organizer: [],
-  participant: [],
+  organizer: [], //Events that this user organizes
+  participant: [], //Events that this user participates in
+
+  friends: [],
 
   //Signing in
   isSigningIn: false,
@@ -137,6 +139,25 @@ export default handleActions({
     return {
       ...state,
       participant: participant.filter(eventId => eventId !== action.id),
+    };
+  },
+
+  USER_ADD_FRIEND: (state, action) => {
+    let friends = state.friends.slice(0);
+    if(friends.indexOf(action.id) === -1){
+      friends.push(action.id);
+    }
+    return {
+      ...state,
+      friends,
+    };
+  },
+
+  USER_REMOVE_FRIEND: (state, action) => {
+    let friends = state.friends.slice(0);
+    return {
+      ...state,
+      friends: friends.filter(friendId => friendId !== action.id),
     };
   },
 
