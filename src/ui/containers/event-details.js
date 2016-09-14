@@ -7,7 +7,7 @@ import {user as actions} from '../../actions';
 
 import {View} from 'react-native';
 
-export default class EventDetails extends React.Component {
+class EventDetails extends React.Component {
 
   render() {
     return (
