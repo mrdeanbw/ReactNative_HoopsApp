@@ -44,7 +44,7 @@ export default class Home extends React.Component {
           {this.props.events.map(event =>
             <EventListItem key={event.id}
                      onPress={() => this.props.onPressEvent(event)}
-                     image={StyleSheet.images[event.image]}
+                     image={{uri: event.imageSrc}}
                      title={event.title}
                      players={event.players} maxPlayers={event.maxPlayers}
                      level={event.level}

@@ -88,7 +88,7 @@ export default class EventDetails extends React.Component {
     return (
       <ScrollView style={StyleSheet.eventDetails.style}>
         <View style={StyleSheet.eventDetails.titleStyle}>
-          <Image source={StyleSheet.images[this.props.event.coverImage]} style={StyleSheet.eventDetails.coverImageStyle} />
+          <Image source={{uri: this.props.event.coverSrc}} style={StyleSheet.eventDetails.coverImageStyle} />
           <View style={StyleSheet.eventDetails.coverImageOverlayStyle} />
 
           <View style={StyleSheet.eventDetails.titleButtonBar}>
