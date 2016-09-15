@@ -1,9 +1,11 @@
 
 import React from 'react';
 
+import _ from '../i18n';
 import StyleSheet from '../styles';
 import {Modal, View, TouchableWithoutFeedback} from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import Button from './button';
 
 export default class Popup extends React.Component {
   render() {
@@ -27,6 +29,19 @@ export default class Popup extends React.Component {
             </View>
 
           </View>
+
+          {this.props.buttons && (
+            <View style={[StyleSheet.dialog.popupButtonBarStyle, this.props.buttonBarStyle]}>
+              {this.props.onClose && (
+                <Button
+                  type="dialog"
+                  text={this.props.closeText || _('back')}
+                  onPress={this.props.onClose}
+                />
+              )}
+              {this.props.buttons}
+            </View>
+          )}
 
           {this.props.keyboardSpacer && <KeyboardSpacer/>}
 

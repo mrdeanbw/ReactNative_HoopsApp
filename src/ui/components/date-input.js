@@ -1,19 +1,14 @@
 
 import _ from '../i18n';
-
+import moment from 'moment';
 import React from 'react';
 import StyleSheet from '../styles';
-import { View, Text, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TouchableHighlight } from 'react-native';
 
-import Dialog from './dialog';
 import Picker from './picker';
 import Button from './button';
 import TextInput from './text-input';
-
-const Days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-const Months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
-const Hours = [];
-const Minutes = [];
+import Popup from './popup';
 
 const zeroPad = (s, n) => {
   s = s.toString();
@@ -21,78 +16,115 @@ const zeroPad = (s, n) => {
   return s;
 };
 
-for(var i = 0; i < 24; i++) Hours.push(zeroPad(i, 2));
-for(var i = 0; i < 60; i++) Minutes.push(zeroPad(i, 2));
-
 export default class DateInput extends React.Component {
 
-  onPress = () => {
-    if(!this.props.modalProvider) return;
-    const modalProvider = this.props.modalProvider();
+  constructor(props) {
+    super(props);
 
-    modalProvider.showModal(
-      <DatePicker value={this.props.value && new Date(this.props.value)}
-            date={'date' in this.props ? this.props.date : true} time={!!this.props.time}
-            onClose={() => modalProvider.hideModal()}
-            onSave={value => this.onSave(modalProvider, value)} />
-    );
+    this.state = {
+      showPopup: false,
+      value: props.value || props.initialValue,
+    };
+  }
+
+  onPress = () => {
+    this.setState({showPopup: true});
   };
 
-  onSave = (modalProvider, value) => {
-    modalProvider.hideModal();
-    if(this.props.onChange) this.props.onChange(value);
+  onPressSave = () => {
+    this.props.onChange && this.props.onChange(this.state.value);
+    this.setState({showPopup: false});
   };
 
   render() {
-    const {onShowModal, onHideModal, onChange, value, rightBar, placeholder, style, ...props} = this.props;
+    const {rightBar, placeholder, style, ...props} = this.props;
 
     const defaultTextInput = StyleSheet.textInputs.default || {};
     const textInput = this.props.type ? StyleSheet.textInputs[this.props.type] || defaultTextInput : defaultTextInput;
 
-    const _value = new Date(value);
+    const _value = moment(this.props.value);
 
     return (
-      <TouchableHighlight onPress={this.onPress} style={{overflow: 'visible'}}
-                activeOpacity={'activeOpacity' in textInput ? textInput.activeOpacity : defaultTextInput.activeOpacity}
-                underlayColor={'underlayColor' in textInput ? textInput.underlayColor : defaultTextInput.underlayColor}>
-        <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-          <TextInput style={[{flex:1}, style]}  view={
-            <Text style={[
-              StyleSheet.text,
-              defaultTextInput.textStyle,
-              textInput.textStyle,
-              defaultTextInput.staticTextStyle,
-              textInput.staticTextStyle,
-              this.props.textStyle,
-              !value && { color: this.props.placeholderTextColor || textInput.placeholderTextColor || defaultTextInput.placeholderTextColor }
-            ]}>
-              {value ? (this.props.time && (zeroPad(_value.getHours(), 2) + ':' + zeroPad(_value.getMinutes(), 2) ) || '') + (('date' in this.props ? this.props.date : true) && ((this.props.time && ' ' || '') + _(Days[_value.getDay()]) + ', ' + _value.getDate() + ' ' + _(Months[_value.getMonth() + 1]) + ' ' + _value.getFullYear()))
-               : placeholder}
-            </Text>
-          } {...props} />
-          <View style={[defaultTextInput.barStyle, textInput.barStyle]}>{rightBar}</View>
-        </View>
-      </TouchableHighlight>
+      <View>
+        <Popup
+          visible={this.state.showPopup}
+          onClose={() => this.setState({showPopup: false})}
+          closeText={_('back')}
+          buttons={
+            <Button type="dialogDefault" text={_('save')} onPress={this.onPressSave}/>
+          }
+        >
+          <DatePicker
+            value={this.state.value && new Date(this.state.value)}
+            date={'date' in this.props ? this.props.date : true}
+            time={!!this.props.time}
+            onClose={() => this.setState({showPopup: false})}
+            onChange={value => {
+              this.setState({value});
+            }}
+          />
+        </Popup>
+        <TouchableHighlight onPress={this.onPress} style={{overflow: 'visible'}}
+                  activeOpacity={'activeOpacity' in textInput ? textInput.activeOpacity : defaultTextInput.activeOpacity}
+                  underlayColor={'underlayColor' in textInput ? textInput.underlayColor : defaultTextInput.underlayColor}>
+          <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+            <TextInput style={[{flex:1}, style]}  view={
+              <Text style={[
+                StyleSheet.text,
+                defaultTextInput.textStyle,
+                textInput.textStyle,
+                defaultTextInput.staticTextStyle,
+                textInput.staticTextStyle,
+                this.props.textStyle,
+                !this.props.value && { color: this.props.placeholderTextColor || textInput.placeholderTextColor || defaultTextInput.placeholderTextColor }
+              ]}>
+                {this.props.value ? _value.format('HH:mm dddd Do MMMM YYYY') : placeholder}
+              </Text>
+            } {...props} />
+            <View style={[defaultTextInput.barStyle, textInput.barStyle]}>{rightBar}</View>
+          </View>
+        </TouchableHighlight>
+      </View>
     );
   }
-};
+}
 
 class DatePicker extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      value: null
+      value: this.props.value || new Date(),
     };
   }
 
-  componentWillMount() {
-    this.componentWillReceiveProps(this.props);
-  }
+  onChangeMinute = (minute) => {
+    minute = parseInt(minute, 10);
+    if(minute !== this.state.value.getMinutes()) {
+      let date = new Date(this.state.value);
+      date.setMinutes(minute);
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ value: this.props.value || new Date() });
-  }
+      this.setState({value: date});
+
+      if (this.props.onChange) {
+        this.props.onChange(date);
+      }
+    }
+  };
+
+  onChangeHour = (hour) => {
+    hour = parseInt(hour, 10);
+    if(hour !== this.state.value.getHours()) {
+      let date = new Date(this.state.value);
+      date.setHours(hour);
+
+      this.setState({value: date});
+
+      if (this.props.onChange) {
+        this.props.onChange(date);
+      }
+    }
+  };
 
   onChangeDay = (day) => {
     day = parseInt(day, 10);
@@ -126,9 +158,8 @@ class DatePicker extends React.Component {
     year = parseInt(year, 10);
     if(year !== this.state.value.getFullYear()) {
       let date = new Date(this.state.value);
-      date.setFullYear(year, date.getMonth(), date.getDate());
+      date.setYear(year);
 
-      console.info(date);
       this.setState({value: date});
 
       if (this.props.onChange) {
@@ -137,51 +168,41 @@ class DatePicker extends React.Component {
     }
   };
 
-  onPressSave = () => {
-    if(this.props.onSave) this.props.onSave(this.state.value);
-  };
-
   render() {
-    const maxAge = 120;
-    const minAge = 13;
-    const defaultAge = 21;
-    let value = new Date(this.state.value);
+    let value = new Date(this.props.value);
     const maxValue = new Date(this.props.maxValue || new Date());
-    const minValue = new Date(this.props.minValue || new Date(new Date().getTime() - 365.25*40*24*3600*1000));
+    const minValue = new Date(this.props.minValue || new Date(new Date().getTime() - 365.25 * 40 * 24 * 3600 * 1000));
 
     if(value > maxValue) value = maxValue;
     if(value < minValue) value = minValue;
 
     const days = [], months = [], years = [];
-    for(var i = 1; i <= 31; i++) days.push(i.toString());
-    for(var i = 0; i < 12; i++) months.push(_(Months[i]));
-    for(var i = maxValue.getFullYear(); i >= minValue.getFullYear(); i--) years.push(i.toString());
+    for(let i = 1; i <= 31; i++) days.push(i.toString());
+    for(let i = 0; i < 12; i++) months.push(moment().month(i).format('MMM'));
+    for(let i = maxValue.getFullYear(); i >= minValue.getFullYear(); i--) years.push(i.toString());
     years.reverse();
 
     return (
-      <Dialog popup={true}
-          onClose={this.props.onClose} closeText={_('back')}
-          buttons={<Button type="dialogDefault" text={_('save')} onPress={this.onPressSave}/>}>
-
+      <View>
         {this.props.date && <View>
           <Text style={[StyleSheet.text, StyleSheet.dateInput.titleTextStyle]}>{_('date').toUpperCase()}</Text>
           <View style={StyleSheet.dateInput.pickerContainerStyle}>
             <Picker style={StyleSheet.dateInput.dayPickerStyle}
                 value={value.getDate().toString()}
                 onChange={this.onChangeDay}>
-              {days.map(day => <Picker.Item label={day} key={day}/>)}
+              {days.map(day => <Picker.Item label={day} value={day} key={day}/>)}
             </Picker>
 
             <Picker style={StyleSheet.dateInput.monthPickerStyle}
-                value={value.getMonth().toString()}
+                value={value.getMonth()}
                 onChange={this.onChangeMonth}>
-              {months.map((month, i) => <Picker.Item label={month} key={i.toString()}/>)}
+              {months.map((month, i) => <Picker.Item label={month} value={i} key={i}/>)}
             </Picker>
 
             <Picker style={StyleSheet.dateInput.yearPickerStyle}
                 value={value.getFullYear().toString()}
                 onChange={this.onChangeYear}>
-              {years.map(year => <Picker.Item label={year} key={year}/>)}
+              {years.map(year => <Picker.Item label={year} value={year} key={year}/>)}
             </Picker>
           </View>
         </View>}
@@ -190,19 +211,23 @@ class DatePicker extends React.Component {
           <Text style={[StyleSheet.text, StyleSheet.dateInput.titleTextStyle]}>{_('time').toUpperCase()}</Text>
           <View style={StyleSheet.dateInput.pickerContainerStyle}>
             <Picker style={StyleSheet.dateInput.hourPickerStyle}
-                value={zeroPad(value.getHours(), 2)}
+                value={value.getHours()}
                 onChange={this.onChangeHour}>
-              {Hours.map(hour => <Picker.Item label={hour} key={hour}/>)}
+              {new Array(24).fill(null).map((v, i) => (
+                <Picker.Item label={zeroPad(i, 2)} value={i} key={i}/>
+              ))}
             </Picker>
             <Text style={[StyleSheet.text, StyleSheet.picker.textStyle, StyleSheet.dateInput.timeSeparator]}>{':'}</Text>
             <Picker style={StyleSheet.dateInput.minutePickerStyle}
-                value={zeroPad(value.getMinutes(), 2)}
+                value={value.getMinutes()}
                 onChange={this.onChangeMinute}>
-              {Minutes.map(minute => <Picker.Item label={minute} key={minute}/>)}
+              {new Array(60).fill(null).map((v, i) => (
+                <Picker.Item label={zeroPad(i, 2)} value={i} key={i}/>
+              ))}
             </Picker>
           </View>
         </View>}
-      </Dialog>
+      </View>
     );
   }
-};
+}

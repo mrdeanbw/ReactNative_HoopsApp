@@ -5,46 +5,35 @@ import StyleSheet from '../styles';
 
 export default class Picker extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    //find the index of the selected value
+    let index = props.children.map(c => c.props.value).indexOf(props.value);
+
     this.state = {
-      value: null
+      index: Math.max(index, 0), //Don't allow negative initial indexes
     };
   }
 
-  componentWillMount() {
-    this.componentWillReceiveProps(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({ value: nextProps.value });
-    setTimeout(() => {
-      let ref = this.props.children.findIndex(c => c.key === this.state.value);
-      if (ref >= 0) this.refs.scrollView.scrollTo({ y: ref * 40, animated: false });
-    }, 0);
-  }
-
   componentDidMount() {
-    let ref = this.props.children.findIndex(c => c.key === this.state.value);
-    if (ref >= 0) this.refs.scrollView.scrollTo({ y: ref * 40, animated: false });
+    let index = this.state.index;
+    this.refs.scrollView.scrollTo({ y: index * 40, animated: false });
   }
 
   onScroll = event => {
     let index = Math.min(this.props.children.length - 1, Math.max(0, event.nativeEvent.contentOffset.y / 40));
-    let ref = this.props.children[index | 0];
-    let value = ref && ref.key || null;
+    index = Math.floor(index);
 
-    if(this.state.value !== value) {
-      this.setState({value: ref && ref.key || null});
-      if(this.props.onChange) this.props.onChange(this.state.value);
+    if(this.state.index !== index){
+      this.props.onChange && this.props.onChange(this.props.children[index].props.value);
+      this.setState({index});
     }
   };
 
   render() {
-    const { style, children, ...props} = this.props;
-
     return (
-      <View style={[StyleSheet.picker.style, style, {height: 40*3}]}>
+      <View style={[StyleSheet.picker.style, this.props.style, {height: 40 * 3}]}>
         <ScrollView ref="scrollView"
               snapToInterval={40}
               snapToAlignment="center"
@@ -53,14 +42,14 @@ export default class Picker extends React.Component {
               showsVerticalScrollIndicator={false}
               onScroll={this.onScroll}
               scrollEventThrottle={16}>
-          {children}
+          {this.props.children}
         </ScrollView>
         <View style={[StyleSheet.picker.overlayStyle, StyleSheet.picker.topOverlayStyle]} pointerEvents="none" />
         <View style={[StyleSheet.picker.overlayStyle, StyleSheet.picker.bottomOverlayStyle]} pointerEvents="none" />
       </View>
     );
   }
-};
+}
 
 class PickerItem extends React.Component {
   render() {
