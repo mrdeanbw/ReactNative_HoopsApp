@@ -76,6 +76,7 @@ export const invitations = 'Invitations';
 export const more = 'More';
 export const create = 'Create';
 export const search = 'Search';
+export const searchResults = 'Search Results';
 
 
 export const organizerMode = 'Using as an Organiser';

@@ -13,10 +13,8 @@ class Search extends React.Component {
       <_Search
         mode={this.props.user.mode}
         onClose={() => RouterActions.pop()}
-        onPressSearch={(params) => {
-          //TODO search
-          //console.log("search with params", params);
-          RouterActions.pop();
+        onPressSearch={(searchParams) => {
+          RouterActions.searchResults({searchParams});
         }}
       />
     );
