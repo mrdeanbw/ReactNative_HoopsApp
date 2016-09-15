@@ -7,7 +7,7 @@ import Button from './button';
 import HighlightText from './highlight-text';
 import StyleSheet from '../styles';
 
-export default class Toolbar extends React.Component {
+export default class Header extends React.Component {
   render() {
     let modeText, modeTextHighlight;
     if(this.props.mode === 'ORGANIZE') {
