@@ -54,6 +54,7 @@ export default class App extends Component {
               <Scene key="myEventsTab">
                 <Scene key="myEvents" hideNavBar={true} component={containers.MyEvents} />
                 <Scene key="eventDetails" hideNavBar={true} component={containers.EventDetails} />
+                <Scene key="search" direction="vertical" hideNavBar={true} component={containers.Search} />
               </Scene>
             </Scene>
 
