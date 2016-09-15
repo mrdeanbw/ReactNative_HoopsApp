@@ -28,9 +28,7 @@ class MyEvents extends React.Component {
       <_MyEvents
         onPressEvent={this.onPressEvent.bind(this)}
         onPressCreate={() => {}}
-        onPressSearch={() => {
-          //RouterActions.search();
-        }}
+        onPressSearch={() => RouterActions.search()}
         upcoming={upcoming}
         saved={[/*TODO*/]}
         history={history}

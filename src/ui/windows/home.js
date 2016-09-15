@@ -35,7 +35,13 @@ export default class Home extends React.Component {
         currentTab="home"
         actionIcon={this.props.mode === 'ORGANIZE' ? "actionAdd" : "actionSearch"}
         actionText={_(this.props.mode === 'ORGANIZE' ? 'create' : 'search')}
-        onActionPress={() => {}}
+        onActionPress={() => {
+          if(this.props.mode === 'ORGANIZE'){
+            this.props.onPressAdd();
+          }else{
+            this.props.onPressSearch();
+          }
+        }}
         mode={this.props.mode}
         title={_('upcomingEvents')}
         onChangeMode={this.props.onChangeMode}

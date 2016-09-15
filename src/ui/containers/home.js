@@ -49,6 +49,8 @@ class Home extends React.Component {
             RouterActions.myEventsTab();
           }
         }}
+        onPressSearch={() => RouterActions.search()}
+        onPressAdd={() => RouterActions.createEvent()}
       />
     );
   }
