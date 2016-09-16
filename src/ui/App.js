@@ -27,7 +27,7 @@ export default class App extends Component {
         <RouterWithReact>
           <Scene hideNavBar={true} key="root">
           {/* TODO <Scene key="loading" component={containers.Loading} />*/}
-            <Scene key="walkthrough" component={containers.Walkthrough} />
+            <Scene key="walkthrough" type="reset" component={containers.Walkthrough} />
             <Scene key="logIn" component={containers.Login}/>
             <Scene key="signUp" component={containers.SignUp} />
             <Scene key="selectMode" component={containers.SelectMode} type="reset" />
@@ -40,6 +40,8 @@ export default class App extends Component {
                 <Scene key="eventMembers" hideNavBar={true} component={containers.EventMembers} />
                 <Scene key="eventInvites" hideNavBar={true} component={containers.EventInvites} />
                 <Scene key="profile" hideNavBar={true} component={containers.Profile} />
+                <Scene key="preferences" hideNavBar={true} component={containers.Preferences} />
+                <Scene key="notifications" direction="vertical" hideNavBar={true} component={containers.Notifications} />
               </Scene>
 
               <Scene key="manageTab">

@@ -1,9 +1,9 @@
 
 import _ from '../i18n';
 import React from 'react';
-import {View,Text,ScrollView} from 'react-native';
+import {View, Text} from 'react-native';
 
-import {Window, Button, Dialog, Icon} from '../components';
+import {Window, Button, TabBar, Popup} from '../components';
 import StyleSheet from '../styles';
 
 export default class Preferences extends React.Component {
@@ -16,47 +16,27 @@ export default class Preferences extends React.Component {
     };
   }
 
-  static getTitle(props) {
-    return _('preferences');
-  }
-
-  static getActionButton(props) {
-    return <Button type="actionDefault" icon="actionRemove" text={_('logout')} onPress={this.prototype.onPressLogout} />;
-  }
-
   constructor() {
     super();
     this.state = {
+      currencyPopup: false,
       currency: 'GBP'
     };
   }
-
-  onPressNotifications = () => {
-    const modalProvider = this.props.window;
-    modalProvider.showModal(<Preferences.Notifications onClose={() => modalProvider.hideModal()} />, 'slide', false);
-  };
 
   onPressEditAccount = () => {
 
   };
 
   onPressCurrency = () => {
-    const modalProvider = this.props.window;
+    this.setState({currencyPopup: true});
+  };
 
-    const set = (currency) => {
-      return () => {
-        modalProvider.hideModal();
-        this.setState({currency});
-      };
-    };
-
-    modalProvider.showModal(
-      <Dialog popup={true} onClose={() => modalProvider.hideModal()} style={StyleSheet.dialog.optionsMenu}>
-        <Button type="alertVertical" text="GBP" onPress={set('GBP')} />
-        <Button type="alertVertical" text="EUR" onPress={set('EUR')} />
-        <Button type="alertVertical" text="USD" onPress={set('USD')} />
-      </Dialog>
-    );
+  setCurrency = (currency) => {
+    this.setState({
+      currency,
+      currencyPopup: false,
+    });
   };
 
   onPressSendFeedback = () => {
@@ -73,9 +53,28 @@ export default class Preferences extends React.Component {
 
   render() {
     return (
-      <ScrollView style={StyleSheet.flex}>
+      <TabBar
+        style={StyleSheet.flex}
+        title={_('preferences')}
+        mode={this.props.mode}
+        actionText={_('logout')}
+        actionIcon="actionRemove"
+        onActionPress={this.props.onPressLogOut}
+        currentTab="more"
+        onTabPress={() => {}}
+      >
+        <Popup
+          visible={this.state.currencyPopup}
+          onClose={() => this.setState({currencyPopup: false})}
+          style={StyleSheet.dialog.optionsMenu}
+        >
+          <Button type="alertVertical" text="GBP" onPress={() => this.setCurrency('GBP')} />
+          <Button type="alertVertical" text="EUR" onPress={() => this.setCurrency('EUR')} />
+          <Button type="alertVertical" text="USD" onPress={() => this.setCurrency('USD')} />
+        </Popup>
+
         <View style={[StyleSheet.flex, StyleSheet.doubleMarginBottom]}>
-          <Button type="preference" text={_('notifications')} icon="chevronRight" onPress={this.onPressNotifications} />
+          <Button type="preference" text={_('notifications')} icon="chevronRight" onPress={this.props.onPressNotifications} />
           <Button type="preference" text={_('editAccount')} icon="chevronRight" onPress={this.onPressEditAccount} />
           <Button type="preference"
               text={_('currency')}
@@ -88,42 +87,7 @@ export default class Preferences extends React.Component {
           <Button type="preferenceLink" text={_('privacy')} onPress={this.onPressPrivacy} />
           <Button type="preferenceHighlightLink" text={_('deactivateAccount')} onPress={this.onPressDeactivateAccount} />
         </View>
-      </ScrollView>
+      </TabBar>
     );
   }
-};
-
-
-
-Preferences.Notifications = class NotificationsPreferences extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
-  render() {
-    const button = (name) => <Button type="preferenceCheck" text={_(name)} icon={<Icon name={this.state[name] ? 'check' : 'none'} style={[StyleSheet.buttons.preferenceCheck.iconStyle, !!this.state[name] && StyleSheet.buttons.preferenceCheck.activeIconStyle]} />} onPress={() => {
-      const obj = {};
-      obj[name] = !this.state[name];
-      this.setState(obj);
-    }}/>;
-
-    return (
-      <Dialog scrollContent popup={false} title={_('notifications')} onClose={this.props.onClose}>
-        {button('pushNotifications')}
-        {button('emailNotifications')}
-        {button('smsNotifications')}
-        <View style={StyleSheet.doubleMargin} />
-        <View style={[StyleSheet.dialog.titleStyle, StyleSheet.profile.upcomingBarStyle]}>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.titleTextStyle]}>{_('receiveNotificationsFor').toUpperCase()}</Text>
-        </View>
-        {button('messages')}
-        {button('memberListChanges')}
-        {button('reminders')}
-        {button('invitations')}
-        {button('requests')}
-        {button('eventModifiations')}
-        {button('friendzone')}
-      </Dialog>
-    );
-  }
-};
+}
