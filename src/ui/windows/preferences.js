@@ -3,7 +3,7 @@ import _ from '../i18n';
 import React from 'react';
 import {View, Text} from 'react-native';
 
-import {Window, Button, TabBar, Popup} from '../components';
+import {Window, Button, Popup, Header} from '../components';
 import StyleSheet from '../styles';
 
 export default class Preferences extends React.Component {
@@ -53,16 +53,11 @@ export default class Preferences extends React.Component {
 
   render() {
     return (
-      <TabBar
-        style={StyleSheet.flex}
-        title={_('preferences')}
-        mode={this.props.mode}
-        actionText={_('logout')}
-        actionIcon="actionRemove"
-        onActionPress={this.props.onPressLogOut}
-        currentTab="more"
-        onTabPress={() => {}}
-      >
+      <View>
+        <Header
+          title={_('preferences')}
+          mode={this.props.mode}
+        />
         <Popup
           visible={this.state.currencyPopup}
           onClose={() => this.setState({currencyPopup: false})}
@@ -87,7 +82,7 @@ export default class Preferences extends React.Component {
           <Button type="preferenceLink" text={_('privacy')} onPress={this.onPressPrivacy} />
           <Button type="preferenceHighlightLink" text={_('deactivateAccount')} onPress={this.onPressDeactivateAccount} />
         </View>
-      </TabBar>
+      </View>
     );
   }
 }

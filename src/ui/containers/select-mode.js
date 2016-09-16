@@ -1,15 +1,14 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Actions as RouterActions} from 'react-native-router-flux';
 import {SelectMode as _SelectMode} from '../windows';
-import {user as actions} from '../../actions';
+import {user, navigation} from '../../actions';
 
 class SelectMode extends React.Component {
 
   componentWillUpdate(nextProps) {
     if(nextProps.user.mode) {
-      RouterActions.tabs();
+      this.props.onNavigate('tabs');
     }
   }
 
@@ -29,6 +28,7 @@ export default connect(
     user: state.user,
   }),
   (dispatch) => ({
-    onSetMode: (mode) => dispatch(actions.setMode(mode)),
+    onSetMode: (mode) => dispatch(user.setMode(mode)),
+    onNavigate: (key, props) => dispatch(navigation.reset({key, props})),
   }),
 )(SelectMode);

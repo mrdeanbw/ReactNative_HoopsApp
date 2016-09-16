@@ -4,7 +4,7 @@ import React from 'react';
 import {ScrollView,View,Text, Image} from 'react-native';
 
 import StyleSheet from '../styles';
-import {Icon, HorizontalRule, Button, MapView, Window, Dialog} from '../components';
+import {Icon, HorizontalRule, Button, MapView, Window, Dialog, Header} from '../components';
 
 import EventData from '../../data/events.json';
 import UserData from '../../data/users.json';
@@ -86,82 +86,89 @@ export default class EventDetails extends React.Component {
     };
 
     return (
-      <ScrollView style={StyleSheet.eventDetails.style}>
-        <View style={StyleSheet.eventDetails.titleStyle}>
-          <Image source={{uri: this.props.event.coverSrc}} style={StyleSheet.eventDetails.coverImageStyle} />
-          <View style={StyleSheet.eventDetails.coverImageOverlayStyle} />
+      <View>
+        <Header
+          title={_('eventDetails')}
+          hideSwitcher={true}
+          onClose={() => {}}
+        />
+        <ScrollView style={StyleSheet.eventDetails.style}>
+          <View style={StyleSheet.eventDetails.titleStyle}>
+            <Image source={{uri: this.props.event.coverSrc}} style={StyleSheet.eventDetails.coverImageStyle} />
+            <View style={StyleSheet.eventDetails.coverImageOverlayStyle} />
 
-          <View style={StyleSheet.eventDetails.titleButtonBar}>
-            <Button type="roundedWhiteBorder" icon="star" text={_('save')} onPress={this.onPressSave} />
-            <View style={StyleSheet.flex} />
-            <Button type="roundedWhiteBorder" icon="plusSmall" text={_('invite')} onPress={this.onPressInvite} />
+            <View style={StyleSheet.eventDetails.titleButtonBar}>
+              <Button type="roundedWhiteBorder" icon="star" text={_('save')} onPress={this.onPressSave} />
+              <View style={StyleSheet.flex} />
+              <Button type="roundedWhiteBorder" icon="plusSmall" text={_('invite')} onPress={this.onPressInvite} />
+            </View>
+
+            <Text style={[StyleSheet.text, StyleSheet.eventDetails.titleTextStyle]}>
+              {this.props.event.title}
+            </Text>
+            <Text style={[StyleSheet.text, StyleSheet.eventDetails.subtitleTextStyle]}>
+              {this.props.event.address}
+            </Text>
           </View>
 
-          <Text style={[StyleSheet.text, StyleSheet.eventDetails.titleTextStyle]}>
-            {this.props.event.title}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.eventDetails.subtitleTextStyle]}>
-            {this.props.event.address}
-          </Text>
-        </View>
+          {organizer && <View style={StyleSheet.eventDetails.avatarStyle}>
+            <View style={StyleSheet.eventDetails.avatarContainerStyle}>
+              <Image source={StyleSheet.images[organizer.avatar]} style={StyleSheet.eventDetails.avatarImageStyle} />
+            </View>
+            <Text style={[StyleSheet.text, StyleSheet.eventDetails.avatarNameStyle]}>
+              {organizer.name.first}{'\u00a0'}{organizer.name.last}
+            </Text>
+            <Text style={[StyleSheet.text, StyleSheet.eventDetails.avatarOccupationStyle]}>
+              {_('theOrganizer')}
+            </Text>
+          </View>}
 
-        {organizer && <View style={StyleSheet.eventDetails.avatarStyle}>
-          <View style={StyleSheet.eventDetails.avatarContainerStyle}>
-            <Image source={StyleSheet.images[organizer.avatar]} style={StyleSheet.eventDetails.avatarImageStyle} />
-          </View>
-          <Text style={[StyleSheet.text, StyleSheet.eventDetails.avatarNameStyle]}>
-            {organizer.name.first}{'\u00a0'}{organizer.name.last}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.eventDetails.avatarOccupationStyle]}>
-            {_('theOrganizer')}
-          </Text>
-        </View>}
+          <EventInfo.Bar>
+            <EventInfo icon="attendees" label={_('attendees')}>
+              <Text style={StyleSheet.eventDetails.eventInfoTextHighlight}>
+                {this.props.event.players}
+              </Text>{'/'}{this.props.event.maxPlayers}
+            </EventInfo>
+            <EventInfo icon="activityBasketball" label={_('activity')}>{this.props.event.activity}</EventInfo>
+            <EventInfo icon="calendarBig" label={_('dateAndTime')}>
+              <Text style={StyleSheet.eventDetails.lightTextStyle}>{formatDate(this.props.event.date)}{', '}</Text>
+              {formatTime(this.props.event.date)}
+            </EventInfo>
+          </EventInfo.Bar>
 
-        <EventInfo.Bar>
-          <EventInfo icon="attendees" label={_('attendees')}>
-            <Text style={StyleSheet.eventDetails.eventInfoTextHighlight}>
-              {this.props.event.players}
-            </Text>{'/'}{this.props.event.maxPlayers}
-          </EventInfo>
-          <EventInfo icon="activityBasketball" label={_('activity')}>{this.props.event.activity}</EventInfo>
-          <EventInfo icon="calendarBig" label={_('dateAndTime')}>
-            <Text style={StyleSheet.eventDetails.lightTextStyle}>{formatDate(this.props.event.date)}{', '}</Text>
-            {formatTime(this.props.event.date)}
-          </EventInfo>
-        </EventInfo.Bar>
+          <HorizontalRule style={StyleSheet.eventDetails.horizontalRule}/>
 
-        <HorizontalRule style={StyleSheet.eventDetails.horizontalRule}/>
+          <EventInfo.Bar>
+            <EventInfo icon={this.props.event.gender + 'Active'} label={_('gender')}>
+              {this.props.event.gender === 'male' && _('maleOnly')}
+              {this.props.event.gender === 'female' && _('femaleOnly')}
+              {this.props.event.gender === 'mixed' && _('mixed')}
+            </EventInfo>
+            <EventInfo icon="courtType" label={_('courtType')}>{this.props.event.courtType}</EventInfo>
+            {this.props.event.ageGroup === 'under-16' && <EventInfo icon="ageUnder16" label={_('ageGroup')}>{_('under16')}</EventInfo>}
+            {this.props.event.ageGroup === '16-to-17' && <EventInfo icon="age16to17" label={_('ageGroup')}>{_('_16to17')}</EventInfo>}
+            {this.props.event.ageGroup === 'adult' && <EventInfo icon="ageAdult" label={_('ageGroup')}>{_('adults')}</EventInfo>}
+            {this.props.event.ageGroup === 'all' && <EventInfo icon="ageAll" label={_('ageGroup')}>{_('unrestricted')}</EventInfo>}
+            {!this.props.event.private && <EventInfo icon="globe" label={_('privacy')}>{_('_public')}</EventInfo>}
+            {!!this.props.event.private && <EventInfo icon="globe" label={_('privacy')}>{_('_private')}</EventInfo>}
+          </EventInfo.Bar>
 
-        <EventInfo.Bar>
-          <EventInfo icon={this.props.event.gender + 'Active'} label={_('gender')}>
-            {this.props.event.gender === 'male' && _('maleOnly')}
-            {this.props.event.gender === 'female' && _('femaleOnly')}
-            {this.props.event.gender === 'mixed' && _('mixed')}
-          </EventInfo>
-          <EventInfo icon="courtType" label={_('courtType')}>{this.props.event.courtType}</EventInfo>
-          {this.props.event.ageGroup === 'under-16' && <EventInfo icon="ageUnder16" label={_('ageGroup')}>{_('under16')}</EventInfo>}
-          {this.props.event.ageGroup === '16-to-17' && <EventInfo icon="age16to17" label={_('ageGroup')}>{_('_16to17')}</EventInfo>}
-          {this.props.event.ageGroup === 'adult' && <EventInfo icon="ageAdult" label={_('ageGroup')}>{_('adults')}</EventInfo>}
-          {this.props.event.ageGroup === 'all' && <EventInfo icon="ageAll" label={_('ageGroup')}>{_('unrestricted')}</EventInfo>}
-          {!this.props.event.private && <EventInfo icon="globe" label={_('privacy')}>{_('_public')}</EventInfo>}
-          {!!this.props.event.private && <EventInfo icon="globe" label={_('privacy')}>{_('_private')}</EventInfo>}
-        </EventInfo.Bar>
+          <HorizontalRule style={StyleSheet.eventDetails.horizontalRule}/>
+          <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionTitleTextStyle]}>{_('eventDescription')}</Text>
+          <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionBodyTextStyle]}>{this.props.event.description}</Text>
 
-        <HorizontalRule style={StyleSheet.eventDetails.horizontalRule}/>
-        <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionTitleTextStyle]}>{_('eventDescription')}</Text>
-        <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionBodyTextStyle]}>{this.props.event.description}</Text>
+          <HorizontalRule style={StyleSheet.eventDetails.horizontalRule}/>
+          <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionTitleTextStyle]}>{_('rules')}</Text>
+          <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionBodyTextStyle]}>{this.props.event.rules}</Text>
 
-        <HorizontalRule style={StyleSheet.eventDetails.horizontalRule}/>
-        <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionTitleTextStyle]}>{_('rules')}</Text>
-        <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionBodyTextStyle]}>{this.props.event.rules}</Text>
-
-        <HorizontalRule style={StyleSheet.eventDetails.horizontalRule}/>
-        <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionTitleTextStyle]}>{_('notes')}</Text>
-        <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionBodyTextStyle]}>{this.props.event.notes}</Text>
+          <HorizontalRule style={StyleSheet.eventDetails.horizontalRule}/>
+          <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionTitleTextStyle]}>{_('notes')}</Text>
+          <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionBodyTextStyle]}>{this.props.event.notes}</Text>
 
 
-        <MapView icon="list" title={_('similarEvents')} style={StyleSheet.eventDetails.mapViewStyle}/>
-      </ScrollView>
+          <MapView icon="list" title={_('similarEvents')} style={StyleSheet.eventDetails.mapViewStyle}/>
+        </ScrollView>
+      </View>
     );
   }
 };

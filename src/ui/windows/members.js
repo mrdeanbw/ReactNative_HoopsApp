@@ -1,11 +1,11 @@
 
 import _ from '../i18n';
 import React from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView, View} from 'react-native';
 
 import MyEvents from './my-events';
 
-import {Window, Button, Popup, UserListItem, TabBar} from '../components';
+import {Window, Button, Popup, UserListItem, Header} from '../components';
 import StyleSheet from '../styles';
 import Manage from './manage';
 
@@ -57,22 +57,18 @@ export default class Members extends React.Component {
 
   render() {
     return (
-      <TabBar
-        title={(
-          <Button
-            type="dialogGreen"
-            icon="plus"
-            text={_('inviteMore')}
-            onPress={this.onPressInviteMore.bind(this)}
-          />
-        )}
-        currentTab="manage"
-        actionText={_('back')}
-        actionType="action"
-        actionIcon="actionBack"
-        onActionPress={this.props.onPressBack}
-        mode={this.props.mode}
-      >
+      <View style={{flex: 1}}>
+        <Header
+          title={(
+            <Button
+              type="dialogGreen"
+              icon="plus"
+              text={_('inviteMore')}
+              onPress={this.onPressInviteMore.bind(this)}
+            />
+          )}
+          mode={this.props.mode}
+        />
         <MemberOptions
           visible={!!this.state.popupOptionsMember}
           onClose={() => this.setState({popupOptionsMember: null})}
@@ -100,7 +96,7 @@ export default class Members extends React.Component {
             );
           })}
         </ScrollView>
-      </TabBar>
+      </View>
     );
   }
 }

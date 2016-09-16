@@ -1,17 +1,17 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Actions as RouterActions} from 'react-native-router-flux';
 import {Walkthrough as _Walkthrough} from '../windows';
+import {navigation} from '../../actions';
 
 class Walkthrough extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if(this.props.user.uid === null && nextProps.user.uid){
       if(!nextProps.user.mode) {
-        RouterActions.selectMode();
-      }else{ 
-        RouterActions.tabs();
+        this.props.onNavigateReset('selectMode');
+      }else{
+        this.props.onNavigateReset('tabs');
       }
     }
   }
@@ -19,8 +19,8 @@ class Walkthrough extends React.Component {
   render() {
     return (
       <_Walkthrough
-        onPressLogIn={RouterActions.logIn}
-        onPressSignUp={RouterActions.signUp}
+        onPressLogIn={() => this.props.onNavigate('login')}
+        onPressSignUp={() => this.props.onNavigate('signup')}
       />
     );
   }
@@ -32,10 +32,7 @@ export default connect(
     router: state.router,
   }),
   (dispatch) => ({
-    onSignUp: (username, password, extra) => {
-      dispatch(actions.signUp(username, password, extra));
-    },
-    onFacebookSignUp: () => dispatch(actions.facebookSignUp()),
-    onSetMode: (mode) => dispatch(actions.setMode(mode)),
+    onNavigate: (key, props) => dispatch(navigation.push({key, props})),
+    onNavigateReset: (key, props) => dispatch(navigation.reset({key, props})),
   }),
 )(Walkthrough);

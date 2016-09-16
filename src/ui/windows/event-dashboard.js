@@ -2,18 +2,29 @@ import _ from '../i18n';
 import React from 'react';
 import {View, Modal, Text} from 'react-native';
 
-import {Button, TabBar, Popup, TextInput} from '../components';
+import {Button, Header, Popup, TextInput} from '../components';
 import StyleSheet from '../styles';
 
 import MyEvents from './my-events';
 
 export default class EventDashboard extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showCancelPopup: false,
     };
+  }
+
+  componentWillMount() {
+    console.log("props", this.props);
+    this._actionListener = this.props.actionButton.addListener('press', () => {
+      this.onCancel();
+    });
+  }
+
+  componentWillUnmount() {
+    this._actionListener && this._actionListener.remove();
   }
 
   onChangeMode(nextMode, nextProps) {
@@ -29,15 +40,11 @@ export default class EventDashboard extends React.Component {
 
   render() {
     return (
-      <TabBar
-        title={`'${this.props.event.title}' ${_('dashboard')}`}
-        actionText={_('cancel')}
-        actionIcon="actionRemove"
-        actionType="action"
-        onActionPress={this.onCancel.bind(this)}
-        currentTab="manage"
-        mode={this.props.mode}
-      >
+      <View style={{flex: 1}}>
+        <Header
+          title={`'${this.props.event.title}' ${_('dashboard')}`}
+          mode={this.props.mode}
+        />
         <CancelEventPopup
           visible={this.state.showCancelPopup}
           onClose={() => this.setState({showCancelPopup: false})}
@@ -81,7 +88,7 @@ export default class EventDashboard extends React.Component {
               underlayColor={StyleSheet.buttons.dashboard.highlightGradient[5]}
               onPress={this.props.onPressRequests}/> || <View style={StyleSheet.flex}/>}
         </View>
-      </TabBar>
+      </View>
     );
   }
 }

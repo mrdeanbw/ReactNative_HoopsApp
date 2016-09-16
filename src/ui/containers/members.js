@@ -2,8 +2,7 @@
 import React from 'react';
 import _Members from '../windows/members';
 import {connect} from 'react-redux';
-import {Actions as RouterActions} from 'react-native-router-flux';
-import * as actions from '../../actions';
+import {navigation} from '../../actions';
 
 class Members extends React.Component {
 
@@ -27,13 +26,13 @@ class Members extends React.Component {
         invites={invites}
         mode={this.props.user.mode}
         onPressBack={() => {
-          RouterActions.pop();
+          this.props.onNavigateBack();
         }}
         onPressUserProfile={(user) => {
-          RouterActions.profile({id: user.id});
+          this.props.onNavigate('profile', {id: user.id});
         }}
         onPressInviteMore={() => {
-          RouterActions.eventInvites({id: event.id})
+          this.props.onNavigate('eventInvites');
         }}
       />
     );
@@ -47,5 +46,7 @@ export default connect(
     events: state.events,
   }),
   (dispatch) => ({
+    onNavigateBack: () => dispatch(navigation.pop()),
+    onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
   }),
 )(Members);

@@ -1,9 +1,8 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Actions as RouterActions} from 'react-native-router-flux';
 import {Preferences as _Preferences} from '../windows';
-import {user as actions} from '../../actions';
+import {navigation, user} from '../../actions';
 
 class Preferences extends React.Component {
 
@@ -11,7 +10,7 @@ class Preferences extends React.Component {
     return (
       <_Preferences
         onPressLogOut={this.props.onLogOut}
-        onPressNotifications={() => RouterActions.notifications()}
+        onPressNotifications={() => this.props.onNavigate('notifications')}
       />
     );
   }
@@ -23,6 +22,7 @@ export default connect(
     events: state.events,
   }),
   (dispatch) => ({
-    onLogOut: () => dispatch(actions.logOut()),
+    onLogOut: () => dispatch(user.logOut()),
+    onNavigate: (key, props) => dispatch(navigation.push({key, props})),
   }),
 )(Preferences);

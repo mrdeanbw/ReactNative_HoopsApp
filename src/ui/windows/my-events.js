@@ -3,7 +3,7 @@ import _ from '../i18n';
 import React from 'react';
 import {View, ScrollView} from 'react-native';
 
-import {Window, Button, Popup, EventListItem, SwitchButton, TabBar} from '../components';
+import {Window, Button, Popup, EventListItem, SwitchButton, Header} from '../components';
 import StyleSheet from '../styles';
 
 import Manage from './manage';
@@ -81,18 +81,12 @@ export default class MyEvents extends React.Component {
     }[this.state.tab];
 
     return (
-      <TabBar
-        title={undefined}
-        mode={this.props.mode}
-        actionIcon="actionSearch"
-        actionText={_('search')}
-        onActionPress={this.props.onPressSearch}
-        accessoryViews={(
-          <SwitchButton value={this.props.availability} onChange={this.onChangeSwitch.bind(this)}/>
-        )}
-        onTabPress={this.props.onTabPress}
-        currentTab="myEvents"
-      >
+      <View>
+        <Header
+          title={undefined}
+          mode={this.props.mode}
+          onChangeMode={this.props.onChangeMode}
+        />
         <DisclosurePopup
           type={this.state.tab}
           visible={!!this.state.disclosureEvent}
@@ -126,7 +120,7 @@ export default class MyEvents extends React.Component {
                      distance={event.distance}
                      date={event.date} />)}
         </ScrollView>
-      </TabBar>
+      </View>
     );
   }
 }

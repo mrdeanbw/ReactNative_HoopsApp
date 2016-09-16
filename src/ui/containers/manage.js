@@ -1,17 +1,16 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Actions as RouterActions} from 'react-native-router-flux';
 import {Manage as _Manage} from '../windows';
-import {user as actions} from '../../actions';
+import {navigation} from '../../actions';
 
 class Manage extends React.Component {
 
   onPressEvent(event) {
     if(this.props.user.mode === 'ORGANIZE') {
-      RouterActions.eventDashboard({id: event.id});
+      this.props.onNavigate('eventDashboard', {id: event.id});
     }else{
-      RouterActions.eventDetails({id: event.id});
+      this.props.onNavigate('eventDetails', {id: event.id});
     }
   }
 
@@ -24,11 +23,6 @@ class Manage extends React.Component {
       <_Manage
         onPressEvent={this.onPressEvent.bind(this)}
         events={events}
-        onTabPress={(tab) => {
-          if(tab === 'home'){
-            RouterActions.homeTab();
-          }
-        }}
         mode={this.props.user.mode}
         onPressCreate={() => {}}
       />
@@ -42,5 +36,6 @@ export default connect(
     events: state.events,
   }),
   (dispatch) => ({
+    onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
   }),
 )(Manage);
