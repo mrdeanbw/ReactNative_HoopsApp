@@ -47,6 +47,8 @@ class Home extends React.Component {
             RouterActions.manageTab();
           }else if(tab === 'myEvents'){
             RouterActions.myEventsTab();
+          }else if(tab === 'settings'){
+            RouterActions.preferences();
           }
         }}
         onPressSearch={() => RouterActions.search()}

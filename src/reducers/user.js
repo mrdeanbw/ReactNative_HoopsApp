@@ -99,6 +99,10 @@ export default handleActions({
     };
   },
 
+  USER_LOGGED_OUT: (state, action) => {
+    return initialState;
+  },
+
   SET_UI_MODE: (state, action) => {
     return {
       ...state,
