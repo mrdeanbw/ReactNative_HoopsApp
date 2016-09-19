@@ -2,7 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {MyEvents as _MyEvents} from '../windows';
-import {user as actions} from '../../actions';
+import {user, navigation} from '../../actions';
 
 class MyEvents extends React.Component {
 
@@ -48,6 +48,7 @@ export default connect(
     events: state.events,
   }),
   (dispatch) => ({
-    onChangeAvailability: (value) => dispatch(actions.setAvailability(value)),
+    onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
+    onChangeAvailability: (value) => dispatch(user.setAvailability(value)),
   }),
 )(MyEvents);
