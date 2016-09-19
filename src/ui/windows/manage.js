@@ -1,9 +1,9 @@
 
 import _ from '../i18n';
 import React from 'react';
-import {ScrollView} from 'react-native';
+import {View, ScrollView} from 'react-native';
 
-import {Window, Button, EventListItem, TabBar} from '../components';
+import {Window, Button, EventListItem, Header} from '../components';
 import StyleSheet from '../styles';
 
 import MyEvents from './my-events';
@@ -20,15 +20,11 @@ export default class Manage extends React.Component {
 
   render() {
     return (
-      <TabBar
-        title={_('manageYourEvents')}
-        actionText={_('create')}
-        actionIcon="actionAdd"
-        onActionPress={this.props.onPressCreate}
-        currentTab="manage"
-        onTabPress={this.props.onTabPress}
-        mode={this.props.mode}
-      >
+      <View style={{flex: 1}}>
+        <Header
+          title={_('manageYourEvents')}
+          mode={this.props.mode}
+        />
         <ScrollView contentContainerStyle={StyleSheet.container}>
           {this.props.events.map(event =>
             <EventListItem
@@ -43,7 +39,7 @@ export default class Manage extends React.Component {
             />
           )}
         </ScrollView>
-      </TabBar>
+      </View>
     );
   }
 }

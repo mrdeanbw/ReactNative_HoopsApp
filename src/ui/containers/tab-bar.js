@@ -77,6 +77,7 @@ class TabBar extends React.Component {
         component: containers.Manage,
         action: {
           text: _('create'),
+          icon: "actionAdd",
         },
       },
 
@@ -182,6 +183,7 @@ class TabBar extends React.Component {
             this.props.onShowMenu();
           }
         }}
+        mode={this.props.user.mode}
       >
         {this.renderTab()}
       </_TabBar>

@@ -17,7 +17,6 @@ export default class EventDashboard extends React.Component {
   }
 
   componentWillMount() {
-    console.log("props", this.props);
     this._actionListener = this.props.actionButton.addListener('press', () => {
       this.onCancel();
     });
