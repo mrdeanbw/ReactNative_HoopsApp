@@ -8,8 +8,6 @@ import * as userDb from '../data/user';
 import * as eventsActions from './events';
 import * as usersActions from './users';
 
-import {Actions as RouterActions} from 'react-native-router-flux';
-
 export const signIn = (email, password) => {
   let uid;
   return (dispatch) => {
@@ -147,7 +145,6 @@ export const logOut = () => {
       dispatch({
         type: 'USER_LOGGED_OUT',
       });
-      RouterActions.walkthrough();
     });
   }
 };

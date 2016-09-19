@@ -1,12 +1,12 @@
 
-import router from './router';
 import user from './user';
 import users from './users';
 import events from './events';
+import navigation from './navigation';
 
 export default {
-  router,
   user,
   users,
   events,
+  navigation,
 };

@@ -20,22 +20,26 @@ export default class Header extends React.Component {
 
     return (
       <View style={StyleSheet.window.titleBarStyle}>
-        <View style={StyleSheet.window.logoBarStyle}>
-          <View style={StyleSheet.window.accessoryBarStyle}>
-            {this.props.onClose && <Button type="title" icon="close" style={StyleSheet.window.closeButton} onPress={this.props.onClose} />}
-            {this.props.accessoryViews}
-          </View>
-          <Image source={StyleSheet.images.logo} style={StyleSheet.window.logoStyle} />
-          <Button type="modeSwitch" icon="switch" onPress={this.props.onChangeMode} />
-        </View>
+        {!this.props.hideSwitcher && (
+          <View>
+            <View style={StyleSheet.window.logoBarStyle}>
+              <View style={StyleSheet.window.accessoryBarStyle}>
+                {this.props.onClose && <Button type="title" icon="close" style={StyleSheet.window.closeButton} onPress={this.props.onClose} />}
+                {this.props.accessoryViews}
+              </View>
+              <Image source={StyleSheet.images.logo} style={StyleSheet.window.logoStyle} />
+              <Button type="modeSwitch" icon="switch" onPress={this.props.onChangeMode} />
+            </View>
 
-        <View style={StyleSheet.window.modeBarStyle}>
-          <View style={StyleSheet.window.modeChevronStyle} />
-          <HighlightText style={[StyleSheet.text, StyleSheet.window.modeTextStyle]}
-                   highlightStyle={StyleSheet.window.modeHighlightTextStyle}
-                   highlight={modeTextHighlight}
-                   text={modeText} />
-        </View>
+            <View style={StyleSheet.window.modeBarStyle}>
+              <View style={StyleSheet.window.modeChevronStyle} />
+              <HighlightText style={[StyleSheet.text, StyleSheet.window.modeTextStyle]}
+                       highlightStyle={StyleSheet.window.modeHighlightTextStyle}
+                       highlight={modeTextHighlight}
+                       text={modeText} />
+            </View>
+          </View>
+        )}
 
         {this.props.title && <View style={StyleSheet.window.titleStyle}>
           {(typeof this.props.title === 'object') && this.props.title ||

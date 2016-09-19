@@ -1,14 +1,13 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Actions as RouterActions} from 'react-native-router-flux';
 import {MyEvents as _MyEvents} from '../windows';
 import {user as actions} from '../../actions';
 
 class MyEvents extends React.Component {
 
   onPressEvent(event) {
-    RouterActions.eventDetails({id: event.id});
+    this.props.onNavigate('eventDetails', {id: event.id});
   }
 
   render() {
@@ -27,17 +26,13 @@ class MyEvents extends React.Component {
     return (
       <_MyEvents
         onPressEvent={this.onPressEvent.bind(this)}
-        onPressCreate={() => {}}
-        onPressSearch={() => RouterActions.search()}
+        onPressCreate={() => this.props.onNavigate('createEvent')}
+        onPressSearch={() => this.props.onNavigate('search')}
         upcoming={upcoming}
         saved={[/*TODO*/]}
         history={history}
-        onTabPress={(tab) => {
-          if(tab === 'home'){
-            RouterActions.homeTab();
-          }
-        }}
         mode={this.props.user.mode}
+        onChangeMode={this.props.onChangeMode}
         availability={this.props.user.availability}
         onChangeAvailability={(value) => {
           this.props.onChangeAvailability(value);

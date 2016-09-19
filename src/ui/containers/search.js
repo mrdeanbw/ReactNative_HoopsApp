@@ -1,9 +1,8 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Actions as RouterActions} from 'react-native-router-flux';
 import {Search as _Search} from '../windows';
-import {user as actions} from '../../actions';
+import {user, navigation} from '../../actions';
 
 class Search extends React.Component {
 
@@ -12,9 +11,9 @@ class Search extends React.Component {
     return (
       <_Search
         mode={this.props.user.mode}
-        onClose={() => RouterActions.pop()}
+        onClose={this.props.onNavigateBack}
         onPressSearch={(searchParams) => {
-          RouterActions.searchResults({searchParams});
+          this.props.onNavigate('searchResults', {searchParams});
         }}
       />
     );
@@ -27,6 +26,8 @@ export default connect(
     events: state.events,
   }),
   (dispatch) => ({
-    onChangeMode: (mode) => dispatch(actions.setMode(mode)),
+    onNavigate: (key, props) => dispatch(navigation.push({key, props})),
+    onNavigateBack: () => dispatch(navigation.pop()),
+    onChangeMode: (mode) => dispatch(user.setMode(mode)),
   }),
 )(Search);

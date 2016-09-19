@@ -1,13 +1,18 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Actions as RouterActions} from 'react-native-router-flux';
 import {EventDetails as _EventDetails} from '../windows';
-import {user as actions} from '../../actions';
-
-import {View} from 'react-native';
 
 class EventDetails extends React.Component {
+
+  componentWillMount() {
+    this._actionListener = this.props.actionButton.addListener('press', () => {
+    });
+  }
+
+  componentWillUnmount() {
+    this._actionListener && this._actionListener.remove();
+  }
 
   render() {
     return (

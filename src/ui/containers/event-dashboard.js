@@ -1,37 +1,37 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Actions as RouterActions} from 'react-native-router-flux';
 import _EventDashboard from '../windows/event-dashboard';
+import {navigation} from '../../actions';
 
 class EventDashboard extends React.Component {
 
   onCancel() {
-    RouterActions.pop();
+    //TODO
   }
 
   onPressDetails() {
-    RouterActions.eventDetails({id: this.props.id});
+    this.props.onNavigate('eventDetails', {id: this.props.id});
   }
 
   onPressMembers() {
-    RouterActions.eventMembers({id: this.props.id});
+    this.props.onNavigate('eventMembers', {id: this.props.id});
   }
 
   onPressMessages() {
-    //RouterActions.eventMessages({id: this.props.id});
+    //this.props.onNavigate('eventMessages', {id: this.props.id});
   }
 
   onPressGallery() {
-    //RouterActions.eventGallery({id: this.props.id});
+    //this.props.onNavigate('eventGallery', {id: this.props.id});
   }
 
   onPressFinances() {
-    //RouterActions.eventFinances({id: this.props.id});
+    //this.props.onNavigate('eventFinances', {id: this.props.id});
   }
 
   onPressRequests() {
-    //RouterActions.eventRequests({id: this.props.id});
+    //this.props.onNavigate('eventRequests', {id: this.props.id});
   }
 
   render() {
@@ -45,6 +45,7 @@ class EventDashboard extends React.Component {
         onPressGallery={this.onPressGallery.bind(this)}
         onPressFinances={this.onPressFinances.bind(this)}
         onPressRequests={this.onPressRequests.bind(this)}
+        actionButton={this.props.actionButton}
         mode={this.props.user.mode}
       />
     );
@@ -62,5 +63,6 @@ export default connect(
     events: state.events,
   }),
   (dispatch) => ({
+    onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
   }),
 )(EventDashboard);

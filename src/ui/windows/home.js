@@ -7,9 +7,8 @@ import {View, ScrollView, Text, Image, MapView} from 'react-native';
 
 import StyleSheet from '../styles';
 import EventListItem from '../components/event-list-item';
+import Header from '../components/header';
 import Window from '../components/window';
-
-import {TabBar} from '../components';
 
 export default class Home extends React.Component {
 
@@ -31,22 +30,12 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <TabBar
-        currentTab="home"
-        actionIcon={this.props.mode === 'ORGANIZE' ? "actionAdd" : "actionSearch"}
-        actionText={_(this.props.mode === 'ORGANIZE' ? 'create' : 'search')}
-        onActionPress={() => {
-          if(this.props.mode === 'ORGANIZE'){
-            this.props.onPressAdd();
-          }else{
-            this.props.onPressSearch();
-          }
-        }}
-        mode={this.props.mode}
-        title={_('upcomingEvents')}
-        onChangeMode={this.props.onChangeMode}
-        onTabPress={this.props.onTabPress}
-      >
+      <View>
+        <Header
+          title={_('home')}
+          mode={this.props.mode}
+          onChangeMode={this.props.onChangeMode}
+        />
         <ScrollView contentContainerStyle={StyleSheet.container}>
           {this.props.events.map(event =>
             <EventListItem key={event.id}
@@ -85,7 +74,7 @@ export default class Home extends React.Component {
             </View>
           </View>}
         </ScrollView>
-      </TabBar>
+      </View>
     );
   }
 }

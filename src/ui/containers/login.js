@@ -1,7 +1,6 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Actions as RouterActions} from 'react-native-router-flux';
 import {Login as _Login} from '../windows';
 import {user as actions} from '../../actions';
 
