@@ -25,7 +25,7 @@ class TabBar extends React.Component {
         component: containers.Home,
         action: {
           text: _('search'),
-          icon: "search",
+          icon: "actionSearch",
           onPress: () => props.onNavigate('search', {}, false),
         },
       },
@@ -84,7 +84,7 @@ class TabBar extends React.Component {
         component: containers.MyEvents,
         action: {
           text: _('search'),
-          icon: "search",
+          icon: "actionSearch",
           onPress: () => props.onNavigate('search'),
         },
       },
