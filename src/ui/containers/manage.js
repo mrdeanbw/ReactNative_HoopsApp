@@ -2,7 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Manage as _Manage} from '../windows';
-import {navigation} from '../../actions';
+import {user, navigation} from '../../actions';
 
 class Manage extends React.Component {
 
@@ -24,6 +24,7 @@ class Manage extends React.Component {
         onPressEvent={this.onPressEvent.bind(this)}
         events={events}
         mode={this.props.user.mode}
+        onToggleMode={this.props.onToggleMode}
         onPressCreate={() => {}}
       />
     );
@@ -37,5 +38,6 @@ export default connect(
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
+    onToggleMode: () => dispatch(user.toggleMode()),
   }),
 )(Manage);

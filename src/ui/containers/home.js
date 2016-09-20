@@ -2,7 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Home as _Home} from '../windows';
-import {navigation} from '../../actions';
+import {user, navigation} from '../../actions';
 
 class Home extends React.Component {
 
@@ -33,9 +33,9 @@ class Home extends React.Component {
       <_Home
         onPressEvent={this.onPressEvent.bind(this)}
         events={events}
-        mode={this.props.user.mode}
-        onChangeMode={this.props.onChangeMode}
         onPressAdd={() => this.props.onNavigate('createEvent')}
+        mode={this.props.user.mode}
+        onToggleMode={this.props.onToggleMode}
       />
     );
   }
@@ -48,5 +48,6 @@ export default connect(
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
+    onToggleMode: () => dispatch(user.toggleMode()),
   }),
 )(Home);

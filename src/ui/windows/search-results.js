@@ -16,8 +16,9 @@ export default class SearchResults extends React.Component {
     return (
       <View>
         <Header
-          mode={this.props.mode}
           title={_('searchResults')}
+          mode={this.props.mode}
+          onToggleMode={this.props.onToggleMode}
           onClose={this.props.onClose}
         />
 

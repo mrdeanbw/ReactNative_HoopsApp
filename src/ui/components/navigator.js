@@ -18,8 +18,6 @@ export default class Navigator extends React.Component {
     return (
       <View style={StyleSheet.window.contentStyle}>
         <config.component
-          mode={this.props.mode}
-          onChangeMode={this.props.onChangeMode}
           actionButton={config.action && config.action.pressEmitter}
           onChangeAction={this.props.onChangeAction}
           {...route.props}

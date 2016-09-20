@@ -30,10 +30,6 @@ export default class MyEvents extends React.Component {
     this.props.onChangeAvailability(switchValue);
   }
 
-  onChangeMode(nextMode, nextProps) {
-    nextProps.initialTab = Manage;
-  }
-
   onPressEvent(event) {
     this.props.onPressEvent(event);
   }
@@ -85,7 +81,7 @@ export default class MyEvents extends React.Component {
         <Header
           title={undefined}
           mode={this.props.mode}
-          onChangeMode={this.props.onChangeMode}
+          onToggleMode={this.props.onToggleMode}
         />
         <DisclosurePopup
           type={this.state.tab}

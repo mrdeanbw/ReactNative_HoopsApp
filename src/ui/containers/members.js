@@ -2,7 +2,7 @@
 import React from 'react';
 import _Members from '../windows/members';
 import {connect} from 'react-redux';
-import {navigation} from '../../actions';
+import {user, navigation} from '../../actions';
 
 class Members extends React.Component {
 
@@ -25,6 +25,7 @@ class Members extends React.Component {
         event={event}
         invites={invites}
         mode={this.props.user.mode}
+        onToggleMode={this.props.onToggleMode}
         onPressBack={() => {
           this.props.onNavigateBack();
         }}
@@ -48,5 +49,6 @@ export default connect(
   (dispatch) => ({
     onNavigateBack: () => dispatch(navigation.pop()),
     onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
+    onToggleMode: () => dispatch(user.toggleMode()),
   }),
 )(Members);

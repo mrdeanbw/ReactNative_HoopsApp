@@ -11,6 +11,7 @@ class Search extends React.Component {
     return (
       <_Search
         mode={this.props.user.mode}
+        onToggleMode={this.props.onToggleMode}
         onClose={this.props.onNavigateBack}
         onPressSearch={(searchParams) => {
           this.props.onNavigate('searchResults', {searchParams});
@@ -28,6 +29,6 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props})),
     onNavigateBack: () => dispatch(navigation.pop()),
-    onChangeMode: (mode) => dispatch(user.setMode(mode)),
+    onToggleMode: () => dispatch(user.toggleMode()),
   }),
 )(Search);

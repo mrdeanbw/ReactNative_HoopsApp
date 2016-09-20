@@ -34,7 +34,7 @@ export default class Home extends React.Component {
         <Header
           title={_('home')}
           mode={this.props.mode}
-          onChangeMode={this.props.onChangeMode}
+          onToggleMode={this.props.onToggleMode}
         />
         <ScrollView contentContainerStyle={StyleSheet.container}>
           {this.props.events.map(event =>

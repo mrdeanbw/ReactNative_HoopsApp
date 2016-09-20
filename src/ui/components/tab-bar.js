@@ -4,7 +4,7 @@ import _ from '../i18n';
 
 import StyleSheet from '../styles';
 
-import {View, Animated, StatusBar, Text} from 'react-native';
+import {View, Animated, Text} from 'react-native';
 import Button from './button';
 import Menu from './menu';
 
@@ -57,6 +57,7 @@ export default class TabBar extends React.Component {
           <Menu
             animation={this.state.menuAnimation}
             onPressBackground={this.props.onHideMenu}
+            user={this.props.user}
           >
             <Menu.Item icon="help" text={_('help')} onPress={() => {}} />
             <Menu.Item icon="settings" text={_('settings')} onPress={() => this.props.onTabPress('settings')}/>
@@ -72,12 +73,12 @@ export default class TabBar extends React.Component {
             onPress={() => this.props.onTabPress('home')}
           />
           {this.props.mode === 'ORGANIZE' ? (
-            <Button type="tab" icon="manage" text={_('manage')}
+            <Button key="manage" type="tab" icon="manage" text={_('manage')}
               active={this.props.currentTab === "manage"}
               onPress={() => this.props.onTabPress('manage')}
             />
           ) : (
-            <Button type="tab" icon="myEvents" text={_('myEvents')}
+            <Button key="myEvents" type="tab" icon="myEvents" text={_('myEvents')}
               active={this.props.currentTab === "myEvents"}
               onPress={() => this.props.onTabPress('myEvents')}
             />
@@ -86,12 +87,12 @@ export default class TabBar extends React.Component {
           <Button type={this.props.actionType} icon={actionIcon} text={this.props.actionText} onPress={this.props.onActionPress} />
 
           {this.props.mode === 'ORGANIZE' ? (
-            <Button type="tab" icon="calendar" text={_('calendar')}
+            <Button key="calendar" type="tab" icon="calendar" text={_('calendar')}
               active={this.props.currentTab === "calendar"}
               onPress={() => this.props.onTabPress('calendar')}
             />
           ) : (
-            <Button type="tab" icon="calendar" text={_('invitations')}
+            <Button key="invitations" type="tab" icon="invitations" text={_('invitations')}
               active={this.props.currentTab === 'invitations'}
               onPress={() => this.props.onTabPress('invitations')}
             />

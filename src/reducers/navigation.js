@@ -32,6 +32,12 @@ const initialState = {
         key: 'myEvents',
       }],
     },
+    calendar: {
+      index: 0,
+      routes: [{
+        key: 'calendar',
+      }],
+    },
     invitations: {
       index: 0,
       routes: [{
@@ -119,6 +125,15 @@ export default handleActions({
 
   USER_LOGGED_OUT: (state, action) => {
     return initialState;
+  },
+
+  SET_UI_MODE: (state, action) => {
+    //Reset tabs nav state when the UI mode is changed
+    return {
+      ...state,
+      tabKey: 'home',
+      tabs: initialState.tabs,
+    };
   },
 
 }, initialState);

@@ -6,10 +6,17 @@ import {user as actions} from '../../actions';
 
 class Profile extends React.Component {
   render() {
+    let user = this.props.users.usersById[this.props.id];
+    let eventIds = user.organizer || [];
+    let events = eventIds.map((eventId) => {
+      return this.props.events.eventsById[eventId];
+    }).filter(event => !!event.id);
+
     return (
       <_Profile
         profile={this.props.users.usersById[this.props.id]}
         me={this.props.user}
+        upcoming={events}
         onChangeAvailability={this.props.onChangeAvailability}
       />
     );

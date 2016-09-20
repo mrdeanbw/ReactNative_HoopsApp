@@ -5,6 +5,7 @@ import {View,Text} from 'react-native';
 
 import Window from '../components/window';
 import Button from '../components/button';
+import Header from '../components/header';
 import Invitations from './invitations';
 
 export default class Calendar extends React.Component {
@@ -36,6 +37,11 @@ export default class Calendar extends React.Component {
   render() {
     return (
       <View>
+        <Header
+          title={_('calendar')}
+          mode={this.props.mode}
+          onToggleMode={this.props.onToggleMode}
+        />
         <Text>Calendar</Text>
       </View>
     );

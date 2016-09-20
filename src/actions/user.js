@@ -157,6 +157,14 @@ export const setMode = (mode) => ({
   mode,
 });
 
+export const toggleMode = () => {
+  return (dispatch, getState) => {
+    let currentMode = getState().user.mode;
+    let nextMode = currentMode === 'ORGANIZE' ? 'PARTICIPATE' : 'ORGANIZE';
+    dispatch(setMode(nextMode));
+  };
+};
+
 /*
  * Set the user's availability
  */

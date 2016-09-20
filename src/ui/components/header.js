@@ -28,7 +28,7 @@ export default class Header extends React.Component {
                 {this.props.accessoryViews}
               </View>
               <Image source={StyleSheet.images.logo} style={StyleSheet.window.logoStyle} />
-              <Button type="modeSwitch" icon="switch" onPress={this.props.onChangeMode} />
+              <Button type="modeSwitch" icon="switch" onPress={this.props.onToggleMode} />
             </View>
 
             <View style={StyleSheet.window.modeBarStyle}>

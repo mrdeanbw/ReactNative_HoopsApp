@@ -6,24 +6,9 @@ import {View,Text,Image,ScrollView} from 'react-native';
 import {Button, Dialog, EventListItem, TextInput, SwitchButton, CheckButton, ListInput, DateInput, Icon} from '../components';
 import StyleSheet from '../styles';
 
-import UserData from '../../data/users.json';
-import EventData from '../../data/events.json';
 import InterestsData from '../../data/interests.json';
 
-
 export default class Profile extends React.Component {
-
-  static getTest(close) {
-    return [{
-      title: 'Profile',
-      view: Profile,
-      viewProps: { profile: UserData[1], user: UserData[0], onClose: close }
-    }, {
-      title: 'My Profile',
-      view: Profile,
-      viewProps: { profile: UserData[0], user: UserData[0], onClose: close }
-    }];
-  }
 
   constructor() {
     super();
@@ -119,7 +104,7 @@ export default class Profile extends React.Component {
           </Text>
         </View>
 
-        {EventData.map(event =>
+        {this.props.upcoming.map(event =>
           <EventListItem key={event.id}
                    onPress={() => this.onPressEvent(event)}
                    image={StyleSheet.images[event.image]}

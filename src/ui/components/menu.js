@@ -15,8 +15,6 @@ import {Icon} from './';
 
 import StyleSheet from '../styles';
 
-import UserData from '../../data/users.json';
-
 export default class Menu extends React.Component {
 
   render() {
@@ -32,14 +30,12 @@ export default class Menu extends React.Component {
           <View style={[StyleSheet.menu.header]}>
             <View style={[StyleSheet.menu.avatarContainer]}>
               <Image
-                source={StyleSheet.images[this.props.user.avatar]}
+                source={StyleSheet.images.avatarChrisMurray}
                 style={[StyleSheet.menu.avatarImage]}
               />
             </View>
             <Text style={[StyleSheet.text, StyleSheet.menu.avatarText]}>
-              <Text>{this.props.user.name.first.toUpperCase()}</Text>
-              <Text>{'\n'}</Text>
-              <Text>{this.props.user.name.last.toUpperCase()}</Text>
+              <Text>{this.props.user.name.toUpperCase()}</Text>
             </Text>
           </View>
 
@@ -52,7 +48,7 @@ export default class Menu extends React.Component {
     );
   }
 
-};
+}
 
 Menu.Item = class MenuItem extends React.Component {
   render() {
@@ -73,7 +69,7 @@ Menu.Item = class MenuItem extends React.Component {
       </TouchableHighlight>
     )
   }
-};
+}
 
 Menu.Item.propTypes = {
   text: React.PropTypes.string.isRequired,
@@ -81,8 +77,3 @@ Menu.Item.propTypes = {
   icon: React.PropTypes.string.isRequired,
   onPress: React.PropTypes.func,
 };
-
-Menu.defaultProps = {
-  user: UserData[0],
-};
-

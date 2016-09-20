@@ -43,6 +43,7 @@ export default class EventDashboard extends React.Component {
         <Header
           title={`'${this.props.event.title}' ${_('dashboard')}`}
           mode={this.props.mode}
+          onToggleMode={this.props.onToggleMode}
         />
         <CancelEventPopup
           visible={this.state.showCancelPopup}

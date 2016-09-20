@@ -109,6 +109,20 @@ class TabBar extends React.Component {
 
       profile: {
         component: containers.Profile,
+        action: {
+          text: _('create'),
+          icon: "actionAdd",
+          onPress: () => props.onNavigate('create'),
+        },
+      },
+
+      calendar: {
+        component: containers.Calendar,
+        action: {
+          text: _('create'),
+          icon: "actionAdd",
+          onPress: () => props.onNavigate('create'),
+        },
       },
     };
   }
@@ -126,18 +140,11 @@ class TabBar extends React.Component {
         onNavigateBack={this.props.onNavigateBack}
         navigationState={this.props.navigation.tabs[this.props.navigation.tabKey]}
         routeConfig={this.routeConfig}
-
-        mode={this.props.navigation.mode}
-        onChangeMode={() => {
-          if(this.props.user.mode === 'ORGANIZE'){
-            this.props.onChangeMode('PARTICIPATE');
-          }else{
-            this.props.onChangeMode('ORGANIZE');
-          }
-        }}
         onChangeAction={(action) => {
           this.setState({action});
         }}
+        mode={this.props.user.mode}
+        onToggleMode={this.props.onToggleMode}
       />
     );
   }
@@ -184,6 +191,7 @@ class TabBar extends React.Component {
           }
         }}
         mode={this.props.user.mode}
+        user={this.props.user}
       >
         {this.renderTab()}
       </_TabBar>
@@ -202,9 +210,9 @@ export default connect(
     onNavigate: (key, props, subTab = true) => {
       dispatch(navigation.push({key, props}, subTab));
     },
-    onChangeMode: (mode) => dispatch(user.setMode(mode)),
     onLogOut: () => dispatch(user.logOut()),
     onShowMenu: () => dispatch(navigation.showMenu()),
     onHideMenu: () => dispatch(navigation.hideMenu()),
+    onToggleMode: () => dispatch(user.toggleMode()),
   }),
 )(TabBar);

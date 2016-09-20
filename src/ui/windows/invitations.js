@@ -32,18 +32,6 @@ export default class Invitations extends React.Component {
     };
   }
 
-  static getTitle(props) {
-    return _('invitations');
-  }
-
-  static getActionButton(props) {
-    return <Button type="action" icon="actionSearch" text={_('search')} onPress={this.prototype.onPressSearch} />;
-  }
-
-  onChangeMode(nextMode, nextProps) {
-    if(nextMode === 'organizer') nextProps.initialTab = Calendar;
-  }
-
   constructor() {
     super();
     this.state = {

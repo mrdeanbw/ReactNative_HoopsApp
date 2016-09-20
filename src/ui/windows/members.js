@@ -68,6 +68,7 @@ export default class Members extends React.Component {
             />
           )}
           mode={this.props.mode}
+          onToggleMode={this.props.onToggleMode}
         />
         <MemberOptions
           visible={!!this.state.popupOptionsMember}

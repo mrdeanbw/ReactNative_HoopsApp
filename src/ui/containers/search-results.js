@@ -21,6 +21,7 @@ class SearchResults extends React.Component {
           this.props.onNavigate('eventDetails', {id: event.id});
         }}
         mode={this.props.user.mode}
+        onToggleMode={this.props.onToggleMode}
         onClose={this.props.onNavigateBack}
       />
     );
@@ -39,7 +40,7 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props})),
     onNavigateBack: () => dispatch(navigation.pop()),
-    onChangeMode: (mode) => dispatch(user.setMode(mode)),
+    onToggleMode: () => dispatch(user.toggleMode()),
   }),
 )(SearchResults);
 

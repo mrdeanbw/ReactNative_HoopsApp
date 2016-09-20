@@ -3,12 +3,10 @@ import {handleActions} from 'redux-actions';
 const initialState = {
   uid: null,
 
-  personal: {
-    name: null,
-    username: null,
-    gender: null,
-    dob: null,
-  },
+  name: null,
+  username: null,
+  gender: null,
+  dob: null,
 
   availability: true,
 
@@ -49,13 +47,11 @@ export default handleActions({
     return {
       ...state,
       uid: action.uid,
-      personal: {
-        email: extra.email,
-        name: extra.name,
-        username: extra.username,
-        dob: extra.dob,
-        gender: extra.gender,
-      },
+      email: extra.email,
+      name: extra.name,
+      username: extra.username,
+      dob: extra.dob,
+      gender: extra.gender,
       isSigningIn: false,
       signInError: null,
     };
@@ -65,9 +61,12 @@ export default handleActions({
     return {
       ...state,
       uid: null,
+
+      email: null,
       name: null,
       username: null,
-      personal: {},
+      dob: null,
+      gender: null,
 
       isSigningIn: false,
       signInError: action.err,

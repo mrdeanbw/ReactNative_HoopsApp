@@ -2,7 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import _EventDashboard from '../windows/event-dashboard';
-import {navigation} from '../../actions';
+import {user, navigation} from '../../actions';
 
 class EventDashboard extends React.Component {
 
@@ -47,6 +47,7 @@ class EventDashboard extends React.Component {
         onPressRequests={this.onPressRequests.bind(this)}
         actionButton={this.props.actionButton}
         mode={this.props.user.mode}
+        onToggleMode={this.props.onToggleMode}
       />
     );
   }
@@ -64,5 +65,6 @@ export default connect(
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
+    onToggleMode: () => dispatch(user.toggleMode()),
   }),
 )(EventDashboard);
