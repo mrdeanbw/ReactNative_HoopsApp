@@ -42,6 +42,10 @@ class Root extends React.Component {
       eventDetails: {
         component: containers.EventDetails,
       },
+
+      createEvent: {
+        component: containers.CreateEvent,
+      },
     };
   }
 

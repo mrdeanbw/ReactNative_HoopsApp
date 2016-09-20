@@ -53,10 +53,12 @@ export const load = (id) => {
         onLoaded(event);
       });
 
-      let userIds = event.invites.map((invite) => {
-        return invite.user;
-      });
-      dispatch(usersActions.loadMany(userIds));
+      if(event.invites) {
+        let userIds = event.invites.map((invite) => {
+          return invite.user;
+        });
+        dispatch(usersActions.loadMany(userIds));
+      }
     });
   };
 };
@@ -65,5 +67,33 @@ export const remove = (id) => {
   return {
     type: 'EVENT_REMOVED',
     id,
+  };
+};
+
+export const save = (eventData) => {
+  return (dispatch, getState) => {
+    let ref = eventsRef.push();
+    let newKey = ref.key;
+    let uid = getState().user.uid;
+
+    firebaseDb.update({
+      [`events/${newKey}`]: {
+        ...eventData,
+        id: newKey,
+      },
+      [`users/${uid}/organizing/${newKey}`]: true,
+    }, (err) => {
+      if(err) {
+        dispatch({
+          type: 'EVENT_ADD_ERROR',
+          err,
+        });
+      } else {
+        dispatch({
+          type: 'EVENT_ADDED',
+          eventData,
+        });
+      }
+    });
   };
 };

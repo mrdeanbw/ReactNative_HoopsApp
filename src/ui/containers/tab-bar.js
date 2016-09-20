@@ -78,6 +78,7 @@ class TabBar extends React.Component {
         action: {
           text: _('create'),
           icon: "actionAdd",
+          onPress: () => props.onNavigate('createEvent', {}, false),
         },
       },
 
@@ -112,7 +113,7 @@ class TabBar extends React.Component {
         action: {
           text: _('create'),
           icon: "actionAdd",
-          onPress: () => props.onNavigate('create'),
+          onPress: () => props.onNavigate('createEvent', {}, false),
         },
       },
 
@@ -121,7 +122,7 @@ class TabBar extends React.Component {
         action: {
           text: _('create'),
           icon: "actionAdd",
-          onPress: () => props.onNavigate('create'),
+          onPress: () => props.onNavigate('createEvent', {}, false),
         },
       },
     };

@@ -5,7 +5,7 @@ import ReactNative from 'react-native';
 import {View,Text,ScrollView, Image} from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
-import {Button, Dialog, Wizard, TextInput, ListInput, DateInput, Icon, HorizontalRule, CheckButton} from '../components';
+import {Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, HorizontalRule, CheckButton} from '../components';
 import StyleSheet from '../styles';
 
 export default class CreateEvent extends React.Component {
@@ -13,60 +13,33 @@ export default class CreateEvent extends React.Component {
   constructor() {
     super();
     this.state = {
-      gallery: true
+      gallery: true,
+      eventDetails: {},
     };
   }
 
-  static getTest(close) {
-    return {
-      title: 'Create Event',
-      view: CreateEvent,
-      viewProps: { onClose: close }
-    };
-  }
+  setEventData = (data) => {
+    this.setState({
+      eventDetails: {
+        ...this.state.eventDetails,
+        ...data,
+      },
+    });
+  };
+
+  getEntryFeeLabel = () => {
+    let {entryFee} = this.state.eventDetails;
+    if(typeof entryFee === 'number' && !isNaN(entryFee)){
+      return entryFee.toString();
+    }else{
+      return null;
+    }
+  };
 
   onComplete = () => {
-    if(this.props.onClose) this.props.onClose();
-  };
-
-  onChangeAgeProfile = (ageProfile) => {
-    this.setState({ ageProfile: ageProfile });
-  };
-
-  onChangePrivacy = (privacy) => {
-    this.setState({ privacy: privacy });
-  };
-
-  onChangeLevel = (level) => {
-    this.setState({ level: level });
-  };
-
-  onChangeDate = (date) => {
-    this.setState({ date: date });
-  };
-
-  onChangePaymentMethod = (paymentMethod) => {
-    this.setState({ paymentMethod: paymentMethod });
-  };
-
-  onChangeDeadline = (deadline) => {
-    this.setState({ deadline: deadline });
-  };
-
-  onChangeEventDescription = (eventDescription) => {
-    this.setState({ eventDescription: eventDescription });
-  };
-
-  onChangeNotes = (notes) => {
-    this.setState({ notes: notes });
-  };
-
-  onChangeGallery = (value) => {
-    this.setState({ gallery: value });
-  };
-
-  onChangeVisibility = (value) => {
-    this.setState({ visibility: value });
+    if(this.props.onComplete) {
+      this.props.onComplete(this.state.eventDetails);
+    }
   };
 
   onChangeEventPicture = (value) => {
@@ -88,14 +61,21 @@ export default class CreateEvent extends React.Component {
 
   render() {
     return (
-      <Dialog ref="dialog" title={_('createEvent')} onClose={this.props.onClose}>
-        <Wizard completeText={_('create')} onComplete={this.onComplete}>
+      <View style={{flex: 1}}>
+        <Header
+          title={_('createEvent')}
+          onClose={this.props.onClose}
+          hideSwitcher={true}
+        />
 
+        <Wizard completeText={_('create')} onComplete={this.onComplete}>
 
 
           <Wizard.Step>
             <ScrollView contentContainerStyle={StyleSheet.padding}>
               <TextInput
+                value={this.state.eventDetails.title}
+                onChangeText={(title) => this.setEventData({title})}
                 type="flat"
                 style={StyleSheet.halfMarginTop}
                 placeholder={_('eventName')}
@@ -105,6 +85,8 @@ export default class CreateEvent extends React.Component {
                 }}
               />
               <TextInput
+                value={this.state.eventDetails.activity}
+                onChangeText={(activity) => this.setEventData({activity})}
                 ref="activityInput"
                 type="flat"
                 style={StyleSheet.halfMarginTop}
@@ -133,35 +115,32 @@ export default class CreateEvent extends React.Component {
               />
 
               <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMargin, {alignSelf: 'center'}]}>
-                <Button type="image" icon="male" active={this.state.gender == 'male'} onPress={() => this.setState({gender: 'male'})}/>
+                <Button type="image" icon="male" active={this.state.eventDetails.gender == 'male'} onPress={() => this.setEventData({gender: 'male'})}/>
                 <View style={[StyleSheet.buttons.separator, {marginLeft: 10, marginRight: 10}]} />
-                <Button type="image" icon="female" active={this.state.gender == 'female'} onPress={() => this.setState({gender: 'female'})}/>
+                <Button type="image" icon="female" active={this.state.eventDetails.gender == 'female'} onPress={() => this.setEventData({gender: 'female'})}/>
                 <View style={[StyleSheet.buttons.separator, {marginLeft: 10, marginRight: 10}]} />
-                <Button type="image" icon="mixed" active={this.state.gender == 'mixed'} onPress={() => this.setState({gender: 'mixed'})}/>
+                <Button type="image" icon="mixed" active={this.state.eventDetails.gender == 'mixed'} onPress={() => this.setEventData({gender: 'mixed'})}/>
               </View>
 
-              <ListInput type="flat" style={StyleSheet.halfMarginTop}  placeholder={_('ageProfile')} value={this.state.ageProfile}
+              <ListInput type="flat" style={StyleSheet.halfMarginTop}  placeholder={_('ageProfile')} value={this.state.eventDetails.ageGroup}
                      rightBar={<Icon name="listIndicator" />}
-                     modalProvider={() => this.refs.dialog}
-                     onChange={this.onChangeAgeProfile}>
+                     onChange={(ageGroup) => this.setEventData({ageGroup})}>
                 <ListInput.Item text={_('under16')} value="under-16" />
                 <ListInput.Item text={_('_16to18')} value="16-to-18" />
                 <ListInput.Item text={_('_18plus')} value="adult" />
                 <ListInput.Item text={_('unrestricted')} value="all" />
               </ListInput>
 
-              <ListInput type="flat" style={StyleSheet.halfMarginTop}  placeholder={_('privacy')} value={this.state.privacy}
+              <ListInput type="flat" style={StyleSheet.halfMarginTop}  placeholder={_('privacy')} value={this.state.eventDetails.privacy}
                      rightBar={<Icon name="listIndicator" />}
-                     modalProvider={() => this.refs.dialog}
-                     onChange={this.onChangePrivacy}>
+                     onChange={(privacy) => this.setEventData({privacy})}>
                 <ListInput.Item text={_('publicEvent')} value="public" />
                 <ListInput.Item text={_('privateEvent')} value="private" />
               </ListInput>
 
-              <ListInput type="flat" style={StyleSheet.halfMarginTop} placeholder={_('level')} value={this.state.level}
+              <ListInput type="flat" style={StyleSheet.halfMarginTop} placeholder={_('level')} value={this.state.eventDetails.level}
                      rightBar={<Icon name="listIndicator" />}
-                     modalProvider={() => this.refs.dialog}
-                     onChange={this.onChangeLevel}>
+                     onChange={(level) => this.setEventData({level})}>
                 <ListInput.Item text={_('casual')} value="casual" />
                 <ListInput.Item text={_('competitive')} value="competitive" />
                 <ListInput.Item text={_('open')} value="open" />
@@ -176,26 +155,32 @@ export default class CreateEvent extends React.Component {
 
           <Wizard.Step>
             <ScrollView ref="scrollView2" contentContainerStyle={StyleSheet.padding}>
-              <DateInput type="flat" placeholder={_('dateTime')} value={this.state.date}
-                     rightBar={<Icon name="listIndicator" />}
-                     modalProvider={() => this.refs.dialog}
-                     date={true} time={true}
-                     onChange={this.onChangeDate} />
+              <DateInput
+                type="flat"
+                placeholder={_('dateTime')}
+                value={this.state.eventDetails.date}
+                rightBar={<Icon name="listIndicator" />}
+                date={true} time={true}
+                initialValue={new Date()}
+                onChange={(date) => this.setEventData({date})}
+              />
 
               <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop, {alignSelf: 'center'}]}>
-                <Button type="roundedGrey" active={this.state.courtType === 'indoor'} text={_('indoor')} onPress={() => this.setState({courtType: 'indoor'})} style={{width: 110}}/>
+                <Button type="roundedGrey" active={this.state.eventDetails.courtType === 'indoor'} text={_('indoor')} onPress={() => this.setEventData({courtType: 'indoor'})} style={{width: 110}}/>
                 <Text style={[StyleSheet.text, StyleSheet.horizontalRule.textStyle, {flex: 1}]}>{_('or').toUpperCase()}</Text>
-                <Button type="roundedGrey" active={this.state.courtType === 'outdoor'} text={_('outdoor')} onPress={() => this.setState({courtType: 'outdoor'})} style={{width: 110}}/>
+                <Button type="roundedGrey" active={this.state.eventDetails.courtType === 'outdoor'} text={_('outdoor')} onPress={() => this.setEventData({courtType: 'outdoor'})} style={{width: 110}}/>
               </View>
 
               <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop, {alignSelf: 'center'}]}>
-                <Button type="roundedGrey" active={!!this.state.recurring} text={_('recurring')} onPress={() => this.setState({recurring: true})} style={{width: 110}}/>
+                <Button type="roundedGrey" active={this.state.eventDetails.recurring === true} text={_('recurring')} onPress={() => this.setEventData({recurring: true})} style={{width: 110}}/>
                 <Text style={[StyleSheet.text, StyleSheet.horizontalRule.textStyle, {flex: 1}]}>{_('or').toUpperCase()}</Text>
-                <Button type="roundedGrey" active={!this.state.recurring} text={_('oneTime')} onPress={() => this.setState({recurring: false})} style={{width: 110}}/>
+                <Button type="roundedGrey" active={this.state.eventDetails.recurring === false} text={_('oneTime')} onPress={() => this.setEventData({recurring: false})} style={{width: 110}}/>
               </View>
 
               <View style={StyleSheet.doubleMarginTop}>
                 <TextInput
+                  value={this.state.eventDetails.venueName}
+                  onChangeText={(venueName) => this.setEventData({venueName})}
                   ref="venueNameInput"
                   type="flat"
                   placeholder={_('venueName')}
@@ -208,6 +193,8 @@ export default class CreateEvent extends React.Component {
                   }}
                 />
                 <TextInput
+                  value={this.state.eventDetails.address}
+                  onChangeText={(address) => this.setEventData({address})}
                   ref="venueAddressInput"
                   type="flat"
                   style={StyleSheet.halfMarginTop}
@@ -227,31 +214,46 @@ export default class CreateEvent extends React.Component {
                     type="flat"
                     keyboardType="numeric"
                     placeholder={_('costPP')}
-                    value={this.state.costPP || ''}
-                    onChange={value => this.setState({costPP: value, freeCost: false})}
+                    value={this.getEntryFeeLabel()}
+                    onChangeText={entryFee => {
+                      this.setEventData({entryFee: parseInt(entryFee, 10)});
+                    }}
                     style={{flex: 1, marginRight: 25}}
                     onFocus={() => {
                       this.scrollToInput(this.refs.scrollView2, this.refs.costInput);
                     }}
                   />
-                  <Button type="roundedGrey" active={this.state.freeCost === true} text={_('free')} onPress={() => this.setState({costPP: null, freeCost: true})} style={{width: 110}}/>
+                  <Button
+                    type="roundedGrey"
+                    active={this.state.eventDetails.entryFee === 0}
+                    text={_('free')}
+                    onPress={() => this.setEventData({entryFee: 0})}
+                    style={{width: 110}}
+                  />
                 </View>
 
-                <ListInput type="flat" style={StyleSheet.halfMarginTop} placeholder={_('paymentMethod')} value={this.state.paymentMethod}
-                       rightBar={<Icon name="listIndicator" />}
-                       modalProvider={() => this.refs.dialog}
-                       onChange={this.onChangePaymentMethod}>
+                <ListInput
+                  type="flat"
+                  style={StyleSheet.halfMarginTop}
+                  placeholder={_('paymentMethod')}
+                  value={this.state.eventDetails.paymentMethod}
+                  rightBar={<Icon name="listIndicator" />}
+                  onChange={(paymentMethod) => this.setEventData({paymentMethod})}
+                >
                   <ListInput.Item text={_('inAppPayment')} value="app" />
                   <ListInput.Item text={_('cashOnSite')} value="cash" />
                   <ListInput.Item text={_('unrestricted')} value={"unrestricted"} />
                 </ListInput>
 
-                <DateInput type="flat" placeholder={_('deadline')} value={this.state.deadline}
-                       style={StyleSheet.halfMarginTop}
-                       rightBar={<Icon name="listIndicator" />}
-                       modalProvider={() => this.refs.dialog}
-                       date={true} time={true}
-                       onChange={this.onChangeDeadline} />
+                <DateInput
+                  type="flat"
+                  placeholder={_('deadline')}
+                  value={this.state.eventDetails.deadline}
+                  style={StyleSheet.halfMarginTop}
+                  rightBar={<Icon name="listIndicator" />}
+                  date={true} time={true}
+                  onChange={(deadline) => this.setEventData({deadline})}
+                />
 
                 <KeyboardSpacer/>
               </View>
@@ -265,45 +267,60 @@ export default class CreateEvent extends React.Component {
               <View style={StyleSheet.padding}>
                 <TextInput type="flat"
                        multiline="popup"
-                       value={this.state.eventDescription}
+                       value={this.state.eventDetails.description}
                        placeholder={_('eventDescription')}
                        rightBar={<Icon name="listIndicator" />}
-                       onChangeText={this.onChangeEventDescription}
-                       modalProvider={() => this.refs.dialog}
+                       onChangeText={(description) => this.setEventData({description})}
                        modalTitle={_('describeThisEvent')}
                        modalPlaceholder={_('enterYourDescription')} />
 
                 <TextInput type="flat"
                        multiline="popup"
-                       value={this.state.notes}
+                       value={this.state.eventDetails.notes}
                        placeholder={_('notes')}
                        rightBar={<Icon name="listIndicator" />}
-                       onChangeText={this.onChangeNotes}
-                       modalProvider={() => this.refs.dialog}
+                       onChangeText={(notes) => this.setEventData({notes})}
                        modalTitle={_('eventNotes')}
                        modalPlaceholder={_('enterYourNotesForThisEvent')}
                        style={StyleSheet.halfMarginTop}/>
               </View>
 
-              <CheckButton type="wizardCheck" text={_('allowPhotoUpload')}
-                     icon="none" checkIcon="check"
-                     checked={this.state.gallery}
-                     style={StyleSheet.singleMarginTop}
-                     onChange={this.onChangeGallery} />
-              <CheckButton type="wizardCheck" text={_('allowToSeeYourContactInfo')}
-                     icon="none" checkIcon="check"
-                     checked={this.state.visibility}
-                     onChange={this.onChangeVisibility} />
-              <CheckButton type="wizardCheck" text={_('eventPicture')}
-                     icon="none" checkIcon="minus"
-                     checked={!!this.state.eventPicture}
-                     onChange={this.onChangeEventPicture} />
+              <CheckButton
+                type="wizardCheck"
+                text={_('allowPhotoUpload')}
+                icon="none" checkIcon="check"
+                checked={this.state.eventDetails.allowPhotoUpload}
+                style={StyleSheet.singleMarginTop}
+                onChange={() => {
+                  this.setEventData({
+                    allowPhotoUpload: !this.state.eventDetails.allowPhotoUpload,
+                  });
+                }}
+              />
+              <CheckButton
+                type="wizardCheck"
+                text={_('allowToSeeYourContactInfo')}
+                icon="none" checkIcon="check"
+                checked={this.state.eventDetails.allowContactInfo}
+                onChange={() => {
+                  this.setEventData({
+                    allowContactInfo: !this.state.eventDetails.allowContactInfo,
+                  });
+                }}
+              />
+              <CheckButton
+                type="wizardCheck"
+                text={_('eventPicture')}
+                icon="none" checkIcon="minus"
+                checked={!!this.state.eventDetails.coverImage}
+                onChange={()=> {/* TODO */}}
+              />
 
               {this.state.eventPicture && <Image source={this.state.eventPicture} style={{ resizeMode: 'cover', height: 180, width: null }} />}
             </ScrollView>
           </Wizard.Step>
         </Wizard>
-      </Dialog>
+      </View>
     );
   }
 };

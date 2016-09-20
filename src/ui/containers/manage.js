@@ -17,7 +17,7 @@ class Manage extends React.Component {
   render() {
     let events = this.props.user.organizer.map((id) => {
       return this.props.events.eventsById[id];
-    });
+    }).filter(event => !!event);
 
     return (
       <_Manage

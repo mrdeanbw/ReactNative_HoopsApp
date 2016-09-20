@@ -104,12 +104,10 @@ class MultilineTextInputDialog extends React.Component {
   }
 
   onPressSubmit = () => {
-    console.log("onPressSubmit", {state: this.state});
     this.props.onSubmit && this.props.onSubmit('value' in this.state ? this.state.value : this.props.value);
   };
 
   render() {
-    console.log("RENDER", this.state, this.props);
     const { modalTitle, modalPlaceholder } = this.props;
 
     return (
