@@ -22,8 +22,8 @@ export default class Popup extends React.Component {
               </TouchableWithoutFeedback>
             </View>
 
-            <View style={[StyleSheet.dialog.contentStyle, StyleSheet.dialog.popupContainerStyle]}>
-              <View style={[StyleSheet.dialog.popupContentStyle]}>
+            <View style={[StyleSheet.dialog.contentStyle, StyleSheet.dialog.popupContainerStyle, this.props.contentStyle]}>
+              <View style={[StyleSheet.dialog.popupContentStyle, this.props.popupContentStyle]}>
                 {this.props.children}
               </View>
             </View>

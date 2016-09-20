@@ -32,7 +32,7 @@ export default class ListInput extends React.Component {
     const defaultTextInput = StyleSheet.textInputs.default || {};
     const textInput = this.props.type ? StyleSheet.textInputs[this.props.type] || defaultTextInput : defaultTextInput;
 
-    const selectedChild = value ? this.props.children.find(x => x.props.value === value) : null;
+    const selectedChild = (typeof value !== "undefined") ? this.props.children.find(x => x.props.value === value) : null;
 
     return (
       <View>
