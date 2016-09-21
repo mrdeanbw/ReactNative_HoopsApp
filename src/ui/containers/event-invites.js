@@ -4,12 +4,30 @@ import {connect} from 'react-redux';
 import _EventInvites from '../windows/event-invites';
 import {user, navigation, events} from '../../actions';
 
+import inflateEvent from '../../data/inflaters/event';
+
 class EventInvites extends React.Component {
 
   render() {
-    let friends = this.props.user.friends.map((friendId) => {
+    let event = inflateEvent(
+      this.props.events.eventsById[this.props.id],
+      {
+        invites: this.props.invites.invitesById,
+        users: this.props.users.usersById,
+      },
+    );
+
+    invitedUserIds = event.invites.map((invite) => {
+      return invite.userId;
+    });
+
+    let friends = this.props.user.friends.filter(friendId => {
+      //remove from list if user is already invited
+      return invitedUserIds.indexOf(friendId) === -1;
+    }).map((friendId) => {
       return this.props.users.usersById[friendId];
     });
+
 
     return (
       <_EventInvites
@@ -39,6 +57,8 @@ export default connect(
   (state) => ({
     user: state.user,
     users: state.users,
+    events: state.events,
+    invites: state.invites,
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),

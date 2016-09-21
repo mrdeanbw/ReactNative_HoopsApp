@@ -4,30 +4,23 @@ import _Members from '../windows/members';
 import {connect} from 'react-redux';
 import {user, navigation} from '../../actions';
 
+import inflateEvent from '../../data/inflaters/event';
+
 class Members extends React.Component {
 
-  getEvent() {
-    return this.props.events.eventsById[this.props.id];
-  }
-
   render() {
-    let event = this.getEvent();
-
-    let invites = [];
-    if(event.invites){
-      invites = Object.keys(event.invites).map((inviteId) => {
-        let invite = this.props.invites.invitesById[inviteId];
-        return {
-          ...invite,
-          user: this.props.users.usersById[invite.userId],
-        }
-      });
-    }
+    let event = inflateEvent(
+      this.props.events.eventsById[this.props.id],
+      {
+        invites: this.props.invites.invitesById,
+        users: this.props.users.usersById,
+      }
+    );
 
     return (
       <_Members
         event={event}
-        invites={invites}
+        invites={event.invites}
         mode={this.props.user.mode}
         onToggleMode={this.props.onToggleMode}
         onPressBack={() => {
