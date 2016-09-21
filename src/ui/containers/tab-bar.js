@@ -70,6 +70,9 @@ class TabBar extends React.Component {
         component: containers.EventInvites,
         action: {
           pressEmitter: new EventEmitter(),
+          text: _('inviteAll'),
+          icon: "actionCheck",
+          type: "actionDefault",
         },
       },
 
@@ -129,7 +132,12 @@ class TabBar extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.navigation.tabKey !== nextProps.navigation.tabKey){
+    let nav = this.props.navigation;
+    let key = nav.tabKey;
+    let nextNav = nextProps.navigation;
+    let nextKey = nextNav.tabKey;
+
+    if(key !== nextKey || nav.tabs[key].index !== nextNav.tabs[nextKey].index){
       this.setState({action: null});
     }
   }
@@ -163,6 +171,11 @@ class TabBar extends React.Component {
       throw new Error(`TabBar config for ${route.key} is not defined`);
     }
 
+    let actionConfig = {
+      ...config.action,
+      ...this.state.action, //override static config with dynamic state
+    };
+
     return (
       <_TabBar
         currentTab={this.props.navigation.tabKey}
@@ -170,17 +183,14 @@ class TabBar extends React.Component {
           this.props.onChangeTab(key);
           this.props.onHideMenu();
         }}
-        actionText={this.state.action && this.state.action.text || config.action && config.action.text}
-        actionTextLarge={config.action && config.action.textLarge}
-        actionIcon={config.action && config.action.icon}
-        actionType={config.action && config.action.type}
+        actionText={actionConfig.text}
+        actionTextLarge={actionConfig.textLarge}
+        actionIcon={actionConfig.icon}
+        actionType={actionConfig.type}
         onActionPress={() => {
           this.props.onHideMenu();
-          let actionConfig = config.action;
-          if(actionConfig) {
-            actionConfig.onPress && actionConfig.onPress();
-            actionConfig.pressEmitter && actionConfig.pressEmitter.emit('press');
-          }
+          actionConfig.onPress && actionConfig.onPress();
+          actionConfig.pressEmitter && actionConfig.pressEmitter.emit('press');
         }}
         menuVisible={this.props.navigation.showMenu}
         onHideMenu={this.props.onHideMenu}

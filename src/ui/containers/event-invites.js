@@ -2,29 +2,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import _EventInvites from '../windows/event-invites';
-import {navigation} from '../../actions';
+import {user, navigation, events} from '../../actions';
 
 class EventInvites extends React.Component {
-
-  /**
-   * WARNING! This isn't the 'react' way of doing things.
-   * Usually props are passed down to children, however since the action
-   * button lives outside of the navigator, we don't want to pass down props
-   * from that far up.
-   * Some containers would like to handle the action button being pressed.
-   *
-   * See this discussion: https://github.com/facebook/react-native/issues/795
-   */
-  componentWillMount() {
-    //listen to action press
-    this._actionListener = this.props.actionButton.addListener('press', () => {
-      this.props.onNavigate('search');
-    });
-  }
-
-  componentWillUnmount() {
-    this._actionListener && this._actionListener.remove();
-  }
 
   render() {
     let friends = this.props.user.friends.map((friendId) => {
@@ -34,13 +14,17 @@ class EventInvites extends React.Component {
     return (
       <_EventInvites
         mode={this.props.user.mode}
+        onToggleMode={this.props.onToggleMode}
         users={friends}
         onSendInvites={(userIds) => {
-          //TODO send the invites
+          this.props.onSendInvites(userIds, this.props.id);
+          this.props.onNavigateBack();
         }}
         onViewProfile={(user) => {
           this.props.onNavigate('profile', {id: user.id});
         }}
+        actionButton={this.props.actionButton}
+        onChangeAction={this.props.onChangeAction}
       />
     );
   }
@@ -48,7 +32,7 @@ class EventInvites extends React.Component {
 
 EventInvites.propTypes = {
   id: React.PropTypes.string.isRequired,
-  actionButton: React.PropTypes.isRequired,
+  actionButton: React.PropTypes.object.isRequired,
 };
 
 export default connect(
@@ -58,5 +42,8 @@ export default connect(
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
+    onNavigateBack: () => dispatch(navigation.pop()),
+    onToggleMode: () => dispatch(user.toggleMode()),
+    onSendInvites: (userIds, eventId) => dispatch(events.inviteUsers(userIds, eventId)),
   }),
 )(EventInvites);

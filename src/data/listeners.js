@@ -12,8 +12,9 @@ export const startAll = (dispatch) => {
 
     for(let id in events) {
       let event = events[id];
-      let userIds = event.invites.map(invite => invite.user);
-      dispatch(actions.users.loadMany(userIds));
+      if(event.invites) {
+        //TODO listen to users of events
+      }
     }
   });
 };

@@ -13,12 +13,16 @@ class Members extends React.Component {
   render() {
     let event = this.getEvent();
 
-    let invites = event.invites.map((invite) => {
-      return {
-        user: this.props.users.usersById[invite.user],
-        status: invite.status,
-      };
-    });
+    let invites = [];
+    if(event.invites){
+      invites = Object.keys(event.invites).map((inviteId) => {
+        let invite = this.props.invites.invitesById[inviteId];
+        return {
+          ...invite,
+          user: this.props.users.usersById[invite.userId],
+        }
+      });
+    }
 
     return (
       <_Members
@@ -33,7 +37,7 @@ class Members extends React.Component {
           this.props.onNavigate('profile', {id: user.id});
         }}
         onPressInviteMore={() => {
-          this.props.onNavigate('eventInvites');
+          this.props.onNavigate('eventInvites', {id: event.id});
         }}
       />
     );
@@ -45,6 +49,7 @@ export default connect(
     user: state.user,
     users: state.users,
     events: state.events,
+    invites: state.invites,
   }),
   (dispatch) => ({
     onNavigateBack: () => dispatch(navigation.pop()),

@@ -2,6 +2,7 @@
 import {firebaseDb, firebaseStorage} from '../data/firebase';
 
 import * as usersActions from './users';
+import * as inviteActions from './invites';
 
 const eventsRef = firebaseDb.child('events');
 
@@ -54,10 +55,8 @@ export const load = (id) => {
       });
 
       if(event.invites) {
-        let userIds = event.invites.map((invite) => {
-          return invite.user;
-        });
-        dispatch(usersActions.loadMany(userIds));
+        let inviteIds = Object.keys(event.invites);
+        dispatch(inviteActions.load(inviteIds));
       }
     });
   };
@@ -95,5 +94,14 @@ export const save = (eventData) => {
         });
       }
     });
+  };
+};
+
+export const inviteUsers = (userIds, eventId) => {
+  return dispatch => {
+    userIds.forEach((userId) => {
+      dispatch(inviteActions.create(userId, eventId));
+    });
+
   };
 };
