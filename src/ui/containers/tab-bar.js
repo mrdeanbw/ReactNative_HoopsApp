@@ -90,12 +90,17 @@ class TabBar extends React.Component {
         action: {
           text: _('search'),
           icon: "actionSearch",
-          onPress: () => props.onNavigate('search'),
+          onPress: () => props.onNavigate('search', {}, false),
         },
       },
 
       invitations: {
         component: containers.Invitations,
+        action: {
+          text: _('search'),
+          icon: "actionSearch",
+          onPress: () => props.onNavigate('search', {}, false),
+        },
       },
 
       settings: {

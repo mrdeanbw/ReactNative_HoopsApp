@@ -3,24 +3,15 @@ import _ from '../i18n';
 
 import React from 'react';
 
-import {View, ScrollView, Text, Image, TouchableHighlight, Modal} from 'react-native';
+import {View, ScrollView} from 'react-native';
 
 import StyleSheet from '../styles';
 
 import EventListItem from '../components/event-list-item';
-import Dialog from '../components/dialog';
-import Profile from './profile';
 import Button from '../components/button';
 import Window from '../components/window';
-import Calendar from './calendar';
-
-const MenuIcon = StyleSheet.icons.menu;
-const {
-  basketball: BasketballImage,
-  basketballNet: BasketballNetImage,
-  football: FootballImage,
-  footballNet: FootballNetImage,
-} = StyleSheet.images;
+import Header from '../components/header';
+import Popup from '../components/popup';
 
 export default class Invitations extends React.Component {
 
@@ -36,8 +27,10 @@ export default class Invitations extends React.Component {
     super();
     this.state = {
       tab: 'received',
-      receivedPopupVisible: false,
-      sentPopupVisible: false
+
+      //set these keys to invite objects to show their popup options
+      receivedPopupInvite: null,
+      sentPopupInvite: null,
     };
   }
 
@@ -50,125 +43,131 @@ export default class Invitations extends React.Component {
 
   };
 
-  onPressEvent = () => {
+  hidePopups = () => {
+    this.setState({
+      receivedPopupInvite: null,
+      sentPopupInvite: null,
+    });
+  };
+
+  onPressInvite = (invite) => {
     if(this.state.tab === 'received') {
-      this.showReceivedPopup({ event: {}, sender: { name: 'sender' }, recipient: { name: 'recipient' } });
+      this.showReceivedPopup(invite);
+      //{ event: {}, sender: { name: 'sender' }, recipient: { name: 'recipient' } });
     } else {
-      this.showSentPopup({ event: {}, sender: { name: 'sender' }, recipient: {  name: 'recipient' } });
+      this.showSentPopup(invite);
+      //{ event: {}, sender: { name: 'sender' }, recipient: {  name: 'recipient' } });
     }
   };
 
-  onPressAccept = (invitation) => {
-    this.props.window.hideModal();
+  onPressAccept = (invite) => {
+    this.hidePopups();
+    this.props.onPressAccept(invite);
   };
 
-  onPressDecline = (invitation) => {
-    this.props.window.hideModal();
+  onPressDecline = (invite) => {
+    this.hidePopups();
+    this.props.onPressDecline(invite);
   };
 
   onPressEventDetails = (event) => {
-    this.props.window.hideModal();
+    this.hidePopups();
+    this.props.onPressEventDetails(event);
   };
 
   onPressUserDetails = (user) => {
-    this.props.window.showModal(
-      <Modal animationType="fade"
-           onRequestClose={() => this.props.window.hideModal()}>
-        <Dialog title="Profile">
-          <Profile user={user} />
-        </Dialog>
-      </Modal>
-    );
+    this.hidePopups();
+    this.props.onPressUser(user);
   };
 
   onPressBlock = (user) => {
-    this.props.window.hideModal();
+    this.hidePopups();
+    this.onPressBlock(user);
   };
 
-  onPressRemove = (invitation) => {
-    this.props.window.hideModal();
+  onPressRemove = (invite) => {
+    this.hidePopups();
+    this.props.onPressRemove(invite);
   };
 
-  showReceivedPopup = (invitation) => {
-    let name = invitation.sender.name;
-
-    this.props.window.showModal(<Dialog
-      popup={true}
-      style={[StyleSheet.popupContainer]}
-      onClose={() => this.props.window.hideModal()}
-    >
-      <Button type="alertVerticalGreen" text={_('accept')} onPress={() => this.onPressAccept(invitation)} />
-      <Button type="alertVerticalDefault" text={_('decline')} onPress={() => this.onPressDecline(invitation)} />
-      <Button type="alertVertical" text={_('eventDetails')} onPress={() => this.onPressEventDetails(invitation.event)} />
-      <Button type="alertVertical" text={_('userDetails')} onPress={() => this.onPressUserDetails(invitation.sender)} />
-      <Button type="alertVertical" text={_('block') + ' "' + name + '"'} onPress={() => this.onPressBlock(invitation.sender)} />
-    </Dialog>);
+  showReceivedPopup = (invite) => {
+    this.setState({
+      receivedPopupInvite: invite,
+    });
   };
 
-  showSentPopup = (invitation) => {
-    this.props.window.showModal(<Dialog
-      popup={true}
-      style={[StyleSheet.popupContainer]}
-      onClose={() => this.props.window.hideModal()}
-    >
-      <Button type="alertVerticalDefault" text={_('remove') + ' "' + name + '"'} onPress={() => this.onPressRemove(invitation)} />
-      <Button type="alertVertical" text={_('eventDetails') + ' "' + name + '"'} onPress={() => this.onPressEventDetails(invitation.event)} />
-      <Button type="alertVertical" text={_('userDetails') + ' "' + name + '"'} onPress={() => this.onPressEventDetails(invitation.recipient)} />
-    </Dialog>);
-  };
+  renderSentPopup() {
+    let invite = this.state.sentPopupInvite;
+    let eventTitle = invite ? invite.event.title : '';
+    let userName = invite ? invite.user.name : '';
+
+    return (
+      <Popup
+        visible={!!invite}
+        style={[StyleSheet.popupContainer]}
+        onClose={() => this.props.window.hideModal()}
+      >
+        <Button type="alertVerticalDefault" text={_('remove') + ' "' + userName + '"'} onPress={() => this.onPressRemove(invite)} />
+        <Button type="alertVertical" text={_('eventDetails') + ' "' + eventTitle + '"'} onPress={() => this.onPressEventDetails(invite.event)} />
+        <Button type="alertVertical" text={_('userDetails') + ' "' + userName + '"'} onPress={() => this.onPressUserDetails(invite.user)} />
+      </Popup>
+    );
+  }
+
+  renderReceivedPopup() {
+    let invite = this.state.receivedPopupInvite;
+    let name = invite ? invite.event.organizer.name : '';
+    return (
+      <Popup
+        visible={!!invite}
+        style={[StyleSheet.popupContainer]}
+        onClose={() => this.setState({receivedPopupInvite: null})}
+      >
+        <Button type="alertVerticalGreen" text={_('accept')} onPress={() => this.onPressAccept(invite)} />
+        <Button type="alertVerticalDefault" text={_('decline')} onPress={() => this.onPressDecline(invite)} />
+        <Button type="alertVertical" text={_('eventDetails')} onPress={() => this.onPressEventDetails(invite.event)} />
+        <Button type="alertVertical" text={_('userDetails')} onPress={() => this.onPressUserDetails(invite.event.organizer)} />
+        <Button type="alertVertical" text={_('block') + ' "' + name + '"'} onPress={() => this.onPressBlock(invite.sender)} />
+      </Popup>
+    );
+  }
 
   render() {
+    let invites = this.state.tab === 'received' ? this.props.received : this.props.sent;
     return (
-      <View>
+      <View style={{flex: 1}}>
+        <Header
+          title={_('invitations')}
+          mode={this.props.mode}
+          onToggleMode={this.props.onToggleMode}
+        />
+
         <View style={StyleSheet.buttons.bar}>
           <Button type="top" text={_('received')} active={this.state.tab === 'received'} onPress={() => this.setState({ tab: 'received' })} />
           <Button type="top" text={_('sent')} active={this.state.tab === 'sent'} onPress={() => this.setState({ tab: 'sent' })} />
         </View>
 
+        {this.renderReceivedPopup()}
+        {this.renderSentPopup()}
+
         <ScrollView contentContainerStyle={StyleSheet.container}>
-          <EventListItem onPress={() => this.onPressEvent(0)}
-                   image={BasketballImage}
-                   title="Basketball scrimmage"
-                   players={12} maxPlayers={15}
-                   level="Casual"
-                   venue="Sudgen Sports Centre"
-                   date="Today, 18:30"
-                   distance={this.props.mode === 'participant' ? "0.8 mi" : null}
-                   disclosure={MenuIcon}/>
-
-          <EventListItem onPress={() => this.onPressEvent(1)}
-                   image={FootballNetImage}
-                   title="Football 5-a-side"
-                   players={12} maxPlayers={15}
-                   level="Open"
-                   venue="Sudgen Sports Centre"
-                   date="Tomorrow, 18:30"
-                   distance={this.props.mode === 'participant' ? "2.6 mi" : null}
-                   free={true}
-                   disclosure={MenuIcon}/>
-
-          <EventListItem onPress={() => this.onPressEvent(2)}
-                   image={BasketballNetImage}
-                   title="Basketball 3x3 tournament"
-                   players={12} maxPlayers={15}
-                   level="Casual"
-                   venue="Sudgen Sports Centre"
-                   date="12 Jul 16, 18:30"
-                   distance={this.props.mode === 'participant' ? "3.1 mi" : null}
-                   disclosure={MenuIcon}/>
-
-          <EventListItem onPress={() => this.onPressEvent(3)}
-                   image={FootballImage}
-                   title="Football 5-a-side"
-                   players={12} maxPlayers={15}
-                   level="Competitive"
-                   venue="Sudgen Sports Centre"
-                   date="Today, 18:30"
-                   distance={this.props.mode === 'participant' ? "2.6 mi" : null}
-                   free={true}
-                   disclosure={MenuIcon}/>
+          {invites.map((invite, i) => (
+            <EventListItem
+              key={i}
+              onPress={() => this.onPressInvite(invite)}
+              image={{uri: invite.event.imageSrc}}
+              title={invite.event.title}
+              players={invite.event.players}
+              maxPlayers={invite.event.maxPlayers}
+              level={invite.event.level}
+              venue={invite.event.venue}
+              date={invite.event.date}
+              free={true}
+              distance={this.props.mode === 'PARTICIPATE' ? "0.8 mi" : null}
+            />
+          ))}
         </ScrollView>
       </View>
     );
   }
-};
+}

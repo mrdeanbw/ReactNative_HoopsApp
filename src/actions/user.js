@@ -6,6 +6,7 @@ import * as userDb from '../data/user';
 
 import * as eventsActions from './events';
 import * as usersActions from './users';
+import * as invitesActions from './invites';
 
 export const signIn = (email, password) => {
   let uid;
@@ -201,6 +202,11 @@ const listenToUser = () => {
       if(user.friends) {
         for(let id in user.friends) {
           dispatch(usersActions.load(id));
+        }
+      }
+      if(user.invites) {
+        for(let id in user.invites) {
+          dispatch(invitesActions.load(id));
         }
       }
     });

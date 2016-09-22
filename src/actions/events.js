@@ -2,7 +2,7 @@
 import {firebaseDb, firebaseStorage} from '../data/firebase';
 
 import * as usersActions from './users';
-import * as inviteActions from './invites';
+import * as invitesActions from './invites';
 
 const eventsRef = firebaseDb.child('events');
 
@@ -37,7 +37,8 @@ const allPromises = (promises) => {
 };
 
 export const load = (id) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    let state = getState();
     eventsRef.child(id).on('value', (snapshot) => {
       let event = snapshot.val();
 
@@ -54,9 +55,15 @@ export const load = (id) => {
         onLoaded(event);
       });
 
-      if(event.invites) {
-        let inviteIds = Object.keys(event.invites);
-        dispatch(inviteActions.load(inviteIds));
+      //Load invites if I am the organizer
+      if(event.organizer === state.user.uid && event.invites) {
+        for(let inviteId in event.invites) {
+          dispatch(invitesActions.load(inviteId));
+        }
+      }
+
+      if(event.organizer) {
+        dispatch(usersActions.load(event.organizer));
       }
     });
   };
@@ -100,7 +107,7 @@ export const save = (eventData) => {
 export const inviteUsers = (userIds, eventId) => {
   return dispatch => {
     userIds.forEach((userId) => {
-      dispatch(inviteActions.create(userId, eventId));
+      dispatch(invitesActions.create(userId, eventId));
     });
 
   };

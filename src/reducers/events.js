@@ -4,9 +4,6 @@ const initialState = {
   isLoading: false,
 
   eventsById: {},
-
-  organizer: [],
-  participant: [],
 };
 
 export default handleActions({

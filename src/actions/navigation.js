@@ -3,7 +3,7 @@
  * @param route {Object}
  * @param subTab {boolean} The new route should keep the global tab bar
  */
-export const push = (route, subTab) => {
+export const push = (route, subTab = true) => {
   return {
     type: 'NAV_PUSH',
     route,

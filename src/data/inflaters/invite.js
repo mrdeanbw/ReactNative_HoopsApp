@@ -6,5 +6,9 @@ export default (invite, extra) => {
     invite.user = extra.users[invite.userId];
   }
 
+  if(extra.events) {
+    invite.event = extra.events[invite.eventId];
+  }
+
   return invite;
 }

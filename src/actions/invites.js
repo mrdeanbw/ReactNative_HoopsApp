@@ -1,6 +1,9 @@
 
 import {firebaseDb} from '../data/firebase';
 
+import * as eventsActions from './events';
+import * as usersActions from './users';
+
 const inviteRef = firebaseDb.child('invites');
 
 export const create = (userId, eventId) => {
@@ -34,17 +37,48 @@ export const create = (userId, eventId) => {
   };
 };
 
-export const load = (ids) => {
-  return dispatch => {
-    ids.forEach(id => {
-      firebaseDb.child(`invites/${id}`).on('value', (snapshot) => {
-        dispatch({
-          type: 'INVITES_LOADED',
-          invites: {
-            [id]: snapshot.val()
+export const load = (id) => {
+  return (dispatch, getState) => {
+    firebaseDb.child(`invites/${id}`).on('value', (snapshot) => {
+      let invite = snapshot.val();
+      if(invite.eventId) {
+        dispatch(eventsActions.load(invite.eventId));
+      }
+      if(invite.userId) {
+        dispatch(usersActions.load(invite.userId));
+      }
+
+      dispatch({
+        type: 'INVITES_LOADED',
+        invites: {
+          [id]: {
+            ...snapshot.val(),
+            id,
           },
-        });
+        },
       });
+    });
+  };
+};
+
+export const accept = (invite) => {
+  return (dispatch, getState) => {
+    let state = getState();
+    let uid = state.user.uid;
+    firebaseDb.update({
+      [`invites/${invite.id}/status`]: 'confirmed',
+      [`users/${uid}/participating/${invite.eventId}`]: true,
+    });
+  };
+};
+
+export const decline = (invite) => {
+  return (dispatch, getState) => {
+    let state = getState();
+    let uid = state.user.uid;
+    firebaseDb.update({
+      [`invites/${invite.id}/status`]: 'rejected',
+      [`users/${uid}/participating/${invite.eventId}`]: null,
     });
   };
 };

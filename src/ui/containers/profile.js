@@ -10,7 +10,7 @@ class Profile extends React.Component {
     let eventIds = Object.keys(user.organizing);
     let events = eventIds.map((eventId) => {
       return this.props.events.eventsById[eventId];
-    }).filter(event => !!event.id);
+    }).filter(event => !!event);
 
     return (
       <_Profile
@@ -31,6 +31,7 @@ export default connect(
   (state) => ({
     user: state.user,
     users: state.users,
+    events: state.events,
   }),
   (dispatch) => ({
     onChangeAvailability: (value) => dispatch(actions.setAvailability(value)),

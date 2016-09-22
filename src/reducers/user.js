@@ -12,6 +12,7 @@ const initialState = {
 
   organizing: {}, //Events that this user organizes
   participating: {}, //Events that this user participates in
+  invites: {},
 
   friends: {},
 
