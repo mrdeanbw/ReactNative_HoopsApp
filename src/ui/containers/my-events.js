@@ -11,7 +11,7 @@ class MyEvents extends React.Component {
   }
 
   render() {
-    let events = this.props.user.participant.map((id) => {
+    let events = Object.keys(this.props.user.participating).map((id) => {
       return this.props.events.eventsById[id];
     });
 

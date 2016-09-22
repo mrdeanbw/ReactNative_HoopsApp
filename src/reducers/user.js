@@ -10,10 +10,10 @@ const initialState = {
 
   availability: true,
 
-  organizer: [], //Events that this user organizes
-  participant: [], //Events that this user participates in
+  organizing: {}, //Events that this user organizes
+  participating: {}, //Events that this user participates in
 
-  friends: [],
+  friends: {},
 
   //Signing in
   isSigningIn: false,
@@ -109,69 +109,18 @@ export default handleActions({
     };
   },
 
+  USER_CHANGE: (state, action) => {
+    return {
+      ...state,
+      ...action.user,
+    };
+  },
+
   USER_SET_AVAILABILITY: (state, action) => {
     return {
       ...state,
       availability: action.value,
     };
   },
-
-  EVENT_ADD_ORGANIZER: (state, action) => {
-    let organizer = state.organizer.slice(0);
-    if(organizer.indexOf(action.id) === -1){
-      organizer.push(action.id);
-    }
-    return {
-      ...state,
-      organizer,
-    };
-  },
-
-  EVENT_REMOVE_ORGANIZER: (state, action) => {
-    let organizer = state.organizer.slice(0);
-    return {
-      ...state,
-      organizer: organizer.filter(eventId => eventId !== action.id),
-    };
-  },
-
-  EVENT_ADD_PARTICIPANT: (state, action) => {
-    let participant = state.participant.slice(0);
-    if(participant.indexOf(action.id) === -1){
-      participant.push(action.id);
-    }
-    return {
-      ...state,
-      participant,
-    };
-  },
-
-  EVENT_REMOVE_PARTICIPANT: (state, action) => {
-    let participant = state.participant.slice(0);
-    return {
-      ...state,
-      participant: participant.filter(eventId => eventId !== action.id),
-    };
-  },
-
-  USER_ADD_FRIEND: (state, action) => {
-    let friends = state.friends.slice(0);
-    if(friends.indexOf(action.id) === -1){
-      friends.push(action.id);
-    }
-    return {
-      ...state,
-      friends,
-    };
-  },
-
-  USER_REMOVE_FRIEND: (state, action) => {
-    let friends = state.friends.slice(0);
-    return {
-      ...state,
-      friends: friends.filter(friendId => friendId !== action.id),
-    };
-  },
-
 
 }, initialState);

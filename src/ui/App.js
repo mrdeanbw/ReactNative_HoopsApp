@@ -6,8 +6,6 @@ import createStore from '../createStore';
 import {persistStore} from 'redux-persist';
 import * as userActions from '../actions/user';
 
-import * as listeners from '../data/listeners';
-
 import {Root} from './containers';
 
 const store = createStore();

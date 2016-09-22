@@ -16,10 +16,10 @@ class Home extends React.Component {
 
   render() {
     let eventIds = (this.props.user.mode === 'ORGANIZE') ?
-      this.props.user.organizer :
-      this.props.user.participant;
+      this.props.user.organizing :
+      this.props.user.participating;
 
-    let events = eventIds.map((id) => {
+    let events = Object.keys(eventIds).map((id) => {
       return this.props.events.eventsById[id];
     });
 

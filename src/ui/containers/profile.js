@@ -7,7 +7,7 @@ import {user as actions} from '../../actions';
 class Profile extends React.Component {
   render() {
     let user = this.props.users.usersById[this.props.id];
-    let eventIds = user.organizer || [];
+    let eventIds = Object.keys(user.organizing);
     let events = eventIds.map((eventId) => {
       return this.props.events.eventsById[eventId];
     }).filter(event => !!event.id);

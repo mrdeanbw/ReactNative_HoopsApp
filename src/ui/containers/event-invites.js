@@ -17,11 +17,11 @@ class EventInvites extends React.Component {
       },
     );
 
-    invitedUserIds = event.invites.map((invite) => {
+    let invitedUserIds = event.invites.map((invite) => {
       return invite.userId;
     });
 
-    let friends = this.props.user.friends.filter(friendId => {
+    let friends = Object.keys(this.props.user.friends).filter(friendId => {
       //remove from list if user is already invited
       return invitedUserIds.indexOf(friendId) === -1;
     }).map((friendId) => {

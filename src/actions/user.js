@@ -1,4 +1,3 @@
-
 import firebase, {firebaseDb} from '../data/firebase';
 
 import * as emailAuth from '../data/auth/email';
@@ -36,8 +35,7 @@ export const signIn = (email, password) => {
  */
 export const signInSuccess = (user) => {
   return dispatch => {
-    listenToEvents()(dispatch);
-    listenToFriends()(dispatch);
+    listenToUser()(dispatch);
 
     dispatch({
       type: 'USER_SIGN_IN_SUCCESS',
@@ -181,49 +179,30 @@ export const setAvailability = (value) => {
   }
 };
 
-const listenToEvents = () => {
+const listenToUser = () => {
   return dispatch => {
-    userDb.listenToOrganizer((id) => {
+    let uid = firebase.auth().currentUser.uid;
+    firebaseDb.child(`users/${uid}`).on('value', (snapshot) => {
+      let user = snapshot.val();
       dispatch({
-        type: 'EVENT_ADD_ORGANIZER',
-        id,
+        type: 'USER_CHANGE',
+        user,
       });
-      dispatch(eventsActions.load(id));
-    }, (id) => {
-      dispatch({
-        type: 'EVENT_REMOVE_ORGANIZER',
-        id,
-      });
-    });
-
-    userDb.listenToParticipant((id) => {
-      dispatch({
-        type: 'EVENT_ADD_PARTICIPANT',
-        id,
-      });
-      dispatch(eventsActions.load(id));
-    }, (id) => {
-      dispatch({
-        type: 'EVENT_REMOVE_PARTICIPANT',
-        id,
-      });
-    });
-  };
-};
-
-const listenToFriends = () => {
-  return dispatch => {
-    userDb.listenToFriends((id) => {
-      dispatch({
-        type: 'USER_ADD_FRIEND',
-        id,
-      });
-      dispatch(usersActions.load(id));
-    }, (id) => {
-      dispatch({
-        type: 'USER_REMOVE_FRIEND',
-        id,
-      });
+      if(user.organizing) {
+        for(let id in user.organizing) {
+          dispatch(eventsActions.load(id));
+        }
+      }
+      if(user.participating) {
+        for(let id in user.participating) {
+          dispatch(eventsActions.load(id));
+        }
+      }
+      if(user.friends) {
+        for(let id in user.friends) {
+          dispatch(usersActions.load(id));
+        }
+      }
     });
   };
 };
@@ -237,8 +216,7 @@ export const registerWithStore = (store) => {
     //There is a bug where errors in this handler are silently swallowed. Be careful.
     if(user) {
       store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: user.uid});
-      listenToEvents()(store.dispatch);
-      listenToFriends()(store.dispatch);
+      listenToUser()(store.dispatch);
     }else{
       store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: null});
     }
