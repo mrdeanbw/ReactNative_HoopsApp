@@ -86,7 +86,7 @@ export default class EventDetails extends React.Component {
     };
 
     return (
-      <View>
+      <View style={{flex: 1}}>
         <Header
           title={_('eventDetails')}
           hideSwitcher={true}
