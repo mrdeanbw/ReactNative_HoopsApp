@@ -13,6 +13,7 @@ class EventInvites extends React.Component {
       this.props.events.eventsById[this.props.id],
       {
         invites: this.props.invites.invitesById,
+        requests: this.props.requests.requestsById,
         users: this.props.users.usersById,
       },
     );
@@ -20,10 +21,16 @@ class EventInvites extends React.Component {
     let invitedUserIds = event.invites.map((invite) => {
       return invite.userId;
     });
+    let requestedUserIds = event.requests.map((request) => {
+      return request.userId;
+    });
 
     let friends = Object.keys(this.props.user.friends).filter(friendId => {
-      //remove from list if user is already invited
-      return invitedUserIds.indexOf(friendId) === -1;
+      //remove from list if user is already invited or requested
+      return (
+        invitedUserIds.indexOf(friendId) === -1 &&
+        requestedUserIds.indexOf(friendId) === -1
+      );
     }).map((friendId) => {
       return this.props.users.usersById[friendId];
     });
@@ -59,6 +66,7 @@ export default connect(
     users: state.users,
     events: state.events,
     invites: state.invites,
+    requests: state.requests,
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
