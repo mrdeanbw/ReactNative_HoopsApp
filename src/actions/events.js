@@ -7,6 +7,8 @@ import * as requestsActions from './requests';
 
 const eventsRef = firebaseDb.child('events');
 
+const listening = {};
+
 /**
  * @param promises {Object} object of promises
  * @returns {Promise}
@@ -39,6 +41,10 @@ const allPromises = (promises) => {
 
 export const load = (id) => {
   return (dispatch, getState) => {
+    if(listening[id] === true){
+      return;
+    }
+    listening[id] = true;
     let state = getState();
     eventsRef.child(id).on('value', (snapshot) => {
       let event = snapshot.val();

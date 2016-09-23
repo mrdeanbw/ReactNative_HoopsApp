@@ -6,6 +6,8 @@ import * as usersActions from './users';
 
 const inviteRef = firebaseDb.child('invites');
 
+const listening = {};
+
 export const create = (userId, eventId) => {
   return dispatch => {
     let ref = inviteRef.push();
@@ -39,6 +41,10 @@ export const create = (userId, eventId) => {
 
 export const load = (id) => {
   return (dispatch, getState) => {
+    if(listening[id] === true){
+      return;
+    }
+    listening[id] = true;
     let state = getState();
     firebaseDb.child(`invites/${id}`).on('value', (snapshot) => {
       let invite = snapshot.val();
@@ -46,7 +52,7 @@ export const load = (id) => {
        * TODO: what if we have the event in local storage,
        * but it's not being listened to with firebaseDb.on() ?
        */
-      if(invite.eventId && !state.events.eventsById[invite.eventId]) {
+      if(invite.eventId) {
         dispatch(eventsActions.load(invite.eventId));
       }
       if(invite.userId) {

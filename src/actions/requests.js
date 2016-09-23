@@ -6,6 +6,8 @@ import * as usersActions from './users';
 
 const requestsRef = firebaseDb.child('requests');
 
+const listening = {};
+
 export const create = (eventId) => {
   return (dispatch, getState) => {
     let uid = getState().user.uid;
@@ -40,10 +42,13 @@ export const create = (eventId) => {
 
 export const load = (id) => {
   return (dispatch, getState) => {
-    let state = getState();
+    if(listening[id] === true){
+      return;
+    }
+    listening[id] = true;
     firebaseDb.child(`requests/${id}`).on('value', (snapshot) => {
       let request = snapshot.val();
-      if(request.eventId && state.events.eventsById[request.eventId]) {
+      if(request.eventId) {
         dispatch(eventsActions.load(request.eventId));
       }
       if(request.userId) {

@@ -3,8 +3,14 @@ import {firebaseDb} from '../data/firebase';
 
 const usersRef = firebaseDb.child('users');
 
+const listening = {};
+
 export const load = (id) => {
   return dispatch => {
+    if(listening[id] === true){
+      return;
+    }
+    listening[id] = true;
     usersRef.child(id).on('value', (snapshot) => {
       let value = snapshot.val();
 
