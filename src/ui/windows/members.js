@@ -76,12 +76,27 @@ export default class Members extends React.Component {
           onPressViewProfile={this.onPressViewProfile.bind(this)}
         />
         <ScrollView contentContainerStyle={StyleSheet.container}>
-          {this.props.invites.map((invite) => {
-            let user = invite.user;
-            if(!user) {
+          {this.props.requests.map((request) => {
+            let user = request.user;
+            if(request.status !== 'confirmed'){
               return null;
             }
-
+            return (
+              <UserListItem
+                key={user.id}
+                onPress={() => this.onPressUser(user)}
+                avatar={StyleSheet.images[user.avatar]}
+                firstName={user.name}
+                lastName={user.name}
+                location={user.location}
+                dob={user.dob}
+                status={request.status}
+                onPressDisclosure={() => this.onPressDisclosure(user)}
+              />
+            );
+          })}
+          {this.props.invites.map((invite) => {
+            let user = invite.user;
             return (
               <UserListItem
                 key={user.id}

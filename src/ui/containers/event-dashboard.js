@@ -31,7 +31,7 @@ class EventDashboard extends React.Component {
   }
 
   onPressRequests() {
-    //this.props.onNavigate('eventRequests', {id: this.props.id});
+    this.props.onNavigate('eventRequests', {id: this.props.id}, false);
   }
 
   render() {
@@ -64,7 +64,7 @@ export default connect(
     events: state.events,
   }),
   (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
+    onNavigate: (key, props, subTab) => dispatch(navigation.push({key, props}, subTab)),
     onToggleMode: () => dispatch(user.toggleMode()),
   }),
 )(EventDashboard);

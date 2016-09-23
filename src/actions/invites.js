@@ -39,9 +39,14 @@ export const create = (userId, eventId) => {
 
 export const load = (id) => {
   return (dispatch, getState) => {
+    let state = getState();
     firebaseDb.child(`invites/${id}`).on('value', (snapshot) => {
       let invite = snapshot.val();
-      if(invite.eventId) {
+      /**
+       * TODO: what if we have the event in local storage,
+       * but it's not being listened to with firebaseDb.on() ?
+       */
+      if(invite.eventId && !state.events.eventsById[invite.eventId]) {
         dispatch(eventsActions.load(invite.eventId));
       }
       if(invite.userId) {

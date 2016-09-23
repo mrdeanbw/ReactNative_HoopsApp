@@ -1,5 +1,6 @@
 
 import inflateInvite from './invite';
+import inflateRequest from './request';
 
 /**
  *
@@ -29,5 +30,15 @@ export default (event, extra) => {
     });
   }
 
+  if(extra.requests) {
+    event.requests = Object.keys(event.requests || {}).map(requestId => {
+      let request = extra.requests[requestId];
+      if(extra.users){
+        request = inflateRequest(request, {users: extra.users});
+      }
+      return request;
+    });
+  }
+
   return event;
-}
+};

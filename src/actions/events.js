@@ -3,6 +3,7 @@ import {firebaseDb, firebaseStorage} from '../data/firebase';
 
 import * as usersActions from './users';
 import * as invitesActions from './invites';
+import * as requestsActions from './requests';
 
 const eventsRef = firebaseDb.child('events');
 
@@ -56,14 +57,21 @@ export const load = (id) => {
       });
 
       //Load invites if I am the organizer
-      if(event.organizer === state.user.uid && event.invites) {
-        for(let inviteId in event.invites) {
-          dispatch(invitesActions.load(inviteId));
+      if(event.organizer === state.user.uid) {
+        if(event.invites) {
+          for(let inviteId in event.invites) {
+            dispatch(invitesActions.load(inviteId));
+          }
         }
-      }
-
-      if(event.organizer) {
-        dispatch(usersActions.load(event.organizer));
+        if(event.requests) {
+          for(let requestId in event.requests) {
+            dispatch(requestsActions.load(requestId));
+          }
+        }
+      } else {
+        if(event.organizer) {
+          dispatch(usersActions.load(event.organizer));
+        }
       }
     });
   };

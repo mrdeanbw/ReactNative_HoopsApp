@@ -5,15 +5,6 @@ import {EventDetails as _EventDetails} from '../windows';
 
 class EventDetails extends React.Component {
 
-  componentWillMount() {
-    this._actionListener = this.props.actionButton.addListener('press', () => {
-    });
-  }
-
-  componentWillUnmount() {
-    this._actionListener && this._actionListener.remove();
-  }
-
   render() {
     return (
       <_EventDetails

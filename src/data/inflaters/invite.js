@@ -11,4 +11,4 @@ export default (invite, extra) => {
   }
 
   return invite;
-}
+};

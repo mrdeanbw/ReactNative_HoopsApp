@@ -136,6 +136,11 @@ export const google = 'google';
 export const importFrom = 'Import from';
 export const importFromContacts = 'Import from Contacts';
 
+export const manageRequests = 'Manage Requests';
+export const approve = 'Approve';
+export const approveAll = 'Approve All';
+export const declineAll = 'Decline All';
+
 export const theOrganizer = 'The Organiser';
 export const attendees = 'Attendees';
 export const activity = 'Activity';

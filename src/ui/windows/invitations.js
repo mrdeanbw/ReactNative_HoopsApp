@@ -34,15 +34,6 @@ export default class Invitations extends React.Component {
     };
   }
 
-
-  onPressCreate = () => {
-
-  };
-
-  onPressSearch = () => {
-
-  };
-
   hidePopups = () => {
     this.setState({
       receivedPopupInvite: null,
@@ -53,10 +44,8 @@ export default class Invitations extends React.Component {
   onPressInvite = (invite) => {
     if(this.state.tab === 'received') {
       this.showReceivedPopup(invite);
-      //{ event: {}, sender: { name: 'sender' }, recipient: { name: 'recipient' } });
     } else {
       this.showSentPopup(invite);
-      //{ event: {}, sender: { name: 'sender' }, recipient: {  name: 'recipient' } });
     }
   };
 
@@ -96,20 +85,24 @@ export default class Invitations extends React.Component {
     });
   };
 
+  showSentPopup = (invite) => {
+    this.setState({
+      sentPopupInvite: invite,
+    });
+  };
+
   renderSentPopup() {
     let invite = this.state.sentPopupInvite;
-    let eventTitle = invite ? invite.event.title : '';
-    let userName = invite ? invite.user.name : '';
 
     return (
       <Popup
         visible={!!invite}
         style={[StyleSheet.popupContainer]}
-        onClose={() => this.props.window.hideModal()}
+        onClose={() => this.setState({sentPopupInvite: null})}
       >
-        <Button type="alertVerticalDefault" text={_('remove') + ' "' + userName + '"'} onPress={() => this.onPressRemove(invite)} />
-        <Button type="alertVertical" text={_('eventDetails') + ' "' + eventTitle + '"'} onPress={() => this.onPressEventDetails(invite.event)} />
-        <Button type="alertVertical" text={_('userDetails') + ' "' + userName + '"'} onPress={() => this.onPressUserDetails(invite.user)} />
+        <Button type="alertVerticalDefault" text={_('remove')} onPress={() => this.onPressRemove(invite)} />
+        <Button type="alertVertical" text={_('eventDetails')} onPress={() => this.onPressEventDetails(invite.event)} />
+        <Button type="alertVertical" text={_('userDetails')} onPress={() => this.onPressUserDetails(invite.user)} />
       </Popup>
     );
   }
