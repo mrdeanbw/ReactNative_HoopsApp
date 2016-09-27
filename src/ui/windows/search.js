@@ -38,6 +38,10 @@ export default class Search extends React.Component {
     };
   }
 
+  searchButtonEnabled() {
+    return !!this.state.text;
+  }
+
   onPressSearch = () => {
     let searchParams = {
       text: this.state.text,
@@ -162,7 +166,13 @@ export default class Search extends React.Component {
         </ScrollView>
 
         <View style={StyleSheet.buttons.bar}>
-          <Button type="dialogDefault" text={_('search')} onPress={this.onPressSearch} />
+          <Button
+            type={this.searchButtonEnabled() ? "dialogDefault" : "dialog"}
+            text={_('search')}
+            onPress={() => {
+              this.searchButtonEnabled() && this.onPressSearch();
+            }}
+          />
         </View>
       </View>
     );

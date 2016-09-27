@@ -46,6 +46,7 @@
     "window": false,
     "FormData": true,
     "XMLHttpRequest": false,
+	"fetch": true,
   },
 
   "rules": {

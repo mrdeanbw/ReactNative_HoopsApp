@@ -136,4 +136,24 @@ export default handleActions({
     };
   },
 
+  DEEP_LINK_TAB: (state, action) => {
+    let subNav = {
+      index: 1,
+      routes: [initialState.tabs[action.tabKey].routes[0], action.route],
+    };
+
+    return {
+      ...state,
+      index: 0,
+      routes: [{
+        key: 'tabs',
+      }],
+      tabKey: action.tabKey,
+      tabs: {
+        ...state.tabs,
+        [action.tabKey]: subNav,
+      },
+    };
+  },
+
 }, initialState);

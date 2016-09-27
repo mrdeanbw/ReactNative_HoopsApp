@@ -5,6 +5,7 @@ import events from './events';
 import navigation from './navigation';
 import invites from './invites';
 import requests from './requests';
+import search from './search';
 
 export default {
   user,
@@ -13,4 +14,5 @@ export default {
   navigation,
   invites,
   requests,
+  search,
 };

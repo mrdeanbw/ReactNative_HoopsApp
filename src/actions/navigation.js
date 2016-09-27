@@ -32,3 +32,9 @@ export const showMenu = () => ({
 export const hideMenu = () => ({
   type: 'NAV_HIDE_MENU',
 });
+
+export const deepLinkTab = (route, tabKey) => ({
+  type: 'DEEP_LINK_TAB',
+  route,
+  tabKey,
+});
