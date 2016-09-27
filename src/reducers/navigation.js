@@ -137,10 +137,16 @@ export default handleActions({
   },
 
   DEEP_LINK_TAB: (state, action) => {
+
     let subNav = {
-      index: 1,
-      routes: [initialState.tabs[action.tabKey].routes[0], action.route],
+      ...initialState.tabs[action.tabKey]
     };
+
+    if(action.route) {
+      //Don't use .push() due to a need for pure functions
+      subNav.routes = subNav.routes.concat(action.route);
+      subNav.index = 1;
+    }
 
     return {
       ...state,

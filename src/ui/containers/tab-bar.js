@@ -42,7 +42,7 @@ class TabBar extends React.Component {
         action: {
           pressEmitter: new EventEmitter(),
           text: _('join'),
-          textLarge: '£5',
+          textLarge: '',
         },
       },
 

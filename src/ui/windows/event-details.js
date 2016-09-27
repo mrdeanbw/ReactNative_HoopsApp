@@ -4,49 +4,45 @@ import React from 'react';
 import {ScrollView,View,Text, Image} from 'react-native';
 
 import StyleSheet from '../styles';
-import {Icon, HorizontalRule, Button, MapView, Window, Dialog, Header} from '../components';
+import {Icon, HorizontalRule, Button, MapView, Popup, Header} from '../components';
 
-import EventData from '../../data/events.json';
-import UserData from '../../data/users.json';
-
-import Members from './members';
-
-
-const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
-
-const zeroPad = (s, n) => {
-  s = s.toString();
-  while(s.length < n) s = '0' + s;
-  return s;
-};
+import moment from 'moment';
 
 export default class EventDetails extends React.Component {
 
-  static getTest(close) {
-    return {
-      title: 'Event Details',
-      view: Window.Organizer,
-      viewProps: { initialTab: EventDetails, initialTabProps: { event: EventData[0] }, onClose: close }
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showJoinPopup: false,
+      showJoinedConfirmation: false,
     };
   }
 
-  static getTitle(props) {
-    return _('eventDetails');
+  componentWillMount() {
+    this._actionListener = this.props.actionButton.addListener('press', () => {
+      this.setState({showJoinPopup: true});
+    });
+
+    let entryFee = this.props.event.entryFee || 0;
+
+    this.props.onChangeAction({
+      text: _('join'),
+      textLarge: '£' + entryFee,
+    });
   }
 
-  static emulatesDialog = true;
-
-  static getActionButton(props) {
-    return <Button type="actionDefault" icon={
-      <Text style={[StyleSheet.text, StyleSheet.eventDetails.actionButtonTextStyle]}>
-        {'£'}{props.event.entryFee}
-      </Text>
-    } text={_('join')} onPress={this.prototype.onPressJoin} />;
+  componentWillUnmount() {
+    this._actionListener && this._actionListener.remove();
   }
 
-  onPressJoin() {
-    EventDetails.joinEvent(this.props.window, this.props.event, this.props.onClose);
+  onPressJoin = () => {
+    this.setState({
+      showJoinPopup: false,
+      showJoinedConfirmation: true,
+    });
+
+    this.props.onPressJoin();
   };
 
   onPressSave = () => {
@@ -54,35 +50,16 @@ export default class EventDetails extends React.Component {
   };
 
   onPressInvite = () => {
-    this.props.window.showModal(<EventInvite
-      onClose={() => {
-        this.props.window.hideModal();
-      }}
-      onPressFacebook={() => {
-        this.props.window.hideModal();
-      }}
-      onPressTwitter={() => {
-        this.props.window.hideModal();
-      }}
-      onPressEmail={() => {
-        this.props.window.hideModal();
-      }}
-    />);
+    //TODO show EventInvite popup
   };
 
   render() {
-    const organizer = UserData.find(user => user.id === this.props.event.organizer);
     const formatDate = (date) => {
-      date = new Date(date);
-
-      const month = _(months[date.getMonth()]);
-
-      return date.getDate() + ' ' + month;
+      return moment(date).format('D MMM');
     };
 
     const formatTime = (date) => {
-      date = new Date(date);
-      return (date.getHours() + ':' + zeroPad(date.getMinutes(), 2));
+      return moment(date).format('HH:mm');
     };
 
     return (
@@ -91,6 +68,19 @@ export default class EventDetails extends React.Component {
           title={_('eventDetails')}
           hideSwitcher={true}
           onClose={() => {}}
+        />
+        <EventJoinPopup
+          visible={this.state.showJoinPopup}
+          event={this.props.event}
+          onPressCancel={() => this.setState({showJoinPopup: false})}
+          onPressJoin={this.onPressJoin}
+          charge={0.5}
+        />
+        <EventJoinedConfirmation
+          visible={this.state.showJoinedConfirmation}
+          onClose={() => this.setState({showJoinedConfirmation: false})}
+          entryFee={this.props.event.entryFee}
+          onPressViewList={this.props.onPressViewList}
         />
         <ScrollView style={StyleSheet.eventDetails.style}>
           <View style={StyleSheet.eventDetails.titleStyle}>
@@ -111,12 +101,12 @@ export default class EventDetails extends React.Component {
             </Text>
           </View>
 
-          {organizer && <View style={StyleSheet.eventDetails.avatarStyle}>
+          {this.props.organizer && <View style={StyleSheet.eventDetails.avatarStyle}>
             <View style={StyleSheet.eventDetails.avatarContainerStyle}>
-              <Image source={StyleSheet.images[organizer.avatar]} style={StyleSheet.eventDetails.avatarImageStyle} />
+              <Image source={StyleSheet.images[this.props.organizer.avatar]} style={StyleSheet.eventDetails.avatarImageStyle} />
             </View>
             <Text style={[StyleSheet.text, StyleSheet.eventDetails.avatarNameStyle]}>
-              {organizer.name.first}{'\u00a0'}{organizer.name.last}
+              {this.props.organizer.name}
             </Text>
             <Text style={[StyleSheet.text, StyleSheet.eventDetails.avatarOccupationStyle]}>
               {_('theOrganizer')}
@@ -217,56 +207,32 @@ EventInfo.Bar = class EventInfoBar extends React.Component {
 }
 
 
-class EventInvite extends React.Component {
+class EventInvitePopup extends React.Component {
   render() {
     return (
-      <Dialog popup={true} onClose={this.props.onClose} style={StyleSheet.dialog.optionsMenu}>
+      <Popup visible={false} onClose={this.props.onClose} style={StyleSheet.dialog.optionsMenu}>
         <Button type="alertVertical" text={_('facebook')} onPress={this.props.onPressFacebook} />
         <Button type="alertVertical" text={_('twitter')} onPress={this.props.onPressTwitter} />
         <Button type="alertVertical" text={_('email')} onPress={this.props.onPressEmail} />
-      </Dialog>
+      </Popup>
     );
   }
 }
 
-EventDetails.joinEvent = (modalProvider, event, onClose) => {
-  modalProvider.showModal(
-    <EventDetails.Join charge={0.50} event={event}
-               onPressCancel={() => {
-                 modalProvider.hideModal();
-               }}
-               onPressJoin={() => {
-                 modalProvider.hideModal();
-                 modalProvider.showModal(
-                   <EventDetails.Joined entryFee={event.entryFee}
-                            onClose={() => {
-                              modalProvider.hideModal();
-                            }}
-                            onPressViewList={() => {
-                              modalProvider.hideModal();
-                              modalProvider.setView(Members, { event: event, onClose: onClose });
-                            }}
-                   />);
-               }}
-    />);
-}
-
-EventDetails.Join = class EventJoin extends React.Component {
+class EventJoinPopup extends React.Component {
   render() {
     const formatDate = (date) => {
-      date = new Date(date);
-
-      const day = _(days[date.getDay()]);
-      const month = _(months[date.getMonth()]);
-
-      return day + ', ' + date.getDate() + ' ' + month;
+      return moment(date).format('ddd, D MMM');
     };
 
     const formatTime = (date, duration) => {
-      date = new Date(date);
-
-      const endTime = new Date((date.getTime() + duration*3600*1000));
-      return (date.getHours() + ':' + zeroPad(date.getMinutes(), 2)) + ' - ' + (endTime.getHours() + ':' + zeroPad(endTime.getMinutes(), 2));
+      return (
+        <Text>
+          <Text>{moment(date).format('HH:mm')}</Text>
+          <Text> - </Text>
+          <Text>{moment(date).add(duration, 'minutes').format('HH:mm')}</Text>
+        </Text>
+      );
     };
 
     const formatCharge = (charge) => {
@@ -274,7 +240,7 @@ EventDetails.Join = class EventJoin extends React.Component {
     };
 
     return (
-      <Dialog popup={true} onClose={this.props.onPressCancel}>
+      <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>
         <View style={[StyleSheet.dialog.alertContentStyle]}>
           <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, { textAlign: 'center' }]}>{_('youAreAboutToJoin').toUpperCase()}</Text>
           <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, {textAlign: 'center', color: StyleSheet.colors.pink}]}>{this.props.event.title.toUpperCase()}</Text>
@@ -293,20 +259,29 @@ EventDetails.Join = class EventJoin extends React.Component {
 
         <View style={StyleSheet.buttons.bar}>
           <Button type="alert" text={_('cancel')} onPress={this.props.onPressCancel} />
-          <Button type="alertDefault"
-              text={<Text>{_('join').toUpperCase() + ' £' + this.props.event.entryFee + (this.props.charge ? ' (+' + formatCharge(this.props.charge) + ')' : '')}</Text>}
-              onPress={this.props.onPressJoin} />
+          <Button
+            type="alertDefault"
+            text={
+              <Text>
+                <Text>{_('join').toUpperCase()} £{this.props.event.entryFee}</Text>
+                {this.props.charge && (
+                  <Text>(+{formatCharge(this.props.charge)})</Text>
+                )}
+              </Text>
+            }
+            onPress={this.props.onPressJoin}
+          />
         </View>
-      </Dialog>
+      </Popup>
     );
   }
 }
 
 
-EventDetails.Joined = class EventJoined extends React.Component {
+class EventJoinedConfirmation extends React.Component {
   render() {
     return (
-      <Dialog popup={true} onClose={this.props.onClose}>
+      <Popup visible={this.props.visible} onClose={this.props.onClose}>
         <View style={[StyleSheet.dialog.alertContentStyle]}>
           <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
             {_('congrats').toUpperCase()}{'\n'}
@@ -324,7 +299,7 @@ EventDetails.Joined = class EventJoined extends React.Component {
               text={_('viewList')}
               onPress={this.props.onPressViewList} />
         </View>
-      </Dialog>
+      </Popup>
     );
   }
 }

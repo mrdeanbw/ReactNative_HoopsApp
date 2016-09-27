@@ -40,12 +40,11 @@ export const create = (userId, eventId) => {
 };
 
 export const load = (id) => {
-  return (dispatch, getState) => {
+  return dispatch => {
     if(listening[id] === true){
       return;
     }
     listening[id] = true;
-    let state = getState();
     firebaseDb.child(`invites/${id}`).on('value', (snapshot) => {
       let invite = snapshot.val();
       /**
@@ -73,23 +72,17 @@ export const load = (id) => {
 };
 
 export const accept = (invite) => {
-  return (dispatch, getState) => {
-    let state = getState();
-    let uid = state.user.uid;
+  return dispatch => {
     firebaseDb.update({
       [`invites/${invite.id}/status`]: 'confirmed',
-      [`users/${uid}/participating/${invite.eventId}`]: true,
     });
   };
 };
 
 export const decline = (invite) => {
-  return (dispatch, getState) => {
-    let state = getState();
-    let uid = state.user.uid;
+  return dispatch => {
     firebaseDb.update({
       [`invites/${invite.id}/status`]: 'rejected',
-      [`users/${uid}/participating/${invite.eventId}`]: null,
     });
   };
 };

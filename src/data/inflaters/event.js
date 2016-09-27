@@ -40,5 +40,9 @@ export default (event, extra) => {
     });
   }
 
+  if(extra.users) {
+    event.organizer = extra.users[event.organizer];
+  }
+
   return event;
 };

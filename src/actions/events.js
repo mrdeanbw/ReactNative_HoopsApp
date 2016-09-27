@@ -126,3 +126,34 @@ export const inviteUsers = (userIds, eventId) => {
 
   };
 };
+
+export const join = (eventId) => {
+  return (dispatch, getState) => {
+    let uid = getState().user.uid;
+
+    let requestRef = firebaseDb.child('requests').push();
+    let requestKey = requestRef.key;
+
+    firebaseDb.update({
+      [`events/${eventId}/requests/${requestKey}`]: true,
+      [`users/${uid}/requests/${requestKey}`]: true,
+      [`requests/${requestKey}`]: {
+        eventId: eventId,
+        userId: uid,
+        status: 'confirmed',
+        date: new Date(),
+      }
+    }, (err) => {
+      if(err) {
+        dispatch({
+          type: 'EVENT_JOINED',
+        });
+      } else {
+        dispatch({
+          type: 'EVENT_JOIN_ERROR',
+          err,
+        });
+      }
+    });
+  };
+};

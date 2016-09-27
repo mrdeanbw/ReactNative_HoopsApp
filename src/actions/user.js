@@ -195,11 +195,6 @@ const listenToUser = () => {
           dispatch(eventsActions.load(id));
         }
       }
-      if(user.participating) {
-        for(let id in user.participating) {
-          dispatch(eventsActions.load(id));
-        }
-      }
       if(user.friends) {
         for(let id in user.friends) {
           dispatch(usersActions.load(id));

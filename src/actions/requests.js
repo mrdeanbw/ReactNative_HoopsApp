@@ -69,17 +69,10 @@ export const load = (id) => {
 };
 
 export const allow = (request) => {
-  console.log("allowing", request);
   return (dispatch, getState) => {
-    console.log({
-      [`requests/${request.id}/status`]: 'confirmed',
-      [`users/${request.userId}/requests/${request.id}`]: null,
-      [`users/${request.userId}/participating/${request.eventId}`]: true,
-    });
     firebaseDb.update({
       [`requests/${request.id}/status`]: 'confirmed',
       [`users/${request.userId}/requests/${request.id}`]: null,
-      [`users/${request.userId}/participating/${request.eventId}`]: true,
     });
   };
 };
@@ -94,27 +87,3 @@ export const cancel = (request) => {
     });
   };
 };
-
-/*
-export const accept = (invite) => {
-  return (dispatch, getState) => {
-    let state = getState();
-    let uid = state.user.uid;
-    firebaseDb.update({
-      [`invites/${invite.id}/status`]: 'confirmed',
-      [`users/${uid}/participating/${invite.eventId}`]: true,
-    });
-  };
-};
-
-export const decline = (invite) => {
-  return (dispatch, getState) => {
-    let state = getState();
-    let uid = state.user.uid;
-    firebaseDb.update({
-      [`invites/${invite.id}/status`]: 'rejected',
-      [`users/${uid}/participating/${invite.eventId}`]: null,
-    });
-  };
-};
-*/

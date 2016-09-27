@@ -11,9 +11,18 @@ class MyEvents extends React.Component {
   }
 
   render() {
-    let events = Object.keys(this.props.user.participating).map((id) => {
-      return this.props.events.eventsById[id];
+    let requests = Object.keys(this.props.user.requests).map(requestId => {
+      return this.props.requests.requestsById[requestId];
+    }).filter(request => request.status === 'confirmed');
+
+    let invites = Object.keys(this.props.user.invites).map(inviteId => {
+      return this.props.invites.requestsById[inviteId];
+    }).filter(invite => invite.status === 'confirmed');
+
+    let events = requests.concat(invites).map(connection => {
+      return this.props.events.eventsById[connection.eventId];
     });
+
 
     let history = events.filter((event) => {
       return (new Date(event.date) < new Date());
@@ -46,6 +55,8 @@ export default connect(
   (state) => ({
     user: state.user,
     events: state.events,
+    requests: state.requests,
+    invites: state.invites,
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),

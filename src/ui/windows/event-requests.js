@@ -77,8 +77,6 @@ export default class EventRequests extends React.Component {
   }
 
   render() {
-    console.log("state", this.state);
-    console.log(this.props.requests);
     return (
       <View style={{flex: 1}}>
         <Header

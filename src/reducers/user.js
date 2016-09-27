@@ -11,7 +11,6 @@ const initialState = {
   availability: true,
 
   organizing: {}, //Events that this user organizes
-  participating: {}, //Events that this user participates in
 
   invites: {},
   requests: {},
