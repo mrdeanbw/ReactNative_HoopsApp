@@ -24,9 +24,16 @@ class TabBar extends React.Component {
       home: {
         component: containers.Home,
         action: {
-          text: _('search'),
-          icon: "actionSearch",
-          onPress: () => props.onNavigate('search', {}, false),
+          organizer: {
+            text: _('create'),
+            icon: "actionAdd",
+            onPress: () => props.onNavigate('createEvent', {}, false),
+          },
+          participant: {
+            text: _('search'),
+            icon: "actionSearch",
+            onPress: () => props.onNavigate('search', {}, false),
+          },
         },
       },
 
@@ -176,8 +183,23 @@ class TabBar extends React.Component {
       throw new Error(`TabBar config for ${route.key} is not defined`);
     }
 
-    let actionConfig = {
-      ...config.action,
+    /**
+     * If there are separate action configs for organiser / participant,
+     * use those instead of the general action.config
+     */
+    let actionConfig;
+    if(config.action) {
+      if(this.props.user.mode === 'ORGANIZE' && config.action.organizer){
+        actionConfig = config.action.organizer;
+      } else if(this.props.user.mode === 'PARTICIPATE' && config.action.participant) {
+        actionConfig = config.action.participant;
+      } else {
+        actionConfig = config.action;
+      }
+    }
+
+    actionConfig = {
+      ...actionConfig,
       ...this.state.action, //override static config with dynamic state
     };
 
