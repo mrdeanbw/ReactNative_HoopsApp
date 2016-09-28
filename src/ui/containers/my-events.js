@@ -16,7 +16,7 @@ class MyEvents extends React.Component {
     }).filter(request => request.status === 'confirmed');
 
     let invites = Object.keys(this.props.user.invites).map(inviteId => {
-      return this.props.invites.requestsById[inviteId];
+      return this.props.invites.invitesById[inviteId];
     }).filter(invite => invite.status === 'confirmed');
 
     let events = requests.concat(invites).map(connection => {

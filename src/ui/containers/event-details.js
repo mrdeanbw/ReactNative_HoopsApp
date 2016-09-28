@@ -27,7 +27,7 @@ class EventDetails extends React.Component {
     });
 
     let isMember = !!user.requests.concat(user.invites).find(connection => {
-      return connection.eventId === event.id;
+      return connection.eventId === event.id && connection.status === 'confirmed';
     });
 
     return (

@@ -24,6 +24,8 @@ class Invitations extends React.Component {
           events: this.props.events.eventsById,
         }
       );
+    }).filter(invite => {
+      return invite && invite.event && invite.user;
     }).map((invite) => {
       //convert organizer from a user id to an object
       //we need to do a deep clone of invite.event.organizer
