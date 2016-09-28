@@ -78,10 +78,6 @@ export default class EventDetails extends React.Component {
     this.props.onPressJoin();
   };
 
-  onPressSave = () => {
-    this.props.onClose && this.props.onClose();
-  };
-
   onPressInvite = () => {
     //TODO show EventInvite popup
   };
@@ -138,7 +134,12 @@ export default class EventDetails extends React.Component {
             <View style={StyleSheet.eventDetails.coverImageOverlayStyle} />
 
             <View style={StyleSheet.eventDetails.titleButtonBar}>
-              <Button type="roundedWhiteBorder" icon="star" text={_('save')} onPress={this.onPressSave} />
+              <Button
+                type="roundedWhiteBorder"
+                icon={this.props.isSaved ? "starFilled" : "star"}
+                text={this.props.isSaved ? _('saved') : _('save')}
+                onPress={this.props.onPressSave}
+              />
               <View style={StyleSheet.flex} />
               <Button type="roundedWhiteBorder" icon="plusSmall" text={_('invite')} onPress={this.onPressInvite} />
             </View>

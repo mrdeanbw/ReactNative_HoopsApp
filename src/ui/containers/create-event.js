@@ -29,6 +29,6 @@ export default connect(
     onNavigate: (key, props) => dispatch(navigation.push({key, props})),
     onNavigateBack: () => dispatch(navigation.pop()),
     onToggleMode: () => dispatch(user.toggleMode()),
-    onSaveEvent: (eventData) => dispatch(events.save(eventData)),
+    onSaveEvent: (eventData) => dispatch(events.create(eventData)),
   }),
 )(CreateEvent);

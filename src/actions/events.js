@@ -90,7 +90,7 @@ export const remove = (id) => {
   };
 };
 
-export const save = (eventData) => {
+export const create = (eventData) => {
   return (dispatch, getState) => {
     let ref = eventsRef.push();
     let newKey = ref.key;
@@ -209,5 +209,25 @@ export const quit = (eventId) => {
     } else {
       throw new Error(`User ${uid} has no requests or invites for event ${eventId}`);
     }
+  };
+};
+
+export const save = (eventId) => {
+  return (dispatch, getState) => {
+    let state = getState();
+    let uid = state.user.uid;
+    firebaseDb.update({
+      [`users/${uid}/savedEvents/${eventId}`]: true,
+    });
+  };
+};
+
+export const unsave = (eventId) => {
+  return (dispatch, getState) => {
+    let state = getState();
+    let uid = state.user.uid;
+    firebaseDb.update({
+      [`users/${uid}/savedEvents/${eventId}`]: null,
+    });
   };
 };

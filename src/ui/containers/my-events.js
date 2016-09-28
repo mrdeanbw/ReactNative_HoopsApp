@@ -28,6 +28,10 @@ class MyEvents extends React.Component {
       return (new Date(event.date) < new Date());
     });
 
+    let saved = events.filter((event) => {
+      return event.id in this.props.user.savedEvents;
+    });
+
     let upcoming = events.filter((event) => {
       return (new Date(event.date) > new Date());
     });
@@ -38,7 +42,7 @@ class MyEvents extends React.Component {
         onPressCreate={() => this.props.onNavigate('createEvent')}
         onPressSearch={() => this.props.onNavigate('search')}
         upcoming={upcoming}
-        saved={[/*TODO*/]}
+        saved={saved}
         history={history}
         mode={this.props.user.mode}
         onToggleMode={this.props.onToggleMode}

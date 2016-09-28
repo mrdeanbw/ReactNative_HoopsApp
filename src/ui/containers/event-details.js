@@ -30,14 +30,26 @@ class EventDetails extends React.Component {
       return connection.eventId === event.id && connection.status === 'confirmed';
     });
 
+    let isSaved = !!Object.keys(user.savedEvents).find(eventId => {
+      return eventId === event.id;
+    });
+
     return (
       <_EventDetails
         event={event}
         organizer={event.organizer}
         isMember={isMember}
         isOrganizer={event.organizer && event.organizer.id === this.props.user.uid}
+        isSaved={isSaved}
         actionButton={this.props.actionButton}
         onChangeAction={this.props.onChangeAction}
+        onPressSave={() => {
+          if(isSaved) {
+            this.props.onPressUnsave(this.props.id);
+          } else {
+            this.props.onPressSave(this.props.id);
+          }
+        }}
         onPressJoin={() => {
           this.props.onPressJoin(this.props.id);
         }}
@@ -74,5 +86,7 @@ export default connect(
     },
     onPressJoin: (eventId) => dispatch(events.join(eventId)),
     onPressQuit: (eventId) => dispatch(events.quit(eventId)),
+    onPressSave: (eventId) => dispatch(events.save(eventId)),
+    onPressUnsave: (eventId) => dispatch(events.unsave(eventId)),
   }),
 )(EventDetails);

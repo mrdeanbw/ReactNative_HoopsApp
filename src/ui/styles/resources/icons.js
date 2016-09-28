@@ -77,6 +77,7 @@ export default {
   "sharing": require('./icons/sharing.png'),
   "sliderThumb": require('./icons/slider-thumb.png'),
   "star": require('./icons/star.png'),
+  "starFilled": require('./icons/star-filled.png'),
   "switch": require('./icons/switch.png'),
   "switchActive": require('./icons/switch-active.png'),
   "username": require('./icons/username.png')

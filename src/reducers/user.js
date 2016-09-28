@@ -1,21 +1,23 @@
 import {handleActions} from 'redux-actions';
 
-const initialState = {
-  uid: null,
-
+const emptyUserObject = {
   name: null,
   username: null,
   gender: null,
   dob: null,
 
   availability: true,
-
   organizing: {}, //Events that this user organizes
-
   invites: {},
   requests: {},
-
+  savedEvents: {},
   friends: {},
+};
+
+const initialState = {
+  uid: null,
+
+  ...emptyUserObject,
 
   //Signing in
   isSigningIn: false,
@@ -64,11 +66,7 @@ export default handleActions({
       ...state,
       uid: null,
 
-      email: null,
-      name: null,
-      username: null,
-      dob: null,
-      gender: null,
+      ...emptyUserObject,
 
       isSigningIn: false,
       signInError: action.err,
@@ -114,7 +112,15 @@ export default handleActions({
   USER_CHANGE: (state, action) => {
     return {
       ...state,
-      ...action.user,
+      ...{
+        /*
+         * we need to merge new data with the emptyUserObject
+         * so that undefined keys are reset.
+         * For example `savedEvents` changes from {E1:true} to undefined.
+         */
+        ...emptyUserObject,
+        ...action.user,
+      },
     };
   },
 
@@ -122,16 +128,6 @@ export default handleActions({
     return {
       ...state,
       availability: action.value,
-    };
-  },
-
-  REQUEST_DELETED: (state, action) => {
-    let requests = {...state.requests};
-    delete requests[action.id];
-
-    return {
-      ...state,
-      requests,
     };
   },
 
