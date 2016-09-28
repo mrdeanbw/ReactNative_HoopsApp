@@ -8,6 +8,8 @@ import {Icon, HorizontalRule, Button, MapView, Popup, Header} from '../component
 
 import moment from 'moment';
 
+import EventDashboard from './event-dashboard';
+
 export default class EventDetails extends React.Component {
 
   constructor(props) {
@@ -16,20 +18,51 @@ export default class EventDetails extends React.Component {
     this.state = {
       showJoinPopup: false,
       showJoinedConfirmation: false,
+      showQuitPopup: false,
+      showCancelEventPopup: false,
     };
   }
 
   componentWillMount() {
     this._actionListener = this.props.actionButton.addListener('press', () => {
-      this.setState({showJoinPopup: true});
+      if(this.props.isMember) {
+        this.setState({showQuitPopup: true});
+      } else if(this.props.isOrganizer) {
+        this.setState({showCancelEventPopup: true});
+      } else {
+        this.setState({showJoinPopup: true});
+      }
     });
 
+    this.updateActionButton(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.updateActionButton(nextProps);
+  }
+
+  updateActionButton(props) {
     let entryFee = this.props.event.entryFee || 0;
 
-    this.props.onChangeAction({
-      text: _('join'),
-      textLarge: '£' + entryFee,
-    });
+    if(this.props.isMember) {
+      this.props.onChangeAction({
+        text: _('quit'),
+        icon: "actionRemove",
+        type: "action",
+      });
+    } else if(this.props.isOrganizer) {
+      this.props.onChangeAction({
+        text: _('cancel'),
+        icon: "actionRemove",
+        type: "action",
+      });
+    } else {
+      this.props.onChangeAction({
+        text: _('join'),
+        textLarge: '£' + entryFee,
+        type: "actionDefault",
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -46,7 +79,7 @@ export default class EventDetails extends React.Component {
   };
 
   onPressSave = () => {
-    if(this.props.onClose) this.props.onClose();
+    this.props.onClose && this.props.onClose();
   };
 
   onPressInvite = () => {
@@ -81,6 +114,23 @@ export default class EventDetails extends React.Component {
           onClose={() => this.setState({showJoinedConfirmation: false})}
           entryFee={this.props.event.entryFee}
           onPressViewList={this.props.onPressViewList}
+        />
+        <EventQuitPopup
+          visible={this.state.showQuitPopup}
+          event={this.props.event}
+          onPressCancel={() => this.setState({showQuitPopup: false})}
+          onPressQuit={() => {
+            this.setState({showQuitPopup: false});
+            this.props.onPressQuit();
+          }}
+        />
+        <EventDashboard.CancelEventPopup
+          visible={this.state.showCancelEventPopup}
+          onClose={() => this.setState({showCancelEventPopup: false})}
+          onSubmit={(message) => {
+            this.setState({showCancelEventPopup: false});
+            this.props.onCancelEvent(message);
+          }}
         />
         <ScrollView style={StyleSheet.eventDetails.style}>
           <View style={StyleSheet.eventDetails.titleStyle}>
@@ -161,8 +211,7 @@ export default class EventDetails extends React.Component {
       </View>
     );
   }
-};
-
+}
 
 class EventInfo extends React.Component {
   render() {
@@ -194,7 +243,7 @@ EventInfo.Summary = class EventSummaryInfo extends React.Component {
       </View>
     );
   }
-}
+};
 
 EventInfo.Bar = class EventInfoBar extends React.Component {
   render() {
@@ -204,7 +253,7 @@ EventInfo.Bar = class EventInfoBar extends React.Component {
       </View>
     );
   }
-}
+};
 
 
 class EventInvitePopup extends React.Component {
@@ -236,7 +285,7 @@ class EventJoinPopup extends React.Component {
     };
 
     const formatCharge = (charge) => {
-      return (parseFloat(charge) * 100).toFixed(0) + 'p'
+      return (parseFloat(charge) * 100).toFixed(0) + 'p';
     };
 
     return (
@@ -304,6 +353,29 @@ class EventJoinedConfirmation extends React.Component {
   }
 }
 
+class EventQuitPopup extends React.Component {
+  render() {
+    return (
+      <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>
+        <View style={[StyleSheet.dialog.alertContentStyle]}>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
+            {_('quitConfirmationTitle')}
+          </Text>
 
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop]}>
+            {_('quitConfirmation')}
+          </Text>
+        </View>
 
-
+        <View style={StyleSheet.buttons.bar}>
+          <Button type="alert" text={_('cancel')} onPress={this.props.onPressCancel} />
+          <Button
+            type="alertDefault"
+            text={_('quit')}
+            onPress={this.props.onPressQuit}
+          />
+        </View>
+      </Popup>
+    );
+  }
+}

@@ -15,11 +15,24 @@ class Home extends React.Component {
   }
 
   render() {
-    let eventIds = (this.props.user.mode === 'ORGANIZE') ?
-      this.props.user.organizing :
-      this.props.user.participating;
+    let eventIds = [];
+    if(this.props.user.mode === 'ORGANIZE') {
+      eventIds = Object.keys(this.props.user.organizing);
+    } else {
+      let requests = Object.keys(this.props.user.requests).map(requestId => {
+        return this.props.requests.requestsById[requestId];
+      }).filter(request => request.status === 'confirmed');
 
-    let events = Object.keys(eventIds).map((id) => {
+      let invites = Object.keys(this.props.user.invites).map(inviteId => {
+        return this.props.invites.invitesById[inviteId];
+      }).filter(invite => invite.status === 'confirmed');
+
+      eventIds = requests.concat(invites).map(connection => {
+        return connection.eventId;
+      });
+    }
+
+    let events = eventIds.map((id) => {
       return this.props.events.eventsById[id];
     });
 
@@ -45,6 +58,8 @@ export default connect(
   (state) => ({
     user: state.user,
     events: state.events,
+    requests: state.requests,
+    invites: state.invites,
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),

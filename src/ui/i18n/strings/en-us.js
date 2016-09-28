@@ -167,6 +167,10 @@ export const mixed = 'Mixed';
 export const similarEvents = 'Similar Events Near You';
 export const join = 'Join';
 
+export const quit = 'Quit';
+export const quitConfirmationTitle = 'Are you sure?';
+export const quitConfirmation = 'Do you really want to leave this event?';
+
 export const youAreAboutToJoin = 'You are about to join';
 export const congrats = 'Congrats';
 export const youreIn = 'You\'re In';

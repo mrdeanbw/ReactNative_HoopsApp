@@ -146,14 +146,68 @@ export const join = (eventId) => {
     }, (err) => {
       if(err) {
         dispatch({
-          type: 'EVENT_JOINED',
-        });
-      } else {
-        dispatch({
           type: 'EVENT_JOIN_ERROR',
           err,
         });
+      } else {
+        dispatch({
+          type: 'EVENT_JOINED',
+        });
       }
     });
+  };
+};
+
+/**
+ * Update either the request or the invite status
+ */
+export const quit = (eventId) => {
+  return (dispatch, getState) => {
+    let state = getState();
+    let uid = state.user.uid;
+
+    //Look for requests matching this event
+    let request = Object.keys(state.user.requests).map(requestId => {
+      return state.requests.requestsById[requestId];
+    }).find(requestObj => requestObj.eventId === eventId);
+
+    //Look for invites matching this event
+    let invite = Object.keys(state.user.invites).map(inviteId => {
+      return state.invites.invitesById[inviteId];
+    }).find(inviteObj => inviteObj.eventId === eventId);
+
+    let resultHandler = (err) => {
+      if(err) {
+        dispatch({
+          type: 'EVENT_QUIT_ERROR',
+          err,
+        });
+      }else{
+        dispatch({
+          type: 'EVENT_QUIT',
+          eventId,
+        });
+      }
+    };
+
+    if(request) {
+
+      //Delete the request, N.B we will have no record of it ever existing
+      firebaseDb.update({
+        [`requests/${request.id}`]: null,
+        [`users/${uid}/requests/${request.id}`]: null,
+        [`events/${eventId}/requests/${request.id}`]: null,
+      }).then(resultHandler);
+
+    } else if (invite) {
+
+      //Set the invite status to 'rejected'
+      firebaseDb.update({
+        [`invites/${invite.id}/status`]: 'rejected',
+      }).then(resultHandler);
+
+    } else {
+      throw new Error(`User ${uid} has no requests or invites for event ${eventId}`);
+    }
   };
 };

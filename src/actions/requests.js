@@ -48,6 +48,16 @@ export const load = (id) => {
     listening[id] = true;
     firebaseDb.child(`requests/${id}`).on('value', (snapshot) => {
       let request = snapshot.val();
+
+      if(!request) {
+        //The request has been deleted
+        dispatch({
+          type: 'REQUEST_DELETED',
+          id,
+        });
+        return;
+      }
+
       if(request.eventId) {
         dispatch(eventsActions.load(request.eventId));
       }

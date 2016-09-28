@@ -125,4 +125,14 @@ export default handleActions({
     };
   },
 
+  REQUEST_DELETED: (state, action) => {
+    let requests = {...state.requests};
+    delete requests[action.id];
+
+    return {
+      ...state,
+      requests,
+    };
+  },
+
 }, initialState);

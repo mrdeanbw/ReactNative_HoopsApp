@@ -17,4 +17,14 @@ export default handleActions({
     };
   },
 
+  REQUEST_DELETED: (state, action) => {
+    let requestsById = {...state.requestsById}; //clone
+    delete requestsById[action.id];
+
+    return {
+      ...state,
+      requestsById,
+    };
+  },
+
 }, initialState);

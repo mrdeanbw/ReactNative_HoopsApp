@@ -1,6 +1,6 @@
 import _ from '../i18n';
 import React from 'react';
-import {View, Modal, Text} from 'react-native';
+import {View, Text} from 'react-native';
 
 import {Button, Header, Popup, TextInput} from '../components';
 import StyleSheet from '../styles';
@@ -33,7 +33,7 @@ export default class EventDashboard extends React.Component {
   onCancel() {
     this.setState({showCancelPopup: true});
   }
-  
+
   onCancelSubmit() {
   }
 
@@ -162,3 +162,5 @@ CancelEventPopup.propTypes = {
   onClose: React.PropTypes.func.isRequired,
   onSubmit: React.PropTypes.func.isRequired,
 };
+
+EventDashboard.CancelEventPopup = CancelEventPopup;
