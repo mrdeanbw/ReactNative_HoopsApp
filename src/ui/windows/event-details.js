@@ -42,22 +42,22 @@ export default class EventDetails extends React.Component {
   }
 
   updateActionButton(props) {
-    let entryFee = this.props.event.entryFee || 0;
+    let entryFee = props.event.entryFee || 0;
 
-    if(this.props.isMember) {
-      this.props.onChangeAction({
+    if(props.isMember) {
+      props.onChangeAction({
         text: _('quit'),
         icon: "actionRemove",
         type: "action",
       });
-    } else if(this.props.isOrganizer) {
-      this.props.onChangeAction({
+    } else if(props.isOrganizer) {
+      props.onChangeAction({
         text: _('cancel'),
         icon: "actionRemove",
         type: "action",
       });
     } else {
-      this.props.onChangeAction({
+      props.onChangeAction({
         text: _('join'),
         textLarge: '£' + entryFee,
         type: "actionDefault",
