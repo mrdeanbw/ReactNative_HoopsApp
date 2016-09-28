@@ -1,7 +1,7 @@
 
 import _ from '../i18n';
 import React from 'react';
-import {ScrollView,View,Text, Image} from 'react-native';
+import {ScrollView,View,Text, Image, ActionSheetIOS} from 'react-native';
 
 import StyleSheet from '../styles';
 import {Icon, HorizontalRule, Button, MapView, Popup, Header} from '../components';
@@ -79,7 +79,16 @@ export default class EventDetails extends React.Component {
   };
 
   onPressInvite = () => {
-    //TODO show EventInvite popup
+    ActionSheetIOS.showShareActionSheetWithOptions({
+      //TODO figure out a deep link url
+      url: `hoops://events/${this.props.event.id}`,
+      message: 'Check out this event, want to join?',
+      subject: 'Join this event',
+    }, (err) => {
+      console.warn(err); //eslint-disable-line no-console
+    }, (success, method) => {
+      //This callback does nothing but is required by ActionSheetIOS
+    });
   };
 
   render() {
@@ -255,19 +264,6 @@ EventInfo.Bar = class EventInfoBar extends React.Component {
     );
   }
 };
-
-
-class EventInvitePopup extends React.Component {
-  render() {
-    return (
-      <Popup visible={false} onClose={this.props.onClose} style={StyleSheet.dialog.optionsMenu}>
-        <Button type="alertVertical" text={_('facebook')} onPress={this.props.onPressFacebook} />
-        <Button type="alertVertical" text={_('twitter')} onPress={this.props.onPressTwitter} />
-        <Button type="alertVertical" text={_('email')} onPress={this.props.onPressEmail} />
-      </Popup>
-    );
-  }
-}
 
 class EventJoinPopup extends React.Component {
   render() {
