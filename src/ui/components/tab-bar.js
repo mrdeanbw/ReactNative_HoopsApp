@@ -73,12 +73,12 @@ export default class TabBar extends React.Component {
             onPress={() => this.props.onTabPress('home')}
           />
           {this.props.mode === 'ORGANIZE' ? (
-            <Button key="manage" type="tab" icon="manage" text={_('manage')}
+            <Button type="tab" icon="manage" text={_('manage')}
               active={this.props.currentTab === "manage"}
               onPress={() => this.props.onTabPress('manage')}
             />
           ) : (
-            <Button key="myEvents" type="tab" icon="myEvents" text={_('myEvents')}
+            <Button type="tab" icon="myEvents" text={_('myEvents')}
               active={this.props.currentTab === "myEvents"}
               onPress={() => this.props.onTabPress('myEvents')}
             />
@@ -87,12 +87,12 @@ export default class TabBar extends React.Component {
           <Button type={this.props.actionType} icon={actionIcon} text={this.props.actionText} onPress={this.props.onActionPress} />
 
           {this.props.mode === 'ORGANIZE' ? (
-            <Button key="calendar" type="tab" icon="calendar" text={_('calendar')}
+            <Button type="tab" icon="calendar" text={_('calendar')}
               active={this.props.currentTab === "calendar"}
               onPress={() => this.props.onTabPress('calendar')}
             />
           ) : (
-            <Button key="invitations" type="tab" icon="invitations" text={_('invitations')}
+            <Button type="tab" icon="invitations" text={_('invitations')}
               active={this.props.currentTab === 'invitations'}
               onPress={() => this.props.onTabPress('invitations')}
             />
