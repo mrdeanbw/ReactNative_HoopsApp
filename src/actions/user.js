@@ -8,6 +8,7 @@ import * as eventsActions from './events';
 import * as usersActions from './users';
 import * as invitesActions from './invites';
 import * as requestsActions from './requests';
+import * as notificationsActions from './notifications';
 
 export const signIn = (email, password) => {
   let uid;
@@ -210,6 +211,10 @@ const listenToUser = () => {
           dispatch(requestsActions.load(id));
         }
       }
+    });
+
+    firebaseDb.child(`user_notifications/${uid}`).on('child_added', (snapshot) => {
+      dispatch(notificationsActions.load(snapshot.key));
     });
   };
 };

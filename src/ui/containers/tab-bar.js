@@ -16,6 +16,19 @@ class TabBar extends React.Component {
       action: null,
     };
 
+    let createOrSearchAction = {
+      organizer: {
+        text: _('create'),
+        icon: "actionAdd",
+        onPress: () => props.onNavigate('createEvent', {}, false),
+      },
+      participant: {
+        text: _('search'),
+        icon: "actionSearch",
+        onPress: () => props.onNavigate('search', {}, false),
+      },
+    };
+
     this.routeConfig = {
       tabs: {
         component: containers.TabBar,
@@ -23,18 +36,7 @@ class TabBar extends React.Component {
 
       home: {
         component: containers.Home,
-        action: {
-          organizer: {
-            text: _('create'),
-            icon: "actionAdd",
-            onPress: () => props.onNavigate('createEvent', {}, false),
-          },
-          participant: {
-            text: _('search'),
-            icon: "actionSearch",
-            onPress: () => props.onNavigate('search', {}, false),
-          },
-        },
+        action: createOrSearchAction,
       },
 
       eventDetails: {
@@ -110,10 +112,6 @@ class TabBar extends React.Component {
         },
       },
 
-      settings: {
-        component: containers.Settings,
-      },
-
       preferences: {
         component: containers.Preferences,
         action: {
@@ -121,6 +119,15 @@ class TabBar extends React.Component {
           icon: "actionRemove",
           onPress: () => this.props.onLogOut(),
         },
+      },
+
+      notificationPreferences: {
+        component: containers.NotificationPreferences,
+      },
+
+      notifications: {
+        component: containers.Notifications,
+        action: createOrSearchAction,
       },
 
       profile: {
@@ -134,18 +141,7 @@ class TabBar extends React.Component {
 
       friends: {
         component: containers.Friends,
-        action: {
-          organizer: {
-            text: _('create'),
-            icon: "actionAdd",
-            onPress: () => props.onNavigate('createEvent', {}, false),
-          },
-          participant: {
-            text: _('search'),
-            icon: "actionSearch",
-            onPress: () => props.onNavigate('search', {}, false),
-          },
-        },
+        action: createOrSearchAction,
       },
 
       calendar: {
@@ -219,6 +215,13 @@ class TabBar extends React.Component {
       ...this.state.action, //override static config with dynamic state
     };
 
+    let notificationIds = Object.keys(this.props.notifications.notificationsById);
+    let unreadNotifications = notificationIds.map(id => {
+      return this.props.notifications.notificationsById[id];
+    }).filter(notification => {
+      return notification && notification.read === false;
+    });
+
     return (
       <_TabBar
         currentTab={this.props.navigation.tabKey}
@@ -246,6 +249,7 @@ class TabBar extends React.Component {
         }}
         mode={this.props.user.mode}
         user={this.props.user}
+        notificationBadge={unreadNotifications.length}
       >
         {this.renderTab()}
       </_TabBar>
@@ -257,6 +261,7 @@ export default connect(
   (state) => ({
     navigation: state.navigation,
     user: state.user,
+    notifications: state.notifications,
   }),
   (dispatch) => ({
     onChangeTab: (key) => dispatch(navigation.changeTab(key)),

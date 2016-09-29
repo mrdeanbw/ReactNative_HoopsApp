@@ -57,7 +57,7 @@ Menu.Item = class MenuItem extends React.Component {
         <View style={StyleSheet.menu.itemContainer}>
           <View>
             <Icon name={this.props.icon} style={StyleSheet.menu.icon}/>
-            {this.props.badge && (
+            {!!this.props.badge && (
               <View style={StyleSheet.menu.badgeContainer}>
                 <Text style={StyleSheet.menu.badge}>{this.props.badge}</Text>
               </View>

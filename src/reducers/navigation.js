@@ -50,6 +50,12 @@ const initialState = {
         key: 'preferences',
       }],
     },
+    notifications: {
+      index: 0,
+      routes: [{
+        key: 'notifications',
+      }],
+    },
     friends: {
       index: 0,
       routes: [{
