@@ -132,6 +132,22 @@ class TabBar extends React.Component {
         },
       },
 
+      friends: {
+        component: containers.Friends,
+        action: {
+          organizer: {
+            text: _('create'),
+            icon: "actionAdd",
+            onPress: () => props.onNavigate('createEvent', {}, false),
+          },
+          participant: {
+            text: _('search'),
+            icon: "actionSearch",
+            onPress: () => props.onNavigate('search', {}, false),
+          },
+        },
+      },
+
       calendar: {
         component: containers.Calendar,
         action: {

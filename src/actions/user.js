@@ -235,3 +235,47 @@ export const registerWithStore = (store) => {
   });
 
 };
+
+export const addFriend = (user) => {
+  return (dispatch, getState) => {
+    let uid = getState().user.uid;
+    firebaseDb.update({
+      [`users/${uid}/friends/${user.id}`]: true,
+      [`users/${user.id}/friends/${uid}`]: true,
+    }, (err) => {
+      if(err) {
+        dispatch({
+          type: 'FRIEND_ADD_ERROR',
+          err,
+        });
+      } else {
+        dispatch({
+          type: 'FRIEND_ADD',
+          id: user.id,
+        });
+      }
+    });
+  };
+};
+
+export const removeFriend = (user) => {
+  return (dispatch, getState) => {
+    let uid = getState().user.uid;
+    firebaseDb.update({
+      [`users/${uid}/friends/${user.id}`]: null,
+      [`users/${user.id}/friends/${uid}`]: null,
+    }, (err) => {
+      if(err) {
+        dispatch({
+          type: 'FRIEND_REMOVE_ERROR',
+          err,
+        });
+      } else {
+        dispatch({
+          type: 'FRIEND_REMOVE',
+          id: user.id,
+        });
+      }
+    });
+  };
+};

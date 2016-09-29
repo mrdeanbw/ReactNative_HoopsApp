@@ -28,14 +28,6 @@ export default class Profile extends React.Component {
                          onClose={() => this.refs.dialog.hideModal()}/>, 'slide', false);
   };
 
-  onPressAddFriend = () => {
-
-  };
-
-  onPressMessage = () => {
-
-  };
-
   render() {
     const profile = this.props.profile;
     const name = profile.name;
@@ -61,8 +53,14 @@ export default class Profile extends React.Component {
             <View style={{flex: 1}}/>
             <View style={StyleSheet.profile.buttonBarStyle}>
               {owner && <Button type="profile" text={_('editProfile')} onPress={this.onPressEditProfile} />}
-              {!owner && <Button type="profile" icon="plusBlack" text={_('addFriend')} onPress={this.onPressAddFriend} />}
-              {!owner && <Button type="profileDefault" icon="mail" text={_('message')} onPress={this.onPressMessage} />}
+              {!owner && (
+                <Button
+                  type="profile"
+                  icon="plusBlack"
+                  text={this.props.isFriend ? _('remove') : _('addFriend')}
+                  onPress={this.props.onPressAddFriend}
+                />
+              )}
             </View>
           </View>
         </View>
