@@ -5,7 +5,7 @@ import ReactNative from 'react-native';
 import {View,Text,ScrollView, Image} from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
-import {Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, HorizontalRule, CheckButton} from '../components';
+import {Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components';
 import StyleSheet from '../styles';
 
 export default class CreateEvent extends React.Component {
@@ -32,7 +32,7 @@ export default class CreateEvent extends React.Component {
     if(typeof entryFee === 'number' && !isNaN(entryFee)){
       return entryFee.toString();
     }else{
-      return null;
+      return '';
     }
   };
 
@@ -59,6 +59,49 @@ export default class CreateEvent extends React.Component {
     );
   };
 
+  validate(stepNumber) {
+    let {
+      title,
+      activity,
+      gender,
+      ageGroup,
+      privacy,
+      level,
+
+      date,
+      courtType,
+      recurring,
+      venueName,
+      address,
+      entryFee,
+      paymentMethod,
+      deadline,
+
+      description,
+    } = this.state.eventDetails;
+
+    switch(stepNumber) {
+      case 1:
+        return !!(title && activity && gender && ageGroup && privacy && level);
+
+      case 2:
+        return !!(
+          date &&
+          courtType &&
+          typeof recurring !== 'undefined' && //`recurring` is boolean
+          venueName &&
+          address &&
+          Number.isFinite(entryFee) && //`entryFee` could be 0
+          paymentMethod &&
+          deadline
+        );
+
+      case 3:
+        return !!(description);
+    }
+
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
@@ -71,7 +114,7 @@ export default class CreateEvent extends React.Component {
         <Wizard completeText={_('create')} onComplete={this.onComplete}>
 
 
-          <Wizard.Step>
+          <Wizard.Step disabled={!this.validate(1)}>
             <ScrollView contentContainerStyle={StyleSheet.padding}>
               <TextInput
                 value={this.state.eventDetails.title}
@@ -115,11 +158,11 @@ export default class CreateEvent extends React.Component {
               />
 
               <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMargin, {alignSelf: 'center'}]}>
-                <Button type="image" icon="male" active={this.state.eventDetails.gender == 'male'} onPress={() => this.setEventData({gender: 'male'})}/>
+                <Button type="image" icon="male" active={this.state.eventDetails.gender === 'male'} onPress={() => this.setEventData({gender: 'male'})}/>
                 <View style={[StyleSheet.buttons.separator, {marginLeft: 10, marginRight: 10}]} />
-                <Button type="image" icon="female" active={this.state.eventDetails.gender == 'female'} onPress={() => this.setEventData({gender: 'female'})}/>
+                <Button type="image" icon="female" active={this.state.eventDetails.gender === 'female'} onPress={() => this.setEventData({gender: 'female'})}/>
                 <View style={[StyleSheet.buttons.separator, {marginLeft: 10, marginRight: 10}]} />
-                <Button type="image" icon="mixed" active={this.state.eventDetails.gender == 'mixed'} onPress={() => this.setEventData({gender: 'mixed'})}/>
+                <Button type="image" icon="mixed" active={this.state.eventDetails.gender === 'mixed'} onPress={() => this.setEventData({gender: 'mixed'})}/>
               </View>
 
               <ListInput type="flat" style={StyleSheet.halfMarginTop}  placeholder={_('ageProfile')} value={this.state.eventDetails.ageGroup}
@@ -153,7 +196,7 @@ export default class CreateEvent extends React.Component {
 
 
 
-          <Wizard.Step>
+          <Wizard.Step disabled={!this.validate(2)}>
             <ScrollView ref="scrollView2" contentContainerStyle={StyleSheet.padding}>
               <DateInput
                 type="flat"
@@ -216,7 +259,9 @@ export default class CreateEvent extends React.Component {
                     placeholder={_('costPP')}
                     value={this.getEntryFeeLabel()}
                     onChangeText={entryFee => {
-                      this.setEventData({entryFee: parseInt(entryFee, 10)});
+                      this.setEventData({
+                        entryFee: entryFee === '' ? '' : parseInt(entryFee, 10)
+                      });
                     }}
                     style={{flex: 1, marginRight: 25}}
                     onFocus={() => {
@@ -252,6 +297,7 @@ export default class CreateEvent extends React.Component {
                   style={StyleSheet.halfMarginTop}
                   rightBar={<Icon name="listIndicator" />}
                   date={true} time={true}
+                  initialValue={new Date()}
                   onChange={(deadline) => this.setEventData({deadline})}
                 />
 
@@ -262,7 +308,7 @@ export default class CreateEvent extends React.Component {
 
 
 
-          <Wizard.Step>
+          <Wizard.Step disabled={!this.validate(3)}>
             <ScrollView>
               <View style={StyleSheet.padding}>
                 <TextInput type="flat"
@@ -285,18 +331,6 @@ export default class CreateEvent extends React.Component {
                        style={StyleSheet.halfMarginTop}/>
               </View>
 
-              <CheckButton
-                type="wizardCheck"
-                text={_('allowPhotoUpload')}
-                icon="none" checkIcon="check"
-                checked={this.state.eventDetails.allowPhotoUpload}
-                style={StyleSheet.singleMarginTop}
-                onChange={() => {
-                  this.setEventData({
-                    allowPhotoUpload: !this.state.eventDetails.allowPhotoUpload,
-                  });
-                }}
-              />
               <CheckButton
                 type="wizardCheck"
                 text={_('allowToSeeYourContactInfo')}
@@ -323,4 +357,4 @@ export default class CreateEvent extends React.Component {
       </View>
     );
   }
-};
+}

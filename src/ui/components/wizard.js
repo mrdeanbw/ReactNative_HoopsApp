@@ -35,6 +35,8 @@ export default class Wizard extends React.Component {
   render() {
     const step = this.state.step || 0;
 
+    const stepProps = this.props.children[step].props;
+
     return (
       <View style={{flex: 1}}>
         <View style={StyleSheet.buttons.bar}>
@@ -50,15 +52,27 @@ export default class Wizard extends React.Component {
         {this.props.children[step]}
 
         <View style={StyleSheet.buttons.bar}>
-          {(step > 0) && <Button type="dialog"
-                       text={_('back')}
-                       onPress={this.onPressBack}/>}
-          {(step < this.props.children.length - 1) && <Button type="dialogDefault"
-                                    text={_('next')}
-                                    onPress={this.onPressNext}/>}
-          {(step === this.props.children.length - 1) && <Button type="dialogDefault"
-                                      text={this.props.completeText || _('complete')}
-                                      onPress={this.props.onComplete}/>}
+          {(step > 0) && (
+            <Button
+              type="dialog"
+              text={_('back')}
+              onPress={this.onPressBack}
+            />
+          )}
+          {(step < this.props.children.length - 1) && (
+            <Button
+              type={stepProps.disabled ? "dialog" : "dialogDefault"}
+              text={_('next')}
+              onPress={stepProps.disabled ? undefined : this.onPressNext}
+            />
+          )}
+          {(step === this.props.children.length - 1) && (
+            <Button
+              type={stepProps.disabled ? "dialog" : "dialogDefault"}
+              text={this.props.completeText || _('complete')}
+              onPress={this.props.onComplete}
+            />
+          )}
         </View>
       </View>
     );
