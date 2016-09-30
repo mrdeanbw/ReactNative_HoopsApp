@@ -41,10 +41,24 @@ export default class Header extends React.Component {
           </View>
         )}
 
-        {this.props.title && <View style={StyleSheet.window.titleStyle}>
-          {(typeof this.props.title === 'object') && this.props.title ||
-          <Text style={[StyleSheet.text, StyleSheet.window.titleTextStyle]}>{this.props.title.toUpperCase()}</Text>}
-        </View>}
+        {this.props.title && (
+          <View style={StyleSheet.window.titleStyle}>
+            {(typeof this.props.title === 'object') ? this.props.title : (
+              <Text style={[StyleSheet.text, StyleSheet.window.titleTextStyle]}>
+                {this.props.title.toUpperCase()}
+              </Text>
+            )}
+            {this.props.actionButton && (
+              <View>
+                <Button
+                  type="headerAction"
+                  icon={this.props.actionButton}
+                  onPress={this.props.onActionPress}
+                />
+              </View>
+            )}
+          </View>
+        )}
 
       </View>
     );

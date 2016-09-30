@@ -4,6 +4,7 @@ const client = new elasticsearch.Client({host: 'http://localhost:9200'});
 
 import * as events from './events';
 import * as navigation from './navigation';
+import * as users from './users';
 
 export const search = (params) => {
   return dispatch => {
@@ -40,6 +41,36 @@ export const search = (params) => {
     }).catch((err) => {
       dispatch({
         type: 'SEARCH_ERROR',
+        err,
+      });
+    });
+  };
+};
+
+export const searchUsers = (params) => {
+  return dispatch => {
+    let query = {
+      match: {},
+    };
+
+    if(params.name) {
+      query.match.name = params.name;
+    }
+
+    client.search('test/users', {query}).then((results) => {
+      dispatch({
+        type: 'SEARCH_USERS_END',
+        results,
+      });
+
+      if(results.hits && results.hits.hits) {
+        results.hits.hits.forEach(hit => {
+          dispatch(users.load(hit._id));
+        });
+      }
+    }).catch((err) => {
+      dispatch({
+        type: 'SEARCH_USERS_ERROR',
         err,
       });
     });

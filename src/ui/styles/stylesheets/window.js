@@ -74,12 +74,16 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   titleStyle: {
+    flexDirection: 'row',
+    flex: 1,
     height: 50,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
   titleTextStyle: {
+    flex: 1,
+    textAlign: 'center',
     color: colors.white,
     fontWeight: 'bold',
     fontSize: 13,

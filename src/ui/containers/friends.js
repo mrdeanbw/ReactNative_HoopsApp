@@ -35,6 +35,9 @@ class Friends extends React.Component {
         mode={this.props.user.mode}
         onToggleMode={this.props.onToggleMode}
         onChangeSearchText={(searchText) => this.setState({searchText})}
+        onFindFriends={() => {
+          this.props.onNavigate('friendsSearch');
+        }}
 
         onPressUser={(user) => this.props.onNavigate('profile', {id: user.id})}
         onPressInvite={(user) => {}}

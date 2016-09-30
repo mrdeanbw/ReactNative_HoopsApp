@@ -144,6 +144,16 @@ class TabBar extends React.Component {
         action: createOrSearchAction,
       },
 
+      friendsSearch: {
+        component: containers.FriendsSearch,
+        action: {
+          pressEmitter: new EventEmitter(),
+          text: _('inviteAll'),
+          icon: "actionCheck",
+          type: "actionDefault",
+        },
+      },
+
       calendar: {
         component: containers.Calendar,
         action: {

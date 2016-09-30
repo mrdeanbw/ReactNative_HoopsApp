@@ -38,3 +38,28 @@ export const loadMany = (userIds) => {
 
   };
 };
+
+export const sendFriendRequests = (userIds) => {
+  return (dispatch, getState) => {
+    let uid = getState().user.uid;
+    userIds.forEach((userId) => {
+      let friendRequest = firebaseDb.child('friend_requests').push();
+      let notification = firebaseDb.child('notifications').push();
+
+      firebaseDb.update({
+        [`friend_requests/${friendRequest.key}`]: {
+          fromId: uid,
+          toId: userId,
+          status: 'pending',
+        },
+        [`notifications/${notification.key}`]: {
+          date: new Date(),
+          read: false,
+          type: 'FRIEND_REQUEST',
+          friendRequestId: friendRequest.key,
+        },
+        [`user_notifications/${userId}/${notification.key}`]: true,
+      });
+    });
+  };
+};

@@ -41,6 +41,8 @@ export default class Friends extends React.Component {
           title={_('friends')}
           mode={this.props.mode}
           onToggleMode={this.props.onToggleMode}
+          actionButton="plus"
+          onActionPress={this.props.onFindFriends}
         />
         <Popup
           visible={!!this.state.popupUser}

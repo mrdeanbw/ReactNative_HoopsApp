@@ -670,6 +670,23 @@ export default StyleSheet => StyleSheet.extend({
     }
   }),
 
+  headerAction: StyleSheet.extend({
+    underlayColor: colors.grey,
+
+    style: {
+      position: 'absolute',
+      top: -14,
+      right: 15.5,
+      width: 28,
+      height: 28,
+      borderRadius: 14,
+      borderColor: colors.white,
+      borderWidth: 1,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+  }),
+
   dashboard: StyleSheet.extend({
     gradient: StyleSheet.escape(DashboardGradient.map(c => StyleSheet.extend({ gradient: {backgroundColor: c} }).gradient)),
     highlightGradient: StyleSheet.escape(DashboardGradientHighlight),

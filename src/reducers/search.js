@@ -3,6 +3,7 @@ import {handleActions} from 'redux-actions';
 
 const initialState = {
   eventIds: [],
+  userIds: [],
   error: null,
 };
 
@@ -31,4 +32,20 @@ export default handleActions({
       error: action.err,
     };
   },
+
+  SEARCH_USERS_START: (state, action) => {
+    return state;
+  },
+
+  SEARCH_USERS_END: (state, action) => {
+    if(!action.results) {
+      return state;
+    }
+    return {
+      ...state,
+      userIds: action.results.hits.hits.map(hit => hit._id),
+      error: null,
+    };
+  },
+
 }, initialState);
