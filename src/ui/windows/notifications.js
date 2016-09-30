@@ -37,7 +37,9 @@ export default class Notifications extends React.Component {
               <Component
                 key={notification.id}
                 notification={notification}
-                onPress={this.onPressNotification}
+                onPress={() => {
+                  this.props.onPressNotification(notification);
+                }}
               />
             );
           })}
@@ -106,21 +108,51 @@ NotificationRow.propTypes = {
   image: Image.propTypes.source,
   highlight: React.PropTypes.bool.isRequired,
   title: React.PropTypes.string.isRequired,
-  description: React.PropTypes.string.isRequired,
+  description: React.PropTypes.node.isRequired,
   onPress: React.PropTypes.func.isRequired,
   date: React.PropTypes.instanceOf(Date).isRequired,
 };
 
+/**
+ * Find instances of $0 $1 $2 etc from a template string and replace with
+ * the value given as a replacement.
+ * $0 will be replaced with the first replacement argument, $1 with the second etc.
+ *
+ * @returns Array of text components for use with React
+ *
+ * @param template {String}
+ * @param ...replacements {Node}
+ */
+function replaceText(template, ...replacements) {
+  let regex = /(\$[0-9])/g;
+  let parts = template.split(regex);
+  return parts.map((part, i) => {
+    if(part.match(regex)){
+      let index = part.substr(1);
+      return <Text key={i}>{replacements[index]}</Text>;
+    }else{
+      return <Text key={i}>{part}</Text>;
+    }
+  });
+}
+
 class FriendRequestNotification extends React.Component {
   render() {
+    let user = this.props.notification.friendRequest.from;
+
+    let description = replaceText(
+      _('friendRequestDescription'),
+      <Text style={StyleSheet.notification.highlight}>{user.name}</Text>
+    );
+
     return (
       <NotificationRow
         image={StyleSheet.images.avatarChrisMurray}
         highlight={!this.props.notification.read}
         title="Friend Request"
-        description="description goes in here and is required and it can go onto two lines"
+        description={description}
         onPress={this.props.onPress}
-        date={this.props.notification.date}
+        date={new Date(this.props.notification.date)}
       />
     );
   }

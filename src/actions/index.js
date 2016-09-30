@@ -6,6 +6,7 @@ import * as navigation from './navigation';
 import * as invites from './invites';
 import * as requests from './requests';
 import * as search from './search';
+import * as notifications from './notifications';
 
 export {
   user,
@@ -15,4 +16,5 @@ export {
   invites,
   requests,
   search,
+  notifications,
 };

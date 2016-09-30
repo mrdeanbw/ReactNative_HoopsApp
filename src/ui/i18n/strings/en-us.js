@@ -294,3 +294,6 @@ export const friendzone = 'Friendzone';
 export const inviteToAnEvent = 'Invite to an Event';
 export const galleryTitle = '\'$1\' Gallery';
 export const photos = ' Photos';
+
+export const friendRequest = 'Friend Request';
+export const friendRequestDescription = '$0 would like to become friends.';

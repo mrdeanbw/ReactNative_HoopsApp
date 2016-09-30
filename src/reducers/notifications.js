@@ -3,6 +3,8 @@ import {handleActions} from 'redux-actions';
 
 const initialState = {
   notificationsById: {},
+
+  friendRequestsById: {},
 };
 
 const recognisedTypes = {
@@ -26,6 +28,16 @@ export default handleActions({
       notificationsById: {
         ...state.notificationsById,
         ...newNotifications,
+      },
+    };
+  },
+
+  FRIEND_REQUESTS_LOADED: (state, action) => {
+    return {
+      ...state,
+      friendRequestsById: {
+        ...state.friendRequestsById,
+        ...action.friendRequests,
       },
     };
   },
