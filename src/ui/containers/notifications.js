@@ -35,6 +35,10 @@ class Notifications extends React.Component {
             this.props.onMarkRead(notification.id);
           }
         }}
+
+        onAcceptFriendRequest={this.props.onAcceptFriendRequest}
+        onDeclineFriendRequest={this.props.onDeclineFriendRequest}
+        onPressUserProfile={(user) => this.props.onNavigate('profile', {id: user.id})}
       />
     );
   }
@@ -47,9 +51,18 @@ export default connect(
     notifications: state.notifications,
   }),
   (dispatch) => ({
+    onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onToggleMode: () => dispatch(userActions.toggleMode()),
     onMarkRead: (id) => dispatch(notificationsActions.markRead(id)),
     onMarkUnead: (id) => dispatch(notificationsActions.markUnread(id)),
+    onAcceptFriendRequest: (notification) => {
+      dispatch(notificationsActions.acceptFriendRequest(notification.friendRequest));
+      dispatch(notificationsActions.markRead(notification.id));
+    },
+    onDeclineFriendRequest: (notification) => {
+      dispatch(notificationsActions.declineFriendRequest(notification.friendRequest));
+      dispatch(notificationsActions.markRead(notification.id));
+    },
   }),
 )(Notifications);

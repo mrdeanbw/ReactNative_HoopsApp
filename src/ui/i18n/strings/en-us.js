@@ -296,4 +296,6 @@ export const galleryTitle = '\'$1\' Gallery';
 export const photos = ' Photos';
 
 export const friendRequest = 'Friend Request';
-export const friendRequestDescription = '$0 would like to become friends.';
+export const friendRequestPendingDescription = '$0 would like to become friends.';
+export const friendRequestDeclinedDescription = 'You declined $0\'s friend request';
+export const friendRequestConfirmedDescription = 'You are now friends with $0.';

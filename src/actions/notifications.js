@@ -9,7 +9,7 @@ export const load = (id) => {
         type: 'NOTIFICATION_LOADED',
         notifications: {
           [id]: {
-            notification,
+            ...notification,
             id,
           },
         },
@@ -34,6 +34,52 @@ const loadFriendRequest = (id) => {
           },
         },
       });
+    });
+  };
+};
+
+export const acceptFriendRequest = (friendRequest) => {
+  return dispatch => {
+    firebaseDb.update({
+      [`friend_requests/${friendRequest.id}/status`]: 'confirmed',
+      [`friend_requests/${friendRequest.id}/dateResponded`]: new Date(),
+      [`users/${friendRequest.fromId}/friends/${friendRequest.toId}`]: true,
+      [`users/${friendRequest.toId}/friends/${friendRequest.fromId}`]: true,
+    }, (err) => {
+      if(err) {
+        dispatch({
+          type: 'FRIEND_REQUEST_ACCEPTED_ERROR',
+          err,
+        });
+      } else {
+        dispatch({
+          type: 'FRIEND_REQUEST_ACCEPTED',
+          friendRequest,
+        });
+      }
+    });
+  };
+};
+
+export const declineFriendRequest = (friendRequest) => {
+  return dispatch => {
+    firebaseDb.update({
+      [`friend_requests/${friendRequest.id}/status`]: 'declined',
+      [`friend_requests/${friendRequest.id}/dateResponded`]: new Date(),
+      [`users/${friendRequest.fromId}/friends/${friendRequest.toId}`]: null,
+      [`users/${friendRequest.toId}/friends/${friendRequest.fromId}`]: null,
+    }, (err) => {
+      if(err) {
+        dispatch({
+          type: 'FRIEND_REQUEST_DENIED_ERROR',
+          err,
+        });
+      } else {
+        dispatch({
+          type: 'FRIEND_REQUEST_DENIED',
+          friendRequest,
+        });
+      }
     });
   };
 };
