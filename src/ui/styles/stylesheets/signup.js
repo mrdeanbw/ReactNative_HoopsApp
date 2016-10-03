@@ -60,5 +60,11 @@ export default StyleSheet => StyleSheet.extend({
 
   doubleMargin: {
     marginTop: 30
-  }
+  },
+
+  eye: {
+    position: 'absolute',
+    top: 3,
+    right: 0,
+  },
 })

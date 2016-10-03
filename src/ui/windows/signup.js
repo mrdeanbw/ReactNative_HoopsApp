@@ -117,22 +117,30 @@ export default class SignUp extends React.Component {
           icon="username"
         />
 
-        <TextInput
-          value={this.state.password}
-          onChangeText={(password) => this.setState({password})}
-          type="flat"
-          ref="password"
-          placeholder={_('password')}
-          style={StyleSheet.halfMarginBottom}
-          secureTextEntry={!this.state.showPassword}
-          returnKeyType="next"
-          selectTextOnFocus={true}
-          clearTextOnFocus={true}
-          enablesReturnKeyAutomatically={true}
-          icon="password"
-        >
-          <Button type="disclosure" active={this.state.showPassword} icon="eye" onPress={() => this.setState({showPassword: !this.state.showPassword})}/>
-        </TextInput>
+        <View>
+          <TextInput
+            value={this.state.password}
+            onChangeText={(password) => this.setState({password})}
+            type="flat"
+            ref="password"
+            placeholder={_('password')}
+            style={StyleSheet.halfMarginBottom}
+            secureTextEntry={!this.state.showPassword}
+            returnKeyType="next"
+            selectTextOnFocus={true}
+            clearTextOnFocus={true}
+            enablesReturnKeyAutomatically={true}
+            icon="password"
+            multiline={false}
+          />
+          <Button
+            style={StyleSheet.signup.eye}
+            type="disclosure"
+            active={this.state.showPassword}
+            icon="eye"
+            onPress={() => this.setState({showPassword: !this.state.showPassword})}
+          />
+        </View>
 
         <DateInput
           type="flat"
