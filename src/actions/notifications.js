@@ -1,6 +1,8 @@
 
 import {firebaseDb} from '../data/firebase';
 
+import * as usersActions from './users';
+
 export const load = (id) => {
   return dispatch => {
     firebaseDb.child(`notifications/${id}`).on('value', (snapshot) => {
@@ -16,24 +18,8 @@ export const load = (id) => {
       });
 
       if(notification.type === 'FRIEND_REQUEST') {
-        dispatch(loadFriendRequest(notification.friendRequestId));
+        dispatch(usersActions.loadFriendRequest(notification.friendRequestId));
       }
-    });
-  };
-};
-
-const loadFriendRequest = (id) => {
-  return dispatch => {
-    firebaseDb.child(`friend_requests/${id}`).on('value', (snapshot) => {
-      dispatch({
-        type: 'FRIEND_REQUESTS_LOADED',
-        friendRequests: {
-          [id]: {
-            ...snapshot.val(),
-            id,
-          },
-        },
-      });
     });
   };
 };
@@ -41,10 +27,14 @@ const loadFriendRequest = (id) => {
 export const acceptFriendRequest = (friendRequest) => {
   return dispatch => {
     firebaseDb.update({
-      [`friend_requests/${friendRequest.id}/status`]: 'confirmed',
-      [`friend_requests/${friendRequest.id}/dateResponded`]: new Date(),
+      [`friendRequests/${friendRequest.id}/status`]: 'confirmed',
+      [`friendRequests/${friendRequest.id}/dateResponded`]: new Date(),
       [`users/${friendRequest.fromId}/friends/${friendRequest.toId}`]: true,
       [`users/${friendRequest.toId}/friends/${friendRequest.fromId}`]: true,
+
+      //Delete the friendRequest
+      [`users/${friendRequest.fromId}/friendRequests/${friendRequest.id}`]: null,
+      [`users/${friendRequest.toId}/friendRequests/${friendRequest.id}`]: null,
     }, (err) => {
       if(err) {
         dispatch({
@@ -64,8 +54,8 @@ export const acceptFriendRequest = (friendRequest) => {
 export const declineFriendRequest = (friendRequest) => {
   return dispatch => {
     firebaseDb.update({
-      [`friend_requests/${friendRequest.id}/status`]: 'declined',
-      [`friend_requests/${friendRequest.id}/dateResponded`]: new Date(),
+      [`friendRequests/${friendRequest.id}/status`]: 'declined',
+      [`friendRequests/${friendRequest.id}/dateResponded`]: new Date(),
       [`users/${friendRequest.fromId}/friends/${friendRequest.toId}`]: null,
       [`users/${friendRequest.toId}/friends/${friendRequest.fromId}`]: null,
     }, (err) => {

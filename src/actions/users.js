@@ -43,11 +43,11 @@ export const sendFriendRequests = (userIds) => {
   return (dispatch, getState) => {
     let uid = getState().user.uid;
     userIds.forEach((userId) => {
-      let friendRequest = firebaseDb.child('friend_requests').push();
+      let friendRequest = firebaseDb.child('friendRequests').push();
       let notification = firebaseDb.child('notifications').push();
 
       firebaseDb.update({
-        [`friend_requests/${friendRequest.key}`]: {
+        [`friendRequests/${friendRequest.key}`]: {
           fromId: uid,
           toId: userId,
           status: 'pending',
@@ -58,8 +58,38 @@ export const sendFriendRequests = (userIds) => {
           type: 'FRIEND_REQUEST',
           friendRequestId: friendRequest.key,
         },
-        [`user_notifications/${userId}/${notification.key}`]: true,
+        [`userNotifications/${userId}/${notification.key}`]: true,
+        [`users/${uid}/friendRequests/${friendRequest.key}`]: true,
+        [`users/${userId}/friendRequests/${friendRequest.key}`]: true,
       });
     });
   };
 };
+
+export const loadFriendRequest = (id) => {
+  return (dispatch, getState) => {
+    let uid = getState().user.uid;
+
+    firebaseDb.child(`friendRequests/${id}`).on('value', (snapshot) => {
+      let friendRequest = snapshot.val();
+      dispatch({
+        type: 'FRIEND_REQUESTS_LOADED',
+        friendRequests: {
+          [id]: {
+            ...friendRequest,
+            id,
+          },
+        },
+      });
+
+      if(friendRequest.fromId === uid) {
+        //Friend request is from me, to a user.
+        dispatch(load(friendRequest.toId));
+      } else {
+        //Friend request is from a user, to me.
+        dispatch(load(friendRequest.fromId));
+      }
+    });
+  };
+};
+

@@ -174,11 +174,34 @@ class FriendRequestNotification extends React.Component {
     let status = this.props.notification.friendRequest.status;
 
     let description;
+    let options = [{
+      type: "alertVertical",
+      text: _('viewProfile'),
+      onPress: () => {
+        this.props.onPressUserProfile(this.props.notification.friendRequest.from);
+      }
+    }];
+
     if(status === 'pending') {
       description = replaceText(
         _('friendRequestPendingDescription'),
         <Text style={StyleSheet.notification.highlight}>{user.name}</Text>
       );
+
+      //Accept and Decline options are only available for 'pending' requests.
+      options = options.concat([{
+        type: "alertVertical",
+        text: _('accept'),
+        onPress: () => {
+          this.props.onAcceptFriendRequest(this.props.notification);
+        },
+      },{
+        type: "alertVertical",
+        text: _('decline'),
+        onPress: () => {
+          this.props.onDeclineFriendRequest(this.props.notification);
+        },
+      }]);
     } else if(status === 'declined') {
       description = replaceText(
         _('friendRequestDeclinedDescription'),
@@ -201,25 +224,7 @@ class FriendRequestNotification extends React.Component {
         onPress={this.props.onPress}
         showOptions={this.props.showOptions}
         onHideOptions={this.props.onHideOptions}
-        options={[{
-          type: "alertVertical",
-          text: _('accept'),
-          onPress: () => {
-            this.props.onAcceptFriendRequest(this.props.notification);
-          },
-        },{
-          type: "alertVertical",
-          text: _('decline'),
-          onPress: () => {
-            this.props.onDeclineFriendRequest(this.props.notification);
-          },
-        },{
-          type: "alertVertical",
-          text: _('viewProfile'),
-          onPress: () => {
-            this.props.onPressUserProfile(this.props.notification.friendRequest.from);
-          }
-        }]}
+        options={options}
       />
     );
   }

@@ -246,6 +246,7 @@ export const profileTemplate = '$1\'s Profile';
 
 export const editProfile = 'Edit Profile';
 export const addFriend = 'Add Friend';
+export const pendingFriendRequest = 'Pending Request';
 export const available = '(available)';
 export const unavailable = '(unavailable)';
 export const eventsParticipated = 'Events Participated';

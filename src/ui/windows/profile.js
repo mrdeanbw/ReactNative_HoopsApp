@@ -53,12 +53,28 @@ export default class Profile extends React.Component {
             <View style={{flex: 1}}/>
             <View style={StyleSheet.profile.buttonBarStyle}>
               {owner && <Button type="profile" text={_('editProfile')} onPress={this.onPressEditProfile} />}
-              {!owner && (
+              {!owner && !this.props.isFriend && !this.props.isPending && (
                 <Button
                   type="profile"
                   icon="plusBlack"
-                  text={this.props.isFriend ? _('remove') : _('addFriend')}
+                  text={_('addFriend')}
                   onPress={this.props.onPressAddFriend}
+                />
+              )}
+              {!owner && this.props.isFriend && (
+                <Button
+                  type="profile"
+                  icon="plusBlack"
+                  text={_('remove')}
+                  onPress={this.props.onPressRemoveFriend}
+                />
+              )}
+              {!owner && this.props.isPending && (
+                <Button
+                  type="profile"
+                  icon="plusBlack"
+                  text={_('pendingFriendRequest')}
+                  onPress={() => {}}
                 />
               )}
             </View>

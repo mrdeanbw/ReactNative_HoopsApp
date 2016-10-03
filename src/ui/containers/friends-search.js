@@ -8,11 +8,21 @@ import {
   search as searchActions
 } from '../../actions';
 
-import inflateEvent from '../../data/inflaters/event';
-
 class FriendsSearch extends React.Component {
 
   render() {
+
+    let uid = this.props.user.uid;
+
+    let pendingUserIds = Object.keys(this.props.user.friendRequests).map(requestId => {
+      let request = this.props.notifications.friendRequestsById[requestId];
+
+      if(request.fromId === uid) {
+        return request.toId;
+      }else {
+        return request.fromId;
+      }
+    });
 
     let users = this.props.search.userIds.filter(userId => {
       //Filter out users who are already friends
@@ -22,7 +32,7 @@ class FriendsSearch extends React.Component {
       return true;
     }).map(userId => {
       return this.props.users.usersById[userId];
-    }).filter(user => !!user);
+    }).filter(user => !!user && pendingUserIds.indexOf(user.id) === -1);
 
     return (
       <_FriendsSearch
@@ -52,6 +62,7 @@ export default connect(
     user: state.user,
     users: state.users,
     search: state.search,
+    notifications: state.notifications,
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),

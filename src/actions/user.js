@@ -211,9 +211,14 @@ const listenToUser = () => {
           dispatch(requestsActions.load(id));
         }
       }
+      if(user.friendRequests) {
+        for(let id in user.friendRequests) {
+          dispatch(usersActions.loadFriendRequest(id));
+        }
+      }
     });
 
-    firebaseDb.child(`user_notifications/${uid}`).on('child_added', (snapshot) => {
+    firebaseDb.child(`userNotifications/${uid}`).on('child_added', (snapshot) => {
       dispatch(notificationsActions.load(snapshot.key));
     });
   };
@@ -241,28 +246,10 @@ export const registerWithStore = (store) => {
 
 };
 
-export const addFriend = (user) => {
-  return (dispatch, getState) => {
-    let uid = getState().user.uid;
-    firebaseDb.update({
-      [`users/${uid}/friends/${user.id}`]: true,
-      [`users/${user.id}/friends/${uid}`]: true,
-    }, (err) => {
-      if(err) {
-        dispatch({
-          type: 'FRIEND_ADD_ERROR',
-          err,
-        });
-      } else {
-        dispatch({
-          type: 'FRIEND_ADD',
-          id: user.id,
-        });
-      }
-    });
-  };
-};
-
+/**
+ * removeFriend is instant. Adding a friend has to be via a friend-request
+ * which can be found in actions/users.js#sendFriendRequests(ids)
+ */
 export const removeFriend = (user) => {
   return (dispatch, getState) => {
     let uid = getState().user.uid;
