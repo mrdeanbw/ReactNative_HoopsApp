@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react';
-import {AsyncStorage, NavigationExperimental, View, Text} from 'react-native';
-import {Provider, connect} from 'react-redux';
+import {AsyncStorage} from 'react-native';
+import {Provider} from 'react-redux';
 import createStore from '../createStore';
 import {persistStore} from 'redux-persist';
 import * as userActions from '../actions/user';
