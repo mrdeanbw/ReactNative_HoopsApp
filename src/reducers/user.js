@@ -1,23 +1,62 @@
 import {handleActions} from 'redux-actions';
 
-const emptyUserObject = {
-  name: null,
-  username: null,
-  gender: null,
-  dob: null,
 
-  availability: true,
-  organizing: {}, //Events that this user organizes
-  invites: {},
-  requests: {},
-  savedEvents: {},
-  friends: {},
+/**
+ * Take a data object from the database and convert it to one that is
+ * friendly to our views
+ */
+const convertStructure = (data) => {
+  data = {
+    //defaults
+    availability: true,
+    organizing: {},
+    invites: {},
+    requests: {},
+    savedEvents: {},
+    friends: {},
+    friendRequests: {},
+
+    name: null,
+    username: null,
+    gender: null,
+    city: null,
+    email: null,
+    phone: null,
+    dob: null,
+
+    //overwrite with actual data
+    ...data,
+  };
+
+  //flatten scoped data
+  if(data.publicProfile) {
+    data.name = data.publicProfile.name;
+    data.username = data.publicProfile.username;
+    data.gender = data.publicProfile.gender;
+    data.city = data.publicProfile.city;
+    delete data.publicProfile;
+  }
+
+  //flatten scoped data
+  if(data.contactInfo) {
+    data.email = data.contactInfo.email;
+    data.phone = data.contactInfo.phone;
+    delete data.contactInfo;
+  }
+
+  //flatten scoped data
+  if(data.restrictedProfile) {
+    data.dob = data.restrictedProfile.dob;
+    delete data.restrictedProfile;
+  }
+
+  return data;
 };
 
 const initialState = {
   uid: null,
 
-  ...emptyUserObject,
+  ...convertStructure({}),
 
   //Signing in
   isSigningIn: false,
@@ -47,17 +86,9 @@ export default handleActions({
   },
 
   USER_SIGN_IN_SUCCESS: (state, action) => {
-    let extra = action.extra || {};
     return {
       ...state,
       uid: action.uid,
-      email: extra.email,
-      name: extra.name,
-      username: extra.username,
-      dob: extra.dob,
-      gender: extra.gender,
-      isSigningIn: false,
-      signInError: null,
     };
   },
 
@@ -66,7 +97,7 @@ export default handleActions({
       ...state,
       uid: null,
 
-      ...emptyUserObject,
+      ...convertStructure({}),
 
       isSigningIn: false,
       signInError: action.err,
@@ -112,15 +143,7 @@ export default handleActions({
   USER_CHANGE: (state, action) => {
     return {
       ...state,
-      ...{
-        /*
-         * we need to merge new data with the emptyUserObject
-         * so that undefined keys are reset.
-         * For example `savedEvents` changes from {E1:true} to undefined.
-         */
-        ...emptyUserObject,
-        ...action.user,
-      },
+      ...convertStructure(action.user),
     };
   },
 

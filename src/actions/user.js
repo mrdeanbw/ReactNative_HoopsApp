@@ -2,7 +2,6 @@ import firebase, {firebaseDb} from '../data/firebase';
 
 import * as emailAuth from '../data/auth/email';
 import * as facebookAuth from '../data/auth/facebook';
-import * as userDb from '../data/user';
 
 import * as eventsActions from './events';
 import * as usersActions from './users';
@@ -11,20 +10,12 @@ import * as requestsActions from './requests';
 import * as notificationsActions from './notifications';
 
 export const signIn = (email, password) => {
-  let uid;
   return (dispatch) => {
     dispatch({type: 'USER_SIGN_IN'});
 
     emailAuth.signIn(email, password)
       .then((user) => {
-        uid = user.uid;
-        return userDb.read();
-      }).then((userData) => {
-        let user = {
-          uid,
-          extra: userData,
-        };
-        dispatch(signInSuccess(user));
+        dispatch(signInSuccess());
       }).catch((err) => {
         dispatch(signInFailure(err));
       });
@@ -36,14 +27,14 @@ export const signIn = (email, password) => {
  * @param user.uid {String} user id
  * @param user.extra {Object} additional user data such as email, date-of-birth...
  */
-export const signInSuccess = (user) => {
+export const signInSuccess = () => {
   return dispatch => {
+    let uid = firebase.auth().currentUser.uid;
     listenToUser()(dispatch);
 
     dispatch({
       type: 'USER_SIGN_IN_SUCCESS',
-      uid: user.uid,
-      extra: user.extra,
+      uid,
     });
   };
 };
@@ -78,32 +69,65 @@ export const facebookSignIn = () => {
  * @param extraData {Object} - Object of extra data to store against the new user
  */
 export const signUp = (email, password, extraData) => {
-  let uid;
   return (dispatch) => {
     dispatch({type: 'USER_SIGN_UP'});
 
     emailAuth.signUp(email, password)
       .then((user) => {
-        uid = user.uid;
-        extraData = {
+        let uid = user.uid;
+
+        savePersonalData({
           ...extraData,
-          email,
-        };
-        return userDb.write(extraData);
-      }).then((userData) => {
-        let user = {
+          dob: new Date(extraData.dob).valueOf(), //convert date to epoch timestamp
           uid,
-          extra: userData,
-        };
-        dispatch(signUpSuccess(user));
-      }).catch((err) => {
-        dispatch(signUpFailure(err));
+          email,
+        }, (err) => {
+          if(err) {
+            dispatch(signUpFailure(err));
+          }else {
+            dispatch(signUpSuccess());
+          }
+        });
       });
   };
 };
 
-export const signUpSuccess = (user) => {
-  return signInSuccess(user);
+const savePersonalData = (data, callback) => {
+  //nullify undefined keys
+  data = {
+    name: null,
+    username: null,
+    gender: null,
+    dob: null,
+    email: null,
+    phone: null,
+    city: null,
+
+    ...data,
+  };
+
+  let uid = data.uid;
+
+  firebaseDb.update({
+    [`users/${uid}/publicProfile`]: {
+      name: data.name,
+      username: data.username,
+      gender: data.gender,
+      city: data.city,
+    },
+    [`users/${uid}/restrictedProfile`]: {
+      dob: data.dob,
+    },
+    [`users/${uid}/contactInfo`]: {
+      email: data.email,
+      phone: data.phone,
+    },
+    [`usernames/${data.username}`]: uid, //for uniqueness validation
+  }, callback);
+};
+
+export const signUpSuccess = () => {
+  return signInSuccess();
 };
 
 export const signUpFailure = (err) => ({

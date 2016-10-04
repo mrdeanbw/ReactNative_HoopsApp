@@ -29,13 +29,37 @@ export default class SignUp extends React.Component {
     this.state = {
       showPassword: false,
       showDobInfo: false,
-      name: 'Test Tester',
-      email: Math.random() + '@mikemonteith.com',
-      username: 'testuser',
-      password: 'testtest',
-      dob: new Date("1989-08-22"),
-      gender: 'male',
+      name: '',
+      email: '',
+      username: '',
+      password: '',
+      dob: null,
+      gender: '',
+      city: '',
+      phone: '',
     };
+  }
+
+  validate() {
+    let {
+      name,
+      email,
+      username,
+      password,
+      dob,
+      gender,
+      city
+    } = this.state;
+
+    return !!(
+      name &&
+      email &&
+      username &&
+      password.length >= 8 &&
+      dob &&
+      gender &&
+      city
+    );
   }
 
   onSubmitEditing = (nextField) => {
@@ -190,9 +214,22 @@ export default class SignUp extends React.Component {
           icon="phone"
         />
 
-        <Button type="roundedDefault" text={_('signup')} onPress={this.onPressSignUp} style={StyleSheet.doubleMarginTop}/>
-        <HorizontalRule text={_('or')} style={StyleSheet.doubleMargin} />
-        <Button type="facebook" icon="facebook" text={_('facebookConnect')} onPress={this.onPressFacebookConnect}/>
+        <Button
+          type={this.validate() ? "roundedDefault" : "roundedGrey"}
+          text={_('signup')}
+          onPress={this.validate() ? this.onPressSignUp : undefined}
+          style={StyleSheet.doubleMarginTop}
+        />
+        <HorizontalRule
+          text={_('or')}
+          style={StyleSheet.doubleMargin}
+        />
+        <Button
+          type="facebook"
+          icon="facebook"
+          text={_('facebookConnect')}
+          onPress={this.onPressFacebookConnect}
+        />
       </Dialog>
     );
   }
