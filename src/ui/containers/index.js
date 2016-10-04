@@ -24,6 +24,7 @@ import _Search from './search';
 import _SearchResults from './search-results';
 import _SelectMode from './select-mode';
 import _SignUp from './signup';
+import _SignUpFacebookExtra from './signup-facebook-extra';
 import _TabBar from './tab-bar';
 import _Walkthrough from './walkthrough';
 
@@ -52,5 +53,6 @@ export const Search = _Search;
 export const SearchResults = _SearchResults;
 export const SelectMode = _SelectMode;
 export const SignUp = _SignUp;
+export const SignUpFacebookExtra = _SignUpFacebookExtra;
 export const TabBar = _TabBar;
 export const Walkthrough = _Walkthrough;

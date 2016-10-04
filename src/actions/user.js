@@ -8,6 +8,7 @@ import * as usersActions from './users';
 import * as invitesActions from './invites';
 import * as requestsActions from './requests';
 import * as notificationsActions from './notifications';
+import * as navigationActions from './navigation';
 
 export const signIn = (email, password) => {
   return (dispatch) => {
@@ -15,7 +16,7 @@ export const signIn = (email, password) => {
 
     emailAuth.signIn(email, password)
       .then((user) => {
-        dispatch(signInSuccess());
+        dispatch(signInSuccess('email'));
       }).catch((err) => {
         dispatch(signInFailure(err));
       });
@@ -23,18 +24,17 @@ export const signIn = (email, password) => {
 };
 
 /**
- * @param user {Object}
- * @param user.uid {String} user id
- * @param user.extra {Object} additional user data such as email, date-of-birth...
+ * @param method {String} 'facebook' or 'email'
  */
-export const signInSuccess = () => {
+export const signInSuccess = (method) => {
   return dispatch => {
     let uid = firebase.auth().currentUser.uid;
-    listenToUser()(dispatch);
+    dispatch(listenToUser());
 
     dispatch({
       type: 'USER_SIGN_IN_SUCCESS',
       uid,
+      method,
     });
   };
 };
@@ -43,25 +43,6 @@ export const signInFailure = (err) => ({
   type: 'USER_SIGN_IN_FAILURE',
   err,
 });
-
-export const facebookSignIn = () => {
-  let uid;
-  return dispatch => {
-    facebookAuth.signIn()
-      .then((user) => {
-        uid = user.uid;
-        return userDb.read();
-      }).then((userData) => {
-        let user = {
-          uid,
-          extra: userData,
-        };
-        dispatch(signInSuccess(user));
-      }).catch((err) => {
-        dispatch(signInFailure(err));
-      });
-  };
-};
 
 /**
  * @param email {String} - User's email address
@@ -74,18 +55,15 @@ export const signUp = (email, password, extraData) => {
 
     emailAuth.signUp(email, password)
       .then((user) => {
-        let uid = user.uid;
-
         savePersonalData({
           ...extraData,
           dob: new Date(extraData.dob).valueOf(), //convert date to epoch timestamp
-          uid,
           email,
         }, (err) => {
           if(err) {
             dispatch(signUpFailure(err));
           }else {
-            dispatch(signUpSuccess());
+            dispatch(signUpSuccess('email'));
           }
         });
       });
@@ -93,6 +71,8 @@ export const signUp = (email, password, extraData) => {
 };
 
 const savePersonalData = (data, callback) => {
+  let uid = firebase.auth().currentUser.uid;
+
   //nullify undefined keys
   data = {
     name: null,
@@ -105,8 +85,6 @@ const savePersonalData = (data, callback) => {
 
     ...data,
   };
-
-  let uid = data.uid;
 
   firebaseDb.update({
     [`users/${uid}/publicProfile`]: {
@@ -126,8 +104,8 @@ const savePersonalData = (data, callback) => {
   }, callback);
 };
 
-export const signUpSuccess = () => {
-  return signInSuccess();
+export const signUpSuccess = (method) => {
+  return signInSuccess(method);
 };
 
 export const signUpFailure = (err) => ({
@@ -136,27 +114,39 @@ export const signUpFailure = (err) => ({
 });
 
 export const facebookSignUp = () => {
-  let uid;
   return dispatch => {
     facebookAuth.signIn().then((user) => {
-      uid = user.uid;
       return facebookAuth.getUserData();
     }).then((facebookUser) => {
-      return userDb.write({
-        name: facebookUser.name,
-        email: facebookUser.email,
-        gender: facebookUser.gender,
-        dob: facebookUser.birthday,
+      dispatch({
+        type: 'FACEBOOK_USER_DATA',
+        facebookUser,
       });
-    }).then((userData) => {
-      //TODO `facebookUser` contains personal data extracted from facebook, save it.
-      let user = {
-        uid,
-        extra: userData,
-      };
-      dispatch(signUpSuccess(user));
+      dispatch(signUpSuccess('facebook'));
     }).catch((err) => {
       dispatch(signUpFailure(err));
+    });
+  };
+};
+export const facebookSignIn = facebookSignUp;
+
+export const facebookSaveExtra = (extraData) => {
+  return dispatch => {
+    savePersonalData({
+      ...extraData,
+      dob: new Date(extraData.dob).valueOf(),
+    }, (err) => {
+      if(err) {
+        dispatch({
+          type: 'FACEBOOK_EXTRA_DATA_ERROR',
+          err,
+        });
+      } else {
+        dispatch({
+          type: 'FACEBOOK_EXTRA_DATA_SAVED',
+        });
+        dispatch(navigationActions.reset({key: 'selectMode'}));
+      }
     });
   };
 };
@@ -171,7 +161,7 @@ export const logOut = () => {
         type: 'USER_LOGGED_OUT',
       });
     });
-  }
+  };
 };
 
 /*
@@ -203,18 +193,31 @@ export const setAvailability = (value) => {
 
     //Update the database
     firebaseDb.child(`users/${getState().user.uid}/availability`).set(value);
-  }
+  };
 };
 
 const listenToUser = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
     let uid = firebase.auth().currentUser.uid;
+
     firebaseDb.child(`users/${uid}`).on('value', (snapshot) => {
-      let user = snapshot.val();
+      let user = snapshot.val() || {};
+
       dispatch({
         type: 'USER_CHANGE',
         user,
       });
+
+      let state = getState();
+      let nav = state.navigation;
+      if(!state.user.username) {
+        //There registration isn't complete.
+        if(nav.routes[nav.index].key !== 'signupFacebookExtra') {
+          dispatch(navigationActions.reset({key: 'signupFacebookExtra'}));
+          return;
+        }
+      }
+
       if(user.organizing) {
         for(let id in user.organizing) {
           dispatch(eventsActions.load(id));
@@ -253,21 +256,18 @@ export const registerWithStore = (store) => {
    * Listen to firebase auth changes (e.g when re-signing in a user saved locally)
    * and dispatch an event so that stores can react to it
    */
-  let unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+  firebase.auth().onAuthStateChanged((user) => {
     //There is a bug where errors in this handler are silently swallowed. Be careful.
     if(user) {
       store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: user.uid});
-      listenToUser()(store.dispatch);
+      store.dispatch(listenToUser());
+      store.dispatch(navigationActions.reset({key: 'selectMode'}));
     }else{
       store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: null});
     }
-
-    //Only listen to the first auth state
-    unsubscribe();
   }, error => {
-    console.warn(error);
+    console.warn(error); //eslint-disable-line no-console
   });
-
 };
 
 /**

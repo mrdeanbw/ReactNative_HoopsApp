@@ -55,6 +55,8 @@ const convertStructure = (data) => {
 
 const initialState = {
   uid: null,
+  signInMethod: null,
+  facebookUser: null,
 
   ...convertStructure({}),
 
@@ -89,6 +91,7 @@ export default handleActions({
     return {
       ...state,
       uid: action.uid,
+      signInMethod: action.method,
     };
   },
 
@@ -117,6 +120,13 @@ export default handleActions({
       uid: action.uid,
       isSigningUp: false,
       signUpError: null,
+    };
+  },
+
+  FACEBOOK_USER_DATA: (state, action) => {
+    return {
+      ...state,
+      facebookUser: action.facebookUser,
     };
   },
 

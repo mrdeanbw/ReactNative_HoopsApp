@@ -23,6 +23,10 @@ class Root extends React.Component {
         component: containers.SignUp,
       },
 
+      signupFacebookExtra: {
+        component: containers.SignUpFacebookExtra,
+      },
+
       selectMode: {
         component: containers.SelectMode,
       },

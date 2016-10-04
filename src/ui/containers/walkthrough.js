@@ -6,16 +6,6 @@ import {navigation} from '../../actions';
 
 class Walkthrough extends React.Component {
 
-  componentWillReceiveProps(nextProps) {
-    if(this.props.user.uid === null && nextProps.user.uid){
-      if(!nextProps.user.mode) {
-        this.props.onNavigateReset('selectMode');
-      }else{
-        this.props.onNavigateReset('tabs');
-      }
-    }
-  }
-
   render() {
     return (
       <_Walkthrough

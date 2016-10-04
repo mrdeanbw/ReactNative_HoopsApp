@@ -9,7 +9,7 @@ import {
 
 const provider = firebase.auth.FacebookAuthProvider;
 
-const loginPermissions = ['public_profile', 'user_birthday', 'user_location'];
+const loginPermissions = ['email', 'public_profile', 'user_birthday', 'user_location'];
 const userUri = '/me?fields=id,name,last_name,email,gender,birthday,location';
 
 /**
