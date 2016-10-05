@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import {View, NavigationExperimental} from 'react-native';
+import {View, NavigationExperimental, StatusBar} from 'react-native';
 const {CardStack} = NavigationExperimental;
 
 import StyleSheet from '../styles';
@@ -17,6 +17,9 @@ export default class Navigator extends React.Component {
 
     return (
       <View style={StyleSheet.window.contentStyle}>
+        <StatusBar
+          barStyle='light-content'
+        />
         <config.component
           actionButton={config.action && config.action.pressEmitter}
           onChangeAction={this.props.onChangeAction}
