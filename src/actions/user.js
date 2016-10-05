@@ -27,10 +27,8 @@ export const signIn = (email, password) => {
  * @param method {String} 'facebook' or 'email'
  */
 export const signInSuccess = (method) => {
+  let uid = firebase.auth().currentUser.uid;
   return dispatch => {
-    let uid = firebase.auth().currentUser.uid;
-    dispatch(listenToUser());
-
     dispatch({
       type: 'USER_SIGN_IN_SUCCESS',
       uid,
@@ -203,20 +201,27 @@ const listenToUser = () => {
     firebaseDb.child(`users/${uid}`).on('value', (snapshot) => {
       let user = snapshot.val() || {};
 
+      let state = getState();
+      let nav = state.navigation;
+      if(!state.user.name) {
+        //We are dealing with a newly loaded user. Handle some routing logic
+
+        if(user.publicProfile && user.publicProfile.name) {
+          //The user has been created already
+          dispatch(handleInitialRouting());
+        } else {
+          //The user doesn't have a name, we need to send this user to complete reg.
+          if(nav.routes[nav.index].key !== 'signupFacebookExtra') {
+            dispatch(navigationActions.reset({key: 'signupFacebookExtra'}));
+            return;
+          }
+        }
+      }
+
       dispatch({
         type: 'USER_CHANGE',
         user,
       });
-
-      let state = getState();
-      let nav = state.navigation;
-      if(!state.user.username) {
-        //There registration isn't complete.
-        if(nav.routes[nav.index].key !== 'signupFacebookExtra') {
-          dispatch(navigationActions.reset({key: 'signupFacebookExtra'}));
-          return;
-        }
-      }
 
       if(user.organizing) {
         for(let id in user.organizing) {
@@ -251,6 +256,22 @@ const listenToUser = () => {
   };
 };
 
+const handleInitialRouting = () => {
+  return (dispatch, getState) => {
+    let state = getState();
+    //If user is loaded into state
+    if(state.user.uid) {
+      if(state.user.mode) {
+        //Go to home page
+        dispatch(navigationActions.reset({key: 'tabs'}));
+      } else {
+        //Go to select-mode page
+        dispatch(navigationActions.reset({key: 'selectMode'}));
+      }
+    }
+  };
+};
+
 export const registerWithStore = (store) => {
   /*
    * Listen to firebase auth changes (e.g when re-signing in a user saved locally)
@@ -261,9 +282,10 @@ export const registerWithStore = (store) => {
     if(user) {
       store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: user.uid});
       store.dispatch(listenToUser());
-      store.dispatch(navigationActions.reset({key: 'selectMode'}));
+      store.dispatch(handleInitialRouting());
     }else{
       store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: null});
+      store.dispatch(navigationActions.reset({key: 'walkthrough'}));
     }
   }, error => {
     console.warn(error); //eslint-disable-line no-console

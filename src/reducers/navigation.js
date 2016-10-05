@@ -9,7 +9,7 @@ const {
 const initialState = {
   index: 0,
   routes: [{
-    key: 'walkthrough',
+    key: 'loading',
   }],
 
   tabKey: 'home',
@@ -136,7 +136,10 @@ export default handleActions({
   },
 
   USER_LOGGED_OUT: (state, action) => {
-    return initialState;
+    return {
+      ...initialState,
+      routes: [{key: 'walkthrough'}],
+    };
   },
 
   SET_UI_MODE: (state, action) => {

@@ -6,11 +6,17 @@ import {navigation} from '../../actions';
 
 import {Navigator} from '../components';
 
+import LoadingWindow from '../windows/loading';
+
 class Root extends React.Component {
 
   constructor() {
     super();
     this.routeConfig = {
+      loading: {
+        component: LoadingWindow,
+      },
+
       walkthrough: {
         component: containers.Walkthrough,
       },
