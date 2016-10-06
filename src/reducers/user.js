@@ -1,6 +1,5 @@
 import {handleActions} from 'redux-actions';
 
-
 /**
  * Take a data object from the database and convert it to one that is
  * friendly to our views
@@ -15,6 +14,8 @@ const convertStructure = (data) => {
     savedEvents: {},
     friends: {},
     friendRequests: {},
+
+    interests: {},
 
     name: null,
     username: null,
@@ -34,6 +35,7 @@ const convertStructure = (data) => {
     data.username = data.publicProfile.username;
     data.gender = data.publicProfile.gender;
     data.city = data.publicProfile.city;
+    data.interests = data.publicProfile.interests;
     delete data.publicProfile;
   }
 

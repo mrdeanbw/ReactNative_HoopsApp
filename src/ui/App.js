@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import createStore from '../createStore';
 import {persistStore} from 'redux-persist';
 import * as userActions from '../actions/user';
+import * as interestsActions from '../actions/interests';
 
 import {Root} from './containers';
 
@@ -15,6 +16,7 @@ persistStore(store, {
 });
 
 userActions.registerWithStore(store);
+store.dispatch(interestsActions.load());
 
 export default class App extends Component {
 

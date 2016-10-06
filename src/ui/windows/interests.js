@@ -3,57 +3,63 @@ import _ from '../i18n';
 
 import React from 'react';
 
-import {ScrollView, View, Image, Text, TouchableHighlight, TouchableWithoutFeedback} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import StyleSheet from '../styles';
 
 import Dialog from '../components/dialog';
 import Button from '../components/button';
 import CheckButton from '../components/check-button';
 import HighlightText from '../components/highlight-text';
-import InterestData from '../../data/interests.json';
-
-import Window from '../components/window';
+import Popup from '../components/popup';
 
 export default class Interests extends React.Component {
-
-  static getTest(close) {
-    return {
-      title: 'Interests',
-      view: Interests,
-      viewProps: { onClose: close }
-    };
-  }
 
   constructor() {
     super();
     this.state = {
       viewAll: false,
-      interests: {}
+      selected: {},
+      levelPopupInterest: null,
     };
   }
 
-  onChangeInterest = (interest, checked) => {
-    if(checked) {
-      this.state.interests[interest] = true;
-    } else {
-      delete this.state.interests[interest];
+  onChangeInterest = (interest, value) => {
+    if(value) {
+      this.setState({levelPopupInterest: interest});
+    }else{
+      this.onSelectLevel(interest, null);
     }
+  };
 
-    this.setState({ interests: this.state.interests });
+  onSelectLevel = (interest, level) => {
+    let selected = {
+      ...this.state.selected,
+      [interest.id]: level,
+    };
+
+    this.setState({
+      selected,
+    });
+
+    this.props.onInterestsChange(selected);
   };
 
   onPressViewAll = () => {
-    this.setState({ viewAll: true });
-  };
-
-  onPressDone = () => {
-    //TODO
+    this.props.onPressViewAll(this.state.selected);
   };
 
   render() {
     return (
-      <Dialog title={_('interests')} onClose={this.props.onClose}
-          rightBar={<Button type="title" icon="search" onPress={this.onPressSearch}/>}>
+      <Dialog title={_('interests')} onClose={this.props.onClose}>
+
+        <InterestLevelPopup
+          visible={!!this.state.levelPopupInterest}
+          onClose={() => this.setState({levelPopupInterest: null})}
+          active={this.state.levelPopupInterest && this.state.levelPopupInterest.active}
+          onSelectLevel={(level) => {
+            this.onSelectLevel(this.state.levelPopupInterest, level);
+          }}
+        />
 
         <ScrollView>
           <HighlightText highlight={_('sports')} text={_('interestsBanner')}
@@ -61,11 +67,11 @@ export default class Interests extends React.Component {
                    highlightStyle={StyleSheet.interests.bannerTextHighlight} />
 
 
-          {InterestData.top.map((name, i) =>
-            <CheckButton key={name} text={name}
+          {this.props.interests.map((interest, i) =>
+            <CheckButton key={interest.name} text={interest.name}
                    icon="plus" checkIcon="checkActive"
-                   checked={this.state.interests[name]}
-                   onChange={checked => this.onChangeInterest(name, checked)}
+                   checked={this.state.selected[interest.id]}
+                   onChange={checked => this.onChangeInterest(interest, checked)}
                    style={StyleSheet.interests.checkButtonGradient[i]}
                    containerStyle={StyleSheet.interests.containerStyle}
                    underlayColor={StyleSheet.interests.checkButtonHighlightGradient[i]}
@@ -74,19 +80,65 @@ export default class Interests extends React.Component {
                    checkedIconStyle={StyleSheet.interests.checkButtonCheckedIconStyle}/>)}
 
 
-          {this.state.viewAll && InterestData.all.filter(name => !InterestData.top.find(n => n === name)).map((name, i) =>
-            <CheckButton key={name} text={name}
-                   icon="plusActive" checkIcon="check"
-                   checked={this.state.interests[name]}
-                   onChange={checked => this.onChangeInterest(name, checked)} />)}
-
           <View style={StyleSheet.interests.footer}>
             {!this.state.viewAll && <Button type="rounded" text={_('viewAll')} onPress={this.onPressViewAll} style={StyleSheet.interests.viewAllButton} />}
-            <Button type="dialogDefault" text={_('done')} onPress={this.onPressDone} />
+            <Button type="dialogDefault" text={_('done')} onPress={this.props.onDonePress} />
           </View>
         </ScrollView>
 
       </Dialog>
     );
   }
+}
+
+class InterestLevelPopup extends React.Component {
+  render() {
+    return (
+      <Popup
+        visible={this.props.visible}
+        onClose={this.props.onClose}
+        style={[StyleSheet.popupContainer]}
+      >
+        {this.props.active ? (
+          <Button
+            type="alertVertical"
+            text={_('remove')}
+            onPress={() => {
+              this.props.onSelectLevel(null);
+              this.props.onClose();
+            }}
+          />
+        ) : (
+          <View>
+            <Button
+              type="alertVertical"
+              text={_('casual')}
+              onPress={() => {
+                this.props.onSelectLevel('casual');
+                this.props.onClose();
+              }}
+            />
+            <Button
+              type="alertVertical"
+              text={_('competitive')}
+              onPress={() => {
+                this.props.onSelectLevel('competitive');
+                this.props.onClose();
+              }}
+            />
+          </View>
+        )}
+      </Popup>
+    );
+  }
+}
+
+InterestLevelPopup.propTypes = {
+  visible: React.PropTypes.bool,
+  onClose: React.PropTypes.func,
+  interest: React.PropTypes.shape({
+    id: React.PropTypes.string.isRequired,
+  }),
 };
+
+Interests.InterestLevelPopup = InterestLevelPopup;

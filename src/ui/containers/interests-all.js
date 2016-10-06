@@ -2,7 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-  Interests as _Interests,
+  InterestsAll as _InterestsAll,
 } from '../windows';
 import {user, navigation} from '../../actions';
 
@@ -11,22 +11,13 @@ class InterestsAll extends React.Component {
   render() {
     let interests = Object.keys(this.props.interests.interestsById).map(id => {
       return this.props.interests.interestsById[id];
-    }).filter(interest => interest.important === true);
-
-    let onDonePress = () => {
-      this.props.onNavigate('selectMode');
-    };
+    });
 
     return (
-      <_Interests
+      <_InterestsAll
+        selected={this.props.selected}
         interests={interests}
-        onDonePress={onDonePress}
-        onPressViewAll={(selectedInterests) => {
-          this.props.onNavigate('selectInterestsAll', {
-            selected: selectedInterests,
-            onDonePress: onDonePress,
-          });
-        }}
+        onDonePress={this.props.onDonePress}
         onInterestsChange={this.props.onInterestsChange}
       />
     );
@@ -39,7 +30,7 @@ export default connect(
     interests: state.interests,
   }),
   (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigation.push({key, props})),
+    onNavigate: (key, props) => dispatch(navigation.reset({key, props})),
     onInterestsChange: (interests) => dispatch(user.setInterests(interests)),
   }),
 )(InterestsAll);

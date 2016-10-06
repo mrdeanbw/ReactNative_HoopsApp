@@ -149,5 +149,41 @@ export default StyleSheet => StyleSheet.extend({
     paddingBottom: 10,
     paddingLeft: 20,
     paddingRight: 20
-  }
+  },
+
+  interests: {
+    backgroundColor: colors.white,
+    flex: 1,
+  },
+
+  interestsSectionHeader: {
+    backgroundColor: colors.white,
+    paddingTop: 16,
+    paddingHorizontal: 16,
+  },
+
+  interestsSectionHeaderText: {
+    color: colors.pink,
+    fontWeight: 'bold',
+  },
+
+  interestsRow: {
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    alignItems: 'flex-start',
+    borderColor: colors.lightGrey,
+    borderBottomWidth: 1,
+  },
+
+  interestsRowActive: {
+    backgroundColor: colors.pink,
+  },
+
+  interestsTextActive: {
+    color: colors.white,
+  },
+
+  interestsUnderlay: colors.transparent,
+
+  interestsUnderlayActive: colors.pink,
 });

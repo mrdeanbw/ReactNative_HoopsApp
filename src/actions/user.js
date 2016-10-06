@@ -178,6 +178,13 @@ export const toggleMode = () => {
   };
 };
 
+export const setInterests = (interests) => {
+  return dispatch => {
+    let uid = firebase.auth().currentUser.uid;
+    firebaseDb.child(`users/${uid}/publicProfile/interests`).set(interests);
+  };
+};
+
 /*
  * Set the user's availability
  */
@@ -259,11 +266,14 @@ const listenToUser = () => {
 const handleInitialRouting = () => {
   return (dispatch, getState) => {
     let state = getState();
+
     //If user is loaded into state
     if(state.user.uid) {
       if(state.user.mode) {
         //Go to home page
         dispatch(navigationActions.reset({key: 'tabs'}));
+      } else if(Object.keys(state.user.interests).length === 0) {
+        dispatch(navigationActions.reset({key: 'selectInterests'}));
       } else {
         //Go to select-mode page
         dispatch(navigationActions.reset({key: 'selectMode'}));

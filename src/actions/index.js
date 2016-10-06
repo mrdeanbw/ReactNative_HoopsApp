@@ -3,6 +3,7 @@ import * as user from './user';
 import * as users from './users';
 import * as events from './events';
 import * as navigation from './navigation';
+import * as interests from './interests';
 import * as invites from './invites';
 import * as requests from './requests';
 import * as search from './search';
@@ -13,6 +14,7 @@ export {
   users,
   events,
   navigation,
+  interests,
   invites,
   requests,
   search,
