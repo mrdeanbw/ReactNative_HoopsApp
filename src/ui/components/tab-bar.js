@@ -58,6 +58,7 @@ export default class TabBar extends React.Component {
             animation={this.state.menuAnimation}
             onPressBackground={this.props.onHideMenu}
             user={this.props.user}
+            onPressProfile={this.props.onPressProfile}
           >
             <Menu.Item icon="help" text={_('help')} onPress={() => {}} />
             <Menu.Item icon="settings" text={_('settings')} onPress={() => this.props.onTabPress('settings')}/>

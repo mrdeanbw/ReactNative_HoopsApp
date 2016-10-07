@@ -28,15 +28,22 @@ export default class Menu extends React.Component {
         <Animated.View style={[StyleSheet.menu.style, {right: this.props.animation.interpolate({ inputRange: [0, 1], outputRange: [-115, 0] }) }]}>
 
           <View style={[StyleSheet.menu.header]}>
-            <View style={[StyleSheet.menu.avatarContainer]}>
-              <Image
-                source={StyleSheet.images.avatarChrisMurray}
-                style={[StyleSheet.menu.avatarImage]}
-              />
-            </View>
-            <Text style={[StyleSheet.text, StyleSheet.menu.avatarText]}>
-              <Text>{this.props.user.name.toUpperCase()}</Text>
-            </Text>
+            <TouchableHighlight
+              underlayColor='transparent'
+              onPress={this.props.onPressProfile}
+            >
+              <View>
+                <View style={[StyleSheet.menu.avatarContainer]}>
+                  <Image
+                    source={StyleSheet.images.avatarChrisMurray}
+                    style={[StyleSheet.menu.avatarImage]}
+                  />
+                </View>
+                <Text style={[StyleSheet.text, StyleSheet.menu.avatarText]}>
+                  <Text>{this.props.user.name.toUpperCase()}</Text>
+                </Text>
+              </View>
+            </TouchableHighlight>
           </View>
 
           <View style={StyleSheet.menu.items}>

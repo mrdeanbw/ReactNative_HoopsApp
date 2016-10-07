@@ -18,7 +18,9 @@ class InterestsAll extends React.Component {
         selected={this.props.selected}
         interests={interests}
         onDonePress={this.props.onDonePress}
-        onInterestsChange={this.props.onInterestsChange}
+        onInterestsChange={
+          this.props.onInterestsChangeOverride || this.props.onInterestsChange
+        }
       />
     );
   }

@@ -68,6 +68,10 @@ class Root extends React.Component {
       createEvent: {
         component: containers.CreateEvent,
       },
+
+      profileEdit: {
+        component: containers.ProfileEdit,
+      },
     };
   }
 

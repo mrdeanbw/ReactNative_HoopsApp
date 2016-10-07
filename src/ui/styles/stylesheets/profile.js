@@ -186,4 +186,31 @@ export default StyleSheet => StyleSheet.extend({
   interestsUnderlay: colors.transparent,
 
   interestsUnderlayActive: colors.pink,
+
+  editLabel: {
+    color: colors.pink,
+    fontSize: 12,
+    marginTop: 16,
+  },
+
+  editInterestsItem: {
+    flex: 1,
+    backgroundColor: 'pink',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  editInterestsItemText: {
+    fontSize: 16,
+    paddingVertical: 10,
+    backgroundColor: 'lightblue',
+  },
+
+  editInterestsIcon: {
+    backgroundColor: colors.pink,
+    height: 32,
+    width: 32,
+    borderRadius: 16,
+  },
 });

@@ -185,6 +185,26 @@ export const setInterests = (interests) => {
   };
 };
 
+export const updateProfile = (data) => {
+  return (dispatch, getState) => {
+    let state = getState();
+    let uid = firebase.auth().currentUser.uid;
+
+    firebaseDb.update({
+      [`users/${uid}/publicProfile`]: {
+        name: data.name,
+        username: state.user.username,
+        gender: data.gender,
+        city: data.city,
+        interests: data.interests,
+      },
+      [`users/${uid}/restrictedProfile`]: {
+        dob: new Date(data.dob).valueOf(),
+      }
+    });
+  };
+};
+
 /*
  * Set the user's availability
  */
@@ -197,7 +217,8 @@ export const setAvailability = (value) => {
     });
 
     //Update the database
-    firebaseDb.child(`users/${getState().user.uid}/availability`).set(value);
+    let uid = getState().user.uid;
+    firebaseDb.child(`users/${uid}/publicProfile/availability`).set(value);
   };
 };
 

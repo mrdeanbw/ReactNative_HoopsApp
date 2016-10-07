@@ -525,7 +525,6 @@ export default StyleSheet => StyleSheet.extend({
       justifyContent: 'center',
       borderRadius: 13,
       borderBottomWidth: null,
-      borderBottomColor: colors.transparent,
       backgroundColor: colors.pink
     },
 

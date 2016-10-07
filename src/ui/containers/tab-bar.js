@@ -260,6 +260,10 @@ class TabBar extends React.Component {
         mode={this.props.user.mode}
         user={this.props.user}
         notificationBadge={unreadNotifications.length}
+        onPressProfile={() => {
+          this.props.onNavigate('profile', {id: this.props.user.uid});
+          this.props.onHideMenu();
+        }}
       >
         {this.renderTab()}
       </_TabBar>
