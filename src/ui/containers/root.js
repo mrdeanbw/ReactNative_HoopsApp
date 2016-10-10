@@ -72,6 +72,10 @@ class Root extends React.Component {
       profileEdit: {
         component: containers.ProfileEdit,
       },
+
+      paymentsBankSetup: {
+        component: containers.PaymentsBankSetup,
+      },
     };
   }
 

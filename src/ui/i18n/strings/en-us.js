@@ -218,6 +218,13 @@ export const allowPhotoUpload = 'Allow photo upload';
 export const allowToSeeYourContactInfo = 'Allow to see your contact info';
 export const eventPicture = 'Event picture';
 
+export const paymentOptions = 'Payment Options';
+export const accountNumber = 'Account Number';
+export const sortCode = 'Sort Code';
+export const addressLine1 = 'Address Line 1';
+export const addressLine2 = 'Address Line 2';
+export const postcode = 'Postcode';
+
 export const upcoming = 'Upcoming';
 export const saved = 'Saved';
 export const history = 'History';

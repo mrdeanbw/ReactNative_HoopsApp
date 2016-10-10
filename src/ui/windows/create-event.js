@@ -283,7 +283,12 @@ export default class CreateEvent extends React.Component {
                   placeholder={_('paymentMethod')}
                   value={this.state.eventDetails.paymentMethod}
                   rightBar={<Icon name="listIndicator" />}
-                  onChange={(paymentMethod) => this.setEventData({paymentMethod})}
+                  onChange={(paymentMethod) => {
+                    if(paymentMethod === 'app') {
+                      this.props.onSelectAppPayments();
+                    }
+                    this.setEventData({paymentMethod});
+                  }}
                 >
                   <ListInput.Item text={_('inAppPayment')} value="app" />
                   <ListInput.Item text={_('cashOnSite')} value="cash" />

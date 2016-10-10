@@ -15,6 +15,13 @@ class CreateEvent extends React.Component {
           this.props.onSaveEvent(eventData);
           this.props.onNavigateBack();
         }}
+        onSelectAppPayments={() => {
+          if(!this.props.user.stripeAccount) {
+            this.props.onNavigate('paymentsBankSetup', {
+              onClose: () => this.props.onNavigateBack(),
+            });
+          }
+        }}
       />
     );
   }
@@ -24,6 +31,7 @@ export default connect(
   (state) => ({
     user: state.user,
     events: state.events,
+    payments: state.payments,
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props})),

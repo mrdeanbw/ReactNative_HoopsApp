@@ -8,6 +8,7 @@ import * as invites from './invites';
 import * as requests from './requests';
 import * as search from './search';
 import * as notifications from './notifications';
+import * as payments from './payments';
 
 export {
   user,
@@ -19,4 +20,5 @@ export {
   requests,
   search,
   notifications,
+  payments,
 };

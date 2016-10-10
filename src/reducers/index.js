@@ -8,6 +8,7 @@ import invites from './invites';
 import requests from './requests';
 import search from './search';
 import notifications from './notifications';
+import payments from './payments';
 
 export default {
   user,
@@ -19,4 +20,5 @@ export default {
   requests,
   search,
   notifications,
+  payments,
 };
