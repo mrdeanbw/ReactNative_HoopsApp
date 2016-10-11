@@ -17,6 +17,8 @@ const convertStructure = (data) => {
 
     interests: {},
 
+    stripeAccount: null,
+
     name: null,
     username: null,
     gender: null,

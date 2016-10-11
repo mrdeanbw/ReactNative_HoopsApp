@@ -3,7 +3,7 @@ import React from 'react';
 
 import {View} from 'react-native';
 import _ from '../i18n';
-import {Header, TextInput, Button} from '../components';
+import {Header, TextInput, Button, LoadingAlert} from '../components';
 import StyleSheet from '../styles';
 
 export default class PaymentsBankSetup extends React.Component {
@@ -21,15 +21,32 @@ export default class PaymentsBankSetup extends React.Component {
   }
 
   onDonePress = () => {
+    if(!this.validate()) {
+      return;
+    }
+
+    //Remove any dashes or other non-numerics from sort code
+    let sortCode = (this.state.sortCode || '').replace(/[^0-9]/g, '');
+
     this.props.onDonePress({
       accountNumber: this.state.accountNumber,
-      sortCode: this.state.sortCode,
+      sortCode: sortCode,
       addressLine1: this.state.addressLine1,
       addressLine2: this.state.addressLine2,
       city: this.state.city,
       postcode: this.state.postcode,
     });
   };
+
+  validate = () => {
+    return (
+      this.state.accountNumber && this.state.accountNumber.search(/[^0-9]/) === -1 &&
+      this.state.sortCode &&
+      this.state.addressLine1 &&
+      this.state.city &&
+      this.state.postcode
+    );
+  }
 
   render() {
     return (
@@ -41,6 +58,8 @@ export default class PaymentsBankSetup extends React.Component {
         />
 
         <View style={[{flex: 1}, StyleSheet.padding]}>
+
+          <LoadingAlert visible={this.props.isLoading}/>
 
           <TextInput
             type="flat"
@@ -87,7 +106,7 @@ export default class PaymentsBankSetup extends React.Component {
 
         <View style={StyleSheet.interests.footer}>
           <Button
-            type="dialogDefault"
+            type={this.validate() ? "dialogDefault" : "dialog"}
             text={_('done')}
             onPress={this.onDonePress}
           />

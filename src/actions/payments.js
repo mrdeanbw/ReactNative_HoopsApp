@@ -1,7 +1,8 @@
 
+import * as navigationActions from './navigation';
 import url from 'url';
 
-const server = 'http://192.168.1.64:8888/';
+const server = 'https://arcane-ridge-17730.herokuapp.com/';
 
 const get = (path, params) => {
   params = url.format({
@@ -62,11 +63,12 @@ export const getAccount = () => {
     });
   };
 };
-export const createAccount = (data) => {
+
+export const updateAccount = (data) => {
   return dispatch => {
 
     dispatch({
-      type: 'PAYMENTS_CREATE_ACCOUNT_START',
+      type: 'PAYMENTS_UPDATE_ACCOUNT_START',
     });
 
     post('accounts', {
@@ -85,17 +87,23 @@ export const createAccount = (data) => {
       city: data.city,
     }).then(response => {
       dispatch({
-        type: 'PAYMENTS_CREATE_ACCOUNT_SUCCESS',
+        type: 'PAYMENTS_UPDATE_ACCOUNT_SUCCESS',
         response,
       });
+      dispatch(navigationActions.pop());
     }).catch(err => {
       dispatch({
-        type: 'PAYMENTS_CREATE_ACCOUNT_ERROR',
+        type: 'PAYMENTS_UPDATE_ACCOUNT_ERROR',
         err,
       });
     });
   };
 };
+
+/*
+ * creating and updating are the same API call
+ */
+export const createAccount = updateAccount;
 
 export const getTransactions = () => {
   return (dispatch, getState) => {

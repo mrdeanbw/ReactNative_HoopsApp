@@ -17,9 +17,7 @@ class CreateEvent extends React.Component {
         }}
         onSelectAppPayments={() => {
           if(!this.props.user.stripeAccount) {
-            this.props.onNavigate('paymentsBankSetup', {
-              onClose: () => this.props.onNavigateBack(),
-            });
+            this.props.onNavigate('paymentsBankSetup');
           }
         }}
       />

@@ -2,33 +2,33 @@
 import {handleActions} from 'redux-actions';
 
 const initialState = {
-  isCreatingAccount: false,
+  isUpdatingAccount: false,
   accountData: {},
-  createAccountError: null,
+  updateAccountError: null,
 };
 
 export default handleActions({
-  PAYMENTS_CREATE_ACCOUNT_START: (state, action) => {
+  PAYMENTS_UPDATE_ACCOUNT_START: (state, action) => {
     return {
       ...state,
-      isCreatingAccount: true,
-      createAccountError: null,
+      isUpdatingAccount: true,
+      updateAccountError: null,
     };
   },
 
-  PAYMENTS_CREATE_ACCOUNT_SUCCESS: (state, action) => {
+  PAYMENTS_UPDATE_ACCOUNT_SUCCESS: (state, action) => {
     //action.response,
     return {
       ...state,
-      isCreatingAccount: false,
+      isUpdatingAccount: false,
     };
   },
 
-  PAYMENTS_CREATE_ACCOUNT_ERROR: (state, action) => {
+  PAYMENTS_UPDATE_ACCOUNT_ERROR: (state, action) => {
     return {
       ...state,
-      isCreatingAccount: false,
-      createAccountError: action.err,
+      isUpdatingAccount: false,
+      updateAccountError: action.err,
     };
   },
 

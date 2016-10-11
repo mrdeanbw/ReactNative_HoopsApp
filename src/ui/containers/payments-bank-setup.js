@@ -15,25 +15,11 @@ class PaymentsBankSetup extends React.Component {
     };
   }
 
-  onClose = () => {
-    if(this.props.onClose) {
-      this.props.onClose();
-    } else {
-      this.props.onNavigateBack();
-    }
-  };
-
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.user.stripeAccount) {
-      this.onClose();
-    }
-  }
-
   render() {
     return (
       <_PaymentsBankSetup
         account={this.props.payments.accountData}
-        onClose={this.onClose}
+        isLoading={this.props.payments.isUpdatingAccount}
         onDonePress={(data) => {
           this.props.onCreateAccount({
             ...data,
