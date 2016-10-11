@@ -11,11 +11,12 @@ export default class PaymentsBankSetup extends React.Component {
     super(props);
 
     this.state = {
-      accountNumber: '00012345',
-      sortCode: '108800',
-      addressLine1: '53 Northbrook Street',
-      city: 'Leeds',
-      postcode: 'LS7 4QH',
+      accountNumber: this.props.account.accountNumber,
+      sortCode: this.props.account.sortCode,
+      addressLine1: this.props.account.addressLine1,
+      addressLine2: this.props.account.addressLine2,
+      city: this.props.account.city,
+      postcode: this.props.account.postcode,
     };
   }
 

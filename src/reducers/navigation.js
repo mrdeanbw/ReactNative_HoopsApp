@@ -62,6 +62,12 @@ const initialState = {
         key: 'friends',
       }],
     },
+    payments: {
+      index: 0,
+      routes: [{
+        key: 'payments',
+      }],
+    },
   },
 
   showMenu: false,

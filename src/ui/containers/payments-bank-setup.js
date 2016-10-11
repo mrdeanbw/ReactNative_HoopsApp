@@ -15,16 +15,25 @@ class PaymentsBankSetup extends React.Component {
     };
   }
 
+  onClose = () => {
+    if(this.props.onClose) {
+      this.props.onClose();
+    } else {
+      this.props.onNavigateBack();
+    }
+  };
+
   componentWillReceiveProps(nextProps) {
     if(nextProps.user.stripeAccount) {
-      this.props.onClose();
+      this.onClose();
     }
   }
 
   render() {
     return (
       <_PaymentsBankSetup
-        onClose={this.props.onClose}
+        account={this.props.payments.accountData}
+        onClose={this.onClose}
         onDonePress={(data) => {
           this.props.onCreateAccount({
             ...data,
@@ -46,6 +55,7 @@ export default connect(
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, false)),
+    onNavigateBack: () => dispatch(navigationActions.pop()),
     onCreateAccount: (data) => dispatch(paymentsActions.createAccount(data)),
   }),
 )(PaymentsBankSetup);

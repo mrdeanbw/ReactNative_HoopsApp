@@ -154,6 +154,11 @@ class TabBar extends React.Component {
         },
       },
 
+      payments: {
+        component: containers.Payments,
+        action: createOrSearchAction,
+      },
+
       calendar: {
         component: containers.Calendar,
         action: {

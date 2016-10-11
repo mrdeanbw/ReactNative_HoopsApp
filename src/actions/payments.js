@@ -1,5 +1,25 @@
 
+import url from 'url';
+
 const server = 'http://192.168.1.64:8888/';
+
+const get = (path, params) => {
+  params = url.format({
+    query: params,
+  });
+
+  return fetch(server + path + params, {
+    method: 'GET',
+  }).then(response => {
+    if(!response.ok) {
+      return response.json().then(obj => {
+        throw new Error(obj.message);
+      });
+    }else{
+      return response.json();
+    }
+  });
+};
 
 const post = (path, body) => {
   return fetch(server + path, {
@@ -8,9 +28,40 @@ const post = (path, body) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
-  }).then(response => response.json());
+  }).then(response => {
+    if(!response.ok) {
+      return response.json().then(obj => {
+        throw new Error(obj.message);
+      });
+    }else{
+      return response.json();
+    }
+  });
 };
 
+export const getAccount = () => {
+  return (dispatch, getState) => {
+    let stripeAccountId = getState().user.stripeAccount;
+
+    dispatch({
+      type: 'PAYMENTS_GET_ACCOUNT_START',
+    });
+
+    get('accounts', {
+      stripeAccountId,
+    }).then(response => {
+      dispatch({
+        type: 'PAYMENTS_GET_ACCOUNT_SUCCESS',
+        response,
+      });
+    }).catch(err => {
+      dispatch({
+        type: 'PAYMENTS_GET_ACCOUNT_ERROR',
+        err,
+      });
+    });
+  };
+};
 export const createAccount = (data) => {
   return dispatch => {
 
@@ -40,6 +91,30 @@ export const createAccount = (data) => {
     }).catch(err => {
       dispatch({
         type: 'PAYMENTS_CREATE_ACCOUNT_ERROR',
+        err,
+      });
+    });
+  };
+};
+
+export const getTransactions = () => {
+  return (dispatch, getState) => {
+    let accountKey = getState().user.stripeAccount;
+
+    dispatch({
+      type: 'PAYMENTS_GET_TRANSACTIONS_START',
+    });
+
+    get('transactions', {
+      accountKey,
+    }).then(response => {
+      dispatch({
+        type: 'PAYMENTS_GET_TRANSACTIONS_SUCCESS',
+        response,
+      });
+    }).catch(err => {
+      dispatch({
+        type: 'PAYMENTS_GET_TRANSACTIONS_ERROR',
         err,
       });
     });
