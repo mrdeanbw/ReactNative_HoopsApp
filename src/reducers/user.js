@@ -4,7 +4,7 @@ import {handleActions} from 'redux-actions';
  * Take a data object from the database and convert it to one that is
  * friendly to our views
  */
-const convertStructure = (data) => {
+export const convertStructure = (data) => {
   data = {
     //defaults
     availability: true,

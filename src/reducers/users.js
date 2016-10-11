@@ -1,6 +1,8 @@
 
 import {handleActions} from 'redux-actions';
 
+import {convertStructure} from './user';
+
 const emptyUserObject = {
   name: null,
   username: null,
@@ -34,8 +36,10 @@ export default handleActions({
     let newUsers = {...action.users};
     for(let id in newUsers) {
       newUsers[id] = {
-        ...emptyUserObject,
-        ...newUsers[id],
+        ...convertStructure({
+          ...emptyUserObject,
+          ...newUsers[id],
+        }),
       };
     }
 

@@ -276,6 +276,11 @@ const listenToUser = () => {
           dispatch(usersActions.loadFriendRequest(id));
         }
       }
+      if(user.savedEvents) {
+        for(let id in user.savedEvents) {
+          dispatch(eventsActions.load(id));
+        }
+      }
     });
 
     firebaseDb.child(`userNotifications/${uid}`).on('child_added', (snapshot) => {

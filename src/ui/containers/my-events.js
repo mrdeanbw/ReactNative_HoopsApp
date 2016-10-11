@@ -19,10 +19,14 @@ class MyEvents extends React.Component {
       return this.props.invites.invitesById[inviteId];
     }).filter(invite => invite.status === 'confirmed');
 
-    let events = requests.concat(invites).map(connection => {
-      return this.props.events.eventsById[connection.eventId];
+    let savedEventIds = Object.keys(this.props.user.savedEvents);
+    let connectedEventIds = requests.concat(invites).map(connection => {
+      return connection.eventId;
     });
 
+    let events = savedEventIds.concat(connectedEventIds).map(id => {
+      return this.props.events.eventsById[id];
+    });
 
     let history = events.filter((event) => {
       return (new Date(event.date) < new Date());
