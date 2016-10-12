@@ -12,7 +12,7 @@ class PaymentsAddCard extends React.Component {
   render() {
     return (
       <_PaymentsAddCard
-        isLoading={this.props.payments.isUpdatingAccount}
+        isLoading={this.props.payments.isAddingCard}
         onDonePress={(data) => {
           this.props.onCreateCard({
             ...data,

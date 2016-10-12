@@ -3,8 +3,10 @@ import {handleActions} from 'redux-actions';
 
 const initialState = {
   isUpdatingAccount: false,
+  isAddingCard: false,
   accountData: {},
   updateAccountError: null,
+  addCardError: null,
   cards: [],
 };
 
@@ -18,7 +20,6 @@ export default handleActions({
   },
 
   PAYMENTS_UPDATE_ACCOUNT_SUCCESS: (state, action) => {
-    //action.response,
     return {
       ...state,
       isUpdatingAccount: false,
@@ -61,6 +62,14 @@ export default handleActions({
     };
   },
 
+  PAYMENTS_ADD_CARD_START: (state, action) => {
+    return {
+      ...state,
+      isAddingCard: true,
+      addCardError: null,
+    };
+  },
+
   PAYMENTS_ADD_CARD_SUCCESS: (state, action) => {
     let cards = state.cards.slice(0);
     let card = action.response;
@@ -68,6 +77,15 @@ export default handleActions({
     return {
       ...state,
       cards: cards.concat([card]),
+      isAddingCard: false,
+    };
+  },
+
+  PAYMENTS_ADD_CARD_ERROR: (state, action) => {
+    return {
+      ...state,
+      isAddingCard: false,
+      addCardError: action.err,
     };
   },
 
