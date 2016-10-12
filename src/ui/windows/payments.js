@@ -3,7 +3,7 @@ import React from 'react';
 
 import {ScrollView, View, Text, TouchableHighlight} from 'react-native';
 import _ from '../i18n';
-import {Header, Button, Icon, Popup} from '../components';
+import {Header, Button, Icon, Popup, LoadingAlert} from '../components';
 import StyleSheet from '../styles';
 
 export default class PaymentsBankSetup extends React.Component {
@@ -27,6 +27,11 @@ export default class PaymentsBankSetup extends React.Component {
     this.setState({popupCard: null});
   };
 
+  onPressRemove = (card) => {
+    this.props.onPressRemove(card);
+    this.setState({popupCard: null});
+  };
+
   render() {
     return (
       <View style={{flex: 1}}>
@@ -36,11 +41,13 @@ export default class PaymentsBankSetup extends React.Component {
           mode={this.props.mode}
         />
 
+        <LoadingAlert visible={this.props.isLoading} />
+
         <Popup visible={!!this.state.popupCard} onClose={this.onPressClose}>
           <Button
             type="alertVerticalDefault"
             text={_('remove')}
-            onPress={() => this.props.onPressRemove(this.state.popupCard)}
+            onPress={() => this.onPressRemove(this.state.popupCard)}
           />
         </Popup>
 

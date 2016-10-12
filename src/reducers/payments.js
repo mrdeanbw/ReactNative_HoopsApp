@@ -3,10 +3,17 @@ import {handleActions} from 'redux-actions';
 
 const initialState = {
   isUpdatingAccount: false,
+  isFetchingAccount: false,
   isAddingCard: false,
+  isDeletingCard: false,
+
   accountData: {},
+
   updateAccountError: null,
+  fetchAccountError: null,
   addCardError: null,
+  deleteCardError: null,
+
   cards: [],
 };
 
@@ -34,6 +41,14 @@ export default handleActions({
     };
   },
 
+  PAYMENTS_GET_ACCOUNT_START: (state, action) => {
+    return {
+      ...state,
+      isFetchingAccount: true,
+      fetchAccountError: null,
+    };
+  },
+
   PAYMENTS_GET_ACCOUNT_SUCCESS: (state, action) => {
     let account = action.response.external_accounts.data[0];
     let address = action.response.legal_entity.address;
@@ -47,10 +62,27 @@ export default handleActions({
         city: address.city,
         postcode: address.postal_code,
       },
+      isFetchingAccount: false,
     };
   },
 
-  PAYMENTS_GET_CARD_SUCCESS: (state, action) => {
+  PAYMENTS_GET_ACCOUNT_ERROR: (state, action) => {
+    return {
+      ...state,
+      isFetchingAccount: false,
+      fetchAccountError: action.err,
+    };
+  },
+
+  PAYMENTS_GET_CARDS_START: (state, action) => {
+    return {
+      ...state,
+      isFetchingCards: true,
+      fetchCardsError: null,
+    };
+  },
+
+  PAYMENTS_GET_CARDS_SUCCESS: (state, action) => {
     let cards = [];
     if(action.response.sources.total_count > 0) {
       cards = action.response.sources.data;
@@ -59,6 +91,15 @@ export default handleActions({
     return {
       ...state,
       cards: cards,
+      isFetchingCards: false,
+    };
+  },
+
+  PAYMENTS_GET_CARDS_ERROR: (state, action) => {
+    return {
+      ...state,
+      isFetchingCards: false,
+      fetchCardsError: action.err,
     };
   },
 
@@ -89,6 +130,14 @@ export default handleActions({
     };
   },
 
+  PAYMENTS_DELETE_CARD_START: (state, action) => {
+    return {
+      ...state,
+      isDeletingCard: true,
+      deleteCardError: null,
+    };
+  },
+
   PAYMENTS_DELETE_CARD_SUCCESS: (state, action) => {
     let cards = state.cards.slice(0);
     let deletedId = action.response.id;
@@ -96,6 +145,15 @@ export default handleActions({
     return {
       ...state,
       cards: cards.filter(card => card.id !== deletedId),
+      isDeletingCard: false,
+    };
+  },
+
+  PAYMENTS_DELETE_CARD_ERROR: (state, action) => {
+    return {
+      ...state,
+      isDeletingCard: false,
+      deleteCardError: action.err,
     };
   },
 

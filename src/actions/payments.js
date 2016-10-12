@@ -63,6 +63,10 @@ const post = (path, body) => {
 export const getAccount = () => {
   return (dispatch, getState) => {
     let stripeAccountId = getState().user.stripeAccount;
+    if(!stripeAccountId) {
+      //If there is no stripe account associated. Don't attempt to fetch
+      return;
+    }
 
     dispatch({
       type: 'PAYMENTS_GET_ACCOUNT_START',
@@ -179,22 +183,28 @@ export const createCard = (data) => {
 
 export const getCards = () => {
   return (dispatch, getState) => {
+    let stripeAccountId = getState().user.stripeAccount;
+    if(!stripeAccountId) {
+      //If there is no stripe account associated. Don't attempt to fetch
+      return;
+    }
+
     let uid = getState().user.uid;
 
     dispatch({
-      type: 'PAYMENTS_GET_CARD_START',
+      type: 'PAYMENTS_GET_CARDS_START',
     });
 
     get('cards', {
       uid: uid,
     }).then(response => {
       dispatch({
-        type: 'PAYMENTS_GET_CARD_SUCCESS',
+        type: 'PAYMENTS_GET_CARDS_SUCCESS',
         response,
       });
     }).catch(err => {
       dispatch({
-        type: 'PAYMENTS_GET_CARD_ERROR',
+        type: 'PAYMENTS_GET_CARDS_ERROR',
         err,
       });
     });
