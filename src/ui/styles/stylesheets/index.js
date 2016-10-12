@@ -18,6 +18,7 @@ import _login from './login';
 import _mapView from './map-view';
 import _menu from './menu';
 import _notification from './notification';
+import _payments from './payments';
 import _picker from './picker';
 import _profile from './profile';
 import _search from './search';
@@ -44,6 +45,7 @@ export default {
   mapView: _mapView,
   menu: _menu,
   notification: _notification,
+  payments: _payments,
   picker: _picker,
   profile: _profile,
   search: _search,

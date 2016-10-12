@@ -13,6 +13,7 @@
     "elasticsearch": "^11.0.1",
     "firebase": "^3.3.0",
     "moment": "^2.15.0",
+    "qs": "^6.2.1",
     "react": "15.2.1",
     "react-native": "^0.31.0",
     "react-native-fbsdk": "^0.3.0",

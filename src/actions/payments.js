@@ -1,8 +1,10 @@
 
 import * as navigationActions from './navigation';
 import url from 'url';
+import qs from 'qs';
 
 const server = 'https://arcane-ridge-17730.herokuapp.com/';
+const stripePublicKey = 'pk_test_3mN7EmjOlXkVjjZISQG4xq3J';
 
 const get = (path, params) => {
   params = url.format({
@@ -11,6 +13,24 @@ const get = (path, params) => {
 
   return fetch(server + path + params, {
     method: 'GET',
+  }).then(response => {
+    if(!response.ok) {
+      return response.json().then(obj => {
+        throw new Error(obj.message);
+      });
+    }else{
+      return response.json();
+    }
+  });
+};
+
+const del = (path, params) => {
+  params = url.format({
+    query: params,
+  });
+
+  return fetch(server + path + params, {
+    method: 'DELETE',
   }).then(response => {
     if(!response.ok) {
       return response.json().then(obj => {
@@ -104,6 +124,106 @@ export const updateAccount = (data) => {
  * creating and updating are the same API call
  */
 export const createAccount = updateAccount;
+
+export const createCard = (data) => {
+  return dispatch => {
+    dispatch({
+      type: 'PAYMENTS_ADD_CARD_START',
+    });
+
+    let query = qs.stringify({
+      card: {
+        number: data.cardNumber,
+        exp_month: data.expiryMonth,
+        exp_year: data.expiryYear,
+        cvc: data.cvc,
+      },
+    });
+
+    fetch('https://api.stripe.com/v1/tokens', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + stripePublicKey,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: query,
+    }).then(response => {
+      if(!response.ok) {
+        return response.json().then(obj => {
+          throw new Error(obj.error.message);
+        });
+      } else {
+        return response.json();
+      }
+    }).then(response => {
+      let cardToken = response.id;
+
+      return post('cards', {
+        uid: data.uid,
+        cardToken: cardToken,
+      });
+    }).then(response => {
+      dispatch({
+        type: 'PAYMENTS_ADD_CARD_SUCCESS',
+        response,
+      });
+      dispatch(navigationActions.pop());
+    }).catch(err => {
+      dispatch({
+        type: 'PAYMENTS_ADD_CARD_ERROR',
+        err,
+      });
+    });
+  };
+};
+
+export const getCards = () => {
+  return (dispatch, getState) => {
+    let uid = getState().user.uid;
+
+    dispatch({
+      type: 'PAYMENTS_GET_CARD_START',
+    });
+
+    get('cards', {
+      uid: uid,
+    }).then(response => {
+      dispatch({
+        type: 'PAYMENTS_GET_CARD_SUCCESS',
+        response,
+      });
+    }).catch(err => {
+      dispatch({
+        type: 'PAYMENTS_GET_CARD_ERROR',
+        err,
+      });
+    });
+  };
+};
+
+export const deleteCard = (id) => {
+  return (dispatch, getState) => {
+    let uid = getState().user.uid;
+    dispatch({
+      type: 'PAYMENTS_DELETE_CARD_START',
+    });
+
+    del('cards', {
+      cardId: id,
+      uid: uid,
+    }).then(response => {
+      dispatch({
+        type: 'PAYMENTS_DELETE_CARD_SUCCESS',
+        response,
+      });
+    }).catch(err => {
+      dispatch({
+        type: 'PAYMENTS_DELETE_CARD_ERROR',
+        err,
+      });
+    });
+  };
+};
 
 export const getTransactions = () => {
   return (dispatch, getState) => {

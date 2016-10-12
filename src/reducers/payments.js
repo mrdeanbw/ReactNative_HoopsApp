@@ -5,6 +5,7 @@ const initialState = {
   isUpdatingAccount: false,
   accountData: {},
   updateAccountError: null,
+  cards: [],
 };
 
 export default handleActions({
@@ -45,6 +46,38 @@ export default handleActions({
         city: address.city,
         postcode: address.postal_code,
       },
+    };
+  },
+
+  PAYMENTS_GET_CARD_SUCCESS: (state, action) => {
+    let cards = [];
+    if(action.response.sources.total_count > 0) {
+      cards = action.response.sources.data;
+    }
+
+    return {
+      ...state,
+      cards: cards,
+    };
+  },
+
+  PAYMENTS_ADD_CARD_SUCCESS: (state, action) => {
+    let cards = state.cards.slice(0);
+    let card = action.response;
+
+    return {
+      ...state,
+      cards: cards.concat([card]),
+    };
+  },
+
+  PAYMENTS_DELETE_CARD_SUCCESS: (state, action) => {
+    let cards = state.cards.slice(0);
+    let deletedId = action.response.id;
+
+    return {
+      ...state,
+      cards: cards.filter(card => card.id !== deletedId),
     };
   },
 

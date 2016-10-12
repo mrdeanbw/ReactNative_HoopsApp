@@ -225,6 +225,13 @@ export const addressLine1 = 'Address Line 1';
 export const addressLine2 = 'Address Line 2';
 export const postcode = 'Postcode';
 
+export const addCard = 'Add Card';
+export const cardNumber = 'Credit Card Number';
+export const expiryMonth = 'MM';
+export const expiryYear = 'YY';
+export const cvc = 'CVC';
+export const noCards = 'NO CARDS ADDED YET';
+
 export const upcoming = 'Upcoming';
 export const saved = 'Saved';
 export const history = 'History';

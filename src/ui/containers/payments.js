@@ -18,6 +18,7 @@ class Payments extends React.Component {
     //when this component mounts, fetch account information from Stripe
     this.props.onLoadTransactions();
     this.props.onLoadAccount();
+    this.props.onGetCards();
   }
 
   render() {
@@ -29,6 +30,8 @@ class Payments extends React.Component {
         onPressPaymentOptions={() => {
           this.props.onNavigate('paymentsBankSetup');
         }}
+        cards={this.props.payments.cards}
+        onPressRemove={this.props.onPressRemove}
       />
     );
   }
@@ -45,5 +48,7 @@ export default connect(
     onCreateAccount: (data) => dispatch(paymentsActions.createAccount(data)),
     onLoadAccount: () => dispatch(paymentsActions.getAccount()),
     onLoadTransactions: () => dispatch(paymentsActions.getTransactions()),
+    onGetCards: () => dispatch(paymentsActions.getCards()),
+    onPressRemove: (card) => dispatch(paymentsActions.deleteCard(card.id)),
   }),
 )(Payments);

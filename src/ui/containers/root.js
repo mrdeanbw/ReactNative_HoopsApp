@@ -76,6 +76,10 @@ class Root extends React.Component {
       paymentsBankSetup: {
         component: containers.PaymentsBankSetup,
       },
+
+      addCard: {
+        component: containers.PaymentsAddCard,
+      },
     };
   }
 

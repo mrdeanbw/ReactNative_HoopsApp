@@ -156,7 +156,11 @@ class TabBar extends React.Component {
 
       payments: {
         component: containers.Payments,
-        action: createOrSearchAction,
+        action: {
+          text: _('addCard'),
+          icon: "actionAdd",
+          onPress: () => props.onNavigate('addCard', {}, false),
+        },
       },
 
       calendar: {

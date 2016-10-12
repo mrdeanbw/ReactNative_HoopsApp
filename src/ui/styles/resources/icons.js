@@ -41,6 +41,7 @@ export default {
   "invitationsActive": require('./icons/invitations-active.png'),
   "list": require('./icons/list.png'),
   "listIndicator": require('./icons/list-indicator.png'),
+  "maestro": require('./icons/maestro.png'),
   "male": require('./icons/male.png'),
   "maleActive": require('./icons/male-active.png'),
   "manage": require('./icons/manage.png'),
@@ -80,5 +81,6 @@ export default {
   "starFilled": require('./icons/star-filled.png'),
   "switch": require('./icons/switch.png'),
   "switchActive": require('./icons/switch-active.png'),
-  "username": require('./icons/username.png')
+  "username": require('./icons/username.png'),
+  "visa": require('./icons/visa.png'),
 };
