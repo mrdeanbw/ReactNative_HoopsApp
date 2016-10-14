@@ -72,7 +72,6 @@ export default class EventDetails extends React.Component {
   onPressJoin = () => {
     this.setState({
       showJoinPopup: false,
-      showJoinedConfirmation: true,
     });
 
     this.props.onPressJoin();
@@ -199,8 +198,8 @@ export default class EventDetails extends React.Component {
             {this.props.event.ageGroup === '16-to-17' && <EventInfo icon="age16to17" label={_('ageGroup')}>{_('_16to17')}</EventInfo>}
             {this.props.event.ageGroup === 'adult' && <EventInfo icon="ageAdult" label={_('ageGroup')}>{_('adults')}</EventInfo>}
             {this.props.event.ageGroup === 'all' && <EventInfo icon="ageAll" label={_('ageGroup')}>{_('unrestricted')}</EventInfo>}
-            {!this.props.event.private && <EventInfo icon="globe" label={_('privacy')}>{_('_public')}</EventInfo>}
-            {!!this.props.event.private && <EventInfo icon="globe" label={_('privacy')}>{_('_private')}</EventInfo>}
+            {this.props.event.privacy === 'public' && <EventInfo icon="globe" label={_('privacy')}>{_('_public')}</EventInfo>}
+            {this.props.event.privacy === 'private' && <EventInfo icon="globe" label={_('privacy')}>{_('_private')}</EventInfo>}
           </EventInfo.Bar>
 
           <HorizontalRule style={StyleSheet.eventDetails.horizontalRule}/>

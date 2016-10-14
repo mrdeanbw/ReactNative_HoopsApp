@@ -13,6 +13,25 @@ import inflateUser from '../../data/inflaters/user';
 
 class EventDetails extends React.Component {
 
+  constructor() {
+    super();
+    this.state = {
+      isAwaitingCard: false,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    //If the first card has been added and we are waiting for one.
+    //Use it to pay for the current event
+    if(
+      this.state.isAwaitingCard &&
+      this.props.payments.cards.length === 0 &&
+      nextProps.payments.cards.length === 1
+    ) {
+      this.props.onJoin(this.props.id);
+    }
+  }
+
   render() {
     let event = inflateEvent(
       this.props.events.eventsById[this.props.id],
@@ -51,8 +70,14 @@ class EventDetails extends React.Component {
           }
         }}
         onPressJoin={() => {
-          this.props.onPressJoin(this.props.id);
+          if(this.props.payments.cards.length > 0) {
+            this.props.onJoin(this.props.id);
+          } else {
+            this.setState({isAwaitingCard: true});
+            this.props.onNavigate('addCard', {}, false);
+          }
         }}
+        isAwaitingCard={this.state.isAwaitingCard}
         onPressQuit={() => {
           this.props.onPressQuit(this.props.id);
         }}
@@ -79,12 +104,14 @@ export default connect(
     user: state.user,
     requests: state.requests,
     invites: state.invites,
+    payments: state.payments,
   }),
   (dispatch) => ({
+    onNavigate: (key, props, subTab) => dispatch(navigation.push({key, props}, subTab)),
     onDeepLinkTab: (key, tabKey, props) => {
       dispatch(navigation.deepLinkTab(null, tabKey));
     },
-    onPressJoin: (eventId) => dispatch(events.join(eventId)),
+    onJoin: (eventId) => dispatch(events.join(eventId)),
     onPressQuit: (eventId) => dispatch(events.quit(eventId)),
     onPressSave: (eventId) => dispatch(events.save(eventId)),
     onPressUnsave: (eventId) => dispatch(events.unsave(eventId)),

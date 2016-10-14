@@ -6,6 +6,8 @@ import qs from 'qs';
 const server = 'https://arcane-ridge-17730.herokuapp.com/';
 const stripePublicKey = 'pk_test_3mN7EmjOlXkVjjZISQG4xq3J';
 
+import inflateEvent from '../data/inflaters/event';
+
 const get = (path, params) => {
   params = url.format({
     query: params,
@@ -253,6 +255,44 @@ export const getTransactions = () => {
     }).catch(err => {
       dispatch({
         type: 'PAYMENTS_GET_TRANSACTIONS_ERROR',
+        err,
+      });
+    });
+  };
+};
+
+export const pay = (event) => {
+  return (dispatch, getState) => {
+    let state = getState();
+    let uid = state.user.uid;
+
+    event = inflateEvent(event, {
+      users: state.users.usersById,
+    });
+
+    if(state.payments.cards.length === 0) {
+      throw new Error('No cards found to make payment with');
+    }
+    //TODO we are always using the first card. What if the user wants to use another?
+    var cardId = state.payments.cards[0].id;
+
+    dispatch({
+      type: 'PAYMENTS_PAY_START',
+    });
+
+    post('charge', {
+      eventId: event.id,
+      customerId: state.user.stripeCustomer,
+      cardId: cardId,
+      uid: uid,
+    }).then(response => {
+      dispatch({
+        type: 'PAYMENTS_PAY_SUCCESS',
+        response,
+      });
+    }).catch(err => {
+      dispatch({
+        type: 'PAYMENTS_PAY_ERROR',
         err,
       });
     });

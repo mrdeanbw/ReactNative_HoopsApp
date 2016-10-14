@@ -4,6 +4,7 @@ import {firebaseDb, firebaseStorage} from '../data/firebase';
 import * as usersActions from './users';
 import * as invitesActions from './invites';
 import * as requestsActions from './requests';
+import * as paymentsActions from './payments';
 
 const eventsRef = firebaseDb.child('events');
 
@@ -129,18 +130,36 @@ export const inviteUsers = (userIds, eventId) => {
 
 export const join = (eventId) => {
   return (dispatch, getState) => {
-    let uid = getState().user.uid;
+    let state = getState();
+    let event = state.events.eventsById[eventId];
+
+    if(event.entryFee === 0) {
+      dispatch(requestJoin(event));
+    } else {
+      dispatch(paymentsActions.pay(event));
+    }
+  };
+};
+
+export const requestJoin = (event) => {
+  return (dispatch, getState) => {
+    if(event.entryFee !== 0) {
+      throw new Error('App cannot create a request to join a paid event. The payment server must do this');
+    }
+
+    let state = getState();
+    let uid = state.user.uid;
 
     let requestRef = firebaseDb.child('requests').push();
     let requestKey = requestRef.key;
 
     firebaseDb.update({
-      [`events/${eventId}/requests/${requestKey}`]: true,
+      [`events/${event.id}/requests/${requestKey}`]: true,
       [`users/${uid}/requests/${requestKey}`]: true,
       [`requests/${requestKey}`]: {
-        eventId: eventId,
+        eventId: event.id,
         userId: uid,
-        status: 'confirmed',
+        status: event.privacy === 'public' ? 'confirmed' : 'pending',
         date: new Date(),
       }
     }, (err) => {

@@ -13,28 +13,28 @@ class MyEvents extends React.Component {
   render() {
     let requests = Object.keys(this.props.user.requests).map(requestId => {
       return this.props.requests.requestsById[requestId];
-    }).filter(request => request.status === 'confirmed');
+    }).filter(request => request && request.status === 'confirmed');
 
     let invites = Object.keys(this.props.user.invites).map(inviteId => {
       return this.props.invites.invitesById[inviteId];
-    }).filter(invite => invite.status === 'confirmed');
+    }).filter(invite => invite && invite.status === 'confirmed');
 
     let savedEventIds = Object.keys(this.props.user.savedEvents);
     let connectedEventIds = requests.concat(invites).map(connection => {
       return connection.eventId;
     });
 
-    let events = savedEventIds.concat(connectedEventIds).map(id => {
+    let events = connectedEventIds.map(id => {
       return this.props.events.eventsById[id];
-    });
+    }).filter(event => !!event);
 
     let history = events.filter((event) => {
       return (new Date(event.date) < new Date());
     });
 
-    let saved = events.filter((event) => {
-      return event.id in this.props.user.savedEvents;
-    });
+    let saved = savedEventIds.map(id => {
+      return this.props.events.eventsById[id];
+    }).filter(event => !!event);
 
     let upcoming = events.filter((event) => {
       return (new Date(event.date) > new Date());
