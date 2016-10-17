@@ -6,6 +6,7 @@ import {EventDetails as _EventDetails} from '../windows';
 import {
   navigation,
   events,
+  requests,
 } from '../../actions';
 
 import inflateEvent from '../../data/inflaters/event';
@@ -49,6 +50,12 @@ class EventDetails extends React.Component {
       return connection.eventId === event.id && connection.status === 'confirmed';
     });
 
+    let request = user.requests.find(connection => {
+      return connection.eventId === event.id;
+    });
+
+    let isPendingRequest = request && request.status === 'pending';
+
     let isSaved = !!Object.keys(user.savedEvents).find(eventId => {
       return eventId === event.id;
     });
@@ -58,6 +65,7 @@ class EventDetails extends React.Component {
         event={event}
         organizer={event.organizer}
         isMember={isMember}
+        isPendingRequest={isPendingRequest}
         isOrganizer={event.organizer && event.organizer.id === this.props.user.uid}
         isSaved={isSaved}
         actionButton={this.props.actionButton}
@@ -76,6 +84,9 @@ class EventDetails extends React.Component {
             this.setState({isAwaitingCard: true});
             this.props.onNavigate('addCard', {}, false);
           }
+        }}
+        onCancelRequest={() => {
+          this.props.onCancelRequest(request);
         }}
         isAwaitingCard={this.state.isAwaitingCard}
         onPressQuit={() => {
@@ -115,5 +126,6 @@ export default connect(
     onPressQuit: (eventId) => dispatch(events.quit(eventId)),
     onPressSave: (eventId) => dispatch(events.save(eventId)),
     onPressUnsave: (eventId) => dispatch(events.unsave(eventId)),
+    onCancelRequest: (request) => dispatch(requests.cancel(request)),
   }),
 )(EventDetails);

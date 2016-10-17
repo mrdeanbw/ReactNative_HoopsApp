@@ -170,6 +170,8 @@ export const join = 'Join';
 export const quit = 'Quit';
 export const quitConfirmationTitle = 'Are you sure?';
 export const quitConfirmation = 'Do you really want to leave this event?';
+export const cancelRequestConfirmationTitle = 'Are you sure?';
+export const cancelRequestConfirmation = 'Do you really want to cancel your request to join this event?';
 
 export const youAreAboutToJoin = 'You are about to join';
 export const congrats = 'Congrats';

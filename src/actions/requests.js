@@ -93,7 +93,7 @@ export const cancel = (request) => {
     let uid = state.user.uid;
     firebaseDb.update({
       [`requests/${request.id}/status`]: 'cancelled',
-      [`user/${uid}/requests/${request.id}`]: null,
+      [`users/${uid}/requests/${request.id}`]: null,
     });
   };
 };

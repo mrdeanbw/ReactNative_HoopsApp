@@ -20,6 +20,7 @@ export default class EventDetails extends React.Component {
       showJoinedConfirmation: false,
       showQuitPopup: false,
       showCancelEventPopup: false,
+      showCancelRequestPopup: false,
     };
   }
 
@@ -27,6 +28,8 @@ export default class EventDetails extends React.Component {
     this._actionListener = this.props.actionButton.addListener('press', () => {
       if(this.props.isMember) {
         this.setState({showQuitPopup: true});
+      } else if(this.props.isPendingRequest) {
+        this.setState({showCancelRequestPopup: true});
       } else if(this.props.isOrganizer) {
         this.setState({showCancelEventPopup: true});
       } else {
@@ -44,7 +47,7 @@ export default class EventDetails extends React.Component {
   updateActionButton(props) {
     let entryFee = props.event.entryFee || 0;
 
-    if(props.isMember) {
+    if(props.isMember || props.isPendingRequest) {
       props.onChangeAction({
         text: _('quit'),
         icon: "actionRemove",
@@ -126,6 +129,15 @@ export default class EventDetails extends React.Component {
           onPressQuit={() => {
             this.setState({showQuitPopup: false});
             this.props.onPressQuit();
+          }}
+        />
+        <EventCancelRequestPopup
+          visible={this.state.showCancelRequestPopup}
+          event={this.props.event}
+          onPressCancel={() => this.setState({showCancelRequestPopup: false})}
+          onPressConfirm={() => {
+            this.setState({showCancelRequestPopup: false});
+            this.props.onCancelRequest();
           }}
         />
         <EventDashboard.CancelEventPopup
@@ -369,6 +381,33 @@ class EventQuitPopup extends React.Component {
             type="alertDefault"
             text={_('quit')}
             onPress={this.props.onPressQuit}
+          />
+        </View>
+      </Popup>
+    );
+  }
+}
+
+class EventCancelRequestPopup extends React.Component {
+  render() {
+    return (
+      <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>
+        <View style={[StyleSheet.dialog.alertContentStyle]}>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
+            {_('cancelRequestConfirmationTitle')}
+          </Text>
+
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop]}>
+            {_('cancelRequestConfirmation')}
+          </Text>
+        </View>
+
+        <View style={StyleSheet.buttons.bar}>
+          <Button type="alert" text={_('cancel')} onPress={this.props.onPressCancel} />
+          <Button
+            type="alertDefault"
+            text={_('quit')}
+            onPress={this.props.onPressConfirm}
           />
         </View>
       </Popup>
