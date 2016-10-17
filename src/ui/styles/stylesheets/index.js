@@ -5,6 +5,7 @@ export const base = _base;
 
 
 import _buttons from './buttons';
+import _calendar from './calendar';
 import _dialog from './dialog';
 import _dateInput from './date-input';
 import _eventDetails from './event-details';
@@ -32,6 +33,7 @@ import _window from './window';
 
 export default {
   buttons: _buttons,
+  calendar: _calendar,
   dialog: _dialog,
   dateInput: _dateInput,
   eventDetails: _eventDetails,

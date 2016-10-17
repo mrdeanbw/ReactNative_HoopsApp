@@ -3,6 +3,8 @@ export default {
   "age16to17": require('./icons/age-16-17.png'),
   "ageAdult": require('./icons/age-adult.png'),
   "ageAll": require('./icons/age-all.png'),
+  "arrowLeft": require('./icons/arrow-left.png'),
+  "arrowRight": require('./icons/arrow-right.png'),
   "attendees": require('./icons/attendees.png'),
   "actionAdd": require('./icons/action-add.png'),
   "actionBack": require('./icons/action-back.png'),
