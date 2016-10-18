@@ -1,4 +1,4 @@
-import firebase, {firebaseDb} from '../data/firebase';
+import firebase, {firebaseDb, firebaseStorage, uploadImage} from '../data/firebase';
 
 import * as emailAuth from '../data/auth/email';
 import * as facebookAuth from '../data/auth/facebook';
@@ -190,17 +190,29 @@ export const updateProfile = (data) => {
     let state = getState();
     let uid = firebase.auth().currentUser.uid;
 
-    firebaseDb.update({
-      [`users/${uid}/publicProfile`]: {
-        name: data.name,
-        username: state.user.username,
-        gender: data.gender,
-        city: data.city,
-        interests: data.interests,
-      },
-      [`users/${uid}/restrictedProfile`]: {
-        dob: new Date(data.dob).valueOf(),
-      }
+    let chain;
+    if(data.image) {
+      chain = uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`);
+    } else {
+      chain = new Promise((resolve, reject) => resolve());
+    }
+
+    chain.then((response) => {
+      let imageRef = response ? response.ref : null;
+
+      firebaseDb.update({
+        [`users/${uid}/publicProfile`]: {
+          image: imageRef,
+          name: data.name,
+          username: state.user.username,
+          gender: data.gender,
+          city: data.city,
+          interests: data.interests,
+        },
+        [`users/${uid}/restrictedProfile`]: {
+          dob: new Date(data.dob).valueOf(),
+        }
+      });
     });
   };
 };
@@ -246,10 +258,26 @@ const listenToUser = () => {
         }
       }
 
-      dispatch({
-        type: 'USER_CHANGE',
-        user,
-      });
+      if(user.publicProfile && user.publicProfile.image) {
+        firebaseStorage.ref(user.publicProfile.image).getDownloadURL().then(uri => {
+          user.publicProfile.imageSrc = uri;
+          dispatch({
+            type: 'USER_CHANGE',
+            user,
+          });
+        }).catch(err => {
+          dispatch({
+            type: 'USER_CHANGE',
+            user,
+            imageErr: err,
+          });
+        });
+      } else {
+        dispatch({
+          type: 'USER_CHANGE',
+          user,
+        });
+      }
 
       if(user.organizing) {
         for(let id in user.organizing) {

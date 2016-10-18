@@ -174,7 +174,7 @@ export default class EventDetails extends React.Component {
 
           {this.props.organizer && <View style={StyleSheet.eventDetails.avatarStyle}>
             <View style={StyleSheet.eventDetails.avatarContainerStyle}>
-              <Image source={StyleSheet.images[this.props.organizer.avatar]} style={StyleSheet.eventDetails.avatarImageStyle} />
+              <Image source={{uri: this.props.organizer.imageSrc}} style={StyleSheet.eventDetails.avatarImageStyle} />
             </View>
             <Text style={[StyleSheet.text, StyleSheet.eventDetails.avatarNameStyle]}>
               {this.props.organizer.name}

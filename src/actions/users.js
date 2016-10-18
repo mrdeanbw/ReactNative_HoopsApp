@@ -1,5 +1,5 @@
 
-import {firebaseDb} from '../data/firebase';
+import {firebaseDb, firebaseStorage} from '../data/firebase';
 
 const usersRef = firebaseDb.child('users');
 
@@ -22,7 +22,16 @@ export const load = (id) => {
           id: snapshot.key,
         };
 
-        dispatch({type: 'USERS_LOADED', users: {[id]: user}});
+        if(user.publicProfile && user.publicProfile.image) {
+          firebaseStorage.ref(user.publicProfile.image).getDownloadURL().then(uri => {
+            user.publicProfile.imageSrc = uri;
+            dispatch({type: 'USERS_LOADED', users: {[id]: user}});
+          }).catch(err => {
+            dispatch({type: 'USERS_LOADED', users: {[id]: user}, imageErr: err});
+          });
+        } else {
+          dispatch({type: 'USERS_LOADED', users: {[id]: user}});
+        }
       }
     });
   };

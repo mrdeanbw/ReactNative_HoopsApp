@@ -27,7 +27,7 @@ export default class UserListItem extends React.Component {
   }
 
   render() {
-    const {avatar, firstName, lastName, location, dob, status, checked, ...props} = this.props;
+    const {firstName, lastName, location, dob, status, checked, ...props} = this.props;
     const age = ((new Date().getTime() - new Date(dob).getTime()) / (365.25*24*3600*1000)) | 0;
 
     return (
@@ -53,7 +53,7 @@ export default class UserListItem extends React.Component {
 
           <View style={StyleSheet.userListItem.detail}>
             <View style={StyleSheet.userListItem.imageContainer}>
-              <Image source={avatar} style={StyleSheet.userListItem.avatar} />
+              <Image source={{uri: this.props.imageSrc}} style={StyleSheet.userListItem.avatar} />
             </View>
 
             <View style={StyleSheet.userListItem.textContainer}>

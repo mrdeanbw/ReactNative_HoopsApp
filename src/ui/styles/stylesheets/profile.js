@@ -187,6 +187,37 @@ export default StyleSheet => StyleSheet.extend({
 
   interestsUnderlayActive: colors.pink,
 
+  imageContainer: {
+    alignSelf: 'center',
+    overflow: 'hidden',
+    flex: 0,
+    height: 80,
+    width: 80,
+    borderRadius: 80,
+  },
+
+  image: {
+    height: 80,
+    width: 80,
+  },
+
+  imageIconOverlay: {
+    //icon is 29x23
+    position: 'absolute',
+    top: 29,
+    left: 26,
+  },
+
+  imageTintOverlay: {
+    backgroundColor: colors.pink,
+    opacity: 0.67,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+
   editLabel: {
     color: colors.pink,
     fontSize: 12,

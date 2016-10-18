@@ -59,6 +59,7 @@ class ProfileEdit extends React.Component {
 
     return (
       <_ProfileEdit
+        image={user.image}
         name={user.name}
         city={user.city}
         gender={user.gender}

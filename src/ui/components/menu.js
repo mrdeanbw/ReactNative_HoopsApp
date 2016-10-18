@@ -29,13 +29,13 @@ export default class Menu extends React.Component {
 
           <View style={[StyleSheet.menu.header]}>
             <TouchableHighlight
-              underlayColor='transparent'
+              underlayColor="transparent"
               onPress={this.props.onPressProfile}
             >
               <View>
                 <View style={[StyleSheet.menu.avatarContainer]}>
                   <Image
-                    source={StyleSheet.images.avatarChrisMurray}
+                    source={{uri: this.props.user.imageSrc}}
                     style={[StyleSheet.menu.avatarImage]}
                   />
                 </View>

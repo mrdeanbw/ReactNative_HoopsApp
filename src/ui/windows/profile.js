@@ -42,7 +42,7 @@ export default class Profile extends React.Component {
           onClose={this.props.onClose}>
 
         <View style={StyleSheet.profile.headlineBarStyle}>
-          <Image source={StyleSheet.images[profile.avatar]} style={StyleSheet.profile.avatarImageStyle} />
+          <Image source={{uri: profile.imageSrc}} style={StyleSheet.profile.avatarImageStyle} />
           <View style={StyleSheet.profile.headlineDetailStyle}>
             <View style={StyleSheet.profile.nameTextContainerStyle}>
               <View style={[StyleSheet.profile.availableIndicator, !profile.availability && {backgroundColor: StyleSheet.colors.grey}]}/>

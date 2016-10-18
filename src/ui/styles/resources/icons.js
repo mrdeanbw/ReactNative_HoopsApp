@@ -16,6 +16,7 @@ export default {
   "calendar": require('./icons/calendar.png'),
   "calendarActive": require('./icons/calendar-active.png'),
   "calendarBig": require('./icons/calendar-big.png'),
+  "camera": require('./icons/camera.png'),
   "check": require('./icons/check.png'),
   "checkActive": require('./icons/check-active.png'),
   "chevronRight": require('./icons/chevron-right.png'),

@@ -73,7 +73,7 @@ export default class Friends extends React.Component {
             <UserListItem
               key={user.id}
               onPress={() => this.onPressUser(user)}
-              avatar={StyleSheet.images[user.avatar]}
+              imageSrc={user.imageSrc}
               firstName={user.name}
               lastName={user.name}
               location={user.location}

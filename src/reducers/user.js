@@ -20,6 +20,8 @@ export const convertStructure = (data) => {
     stripeAccount: null,
 
     name: null,
+    image: null,
+    imageSrc: undefined, //undefined means we can safely use with source={{uri: ...}}
     username: null,
     gender: null,
     city: null,
@@ -34,6 +36,8 @@ export const convertStructure = (data) => {
   //flatten scoped data
   if(data.publicProfile) {
     data.name = data.publicProfile.name;
+    data.image = data.publicProfile.image;
+    data.imageSrc = data.publicProfile.imageSrc;
     data.username = data.publicProfile.username;
     data.gender = data.publicProfile.gender;
     data.city = data.publicProfile.city;

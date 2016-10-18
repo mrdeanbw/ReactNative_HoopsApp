@@ -216,7 +216,7 @@ class FriendRequestNotification extends React.Component {
 
     return (
       <NotificationRow
-        image={StyleSheet.images.avatarChrisMurray}
+        image={{uri: user.imageSrc}}
         highlight={status === 'pending'}
         title={_('friendRequest')}
         description={description}
