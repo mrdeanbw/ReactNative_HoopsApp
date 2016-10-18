@@ -148,9 +148,17 @@ export const create = (eventData) => {
     let newKey = ref.key;
     let uid = getState().user.uid;
 
-    //upload images first:
-    uploadImage(eventData.picture, `events/${newKey}/main.jpeg`).then((result) => {
-      let imageRef = result.ref;
+    var chain;
+    if(eventData.picture) {
+      //upload images first:
+      chain = uploadImage(eventData.picture, `events/${newKey}/main.jpeg`);
+    } else {
+      //empty promise
+      chain = new Promise((resolve, reject) => resolve());
+    }
+
+    chain.then((result) => {
+      let imageRef = result ? result.ref : null;
 
       firebaseDb.update({
         [`events/${newKey}`]: {
