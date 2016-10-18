@@ -1,10 +1,19 @@
 
 import {firebaseDb, firebaseStorage} from '../data/firebase';
 
+import ReactNative from 'react-native';
+import RNFetchBlob from 'react-native-fetch-blob';
+
 import * as usersActions from './users';
 import * as invitesActions from './invites';
 import * as requestsActions from './requests';
 import * as paymentsActions from './payments';
+
+const ReadImageData = ReactNative.NativeModules.ReadImageData;
+
+/* global Blob */
+window.Blob = RNFetchBlob.polyfill.Blob;
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 
 const eventsRef = firebaseDb.child('events');
 
@@ -52,14 +61,19 @@ export const load = (id) => {
 
       let onLoaded = (event) => {
         dispatch({type: 'EVENTS_LOADED', events: {[id] : event}});
+      };
+
+      /*
+       * Other images can be added to this `promises` object. Then the allPromises
+       * utility will fetch all of them.
+       */
+      let promises = {};
+      if(event.image) {
+        promises.image = firebaseStorage.ref(event.image).getDownloadURL();
       }
 
-      allPromises({
-        image: firebaseStorage.ref(`events/${event.image}`).getDownloadURL(),
-        cover: firebaseStorage.ref(`events/${event.coverImage}`).getDownloadURL(),
-      }).then((values) => {
+      allPromises(promises).then((values) => {
         event.imageSrc = values.image || undefined;
-        event.coverSrc = values.cover || undefined;
         onLoaded(event);
       });
 
@@ -91,30 +105,53 @@ export const remove = (id) => {
   };
 };
 
+const uploadImage = (uri, location) => {
+  return new Promise((resolve, reject) => {
+    let storageRef = firebaseStorage.ref(location);
+
+    ReadImageData.readImage(uri, (image) => {
+      Blob.build(image, {type : 'image/jpeg;base64'}).then((blob) => {
+        storageRef.put(blob, {contentType: 'image/jpeg'}).then(function(snapshot) {
+          blob.close();
+          resolve({ref: location});
+        });
+      });
+    });
+  });
+};
+
 export const create = (eventData) => {
   return (dispatch, getState) => {
     let ref = eventsRef.push();
     let newKey = ref.key;
     let uid = getState().user.uid;
 
-    firebaseDb.update({
-      [`events/${newKey}`]: {
-        ...eventData,
-        id: newKey,
-      },
-      [`users/${uid}/organizing/${newKey}`]: true,
-    }, (err) => {
-      if(err) {
-        dispatch({
-          type: 'EVENT_ADD_ERROR',
-          err,
-        });
-      } else {
-        dispatch({
-          type: 'EVENT_ADDED',
-          eventData,
-        });
-      }
+    //upload images first:
+    uploadImage(eventData.picture, `events/${newKey}/main.jpeg`).then((result) => {
+      let imageRef = result.ref;
+
+      firebaseDb.update({
+        [`events/${newKey}`]: {
+          ...eventData,
+          //Replace the original eventData.image with our firebase reference
+          image: imageRef,
+          id: newKey,
+        },
+        [`users/${uid}/organizing/${newKey}`]: true,
+      }, (err) => {
+        if(err) {
+          dispatch({
+            type: 'EVENT_ADD_ERROR',
+            err,
+          });
+        } else {
+          dispatch({
+            type: 'EVENT_ADDED',
+            eventData,
+          });
+        }
+      });
+
     });
   };
 };

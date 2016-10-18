@@ -2,7 +2,7 @@
 import _ from '../i18n';
 import React from 'react';
 import ReactNative from 'react-native';
-import {View,Text,ScrollView, Image} from 'react-native';
+import {View, Text, ScrollView, Image, ImagePickerIOS} from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 import {Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components';
@@ -347,15 +347,31 @@ export default class CreateEvent extends React.Component {
                   });
                 }}
               />
+
               <CheckButton
                 type="wizardCheck"
                 text={_('eventPicture')}
                 icon="none" checkIcon="minus"
-                checked={!!this.state.eventDetails.coverImage}
-                onChange={()=> {/* TODO */}}
+                checked={!!this.state.eventDetails.picture}
+                onChange={(value) => {
+                  if(value) {
+                    ImagePickerIOS.openSelectDialog({}, (result) => {
+                      this.setEventData({picture: result});
+                    }, (err) => {
+                      console.warn(err); //eslint-disable-line no-console
+                    });
+                  } else {
+                    this.setEventData({picture: null});
+                  }
+                }}
               />
+              {this.state.eventDetails.picture && (
+                <Image
+                  source={{uri: this.state.eventDetails.picture}}
+                  style={{ resizeMode: 'cover', height: 180, width: null }}
+                />
+              )}
 
-              {this.state.eventPicture && <Image source={this.state.eventPicture} style={{ resizeMode: 'cover', height: 180, width: null }} />}
             </ScrollView>
           </Wizard.Step>
         </Wizard>
