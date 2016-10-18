@@ -14,14 +14,31 @@ export default StyleSheet => StyleSheet.extend({
     fontSize: 13,
     fontWeight: 'bold',
     color: colors.black,
+    flex: 1,
+    textAlign: 'center',
   },
 
   monthSelectorTextActive: {
     color: colors.pink,
   },
 
+  monthUnderlineContainer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: 3,
+    alignItems: 'center',
+  },
+
+  monthUnderline: {
+    width: 97,
+    height: 3,
+    backgroundColor: colors.pink,
+  },
+
   arrow: {
-    width: 40,
+    width: 30,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
@@ -111,7 +128,7 @@ export default StyleSheet => StyleSheet.extend({
     color: colors.pink,
     fontSize: 14,
     marginHorizontal: 18,
-    marginVertical: 22,
+    marginTop: 18,
   },
 
   eventsContainer: {
@@ -145,6 +162,12 @@ export default StyleSheet => StyleSheet.extend({
 
   eventTitle: {
     fontWeight: 'bold',
+    fontSize: 14,
+  },
+
+  eventAddress: {
+    fontSize: 12,
+    color: '#606060',
   },
 
   eventChevron: {

@@ -126,6 +126,11 @@ export default class Calendar extends React.Component {
           >
             {this.state.month.format('MMMM YYYY')}
           </Text>
+
+          <View style={StyleSheet.calendar.monthUnderlineContainer}>
+            <View style={StyleSheet.calendar.monthUnderline}/>
+          </View>
+
           <Text style={StyleSheet.calendar.monthSelectorText}>
             {moment(this.state.month).add(1, 'month').format('MMMM')}
           </Text>
