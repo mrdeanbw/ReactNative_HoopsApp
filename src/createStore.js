@@ -14,7 +14,16 @@ const rehydrate = autoRehydrate();
 const storeEnhancers = compose(middleware, rehydrate);
 
 export default (data = {}) => {
-  const rootReducer = combineReducers(reducers);
+  const rootReducer = (state, action) => {
+    if(action.type === 'USER_LOGGED_OUT') {
+      //Keep navigation state but reset all other store keys
+      const {navigation} = state;
+      state = {navigation};
+    }
+
+    return combineReducers(reducers)(state, action);
+  };
+
 
   return createStore(rootReducer, data, storeEnhancers);
 };
