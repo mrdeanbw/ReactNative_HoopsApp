@@ -15,6 +15,28 @@ const ReadImageData = ReactNative.NativeModules.ReadImageData;
 window.Blob = RNFetchBlob.polyfill.Blob;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 
+/*
+ * We need to replace the in-build fetch() API since we are messing around
+ * with XMLHttpRequest.
+ * https://github.com/wkh237/react-native-fetch-blob/wiki/Fetch-API#rnfb-as-fetch
+ */
+window.fetch = new RNFetchBlob.polyfill.Fetch({
+    // enable this option so that the response data conversion handled automatically
+    auto : true,
+    // when receiving response data, the module will match its Content-Type header
+    // with strings in this array. If it contains any one of string in this array,
+    // the response body will be considered as binary data and the data will stored
+    // in file system instead of in memory.
+    // By default, it only store response data to file system when Content-Type
+    // contains string `application/octet`.
+    binaryContentTypes : [
+        'image/',
+        'video/',
+        'audio/',
+        'foo/',
+    ]
+}).build();
+
 const eventsRef = firebaseDb.child('events');
 
 const listening = {};
