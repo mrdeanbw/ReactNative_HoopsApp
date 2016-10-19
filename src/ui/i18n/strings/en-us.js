@@ -242,6 +242,8 @@ export const dropOut = 'Drop Out';
 export const organizerDetails = 'Organiser Details';
 export const participateAgain = 'Participate Again';
 
+export const basic = 'Basic';
+export const advanced = 'Advanced';
 export const byDistance = 'By Distance';
 export const byName = 'By Name';
 

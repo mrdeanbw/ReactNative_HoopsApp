@@ -21,6 +21,16 @@ export const search = (params) => {
     if(params.text) {
       query.match.title = params.text;
     }
+    if(params.gender) {
+      query.match.gender = params.gender;
+    }
+    if(params.level) {
+      query.match.level = params.level;
+    }
+    if(params.courtType && params.courtType !== 'both') {
+      query.match.courtType = params.courtType;
+    }
+    //TODO radius search
 
     client.search('test/events', {query}).then((results) => {
       dispatch({

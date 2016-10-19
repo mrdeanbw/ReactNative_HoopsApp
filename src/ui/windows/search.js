@@ -16,25 +16,17 @@ import StyleSheet from '../styles';
 
 export default class Search extends React.Component {
 
-  static getTest(close) {
-    return {
-      title: 'Search',
-      view: Search,
-      viewProps: { onClose: close }
-    };
-  }
-
   constructor() {
     super();
     this.state = {
-      tab: 'distance',
+      tab: 'basic',
 
       text: '',
       date: null,
       gender: null,
       level: null,
-      venueType: null,
-      searchRadius: 40
+      courtType: null,
+      searchRadius: null,
     };
   }
 
@@ -48,7 +40,7 @@ export default class Search extends React.Component {
       date: this.state.date,
       gender: this.state.gender,
       level: this.state.level,
-      venueType: this.state.venueType,
+      courtType: this.state.courtType,
       radius: this.state.searchRadius,
     };
     this.props.onPressSearch(searchParams);
@@ -70,8 +62,8 @@ export default class Search extends React.Component {
     this.setState({level});
   };
 
-  onChangeVenueType = (venueType) => {
-    this.setState({venueType});
+  onChangeVenueType = (courtType) => {
+    this.setState({courtType});
   };
 
   onChangeSearchRadius = () => {
@@ -90,8 +82,8 @@ export default class Search extends React.Component {
           title={_('search')}
         />
         <View style={StyleSheet.buttons.bar}>
-          <Button type="top" text={_('byDistance')} active={this.state.tab === 'distance'} onPress={() => this.setState({ tab: 'distance' })} />
-          <Button type="top" text={_('byName')} active={this.state.tab === 'name'} onPress={() => this.setState({ tab: 'name' })} />
+          <Button type="top" text={_('basic')} active={this.state.tab === 'basic'} onPress={() => this.setState({ tab: 'basic' })} />
+          <Button type="top" text={_('advanced')} active={this.state.tab === 'advanced'} onPress={() => this.setState({ tab: 'advanced' })} />
         </View>
         <ScrollView contentContainerStyle={StyleSheet.search.containerStyle}>
           <Text style={[StyleSheet.text, StyleSheet.search.titleTextStyle, {marginTop: 0}]}>{_('searchWhat')}</Text>
@@ -102,7 +94,7 @@ export default class Search extends React.Component {
             placeholder={_('searchWhatExample')}
           />
 
-          {this.state.tab === 'distance' && (
+          {this.state.tab === 'advanced' && (
             <View>
               <Text style={[StyleSheet.text, StyleSheet.search.titleTextStyle]}>{_('searchWhen')}</Text>
               <DateInput
@@ -140,8 +132,8 @@ export default class Search extends React.Component {
               <ListInput
                 type="flat"
                 style={StyleSheet.halfMarginTop}
-                placeholder={_('venueType')}
-                value={this.state.venueType}
+                placeholder={_('courtType')}
+                value={this.state.courtType}
                 rightBar={<Icon name="listIndicator" />}
                 onChange={this.onChangeVenueType}
               >
@@ -159,7 +151,7 @@ export default class Search extends React.Component {
                   thumbImage={StyleSheet.icons.sliderThumb} />
 
               <Text style={[StyleSheet.text, StyleSheet.search.distanceTextStyle]}>
-                {_('upto')}{' '}{(this.state.liveSearchRadius || this.state.searchRadius).toFixed(0)}{_('milesAbbreviation')}
+                {_('upto')}{' '}{(this.state.liveSearchRadius || this.state.searchRadius || 0).toFixed(0)}{_('milesAbbreviation')}
               </Text>
             </View>
           )}
