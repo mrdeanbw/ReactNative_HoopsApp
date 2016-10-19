@@ -119,6 +119,7 @@ export const create = (eventData) => {
           ...eventData,
           //Replace the original eventData.image with our firebase reference
           image: imageRef,
+          organizer: uid,
           id: newKey,
         },
         [`users/${uid}/organizing/${newKey}`]: true,
