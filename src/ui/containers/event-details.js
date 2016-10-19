@@ -37,7 +37,13 @@ class EventDetails extends React.Component {
     let event = inflateEvent(
       this.props.events.eventsById[this.props.id],
       {
-        users: this.props.users.usersById,
+        users: {
+          ...this.props.users.usersById,
+          [this.props.user.uid]: {
+            ...this.props.user,
+            id: this.props.user.uid,
+          },
+        },
       }
     );
 
