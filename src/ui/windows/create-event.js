@@ -14,7 +14,10 @@ export default class CreateEvent extends React.Component {
     super();
     this.state = {
       gallery: true,
-      eventDetails: {},
+      activityText: '',
+      eventDetails: {
+        activity: {},
+      },
     };
   }
 
@@ -82,7 +85,14 @@ export default class CreateEvent extends React.Component {
 
     switch(stepNumber) {
       case 1:
-        return !!(title && activity && gender && ageGroup && privacy && level);
+        return !!(
+          title &&
+          activity && activity.key &&
+          gender &&
+          ageGroup &&
+          privacy &&
+          level
+        );
 
       case 2:
         return !!(
@@ -128,8 +138,11 @@ export default class CreateEvent extends React.Component {
                 }}
               />
               <TextInput
-                value={this.state.eventDetails.activity}
-                onChangeText={(activity) => this.setEventData({activity})}
+                value={this.state.activityText}
+                onChangeText={(activityText) => {
+                  this.setState({activityText});
+                  this.setEventData({activity: {}});
+                }}
                 ref="activityInput"
                 type="flat"
                 style={StyleSheet.halfMarginTop}
@@ -138,23 +151,25 @@ export default class CreateEvent extends React.Component {
                 onSubmitEditing={() => {
                   this.refs.cityInput.focus();
                 }}
-              />
-              <TextInput
-                ref="cityInput"
-                type="flat"
-                style={StyleSheet.halfMarginTop}
-                placeholder={_('city')}
-                blurOnSubmit={false}
-                onSubmitEditing={() => {
-                  this.refs.countryInput.focus();
+                clearButtonMode="while-editing"
+                autocomplete={this.props.interests.map((interest) => {
+                  return {
+                    key: interest.id,
+                    text: interest.name,
+                  };
+                }).filter(item => {
+                  return (
+                    this.state.activityText &&
+                    (this.state.eventDetails.activity.text !== this.state.activityText) &&
+                    item.text.search(new RegExp(this.state.activityText, 'i')) != -1
+                  );
+                })}
+                onAutocompletePress={(item) => {
+                  this.setState({
+                    activityText: item.text,
+                  });
+                  this.setEventData({activity: item});
                 }}
-              />
-              <TextInput
-                ref="countryInput"
-                type="flat"
-                style={StyleSheet.halfMarginTop}
-                placeholder={_('country')}
-                blurOnSubmit={true}
               />
 
               <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMargin, {alignSelf: 'center'}]}>
