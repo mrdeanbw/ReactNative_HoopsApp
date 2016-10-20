@@ -50,7 +50,7 @@ export default class TextInput extends React.Component {
     };
 
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, zIndex: 1}}>
         {multiline === 'popup' && (<MultilineTextInputDialog
           visible={this.state.showPopup}
           onClose={() => this.setState({showPopup: false})}
@@ -89,6 +89,23 @@ export default class TextInput extends React.Component {
               }
             </View>
             {rightBar && <View style={[defaultTextInput.barStyle, textInput.barStyle, barStyle]}>{rightBar}</View>}
+          </View>
+        )}
+        {this.props.autocomplete && (
+          <View style={StyleSheet.textInputs.autocomplete.container}>
+            {this.props.autocomplete.map(entry => (
+              <TouchableHighlight
+                style={StyleSheet.textInputs.autocomplete.row}
+                key={entry.key}
+                onPress={() => {
+                  this.props.onAutocompletePress(entry);
+                }}
+              >
+                <Text style={StyleSheet.textInputs.autocomplete.text}>
+                  {entry.text}
+                </Text>
+              </TouchableHighlight>
+            ))}
           </View>
         )}
       </View>

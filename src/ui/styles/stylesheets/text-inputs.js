@@ -173,6 +173,29 @@ export default StyleSheet => StyleSheet.escape({
       margin: 0,
       color: '#606060'
     }
-  })
+  }),
+
+  autocomplete: StyleSheet.extend({
+    container: {
+      zIndex: 10,
+      position: 'absolute',
+      left: 0,
+      right: 0,
+    },
+
+    row: {
+      flex: 1,
+      backgroundColor: 'white',
+      paddingHorizontal: 24,
+      paddingVertical: 16,
+      borderWidth: 1,
+      borderTopWidth: 0,
+      borderColor: colors.lightGrey,
+    },
+
+    text: {
+      fontSize: 16,
+    },
+  }),
 
 });
