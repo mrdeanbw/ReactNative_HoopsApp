@@ -6,6 +6,8 @@ import * as invitesActions from './invites';
 import * as requestsActions from './requests';
 import * as paymentsActions from './payments';
 
+import {getPlace} from '../data/google-places';
+
 const eventsRef = firebaseDb.child('events');
 
 const listening = {};
@@ -40,6 +42,24 @@ const allPromises = (promises) => {
   });
 };
 
+export const loadAddress = (event) => {
+  return dispatch => {
+    let googlePlaceId = event.addressGooglePlaceId;
+    if(!googlePlaceId){
+      return;
+    }
+
+    dispatch({type: 'EVENTS_GOOGLE_PLACE_START', id: event.id});
+
+    getPlace(googlePlaceId).then(result => {
+      result = result.result;
+      dispatch({type: 'EVENTS_GOOGLE_PLACE_SUCCESS', id: event.id, result});
+    }).catch(err => {
+      dispatch({type: 'EVENTS_GOOGLE_PLACE_ERROR', id: event.id, err});
+    });
+  };
+};
+
 export const load = (id) => {
   return (dispatch, getState) => {
     if(listening[id] === true){
@@ -51,6 +71,7 @@ export const load = (id) => {
       let event = snapshot.val();
 
       let onLoaded = (event) => {
+        dispatch(loadAddress(event));
         dispatch({type: 'EVENTS_LOADED', events: {[id] : event}});
       };
 

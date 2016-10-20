@@ -44,6 +44,7 @@ class EventDetails extends React.Component {
             id: this.props.user.uid,
           },
         },
+        interests: this.props.interests.interestsById,
       }
     );
 
@@ -122,6 +123,7 @@ export default connect(
     requests: state.requests,
     invites: state.invites,
     payments: state.payments,
+    interests: state.interests,
   }),
   (dispatch) => ({
     onNavigate: (key, props, subTab) => dispatch(navigation.push({key, props}, subTab)),

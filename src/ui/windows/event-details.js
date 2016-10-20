@@ -102,6 +102,9 @@ export default class EventDetails extends React.Component {
       return moment(date).format('HH:mm');
     };
 
+    let event = this.props.event;
+    let address = event.addressGooglePlace && event.addressGooglePlace.formatted_address;
+
     return (
       <View style={{flex: 1}}>
         <Header
@@ -168,7 +171,7 @@ export default class EventDetails extends React.Component {
               {this.props.event.title}
             </Text>
             <Text style={[StyleSheet.text, StyleSheet.eventDetails.subtitleTextStyle]}>
-              {this.props.event.address}
+              {address}
             </Text>
           </View>
 
@@ -190,7 +193,7 @@ export default class EventDetails extends React.Component {
                 {this.props.event.players}
               </Text>{'/'}{this.props.event.maxPlayers}
             </EventInfo>
-            <EventInfo icon="activityBasketball" label={_('activity')}>{this.props.event.activity}</EventInfo>
+            <EventInfo icon="activityBasketball" label={_('activity')}>{this.props.event.activity.name}</EventInfo>
             <EventInfo icon="calendarBig" label={_('dateAndTime')}>
               <Text style={StyleSheet.eventDetails.lightTextStyle}>{formatDate(this.props.event.date)}{', '}</Text>
               {formatTime(this.props.event.date)}
@@ -295,21 +298,25 @@ class EventJoinPopup extends React.Component {
     const formatCharge = (charge) => {
       return (parseFloat(charge) * 100).toFixed(0) + 'p';
     };
+    console.log("event", this.props.event);
+
+    let event = this.props.event;
+    let address = event.addressGooglePlace && event.addressGooglePlace.formatted_address;
 
     return (
       <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>
         <View style={[StyleSheet.dialog.alertContentStyle]}>
           <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, { textAlign: 'center' }]}>{_('youAreAboutToJoin').toUpperCase()}</Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, {textAlign: 'center', color: StyleSheet.colors.pink}]}>{this.props.event.title.toUpperCase()}</Text>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, {textAlign: 'center', color: StyleSheet.colors.pink}]}>{event.title.toUpperCase()}</Text>
 
           <EventInfo.Bar style={[StyleSheet.doubleMarginTop]}>
             <EventInfo.Summary icon="calendarBig" style={{width: 90}}>
               <Text style={StyleSheet.eventDetails.lightTextStyle}>{formatDate(this.props.event.date)}</Text>
               {'\n'}
-              <Text>{formatTime(this.props.event.date, this.props.event.duration)}</Text>
+              <Text>{formatTime(event.date, event.duration)}</Text>
             </EventInfo.Summary>
             <EventInfo.Summary icon="pin" style={{width: 90}}>
-              <Text style={StyleSheet.eventDetails.lightTextStyle}>{this.props.event.address}</Text>
+              <Text style={StyleSheet.eventDetails.lightTextStyle}>{address}</Text>
             </EventInfo.Summary>
           </EventInfo.Bar>
         </View>
@@ -320,7 +327,7 @@ class EventJoinPopup extends React.Component {
             type="alertDefault"
             text={
               <Text>
-                <Text>{_('join').toUpperCase()} £{this.props.event.entryFee}</Text>
+                <Text>{_('join').toUpperCase()} £{event.entryFee}</Text>
                 {this.props.charge && (
                   <Text>(+{formatCharge(this.props.charge)})</Text>
                 )}

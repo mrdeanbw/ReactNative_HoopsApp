@@ -44,5 +44,9 @@ export default (event, extra) => {
     event.organizer = extra.users[event.organizer];
   }
 
+  if(extra.interests) {
+    event.activity = extra.interests[event.activity];
+  }
+
   return event;
 };
