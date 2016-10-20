@@ -16,8 +16,14 @@ class CreateEvent extends React.Component {
         mode={this.props.user.mode}
         onToggleMode={this.props.onToggleMode}
         onComplete={(eventData) => {
-          //Replace activity object with it's key (i.e 'BASKETBALL')
-          eventData.activity = eventData.activity.key;
+          eventData = {
+            ...eventData,
+            //Replace activity object with it's key (i.e 'BASKETBALL')
+            activity: eventData.activity.key,
+            //Replace address with it's text description (i.e. 'New York, USA')
+            address: eventData.address.text,
+            addressGooglePlaceId: eventData.address.key,
+          };
           this.props.onSaveEvent(eventData);
           this.props.onNavigateBack();
         }}

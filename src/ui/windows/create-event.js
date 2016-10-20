@@ -8,15 +8,20 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 import {Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components';
 import StyleSheet from '../styles';
 
+import {autocomplete} from '../../data/google-places';
+
 export default class CreateEvent extends React.Component {
 
   constructor() {
     super();
     this.state = {
       gallery: true,
+      addressText: '',
+      addressAutocomplete: [],
       activityText: '',
       eventDetails: {
         activity: {},
+        address: {},
       },
     };
   }
@@ -100,7 +105,7 @@ export default class CreateEvent extends React.Component {
           courtType &&
           typeof recurring !== 'undefined' && //`recurring` is boolean
           venueName &&
-          address &&
+          address && address.key &&
           Number.isFinite(entryFee) && //`entryFee` could be 0
           paymentMethod &&
           deadline
@@ -161,7 +166,7 @@ export default class CreateEvent extends React.Component {
                   return (
                     this.state.activityText &&
                     (this.state.eventDetails.activity.text !== this.state.activityText) &&
-                    item.text.search(new RegExp(this.state.activityText, 'i')) != -1
+                    item.text.search(new RegExp(this.state.activityText, 'i')) !== -1
                   );
                 })}
                 onAutocompletePress={(item) => {
@@ -251,8 +256,13 @@ export default class CreateEvent extends React.Component {
                   }}
                 />
                 <TextInput
-                  value={this.state.eventDetails.address}
-                  onChangeText={(address) => this.setEventData({address})}
+                  value={this.state.addressText}
+                  onChangeText={(addressText) => {
+                    this.setState({addressText});
+                    autocomplete(addressText, 'address').then(result => {
+                      this.setState({addressAutocomplete: result.predictions});
+                    });
+                  }}
                   ref="venueAddressInput"
                   type="flat"
                   style={StyleSheet.halfMarginTop}
@@ -263,6 +273,17 @@ export default class CreateEvent extends React.Component {
                   }}
                   onFocus={() => {
                     this.scrollToInput(this.refs.scrollView2, this.refs.venueAddressInput);
+                  }}
+                  autocomplete={this.state.addressAutocomplete.map(prediction => ({
+                    key: prediction.place_id,
+                    text: prediction.description,
+                  }))}
+                  onAutocompletePress={(prediction) => {
+                    this.setState({
+                      addressText: prediction.text,
+                      addressAutocomplete: [],
+                    });
+                    this.setEventData({address: prediction});
                   }}
                 />
 
