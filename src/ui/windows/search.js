@@ -31,7 +31,10 @@ export default class Search extends React.Component {
   }
 
   searchButtonEnabled() {
-    return !!this.state.text;
+    return (
+      this.state.text ||
+      this.state.searchRadius
+    );
   }
 
   onPressSearch = () => {
@@ -41,7 +44,10 @@ export default class Search extends React.Component {
       gender: this.state.gender,
       level: this.state.level,
       courtType: this.state.courtType,
-      radius: this.state.searchRadius,
+      geospatial: {
+        coords: this.props.coords,
+        radius: this.state.searchRadius,
+      },
     };
     this.props.onPressSearch(searchParams);
   };
@@ -71,6 +77,9 @@ export default class Search extends React.Component {
   };
 
   onUpdateSearchRadius = (searchRadius) => {
+    if(!this.state.liveSearchRadius && searchRadius > 0) {
+      this.props.requestGeolocation();
+    }
     this.setState({liveSearchRadius: searchRadius});
   };
 

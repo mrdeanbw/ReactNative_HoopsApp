@@ -9,6 +9,12 @@ import {
 } from '../../actions';
 
 class Search extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      location: null,
+    };
+  }
 
   render() {
     return (
@@ -19,6 +25,15 @@ class Search extends React.Component {
         onPressSearch={(searchParams) => {
           this.props.onSearch(searchParams);
         }}
+        requestGeolocation={() => {
+          navigator.geolocation.getCurrentPosition((result) => {
+            this.setState({location: result});
+          }, (err) => {
+            console.warn(err); //eslint-disable-line no-console
+            this.setState({location: null});
+          });
+        }}
+        coords={this.state.location && this.state.location.coords}
       />
     );
   }

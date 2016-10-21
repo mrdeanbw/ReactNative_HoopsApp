@@ -14,23 +14,50 @@ export const search = (params) => {
     });
 
     let query = {
-      match: {
+      bool: {
+        must: [],
+        filter: {},
       },
     };
 
     if(params.text) {
-      query.match.title = params.text;
+      query.bool.must.push({
+        match: {
+          title: params.text,
+        },
+      });
     }
     if(params.gender) {
-      query.match.gender = params.gender;
+      query.bool.must.push({
+        match: {
+          gender: params.gender,
+        },
+      });
     }
     if(params.level) {
-      query.match.level = params.level;
+      query.bool.must.push({
+        match: {
+          level: params.level,
+        },
+      });
     }
     if(params.courtType && params.courtType !== 'both') {
-      query.match.courtType = params.courtType;
+      query.bool.must.push({
+        match: {
+          courtType: params.courtType,
+        },
+      });
     }
-    //TODO radius search
+
+    if(params.geospatial && params.geospatial.radius) {
+      query.bool.filter.geo_distance = {
+        distance: params.geospatial.radius + 'mi',
+        addressCoords: {
+          lat: params.geospatial.coords.latitude,
+          lon: params.geospatial.coords.longitude,
+        },
+      };
+    }
 
     client.search('test/events', {query}).then((results) => {
       dispatch({
