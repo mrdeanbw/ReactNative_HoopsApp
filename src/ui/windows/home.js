@@ -3,21 +3,35 @@ import _ from '../i18n';
 
 import React from 'react';
 
-import {View, ScrollView, Text, Image, MapView} from 'react-native';
+import {View, ScrollView, Text, MapView} from 'react-native';
 
 import StyleSheet from '../styles';
 import EventListItem from '../components/event-list-item';
 import Header from '../components/header';
-import Window from '../components/window';
+import Icon from '../components/icon';
 
 export default class Home extends React.Component {
 
-  static getTest(close) {
-    return {
-      title: 'Home',
-      view: Window.Organizer,
-      viewProps: { initialTab: Home, onClose: close }
+  constructor() {
+    super();
+    this.state = {
+      scrollHeight: undefined,
+      location: {
+        lat: undefined,
+        lon: undefined,
+      },
     };
+
+    navigator.geolocation.watchPosition(position => {
+      this.setState({
+        location: {
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+        }
+      });
+    }, (err) => {
+      console.warn(err); //eslint-disable-line no-console
+    });
   }
 
   onPressCreate() {
@@ -28,51 +42,72 @@ export default class Home extends React.Component {
     //TODO
   }
 
-  render() {
+  _renderEvents() {
     return (
       <View>
+        {this.props.events.map(event =>
+          <EventListItem
+            key={event.id}
+            onPress={() => this.props.onPressEvent(event)}
+            image={{uri: event.imageSrc}}
+            title={event.title}
+            players={event.players} maxPlayers={event.maxPlayers}
+            level={event.level}
+            venue={event.venue}
+            date={event.date}
+            distance={this.props.mode === 'PARTICIPATE' ? event.distance : null}
+          />
+        )}
+      </View>
+    );
+  }
+
+  render() {
+    return (
+      <View style={{flex: 1}}>
         <Header
           title={_('home')}
           mode={this.props.mode}
           onToggleMode={this.props.onToggleMode}
         />
-        <ScrollView contentContainerStyle={StyleSheet.container}>
-          {this.props.events.map(event =>
-            <EventListItem key={event.id}
-                     onPress={() => this.props.onPressEvent(event)}
-                     image={{uri: event.imageSrc}}
-                     title={event.title}
-                     players={event.players} maxPlayers={event.maxPlayers}
-                     level={event.level}
-                     venue={event.venue}
-                     date={event.date}
-                     distance={this.props.mode === 'PARTICIPATE' ? event.distance : null} />)}
+        <ScrollView
+          contentContainerStyle={StyleSheet.home.container}
+          onLayout={(e) => this.setState({scrollHeight: e.nativeEvent.layout.height})}
+        >
+          <View style={{minHeight: (this.state.scrollHeight - 300)}}>
+            {this._renderEvents()}
+          </View>
 
-          {this.props.mode === 'PARTICIPATE' && <View style={StyleSheet.nearbyContainer}>
+          {this.props.mode === 'PARTICIPATE' && (
+            <View style={StyleSheet.home.nearbyContainer}>
 
-            <View style={StyleSheet.nearbyTitle}>
-              <Text style={[StyleSheet.text, StyleSheet.nearbyTitleText]}>{_('nearbyEvents').toUpperCase()}</Text>
-              <Image source={StyleSheet.icons.list} style={[StyleSheet.icon]} />
+              <View style={StyleSheet.home.nearbyTitle}>
+                <Text style={[StyleSheet.text, StyleSheet.home.nearbyTitleText]}>
+                  {_('nearbyEvents').toUpperCase()}
+                </Text>
+                <Icon style={StyleSheet.home.listIcon} name="list"/>
+              </View>
+
+              <View style={StyleSheet.home.nearbyMapContainer}>
+                <MapView style={StyleSheet.home.map}
+                  zoomEnabled={false}
+                  pitchEnabled={false}
+                  rotateEnabled={false}
+                  scrollEnabled={false}
+                  showsCompass={false}
+                  showsPointsOfInterest={false}
+                  followUserLocation={false}
+                  showsUserLocation={true}
+                  region={this.state.location.lat && {
+                    latitude: this.state.location.lat,
+                    longitude: this.state.location.lon,
+                    latitudeDelta: 0.01,
+                    longitudeDelta: 0.01,
+                  }}
+                />
+              </View>
             </View>
-
-            <View style={StyleSheet.nearbyMapContainer}>
-              <MapView style={StyleSheet.map}
-                   zoomEnabled={false}
-                   pitchEnabled={false}
-                   rotateEnabled={false}
-                   scrollEnabled={false}
-                   showsCompass={false}
-                   showsPointsOfInterest={false}
-                   followUserLocation={true}
-                   showsUserLocation={true}
-                   region={{
-                     latitude: 0,
-                     longitude: 0,
-                     latitudeDelta: 0.08,
-                     longitudeDelta: 0.08
-                   }} />
-            </View>
-          </View>}
+          )}
         </ScrollView>
       </View>
     );

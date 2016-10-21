@@ -1,21 +1,28 @@
 
+import {colors} from '../resources';
+
 export default StyleSheet => StyleSheet.extend({
   container: {
     alignItems: 'stretch'
   },
 
+  nearbyContainer: {
+  },
+
   nearbyTitle: {
-    backgroundColor: StyleSheet.black,
+    backgroundColor: colors.black,
     height: 50,
     alignItems: 'center',
-    justifyContent: 'center',
     flexDirection: 'row'
   },
 
   nearbyTitleText: {
     fontSize: 13,
+    flex: 1,
+    textAlign: 'center',
     fontWeight: 'bold',
-    color: StyleSheet.white,
+    color: colors.white,
+    backgroundColor: colors.black,
     lineHeight: 16,
     letterSpacing: 1
   },
@@ -33,7 +40,8 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   nearbyMapContainer: {
-    alignItems: 'stretch'
+    alignItems: 'stretch',
+    flex: 0,
   },
 
   map: {
