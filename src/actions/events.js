@@ -123,23 +123,34 @@ export const create = (eventData) => {
     let newKey = ref.key;
     let uid = getState().user.uid;
 
-    var chain;
+    var chain = [];
     if(eventData.picture) {
       //upload images first:
-      chain = uploadImage(eventData.picture, `events/${newKey}/main.jpeg`);
+      chain.push(uploadImage(eventData.picture, `events/${newKey}/main.jpeg`));
     } else {
-      //empty promise
-      chain = new Promise((resolve, reject) => resolve());
+      chain.push(null);
     }
 
-    chain.then((result) => {
-      let imageRef = result ? result.ref : null;
+    if(eventData.addressGooglePlaceId) {
+      chain.push(
+        getPlace(eventData.addressGooglePlaceId).then(result => {
+          return result.result && result.result.geometry;
+        })
+      );
+    }else{
+      chain.push(null);
+    }
+
+    Promise.all(chain).then((result) => {
+      let imageRef = result[0] ? result[0].ref : null;
+      let coords = result[1] ? result[1].location : null;
 
       firebaseDb.update({
         [`events/${newKey}`]: {
           ...eventData,
           //Replace the original eventData.image with our firebase reference
           image: imageRef,
+          addressCoords: coords,
           organizer: uid,
           id: newKey,
         },
