@@ -298,7 +298,6 @@ class EventJoinPopup extends React.Component {
     const formatCharge = (charge) => {
       return (parseFloat(charge) * 100).toFixed(0) + 'p';
     };
-    console.log("event", this.props.event);
 
     let event = this.props.event;
     let address = event.addressGooglePlace && event.addressGooglePlace.formatted_address;

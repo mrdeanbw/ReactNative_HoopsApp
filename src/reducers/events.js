@@ -50,7 +50,7 @@ export default handleActions({
   },
 
   EVENTS_GOOGLE_PLACE_SUCCESS: (state, action) => {
-    eventsById = {
+    let eventsById = {
       ...state.eventsById,
       [action.id]: {
         ...state.eventsById[action.id],
