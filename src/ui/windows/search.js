@@ -13,7 +13,6 @@ import {
 } from '../components';
 import StyleSheet from '../styles';
 
-
 export default class Search extends React.Component {
 
   constructor() {
@@ -33,6 +32,10 @@ export default class Search extends React.Component {
   searchButtonEnabled() {
     return (
       this.state.text ||
+      this.state.date ||
+      this.state.gender ||
+      this.state.level ||
+      this.state.courtType ||
       this.state.searchRadius
     );
   }
@@ -95,13 +98,16 @@ export default class Search extends React.Component {
           <Button type="top" text={_('advanced')} active={this.state.tab === 'advanced'} onPress={() => this.setState({ tab: 'advanced' })} />
         </View>
         <ScrollView contentContainerStyle={StyleSheet.search.containerStyle}>
-          <Text style={[StyleSheet.text, StyleSheet.search.titleTextStyle, {marginTop: 0}]}>{_('searchWhat')}</Text>
-          <TextInput
-            value={this.state.text}
-            onChangeText={(text) => this.setState({text})}
-            type="flat"
-            placeholder={_('searchWhatExample')}
-          />
+
+          <View>
+            <Text style={[StyleSheet.text, StyleSheet.search.titleTextStyle, {marginTop: 0}]}>{_('searchWhat')}</Text>
+            <TextInput
+              value={this.state.text}
+              onChangeText={(text) => this.setState({text})}
+              type="flat"
+              placeholder={_('searchWhatExample')}
+            />
+          </View>
 
           {this.state.tab === 'advanced' && (
             <View>

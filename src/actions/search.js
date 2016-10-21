@@ -16,7 +16,7 @@ export const search = (params) => {
     let query = {
       bool: {
         must: [],
-        filter: {},
+        filter: [],
       },
     };
 
@@ -49,14 +49,35 @@ export const search = (params) => {
       });
     }
 
-    if(params.geospatial && params.geospatial.radius) {
-      query.bool.filter.geo_distance = {
-        distance: params.geospatial.radius + 'mi',
-        addressCoords: {
-          lat: params.geospatial.coords.latitude,
-          lon: params.geospatial.coords.longitude,
+    if(params.date) {
+      query.bool.filter.push({
+        range: {
+          date: {
+            gt: params.date,
+          },
         },
-      };
+      });
+    } else {
+      //If date filter is not specified, show all events after "now"
+      query.bool.filter.push({
+        range: {
+          date: {
+            gt: "now",
+          },
+        },
+      });
+    }
+
+    if(params.geospatial && params.geospatial.radius) {
+      query.bool.filter.push({
+        geo_distance: {
+          distance: params.geospatial.radius + 'mi',
+          addressCoords: {
+            lat: params.geospatial.coords.latitude,
+            lon: params.geospatial.coords.longitude,
+          },
+        }
+      });
     }
 
     client.search('test/events', {query}).then((results) => {

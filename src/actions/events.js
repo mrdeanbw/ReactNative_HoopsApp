@@ -150,7 +150,10 @@ export const create = (eventData) => {
           ...eventData,
           //Replace the original eventData.image with our firebase reference
           image: imageRef,
-          addressCoords: coords,
+          addressCoords: {
+            lat: coords.lat,
+            lon: coords.lng, //GooglePlaces uses `lng`, but elasticsearch needs `lon`
+          },
           organizer: uid,
           id: newKey,
         },
