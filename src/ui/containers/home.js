@@ -2,9 +2,43 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Home as _Home} from '../windows';
-import {user, navigation} from '../../actions';
+import {user, navigation, search} from '../../actions';
 
 class Home extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      location: {
+        lat: undefined,
+        lon: undefined,
+      },
+    };
+
+    this._watchId = navigator.geolocation.watchPosition(position => {
+      this.setState({
+        location: {
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+        }
+      });
+    }, (err) => {
+      console.warn(err); //eslint-disable-line no-console
+    });
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this._watchId);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if(!this.state.location.lat && nextState.location.lat) {
+      this.props.onSearchNearby({
+        geospatial: {
+        },
+      });
+    }
+  }
 
   onPressEvent(event) {
     if(this.props.user.mode === 'ORGANIZE') {
@@ -42,6 +76,13 @@ class Home extends React.Component {
       return a.date > b.date ? 1 : -1;
     });
 
+    let nearby = this.props.search.nearby.map(item => {
+      return {
+        event: this.props.events.eventsById[item.id],
+        distance: item.sort,
+      };
+    }).filter(item => !!item.event);
+
     return (
       <_Home
         onPressEvent={this.onPressEvent.bind(this)}
@@ -49,6 +90,8 @@ class Home extends React.Component {
         onPressAdd={() => this.props.onNavigate('createEvent')}
         mode={this.props.user.mode}
         onToggleMode={this.props.onToggleMode}
+        location={this.state.location}
+        nearby={nearby}
       />
     );
   }
@@ -60,9 +103,11 @@ export default connect(
     events: state.events,
     requests: state.requests,
     invites: state.invites,
+    search: state.search,
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
     onToggleMode: () => dispatch(user.toggleMode()),
+    onSearchNearby: (params) => dispatch(search.nearby(params)),
   }),
 )(Home);

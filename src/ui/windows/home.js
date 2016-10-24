@@ -3,12 +3,13 @@ import _ from '../i18n';
 
 import React from 'react';
 
-import {View, ScrollView, Text, MapView} from 'react-native';
+import {View, ScrollView, Text, MapView, TouchableHighlight} from 'react-native';
 
 import StyleSheet from '../styles';
 import EventListItem from '../components/event-list-item';
 import Header from '../components/header';
 import Icon from '../components/icon';
+import icons from '../styles/resources/icons';
 
 export default class Home extends React.Component {
 
@@ -16,30 +17,7 @@ export default class Home extends React.Component {
     super();
     this.state = {
       scrollHeight: undefined,
-      location: {
-        lat: undefined,
-        lon: undefined,
-      },
     };
-
-    navigator.geolocation.watchPosition(position => {
-      this.setState({
-        location: {
-          lat: position.coords.latitude,
-          lon: position.coords.longitude,
-        }
-      });
-    }, (err) => {
-      console.warn(err); //eslint-disable-line no-console
-    });
-  }
-
-  onPressCreate() {
-    //TODO
-  }
-
-  onPressSearch() {
-    //TODO
   }
 
   _renderEvents() {
@@ -63,6 +41,50 @@ export default class Home extends React.Component {
   }
 
   render() {
+    let annotations = this.props.nearby.map(item => {
+      return {
+        latitude: item.event.addressCoords.lat,
+        longitude: item.event.addressCoords.lon,
+        image: icons.mapPin,
+        title: item.event.title,
+        rightCalloutView: (
+          <TouchableHighlight
+            onPress={() => this.props.onPressEvent(item.event)}
+            underlayColor="transparent"
+          >
+            <View>
+              <Icon name="chevronRight"/>
+            </View>
+          </TouchableHighlight>
+        ),
+      };
+    });
+
+    //Calculate region size based on nearby events distances
+    let region;
+    if(this.props.location.lat && this.props.location.lon) {
+      let location = this.props.location;
+
+      //Calculate the maximum lat/lon delta
+      let maxDelta = this.props.nearby.reduce((prev, item) => {
+        let coords = item.event.addressCoords;
+
+        let delta = Math.max(
+          Math.abs(coords.lat - location.lat),
+          Math.abs(coords.lon - location.lon)
+        );
+
+        return Math.max(delta, prev);
+      }, 0);
+
+      region = {
+        latitude: location.lat,
+        longitude: location.lon,
+        latitudeDelta: maxDelta * 2.5, // Double (for left+right) and add some padding.
+        longitudeDelta: maxDelta * 2.5,
+      };
+    }
+
     return (
       <View style={{flex: 1}}>
         <Header
@@ -98,12 +120,8 @@ export default class Home extends React.Component {
                   showsPointsOfInterest={false}
                   followUserLocation={false}
                   showsUserLocation={true}
-                  region={this.state.location.lat && {
-                    latitude: this.state.location.lat,
-                    longitude: this.state.location.lon,
-                    latitudeDelta: 0.01,
-                    longitudeDelta: 0.01,
-                  }}
+                  region={region}
+                  annotations={annotations}
                 />
               </View>
             </View>

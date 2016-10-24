@@ -4,6 +4,7 @@ import {handleActions} from 'redux-actions';
 const initialState = {
   eventIds: [],
   userIds: [],
+  nearby: [],
   error: null,
 };
 
@@ -29,6 +30,29 @@ export default handleActions({
     return {
       ...state,
       eventIds: [],
+      error: action.err,
+    };
+  },
+
+  SEARCH_NEARBY_START: (state, action) => {
+    return state;
+  },
+
+  SEARCH_NEARBY_END: (state, action) => {
+    if(!action.results) {
+      return state;
+    }
+    return {
+      ...state,
+      nearby: action.results.hits.hits.map(hit => ({id: hit._id, sort: hit.sort[0]})),
+      error: null,
+    };
+  },
+
+  SEARCH_NEARBY_ERROR: (state, action) => {
+    return {
+      ...state,
+      nearby: [],
       error: action.err,
     };
   },

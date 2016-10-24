@@ -105,6 +105,52 @@ export const search = (params) => {
   };
 };
 
+/*
+ * params.location.lat {Number}
+ * params.location.lon {Number}
+ * params.limit {Number}
+ */
+export const nearby = (params) => {
+  return dispatch => {
+    let query = {
+      match_all: {},
+    };
+    let sort = [{
+      _geo_distance: {
+        order: "desc",
+        addressCoords: {
+          lat: 53,
+          lon: 0
+        }
+      }
+    }];
+    let size = 10; //max number of results
+
+    dispatch({
+      type: 'SEARCH_NEARBY_START',
+    });
+
+    client.search('test/events', {size, query, sort}).then(results => {
+      dispatch({
+        type: 'SEARCH_NEARBY_END',
+        results,
+      });
+
+      //If we got some results, load the event objects from database
+      if(results.hits && results.hits.hits) {
+        results.hits.hits.forEach(hit => {
+          dispatch(events.load(hit._id));
+        });
+      }
+    }).catch(err => {
+      dispatch({
+        type: 'SEARCH_NEARBY_ERROR',
+        err,
+      });
+    });
+  };
+};
+
 export const searchUsers = (params) => {
   return dispatch => {
     let query = {
