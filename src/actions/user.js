@@ -10,6 +10,8 @@ import * as requestsActions from './requests';
 import * as notificationsActions from './notifications';
 import * as navigationActions from './navigation';
 
+import FCM from 'react-native-fcm';
+
 export const signIn = (email, password) => {
   return (dispatch) => {
     dispatch({type: 'USER_SIGN_IN'});
@@ -34,6 +36,7 @@ export const signInSuccess = (method) => {
       uid,
       method,
     });
+    dispatch(FCMInit());
   };
 };
 
@@ -336,24 +339,29 @@ const handleInitialRouting = () => {
   };
 };
 
-export const registerWithStore = (store) => {
-  /*
-   * Listen to firebase auth changes (e.g when re-signing in a user saved locally)
-   * and dispatch an event so that stores can react to it
-   */
-  firebase.auth().onAuthStateChanged((user) => {
-    //There is a bug where errors in this handler are silently swallowed. Be careful.
-    if(user) {
-      store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: user.uid});
-      store.dispatch(listenToUser());
-      store.dispatch(handleInitialRouting());
-    }else{
-      store.dispatch({type: 'FIREBASE_AUTH_INIT', uid: null});
-      store.dispatch(navigationActions.reset({key: 'walkthrough'}));
-    }
-  }, error => {
-    console.warn(error); //eslint-disable-line no-console
-  });
+export const registerWithStore = () => {
+  return dispatch => {
+    /*
+     * Listen to firebase auth changes (e.g when re-signing in a user saved locally)
+     * and dispatch an event so that stores can react to it
+     */
+    firebase.auth().onAuthStateChanged((user) => {
+      //There is a bug where errors in this handler are silently swallowed. Be careful.
+      if(user) {
+        dispatch({type: 'FIREBASE_AUTH_INIT', uid: user.uid});
+        dispatch(FCMInit());
+        dispatch(listenToUser());
+        dispatch(handleInitialRouting());
+      }else{
+        dispatch({type: 'FIREBASE_AUTH_INIT', uid: null});
+        dispatch(navigationActions.reset({key: 'walkthrough'}));
+      }
+    }, error => {
+      console.warn(error); //eslint-disable-line no-console
+    });
+
+
+  };
 };
 
 /**
@@ -379,5 +387,34 @@ export const removeFriend = (user) => {
         });
       }
     });
+  };
+};
+
+export const FCMInit = () => {
+  return dispatch => {
+    FCM.requestPermissions();
+
+    /*
+     * Listen for updates to the FCM token
+     */
+    FCM.getFCMToken().then(token => {
+      // store fcm token in your server
+      dispatch(setFCMToken(token));
+    });
+
+    this.notificationUnsubscribe = FCM.on('notification', (notif) => {
+      dispatch(notificationsActions.receivePush(notif));
+    });
+    this.refreshUnsubscribe = FCM.on('refreshToken', (token) => {
+      // fcm token may not be available on first load, catch it here
+      dispatch(setFCMToken(token));
+    });
+  };
+};
+
+export const setFCMToken = (token) => {
+  return (dispatch, getState) => {
+    let uid = getState().user.uid;
+    firebaseDb.child(`users/${uid}/FCMToken`).set(token);
   };
 };
