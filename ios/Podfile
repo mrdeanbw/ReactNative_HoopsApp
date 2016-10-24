@@ -6,12 +6,14 @@
 target 'Hoops' do
 
 	pod 'Firebase'
+	pod 'Firebase/Messaging'
 
 end
 
 target 'HoopsTests' do
 
 	pod 'Firebase'
+	pod 'Firebase/Messaging'
 
 end
 

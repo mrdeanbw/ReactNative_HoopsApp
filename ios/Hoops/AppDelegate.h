@@ -8,8 +8,10 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <UserNotifications/UserNotifications.h>
+#import "Firebase.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UNUserNotificationCenterDelegate, FIRMessagingDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 

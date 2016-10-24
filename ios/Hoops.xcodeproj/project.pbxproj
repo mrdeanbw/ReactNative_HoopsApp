@@ -23,6 +23,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		2783E30F1DBE45EA00A672F0 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2783E30E1DBE45EA00A672F0 /* UserNotifications.framework */; };
 		27A15B471DB630E2008C2A16 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A15B3A1DB63070008C2A16 /* libRCTCameraRoll.a */; };
 		27A15B491DB638C5008C2A16 /* RCTImageRead.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A15B481DB638C5008C2A16 /* RCTImageRead.m */; };
 		27A4F9FE1D7F1B5700D017DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27A4F9FD1D7F1B5700D017DA /* GoogleService-Info.plist */; };
@@ -181,6 +182,7 @@
 		18950785B3BF51BC38BBC87C /* Pods-HoopsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoopsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HoopsTests/Pods-HoopsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1E4494564083491AA550DDBE /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SourceSansPro-Regular.ttf"; path = "../src/ui/styles/resources/fonts/SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
 		273D72341DA3C312002D389E /* Hoops.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Hoops.entitlements; path = Hoops/Hoops.entitlements; sourceTree = "<group>"; };
+		2783E30E1DBE45EA00A672F0 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		27A15B341DB63070008C2A16 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		27A15B481DB638C5008C2A16 /* RCTImageRead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RCTImageRead.m; path = Hoops/RCTImageRead.m; sourceTree = "<group>"; };
 		27A4F9FD1D7F1B5700D017DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2783E30F1DBE45EA00A672F0 /* UserNotifications.framework in Frameworks */,
 				27A15B471DB630E2008C2A16 /* libRCTCameraRoll.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -446,6 +449,7 @@
 		9BACAC3508B49380757871B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2783E30E1DBE45EA00A672F0 /* UserNotifications.framework */,
 				27A98DC81D8178CF00AD839C /* Bolts.framework */,
 				27A98DC61D8177B300AD839C /* FBSDKShareKit.framework */,
 				27A98DC41D8177A700AD839C /* FBSDKLoginKit.framework */,
@@ -518,15 +522,23 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 800;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = LL5NHVZ73V;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 56X44JC869;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -894,6 +906,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 18950785B3BF51BC38BBC87C /* Pods-HoopsTests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = LL5NHVZ73V;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -903,6 +916,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
@@ -915,11 +929,13 @@
 			baseConfigurationReference = C2298F14567D0D8463DAF8ED /* Pods-HoopsTests.release.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = LL5NHVZ73V;
 				INFOPLIST_FILE = HoopsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
@@ -934,6 +950,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Hoops/Hoops.entitlements;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 56X44JC869;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -947,13 +964,14 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 				);
 				INFOPLIST_FILE = Hoops/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = co.hoopsapp.app.ios;
 				PRODUCT_NAME = Hoops;
 			};
 			name = Debug;
@@ -964,6 +982,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Hoops/Hoops.entitlements;
+				DEVELOPMENT_TEAM = 56X44JC869;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -977,13 +996,14 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 				);
 				INFOPLIST_FILE = Hoops/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = co.hoopsapp.app.ios;
 				PRODUCT_NAME = Hoops;
 			};
 			name = Release;
