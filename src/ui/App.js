@@ -15,7 +15,7 @@ persistStore(store, {
   blacklist: ['navigation'],
 });
 
-userActions.registerWithStore(store);
+store.dispatch(userActions.registerWithStore());
 store.dispatch(interestsActions.load());
 
 export default class App extends Component {

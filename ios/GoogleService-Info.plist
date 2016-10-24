@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>741448821558-b3artfvl3bcf3l3me8f3l29qbg51slhs.apps.googleusercontent.com</string>
+	<string>741448821558-crctojiq41tmpci3bmsotclja5eq5dfg.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.741448821558-b3artfvl3bcf3l3me8f3l29qbg51slhs</string>
+	<string>com.googleusercontent.apps.741448821558-crctojiq41tmpci3bmsotclja5eq5dfg</string>
 	<key>API_KEY</key>
 	<string>AIzaSyA-4UQyJ2wfj9OfgX4zkTQeFscFxGQ_agE</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.reactjs.native.example.Hoops</string>
+	<string>co.hoopsapp.app.ios</string>
 	<key>PROJECT_ID</key>
 	<string>hoops-21a72</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:741448821558:ios:67e63a598a9dc0f0</string>
+	<string>1:741448821558:ios:1874193461e1e5b8</string>
 	<key>DATABASE_URL</key>
 	<string>https://hoops-21a72.firebaseio.com</string>
 </dict>

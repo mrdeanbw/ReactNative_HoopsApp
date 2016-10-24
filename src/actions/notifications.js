@@ -95,3 +95,10 @@ export const markUnread = (id) => {
     });
   };
 };
+
+export const receivePush = (notification) => {
+  return {
+    type: 'NOTIFICATION_PUSH',
+    notification,
+  };
+};
