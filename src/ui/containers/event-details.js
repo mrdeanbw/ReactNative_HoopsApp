@@ -44,6 +44,8 @@ class EventDetails extends React.Component {
             id: this.props.user.uid,
           },
         },
+        invites: this.props.invites.invitesById,
+        requests: this.props.requests.requestsById,
         interests: this.props.interests.interestsById,
       }
     );

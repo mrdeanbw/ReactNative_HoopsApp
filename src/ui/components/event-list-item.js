@@ -27,7 +27,12 @@ export default class EventListItem extends React.Component {
             {this.props.distance && <Text style={[StyleSheet.text, StyleSheet.eventListItem.distance]}>{this.props.distance}</Text>}
             <Text style={[StyleSheet.eventListItem.text, StyleSheet.eventListItem.title]} numberOfLines={1} ellipsizeMode="tail">{this.props.title}</Text>
             <Text style={[StyleSheet.eventListItem.text, StyleSheet.eventListItem.detail]} numberOfLines={2} ellipsizeMode="tail">
-              {_('players')} <Text style={StyleSheet.eventListItem.highlight}>{this.props.players}/{this.props.maxPlayers}</Text>{'\u00a0\u00a0|\u00a0\u00a0'}
+              {_('players')}&nbsp;
+              <Text style={StyleSheet.eventListItem.highlight}>
+                <Text>{this.props.players ? this.props.players.length : ''}</Text>
+                {this.props.maxPlayers && <Text>/{this.props.maxPlayers}</Text>}
+              </Text>
+              {'\u00a0\u00a0|\u00a0\u00a0'}
               {_('level')} <Text style={StyleSheet.eventListItem.highlight}>{this.props.level}</Text>{'\n'}
               <Text style={StyleSheet.eventListItem.venue}>{this.props.venue}</Text>{'\u00a0\u00a0|\u00a0\u00a0'}
               <Text style={StyleSheet.eventListItem.date}>{date}</Text>

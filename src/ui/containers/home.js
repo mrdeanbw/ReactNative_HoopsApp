@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {Home as _Home} from '../windows';
 import {user, navigation, search} from '../../actions';
 
+import inflateEvent from '../../data/inflaters/event';
+
 class Home extends React.Component {
 
   constructor() {
@@ -68,9 +70,13 @@ class Home extends React.Component {
 
     let events = eventIds.map((id) => {
       return this.props.events.eventsById[id];
+    }).filter(event => !!event).map(event => {
+      return inflateEvent(event, {
+        requests: this.props.requests.requestsById,
+        invites: this.props.invites.invitesById,
+        users: this.props.users.usersById,
+      });
     });
-
-    events = events.filter(event => !!event); //remove events that are undefined
 
     events = events.sort((a, b) => {
       return a.date > b.date ? 1 : -1;
@@ -100,6 +106,7 @@ class Home extends React.Component {
 export default connect(
   (state) => ({
     user: state.user,
+    users: state.users,
     events: state.events,
     requests: state.requests,
     invites: state.invites,

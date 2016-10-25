@@ -190,8 +190,13 @@ export default class EventDetails extends React.Component {
           <EventInfo.Bar>
             <EventInfo icon="attendees" label={_('attendees')}>
               <Text style={StyleSheet.eventDetails.eventInfoTextHighlight}>
-                {this.props.event.players}
-              </Text>{'/'}{this.props.event.maxPlayers}
+                {this.props.event.players.length}
+              </Text>
+              {this.props.event.maxPlayers && (
+                <Text>
+                  {'/'}{this.props.event.maxPlayers}
+                </Text>
+              )}
             </EventInfo>
             <EventInfo icon="activityBasketball" label={_('activity')}>{this.props.event.activity.name}</EventInfo>
             <EventInfo icon="calendarBig" label={_('dateAndTime')}>

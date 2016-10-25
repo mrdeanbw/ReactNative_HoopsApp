@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {Manage as _Manage} from '../windows';
 import {user, navigation} from '../../actions';
 
+import inflateEvent from '../../data/inflaters/event';
+
 class Manage extends React.Component {
 
   onPressEvent(event) {
@@ -16,7 +18,11 @@ class Manage extends React.Component {
 
   render() {
     let events = Object.keys(this.props.user.organizing).map(eventId => {
-      return this.props.events.eventsById[eventId];
+      return inflateEvent(this.props.events.eventsById[eventId], {
+        requests: this.props.requests.requestsById,
+        invites: this.props.invites.invitesById,
+        users: this.props.users.usersById,
+      });
     }).filter(event => !!event);
 
     return (
@@ -34,7 +40,10 @@ class Manage extends React.Component {
 export default connect(
   (state) => ({
     user: state.user,
+    users: state.users,
     events: state.events,
+    requests: state.requests,
+    invites: state.invites,
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),

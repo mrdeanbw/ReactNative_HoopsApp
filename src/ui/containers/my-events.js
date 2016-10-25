@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {MyEvents as _MyEvents} from '../windows';
 import {user, navigation} from '../../actions';
 
+import inflateEvent from '../../data/inflaters/event';
+
 class MyEvents extends React.Component {
 
   onPressEvent(event) {
@@ -22,19 +24,25 @@ class MyEvents extends React.Component {
     let savedEventIds = Object.keys(this.props.user.savedEvents);
     let connectedEventIds = requests.concat(invites).map(connection => {
       return connection.eventId;
-    });
+    }).concat(savedEventIds);
 
-    let events = connectedEventIds.map(id => {
+    let events = connectedEventIds.map((id) => {
       return this.props.events.eventsById[id];
-    }).filter(event => !!event);
+    }).filter(event => !!event).map(event => {
+      return inflateEvent(event, {
+        requests: this.props.requests.requestsById,
+        invites: this.props.invites.invitesById,
+        users: this.props.users.usersById,
+      });
+    });
 
     let history = events.filter((event) => {
       return (new Date(event.date) < new Date());
     });
 
-    let saved = savedEventIds.map(id => {
-      return this.props.events.eventsById[id];
-    }).filter(event => !!event);
+    let saved = events.filter(event => {
+      return event.id in this.props.user.savedEvents;
+    });
 
     let upcoming = events.filter((event) => {
       return (new Date(event.date) > new Date());
@@ -62,6 +70,7 @@ class MyEvents extends React.Component {
 export default connect(
   (state) => ({
     user: state.user,
+    users: state.users,
     events: state.events,
     requests: state.requests,
     invites: state.invites,
