@@ -61,13 +61,6 @@ export const sendFriendRequests = (userIds) => {
           toId: userId,
           status: 'pending',
         },
-        [`notifications/${notification.key}`]: {
-          date: new Date(),
-          read: false,
-          type: 'FRIEND_REQUEST',
-          friendRequestId: friendRequest.key,
-        },
-        [`userNotifications/${userId}/${notification.key}`]: true,
         [`users/${uid}/friendRequests/${friendRequest.key}`]: true,
         [`users/${userId}/friendRequests/${friendRequest.key}`]: true,
       });

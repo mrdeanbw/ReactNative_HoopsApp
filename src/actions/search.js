@@ -158,7 +158,7 @@ export const searchUsers = (params) => {
     };
 
     if(params.name) {
-      query.match.name = params.name;
+      query.match['publicProfile.name'] = params.name;
     }
 
     client.search('test/users', {query}).then((results) => {

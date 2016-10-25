@@ -1,5 +1,6 @@
 
 import {firebaseDb} from '../data/firebase';
+import FCM from 'react-native-fcm';
 
 import * as usersActions from './users';
 
@@ -75,8 +76,17 @@ export const declineFriendRequest = (friendRequest) => {
 };
 
 export const markRead = (id) => {
-  return dispatch => {
+  return (dispatch, getState) => {
     firebaseDb.child(`notifications/${id}/read`).set(true);
+
+    let state = getState();
+
+    //count unread notifications and set the badge
+    let unread = Object.keys(state.notifications.notificationsById).map(id => {
+      return state.notifications.notificationsById[id];
+    }).filter(notification => notification && notification.read === false);
+
+    FCM.setBadgeNumber(unread.length);
 
     dispatch({
       type: 'NOTIFICATION_MARK_READ',
