@@ -44,6 +44,15 @@ export default class CreateEvent extends React.Component {
     }
   };
 
+  getMaxPlayersLabel = () => {
+    let {maxPlayers} = this.state.eventDetails;
+    if(typeof maxPlayers === 'number' && !isNaN(maxPlayers) && maxPlayers !== 0){
+      return maxPlayers.toString();
+    }else{
+      return '';
+    }
+  };
+
   onComplete = () => {
     if(this.props.onComplete) {
       this.props.onComplete(this.state.eventDetails);
@@ -130,7 +139,7 @@ export default class CreateEvent extends React.Component {
 
 
           <Wizard.Step disabled={!this.validate(1)}>
-            <ScrollView contentContainerStyle={StyleSheet.padding}>
+            <ScrollView ref="scrollView1" contentContainerStyle={StyleSheet.padding}>
               <TextInput
                 value={this.state.eventDetails.title}
                 onChangeText={(title) => this.setEventData({title})}
@@ -208,6 +217,33 @@ export default class CreateEvent extends React.Component {
                 <ListInput.Item text={_('competitive')} value="competitive" />
                 <ListInput.Item text={_('open')} value="open" />
               </ListInput>
+
+              <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
+                <TextInput
+                  ref="maxPlayersInput"
+                  type="flat"
+                  keyboardType="numeric"
+                  placeholder={_('maxPlayers')}
+                  value={this.getMaxPlayersLabel()}
+                  onChangeText={maxPlayers => {
+                    this.setEventData({
+                      maxPlayers: maxPlayers === '' ? '' : parseInt(maxPlayers, 10)
+                    });
+                  }}
+                  style={{flex: 1, marginRight: 25}}
+                  onFocus={() => {
+                    this.scrollToInput(this.refs.scrollView1, this.refs.maxPlayersInput);
+                  }}
+                />
+                <Button
+                  type="roundedGrey"
+                  active={!this.state.eventDetails.maxPlayers}
+                  text={_('unlimited')}
+                  onPress={() => this.setEventData({maxPlayers: 0})}
+                  style={{width: 110}}
+                />
+              </View>
+
 
               <KeyboardSpacer/>
             </ScrollView>

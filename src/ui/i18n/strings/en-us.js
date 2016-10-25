@@ -194,6 +194,8 @@ export const publicEvent = 'Public Event';
 export const casual = 'Casual';
 export const competitive = 'Competitive';
 export const open = 'Open';
+export const maxPlayers = 'Max Players';
+export const unlimited = 'Unlimited';
 
 export const dateTime = 'Date / Time';
 export const time = 'Time';
