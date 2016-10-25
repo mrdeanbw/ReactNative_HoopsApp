@@ -6,6 +6,7 @@ import {
   navigation as navigationActions,
   user as userActions,
   notifications as notificationsActions,
+  requests as requestsActions,
 } from '../../actions';
 
 import inflateNotification from '../../data/inflaters/notification';
@@ -19,7 +20,9 @@ class Notifications extends React.Component {
         this.props.notifications.notificationsById[id],
         {
           friendRequests: this.props.notifications.friendRequestsById,
+          requests: this.props.requests.requestsById,
           users: this.props.users.usersById,
+          events: this.props.events.eventsById,
         }
       );
     }).filter(notification => !!notification);
@@ -39,6 +42,9 @@ class Notifications extends React.Component {
         onAcceptFriendRequest={this.props.onAcceptFriendRequest}
         onDeclineFriendRequest={this.props.onDeclineFriendRequest}
         onPressUserProfile={(user) => this.props.onNavigate('profile', {id: user.id})}
+        onPressEvent={(event) => this.props.onNavigate('eventDetails', {id: event.id})}
+        onAcceptEventRequest={this.props.onAcceptEventRequest}
+        onDeclineEventRequest={this.props.onDeclineEventRequest}
       />
     );
   }
@@ -49,6 +55,8 @@ export default connect(
     user: state.user,
     users: state.users,
     notifications: state.notifications,
+    requests: state.requests,
+    events: state.events,
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
@@ -62,6 +70,14 @@ export default connect(
     },
     onDeclineFriendRequest: (notification) => {
       dispatch(notificationsActions.declineFriendRequest(notification.friendRequest));
+      dispatch(notificationsActions.markRead(notification.id));
+    },
+    onAcceptEventRequest: (notification) => {
+      dispatch(requestsActions.allow(notification.request));
+      dispatch(notificationsActions.markRead(notification.id));
+    },
+    onDeclineEventRequest: (notification) => {
+      dispatch(requestsActions.decline(notification.request));
       dispatch(notificationsActions.markRead(notification.id));
     },
   }),

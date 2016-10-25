@@ -9,6 +9,7 @@ const initialState = {
 
 const recognisedTypes = {
   FRIEND_REQUEST: true,
+  EVENT_REQUEST: true,
 };
 
 export default handleActions({

@@ -318,3 +318,7 @@ export const friendRequest = 'Friend Request';
 export const friendRequestPendingDescription = '$0 would like to become friends.';
 export const friendRequestDeclinedDescription = 'You declined $0\'s friend request';
 export const friendRequestConfirmedDescription = 'You are now friends with $0.';
+export const eventRequest = 'Request to join your event';
+export const eventRequestPendingDescription = '$0 would like to join your event $1';
+export const eventRequestDeclinedDescription = 'You declined $0\'s event request';
+export const eventRequestConfirmedDescription = '$0 is now attending your event';

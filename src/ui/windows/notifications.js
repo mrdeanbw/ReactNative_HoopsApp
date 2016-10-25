@@ -20,6 +20,7 @@ export default class Notifications extends React.Component {
 
     this.ComponentMap = {
       FRIEND_REQUEST: FriendRequestNotification,
+      EVENT_REQUEST: EventRequestNotification,
     };
   }
 
@@ -49,6 +50,9 @@ export default class Notifications extends React.Component {
                 onAcceptFriendRequest={this.props.onAcceptFriendRequest}
                 onDeclineFriendRequest={this.props.onDeclineFriendRequest}
                 onPressUserProfile={this.props.onPressUserProfile}
+                onPressEvent={this.props.onPressEvent}
+                onAcceptEventRequest={this.props.onAcceptEventRequest}
+                onDeclineEventRequest={this.props.onDeclineEventRequest}
               />
             );
           })}
@@ -219,6 +223,78 @@ class FriendRequestNotification extends React.Component {
         image={{uri: user.imageSrc}}
         highlight={status === 'pending'}
         title={_('friendRequest')}
+        description={description}
+        date={new Date(this.props.notification.date)}
+        onPress={this.props.onPress}
+        showOptions={this.props.showOptions}
+        onHideOptions={this.props.onHideOptions}
+        options={options}
+      />
+    );
+  }
+}
+
+class EventRequestNotification extends React.Component {
+  render() {
+    let user = this.props.notification.request.user;
+    let event = this.props.notification.request.event;
+    let status = this.props.notification.request.status;
+
+    let description;
+
+    let options = [{
+      type: "alertVertical",
+      text: _('viewProfile'),
+      onPress: () => {
+        this.props.onPressUserProfile(user);
+      }
+    },{
+      type: "alertVertical",
+      text: _('eventDetails'),
+      onPress: () => {
+        this.props.onPressEvent(event);
+      }
+    }];
+
+    if(status === 'pending') {
+      description = replaceText(
+        _('eventRequestPendingDescription'),
+        <Text style={StyleSheet.notification.highlight}>{user.name}</Text>,
+        <Text style={StyleSheet.notification.highlight}>{event.title}</Text>
+      );
+      options = options.concat([{
+        type: "alertVertical",
+        text: _('accept'),
+        onPress: () => {
+          this.props.onAcceptEventRequest(this.props.notification);
+        },
+      },{
+        type: "alertVertical",
+        text: _('decline'),
+        onPress: () => {
+          this.props.onDeclineEventRequest(this.props.notification);
+        },
+      }]);
+    }else if(status === 'declined'){
+      description = replaceText(
+        _('eventRequestDeclinedDescription'),
+        <Text style={StyleSheet.notification.highlight}>{user.name}</Text>,
+      );
+    } else if(status === 'confirmed') {
+      description = replaceText(
+        _('eventRequestConfirmedDescription'),
+        <Text style={StyleSheet.notification.highlight}>{user.name}</Text>,
+      );
+    } else {
+      //The status could be 'cancelled'. In which case we just render nothing
+      return null;
+    }
+
+    return (
+      <NotificationRow
+        image={{uri: user.imageSrc}}
+        highlight={status === 'pending'}
+        title={_('eventRequest')}
         description={description}
         date={new Date(this.props.notification.date)}
         onPress={this.props.onPress}

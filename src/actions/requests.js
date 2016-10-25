@@ -87,6 +87,15 @@ export const allow = (request) => {
   };
 };
 
+export const decline = (request) => {
+  return (dispatch, getState) => {
+    firebaseDb.update({
+      [`requests/${request.id}/status`]: 'declined',
+      [`users/${request.userId}/requests/${request.id}`]: null,
+    });
+  };
+};
+
 export const cancel = (request) => {
   return (dispatch, getState) => {
     let state = getState();

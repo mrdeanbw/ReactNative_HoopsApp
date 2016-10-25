@@ -13,6 +13,20 @@ export default (notification, extra) => {
     }
   }
 
+  if(notification.type === 'EVENT_REQUEST' && extra.requests) {
+    notification.request = {
+      ...extra.requests[notification.requestId]
+    };
+
+    if(notification.request && extra.users) {
+      notification.request.user = extra.users[notification.request.userId];
+    }
+
+    if(notification.request && extra.events) {
+      notification.request.event = extra.events[notification.request.eventId];
+    }
+  }
+
   return notification;
 
 };
