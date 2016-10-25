@@ -152,7 +152,12 @@ export const createCard = (data) => {
         'Authorization': 'Bearer ' + stripePublicKey,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: query,
+      /*
+       * We wrap body in an array to get around react-native-fetch-blob interference
+       * We should look into alternatives to using react-native-fetch-blob as it
+       * is breaking the expected functionality of fetch()
+       */
+      body: [query],
     }).then(response => {
       if(!response.ok) {
         return response.json().then(obj => {
