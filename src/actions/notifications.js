@@ -19,6 +19,7 @@ export const load = (id) => {
       });
 
       if(notification.type === 'FRIEND_REQUEST') {
+        //TODO: is this needed? Maybe users/friendRequests/id is already watched?
         dispatch(usersActions.loadFriendRequest(notification.friendRequestId));
       }
     });
