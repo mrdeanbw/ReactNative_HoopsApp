@@ -48,5 +48,13 @@ export default (event, extra) => {
     event.activity = extra.interests[event.activity];
   }
 
+  if(extra.requests && extra.invites && extra.users) {
+    event.players = event.requests.concat(event.invites).filter(connection => {
+      return connection.status === 'confirmed';
+    }).map(connection => {
+      return connection.user;
+    });
+  }
+
   return event;
 };
