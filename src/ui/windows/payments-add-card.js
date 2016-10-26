@@ -10,11 +10,17 @@ export default class PaymentsBankSetup extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+    /* Stripe test details:
       cardNumber: '4242424242424242',
       expiryMonth: '12',
       expiryYear: '17',
       cvc: '123',
+    */
+    this.state = {
+      cardNumber: '',
+      expiryMonth: '',
+      expiryYear: '',
+      cvc: '',
     };
   }
 

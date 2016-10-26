@@ -15,13 +15,28 @@ export default class CreateEvent extends React.Component {
   constructor() {
     super();
     this.state = {
-      gallery: true,
       addressText: '',
       addressAutocomplete: [],
       activityText: '',
       eventDetails: {
+        title: '',
         activity: {},
+        gender: '',
+        ageGroup: '',
+        privacy: '',
+        level: '',
+        maxPlayers: 0,
+
+        date: null,
+        courtType: '',
+        recurring: false,
+        venueName: '',
         address: {},
+        entryFee: 0,
+        paymentMethod: '',
+        deadline: null,
+
+        description: 'xx',
       },
     };
   }
