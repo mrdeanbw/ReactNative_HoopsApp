@@ -117,7 +117,7 @@ export default class EventDetails extends React.Component {
           event={this.props.event}
           onPressCancel={() => this.setState({showJoinPopup: false})}
           onPressJoin={this.onPressJoin}
-          charge={0.5}
+          charge={this.props.event.entryFee ? 0.5 : 0}
         />
         <EventJoinedConfirmation
           visible={this.state.showJoinedConfirmation}
@@ -332,7 +332,7 @@ class EventJoinPopup extends React.Component {
             text={
               <Text>
                 <Text>{_('join').toUpperCase()} £{event.entryFee}</Text>
-                {this.props.charge && (
+                {this.props.charge > 0 && (
                   <Text>(+{formatCharge(this.props.charge)})</Text>
                 )}
               </Text>
