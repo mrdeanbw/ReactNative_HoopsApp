@@ -82,7 +82,6 @@ export const allow = (request) => {
   return (dispatch, getState) => {
     firebaseDb.update({
       [`requests/${request.id}/status`]: 'confirmed',
-      [`users/${request.userId}/requests/${request.id}`]: null,
     });
   };
 };
@@ -91,7 +90,6 @@ export const decline = (request) => {
   return (dispatch, getState) => {
     firebaseDb.update({
       [`requests/${request.id}/status`]: 'declined',
-      [`users/${request.userId}/requests/${request.id}`]: null,
     });
   };
 };
@@ -102,7 +100,6 @@ export const cancel = (request) => {
     let uid = state.user.uid;
     firebaseDb.update({
       [`requests/${request.id}/status`]: 'cancelled',
-      [`users/${uid}/requests/${request.id}`]: null,
     });
   };
 };
