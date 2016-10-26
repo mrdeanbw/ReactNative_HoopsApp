@@ -7,7 +7,7 @@ import {handleActions} from 'redux-actions';
 export const convertStructure = (data) => {
   data = {
     //defaults
-    availability: true,
+    availability: null,
     organizing: {},
     invites: {},
     requests: {},
@@ -42,6 +42,7 @@ export const convertStructure = (data) => {
     data.gender = data.publicProfile.gender;
     data.city = data.publicProfile.city;
     data.interests = data.publicProfile.interests;
+    data.availability = data.publicProfile.availability;
     delete data.publicProfile;
   }
 
