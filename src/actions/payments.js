@@ -266,7 +266,13 @@ export const getTransactions = () => {
   };
 };
 
-export const pay = (event) => {
+/*
+ * @param event {Event}
+ * @param invite {Invite or null}
+ *
+ * If the payment is in response to an invitation from an organizer, use invite param
+ */
+export const pay = (event, invite = null) => {
   return (dispatch, getState) => {
     let state = getState();
     let uid = state.user.uid;
@@ -286,6 +292,7 @@ export const pay = (event) => {
     });
 
     post('charge', {
+      inviteId: invite ? invite.id : null,
       eventId: event.id,
       customerId: state.user.stripeCustomer,
       cardId: cardId,

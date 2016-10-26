@@ -87,7 +87,9 @@ class EventDetails extends React.Component {
           }
         }}
         onPressJoin={() => {
-          if(this.props.payments.cards.length > 0) {
+          if(event.entryFee === 0) {
+            this.props.onJoin(this.props.id);
+          } else if(this.props.payments.cards.length > 0) {
             this.props.onJoin(this.props.id);
           } else {
             this.setState({isAwaitingCard: true});

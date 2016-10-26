@@ -3,7 +3,7 @@ import _ from '../i18n';
 
 import React from 'react';
 
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, Text} from 'react-native';
 
 import StyleSheet from '../styles';
 
@@ -109,14 +109,22 @@ export default class Invitations extends React.Component {
 
   renderReceivedPopup() {
     let invite = this.state.receivedPopupInvite;
-    let name = invite ? invite.event.organizer.name : '';
+    if(!invite) {
+      return;
+    }
+
+    let name = invite.event.organizer.name;
+    let acceptText = invite.event.entryFee === 0 ? _('accept') : (
+      <Text>{_('accept')} £{invite.event.entryFee}(+50p)</Text>
+    );
+
     return (
       <Popup
         visible={!!invite}
         style={[StyleSheet.popupContainer]}
         onClose={() => this.setState({receivedPopupInvite: null})}
       >
-        <Button type="alertVerticalGreen" text={_('accept')} onPress={() => this.onPressAccept(invite)} />
+        <Button type="alertVerticalGreen" text={acceptText} onPress={() => this.onPressAccept(invite)} />
         <Button type="alertVerticalDefault" text={_('decline')} onPress={() => this.onPressDecline(invite)} />
         <Button type="alertVertical" text={_('eventDetails')} onPress={() => this.onPressEventDetails(invite.event)} />
         <Button type="alertVertical" text={_('userDetails')} onPress={() => this.onPressUserDetails(invite.event.organizer)} />
@@ -155,7 +163,7 @@ export default class Invitations extends React.Component {
               level={invite.event.level}
               venueName={invite.event.venueName}
               date={invite.event.date}
-              free={true}
+              free={invite.event.entryFee === 0}
               distance={this.props.mode === 'PARTICIPATE' ? "0.8 mi" : null}
             />
           ))}

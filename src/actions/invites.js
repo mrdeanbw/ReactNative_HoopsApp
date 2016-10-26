@@ -3,6 +3,7 @@ import {firebaseDb} from '../data/firebase';
 
 import * as eventsActions from './events';
 import * as usersActions from './users';
+import * as paymentsActions from './payments';
 
 const inviteRef = firebaseDb.child('invites');
 
@@ -72,10 +73,14 @@ export const load = (id) => {
 };
 
 export const accept = (invite) => {
-  return dispatch => {
-    firebaseDb.update({
-      [`invites/${invite.id}/status`]: 'confirmed',
-    });
+  return (dispatch, getState) => {
+    if(invite.event.entryFee === 0) {
+      firebaseDb.update({
+        [`invites/${invite.id}/status`]: 'confirmed',
+      });
+    } else {
+      dispatch(paymentsActions.pay(invite.event, invite));
+    }
   };
 };
 

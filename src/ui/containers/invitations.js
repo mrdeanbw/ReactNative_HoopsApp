@@ -14,6 +14,25 @@ import inflateRequest from '../../data/inflaters/request';
 
 class Invitations extends React.Component {
 
+  constructor() {
+    super();
+    this.state = {
+      awaitingCardForInvite: null,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    //If the first card has been added and we are waiting for one.
+    //Use it to pay for the current event
+    if(
+      this.state.awaitingCardForInvite &&
+      this.props.payments.cards.length === 0 &&
+      nextProps.payments.cards.length === 1
+    ) {
+      this.props.onPressAccept(this.state.awaitingCardForInvite);
+    }
+  }
+
   render() {
 
     let received = Object.keys(this.props.user.invites).map(id => {
@@ -69,7 +88,16 @@ class Invitations extends React.Component {
         onPressEventDetails={(event) => {
           this.props.onNavigate('eventDetails', {id: event.id});
         }}
-        onPressAccept={this.props.onPressAccept}
+        onPressAccept={(invite) => {
+          if(invite.event.entryFee === 0) {
+            this.props.onPressAccept(invite);
+          } else if(this.props.payments.cards.length > 0) {
+            this.props.onPressAccept(invite);
+          } else {
+            this.setState({awaitingCardForInvite: invite});
+            this.props.onNavigate('addCard', {}, false);
+          }
+        }}
         onPressDecline={this.props.onPressDecline}
       />
     );
@@ -83,9 +111,10 @@ export default connect(
     invites: state.invites,
     requests: state.requests,
     events: state.events,
+    payments: state.payments,
   }),
   (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
+    onNavigate: (key, props, subTab) => dispatch(navigationActions.push({key, props}, subTab)),
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onToggleMode: () => dispatch(userActions.toggleMode()),
 
