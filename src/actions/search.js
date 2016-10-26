@@ -121,8 +121,8 @@ export const nearby = (params) => {
       _geo_distance: {
         order: "desc",
         addressCoords: {
-          lat: 53,
-          lon: 0
+          lat: params.lat,
+          lon: params.lon,
         }
       }
     }];

@@ -41,7 +41,9 @@ export default class Home extends React.Component {
   }
 
   render() {
-    let annotations = this.props.nearby.map(item => {
+    let annotations = this.props.nearby.filter(item => {
+      return item.event && item.event.addressCoords;
+    }).map(item => {
       return {
         latitude: item.event.addressCoords.lat,
         longitude: item.event.addressCoords.lon,
@@ -66,7 +68,9 @@ export default class Home extends React.Component {
       let location = this.props.location;
 
       //Calculate the maximum lat/lon delta
-      let maxDelta = this.props.nearby.reduce((prev, item) => {
+      let maxDelta = this.props.nearby.filter(item => {
+        return item && item.event && item.event.addressCoords;
+      }).reduce((prev, item) => {
         let coords = item.event.addressCoords;
 
         let delta = Math.max(

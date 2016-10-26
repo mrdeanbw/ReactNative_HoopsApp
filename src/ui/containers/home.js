@@ -36,8 +36,8 @@ class Home extends React.Component {
   componentWillUpdate(nextProps, nextState) {
     if(!this.state.location.lat && nextState.location.lat) {
       this.props.onSearchNearby({
-        geospatial: {
-        },
+        lat: nextState.location.lat,
+        lon: nextState.location.lon,
       });
     }
   }
