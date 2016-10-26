@@ -35,7 +35,7 @@ export default class Manage extends React.Component {
               title={event.title}
               players={event.players} maxPlayers={event.maxPlayers}
               level={event.level}
-              venue={event.venue}
+              venueName={event.venueName}
               date={event.date}
             />
           )}

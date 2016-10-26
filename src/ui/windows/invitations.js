@@ -153,7 +153,7 @@ export default class Invitations extends React.Component {
               players={invite.event.players}
               maxPlayers={invite.event.maxPlayers}
               level={invite.event.level}
-              venue={invite.event.venue}
+              venueName={invite.event.venueName}
               date={invite.event.date}
               free={true}
               distance={this.props.mode === 'PARTICIPATE' ? "0.8 mi" : null}

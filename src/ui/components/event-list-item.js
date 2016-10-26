@@ -1,4 +1,5 @@
 
+import moment from 'moment';
 import _ from '../i18n';
 
 import React from 'react';
@@ -11,7 +12,10 @@ import StyleSheet from '../styles';
 export default class EventListItem extends React.Component {
 
   render() {
-    let date = this.props.date;
+    let date = moment(this.props.date).calendar(null, {
+      sameDay: "[Today], HH:mm",
+      nextDay: "[Yesterday], HH:mm",
+    });
 
     return (
       <TouchableHighlight style={[StyleSheet.eventListItem.container, this.props.style]}
@@ -34,7 +38,7 @@ export default class EventListItem extends React.Component {
               </Text>
               {'\u00a0\u00a0|\u00a0\u00a0'}
               {_('level')} <Text style={StyleSheet.eventListItem.highlight}>{this.props.level}</Text>{'\n'}
-              <Text style={StyleSheet.eventListItem.venue}>{this.props.venue}</Text>{'\u00a0\u00a0|\u00a0\u00a0'}
+              <Text style={StyleSheet.eventListItem.venue}>{this.props.venueName}</Text>{'\u00a0\u00a0|\u00a0\u00a0'}
               <Text style={StyleSheet.eventListItem.date}>{date}</Text>
             </Text>
           </View>
