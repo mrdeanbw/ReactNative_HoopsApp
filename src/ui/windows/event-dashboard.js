@@ -82,7 +82,7 @@ export default class EventDashboard extends React.Component {
               underlayColor={StyleSheet.buttons.dashboard.highlightGradient[4]}
               onPress={this.props.onPressFinances}/>
 
-          {this.props.event.private && <Button type="dashboard"
+          {this.props.event.privacy === 'private' && <Button type="dashboard"
               text={_('requests')}
               style={ StyleSheet.buttons.dashboard.gradient[5]}
               underlayColor={StyleSheet.buttons.dashboard.highlightGradient[5]}
