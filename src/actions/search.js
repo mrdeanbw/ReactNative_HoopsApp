@@ -1,6 +1,8 @@
 
 import * as elasticsearch from '../data/elasticsearch';
-const client = new elasticsearch.Client({host: 'http://localhost:9200'});
+
+//TODO This access directly to elasticsearch is not secure. We need to get a paid plan
+const client = new elasticsearch.Client({host: 'https://1nskag9:to8ns327hsvi000s@dogwood-428370.us-east-1.bonsai.io'});
 
 import * as events from './events';
 import * as navigation from './navigation';
