@@ -234,8 +234,6 @@ export default class EventDetails extends React.Component {
           <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionTitleTextStyle]}>{_('notes')}</Text>
           <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionBodyTextStyle]}>{this.props.event.notes}</Text>
 
-
-          <MapView icon="list" title={_('similarEvents')} style={StyleSheet.eventDetails.mapViewStyle}/>
         </ScrollView>
       </View>
     );
