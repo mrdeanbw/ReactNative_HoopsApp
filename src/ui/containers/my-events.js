@@ -24,7 +24,7 @@ class MyEvents extends React.Component {
     let savedEventIds = Object.keys(this.props.user.savedEvents);
     let connectedEventIds = requests.concat(invites).map(connection => {
       return connection.eventId;
-    }).concat(savedEventIds);
+    });
 
     let events = connectedEventIds.map((id) => {
       return this.props.events.eventsById[id];
@@ -40,7 +40,15 @@ class MyEvents extends React.Component {
       return (new Date(event.date) < new Date());
     });
 
-    let saved = events.filter(event => {
+    let saved = savedEventIds.map(id => {
+      return this.props.events.eventsById[id];
+    }).map(event => {
+      return inflateEvent(event, {
+        requests: this.props.requests.requestsById,
+        invites: this.props.invites.invitesById,
+        users: this.props.users.usersById,
+      });
+    }).filter(event => {
       return event.id in this.props.user.savedEvents;
     });
 
