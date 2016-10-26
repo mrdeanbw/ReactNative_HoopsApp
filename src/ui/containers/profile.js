@@ -8,6 +8,8 @@ import {
   navigation as navigationActions,
 } from '../../actions';
 
+import inflateEvent from '../../data/inflaters/event';
+
 class Profile extends React.Component {
   render() {
     let profile;
@@ -21,6 +23,12 @@ class Profile extends React.Component {
     let eventIds = Object.keys(profile.organizing);
     let events = eventIds.map((eventId) => {
       return this.props.events.eventsById[eventId];
+    }).map(event => {
+      return inflateEvent(event, {
+        users: this.props.users.usersById,
+        invites: this.props.invites.invitesById,
+        requests: this.props.requests.requestsById,
+      });
     }).filter(event => !!event);
 
     let isFriend = profile.id in this.props.user.friends;
@@ -52,7 +60,10 @@ class Profile extends React.Component {
         isPending={isPending}
         onPressAddFriend={() => this.props.sendFriendRequest(profile)}
         onPressRemoveFriend={() => this.props.removeFriend(profile)}
-        onPressEditProfile={() => this.props.onNavigate('profileEdit')}
+        onPressEditProfile={() => this.props.onNavigate('profileEdit', {}, false)}
+        onPressEvent={(event) => {
+          this.props.onNavigate('eventDetails', {id: event.id}, true);
+        }}
         me={this.props.user}
         upcoming={events}
         onChangeAvailability={this.props.onChangeAvailability}
@@ -72,9 +83,13 @@ export default connect(
     events: state.events,
     notifications: state.notifications,
     interests: state.interests,
+    requests: state.requests,
+    invites: state.invites,
   }),
   (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, false)),
+    onNavigate: (key, props, subTab) => {
+      dispatch(navigationActions.push({key, props}, subTab));
+    },
     onChangeAvailability: (value) => dispatch(userActions.setAvailability(value)),
     removeFriend: (user) => dispatch(userActions.removeFriend(user)),
     sendFriendRequest: (user) => dispatch(usersActions.sendFriendRequests([user.id])),

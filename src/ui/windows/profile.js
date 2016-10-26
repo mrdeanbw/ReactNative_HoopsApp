@@ -18,10 +18,6 @@ export default class Profile extends React.Component {
     this.props.onChangeAvailability(value);
   };
 
-  onPressEvent = (event) => {
-
-  };
-
   render() {
     const profile = this.props.profile;
     const name = profile.name;
@@ -122,8 +118,9 @@ export default class Profile extends React.Component {
         {this.props.upcoming.map(event =>
           <EventListItem
             key={event.id}
-            onPress={() => this.onPressEvent(event)}
+            onPress={() => this.props.onPressEvent(event)}
             image={StyleSheet.images[event.image]}
+            image={{uri: event.imageSrc}}
             title={event.title}
             players={event.players} maxPlayers={event.maxPlayers}
             level={event.level}
