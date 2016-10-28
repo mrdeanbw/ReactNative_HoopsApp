@@ -11,4 +11,9 @@ export default StyleSheet => StyleSheet.extend({
     backgroundColor: colors.black,
   },
 
+  popup: {
+    paddingVertical: 25,
+    paddingHorizontal: 50,
+  },
+
 })
