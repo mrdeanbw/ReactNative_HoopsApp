@@ -82,10 +82,25 @@ const initialState = {
 
 export default handleActions({
 
+  'persist/REHYDRATE': (state, action) => {
+    return {
+      ...state,
+      isSigningIn: false,
+      isSigningUp: false,
+    };
+  },
+
   FIREBASE_AUTH_INIT: (state, action) => {
     return {
       ...state,
       uid: action.uid,
+    };
+  },
+
+  USER_SIGN_IN_FORM_EDIT: (state, action) => {
+    return {
+      ...state,
+      signInError: null,
     };
   },
 

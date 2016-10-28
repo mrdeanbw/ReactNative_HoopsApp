@@ -4,30 +4,23 @@ import _ from '../i18n';
 import React from 'react';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
-import {ScrollView, View, Image} from 'react-native';
+import {View, Image, Text} from 'react-native';
 import StyleSheet from '../styles';
 
 import Button from '../components/button';
 import HorizontalRule from '../components/horizontal-rule';
 import HighlightText from '../components/highlight-text';
 import TextInput from '../components/text-input';
-
+import Form from '../components/form';
+import LoadingAlert from '../components/loading-alert';
 
 export default class Login extends React.Component {
-
-  static getTest(close) {
-    return {
-      title: 'Login',
-      view: Login,
-      viewProps: { onClose: close }
-    };
-  }
 
   constructor(props) {
     super(props);
 
     this.state = {
-      username: '',
+      email: '',
       password: '',
     };
   }
@@ -37,7 +30,7 @@ export default class Login extends React.Component {
   };
 
   onPressSignIn = () => {
-    this.props.onSignIn(this.state.username, this.state.password);
+    this.props.onSignIn(this.state.email, this.state.password);
   };
 
   onPressFacebookLogin = () => {
@@ -45,8 +38,23 @@ export default class Login extends React.Component {
   };
 
   render() {
+    let errorCode = this.props.signInError && this.props.signInError.code;
+    let emailError = [
+      'auth/invalid-email',
+      'auth/user-not-found',
+      'auth/user-disabled'
+    ].indexOf(errorCode) !== -1;
+    let passwordError = [
+      'auth/wrong-password',
+    ].indexOf(errorCode) !== -1;
+
     return (
-      <ScrollView contentContainerStyle={StyleSheet.login.style} bounces={false}>
+      <Form
+        contentContainerStyle={StyleSheet.login.style}
+        bounces={false}
+      >
+        {this.props.isLoading && <LoadingAlert/>}
+
         <View style={StyleSheet.login.containerStyle}>
           <View>
             <Image source={StyleSheet.images.login} style={StyleSheet.login.titleImageStyle}>
@@ -61,13 +69,26 @@ export default class Login extends React.Component {
           </View>
 
           <View style={StyleSheet.login.contentStyle}>
+            {errorCode === 'auth/invalid-email' && (
+              <Text style={StyleSheet.login.errorText}>Invalid email</Text>
+            )}
+            {errorCode === 'auth/user-not-found' && (
+              <Text style={StyleSheet.login.errorText}>User not found</Text>
+            )}
+            {errorCode === 'auth/user-disabled' && (
+              <Text style={StyleSheet.login.errorText}>User is disabled</Text>
+            )}
             <TextInput
-              value={this.state.username}
-              onChangeText={(username) => this.setState({username})}
+              value={this.state.email}
+              onChangeText={(email) => {
+                this.setState({email});
+                this.props.onFormEdit();
+              }}
+              error={emailError}
               type="rounded"
-              ref="username"
-              icon="name"
-              placeholder={_('username')}
+              ref="email"
+              icon="email"
+              placeholder={_('email')}
               autoCapitalize="none"
               autoCorrect={false}
               returnKeyType="next"
@@ -76,9 +97,16 @@ export default class Login extends React.Component {
               onSubmitEditing={() => this.onSubmitEditing("password")}
             />
 
+            {errorCode === 'auth/wrong-password' && (
+              <Text style={StyleSheet.login.errorText}>Invalid password</Text>
+            )}
             <TextInput
               value={this.state.password}
-              onChangeText={(password) => this.setState({password})}
+              onChangeText={(password) => {
+                this.setState({password});
+                this.props.onFormEdit();
+              }}
+              error={passwordError}
               type="rounded"
               ref="password"
               icon="password"
@@ -98,7 +126,7 @@ export default class Login extends React.Component {
           </View>
         </View>
         <KeyboardSpacer/>
-      </ScrollView>
+      </Form>
     );
   }
 }

@@ -15,6 +15,13 @@ export default StyleSheet => StyleSheet.extend({
     justifyContent: 'flex-start',
   },
 
+  errorText: {
+    paddingTop: 10,
+    color: colors.pink,
+    fontSize: 12,
+    textAlign: 'center',
+  },
+
   titleStyle: {
     backgroundColor: colors.black,
     flexDirection: 'column',

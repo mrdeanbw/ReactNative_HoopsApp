@@ -25,6 +25,10 @@ export const signIn = (email, password) => {
   };
 };
 
+export const signInFormEdit = () => ({
+  type: 'USER_SIGN_IN_FORM_EDIT',
+});
+
 /**
  * @param method {String} 'facebook' or 'email'
  */

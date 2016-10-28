@@ -63,7 +63,15 @@ export default class TextInput extends React.Component {
         />)}
         {touchable(
           <View style={{flex: 1, flexDirection: 'row', alignItems: 'flex-end'}}>
-            <View style={[defaultTextInput.style, textInput.style, style, {flex: 1}]}>
+            <View
+              style={[
+                defaultTextInput.style,
+                textInput.style,
+                style,
+                this.props.error ? StyleSheet.textInputs.error : null,
+                {flex: 1}
+              ]}
+            >
               {icon && <Icon name={icon} active={active} style={[defaultTextInput.iconStyle, textInput.iconStyle, iconStyle]}/>}
               {view &&
                 <Text style={[defaultTextInput.textStyle, textInput.textStyle, textStyle]}>
@@ -80,7 +88,7 @@ export default class TextInput extends React.Component {
                 ]} numberOfLines={1}>{this.props.value && this.props.value.replace(/\s+/g, ' ') || this.props.placeholder}</Text> ||
                 <_TextInput ref="input"
                       style={[StyleSheet.text, defaultTextInput.textStyle, textInput.textStyle, textStyle, {flex: 1}]}
-                      placeholderTextColor={textInput.placeholderTextColor || defaultTextInput.placeholderTextColor}
+                      placeholderTextColor={this.props.error ? StyleSheet.textInputs.errorPlaceholderColor : textInput.placeholderTextColor || defaultTextInput.placeholderTextColor}
                       selectionColor={textInput.selectionColor || defaultTextInput.selectionColor}
                       keyboardAppearance={textInput.keyboardAppearance || defaultTextInput.keyboardAppearance}
                       multiline={multiline}

@@ -11,6 +11,9 @@ class Login extends React.Component {
       <_Login
         onSignIn={this.props.onSignIn}
         onFacebookSignIn={this.props.onFacebookSignIn}
+        signInError={this.props.user.signInError}
+        onFormEdit={this.props.onFormEdit}
+        isLoading={this.props.user.isSigningIn}
       />
     );
   }
@@ -18,9 +21,11 @@ class Login extends React.Component {
 
 export default connect(
   (state) => ({
+    user: state.user,
   }),
   (dispatch) => ({
-    onSignIn: (username, password) => dispatch(actions.signIn(username, password)),
+    onSignIn: (email, password) => dispatch(actions.signIn(email, password)),
     onFacebookSignIn: () => dispatch(actions.facebookSignIn()),
+    onFormEdit: () => dispatch(actions.signInFormEdit()),
   }),
 )(Login);
