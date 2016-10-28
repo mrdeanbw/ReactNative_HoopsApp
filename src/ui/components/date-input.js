@@ -44,6 +44,14 @@ export default class DateInput extends React.Component {
 
     const _value = moment(this.props.value);
 
+    let format = 'Do MMMM YYYY';
+    if(!this.props.hideDay) {
+      format = 'dddd ' + format;
+    }
+    if(this.props.time) {
+      format = 'HH:mm ' + format;
+    }
+
     return (
       <View>
         <Popup
@@ -56,6 +64,7 @@ export default class DateInput extends React.Component {
         >
           <DatePicker
             value={this.state.value && new Date(this.state.value)}
+            minValue={this.props.minValue}
             date={'date' in this.props ? this.props.date : true}
             time={!!this.props.time}
             onClose={() => this.setState({showPopup: false})}
@@ -78,7 +87,7 @@ export default class DateInput extends React.Component {
                 this.props.textStyle,
                 !this.props.value && { color: this.props.placeholderTextColor || textInput.placeholderTextColor || defaultTextInput.placeholderTextColor }
               ]}>
-                {this.props.value ? _value.format('HH:mm dddd Do MMMM YYYY') : placeholder}
+                {this.props.value ? _value.format(format) : placeholder}
               </Text>
             } {...props} />
             <View style={[defaultTextInput.barStyle, textInput.barStyle]}>{rightBar}</View>

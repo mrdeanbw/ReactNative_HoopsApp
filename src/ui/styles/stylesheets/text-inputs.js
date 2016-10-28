@@ -200,8 +200,6 @@ export default StyleSheet => StyleSheet.escape({
 
   error: {
     backgroundColor: '#FBE3EA',
-    borderColor: colors.pink,
-    borderWidth: 1,
   },
 
   errorPlaceholderColor: colors.pink,

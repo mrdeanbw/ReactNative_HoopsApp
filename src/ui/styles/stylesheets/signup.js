@@ -1,4 +1,6 @@
 
+import {colors} from '../resources';
+
 export default StyleSheet => StyleSheet.extend({
   style: {
     paddingTop: 30,
@@ -11,7 +13,12 @@ export default StyleSheet => StyleSheet.extend({
     marginRight: 16
   },
 
-
+  errorText: {
+    paddingTop: 10,
+    color: colors.pink,
+    fontSize: 12,
+    textAlign: 'center',
+  },
 
   separator: {
     flexDirection: 'row',
@@ -64,7 +71,7 @@ export default StyleSheet => StyleSheet.extend({
 
   eye: {
     position: 'absolute',
-    top: 3,
     right: 0,
+    bottom: 12,
   },
 })

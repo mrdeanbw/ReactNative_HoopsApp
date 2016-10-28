@@ -9,7 +9,7 @@ export default class LoadingAlert extends React.Component {
     return (
       <Popup visible={this.props.visible}>
         <View style={StyleSheet.loading.popup}>
-          <ActivityIndicator/>
+          <ActivityIndicator color={StyleSheet.colors.pink}/>
         </View>
       </Popup>
     );

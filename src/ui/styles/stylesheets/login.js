@@ -22,6 +22,11 @@ export default StyleSheet => StyleSheet.extend({
     textAlign: 'center',
   },
 
+  errorTextInput: {
+    borderColor: colors.pink,
+    borderWidth: 1,
+  },
+
   titleStyle: {
     backgroundColor: colors.black,
     flexDirection: 'column',

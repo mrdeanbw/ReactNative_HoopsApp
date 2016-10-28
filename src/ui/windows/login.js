@@ -84,6 +84,7 @@ export default class Login extends React.Component {
                 this.setState({email});
                 this.props.onFormEdit();
               }}
+              style={emailError && StyleSheet.login.errorTextInput}
               error={emailError}
               type="rounded"
               ref="email"
@@ -111,7 +112,10 @@ export default class Login extends React.Component {
               ref="password"
               icon="password"
               placeholder={_('password')}
-              style={StyleSheet.singleMarginTop}
+              style={[
+                passwordError && StyleSheet.login.errorTextInput,
+                StyleSheet.singleMarginTop
+              ]}
               secureTextEntry={true}
               returnKeyType="go"
               selectTextOnFocus={true}

@@ -71,6 +71,8 @@ export const signUp = (email, password, extraData) => {
             dispatch(signUpSuccess('email'));
           }
         });
+      }).catch(err => {
+        dispatch(signUpFailure(err));
       });
   };
 };

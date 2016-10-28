@@ -3,26 +3,21 @@ import _ from '../i18n';
 
 import React from 'react';
 
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
-import Dialog from '../components/dialog';
 import Button from '../components/button';
 import HorizontalRule from '../components/horizontal-rule';
 import TextInput from '../components/text-input';
 import DateInput from '../components/date-input';
+import Form from '../components/form';
+import Header from '../components/header';
+import LoadingAlert from '../components/loading-alert';
 
 import StyleSheet from '../styles';
 
 
 export default class SignUp extends React.Component {
-
-  static getTest(close) {
-    return {
-      title: 'Sign Up',
-      view: SignUp,
-      viewProps: { onClose: close }
-    };
-  }
 
   constructor() {
     super();
@@ -31,7 +26,6 @@ export default class SignUp extends React.Component {
       showDobInfo: false,
       name: '',
       email: '',
-      username: '',
       password: '',
       dob: null,
       gender: '',
@@ -44,7 +38,6 @@ export default class SignUp extends React.Component {
     let {
       name,
       email,
-      username,
       password,
       dob,
       gender,
@@ -54,7 +47,6 @@ export default class SignUp extends React.Component {
     return !!(
       name &&
       email &&
-      username &&
       password.length >= 8 &&
       dob &&
       gender &&
@@ -77,7 +69,6 @@ export default class SignUp extends React.Component {
   onPressSignUp = () => {
     this.props.onSignUp(this.state.email, this.state.password, {
       name: this.state.name,
-      username: this.state.username,
       dob: this.state.dob,
       gender: this.state.gender,
     });
@@ -88,149 +79,165 @@ export default class SignUp extends React.Component {
   };
 
   render() {
+    let errorCode = this.props.signUpError && this.props.signUpError.code;
+    let emailError = [
+      'auth/email-already-in-use',
+      'auth/invalid-email',
+    ].indexOf(errorCode) !== -1;
+    let passwordError = [
+      'auth/weak-password',
+    ].indexOf(errorCode) !== -1;
     return (
-      <Dialog ref="dialog" scrollContent={true} title={_('signup')} onClose={this.props.onClose} contentStyle={StyleSheet.signup.style}>
-
-        <TextInput
-          value={this.state.name}
-          onChangeText={(name) => this.setState({name})}
-          type="flat"
-          ref="name"
-          placeholder={_('name')}
-          style={StyleSheet.halfMarginBottom}
-          autoCapitalize="words"
-          autoCorrect={false}
-          autoFocus={true}
-          returnKeyType="next"
-          selectTextOnFocus={true}
-          enablesReturnKeyAutomatically={true}
-          onSubmitEditing={() => this.onSubmitEditing("email")}
-          icon="name"
+      <View style={{flex: 1}}>
+        <Header
+          title={_('signup')}
+          hideSwitcher={true}
+          onClose={this.props.onClose}
         />
+        <Form style={StyleSheet.signup.style}>
+          <LoadingAlert visible={this.props.isLoading} />
+          <Button
+            type="facebook"
+            icon="facebook"
+            text={_('facebookConnect')}
+            onPress={this.onPressFacebookConnect}
+          />
 
-        <TextInput
-          value={this.state.email}
-          onChangeText={(email) => this.setState({email})}
-          type="flat"
-          ref="email"
-          placeholder={_('email')}
-          style={StyleSheet.halfMarginBottom}
-          autoCapitalize="none"
-          autoCorrect={false}
-          returnKeyType="next"
-          selectTextOnFocus={true}
-          enablesReturnKeyAutomatically={true}
-          keyboardType="email-address"
-          onSubmitEditing={() => this.onSubmitEditing("username")}
-          icon="email"
-        />
+          <HorizontalRule
+            text={_('or')}
+            style={StyleSheet.doubleMargin}
+          />
 
-        <TextInput
-          value={this.state.username}
-          onChangeText={(username) => this.setState({username})}
-          type="flat"
-          ref="username"
-          placeholder={_('username')}
-          style={StyleSheet.halfMarginBottom}
-          autoCapitalize="none"
-          autoCorrect={false}
-          returnKeyType="next"
-          selectTextOnFocus={true}
-          enablesReturnKeyAutomatically={true}
-          onSubmitEditing={() => this.onSubmitEditing("password")}
-          icon="username"
-        />
-
-        <View>
           <TextInput
-            value={this.state.password}
-            onChangeText={(password) => this.setState({password})}
+            value={this.state.name}
+            onChangeText={(name) => this.setState({name})}
             type="flat"
-            ref="password"
-            placeholder={_('password')}
+            ref="name"
+            placeholder={_('name')}
             style={StyleSheet.halfMarginBottom}
-            secureTextEntry={!this.state.showPassword}
+            autoCapitalize="words"
+            autoCorrect={false}
+            autoFocus={true}
             returnKeyType="next"
             selectTextOnFocus={true}
-            clearTextOnFocus={true}
             enablesReturnKeyAutomatically={true}
-            icon="password"
-            multiline={false}
+            onSubmitEditing={() => this.onSubmitEditing("email")}
+            icon="name"
           />
+
+          {errorCode === 'auth/email-already-in-use' && (
+            <Text style={StyleSheet.signup.errorText}>Email already used</Text>
+          )}
+          {errorCode === 'auth/invalid-email' && (
+            <Text style={StyleSheet.signup.errorText}>Invalid email</Text>
+          )}
+          <TextInput
+            value={this.state.email}
+            onChangeText={(email) => this.setState({email})}
+            type="flat"
+            ref="email"
+            error={emailError}
+            placeholder={_('email')}
+            style={StyleSheet.halfMarginBottom}
+            autoCapitalize="none"
+            autoCorrect={false}
+            returnKeyType="next"
+            selectTextOnFocus={true}
+            enablesReturnKeyAutomatically={true}
+            keyboardType="email-address"
+            onSubmitEditing={() => this.onSubmitEditing("password")}
+            icon="email"
+          />
+
+          <View>
+            {errorCode === 'auth/weak-password' && (
+              <Text style={StyleSheet.signup.errorText}>Invalid email</Text>
+            )}
+            <TextInput
+              value={this.state.password}
+              onChangeText={(password) => this.setState({password})}
+              type="flat"
+              ref="password"
+              error={passwordError}
+              placeholder={_('password')}
+              style={StyleSheet.halfMarginBottom}
+              secureTextEntry={!this.state.showPassword}
+              returnKeyType="next"
+              selectTextOnFocus={false}
+              clearTextOnFocus={false}
+              enablesReturnKeyAutomatically={true}
+              icon="password"
+              multiline={false}
+              rightBar={<Button
+                style={StyleSheet.signup.eye}
+                type="disclosure"
+                active={this.state.showPassword}
+                icon="eye"
+                onPress={() => this.setState({showPassword: !this.state.showPassword})}
+              />}
+            />
+          </View>
+
+          <DateInput
+            type="flat"
+            ref="dob"
+            placeholder={_('dob')}
+            icon="nappy"
+            date={true}
+            time={false}
+            hideDay={true}
+            minValue={new Date("1900-01-01")}
+            initialValue={new Date()}
+            value={this.state.dob}
+            onChange={(dob) => this.setState({dob})}
+          />
+
+          <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMargin]}>
+            <Button type="image" icon="male" active={this.state.gender === 'male'} onPress={this.onPressMale}/>
+            <View style={StyleSheet.buttons.separator} />
+            <Button type="image" icon="female" active={this.state.gender === 'female'} onPress={this.onPressFemale}/>
+          </View>
+
+          <TextInput
+            value={this.state.city}
+            onChangeText={(city) => this.setState({city})}
+            type="flat"
+            ref="city"
+            placeholder={_('city')}
+            style={StyleSheet.halfMarginBottom}
+            autoCapitalize="none"
+            autoCorrect={false}
+            returnKeyType="next"
+            selectTextOnFocus={true}
+            enablesReturnKeyAutomatically={true}
+            icon="city"
+            onSubmitEditing={() => this.onSubmitEditing("phone")}
+          />
+
+          <TextInput
+            value={this.state.phone}
+            onChangeText={(phone) => this.setState({phone})}
+            type="flat"
+            ref="phone"
+            placeholder={_('optionalPhone')}
+            autoCapitalize="none"
+            autoCorrect={false}
+            returnKeyType="next"
+            selectTextOnFocus={true}
+            enablesReturnKeyAutomatically={true}
+            keyboardType="phone-pad"
+            icon="phone"
+          />
+
           <Button
-            style={StyleSheet.signup.eye}
-            type="disclosure"
-            active={this.state.showPassword}
-            icon="eye"
-            onPress={() => this.setState({showPassword: !this.state.showPassword})}
+            type={this.validate() ? "roundedDefault" : "roundedGrey"}
+            text={_('signup')}
+            onPress={this.validate() ? this.onPressSignUp : undefined}
+            style={[StyleSheet.doubleMarginTop, StyleSheet.singleMarginBottom]}
           />
-        </View>
-
-        <DateInput
-          type="flat"
-          ref="dob"
-          placeholder={_('dob')}
-          icon="nappy"
-          modalProvider={() => this.refs.dialog}
-          date={true}
-          time={false}
-          value={this.state.dob}
-          onChange={(dob) => this.setState({dob})}
-        />
-
-        <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMargin]}>
-          <Button type="image" icon="male" active={this.state.gender == 'male'} onPress={this.onPressMale}/>
-          <View style={StyleSheet.buttons.separator} />
-          <Button type="image" icon="female" active={this.state.gender == 'female'} onPress={this.onPressFemale}/>
-        </View>
-
-        <TextInput
-          value={this.state.city}
-          onChangeText={(city) => this.setState({city})}
-          type="flat"
-          ref="city"
-          placeholder={_('city')}
-          style={StyleSheet.halfMarginBottom}
-          autoCapitalize="none"
-          autoCorrect={false}
-          returnKeyType="next"
-          selectTextOnFocus={true}
-          enablesReturnKeyAutomatically={true}
-          icon="city"
-        />
-
-        <TextInput
-          value={this.state.phone}
-          onChangeText={(phone) => this.setState({phone})}
-          type="flat"
-          ref="phone"
-          placeholder={_('optionalPhone')}
-          autoCapitalize="none"
-          autoCorrect={false}
-          returnKeyType="next"
-          selectTextOnFocus={true}
-          enablesReturnKeyAutomatically={true}
-          keyboardType="phone-pad"
-          icon="phone"
-        />
-
-        <Button
-          type={this.validate() ? "roundedDefault" : "roundedGrey"}
-          text={_('signup')}
-          onPress={this.validate() ? this.onPressSignUp : undefined}
-          style={StyleSheet.doubleMarginTop}
-        />
-        <HorizontalRule
-          text={_('or')}
-          style={StyleSheet.doubleMargin}
-        />
-        <Button
-          type="facebook"
-          icon="facebook"
-          text={_('facebookConnect')}
-          onPress={this.onPressFacebookConnect}
-        />
-      </Dialog>
+          <KeyboardSpacer/>
+        </Form>
+      </View>
     );
   }
 }

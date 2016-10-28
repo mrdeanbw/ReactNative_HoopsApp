@@ -11,6 +11,8 @@ class SignUp extends React.Component {
       <_SignUp
         onSignUp={this.props.onSignUp}
         onFacebookSignUp={this.props.onFacebookSignUp}
+        isLoading={this.props.user.isSigningUp}
+        signUpError={this.props.user.signUpError}
       />
     );
   }
@@ -18,6 +20,7 @@ class SignUp extends React.Component {
 
 export default connect(
   (state) => ({
+    user: state.user,
   }),
   (dispatch) => ({
     onSignUp: (username, password, extra) => {
