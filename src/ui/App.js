@@ -12,7 +12,10 @@ import {Root} from './containers';
 const store = createStore();
 persistStore(store, {
   storage: AsyncStorage,
-  blacklist: ['navigation'],
+  blacklist: [
+    'navigation',
+    'search',
+  ],
 });
 
 store.dispatch(userActions.registerWithStore());
