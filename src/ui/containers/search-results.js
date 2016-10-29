@@ -19,7 +19,8 @@ class SearchResults extends React.Component {
         }}
         mode={this.props.user.mode}
         onToggleMode={this.props.onToggleMode}
-        onClose={this.props.onNavigateBack}
+        onBack={this.props.onBack}
+        onClose={this.props.onClose}
       />
     );
   }

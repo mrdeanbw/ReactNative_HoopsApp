@@ -12,6 +12,8 @@ class PaymentsAddCard extends React.Component {
   render() {
     return (
       <_PaymentsAddCard
+        onClose={this.props.onClose}
+        onBack={this.props.onBack}
         isLoading={this.props.payments.isAddingCard}
         onDonePress={(data) => {
           this.props.onCreateCard({

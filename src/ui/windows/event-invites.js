@@ -134,6 +134,8 @@ export default class EventInvites extends React.Component {
         currentTab="manage"
       >
         <Header
+          onBack={this.props.onBack}
+          onClose={this.props.onClose}
           mode={this.props.mode}
           onToggleMode={this.props.onToggleMode}
         />

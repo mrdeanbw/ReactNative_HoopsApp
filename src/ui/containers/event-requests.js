@@ -27,6 +27,8 @@ class EventRequests extends React.Component {
 
     return (
       <_EventRequests
+        onBack={this.props.onBack}
+        onClose={this.props.onClose}
         mode={this.props.user.mode}
         onToggleMode={this.props.onToggleMode}
         requests={requests}

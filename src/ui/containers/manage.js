@@ -27,6 +27,8 @@ class Manage extends React.Component {
 
     return (
       <_Manage
+        onBack={this.props.onBack}
+        onClose={this.props.onClose}
         onPressEvent={this.onPressEvent.bind(this)}
         events={events}
         mode={this.props.user.mode}

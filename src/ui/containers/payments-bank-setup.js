@@ -18,6 +18,8 @@ class PaymentsBankSetup extends React.Component {
   render() {
     return (
       <_PaymentsBankSetup
+        onClose={this.props.onClose}
+        onBack={this.props.onBack}
         account={this.props.payments.accountData}
         isLoading={this.props.payments.isUpdatingAccount}
         onDonePress={(data) => {

@@ -22,6 +22,8 @@ export default class Manage extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Header
+          onBack={this.props.onBack}
+          onClose={this.props.onClose}
           title={_('manageYourEvents')}
           mode={this.props.mode}
           onToggleMode={this.props.onToggleMode}

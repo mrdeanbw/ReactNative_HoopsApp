@@ -22,6 +22,8 @@ class Calendar extends React.Component {
 
     return (
       <_Calendar
+        onBack={this.props.onBack}
+        onClose={this.props.onClose}
         mode={this.props.user.mode}
         onToggleMode={this.props.onToggleMode}
         selectedDate={this.state.selected}

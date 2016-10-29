@@ -80,9 +80,10 @@ export default class EventRequests extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Header
+          onBack={this.props.onBack}
+          onClose={this.props.onClose}
           hideSwitcher={true}
           title={_('manageRequests')}
-          onClose={() => {}}
         />
         <ScrollView style={{flex: 1}} contentContainerStyle={StyleSheet.container}>
           {this.props.requests.map((request) => {

@@ -13,6 +13,8 @@ class SignUp extends React.Component {
         onFacebookSignUp={this.props.onFacebookSignUp}
         isLoading={this.props.user.isSigningUp}
         signUpError={this.props.user.signUpError}
+        onBack={this.props.onBack}
+        onClose={this.props.onClose}
       />
     );
   }

@@ -13,6 +13,7 @@ export default {
   "actionSearch": require('./icons/action-search.png'),
   "actionSend": require('./icons/action-send.png'),
   "activityBasketball": require('./icons/activity-basketball.png'),
+  "back": require('./icons/back.png'),
   "calendar": require('./icons/calendar.png'),
   "calendarActive": require('./icons/calendar-active.png'),
   "calendarBig": require('./icons/calendar-big.png'),

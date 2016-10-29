@@ -31,7 +31,6 @@ export default StyleSheet => StyleSheet.extend({
     position: 'absolute',
     zIndex: 1,
     left: 10,
-    top: 30
   },
 
   text: {

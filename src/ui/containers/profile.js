@@ -54,6 +54,8 @@ class Profile extends React.Component {
 
     return (
       <_Profile
+        onClose={this.props.onClose}
+        onBack={this.props.onBack}
         profile={profile}
         interests={interests}
         isFriend={isFriend}

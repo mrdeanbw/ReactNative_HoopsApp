@@ -13,6 +13,8 @@ class CreateEvent extends React.Component {
 
     return (
       <_CreateEvent
+        onBack={this.props.onBack}
+        onClose={this.props.onClose}
         mode={this.props.user.mode}
         onToggleMode={this.props.onToggleMode}
         onComplete={(eventData) => {

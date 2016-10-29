@@ -59,6 +59,8 @@ class ProfileEdit extends React.Component {
 
     return (
       <_ProfileEdit
+        onClose={this.props.onClose}
+        onBack={this.props.onBack}
         image={user.image}
         name={user.name}
         city={user.city}

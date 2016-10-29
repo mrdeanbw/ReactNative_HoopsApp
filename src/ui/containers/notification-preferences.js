@@ -9,7 +9,8 @@ class Notifications extends React.Component {
   render() {
     return (
       <_Notifications
-        onClose={this.props.onNavigateBack}
+        onBack={this.props.onBack}
+        onClose={this.props.onClose}
       />
     );
   }

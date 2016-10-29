@@ -93,6 +93,7 @@ export default class SignUp extends React.Component {
           title={_('signup')}
           hideSwitcher={true}
           onClose={this.props.onClose}
+          onBack={this.props.onBack}
         />
         <Form style={StyleSheet.signup.style}>
           <LoadingAlert visible={this.props.isLoading} />

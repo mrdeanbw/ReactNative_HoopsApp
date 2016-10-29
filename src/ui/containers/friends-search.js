@@ -36,6 +36,8 @@ class FriendsSearch extends React.Component {
 
     return (
       <_FriendsSearch
+        onBack={this.props.onBack}
+        onClose={this.props.onClose}
         mode={this.props.user.mode}
         onToggleMode={this.props.onToggleMode}
         actionButton={this.props.actionButton}

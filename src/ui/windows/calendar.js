@@ -100,6 +100,8 @@ export default class Calendar extends React.Component {
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <Header
+          onBack={this.props.onBack}
+          onClose={this.props.onClose}
           title={_('calendar')}
           mode={this.props.mode}
           onToggleMode={this.props.onToggleMode}

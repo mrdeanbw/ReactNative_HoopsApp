@@ -23,6 +23,7 @@ export default class Notifications extends React.Component {
       <View style={{flex: 1}}>
         <Header
           title={_('notifications')}
+          onBack={this.props.onBack}
           onClose={this.props.onClose}
         />
         <ScrollView bounces={true}>

@@ -110,7 +110,8 @@ export default class EventDetails extends React.Component {
         <Header
           title={_('eventDetails')}
           hideSwitcher={true}
-          onClose={() => {}}
+          onClose={this.props.onClose}
+          onBack={this.props.onBack}
         />
         <EventJoinPopup
           visible={this.state.showJoinPopup}

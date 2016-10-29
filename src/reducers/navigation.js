@@ -77,16 +77,26 @@ export default handleActions({
   NAV_PUSH: (state, action) => {
     //if the current route is 'tabs' and we want to stay in tabs, alter the tab's state
     let currentRoute = state.routes[state.index];
+    let newRoute = {
+      ...action.route,
+      direction: 'horizontal',
+    };
+
+    //If we are navigating away from tab view into a full-page view; vertical animation
+    if(currentRoute.key === 'tabs' && !action.subTab) {
+      newRoute.direction = 'vertical';
+    }
+
     if(currentRoute.key === 'tabs' && action.subTab){
       return {
         ...state,
         tabs: {
           ...state.tabs,
-          [state.tabKey]: StateUtils.push(state.tabs[state.tabKey], action.route),
+          [state.tabKey]: StateUtils.push(state.tabs[state.tabKey], newRoute),
         },
       };
     }else{
-      return StateUtils.push(state, action.route);
+      return StateUtils.push(state, newRoute);
     }
   },
 

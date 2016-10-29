@@ -37,6 +37,8 @@ export default class ProfileEdit extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Header
+          onClose={this.props.onClose}
+          onBack={this.props.onBack}
           title={_('profile')}
           hideSwitcher={true}
         />

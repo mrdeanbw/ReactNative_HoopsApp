@@ -20,6 +20,7 @@ export default class SearchResults extends React.Component {
           mode={this.props.mode}
           onToggleMode={this.props.onToggleMode}
           onClose={this.props.onClose}
+          onBack={this.props.onBack}
         />
 
         <ScrollView contentContainerStyle={StyleSheet.container}>

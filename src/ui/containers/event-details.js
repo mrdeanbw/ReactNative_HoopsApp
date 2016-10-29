@@ -71,6 +71,8 @@ class EventDetails extends React.Component {
 
     return (
       <_EventDetails
+        onBack={this.props.onBack}
+        onClose={this.props.onClose}
         event={event}
         organizer={event.organizer}
         isMember={isMember}

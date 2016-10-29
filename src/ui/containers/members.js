@@ -26,6 +26,8 @@ class Members extends React.Component {
 
     return (
       <_Members
+        onBack={this.props.onBack}
+        onClose={this.props.onClose}
         event={event}
         requests={requests}
         invites={invites}
