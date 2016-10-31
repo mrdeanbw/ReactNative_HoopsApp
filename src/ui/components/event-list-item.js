@@ -46,6 +46,7 @@ export default class EventListItem extends React.Component {
           <TouchableHighlight
             underlayColor={StyleSheet.colors.transparent}
             onPress={this.props.onPressDisclosure}
+            hitSlop={{top: 10, right: 10, bottom: 10, left: 0}}
           >
             <Image
               source={this.props.disclosure || StyleSheet.icons.chevronRight}

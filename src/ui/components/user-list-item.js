@@ -69,6 +69,7 @@ export default class UserListItem extends React.Component {
           <TouchableHighlight
             onPress={this.props.onPressDisclosure}
             underlayColor={StyleSheet.userListItem.disclosureUnderlayColor}
+            hitSlop={{top: 10, right: 10, bottom: 10, left: 10}}
           >
             <View style={StyleSheet.buttons.bar}>
               {(checked === false) && <Button type="checkDisclosure" icon="plusGrey" onPress={this.props.onPressCheck} />}
