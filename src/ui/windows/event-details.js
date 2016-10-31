@@ -1,7 +1,7 @@
 
 import _ from '../i18n';
 import React from 'react';
-import {ScrollView,View,Text, Image, ActionSheetIOS} from 'react-native';
+import {ScrollView,View,Text, Image, ActionSheetIOS, TouchableHighlight, Linking} from 'react-native';
 
 import StyleSheet from '../styles';
 import {Icon, HorizontalRule, Button, MapView, Popup, Header} from '../components';
@@ -93,6 +93,21 @@ export default class EventDetails extends React.Component {
     });
   };
 
+  onPressAddress = (address) => {
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: [
+        _('openWithAppleMaps'),
+        _('cancel'),
+      ],
+      cancelButtonIndex: 1,
+    }, (index) => {
+      if(index === 0) {
+        let url = `http://maps.apple.com/?daddr=${address}`;
+        Linking.openURL(url).catch(err => console.warn(err)); //eslint-disable-line no-console
+      }
+    })
+  };
+
   render() {
     const formatDate = (date) => {
       return moment(date).format('D MMM');
@@ -171,9 +186,15 @@ export default class EventDetails extends React.Component {
             <Text style={[StyleSheet.text, StyleSheet.eventDetails.titleTextStyle]}>
               {this.props.event.title}
             </Text>
-            <Text style={[StyleSheet.text, StyleSheet.eventDetails.subtitleTextStyle]}>
-              {address}
-            </Text>
+            <TouchableHighlight
+              underlayColor="transparent"
+              onPress={() => this.onPressAddress(address)}
+              hitSlop={{top: 10, bottom: 10}}
+            >
+              <Text style={[StyleSheet.text, StyleSheet.eventDetails.subtitleTextStyle]}>
+                {address}
+              </Text>
+            </TouchableHighlight>
           </View>
 
           {this.props.organizer && <View style={StyleSheet.eventDetails.avatarStyle}>

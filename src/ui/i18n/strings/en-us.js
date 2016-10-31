@@ -147,6 +147,7 @@ export const approve = 'Approve';
 export const approveAll = 'Approve All';
 export const declineAll = 'Decline All';
 
+export const openWithAppleMaps = 'Open in Apple Maps';
 export const theOrganizer = 'The Organiser';
 export const attendees = 'Attendees';
 export const activity = 'Activity';
