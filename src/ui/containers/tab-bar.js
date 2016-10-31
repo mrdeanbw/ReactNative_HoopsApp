@@ -68,13 +68,6 @@ class TabBar extends React.Component {
         },
       },
 
-      eventManage: {
-        component: containers.EventManage,
-        action: {
-          text: _('create'),
-        },
-      },
-
       eventInvites: {
         component: containers.EventInvites,
         action: {
@@ -132,11 +125,7 @@ class TabBar extends React.Component {
 
       profile: {
         component: containers.Profile,
-        action: {
-          text: _('create'),
-          icon: "actionAdd",
-          onPress: () => props.onNavigate('createEvent', {}, false),
-        },
+        action: createOrSearchAction,
       },
 
       friends: {
