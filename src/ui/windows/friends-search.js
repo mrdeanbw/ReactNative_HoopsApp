@@ -121,8 +121,6 @@ export default class FriendsSearch extends React.Component {
         <Header
           onBack={this.props.onBack}
           onClose={this.props.onClose}
-          mode={this.props.mode}
-          onToggleMode={this.props.onToggleMode}
         />
         <View style={{flex: null, height: 50}}>
           <TextInput

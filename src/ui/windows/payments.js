@@ -37,8 +37,6 @@ export default class PaymentsBankSetup extends React.Component {
       <View style={{flex: 1}}>
         <Header
           title={_('payments')}
-          onToggleMode={this.props.onToggleMode}
-          mode={this.props.mode}
         />
 
         <LoadingAlert visible={this.props.isLoading} />

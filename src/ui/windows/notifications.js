@@ -29,8 +29,6 @@ export default class Notifications extends React.Component {
       <View style={{flex: 1}}>
         <Header
           title={_('notifications')}
-          mode={this.props.mode}
-          onToggleMode={this.props.onToggleMode}
         />
         <ScrollView contentContainerStyle={StyleSheet.container}>
           {this.props.notifications.map((notification, i) => {

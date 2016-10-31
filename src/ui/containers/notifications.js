@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {Notifications as _Notifications} from '../windows';
 import {
   navigation as navigationActions,
-  user as userActions,
   notifications as notificationsActions,
   requests as requestsActions,
 } from '../../actions';
@@ -29,8 +28,6 @@ class Notifications extends React.Component {
 
     return (
       <_Notifications
-        mode={this.props.user.mode}
-        onToggleMode={this.props.onToggleMode}
         onClose={this.props.onNavigateBack}
         notifications={notifications}
         onPressNotification={(notification) => {
@@ -61,7 +58,6 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
     onNavigateBack: () => dispatch(navigationActions.pop()),
-    onToggleMode: () => dispatch(userActions.toggleMode()),
     onMarkRead: (id) => dispatch(notificationsActions.markRead(id)),
     onMarkUnead: (id) => dispatch(notificationsActions.markUnread(id)),
     onAcceptFriendRequest: (notification) => {

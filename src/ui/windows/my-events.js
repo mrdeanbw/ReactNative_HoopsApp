@@ -80,8 +80,6 @@ export default class MyEvents extends React.Component {
       <View>
         <Header
           title={undefined}
-          mode={this.props.mode}
-          onToggleMode={this.props.onToggleMode}
         />
         <DisclosurePopup
           type={this.state.tab}

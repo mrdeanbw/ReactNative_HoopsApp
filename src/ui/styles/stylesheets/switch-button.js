@@ -7,10 +7,13 @@ export default StyleSheet => StyleSheet.extend({
     height: 32,
     width: 32,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
   containerStyle: {
+    position: 'absolute',
+    top: 20,
+    right: 70,
     height: 15,
     width: 30,
     overflow: 'hidden',

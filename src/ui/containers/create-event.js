@@ -2,7 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {CreateEvent as _CreateEvent} from '../windows';
-import {user, navigation, events} from '../../actions';
+import {navigation, events} from '../../actions';
 
 class CreateEvent extends React.Component {
 
@@ -15,8 +15,6 @@ class CreateEvent extends React.Component {
       <_CreateEvent
         onBack={this.props.onBack}
         onClose={this.props.onClose}
-        mode={this.props.user.mode}
-        onToggleMode={this.props.onToggleMode}
         onComplete={(eventData) => {
           eventData = {
             ...eventData,
@@ -50,7 +48,6 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props})),
     onNavigateBack: () => dispatch(navigation.pop()),
-    onToggleMode: () => dispatch(user.toggleMode()),
     onSaveEvent: (eventData) => dispatch(events.create(eventData)),
   }),
 )(CreateEvent);

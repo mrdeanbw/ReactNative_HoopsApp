@@ -2,7 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Home as _Home} from '../windows';
-import {user, navigation, search} from '../../actions';
+import {navigation, search} from '../../actions';
 
 import inflateEvent from '../../data/inflaters/event';
 
@@ -94,8 +94,6 @@ class Home extends React.Component {
         onPressEvent={this.onPressEvent.bind(this)}
         events={events}
         onPressAdd={() => this.props.onNavigate('createEvent')}
-        mode={this.props.user.mode}
-        onToggleMode={this.props.onToggleMode}
         location={this.state.location}
         nearby={nearby}
       />
@@ -114,7 +112,6 @@ export default connect(
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
-    onToggleMode: () => dispatch(user.toggleMode()),
     onSearchNearby: (params) => dispatch(search.nearby(params)),
   }),
 )(Home);

@@ -2,7 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {SearchResults as _SearchResults} from '../windows';
-import {user, navigation} from '../../actions';
+import {navigation} from '../../actions';
 
 class SearchResults extends React.Component {
 
@@ -17,8 +17,6 @@ class SearchResults extends React.Component {
         onPressEvent={(event) => {
           this.props.onDeepLinkTab('eventDetails', 'home', {id: event.id});
         }}
-        mode={this.props.user.mode}
-        onToggleMode={this.props.onToggleMode}
         onBack={this.props.onBack}
         onClose={this.props.onClose}
       />
@@ -38,7 +36,6 @@ export default connect(
       navigation.deepLinkTab({key, props}, tabKey)
     ),
     onNavigateBack: () => dispatch(navigation.pop()),
-    onToggleMode: () => dispatch(user.toggleMode()),
   }),
 )(SearchResults);
 

@@ -93,8 +93,6 @@ export default class Home extends React.Component {
       <View style={{flex: 1}}>
         <Header
           title={_('home')}
-          mode={this.props.mode}
-          onToggleMode={this.props.onToggleMode}
         />
         <ScrollView
           contentContainerStyle={StyleSheet.home.container}

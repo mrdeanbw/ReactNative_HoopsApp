@@ -4,7 +4,7 @@ import React from 'react';
 import {View,Text,Image,ScrollView} from 'react-native';
 import moment from 'moment';
 
-import {Header, Button, EventListItem, SwitchButton} from '../components';
+import {Header, Button, EventListItem} from '../components';
 import StyleSheet from '../styles';
 
 export default class Profile extends React.Component {
@@ -13,10 +13,6 @@ export default class Profile extends React.Component {
     super();
     this.state = {};
   }
-
-  onChangeAvailability = (value) => {
-    this.props.onChangeAvailability(value);
-  };
 
   render() {
     const profile = this.props.profile;
@@ -36,9 +32,7 @@ export default class Profile extends React.Component {
         <Header
           onClose={this.props.onClose}
           onBack={this.props.onBack}
-          hideSwitcher={true}
           title={(owner ? _('yourProfile') : _('profileTemplate')).replace(/\$1/g, name)}
-          leftBar={owner && <View style={StyleSheet.profile.switchButton}><SwitchButton value={this.props.me.availability} onChange={this.onChangeAvailability}/></View> }
         />
         <ScrollView>
           <View style={StyleSheet.profile.headlineBarStyle}>

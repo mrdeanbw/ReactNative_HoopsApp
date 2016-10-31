@@ -34,8 +34,6 @@ class Friends extends React.Component {
         friends={friends}
         onBack={this.props.onBack}
         onClose={this.props.onClose}
-        mode={this.props.user.mode}
-        onToggleMode={this.props.onToggleMode}
         onChangeSearchText={(searchText) => this.setState({searchText})}
         onFindFriends={() => {
           this.props.onNavigate('friendsSearch');
@@ -56,7 +54,6 @@ export default connect(
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
-    onToggleMode: () => dispatch(userActions.toggleMode()),
     onPressRemove: (user) => dispatch(userActions.removeFriend(user)),
   }),
 )(Friends);

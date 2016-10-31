@@ -139,8 +139,6 @@ export default class Invitations extends React.Component {
       <View style={{flex: 1}}>
         <Header
           title={_('invitations')}
-          mode={this.props.mode}
-          onToggleMode={this.props.onToggleMode}
         />
 
         <View style={StyleSheet.buttons.bar}>

@@ -41,8 +41,6 @@ export default class Friends extends React.Component {
           title={_('friends')}
           onBack={this.props.onBack}
           onClose={this.props.onClose}
-          mode={this.props.mode}
-          onToggleMode={this.props.onToggleMode}
           actionButton="plus"
           onActionPress={this.props.onFindFriends}
         />

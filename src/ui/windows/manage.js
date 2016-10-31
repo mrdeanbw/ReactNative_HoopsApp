@@ -25,8 +25,6 @@ export default class Manage extends React.Component {
           onBack={this.props.onBack}
           onClose={this.props.onClose}
           title={_('manageYourEvents')}
-          mode={this.props.mode}
-          onToggleMode={this.props.onToggleMode}
         />
         <ScrollView contentContainerStyle={StyleSheet.container}>
           {this.props.events.map(event =>

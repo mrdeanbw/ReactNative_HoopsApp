@@ -229,8 +229,10 @@ export const updateProfile = (data) => {
 /*
  * Set the user's availability
  */
-export const setAvailability = (value) => {
+export const toggleAvailability = () => {
   return (dispatch, getState) => {
+    let value = !getState().user.availability;
+
     //Update local state first
     dispatch({
       type: 'USER_SET_AVAILABILITY',

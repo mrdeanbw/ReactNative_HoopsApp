@@ -68,7 +68,6 @@ class Profile extends React.Component {
         }}
         me={this.props.user}
         upcoming={events}
-        onChangeAvailability={this.props.onChangeAvailability}
       />
     );
   }
@@ -92,7 +91,6 @@ export default connect(
     onNavigate: (key, props, subTab) => {
       dispatch(navigationActions.push({key, props}, subTab));
     },
-    onChangeAvailability: (value) => dispatch(userActions.setAvailability(value)),
     removeFriend: (user) => dispatch(userActions.removeFriend(user)),
     sendFriendRequest: (user) => dispatch(usersActions.sendFriendRequests([user.id])),
   }),

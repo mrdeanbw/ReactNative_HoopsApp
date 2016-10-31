@@ -64,8 +64,6 @@ class MyEvents extends React.Component {
         upcoming={upcoming}
         saved={saved}
         history={history}
-        mode={this.props.user.mode}
-        onToggleMode={this.props.onToggleMode}
         availability={this.props.user.availability}
         onChangeAvailability={(value) => {
           this.props.onChangeAvailability(value);
@@ -86,6 +84,5 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
     onChangeAvailability: (value) => dispatch(user.setAvailability(value)),
-    onToggleMode: () => dispatch(user.toggleMode()),
   }),
 )(MyEvents);

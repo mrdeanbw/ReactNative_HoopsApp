@@ -84,7 +84,7 @@ export default handleActions({
 
   'persist/REHYDRATE': (state, action) => {
     return {
-      ...state,
+      ...action.payload.user,
       isSigningIn: false,
       isSigningUp: false,
     };

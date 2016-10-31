@@ -6,11 +6,15 @@ import {View, Image, Text} from 'react-native';
 import Button from './button';
 import HighlightText from './highlight-text';
 import StyleSheet from '../styles';
+import SwitchButton from './switch-button';
 
-export default class Header extends React.Component {
+import {connect} from 'react-redux';
+import {user as userActions} from '../../actions';
+
+class Header extends React.Component {
   render() {
     let modeText, modeTextHighlight;
-    if(this.props.mode === 'ORGANIZE') {
+    if(this.props.user.mode === 'ORGANIZE') {
       modeText = _('organizerMode');
       modeTextHighlight = _('organizer');
     }else{
@@ -26,9 +30,14 @@ export default class Header extends React.Component {
               <View style={StyleSheet.window.accessoryBarStyle}>
                 {this.props.onClose && <Button type="title" icon="close" style={StyleSheet.window.closeButton} onPress={this.props.onClose} />}
                 {this.props.onBack && <Button type="title" icon="back" onPress={this.props.onBack} />}
-                {this.props.accessoryViews}
               </View>
               <Image source={StyleSheet.images.logo} style={StyleSheet.window.logoStyle} />
+              {this.props.user.mode === 'PARTICIPATE' && (
+                <SwitchButton
+                  value={this.props.user.availability}
+                  onChange={this.props.onToggleAvailability}
+                />
+              )}
               <Button type="modeSwitch" hitSlop={{top: 10, bottom: 10, left: 10, right: 10}} icon="switch" onPress={this.props.onToggleMode} />
             </View>
 
@@ -83,3 +92,13 @@ export default class Header extends React.Component {
   }
 
 }
+
+export default connect(
+  (state) => ({
+    user: state.user,
+  }),
+  (dispatch) => ({
+    onToggleMode: () => dispatch(userActions.toggleMode()),
+    onToggleAvailability: () => dispatch(userActions.toggleAvailability()),
+  }),
+)(Header);

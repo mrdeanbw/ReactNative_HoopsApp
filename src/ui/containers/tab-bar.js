@@ -196,7 +196,6 @@ class TabBar extends React.Component {
           this.setState({action});
         }}
         mode={this.props.user.mode}
-        onToggleMode={this.props.onToggleMode}
       />
     );
   }
@@ -295,6 +294,5 @@ export default connect(
     onLogOut: () => dispatch(user.logOut()),
     onShowMenu: () => dispatch(navigation.showMenu()),
     onHideMenu: () => dispatch(navigation.hideMenu()),
-    onToggleMode: () => dispatch(user.toggleMode()),
   }),
 )(TabBar);

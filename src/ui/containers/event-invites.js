@@ -2,7 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import _EventInvites from '../windows/event-invites';
-import {user, navigation, events} from '../../actions';
+import {navigation, events} from '../../actions';
 
 import inflateEvent from '../../data/inflaters/event';
 
@@ -40,8 +40,6 @@ class EventInvites extends React.Component {
       <_EventInvites
         onBack={this.props.onBack}
         onClose={this.props.onClose}
-        mode={this.props.user.mode}
-        onToggleMode={this.props.onToggleMode}
         users={friends}
         onSendInvites={(userIds) => {
           this.props.onSendInvites(userIds, this.props.id);
@@ -73,7 +71,6 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
     onNavigateBack: () => dispatch(navigation.pop()),
-    onToggleMode: () => dispatch(user.toggleMode()),
     onSendInvites: (userIds, eventId) => dispatch(events.inviteUsers(userIds, eventId)),
   }),
 )(EventInvites);

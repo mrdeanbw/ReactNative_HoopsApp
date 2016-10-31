@@ -103,8 +103,6 @@ export default class Calendar extends React.Component {
           onBack={this.props.onBack}
           onClose={this.props.onClose}
           title={_('calendar')}
-          mode={this.props.mode}
-          onToggleMode={this.props.onToggleMode}
         />
         <View style={StyleSheet.calendar.monthSelector}>
           <TouchableHighlight

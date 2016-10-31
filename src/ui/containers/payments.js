@@ -5,7 +5,6 @@ import _Payments from '../windows/payments';
 import {
   navigation as navigationActions,
   payments as paymentsActions,
-  user as userActions,
 } from '../../actions';
 
 class Payments extends React.Component {
@@ -24,8 +23,6 @@ class Payments extends React.Component {
 
     return (
       <_Payments
-        onToggleMode={this.props.onToggleMode}
-        mode={this.props.user.mode}
         onPressPaymentOptions={() => {
           this.props.onNavigate('paymentsBankSetup');
         }}
@@ -48,7 +45,6 @@ export default connect(
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, false)),
-    onToggleMode: () => dispatch(userActions.toggleMode()),
     onCreateAccount: (data) => dispatch(paymentsActions.createAccount(data)),
     onLoadAccount: () => dispatch(paymentsActions.getAccount()),
     onGetCards: () => dispatch(paymentsActions.getCards()),

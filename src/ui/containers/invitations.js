@@ -3,7 +3,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Invitations as _Invitations} from '../windows';
 import {
-  user as userActions,
   navigation as navigationActions,
   invites as invitesActions,
   requests as requestsActions,
@@ -77,8 +76,6 @@ class Invitations extends React.Component {
 
     return (
       <_Invitations
-        mode={this.props.user.mode}
-        onToggleMode={this.props.onToggleMode}
         received={received}
         sent={sent}
 
@@ -116,8 +113,6 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props, subTab) => dispatch(navigationActions.push({key, props}, subTab)),
     onNavigateBack: () => dispatch(navigationActions.pop()),
-    onToggleMode: () => dispatch(userActions.toggleMode()),
-
     onPressAccept: (invite) => dispatch(invitesActions.accept(invite)),
     onPressDecline: (invite) => dispatch(invitesActions.decline(invite)),
     onPressCancel: (request) => dispatch(requestsActions.cancel(request)),
