@@ -5,7 +5,7 @@ import ReactNative from 'react-native';
 import {View, Text, ScrollView, Image, ImagePickerIOS} from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
-import {Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components';
+import {Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components';
 import StyleSheet from '../styles';
 
 import {autocomplete} from '../../data/google-places';
@@ -38,6 +38,7 @@ export default class CreateEvent extends React.Component {
 
         description: 'xx',
       },
+      focus: {},
     };
   }
 
@@ -83,12 +84,12 @@ export default class CreateEvent extends React.Component {
   };
 
   scrollToInput = (scrollRef, inputRef) => {
-    let scrollResponder = scrollRef.getScrollResponder();
-    scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
-      ReactNative.findNodeHandle(inputRef),
-      150,
-      true
-    );
+    this.setState({
+      focus: {
+        ...this.state.focus,
+        [scrollRef]: ReactNative.findNodeHandle(inputRef),
+      },
+    });
   };
 
   validate(stepNumber) {
@@ -154,7 +155,7 @@ export default class CreateEvent extends React.Component {
 
 
           <Wizard.Step disabled={!this.validate(1)}>
-            <ScrollView ref="scrollView1" contentContainerStyle={StyleSheet.padding}>
+            <Form focusNode={this.state.focus['scrollView1']} contentContainerStyle={StyleSheet.padding}>
               <TextInput
                 value={this.state.eventDetails.title}
                 onChangeText={(title) => this.setEventData({title})}
@@ -247,7 +248,7 @@ export default class CreateEvent extends React.Component {
                   }}
                   style={{flex: 1, marginRight: 25}}
                   onFocus={() => {
-                    this.scrollToInput(this.refs.scrollView1, this.refs.maxPlayersInput);
+                    this.scrollToInput('scrollView1', this.refs.maxPlayersInput);
                   }}
                 />
                 <Button
@@ -261,14 +262,14 @@ export default class CreateEvent extends React.Component {
 
 
               <KeyboardSpacer/>
-            </ScrollView>
+            </Form>
           </Wizard.Step>
 
 
 
 
           <Wizard.Step disabled={!this.validate(2)}>
-            <ScrollView ref="scrollView2" contentContainerStyle={StyleSheet.padding}>
+            <Form focusNode={this.state.focus['scrollView2']} contentContainerStyle={StyleSheet.padding}>
               <DateInput
                 type="flat"
                 placeholder={_('dateTime')}
@@ -303,7 +304,7 @@ export default class CreateEvent extends React.Component {
                     this.refs.venueAddressInput.focus();
                   }}
                   onFocus={() => {
-                    this.scrollToInput(this.refs.scrollView2, this.refs.venueNameInput);
+                    this.scrollToInput('scrollView2', this.refs.venueNameInput);
                   }}
                 />
                 <TextInput
@@ -323,7 +324,7 @@ export default class CreateEvent extends React.Component {
                     this.refs.costInput.focus();
                   }}
                   onFocus={() => {
-                    this.scrollToInput(this.refs.scrollView2, this.refs.venueAddressInput);
+                    this.scrollToInput('scrollView2', this.refs.venueAddressInput);
                   }}
                   autocomplete={this.state.addressAutocomplete.map(prediction => ({
                     key: prediction.place_id,
@@ -352,7 +353,7 @@ export default class CreateEvent extends React.Component {
                     }}
                     style={{flex: 1, marginRight: 25}}
                     onFocus={() => {
-                      this.scrollToInput(this.refs.scrollView2, this.refs.costInput);
+                      this.scrollToInput('scrollView2', this.refs.costInput);
                     }}
                   />
                   <Button
@@ -395,13 +396,13 @@ export default class CreateEvent extends React.Component {
 
                 <KeyboardSpacer/>
               </View>
-            </ScrollView>
+            </Form>
           </Wizard.Step>
 
 
 
           <Wizard.Step disabled={!this.validate(3)}>
-            <ScrollView>
+            <Form>
               <View style={StyleSheet.padding}>
                 <TextInput type="flat"
                        multiline="popup"
@@ -459,7 +460,7 @@ export default class CreateEvent extends React.Component {
                 />
               )}
 
-            </ScrollView>
+            </Form>
           </Wizard.Step>
         </Wizard>
       </View>
