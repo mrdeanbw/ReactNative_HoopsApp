@@ -75,6 +75,10 @@ export default StyleSheet => StyleSheet.extend({
     color: colors.grey,
   },
 
+  itemTextActive: {
+    color: colors.pink,
+  },
+
   badge: {
     color: colors.white,
     backgroundColor: 'transparent',

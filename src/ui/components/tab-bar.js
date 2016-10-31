@@ -59,15 +59,9 @@ export default class TabBar extends React.Component {
             onPressBackground={this.props.onHideMenu}
             user={this.props.user}
             onPressProfile={this.props.onPressProfile}
-          >
-            <Menu.Item icon="help" text={_('help')} onPress={() => {}} />
-            <Menu.Item icon="settings" text={_('preferences')} onPress={() => this.props.onTabPress('settings')}/>
-            <Menu.Item icon="payments" text={_('payments')} onPress={() => this.props.onTabPress("payments")}/>
-            <Menu.Item icon="notifications" text={_('notifications')} badge={this.props.notificationBadge} onPress={() => this.props.onTabPress("notifications")} />
-            <Menu.Item icon="friends" text={_('friends')} onPress={() => {
-              this.props.onTabPress("friends");
-            }} />
-          </Menu>
+            currentTab={this.props.currentTab}
+            onTabPress={this.props.onTabPress}
+          />
         )}
 
         <View style={[{flex: 0}, StyleSheet.window.tabBarStyle]}>
@@ -102,7 +96,16 @@ export default class TabBar extends React.Component {
           )}
 
           <Button type="tab" icon="more" text={_('more')}
-            active={this.props.menuVisible || this.props.currentTab === 'more'}
+            active={
+              this.props.menuVisible ||
+              [
+                'help',
+                'settings',
+                'payments',
+                'notifications',
+                'friends'
+              ].indexOf(this.props.currentTab) !== -1
+            }
             onPress={this.props.onMenuPress}
           />
         </View>

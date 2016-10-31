@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import {Icon} from './';
+import _ from '../i18n';
 
 import StyleSheet from '../styles';
 
@@ -47,7 +48,37 @@ export default class Menu extends React.Component {
           </View>
 
           <View style={StyleSheet.menu.items}>
-            {this.props.children}
+            <MenuItem
+              active={this.props.currentTab === 'help'}
+              icon="help"
+              text={_('help')}
+              onPress={() => {}}
+            />
+            <MenuItem
+              active={this.props.currentTab === 'settings'}
+              icon="settings"
+              text={_('preferences')}
+              onPress={() => this.props.onTabPress('settings')}
+            />
+            <MenuItem
+              active={this.props.currentTab === 'payments'}
+              icon="payments"
+              text={_('payments')}
+              onPress={() => this.props.onTabPress('payments')}
+            />
+            <MenuItem
+              active={this.props.currentTab === 'notifications'}
+              icon="notifications"
+              text={_('notifications')}
+              badge={this.props.notificationBadge}
+              onPress={() => this.props.onTabPress('notifications')}
+            />
+            <MenuItem
+              active={this.props.currentTab === 'friends'}
+              icon="friends"
+              text={_('friends')}
+              onPress={() => this.props.onTabPress('friends')}
+            />
           </View>
         </Animated.View>
 
@@ -57,13 +88,17 @@ export default class Menu extends React.Component {
 
 }
 
-Menu.Item = class MenuItem extends React.Component {
+class MenuItem extends React.Component {
   render() {
     return (
       <TouchableHighlight onPress={this.props.onPress}>
         <View style={StyleSheet.menu.itemContainer}>
           <View>
-            <Icon name={this.props.icon} style={StyleSheet.menu.icon}/>
+            <Icon
+              name={this.props.icon}
+              active={this.props.active}
+              style={StyleSheet.menu.icon}
+            />
             {!!this.props.badge && (
               <View style={StyleSheet.menu.badgeContainer}>
                 <Text style={StyleSheet.menu.badge}>{this.props.badge}</Text>
@@ -71,16 +106,26 @@ Menu.Item = class MenuItem extends React.Component {
             )}
           </View>
 
-          <Text style={StyleSheet.menu.itemText}>{this.props.text}</Text>
+          <Text
+            style={[
+              StyleSheet.menu.itemText,
+              this.props.active && StyleSheet.menu.itemTextActive,
+            ]}
+          >
+            {this.props.text}
+          </Text>
         </View>
       </TouchableHighlight>
-    )
+    );
   }
 }
 
-Menu.Item.propTypes = {
+MenuItem.propTypes = {
   text: React.PropTypes.string.isRequired,
   badge: React.PropTypes.number,
   icon: React.PropTypes.string.isRequired,
   onPress: React.PropTypes.func,
+  active: React.PropTypes.bool,
 };
+
+Menu.Item = MenuItem;
