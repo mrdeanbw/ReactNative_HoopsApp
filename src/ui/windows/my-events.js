@@ -113,7 +113,7 @@ export default class MyEvents extends React.Component {
           {events.map(event =>
             <EventListItem key={event.id}
                      onPress={() => this.onPressEvent(event)}
-                     image={StyleSheet.images[event.image]}
+                     image={{uri: event.imageSrc}}
                      title={event.title}
                      players={event.players} maxPlayers={event.maxPlayers}
                      level={event.level}

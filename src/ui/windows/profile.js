@@ -117,7 +117,6 @@ export default class Profile extends React.Component {
             <EventListItem
               key={event.id}
               onPress={() => this.props.onPressEvent(event)}
-              image={StyleSheet.images[event.image]}
               image={{uri: event.imageSrc}}
               title={event.title}
               players={event.players} maxPlayers={event.maxPlayers}
