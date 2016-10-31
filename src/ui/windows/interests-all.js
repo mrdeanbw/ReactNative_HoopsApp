@@ -114,6 +114,14 @@ export default class InterestsAll extends React.Component {
                   this.setState({levelPopupInterest: null});
                 }}
               />
+              <Button
+                type="alertVertical"
+                text={_('both')}
+                onPress={() => {
+                  this.setSelected(this.state.levelPopupInterest.id, 'both');
+                  this.setState({levelPopupInterest: null});
+                }}
+              />
             </View>
           ) : (
             <Button

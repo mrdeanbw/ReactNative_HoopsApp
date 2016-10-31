@@ -126,6 +126,14 @@ class InterestLevelPopup extends React.Component {
                 this.props.onClose();
               }}
             />
+            <Button
+              type="alertVertical"
+              text={_('both')}
+              onPress={() => {
+                this.props.onSelectLevel('both');
+                this.props.onClose();
+              }}
+            />
           </View>
         )}
       </Popup>
