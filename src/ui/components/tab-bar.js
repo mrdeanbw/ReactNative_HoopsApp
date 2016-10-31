@@ -61,7 +61,7 @@ export default class TabBar extends React.Component {
             onPressProfile={this.props.onPressProfile}
           >
             <Menu.Item icon="help" text={_('help')} onPress={() => {}} />
-            <Menu.Item icon="settings" text={_('settings')} onPress={() => this.props.onTabPress('settings')}/>
+            <Menu.Item icon="settings" text={_('preferences')} onPress={() => this.props.onTabPress('settings')}/>
             <Menu.Item icon="payments" text={_('payments')} onPress={() => this.props.onTabPress("payments")}/>
             <Menu.Item icon="notifications" text={_('notifications')} badge={this.props.notificationBadge} onPress={() => this.props.onTabPress("notifications")} />
             <Menu.Item icon="friends" text={_('friends')} onPress={() => {

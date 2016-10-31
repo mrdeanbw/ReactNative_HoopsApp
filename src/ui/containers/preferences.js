@@ -11,6 +11,7 @@ class Preferences extends React.Component {
       <_Preferences
         onPressLogOut={this.props.onLogOut}
         onPressNotifications={() => this.props.onNavigate('notifications')}
+        onPressEditAccount={() => this.props.onNavigate('profileEdit', {}, false)}
       />
     );
   }
@@ -23,6 +24,6 @@ export default connect(
   }),
   (dispatch) => ({
     onLogOut: () => dispatch(user.logOut()),
-    onNavigate: (key, props) => dispatch(navigation.push({key, props})),
+    onNavigate: (key, props, subTab=true) => dispatch(navigation.push({key, props}, subTab)),
   }),
 )(Preferences);
