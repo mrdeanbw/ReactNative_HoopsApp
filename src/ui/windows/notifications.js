@@ -194,13 +194,13 @@ class FriendRequestNotification extends React.Component {
 
       //Accept and Decline options are only available for 'pending' requests.
       options = options.concat([{
-        type: "alertVertical",
+        type: "alertVerticalGreen",
         text: _('accept'),
         onPress: () => {
           this.props.onAcceptFriendRequest(this.props.notification);
         },
       },{
-        type: "alertVertical",
+        type: "alertVerticalDefault",
         text: _('decline'),
         onPress: () => {
           this.props.onDeclineFriendRequest(this.props.notification);
@@ -263,13 +263,13 @@ class EventRequestNotification extends React.Component {
         <Text style={StyleSheet.notification.highlight}>{event.title}</Text>
       );
       options = options.concat([{
-        type: "alertVertical",
+        type: "alertVerticalGreen",
         text: _('accept'),
         onPress: () => {
           this.props.onAcceptEventRequest(this.props.notification);
         },
       },{
-        type: "alertVertical",
+        type: "alertVerticalDefault",
         text: _('decline'),
         onPress: () => {
           this.props.onDeclineEventRequest(this.props.notification);
