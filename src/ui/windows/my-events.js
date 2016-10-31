@@ -1,7 +1,7 @@
 
 import _ from '../i18n';
 import React from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, Text} from 'react-native';
 
 import {Window, Button, Popup, EventListItem, SwitchButton, Header} from '../components';
 import StyleSheet from '../styles';
@@ -101,6 +101,15 @@ export default class MyEvents extends React.Component {
         </View>
 
         <ScrollView contentContainerStyle={StyleSheet.container}>
+          {events.length === 0 && this.state.tab === 'upcoming' && (
+            <Text style={StyleSheet.noResults}>{_('noUpcomingEvents')}</Text>
+          )}
+          {events.length === 0 && this.state.tab === 'saved' && (
+            <Text style={StyleSheet.noResults}>{_('noSavedEvents')}</Text>
+          )}
+          {events.length === 0 && this.state.tab === 'history' && (
+            <Text style={StyleSheet.noResults}>{_('noHistoricEvents')}</Text>
+          )}
           {events.map(event =>
             <EventListItem key={event.id}
                      onPress={() => this.onPressEvent(event)}

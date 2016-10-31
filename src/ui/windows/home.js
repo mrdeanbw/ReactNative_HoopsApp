@@ -21,8 +21,15 @@ export default class Home extends React.Component {
   }
 
   _renderEvents() {
+    let noEvents = this.props.events.length === 0;
     return (
       <View>
+        {noEvents && this.props.mode === 'ORGANIZE' && (
+          <Text style={StyleSheet.noResults}>{_('noActiveEvents')}</Text>
+        )}
+        {noEvents && this.props.mode === 'PARTICIPATE' && (
+          <Text style={StyleSheet.noResults}>{_('noUpcomingEvents')}</Text>
+        )}
         {this.props.events.map(event =>
           <EventListItem
             key={event.id}
@@ -92,7 +99,7 @@ export default class Home extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Header
-          title={_('home')}
+          title={this.props.mode === 'ORGANIZE' ? _('activeEvents') : _('upcomingEvents')}
         />
         <ScrollView
           contentContainerStyle={StyleSheet.home.container}

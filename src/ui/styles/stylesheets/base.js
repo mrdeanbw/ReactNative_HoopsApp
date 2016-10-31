@@ -94,5 +94,11 @@ export default StyleSheet => StyleSheet.extend({
     borderStyle: 'solid',
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: colors.grey
-  }
+  },
+
+  noResults: {
+    padding: 20,
+    color: colors.grey,
+    textAlign: 'center',
+  },
 });

@@ -85,6 +85,12 @@ export const participantMode = 'Using as a Participant';
 export const participant = 'participant';
 
 export const upcomingEvents = 'Your Upcoming Events';
+export const activeEvents = 'Your Active Events';
+export const noUpcomingEvents = 'You have no upcoming events';
+export const noActiveEvents = 'You have no active events';
+export const noSavedEvents = 'You have no saved events';
+export const noHistoricEvents = 'You have no historic events';
+export const noInvitations = 'You have no invitations';
 
 
 export const help = 'Help';

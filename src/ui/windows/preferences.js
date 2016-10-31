@@ -56,7 +56,6 @@ export default class Preferences extends React.Component {
       <View>
         <Header
           title={_('preferences')}
-          mode={this.props.mode}
         />
         <Popup
           visible={this.state.currencyPopup}

@@ -150,6 +150,9 @@ export default class Invitations extends React.Component {
         {this.renderSentPopup()}
 
         <ScrollView contentContainerStyle={StyleSheet.container}>
+          {invites.length === 0 && (
+            <Text style={StyleSheet.noResults}>{_('noInvitations')}</Text>
+          )}
           {invites.map((invite, i) => (
             <EventListItem
               key={i}

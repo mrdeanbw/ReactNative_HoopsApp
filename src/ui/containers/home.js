@@ -92,6 +92,7 @@ class Home extends React.Component {
     return (
       <_Home
         onPressEvent={this.onPressEvent.bind(this)}
+        mode={this.props.user.mode}
         events={events}
         onPressAdd={() => this.props.onNavigate('createEvent')}
         location={this.state.location}
