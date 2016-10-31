@@ -84,6 +84,7 @@ export default class InterestsAll extends React.Component {
           <TextInput
             type="search"
             icon="searchGrey"
+            clearButtonMode="always"
             placeholder={_('search')}
             onChangeText={(search) => {
               this.setState({search});
