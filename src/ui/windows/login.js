@@ -86,6 +86,7 @@ export default class Login extends React.Component {
               }}
               style={emailError && StyleSheet.login.errorTextInput}
               error={emailError}
+              keyboardType="email-address"
               type="rounded"
               ref="email"
               icon="email"
