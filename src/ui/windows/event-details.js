@@ -214,7 +214,11 @@ export default class EventDetails extends React.Component {
               {this.props.event.gender === 'female' && _('femaleOnly')}
               {this.props.event.gender === 'mixed' && _('mixed')}
             </EventInfo>
-            <EventInfo icon="courtType" label={_('courtType')}>{this.props.event.courtType}</EventInfo>
+            <EventInfo
+              icon={this.props.event.courtType === 'outdoor' ? "courtType" : "homeActive"} label={_('courtType')}
+            >
+              {this.props.event.courtType === 'outdoor' ? _('outdoor') : _('indoor')}
+            </EventInfo>
             {this.props.event.ageGroup === 'under-16' && <EventInfo icon="ageUnder16" label={_('ageGroup')}>{_('under16')}</EventInfo>}
             {this.props.event.ageGroup === '16-to-17' && <EventInfo icon="age16to17" label={_('ageGroup')}>{_('_16to17')}</EventInfo>}
             {this.props.event.ageGroup === 'adult' && <EventInfo icon="ageAdult" label={_('ageGroup')}>{_('adults')}</EventInfo>}
