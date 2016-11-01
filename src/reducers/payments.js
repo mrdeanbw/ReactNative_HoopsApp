@@ -18,6 +18,21 @@ const initialState = {
 };
 
 export default handleActions({
+
+  'persist/REHYDRATE': (state, action) => {
+    return {
+      ...action.payload.payments,
+      isUpdatingAccount: false,
+      isFetchingAccount: false,
+      isAddingCard: false,
+      isDeletingCard: false,
+      updateAccountError: null,
+      fetchAccountError: null,
+      addCardError: null,
+      deleteCardError: null,
+    };
+  },
+
   PAYMENTS_UPDATE_ACCOUNT_START: (state, action) => {
     return {
       ...state,
