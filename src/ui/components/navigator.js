@@ -75,6 +75,7 @@ export default class Navigator extends React.Component {
     return (
       <CardStack
         direction={this.state.direction}
+        gestureResponseDistance={30}
         onNavigateBack={this.props.onNavigateBack}
         navigationState={this.props.navigationState}
         renderScene={this.renderScene}
