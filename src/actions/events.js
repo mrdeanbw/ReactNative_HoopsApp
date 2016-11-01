@@ -5,6 +5,7 @@ import * as usersActions from './users';
 import * as invitesActions from './invites';
 import * as requestsActions from './requests';
 import * as paymentsActions from './payments';
+import * as notificationsActions from './notifications';
 
 import {getPlace} from '../data/google-places';
 
@@ -69,6 +70,9 @@ export const load = (id) => {
     let state = getState();
     eventsRef.child(id).on('value', (snapshot) => {
       let event = snapshot.val();
+      if(!event) {
+        return;
+      }
 
       let onLoaded = (event) => {
         dispatch(loadAddress(event));
@@ -145,18 +149,23 @@ export const create = (eventData) => {
       let imageRef = result[0] ? result[0].ref : null;
       let coords = result[1] ? result[1].location : null;
 
+      eventData = {
+        ...eventData,
+        //Replace the original eventData.image with our firebase reference
+        image: imageRef,
+        organizer: uid,
+        id: newKey,
+      };
+
+      if(coords) {
+        eventData.addressCoords = {
+          lat: coords.lat,
+          lon: coords.lng, //GooglePlaces uses `lng`, but elasticsearch needs `lon`
+        };
+      }
+
       firebaseDb.update({
-        [`events/${newKey}`]: {
-          ...eventData,
-          //Replace the original eventData.image with our firebase reference
-          image: imageRef,
-          addressCoords: {
-            lat: coords.lat,
-            lon: coords.lng, //GooglePlaces uses `lng`, but elasticsearch needs `lon`
-          },
-          organizer: uid,
-          id: newKey,
-        },
+        [`events/${newKey}`]: eventData,
         [`users/${uid}/organizing/${newKey}`]: true,
       }, (err) => {
         if(err) {
@@ -169,9 +178,8 @@ export const create = (eventData) => {
             type: 'EVENT_ADDED',
             eventData,
           });
-          dispatch(notificationActions.scheduleDeadlineAlert({
+          dispatch(notificationsActions.scheduleDeadlineAlert({
             ...eventData,
-            id: newKey,
           }));
         }
       });

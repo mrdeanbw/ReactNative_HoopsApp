@@ -25,7 +25,6 @@ class CreateEvent extends React.Component {
             addressGooglePlaceId: eventData.address.key,
           };
           this.props.onSaveEvent(eventData);
-          this.props.onNavigateBack();
         }}
         onSelectAppPayments={() => {
           if(!this.props.user.stripeAccount) {

@@ -236,4 +236,29 @@ export default handleActions({
     }
   },
 
+  EVENT_ADDED: (state, action) => {
+    return {
+      ...state,
+      index: 0,
+      routes: [{
+        key: 'tabs',
+      }],
+      tabKey: 'home',
+      tabs: {
+        ...state.tabs,
+        home: {
+          index: 1,
+          routes: [{
+            key: 'home',
+          },{
+            key: 'eventDashboard',
+            props: {
+              id: action.eventData.id,
+            },
+          }],
+        },
+      },
+    };
+  },
+
 }, initialState);

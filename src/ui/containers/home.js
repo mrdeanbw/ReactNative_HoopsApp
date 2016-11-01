@@ -70,7 +70,7 @@ class Home extends React.Component {
 
     let events = eventIds.map((id) => {
       return this.props.events.eventsById[id];
-    }).filter(event => !!event).map(event => {
+    }).filter(event => !!event && event.id).map(event => {
       return inflateEvent(event, {
         requests: this.props.requests.requestsById,
         invites: this.props.invites.invitesById,

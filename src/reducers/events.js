@@ -36,6 +36,17 @@ export default handleActions({
     };
   },
 
+  EVENT_ADDED: (state, action) => {
+    //When we add a new event, get it in the store before firebase can load
+    return {
+      ...state,
+      eventsById: {
+        ...state.eventsById,
+        [action.eventData.id]: action.eventData,
+      },
+    };
+  },
+
   EVENTS_GOOGLE_PLACE_START: (state, action) => {
     return {
       ...state,

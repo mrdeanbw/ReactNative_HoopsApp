@@ -118,12 +118,18 @@ export const scheduleDeadlineAlert = (event) => {
   if(!event.deadline) {
     return;
   }
+  let id = `DEADLINE_${event.id}`;
 
   FCM.scheduleLocalNotification({
     fire_date: new Date(event.deadline).getTime(),
-    id: `DEADLINE_${event.id}`,
+    id: id,
     body: 'Your event deadline has passed',
     title: `${event.title} deadline`,
     deeplink: `hoops://events/${event.id}`,
   });
+
+  return {
+    type: 'NOTIFICATION_SCHEDULED',
+    id: id,
+  };
 };
