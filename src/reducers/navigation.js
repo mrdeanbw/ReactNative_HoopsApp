@@ -193,4 +193,47 @@ export default handleActions({
     };
   },
 
+  NOTIFICATION_PUSH: (state, action) => {
+    //Don't navigate unless the notification was opened from the tray
+    if(!action.notification.opened_from_tray) {
+      return state;
+    }
+
+    let deeplink = action.notification.deeplink;
+
+    //Match the hoops://events/<eventId> scheme
+    let matches = deeplink.match(/hoops:\/\/events\/(.*)/);
+    if(matches.length === 2) {
+      return {
+        ...state,
+        index: 0,
+        routes: [{
+          key: 'tabs',
+        }],
+        tabKey: 'home',
+        tabs: {
+          ...state.tabs,
+          home: {
+            index: 2,
+            routes: [{
+              key: 'home',
+            },{
+              key: 'eventDashboard',
+              props: {
+                id: matches[1],
+              },
+            },{
+              key: 'eventDetails',
+              props: {
+                id: matches[1],
+              },
+            }],
+          },
+        },
+      };
+    } else {
+      return state;
+    }
+  },
+
 }, initialState);

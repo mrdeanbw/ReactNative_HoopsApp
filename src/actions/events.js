@@ -169,6 +169,10 @@ export const create = (eventData) => {
             type: 'EVENT_ADDED',
             eventData,
           });
+          dispatch(notificationActions.scheduleDeadlineAlert({
+            ...eventData,
+            id: newKey,
+          }));
         }
       });
 

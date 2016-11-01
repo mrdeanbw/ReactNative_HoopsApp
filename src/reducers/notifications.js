@@ -43,4 +43,9 @@ export default handleActions({
     };
   },
 
+  NOTIFICATION_PUSH: (state, action) => {
+    let deeplink = action.notification.deeplink;
+    return state;
+  },
+
 }, initialState);

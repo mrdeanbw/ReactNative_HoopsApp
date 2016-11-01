@@ -113,3 +113,17 @@ export const receivePush = (notification) => {
     notification,
   };
 };
+
+export const scheduleDeadlineAlert = (event) => {
+  if(!event.deadline) {
+    return;
+  }
+
+  FCM.scheduleLocalNotification({
+    fire_date: new Date(event.deadline).getTime(),
+    id: `DEADLINE_${event.id}`,
+    body: 'Your event deadline has passed',
+    title: `${event.title} deadline`,
+    deeplink: `hoops://events/${event.id}`,
+  });
+};
