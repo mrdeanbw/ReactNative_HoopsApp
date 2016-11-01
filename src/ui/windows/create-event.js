@@ -329,7 +329,7 @@ export default class CreateEvent extends React.Component {
                   value={this.state.addressText}
                   onChangeText={(addressText) => {
                     this.setState({addressText});
-                    autocomplete(addressText, 'address').then(result => {
+                    autocomplete(addressText, '').then(result => {
                       this.setState({addressAutocomplete: result.predictions});
                     });
                   }}

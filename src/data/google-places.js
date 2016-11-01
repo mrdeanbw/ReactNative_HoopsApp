@@ -8,6 +8,7 @@ export const autocomplete = (input, type = '(cities)') => {
     key: API_KEY,
     input: input,
     type: type,
+    components: 'country:uk',
   });
 
   let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?${query}`;
