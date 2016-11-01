@@ -26,11 +26,11 @@ export default class CreateEvent extends React.Component {
         privacy: '',
         level: '',
         maxPlayers: 0,
+        minPlayers: 0,
 
         date: null,
         courtType: '',
         recurring: false,
-        venueName: '',
         address: {},
         entryFee: 0,
         paymentMethod: '',
@@ -64,6 +64,15 @@ export default class CreateEvent extends React.Component {
     let {maxPlayers} = this.state.eventDetails;
     if(typeof maxPlayers === 'number' && !isNaN(maxPlayers) && maxPlayers !== 0){
       return maxPlayers.toString();
+    }else{
+      return '';
+    }
+  };
+
+  getMinPlayersLabel = () => {
+    let {minPlayers} = this.state.eventDetails;
+    if(typeof minPlayers === 'number' && !isNaN(minPlayers) && minPlayers !== 0){
+      return minPlayers.toString();
     }else{
       return '';
     }
@@ -104,7 +113,6 @@ export default class CreateEvent extends React.Component {
       date,
       courtType,
       recurring,
-      venueName,
       address,
       entryFee,
       paymentMethod,
@@ -129,7 +137,6 @@ export default class CreateEvent extends React.Component {
           date &&
           courtType &&
           typeof recurring !== 'undefined' && //`recurring` is boolean
-          venueName &&
           address && address.key &&
           Number.isFinite(entryFee) && //`entryFee` could be 0
           paymentMethod &&
@@ -259,6 +266,31 @@ export default class CreateEvent extends React.Component {
                   style={{width: 110}}
                 />
               </View>
+              <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
+                <TextInput
+                  ref="minPlayersInput"
+                  type="flat"
+                  keyboardType="numeric"
+                  placeholder={_('minPlayers')}
+                  value={this.getMinPlayersLabel()}
+                  onChangeText={minPlayers => {
+                    this.setEventData({
+                      minPlayers: minPlayers === '' ? '' : parseInt(minPlayers, 10)
+                    });
+                  }}
+                  style={{flex: 1, marginRight: 25}}
+                  onFocus={() => {
+                    this.scrollToInput('scrollView1', this.refs.minPlayersInput);
+                  }}
+                />
+                <Button
+                  type="roundedGrey"
+                  active={!this.state.eventDetails.minPlayers}
+                  text={_('unlimited')}
+                  onPress={() => this.setEventData({minPlayers: 0})}
+                  style={{width: 110}}
+                />
+              </View>
 
 
               <KeyboardSpacer/>
@@ -293,20 +325,6 @@ export default class CreateEvent extends React.Component {
               </View>
 
               <View style={StyleSheet.doubleMarginTop}>
-                <TextInput
-                  value={this.state.eventDetails.venueName}
-                  onChangeText={(venueName) => this.setEventData({venueName})}
-                  ref="venueNameInput"
-                  type="flat"
-                  placeholder={_('venueName')}
-                  blurOnSubmit={false}
-                  onSubmitEditing={() => {
-                    this.refs.venueAddressInput.focus();
-                  }}
-                  onFocus={() => {
-                    this.scrollToInput('scrollView2', this.refs.venueNameInput);
-                  }}
-                />
                 <TextInput
                   value={this.state.addressText}
                   onChangeText={(addressText) => {

@@ -38,7 +38,7 @@ export default class Home extends React.Component {
             title={event.title}
             players={event.players} maxPlayers={event.maxPlayers}
             level={event.level}
-            venueName={event.venueName}
+            venueName={event.address}
             date={event.date}
             distance={this.props.mode === 'PARTICIPATE' ? event.distance : null}
           />

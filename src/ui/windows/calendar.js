@@ -185,7 +185,7 @@ export default class Calendar extends React.Component {
                     {event.title}
                   </Text>
                   <Text style={StyleSheet.calendar.eventAddress} numberOfLines={1}>
-                    {event.venueName}, {event.address}
+                    {event.address}
                   </Text>
                 </View>
                 <View style={StyleSheet.calendar.eventChevron}>

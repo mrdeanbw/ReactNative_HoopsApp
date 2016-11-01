@@ -121,7 +121,7 @@ export default class Profile extends React.Component {
               title={event.title}
               players={event.players} maxPlayers={event.maxPlayers}
               level={event.level}
-              venueName={event.venueName}
+              venueName={event.address}
               date={event.date}
             />
           )}

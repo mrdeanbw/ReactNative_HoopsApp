@@ -117,7 +117,7 @@ export default class MyEvents extends React.Component {
                      title={event.title}
                      players={event.players} maxPlayers={event.maxPlayers}
                      level={event.level}
-                     venueName={event.venueName}
+                     venueName={event.address}
                      disclosure={StyleSheet.icons.menu}
                      onPressDisclosure={() => this.onPressDisclosure(event)}
                      distance={event.distance}
