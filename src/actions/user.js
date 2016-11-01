@@ -337,7 +337,7 @@ const handleInitialRouting = () => {
       if(state.user.mode) {
         //Go to home page
         dispatch(navigationActions.reset({key: 'tabs'}));
-      } else if(Object.keys(state.user.interests).length === 0) {
+      } else if(Object.keys(state.user.interests || {}).length === 0) {
         dispatch(navigationActions.reset({key: 'selectInterests'}));
       } else {
         //Go to select-mode page
