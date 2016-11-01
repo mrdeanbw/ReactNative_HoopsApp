@@ -249,17 +249,27 @@ const listenToUser = () => {
   return (dispatch, getState) => {
     let uid = firebase.auth().currentUser.uid;
 
+    let firstLoad = true;
     firebaseDb.child(`users/${uid}`).on('value', (snapshot) => {
       let user = snapshot.val() || {};
 
       let state = getState();
       let nav = state.navigation;
-      if(!state.user.name) {
-        //We are dealing with a newly loaded user. Handle some routing logic
 
+      //We need to do routing if it is the first load, or if name isn't defined yet
+      if(firstLoad || !state.user.name) {
+        //If the user has a name, we can leave the login/signup views
         if(user.publicProfile && user.publicProfile.name) {
-          //The user has been created already
-          dispatch(handleInitialRouting());
+          if(state.user.mode) {
+            //Go to home page
+            dispatch(navigationActions.reset({key: 'tabs'}));
+          } else if(Object.keys(user.publicProfile.interests || {}).length === 0) {
+            //Go to interests selection
+            dispatch(navigationActions.reset({key: 'selectInterests'}));
+          } else {
+            //Go to select-mode page
+            dispatch(navigationActions.reset({key: 'selectMode'}));
+          }
         } else {
           //The user doesn't have a name, we need to send this user to complete reg.
           if(nav.routes[nav.index].key !== 'signupFacebookExtra') {
@@ -267,9 +277,10 @@ const listenToUser = () => {
             return;
           }
         }
+        firstLoad = false;
       }
 
-      if(user.publicProfile && user.publicProfile.image) {
+      if(user.publicProfile && user.publicProfile.image && !state.user.imageSrc) {
         firebaseStorage.ref(user.publicProfile.image).getDownloadURL().then(uri => {
           user.publicProfile.imageSrc = uri;
           dispatch({
@@ -328,25 +339,6 @@ const listenToUser = () => {
   };
 };
 
-const handleInitialRouting = () => {
-  return (dispatch, getState) => {
-    let state = getState();
-
-    //If user is loaded into state
-    if(state.user.uid) {
-      if(state.user.mode) {
-        //Go to home page
-        dispatch(navigationActions.reset({key: 'tabs'}));
-      } else if(Object.keys(state.user.interests || {}).length === 0) {
-        dispatch(navigationActions.reset({key: 'selectInterests'}));
-      } else {
-        //Go to select-mode page
-        dispatch(navigationActions.reset({key: 'selectMode'}));
-      }
-    }
-  };
-};
-
 export const registerWithStore = () => {
   return dispatch => {
     /*
@@ -359,7 +351,6 @@ export const registerWithStore = () => {
         dispatch({type: 'FIREBASE_AUTH_INIT', uid: user.uid});
         dispatch(FCMInit());
         dispatch(listenToUser());
-        dispatch(handleInitialRouting());
       }else{
         dispatch({type: 'FIREBASE_AUTH_INIT', uid: null});
         dispatch(navigationActions.reset({key: 'walkthrough'}));
