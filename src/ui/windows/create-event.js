@@ -22,7 +22,8 @@ export default class CreateEvent extends React.Component {
         title: '',
         activity: {},
         gender: '',
-        ageGroup: '',
+        minAge: undefined,
+        maxAge: undefined,
         privacy: '',
         level: '',
         maxPlayers: 0,
@@ -60,23 +61,13 @@ export default class CreateEvent extends React.Component {
     }
   };
 
-  getMaxPlayersLabel = () => {
-    let {maxPlayers} = this.state.eventDetails;
-    if(typeof maxPlayers === 'number' && !isNaN(maxPlayers) && maxPlayers !== 0){
-      return maxPlayers.toString();
+  getNumericLabel = (value) => {
+    if(typeof value === 'number' && !isNaN(value) && value !== 0) {
+      return value.toString();
     }else{
       return '';
     }
-  };
-
-  getMinPlayersLabel = () => {
-    let {minPlayers} = this.state.eventDetails;
-    if(typeof minPlayers === 'number' && !isNaN(minPlayers) && minPlayers !== 0){
-      return minPlayers.toString();
-    }else{
-      return '';
-    }
-  };
+  }
 
   onComplete = () => {
     if(this.props.onComplete) {
@@ -106,7 +97,8 @@ export default class CreateEvent extends React.Component {
       title,
       activity,
       gender,
-      ageGroup,
+      minAge,
+      maxAge,
       privacy,
       level,
 
@@ -127,7 +119,6 @@ export default class CreateEvent extends React.Component {
           title &&
           activity && activity.key &&
           gender &&
-          ageGroup &&
           privacy &&
           level
         );
@@ -217,14 +208,57 @@ export default class CreateEvent extends React.Component {
                 <Button type="image" icon="mixed" active={this.state.eventDetails.gender === 'mixed'} onPress={() => this.setEventData({gender: 'mixed'})}/>
               </View>
 
-              <ListInput type="flat" style={StyleSheet.halfMarginTop}  placeholder={_('ageProfile')} value={this.state.eventDetails.ageGroup}
-                     rightBar={<Icon name="listIndicator" />}
-                     onChange={(ageGroup) => this.setEventData({ageGroup})}>
-                <ListInput.Item text={_('under16')} value="under-16" />
-                <ListInput.Item text={_('_16to18')} value="16-to-18" />
-                <ListInput.Item text={_('_18plus')} value="adult" />
-                <ListInput.Item text={_('unrestricted')} value="all" />
-              </ListInput>
+
+              <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
+                <TextInput
+                  ref="minAgeInput"
+                  type="flat"
+                  keyboardType="numeric"
+                  placeholder={_('minAge')}
+                  value={this.getNumericLabel(this.state.eventDetails.minAge)}
+                  onChangeText={minAge => {
+                    this.setEventData({
+                      minAge: minAge === '' ? '' : parseInt(minAge, 10)
+                    });
+                  }}
+                  style={{flex: 1, marginRight: 25}}
+                  onFocus={() => {
+                    this.scrollToInput('scrollView1', this.refs.minAgeInput);
+                  }}
+                />
+                <Button
+                  type="roundedGrey"
+                  active={!this.state.eventDetails.minAge}
+                  text={_('unlimited')}
+                  onPress={() => this.setEventData({minAge: 0})}
+                  style={{width: 110}}
+                />
+              </View>
+              <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
+                <TextInput
+                  ref="maxAgeInput"
+                  type="flat"
+                  keyboardType="numeric"
+                  placeholder={_('maxAge')}
+                  value={this.getNumericLabel(this.state.eventDetails.maxAge)}
+                  onChangeText={maxAge => {
+                    this.setEventData({
+                      maxAge: maxAge === '' ? '' : parseInt(maxAge, 10)
+                    });
+                  }}
+                  style={{flex: 1, marginRight: 25}}
+                  onFocus={() => {
+                    this.scrollToInput('scrollView1', this.refs.maxAgeInput);
+                  }}
+                />
+                <Button
+                  type="roundedGrey"
+                  active={!this.state.eventDetails.maxAge}
+                  text={_('unlimited')}
+                  onPress={() => this.setEventData({maxAge: 0})}
+                  style={{width: 110}}
+                />
+              </View>
 
               <ListInput type="flat" style={StyleSheet.halfMarginTop}  placeholder={_('privacy')} value={this.state.eventDetails.privacy}
                      rightBar={<Icon name="listIndicator" />}
@@ -247,7 +281,7 @@ export default class CreateEvent extends React.Component {
                   type="flat"
                   keyboardType="numeric"
                   placeholder={_('maxPlayers')}
-                  value={this.getMaxPlayersLabel()}
+                  value={this.getNumericLabel(this.state.eventDetails.maxPlayers)}
                   onChangeText={maxPlayers => {
                     this.setEventData({
                       maxPlayers: maxPlayers === '' ? '' : parseInt(maxPlayers, 10)
@@ -272,7 +306,7 @@ export default class CreateEvent extends React.Component {
                   type="flat"
                   keyboardType="numeric"
                   placeholder={_('minPlayers')}
-                  value={this.getMinPlayersLabel()}
+                  value={this.getNumericLabel(this.state.eventDetails.minPlayers)}
                   onChangeText={minPlayers => {
                     this.setEventData({
                       minPlayers: minPlayers === '' ? '' : parseInt(minPlayers, 10)
@@ -364,6 +398,7 @@ export default class CreateEvent extends React.Component {
                     keyboardType="numeric"
                     placeholder={_('costPP')}
                     value={this.getEntryFeeLabel()}
+                    prefix={this.getEntryFeeLabel() !== '' && '£'}
                     onChangeText={entryFee => {
                       this.setEventData({
                         entryFee: entryFee === '' ? '' : parseInt(entryFee, 10)

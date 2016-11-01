@@ -86,14 +86,17 @@ export default class TextInput extends React.Component {
                   this.props.textStyle,
                   !this.props.value && { color: this.props.placeholderTextColor || textInput.placeholderTextColor || defaultTextInput.placeholderTextColor }
                 ]} numberOfLines={1}>{this.props.value && this.props.value.replace(/\s+/g, ' ') || this.props.placeholder}</Text> ||
-                <_TextInput ref="input"
-                      style={[StyleSheet.text, defaultTextInput.textStyle, textInput.textStyle, textStyle, {flex: 1}]}
-                      placeholderTextColor={this.props.error ? StyleSheet.textInputs.errorPlaceholderColor : textInput.placeholderTextColor || defaultTextInput.placeholderTextColor}
-                      selectionColor={textInput.selectionColor || defaultTextInput.selectionColor}
-                      keyboardAppearance={textInput.keyboardAppearance || defaultTextInput.keyboardAppearance}
-                      multiline={multiline}
-                      numberOfLines={numberOfLines}
-                      {...props} />
+                <View style={{flexDirection: 'row', flex: 1}}>
+                  <Text>{this.props.prefix}</Text>
+                  <_TextInput ref="input"
+                        style={[StyleSheet.text, defaultTextInput.textStyle, textInput.textStyle, textStyle, {flex: 1}]}
+                        placeholderTextColor={this.props.error ? StyleSheet.textInputs.errorPlaceholderColor : textInput.placeholderTextColor || defaultTextInput.placeholderTextColor}
+                        selectionColor={textInput.selectionColor || defaultTextInput.selectionColor}
+                        keyboardAppearance={textInput.keyboardAppearance || defaultTextInput.keyboardAppearance}
+                        multiline={multiline}
+                        numberOfLines={numberOfLines}
+                        {...props} />
+                  </View>
               }
             </View>
             {rightBar && <View style={[defaultTextInput.barStyle, textInput.barStyle, barStyle]}>{rightBar}</View>}

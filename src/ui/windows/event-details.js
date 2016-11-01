@@ -128,6 +128,17 @@ export default class EventDetails extends React.Component {
     let event = this.props.event;
     let address = event.addressGooglePlace && event.addressGooglePlace.formatted_address;
 
+    let ageText;
+    if(this.props.event.minAge && this.props.event.maxAge) {
+      ageText = <Text>{this.props.event.minAge} - {this.props.event.maxAge}</Text>;
+    } else if(this.props.event.minAge) {
+      ageText = <Text>Min Age {this.props.event.minAge}</Text>;
+    } else if(this.props.event.maxAge) {
+      ageText = <Text>Max Age {this.props.event.maxAge}</Text>;
+    } else {
+      ageText = _('unrestricted');
+    }
+
     return (
       <View style={{flex: 1}}>
         <Header
@@ -248,10 +259,10 @@ export default class EventDetails extends React.Component {
             >
               {this.props.event.courtType === 'outdoor' ? _('outdoor') : _('indoor')}
             </EventInfo>
-            {this.props.event.ageGroup === 'under-16' && <EventInfo icon="ageUnder16" label={_('ageGroup')}>{_('under16')}</EventInfo>}
-            {this.props.event.ageGroup === '16-to-17' && <EventInfo icon="age16to17" label={_('ageGroup')}>{_('_16to17')}</EventInfo>}
-            {this.props.event.ageGroup === 'adult' && <EventInfo icon="ageAdult" label={_('ageGroup')}>{_('adults')}</EventInfo>}
-            {this.props.event.ageGroup === 'all' && <EventInfo icon="ageAll" label={_('ageGroup')}>{_('unrestricted')}</EventInfo>}
+            <EventInfo
+              icon="ageAll"
+              label={_('ageGroup')}
+            >{ageText}</EventInfo>
             {this.props.event.privacy === 'public' && <EventInfo icon="globe" label={_('privacy')}>{_('_public')}</EventInfo>}
             {this.props.event.privacy === 'private' && <EventInfo icon="globe" label={_('privacy')}>{_('_private')}</EventInfo>}
           </EventInfo.Bar>
