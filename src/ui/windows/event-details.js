@@ -45,6 +45,14 @@ export default class EventDetails extends React.Component {
   }
 
   updateActionButton(props) {
+    if(
+      props.isMember === this.props.isMember &&
+      props.isPendingRequest === this.props.isPendingRequest &&
+      props.isOrganizer === this.props.isOrganizer
+    ){
+      return;
+    }
+
     let entryFee = props.event.entryFee || 0;
 
     if(props.isMember || props.isPendingRequest) {
