@@ -21,9 +21,17 @@ const initialState = {
   isLoading: false,
 
   usersById: {},
+  all: {},
 };
 
 export default handleActions({
+
+  USERS_LOAD_ALL: (state, action) => {
+    return {
+      ...state,
+      all: action.users,
+    };
+  },
 
   USERS_LOAD: (state, action) => {
     return {

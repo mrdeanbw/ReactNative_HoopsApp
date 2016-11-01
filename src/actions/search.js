@@ -9,6 +9,77 @@ import * as navigation from './navigation';
 import * as users from './users';
 
 export const search = (params) => {
+
+  return (dispatch, getState) => {
+    let allEvents = getState().events.all;
+
+    let matches = Object.keys(allEvents).map(id => {
+      return {
+        ...allEvents[id],
+        id: id,
+      };
+    }).filter(event => {
+      if(params.text && params.text.toLowerCase().search(event.title.toLowerCase()) === -1) {
+        return false;
+      }
+      if(params.gender && params.gender !== event.gender) {
+        return false;
+      }
+      if(params.level && params.level !== event.level) {
+        return false;
+      }
+      if(params.courtType && params.courtType !== 'both') {
+        if(params.courtType !== event.courtType) {
+          return false;
+        }
+      }
+
+      if(params.geospatial && params.geospatial.radius && event.addressCoords) {
+        //Very simple approximate radius calculation (pythagoras)
+        let dLat = params.geospatial.coords.latitude - event.addressCoords.lat;
+        let dLon = params.geospatial.coords.longitude - event.addressCoords.lon;
+        let distance = Math.sqrt(Math.pow(dLat, 2) + Math.pow(dLon, 2));
+
+        //Each degree of latitude is approximately 70 miles
+        distance = distance * 70;
+
+        if(params.geospatial.radius <= distance) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+
+    //We use this format because it is what elasticsearch will return
+    let results = {
+      hits: {
+        total: matches.length,
+        hits: matches.map(event => ({
+          _id: event.id,
+        })),
+      },
+    };
+
+    dispatch({
+      type: 'SEARCH_END',
+      results,
+    });
+
+    //If we got some results, load the event objects from database
+    if(results.hits && results.hits.hits) {
+      results.hits.hits.forEach(hit => {
+        dispatch(events.load(hit._id));
+      });
+    }
+
+    //Navigate to the results page
+    dispatch(navigation.push({key: 'searchResults'}));
+  };
+};
+
+/* For now, we do local searching only
+export const search = (params) => {
   return dispatch => {
     dispatch({
       type: 'SEARCH_START',
@@ -104,8 +175,10 @@ export const search = (params) => {
         err,
       });
     });
+
   };
 };
+*/
 
 /*
  * params.location.lat {Number}

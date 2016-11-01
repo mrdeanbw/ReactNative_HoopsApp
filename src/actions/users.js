@@ -95,3 +95,13 @@ export const loadFriendRequest = (id) => {
   };
 };
 
+export const getAll = () => {
+  return dispatch => {
+    firebaseDb.child(`users`).on('value', snapshot => {
+      dispatch({
+        type: 'USERS_LOAD_ALL',
+        users: snapshot.val(),
+      });
+    });
+  };
+};

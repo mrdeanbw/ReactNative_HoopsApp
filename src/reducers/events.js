@@ -4,6 +4,7 @@ const initialState = {
   isLoading: false,
 
   eventsById: {},
+  all: {},
 };
 
 export default handleActions({
@@ -12,6 +13,13 @@ export default handleActions({
     return {
       ...state,
       isLoading: true,
+    };
+  },
+
+  EVENTS_LOAD_ALL: (state, action) => {
+    return {
+      ...state,
+      all: action.events,
     };
   },
 

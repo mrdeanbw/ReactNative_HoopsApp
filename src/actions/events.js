@@ -319,3 +319,14 @@ export const unsave = (eventId) => {
     });
   };
 };
+
+export const getAll = () => {
+  return dispatch => {
+    firebaseDb.child(`events`).on('value', snapshot => {
+      dispatch({
+        type: 'EVENTS_LOAD_ALL',
+        events: snapshot.val(),
+      });
+    });
+  };
+};
