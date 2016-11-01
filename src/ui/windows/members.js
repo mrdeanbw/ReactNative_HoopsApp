@@ -56,6 +56,8 @@ export default class Members extends React.Component {
   }
 
   render() {
+    let isEmpty = this.props.requests.length + this.props.invites.length === 0;
+
     return (
       <View style={{flex: 1}}>
         <Header
@@ -65,7 +67,7 @@ export default class Members extends React.Component {
             <Button
               type="dialogGreen"
               icon="plus"
-              text={_('inviteMore')}
+              text={isEmpty ? _('invite') : _('inviteMore')}
               onPress={this.onPressInviteMore.bind(this)}
             />
           )}
