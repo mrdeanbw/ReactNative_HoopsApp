@@ -92,9 +92,8 @@ export default class EventRequests extends React.Component {
               <UserListItem
                 key={request.id}
                 onPress={() => this.onPressUser(user)}
-                avatar={{uri: user.imageSrc}}
-                firstName={user.name}
-                lastName={user.name}
+                imageSrc={user.imageSrc}
+                name={user.name}
                 location={user.location}
                 dob={user.dob}
                 checked={!!this.state.selected[request.id]}

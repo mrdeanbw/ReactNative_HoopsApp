@@ -74,8 +74,7 @@ export default class Friends extends React.Component {
               key={user.id}
               onPress={() => this.onPressUser(user)}
               imageSrc={user.imageSrc}
-              firstName={user.name}
-              lastName={user.name}
+              name={user.name}
               location={user.location}
               dob={user.dob}
               onPressDisclosure={() => this.onPressDisclosure(user)}

@@ -140,9 +140,8 @@ export default class FriendsSearch extends React.Component {
             <UserListItem
               key={user.id}
               onPress={() => this.onPressUser(user)}
-              avatar={StyleSheet.images[user.avatar]}
-              firstName={user.name}
-              lastName={user.name}
+              imageSrc={user.imageSrc}
+              name={user.name}
               location={user.location}
               dob={user.dob}
               checked={!!this.state.selected[user.id]}

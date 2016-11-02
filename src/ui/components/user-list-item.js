@@ -27,7 +27,7 @@ export default class UserListItem extends React.Component {
   }
 
   render() {
-    const {firstName, lastName, location, dob, status, checked, ...props} = this.props;
+    const {name, location, dob, status, checked, ...props} = this.props;
     const age = ((new Date().getTime() - new Date(dob).getTime()) / (365.25*24*3600*1000)) | 0;
 
     return (
@@ -58,7 +58,7 @@ export default class UserListItem extends React.Component {
 
             <View style={StyleSheet.userListItem.textContainer}>
               <Text style={[StyleSheet.text, StyleSheet.userListItem.textStyle, StyleSheet.userListItem.titleTextStyle]} numberOfLines={1} ellipsizeMode="tail">
-                {firstName}{'\u00a0'}{lastName}
+                {name}
               </Text>
               <Text style={[StyleSheet.text, StyleSheet.userListItem.textStyle]} numberOfLines={1} ellipsizeMode="tail">
                 {location}{'\u00a0\u00a0|\u00a0\u00a0'}{_('age')}: {age}
