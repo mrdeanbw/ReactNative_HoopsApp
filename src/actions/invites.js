@@ -10,11 +10,13 @@ const inviteRef = firebaseDb.child('invites');
 const listening = {};
 
 export const create = (userId, eventId) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    let uid = getState().user.uid;
     let ref = inviteRef.push();
     let inviteKey = ref.key;
     let inviteData =  {
       userId,
+      fromId: uid,
       eventId,
       status: "pending",
       date: new Date(),

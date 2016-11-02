@@ -69,10 +69,16 @@ class EventDetails extends React.Component {
       return eventId === event.id;
     });
 
+    //navRoute is needed to determine weather or not to update the action button
+    let tabKey = this.props.navigation.tabKey;
+    let tabNav = this.props.navigation.tabs[tabKey];
+    let navRoute = tabNav.routes[tabNav.index];
+
     return (
       <_EventDetails
         onBack={this.props.onBack}
         onClose={this.props.onClose}
+        navKey={navRoute.key}
         event={event}
         organizer={event.organizer}
         isMember={isMember}
@@ -108,6 +114,9 @@ class EventDetails extends React.Component {
         onPressViewList={() => {
           this.props.onDeepLinkTab('myEvents', 'myEvents');
         }}
+        onPressInvite={() => {
+          this.props.onNavigate('eventInvites', {id: event.id, friendsOnly: true});
+        }}
         onCancelEvent={(message) => {
           //TODO
         }}
@@ -130,6 +139,7 @@ export default connect(
     invites: state.invites,
     payments: state.payments,
     interests: state.interests,
+    navigation: state.navigation,
   }),
   (dispatch) => ({
     onNavigate: (key, props, subTab) => dispatch(navigation.push({key, props}, subTab)),

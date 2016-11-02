@@ -42,14 +42,13 @@ export default class EventDetails extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if(
-      nextProps.isMember === this.props.isMember &&
-      nextProps.isPendingRequest === this.props.isPendingRequest &&
-      nextProps.isOrganizer === this.props.isOrganizer
+      nextProps.isMember !== this.props.isMember ||
+      nextProps.isPendingRequest !== this.props.isPendingRequest ||
+      nextProps.isOrganizer !== this.props.isOrganizer ||
+      (nextProps.navKey !== this.props.navKey && nextProps.navKey === 'eventDetails')
     ){
-      return;
+      this.updateActionButton(nextProps);
     }
-
-    this.updateActionButton(nextProps);
   }
 
   updateActionButton(props) {
@@ -89,6 +88,10 @@ export default class EventDetails extends React.Component {
   };
 
   onPressInvite = () => {
+    this.props.onPressInvite();
+  };
+
+  onPressShare = () => {
     ActionSheetIOS.showShareActionSheetWithOptions({
       //TODO figure out a deep link url
       url: `hoops://events/${this.props.event.id}`,

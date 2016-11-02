@@ -93,22 +93,20 @@ export const load = (id) => {
         onLoaded(event);
       });
 
-      //Load invites if I am the organizer
-      if(event.organizer === state.user.uid) {
-        if(event.invites) {
-          for(let inviteId in event.invites) {
-            dispatch(invitesActions.load(inviteId));
-          }
+      if(event.invites) {
+        for(let inviteId in event.invites) {
+          dispatch(invitesActions.load(inviteId));
         }
-        if(event.requests) {
-          for(let requestId in event.requests) {
-            dispatch(requestsActions.load(requestId));
-          }
+      }
+      if(event.requests) {
+        for(let requestId in event.requests) {
+          dispatch(requestsActions.load(requestId));
         }
-      } else {
-        if(event.organizer) {
-          dispatch(usersActions.load(event.organizer));
-        }
+      }
+
+      //Load organizer if it is not me
+      if(event.organizer !== state.user.uid) {
+        dispatch(usersActions.load(event.organizer));
       }
     });
   };
