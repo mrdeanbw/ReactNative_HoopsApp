@@ -200,7 +200,7 @@ export const join = (eventId) => {
     let state = getState();
     let event = state.events.eventsById[eventId];
 
-    if(event.entryFee === 0) {
+    if(event.entryFee === 0 || event.paymentMethod !== 'app') {
       dispatch(requestJoin(event));
     } else {
       dispatch(paymentsActions.pay(event));
@@ -210,7 +210,7 @@ export const join = (eventId) => {
 
 export const requestJoin = (event) => {
   return (dispatch, getState) => {
-    if(event.entryFee !== 0) {
+    if(event.entryFee !== 0 && event.paymentMethod === 'app') {
       throw new Error('App cannot create a request to join a paid event. The payment server must do this');
     }
 

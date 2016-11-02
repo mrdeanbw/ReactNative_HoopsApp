@@ -76,7 +76,7 @@ export const load = (id) => {
 
 export const accept = (invite) => {
   return (dispatch, getState) => {
-    if(invite.event.entryFee === 0) {
+    if(invite.event.entryFee === 0 || invite.event.paymentMethod !== 'app') {
       firebaseDb.update({
         [`invites/${invite.id}/status`]: 'confirmed',
       });

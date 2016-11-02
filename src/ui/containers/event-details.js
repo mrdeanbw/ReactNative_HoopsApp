@@ -95,7 +95,7 @@ class EventDetails extends React.Component {
           }
         }}
         onPressJoin={() => {
-          if(event.entryFee === 0) {
+          if(event.entryFee === 0 || event.paymentMethod !== 'app') {
             this.props.onJoin(this.props.id);
           } else if(this.props.payments.cards.length > 0) {
             this.props.onJoin(this.props.id);
