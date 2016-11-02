@@ -10,6 +10,9 @@ import {
 
 class FriendsSearch extends React.Component {
 
+  componentWillMount() {
+    this.props.onSearch('');
+  }
   render() {
 
     let uid = this.props.user.uid;
@@ -30,6 +33,9 @@ class FriendsSearch extends React.Component {
     }).filter(userId => {
       //TODO filter out already-requested friends
       return true;
+    }).filter(userId => {
+      //Filter out self
+      return userId !== this.props.user.uid;
     }).map(userId => {
       return this.props.users.usersById[userId];
     }).filter(user => !!user && pendingUserIds.indexOf(user.id) === -1);
@@ -43,9 +49,7 @@ class FriendsSearch extends React.Component {
 
         users={users}
         onSearchChange={(text) => {
-          if(text.length > 3) {
-            this.props.onSearch(text);
-          }
+          this.props.onSearch(text);
         }}
         onSendFriendRequests={this.props.onSendFriendRequests}
       />

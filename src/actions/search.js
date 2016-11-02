@@ -19,7 +19,7 @@ export const search = (params) => {
         id: id,
       };
     }).filter(event => {
-      if(params.text && params.text.toLowerCase().search(event.title.toLowerCase()) === -1) {
+      if(params.text && event.title.toLowerCase().search(params.text.toLowerCase()) === -1) {
         return false;
       }
       if(params.gender && params.gender !== event.gender) {
@@ -227,6 +227,51 @@ export const nearby = (params) => {
 };
 
 export const searchUsers = (params) => {
+  return (dispatch, getState) => {
+    let allUsers = getState().users.all;
+
+    let matches = Object.keys(allUsers).map(id => {
+      return {
+        ...allUsers[id],
+        id,
+      };
+    }).filter(user => {
+      if(params.name){
+        let name = user.publicProfile.name.toLowerCase();
+        if(name.search(params.name.toLowerCase()) === -1){
+          return false;
+        }
+      }
+
+      return true;
+    });
+
+    //We use this format because it is what elasticsearch will return
+    let results = {
+      hits: {
+        total: matches.length,
+        hits: matches.map(user => ({
+          _id: user.id,
+        })),
+      },
+    };
+
+    if(results.hits && results.hits.hits) {
+      results.hits.hits.forEach(hit => {
+        dispatch(users.load(hit._id));
+      });
+    }
+
+    dispatch({
+      type: 'SEARCH_USERS_END',
+      results,
+    });
+
+  };
+};
+
+/* For now, we do local searching only
+export const searchUsers = (params) => {
   return dispatch => {
     let query = {
       match: {},
@@ -255,3 +300,4 @@ export const searchUsers = (params) => {
     });
   };
 };
+*/
