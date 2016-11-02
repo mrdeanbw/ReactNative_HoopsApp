@@ -1,7 +1,7 @@
 
 import qs from 'qs';
 
-const API_KEY = 'AIzaSyA5UDT3sF6EM6DFkLWivJbLev_RwIEKr6E';
+const API_KEY = 'AIzaSyBopRDu051G9W6fqJCwGgzxGICzhzuUxIg';
 
 export const autocomplete = (input, type = '(cities)') => {
   let query = qs.stringify({
