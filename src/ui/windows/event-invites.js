@@ -56,18 +56,20 @@ export default class EventInvites extends React.Component {
   }
 
   componentDidUpdate(nextProps, nextState) {
-    if(this.getSelectedIds().length > 0){
-      this.props.onChangeAction({
-        text: _('sendInvites'),
-        icon: "actionCheck",
-        type: "actionGreen",
-      });
-    } else {
-      this.props.onChangeAction({
-        text: _('inviteAll'),
-        icon: "actionCheck",
-        type: "actionDefault",
-      });
+    if(this.getSelectedIds().length !== this.getSelectedIds(nextState).length) {
+      if(this.getSelectedIds().length > 0){
+        this.props.onChangeAction({
+          text: _('sendInvites'),
+          icon: "actionCheck",
+          type: "actionGreen",
+        });
+      } else {
+        this.props.onChangeAction({
+          text: _('inviteAll'),
+          icon: "actionCheck",
+          type: "actionDefault",
+        });
+      }
     }
   }
 
@@ -109,9 +111,9 @@ export default class EventInvites extends React.Component {
     }
   }
 
-  getSelectedIds() {
-    return Object.keys(this.state.selected).filter(userId => {
-      return this.state.selected[userId];
+  getSelectedIds(state = this.state) {
+    return Object.keys(state.selected).filter(userId => {
+      return state.selected[userId];
     });
   }
 
