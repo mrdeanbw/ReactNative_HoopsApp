@@ -236,7 +236,7 @@ export default class EventDetails extends React.Component {
               <Text style={StyleSheet.eventDetails.eventInfoTextHighlight}>
                 {this.props.event.players.length}
               </Text>
-              {this.props.event.maxPlayers && (
+              {!!this.props.event.maxPlayers && (
                 <Text>
                   {'/'}{this.props.event.maxPlayers}
                 </Text>
