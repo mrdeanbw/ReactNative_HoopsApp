@@ -25,12 +25,15 @@ class EventInvites extends React.Component {
       return request.userId;
     });
 
-    let friends = Object.keys(this.props.user.friends).filter(friendId => {
+    let friends = Object.keys(this.props.users.all).filter(friendId => {
       //remove from list if user is already invited or requested
       return (
         invitedUserIds.indexOf(friendId) === -1 &&
         requestedUserIds.indexOf(friendId) === -1
       );
+    }).filter(userId => {
+      //filter out self
+      return userId !== this.props.user.uid;
     }).map((friendId) => {
       return this.props.users.usersById[friendId];
     });
