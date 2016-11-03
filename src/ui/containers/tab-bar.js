@@ -223,10 +223,10 @@ class TabBar extends React.Component {
     };
 
     let notificationIds = Object.keys(this.props.notifications.notificationsById);
-    let unreadNotifications = notificationIds.map(id => {
+    let unseenNotifications = notificationIds.map(id => {
       return this.props.notifications.notificationsById[id];
     }).filter(notification => {
-      return notification && notification.read === false;
+      return notification && notification.seen !== true;
     });
 
     return (
@@ -256,7 +256,7 @@ class TabBar extends React.Component {
         }}
         mode={this.props.user.mode}
         user={this.props.user}
-        notificationBadge={unreadNotifications.length}
+        notificationBadge={unseenNotifications.length}
         onPressProfile={() => {
           this.props.onNavigate('profile', {id: this.props.user.uid});
           this.props.onHideMenu();

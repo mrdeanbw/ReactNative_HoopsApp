@@ -318,6 +318,21 @@ export const unsave = (eventId) => {
   };
 };
 
+export const cancel = (eventId, message) => {
+  return (dispatch, getState) => {
+
+    let cancellation = firebaseDb.child('eventCancellations').push();
+    firebaseDb.update({
+      [`events/${eventId}/cancelled`]: true,
+      [`events/${eventId}/cancelMessage`]: message,
+      [`eventCancellations/${cancellation.key}`]: {
+        eventId,
+        date: new Date(),
+      },
+    });
+  };
+};
+
 export const getAll = () => {
   return dispatch => {
     firebaseDb.child(`events`).on('value', snapshot => {

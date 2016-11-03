@@ -107,6 +107,17 @@ export const markUnread = (id) => {
   };
 };
 
+export const markSeen = (id) => {
+  return dispatch => {
+    firebaseDb.child(`notifications/${id}/seen`).set(true);
+
+    dispatch({
+      type: 'NOTIFICATION_MARK_SEEN',
+      id,
+    });
+  };
+};
+
 export const receivePush = (notification) => {
   return {
     type: 'NOTIFICATION_PUSH',

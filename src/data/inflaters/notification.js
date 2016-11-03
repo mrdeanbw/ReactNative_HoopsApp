@@ -27,6 +27,12 @@ export default (notification, extra) => {
     }
   }
 
+  if(notification.type === 'EVENT_CANCELLED') {
+    if(extra.events) {
+      notification.event = extra.events[notification.eventId];
+    }
+  }
+
   return notification;
 
 };

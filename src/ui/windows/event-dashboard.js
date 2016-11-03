@@ -34,8 +34,10 @@ export default class EventDashboard extends React.Component {
     this.setState({showCancelPopup: true});
   }
 
-  onCancelSubmit() {
-  }
+  onCancelSubmit = (message) => {
+    this.props.onCancel(message);
+    this.setState({showCancelPopup: false});
+  };
 
   render() {
     return (
@@ -47,7 +49,7 @@ export default class EventDashboard extends React.Component {
         <CancelEventPopup
           visible={this.state.showCancelPopup}
           onClose={() => this.setState({showCancelPopup: false})}
-          onSubmit={this.onCancelSubmit.bind(this)}
+          onSubmit={this.onCancelSubmit}
         />
         <View style={[StyleSheet.buttons.bar, StyleSheet.flex]}>
           <Button type="dashboard"

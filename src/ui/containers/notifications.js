@@ -31,7 +31,12 @@ class Notifications extends React.Component {
         onClose={this.props.onClose}
         onBack={this.props.onBack}
         notifications={notifications}
-        onPressNotification={(notification) => {
+        onSeen={(notification) => {
+          if(!notification.seen) {
+            this.props.onMarkSeen(notification.id);
+          }
+        }}
+        onRead={(notification) => {
           if(!notification.read) {
             this.props.onMarkRead(notification.id);
           }
@@ -61,6 +66,7 @@ export default connect(
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onMarkRead: (id) => dispatch(notificationsActions.markRead(id)),
     onMarkUnead: (id) => dispatch(notificationsActions.markUnread(id)),
+    onMarkSeen: (id) => dispatch(notificationsActions.markSeen(id)),
     onAcceptFriendRequest: (notification) => {
       dispatch(notificationsActions.acceptFriendRequest(notification.friendRequest));
       dispatch(notificationsActions.markRead(notification.id));

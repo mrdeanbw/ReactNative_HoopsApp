@@ -21,7 +21,17 @@ export default class Notifications extends React.Component {
     this.ComponentMap = {
       FRIEND_REQUEST: FriendRequestNotification,
       EVENT_REQUEST: EventRequestNotification,
+      EVENT_CANCELLED: EventCancelledNotification,
     };
+  }
+
+  /*
+   * Mark any notifications that are seen as 'read'
+   */
+  componentDidMount() {
+    this.props.notifications.map((notification) => {
+      this.props.onSeen(notification);
+    });
   }
 
   render() {
@@ -45,6 +55,7 @@ export default class Notifications extends React.Component {
                 onPress={() => {
                   this.setState({optionsPopupIndex: i});
                 }}
+                onRead={() => this.props.onRead(notification)}
                 showOptions={this.state.optionsPopupIndex === i}
 
                 onAcceptFriendRequest={this.props.onAcceptFriendRequest}
@@ -66,8 +77,11 @@ class NotificationRow extends React.Component {
   render() {
     return (
       <View>
-        <Popup visible={this.props.showOptions} onClose={this.props.onHideOptions}>
-          {this.props.options.map((option, i) => (
+        <Popup
+          visible={!!this.props.options && this.props.showOptions}
+          onClose={this.props.onHideOptions}
+        >
+          {this.props.options && this.props.options.map((option, i) => (
             <Button
               key={i}
               type={option.type}
@@ -138,14 +152,14 @@ NotificationRow.propTypes = {
   highlight: React.PropTypes.bool.isRequired,
   title: React.PropTypes.string.isRequired,
   description: React.PropTypes.node.isRequired,
-  onPress: React.PropTypes.func.isRequired,
+  onPress: React.PropTypes.func,
   date: React.PropTypes.instanceOf(Date).isRequired,
   showOptions: React.PropTypes.bool.isRequired,
   options: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       text: React.PropTypes.string.isRequired,
     }).isRequired,
-  ).isRequired,
+  ),
   onHideOptions: React.PropTypes.func.isRequired,
 };
 
@@ -301,6 +315,28 @@ class EventRequestNotification extends React.Component {
         showOptions={this.props.showOptions}
         onHideOptions={this.props.onHideOptions}
         options={options}
+      />
+    );
+  }
+}
+
+class EventCancelledNotification extends React.Component {
+  render() {
+    let event = this.props.notification.event;
+    let description = replaceText(
+      _('eventCancelledDescription'),
+      <Text style={StyleSheet.notification.highlight}>{event.title}</Text>
+    );
+    return (
+      <NotificationRow
+        image={{uri: event.imageSrc}}
+        highlight={false}
+        title={_('eventCancelled')}
+        description={description}
+        date={new Date(this.props.notification.date)}
+        showOptions={this.props.showOptions}
+        onHideOptions={this.props.onHideOptions}
+        options={null}
       />
     );
   }

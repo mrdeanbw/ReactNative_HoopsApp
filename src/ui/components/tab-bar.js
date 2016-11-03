@@ -56,6 +56,7 @@ export default class TabBar extends React.Component {
         {this.state.menuVisible && (
           <Menu
             animation={this.state.menuAnimation}
+            notificationBadge={this.props.notificationBadge}
             onPressBackground={this.props.onHideMenu}
             user={this.props.user}
             onPressProfile={this.props.onPressProfile}

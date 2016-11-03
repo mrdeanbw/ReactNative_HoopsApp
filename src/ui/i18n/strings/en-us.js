@@ -334,3 +334,5 @@ export const eventRequest = 'Request to join your event';
 export const eventRequestPendingDescription = '$0 would like to join your event $1';
 export const eventRequestDeclinedDescription = 'You declined $0\'s event request';
 export const eventRequestConfirmedDescription = '$0 is now attending your event';
+export const eventCancelled = 'Event cancelled';
+export const eventCancelledDescription = '$0 has been cancelled';
