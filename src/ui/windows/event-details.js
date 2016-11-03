@@ -10,6 +10,40 @@ import moment from 'moment';
 
 import EventDashboard from './event-dashboard';
 
+const icons = {
+  AMERICAN_FOOTBALL: 'activityAmericanFootball',
+  ARCHERY: 'activityArchery',
+  AUTOMOBILE_RACING: 'activityAutomobileRacing',
+  BADMINTON: 'activityBadminton',
+  BASEBALL: 'activityBaseball',
+  BASKETBALL: 'activityBasketball',
+  BIKE: 'activityBike',
+  BOWLING: 'activityBowling',
+  BOXING: 'activityBoxing',
+  CANOEING: 'activityCanoeing',
+  CARDS: 'activityCards',
+  CHESS: 'activityChess',
+  DEFAULT: 'activityDefault',
+  FOOTBALL: 'activityFootball',
+  FRISBEE: 'activityFrisbee',
+  GOLF: 'activityGolf',
+  GYM: 'activityGym',
+  GYMNASTICS: 'activityGymnastics',
+  HOCKEY: 'activityHockey',
+  ICE_HOCKEY: 'activityIceHockey',
+  ICE_SKATING: 'activityIceSkating',
+  MOUNTAINEERING: 'activityMountaineering',
+  POOL: 'activityPool',
+  RUGBY: 'activityRugby',
+  RUNNING: 'activityRunning',
+  SKATEBOARDING: 'activitySkateboarding',
+  SKIING: 'activitySkiing',
+  SWIMMING: 'activitySwimming',
+  TABLE_TENNIS: 'activityTableTennis',
+  TENNIS: 'activityTennis',
+  YOGA: 'activityYoga',
+};
+
 export default class EventDetails extends React.Component {
 
   constructor(props) {
@@ -118,6 +152,10 @@ export default class EventDetails extends React.Component {
       }
     })
   };
+
+  getIcon(activityKey) {
+    return icons[activityKey] || icons.DEFAULT;
+  }
 
   render() {
     const formatDate = (date) => {
@@ -242,7 +280,12 @@ export default class EventDetails extends React.Component {
                 </Text>
               )}
             </EventInfo>
-            <EventInfo icon="activityBasketball" label={_('activity')}>{this.props.event.activity.name}</EventInfo>
+            <EventInfo
+              icon={this.getIcon(this.props.event.activity.id)}
+              label={_('activity')}
+            >
+              {this.props.event.activity.name}
+            </EventInfo>
             <EventInfo icon="calendarBig" label={_('dateAndTime')}>
               <Text style={StyleSheet.eventDetails.lightTextStyle}>{formatDate(this.props.event.date)}{', '}</Text>
               {formatTime(this.props.event.date)}
