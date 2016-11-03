@@ -36,8 +36,12 @@ class EventInvites extends React.Component {
       //filter out self
       return userId !== this.props.user.uid;
     }).filter(userId => {
-      //filter out the event organiser
-      return userId !== event.organizer.id;
+      //filter out the event organiser (if it is defined)
+      if(event.organizer && event.organizer.id) {
+        return userId !== event.organizer.id;
+      } else {
+        return true;
+      }
     }).map((friendId) => {
       return this.props.users.usersById[friendId];
     }).filter(user => !!user);
