@@ -1,7 +1,7 @@
 
 import _ from '../i18n';
 import React from 'react';
-import {View, Text, ScrollView, Image, TouchableHighlight} from 'react-native';
+import {View, Text, ListView, Image, TouchableHighlight} from 'react-native';
 
 import {Header, Button, Popup} from '../components';
 import StyleSheet from '../styles';
@@ -12,10 +12,12 @@ import moment from 'moment';
  * A map of notification types to row component
  */
 export default class Notifications extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this._dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       optionsPopupIndex: null,
+      dataSource: this._dataSource.cloneWithRows(props.notifications),
     };
 
     this.ComponentMap = {
@@ -23,6 +25,7 @@ export default class Notifications extends React.Component {
       EVENT_REQUEST: EventRequestNotification,
       EVENT_CANCELLED: EventCancelledNotification,
     };
+
   }
 
   /*
@@ -34,6 +37,12 @@ export default class Notifications extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      dataSource: this._dataSource.cloneWithRows(nextProps.notifications),
+    });
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
@@ -42,22 +51,23 @@ export default class Notifications extends React.Component {
           onBack={this.props.onBack}
           onClose={this.props.onClose}
         />
-        <ScrollView contentContainerStyle={StyleSheet.container}>
-          {this.props.notifications.map((notification, i) => {
-            let Component = this.ComponentMap[notification.type];
+        <ListView
+          contentContainerStyle={StyleSheet.container}
+          dataSource={this.state.dataSource}
+          renderRow={(rowData, sectionId, rowId) => {
+            let Component = this.ComponentMap[rowData.type];
             return (
               <Component
-                key={notification.id}
-                notification={notification}
+                key={rowData.id}
+                notification={rowData}
                 onHideOptions={() => {
                   this.setState({optionsPopupIndex: null});
                 }}
                 onPress={() => {
-                  this.setState({optionsPopupIndex: i});
+                  this.setState({optionsPopupIndex: rowId});
                 }}
-                onRead={() => this.props.onRead(notification)}
-                showOptions={this.state.optionsPopupIndex === i}
-
+                onRead={() => this.props.onRead(rowData)}
+                showOptions={this.state.optionsPopupIndex === rowId}
                 onAcceptFriendRequest={this.props.onAcceptFriendRequest}
                 onDeclineFriendRequest={this.props.onDeclineFriendRequest}
                 onPressUserProfile={this.props.onPressUserProfile}
@@ -66,8 +76,8 @@ export default class Notifications extends React.Component {
                 onDeclineEventRequest={this.props.onDeclineEventRequest}
               />
             );
-          })}
-        </ScrollView>
+          }}
+        />
       </View>
     );
   }

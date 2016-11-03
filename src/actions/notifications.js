@@ -22,6 +22,9 @@ export const load = (id) => {
         //TODO: is this needed? Maybe users/friendRequests/id is already watched?
         dispatch(usersActions.loadFriendRequest(notification.friendRequestId));
       }
+
+      dispatch(updateBadge());
+
     });
   };
 };
@@ -77,17 +80,8 @@ export const declineFriendRequest = (friendRequest) => {
 };
 
 export const markRead = (id) => {
-  return (dispatch, getState) => {
+  return dispatch => {
     firebaseDb.child(`notifications/${id}/read`).set(true);
-
-    let state = getState();
-
-    //count unread notifications and set the badge
-    let unread = Object.keys(state.notifications.notificationsById).map(notiId => {
-      return state.notifications.notificationsById[notiId];
-    }).filter(notification => notification && notification.read === false);
-
-    FCM.setBadgeNumber(unread.length);
 
     dispatch({
       type: 'NOTIFICATION_MARK_READ',
@@ -115,6 +109,18 @@ export const markSeen = (id) => {
       type: 'NOTIFICATION_MARK_SEEN',
       id,
     });
+    dispatch(updateBadge());
+  };
+};
+
+export const updateBadge = () => {
+  return (dispatch, getState) => {
+    let state = getState();
+
+    //count unread notifications and set the badge
+    let unread = Object.keys(state.notifications.notificationsById).map(notiId => {
+      return state.notifications.notificationsById[notiId];
+    }).filter(notification => notification && notification.seen !== true);
   };
 };
 
