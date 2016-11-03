@@ -86,7 +86,7 @@ class Invitations extends React.Component {
           this.props.onNavigate('eventDetails', {id: event.id});
         }}
         onPressAccept={(invite) => {
-          if(invite.event.entryFee === 0) {
+          if(invite.event.entryFee === 0 || invite.event.paymentMethod !== 'app') {
             this.props.onPressAccept(invite);
           } else if(this.props.payments.cards.length > 0) {
             this.props.onPressAccept(invite);
