@@ -2,8 +2,8 @@
 import React from 'react';
 
 import _ from '../i18n';
-import {View, ScrollView, Text, Image, TouchableHighlight, ImagePickerIOS} from 'react-native';
-import {Button, Header, TextInput, DateInput, Icon, CheckButton} from '../components';
+import {View, ScrollView, Text} from 'react-native';
+import {AvatarEdit, Button, Header, TextInput, DateInput, Icon, CheckButton} from '../components';
 import StyleSheet from '../styles';
 
 export default class ProfileEdit extends React.Component {
@@ -11,7 +11,7 @@ export default class ProfileEdit extends React.Component {
     super(props);
 
     this.state = {
-      image: props.image,
+      image: props.imageSrc,
       name: props.name,
       city: props.city,
       gender: props.gender,
@@ -44,26 +44,10 @@ export default class ProfileEdit extends React.Component {
         />
 
         <ScrollView contentContainerStyle={StyleSheet.padding}>
-          <TouchableHighlight
-            onPress={() => {
-              ImagePickerIOS.openSelectDialog({}, (image) => {
-                this.setState({image});
-              }, (err) => {
-                console.warn(err); //eslint-disable-line no-console
-              });
-            }}
-            style={StyleSheet.profile.imageContainer}
-          >
-            <View style={StyleSheet.profile.imageContainer}>
-              <Image
-                style={StyleSheet.profile.image}
-                source={{uri: this.state.image}}
-              />
-              <View style={StyleSheet.profile.imageTintOverlay} />
-              <Icon style={StyleSheet.profile.imageIconOverlay} name="camera" />
-            </View>
-          </TouchableHighlight>
-
+          <AvatarEdit
+            onChange={(image) => this.setState({image})}
+            image={this.state.image}
+          />
 
           <Text style={StyleSheet.profile.editLabel}>{_('name')}</Text>
           <TextInput

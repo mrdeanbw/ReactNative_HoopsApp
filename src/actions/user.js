@@ -93,28 +93,34 @@ const savePersonalData = (data, callback) => {
       city: null,
       cityGooglePlaceId: null,
       cityCoords: null,
+      image: null,
 
       ...data,
     };
 
-    firebaseDb.update({
-      [`users/${uid}/publicProfile`]: {
-        name: data.name,
-        username: data.username,
-        gender: data.gender,
-        city: data.city,
-        cityGooglePlaceId: data.cityGooglePlaceId,
-        cityCoords: data.cityCoords,
-      },
-      [`users/${uid}/restrictedProfile`]: {
-        dob: data.dob,
-      },
-      [`users/${uid}/contactInfo`]: {
-        email: data.email,
-        phone: data.phone,
-      },
-      [`usernames/${data.username}`]: uid, //for uniqueness validation
-    }, callback);
+    uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`)
+      .then((response) => {
+
+        firebaseDb.update({
+          [`users/${uid}/publicProfile`]: {
+            image: response ? response.ref : null,
+            name: data.name,
+            username: data.username,
+            gender: data.gender,
+            city: data.city,
+            cityGooglePlaceId: data.cityGooglePlaceId,
+            cityCoords: data.cityCoords,
+          },
+          [`users/${uid}/restrictedProfile`]: {
+            dob: data.dob,
+          },
+          [`users/${uid}/contactInfo`]: {
+            email: data.email,
+            phone: data.phone,
+          },
+          [`usernames/${data.username}`]: uid, //for uniqueness validation
+        }, callback);
+      });
   };
 
   //Add city coordinates by looking up data.cityGooglePlaceId
@@ -231,32 +237,35 @@ export const setInterests = (interests) => {
 
 export const updateProfile = (data) => {
   return (dispatch, getState) => {
-    let state = getState();
     let uid = firebase.auth().currentUser.uid;
 
-    let chain;
-    if(data.image) {
-      chain = uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`);
-    } else {
-      chain = new Promise((resolve, reject) => resolve());
-    }
-
-    chain.then((response) => {
+    uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`).then((response) => {
       let imageRef = response ? response.ref : null;
 
-      firebaseDb.update({
-        [`users/${uid}/publicProfile`]: {
-          image: imageRef,
-          name: data.name,
-          username: state.user.username,
-          gender: data.gender,
-          city: data.city,
-          interests: data.interests,
-        },
-        [`users/${uid}/restrictedProfile`]: {
-          dob: new Date(data.dob).valueOf(),
-        }
-      });
+      let update = {};
+      if(data.name) {
+        update[`users/${uid}/publicProfile/name`] = data.name;
+      }
+      if(imageRef) {
+        update[`users/${uid}/publicProfile/image`] = imageRef;
+      }
+      if(data.gender) {
+        update[`users/${uid}/publicProfile/gender`] = data.gender;
+      }
+      if(data.city) {
+        update[`users/${uid}/publicProfile/city`] = data.city;
+      }
+      if(data.cityGooglePlaceId) {
+        update[`users/${uid}/publicProfile/cityGooglePlaceId`] = data.cityGooglePlaceId;
+      }
+      if(data.interests) {
+        update[`users/${uid}/publicProfile/interests`] = data.interests;
+      }
+      if(data.dob) {
+        update[`users/${uid}/restrictedProfile/dob`] = new Date(data.dob).valueOf();
+      }
+
+      firebaseDb.update(update);
     });
   };
 };
@@ -330,6 +339,7 @@ const listenToUser = () => {
           });
         });
       } else {
+        user.publicProfile.imageSrc = state.user.imageSrc; //Make we don't overwrite
         dispatch({
           type: 'USER_CHANGE',
           user,

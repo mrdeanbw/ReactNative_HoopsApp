@@ -12,6 +12,7 @@ import DateInput from '../components/date-input';
 import Header from '../components/header';
 import LoadingAlert from '../components/loading-alert';
 import Form from '../components/form';
+import AvatarEdit from '../components/avatar-edit';
 
 import StyleSheet from '../styles';
 import {autocomplete} from '../../data/google-places';
@@ -31,6 +32,7 @@ export default class SignUpFacebookExtra extends React.Component {
       city: {},
       citiesAutocomplete: [],
       phone: props.phone,
+      image: undefined,
     };
   }
 
@@ -84,6 +86,7 @@ export default class SignUpFacebookExtra extends React.Component {
       email: this.state.email,
       city: this.state.city.text,
       cityGooglePlaceId: this.state.city.key,
+      image: this.state.image,
     });
   };
 
@@ -205,6 +208,12 @@ export default class SignUpFacebookExtra extends React.Component {
               icon="phone"
             />
           </View>
+
+          <AvatarEdit
+            onChange={(image) => this.setState({image})}
+            image={this.state.image}
+            style={StyleSheet.singleMarginTop}
+          />
 
           <Button
             type={this.validate() ? "roundedDefault" : "roundedGrey"}

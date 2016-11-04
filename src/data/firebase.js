@@ -47,6 +47,10 @@ window.fetch = new RNFetchBlob.polyfill.Fetch({
 
 export const uploadImage = (uri, location) => {
   return new Promise((resolve, reject) => {
+    if(!uri) {
+      resolve();
+    }
+
     let storageRef = firebaseStorage.ref(location);
 
     ReadImageData.readImage(uri, (image) => {

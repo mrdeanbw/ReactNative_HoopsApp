@@ -61,7 +61,7 @@ class ProfileEdit extends React.Component {
       <_ProfileEdit
         onClose={this.props.onClose}
         onBack={this.props.onBack}
-        image={user.image}
+        imageSrc={user.imageSrc}
         name={user.name}
         city={user.city}
         gender={user.gender}

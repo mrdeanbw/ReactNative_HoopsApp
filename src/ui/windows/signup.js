@@ -13,6 +13,7 @@ import DateInput from '../components/date-input';
 import Form from '../components/form';
 import Header from '../components/header';
 import LoadingAlert from '../components/loading-alert';
+import AvatarEdit from '../components/avatar-edit';
 
 import StyleSheet from '../styles';
 import {autocomplete} from '../../data/google-places';
@@ -29,6 +30,7 @@ export default class SignUp extends React.Component {
       city: {},
       citiesAutocomplete: [],
       phone: '',
+      image: undefined,
     };
   }
 
@@ -71,6 +73,7 @@ export default class SignUp extends React.Component {
       gender: this.state.gender,
       city: this.state.city.text,
       cityGooglePlaceId: this.state.city.key,
+      image: this.state.image,
     });
   };
 
@@ -254,6 +257,12 @@ export default class SignUp extends React.Component {
               icon="phone"
             />
           </View>
+
+          <AvatarEdit
+            onChange={(image) => this.setState({image})}
+            image={this.state.image}
+            style={StyleSheet.singleMarginTop}
+          />
 
           <Button
             type={this.validate() ? "roundedDefault" : "roundedGrey"}
