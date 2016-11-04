@@ -19,6 +19,9 @@ export const convertStructure = (data) => {
 
     stripeAccount: null,
 
+    //used to hold data gathered from facebook
+    facebookUser: {},
+
     name: null,
     image: null,
     imageSrc: undefined, //undefined means we can safely use with source={{uri: ...}}
@@ -65,7 +68,9 @@ export const convertStructure = (data) => {
 const initialState = {
   uid: null,
   signInMethod: null,
+
   facebookUser: null,
+  isFacebookUserLoading: false,
 
   ...convertStructure({}),
 
@@ -84,9 +89,11 @@ export default handleActions({
 
   'persist/REHYDRATE': (state, action) => {
     return {
+      ...initialState,
       ...action.payload.user,
       isSigningIn: false,
       isSigningUp: false,
+      isFacebookUserLoading: false,
     };
   },
 
@@ -147,10 +154,18 @@ export default handleActions({
     };
   },
 
+  FACEBOOK_USER_DATA_START: (state, action) => {
+    return {
+      ...state,
+      isFacebookUserLoading: true,
+    };
+  },
+
   FACEBOOK_USER_DATA: (state, action) => {
     return {
       ...state,
       facebookUser: action.facebookUser,
+      isFacebookUserLoading: false,
     };
   },
 

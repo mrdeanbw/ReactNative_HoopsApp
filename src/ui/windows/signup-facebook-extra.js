@@ -3,25 +3,20 @@ import _ from '../i18n';
 
 import React from 'react';
 
-import {View, ScrollView} from 'react-native';
+import {View} from 'react-native';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 import Button from '../components/button';
 import TextInput from '../components/text-input';
 import DateInput from '../components/date-input';
 import Header from '../components/header';
+import LoadingAlert from '../components/loading-alert';
+import Form from '../components/form';
 
 import StyleSheet from '../styles';
-
+import {autocomplete} from '../../data/google-places';
 
 export default class SignUpFacebookExtra extends React.Component {
-
-  static getTest(close) {
-    return {
-      title: 'Sign Up',
-      view: SignUpFacebookExtra,
-      viewProps: { onClose: close }
-    };
-  }
 
   constructor(props) {
     super(props);
@@ -30,31 +25,42 @@ export default class SignUpFacebookExtra extends React.Component {
       showDobInfo: false,
       name: props.name,
       email: props.email,
-      username: props.username,
-      dob: new Date(props.dob),
+      dob: isNaN(new Date(props.dob).getTime()) ? null : new Date(props.dob),
       gender: props.gender,
-      city: props.city,
+      cityText: '',
+      city: {},
+      citiesAutocomplete: [],
       phone: props.phone,
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.isLoading && !nextProps.isLoading) {
+      this.setState({
+        name: nextProps.name,
+        email: nextProps.email,
+        dob: isNaN(new Date(nextProps.dob).getTime()) ? null : new Date(nextProps.dob),
+        gender: nextProps.gender,
+        phone: nextProps.phone,
+      });
+    }
   }
 
   validate() {
     let {
       name,
       email,
-      username,
       dob,
       gender,
-      city
+      city,
     } = this.state;
 
     return !!(
       name &&
       email &&
-      username &&
       dob &&
       gender &&
-      city
+      city.key
     );
   }
 
@@ -73,11 +79,11 @@ export default class SignUpFacebookExtra extends React.Component {
   onPressContinue = () => {
     this.props.onPressContinue({
       name: this.state.name,
-      username: this.state.username,
       dob: this.state.dob,
       gender: this.state.gender,
       email: this.state.email,
-      city: this.state.city,
+      city: this.state.city.text,
+      cityGooglePlaceId: this.state.city.key,
     });
   };
 
@@ -89,7 +95,9 @@ export default class SignUpFacebookExtra extends React.Component {
           hideSwitcher={true}
         />
 
-        <ScrollView style={StyleSheet.signup.style}>
+        <LoadingAlert visible={this.props.isLoading} />
+
+        <Form style={StyleSheet.signup.style}>
           <TextInput
             value={this.state.name}
             onChangeText={(name) => this.setState({name})}
@@ -120,24 +128,7 @@ export default class SignUpFacebookExtra extends React.Component {
             selectTextOnFocus={true}
             enablesReturnKeyAutomatically={true}
             keyboardType="email-address"
-            onSubmitEditing={() => this.onSubmitEditing("username")}
             icon="email"
-          />
-
-          <TextInput
-            value={this.state.username}
-            onChangeText={(username) => this.setState({username})}
-            type="flat"
-            ref="username"
-            placeholder={_('username')}
-            style={StyleSheet.halfMarginBottom}
-            autoCapitalize="none"
-            autoCorrect={false}
-            returnKeyType="next"
-            selectTextOnFocus={true}
-            enablesReturnKeyAutomatically={true}
-            onSubmitEditing={() => this.onSubmitEditing("dob")}
-            icon="username"
           />
 
           <DateInput
@@ -145,9 +136,11 @@ export default class SignUpFacebookExtra extends React.Component {
             ref="dob"
             placeholder={_('dob')}
             icon="nappy"
-            modalProvider={() => this.refs.dialog}
             date={true}
             time={false}
+            hideDay={true}
+            minValue={new Date("1900-01-01")}
+            initialValue={new Date()}
             value={this.state.dob}
             onChange={(dob) => this.setState({dob})}
           />
@@ -159,8 +152,31 @@ export default class SignUpFacebookExtra extends React.Component {
           </View>
 
           <TextInput
-            value={this.state.city}
-            onChangeText={(city) => this.setState({city})}
+            value={this.state.cityText}
+            onChangeText={(cityText) => {
+              this.setState({
+                cityText,
+                city: {},
+              });
+              autocomplete(cityText, '(cities)').then(result => {
+                this.setState({
+                  citiesAutocomplete: result.predictions,
+                });
+              });
+            }}
+            autocomplete={this.state.citiesAutocomplete.map(suggestion => {
+              return {
+                key: suggestion.place_id,
+                text: suggestion.description,
+              };
+            })}
+            onAutocompletePress={(item) => {
+              this.setState({
+                cityText: item.text,
+                city: item,
+                citiesAutocomplete: [],
+              });
+            }}
             type="flat"
             ref="city"
             placeholder={_('city')}
@@ -173,20 +189,22 @@ export default class SignUpFacebookExtra extends React.Component {
             icon="city"
           />
 
-          <TextInput
-            value={this.state.phone}
-            onChangeText={(phone) => this.setState({phone})}
-            type="flat"
-            ref="phone"
-            placeholder={_('optionalPhone')}
-            autoCapitalize="none"
-            autoCorrect={false}
-            returnKeyType="next"
-            selectTextOnFocus={true}
-            enablesReturnKeyAutomatically={true}
-            keyboardType="phone-pad"
-            icon="phone"
-          />
+          <View>
+            <TextInput
+              value={this.state.phone}
+              onChangeText={(phone) => this.setState({phone})}
+              type="flat"
+              ref="phone"
+              placeholder={_('optionalPhone')}
+              autoCapitalize="none"
+              autoCorrect={false}
+              returnKeyType="next"
+              selectTextOnFocus={true}
+              enablesReturnKeyAutomatically={true}
+              keyboardType="phone-pad"
+              icon="phone"
+            />
+          </View>
 
           <Button
             type={this.validate() ? "roundedDefault" : "roundedGrey"}
@@ -194,7 +212,8 @@ export default class SignUpFacebookExtra extends React.Component {
             onPress={this.validate() ? this.onPressContinue : undefined}
             style={StyleSheet.doubleMarginTop}
           />
-        </ScrollView>
+          <KeyboardSpacer/>
+        </Form>
       </View>
     );
   }

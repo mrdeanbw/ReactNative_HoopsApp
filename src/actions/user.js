@@ -2,6 +2,7 @@ import firebase, {firebaseDb, firebaseStorage, uploadImage} from '../data/fireba
 
 import * as emailAuth from '../data/auth/email';
 import * as facebookAuth from '../data/auth/facebook';
+import {getPlace} from '../data/google-places';
 
 import * as eventsActions from './events';
 import * as usersActions from './users';
@@ -80,35 +81,57 @@ export const signUp = (email, password, extraData) => {
 const savePersonalData = (data, callback) => {
   let uid = firebase.auth().currentUser.uid;
 
-  //nullify undefined keys
-  data = {
-    name: null,
-    username: null,
-    gender: null,
-    dob: null,
-    email: null,
-    phone: null,
-    city: null,
+  let firebaseSave = (data) => {
+    //nullify undefined keys
+    data = {
+      name: null,
+      username: null,
+      gender: null,
+      dob: null,
+      email: null,
+      phone: null,
+      city: null,
+      cityGooglePlaceId: null,
+      cityCoords: null,
 
-    ...data,
+      ...data,
+    };
+
+    firebaseDb.update({
+      [`users/${uid}/publicProfile`]: {
+        name: data.name,
+        username: data.username,
+        gender: data.gender,
+        city: data.city,
+        cityGooglePlaceId: data.cityGooglePlaceId,
+        cityCoords: data.cityCoords,
+      },
+      [`users/${uid}/restrictedProfile`]: {
+        dob: data.dob,
+      },
+      [`users/${uid}/contactInfo`]: {
+        email: data.email,
+        phone: data.phone,
+      },
+      [`usernames/${data.username}`]: uid, //for uniqueness validation
+    }, callback);
   };
 
-  firebaseDb.update({
-    [`users/${uid}/publicProfile`]: {
-      name: data.name,
-      username: data.username,
-      gender: data.gender,
-      city: data.city,
-    },
-    [`users/${uid}/restrictedProfile`]: {
-      dob: data.dob,
-    },
-    [`users/${uid}/contactInfo`]: {
-      email: data.email,
-      phone: data.phone,
-    },
-    [`usernames/${data.username}`]: uid, //for uniqueness validation
-  }, callback);
+  //Add city coordinates by looking up data.cityGooglePlaceId
+  getPlace(data.cityGooglePlaceId).then(result => {
+    if(result.result && result.result.geometry) {
+      data.cityCoords = result.result.geometry.location;
+    }
+
+    //Now save to firebase
+    firebaseSave(data);
+  }).catch(err => {
+    //something went wrong getting the coordinates, still save the user.
+    console.warn(err); //eslint-disable-line no-console
+    firebaseSave(data);
+  });
+
+
 };
 
 export const signUpSuccess = (method) => {
@@ -123,19 +146,31 @@ export const signUpFailure = (err) => ({
 export const facebookSignUp = () => {
   return dispatch => {
     facebookAuth.signIn().then((user) => {
-      return facebookAuth.getUserData();
-    }).then((facebookUser) => {
-      dispatch({
-        type: 'FACEBOOK_USER_DATA',
-        facebookUser,
-      });
+      dispatch(loadFacebookData());
       dispatch(signUpSuccess('facebook'));
     }).catch((err) => {
       dispatch(signUpFailure(err));
     });
   };
 };
+
 export const facebookSignIn = facebookSignUp;
+
+export const loadFacebookData = () => {
+  return dispatch => {
+    dispatch({
+      type: 'FACEBOOK_USER_DATA_START',
+    });
+    facebookAuth.getUserData().then(facebookUser => {
+      dispatch({
+        type: 'FACEBOOK_USER_DATA',
+        facebookUser,
+      });
+    }).catch(err => {
+      console.warn(err); //eslint-disable-line no-console
+    });
+  };
+};
 
 export const facebookSaveExtra = (extraData) => {
   return dispatch => {

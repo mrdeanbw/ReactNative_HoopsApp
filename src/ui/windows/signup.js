@@ -15,6 +15,7 @@ import Header from '../components/header';
 import LoadingAlert from '../components/loading-alert';
 
 import StyleSheet from '../styles';
+import {autocomplete} from '../../data/google-places';
 
 
 export default class SignUp extends React.Component {
@@ -24,12 +25,9 @@ export default class SignUp extends React.Component {
     this.state = {
       showPassword: false,
       showDobInfo: false,
-      name: '',
-      email: '',
-      password: '',
-      dob: null,
-      gender: '',
-      city: '',
+      cityText: '',
+      city: {},
+      citiesAutocomplete: [],
       phone: '',
     };
   }
@@ -50,7 +48,7 @@ export default class SignUp extends React.Component {
       password.length >= 8 &&
       dob &&
       gender &&
-      city
+      city.key
     );
   }
 
@@ -71,6 +69,8 @@ export default class SignUp extends React.Component {
       name: this.state.name,
       dob: this.state.dob,
       gender: this.state.gender,
+      city: this.state.city.text,
+      cityGooglePlaceId: this.state.city.key,
     });
   };
 
@@ -200,11 +200,34 @@ export default class SignUp extends React.Component {
           </View>
 
           <TextInput
-            value={this.state.city}
-            onChangeText={(city) => this.setState({city})}
+            value={this.state.cityText}
+            onChangeText={(cityText) => {
+              this.setState({
+                cityText,
+                city: {},
+              });
+              autocomplete(cityText, '(cities)').then(result => {
+                this.setState({
+                  citiesAutocomplete: result.predictions,
+                });
+              });
+            }}
             type="flat"
             ref="city"
             placeholder={_('city')}
+            autocomplete={this.state.citiesAutocomplete.map(suggestion => {
+              return {
+                key: suggestion.place_id,
+                text: suggestion.description,
+              };
+            })}
+            onAutocompletePress={(item) => {
+              this.setState({
+                cityText: item.text,
+                city: item,
+                citiesAutocomplete: [],
+              });
+            }}
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="none"
             autoCorrect={false}
@@ -215,20 +238,22 @@ export default class SignUp extends React.Component {
             onSubmitEditing={() => this.onSubmitEditing("phone")}
           />
 
-          <TextInput
-            value={this.state.phone}
-            onChangeText={(phone) => this.setState({phone})}
-            type="flat"
-            ref="phone"
-            placeholder={_('optionalPhone')}
-            autoCapitalize="none"
-            autoCorrect={false}
-            returnKeyType="next"
-            selectTextOnFocus={true}
-            enablesReturnKeyAutomatically={true}
-            keyboardType="phone-pad"
-            icon="phone"
-          />
+          <View>
+            <TextInput
+              value={this.state.phone}
+              onChangeText={(phone) => this.setState({phone})}
+              type="flat"
+              ref="phone"
+              placeholder={_('optionalPhone')}
+              autoCapitalize="none"
+              autoCorrect={false}
+              returnKeyType="next"
+              selectTextOnFocus={true}
+              enablesReturnKeyAutomatically={true}
+              keyboardType="phone-pad"
+              icon="phone"
+            />
+          </View>
 
           <Button
             type={this.validate() ? "roundedDefault" : "roundedGrey"}

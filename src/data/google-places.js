@@ -3,17 +3,38 @@ import qs from 'qs';
 
 const API_KEY = 'AIzaSyBopRDu051G9W6fqJCwGgzxGICzhzuUxIg';
 
+
+
+//`timeout` allows us to cancel previous autocomplete attempts if a new one arrives
+let timeout;
+
+const autocompleteDelay = 300; //ms
+
+/*
+ * Returns a promise
+ */
 export const autocomplete = (input, type = '(cities)') => {
-  let query = qs.stringify({
-    key: API_KEY,
-    input: input,
-    type: type,
-    components: 'country:uk',
+  return new Promise((resolve, reject) => {
+    if(!input) {
+      reject();
+    }
+
+    let query = qs.stringify({
+      key: API_KEY,
+      input: input,
+      type: type,
+      components: 'country:uk',
+    });
+
+
+    let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?${query}`;
+
+    //cancel previous autocomplete request and start a new one
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      resolve(fetch(url).then(result => result.json()));
+    }, autocompleteDelay);
   });
-
-  let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?${query}`;
-
-  return fetch(url).then(result => result.json());
 };
 
 export const getPlace = (placeId) => {

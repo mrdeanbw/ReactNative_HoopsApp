@@ -6,12 +6,18 @@ import {user} from '../../actions';
 
 class SignUpFacebookExtra extends React.Component {
 
+  componentWillMount() {
+    this.props.loadFacebookData();
+  }
+
   render() {
     let facebookUser = this.props.user.facebookUser;
 
     return (
       <_SignUpFacebookExtra
         onPressContinue={this.props.onPressContinue}
+
+        isLoading={this.props.user.isFacebookUserLoading}
 
         name={facebookUser.name}
         email={facebookUser.email}
@@ -31,5 +37,6 @@ export default connect(
   }),
   (dispatch) => ({
     onPressContinue: (data) => dispatch(user.facebookSaveExtra(data)),
+    loadFacebookData: () => dispatch(user.loadFacebookData()),
   }),
 )(SignUpFacebookExtra);
