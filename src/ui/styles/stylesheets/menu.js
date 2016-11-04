@@ -41,6 +41,10 @@ export default StyleSheet => StyleSheet.extend({
     paddingTop: 15,
   },
 
+  avatarContainer: {
+    alignItems: 'center',
+  },
+
   avatarImage: {
     width: 70,
     height: 70,
