@@ -43,16 +43,18 @@ export default class EventListItem extends React.Component {
             </Text>
           </View>
 
-          <TouchableHighlight
-            underlayColor={StyleSheet.colors.transparent}
-            onPress={this.props.onPressDisclosure}
-            hitSlop={{top: 10, right: 10, bottom: 10, left: 0}}
-          >
-            <Image
-              source={this.props.disclosure || StyleSheet.icons.chevronRight}
-              style={StyleSheet.eventListItem.disclosure}
-            />
-          </TouchableHighlight>
+          {!this.props.hideDisclosure && (
+            <TouchableHighlight
+              underlayColor={StyleSheet.colors.transparent}
+              onPress={this.props.onPressDisclosure}
+              hitSlop={{top: 10, right: 10, bottom: 10, left: 0}}
+            >
+              <Image
+                source={this.props.disclosure || StyleSheet.icons.chevronRight}
+                style={StyleSheet.eventListItem.disclosure}
+              />
+            </TouchableHighlight>
+          )}
 
           {this.props.free && <Image source={StyleSheet.icons.free} style={StyleSheet.eventListItem.freeIcon} />}
         </View>

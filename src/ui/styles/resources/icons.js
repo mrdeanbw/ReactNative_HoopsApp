@@ -51,6 +51,7 @@ export default {
   "check": require('./icons/check.png'),
   "checkActive": require('./icons/check-active.png'),
   "chevronRight": require('./icons/chevron-right.png'),
+  "chevronRightPink": require('./icons/chevron-right-pink.png'),
   "city": require('./icons/city.png'),
   "close": require('./icons/close.png'),
   "confirmed": require('./icons/confirmed.png'),

@@ -80,6 +80,10 @@ class Root extends React.Component {
       addCard: {
         component: containers.PaymentsAddCard,
       },
+
+      activitiesSelect: {
+        component: containers.ActivitiesSelect,
+      },
     };
   }
 

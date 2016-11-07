@@ -7,15 +7,33 @@ import {navigation} from '../../actions';
 class SearchResults extends React.Component {
 
   render() {
-    let events = this.props.search.eventIds.map(id => {
+    let userIds = [];
+    let eventIds = [];
+    if(this.props.generalSearch === 'users') {
+      userIds = this.props.search.general.userIds;
+    } else if(this.props.generalSearch === 'events') {
+      eventIds = this.props.search.general.eventIds;
+    } else {
+      eventIds = this.props.search.eventIds;
+    }
+
+    let events = eventIds.map(id => {
       return this.props.events.eventsById[id];
     }).filter(event => !!event);
+
+    let users = userIds.map(userId => {
+      return this.props.users.usersById[userId];
+    }).filter(user => !!user);
 
     return (
       <_SearchResults
         events={events}
+        users={users}
         onPressEvent={(event) => {
           this.props.onDeepLinkTab('eventDetails', 'home', {id: event.id});
+        }}
+        onPressUser={(user) => {
+          this.props.onDeepLinkTab('profile', 'home', {id: user.id});
         }}
         onBack={this.props.onBack}
         onClose={this.props.onClose}
@@ -27,6 +45,7 @@ class SearchResults extends React.Component {
 export default connect(
   (state) => ({
     user: state.user,
+    users: state.users,
     events: state.events,
     search: state.search,
   }),

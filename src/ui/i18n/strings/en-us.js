@@ -256,15 +256,22 @@ export const participateAgain = 'Participate Again';
 
 export const basic = 'Basic';
 export const advanced = 'Advanced';
+export const events = 'Events';
+export const general = 'General';
+export const users = 'Users';
 export const byDistance = 'By Distance';
 export const byName = 'By Name';
+export const results = 'Results';
+export const seeMore = 'SEE MORE';
 
+export const searchActivity = 'What are you looking for?';
 export const searchWhat = 'What are you looking for?';
 export const searchWhen = 'When are you looking to participate? (optional)';
 export const searchGender = 'Male, Female or Mixed?';
 export const searchRadius = 'Search radius';
 
-export const searchWhatExample = 'e.g. Basketball';
+export const searchActivityExample = 'e.g. Basketball';
+export const searchWhatExample = 'e.g. John Doe, Football Scrimmage, Tennis';
 export const venueType = 'Venue Type';
 export const both = 'Both';
 export const upto = 'Up to';

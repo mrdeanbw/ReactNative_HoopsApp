@@ -1,4 +1,5 @@
 
+import _ActivitiesSelect from './activities-select';
 import _Calendar from './calendar';
 import _CreateEvent from './create-event';
 import _EventDashboard from './event-dashboard';
@@ -33,6 +34,7 @@ import _SignUpFacebookExtra from './signup-facebook-extra';
 import _TabBar from './tab-bar';
 import _Walkthrough from './walkthrough';
 
+export const ActivitiesSelect = _ActivitiesSelect;
 export const Calendar = _Calendar;
 export const CreateEvent = _CreateEvent;
 export const EventDashboard = _EventDashboard;

@@ -14,6 +14,7 @@ import _home from './home';
 import _horizontalRule from './horizontal-rule';
 import _interests from './interests';
 import _invitations from './invitations';
+import _list from './list';
 import _loading from './loading';
 import _login from './login';
 import _mapView from './map-view';
@@ -42,6 +43,7 @@ export default {
   horizontalRule: _horizontalRule,
   interests: _interests,
   invitations: _invitations,
+  list: _list,
   login: _login,
   loading: _loading,
   mapView: _mapView,

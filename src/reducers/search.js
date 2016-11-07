@@ -5,6 +5,10 @@ const initialState = {
   eventIds: [],
   userIds: [],
   nearby: [],
+  general: {
+    userIds: [],
+    eventIds: [],
+  },
   error: null,
 };
 
@@ -31,6 +35,16 @@ export default handleActions({
       ...state,
       eventIds: [],
       error: action.err,
+    };
+  },
+
+  SEARCH_GENERAL: (state, action) => {
+    return {
+      ...state,
+      general: {
+        eventIds: action.events.map(event => event.id),
+        userIds: action.users.map(user => user.id),
+      },
     };
   },
 

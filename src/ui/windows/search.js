@@ -1,7 +1,8 @@
 
 import _ from '../i18n';
 import React from 'react';
-import {View,Text,ScrollView,Slider} from 'react-native';
+import {View,Text,ScrollView,Slider,TouchableHighlight} from 'react-native';
+import {EventListItem, UserListItem} from '../components';
 
 import {
   Button,
@@ -18,7 +19,7 @@ export default class Search extends React.Component {
   constructor() {
     super();
     this.state = {
-      tab: 'basic',
+      tab: 'events',
 
       text: '',
       date: null,
@@ -30,29 +31,35 @@ export default class Search extends React.Component {
   }
 
   searchButtonEnabled() {
-    return (
-      this.state.text ||
-      this.state.date ||
-      this.state.gender ||
-      this.state.level ||
-      this.state.courtType ||
-      this.state.searchRadius
-    );
+    if(this.state.tab === 'events') {
+      return (
+        this.state.activity ||
+        this.state.date ||
+        this.state.gender ||
+        this.state.level ||
+        this.state.courtType ||
+        this.state.searchRadius
+      );
+    } else {
+      return !!this.state.text;
+    }
   }
 
   onPressSearch = () => {
-    let searchParams = {
-      text: this.state.text,
-      date: this.state.date,
-      gender: this.state.gender,
-      level: this.state.level,
-      courtType: this.state.courtType,
-      geospatial: {
-        coords: this.props.coords,
-        radius: this.state.searchRadius,
-      },
-    };
-    this.props.onPressSearch(searchParams);
+    if(this.state.tab === 'events') {
+      let searchParams = {
+        activity: this.props.activity.id,
+        date: this.state.date,
+        gender: this.state.gender,
+        level: this.state.level,
+        courtType: this.state.courtType,
+        geospatial: {
+          coords: this.props.coords,
+          radius: this.state.searchRadius,
+        },
+      };
+      this.props.onPressSearchEvents(searchParams);
+    }
   };
 
   onChangeDate = (date) => {
@@ -86,31 +93,125 @@ export default class Search extends React.Component {
     this.setState({liveSearchRadius: searchRadius});
   };
 
+  _renderGeneralResults() {
+    if(this.props.results.events.length + this.props.results.users.length === 0) {
+      return;
+    }
+
+    return (
+      <View style={StyleSheet.search.resultsContainer}>
+        <Text style={StyleSheet.search.resultsTitle}>{_('results')}</Text>
+        {this.props.results.events.length > 0 && (
+          <View>
+            <Text style={StyleSheet.search.resultTitle}>
+              {_('events').toUpperCase()}
+            </Text>
+            {this.props.results.events.map(event => (
+              <EventListItem
+                style={{backgroundColor: 'transparent'}}
+                key={event.id}
+                onPress={() => this.props.onPressEvent(event)}
+                image={{uri: event.imageSrc}}
+                title={event.title}
+                players={event.players} maxPlayers={event.maxPlayers}
+                level={event.level}
+                venueName={event.address}
+                date={event.date}
+                distance={event.distance}
+                hideDisclosure={true}
+              />
+            ))}
+            {this.props.results.showMoreEvents && (
+              <TouchableHighlight
+                onPress={() => this.props.onPressSeeMoreEvents()}
+                underlayColor={StyleSheet.search.seeMoreUnderlay}
+              >
+                <Text style={StyleSheet.search.seeMoreText}>{_('seeMore')}</Text>
+              </TouchableHighlight>
+            )}
+          </View>
+        )}
+        {this.props.results.users.length > 0 && (
+          <View>
+            <Text style={StyleSheet.search.resultTitle}>
+              {_('users').toUpperCase()}
+            </Text>
+            {this.props.results.users.map(user => (
+              <UserListItem
+                style={{backgroundColor: 'transparent'}}
+                key={user.id}
+                onPress={() => this.props.onPressUser(user)}
+                imageSrc={user.imageSrc}
+                name={user.name}
+                location={user.location}
+                dob={user.dob}
+                hideDisclosure={true}
+              />
+            ))}
+            {this.props.results.showMoreUsers && (
+              <TouchableHighlight
+                onPress={() => this.props.onPressSeeMoreUsers()}
+                underlayColor={StyleSheet.search.seeMoreUnderlay}
+              >
+                <Text style={StyleSheet.search.seeMoreText}>{_('seeMore')}</Text>
+              </TouchableHighlight>
+            )}
+          </View>
+        )}
+      </View>
+    );
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
         <Header
           onClose={this.props.onClose}
           title={_('search')}
+          hideSwitcher={true}
         />
         <View style={StyleSheet.buttons.bar}>
-          <Button type="top" text={_('basic')} active={this.state.tab === 'basic'} onPress={() => this.setState({ tab: 'basic' })} />
-          <Button type="top" text={_('advanced')} active={this.state.tab === 'advanced'} onPress={() => this.setState({ tab: 'advanced' })} />
+          <Button type="top" text={_('events')} active={this.state.tab === 'events'} onPress={() => this.setState({ tab: 'events' })} />
+          <Button type="top" text={_('general')} active={this.state.tab === 'general'} onPress={() => this.setState({ tab: 'general' })} />
         </View>
         <ScrollView contentContainerStyle={StyleSheet.search.containerStyle}>
-
-          <View>
-            <Text style={[StyleSheet.text, StyleSheet.search.titleTextStyle, {marginTop: 0}]}>{_('searchWhat')}</Text>
-            <TextInput
-              value={this.state.text}
-              onChangeText={(text) => this.setState({text})}
-              type="flat"
-              placeholder={_('searchWhatExample')}
-            />
-          </View>
-
-          {this.state.tab === 'advanced' && (
+          {this.state.tab === 'general' && (
             <View>
+              <Text style={[StyleSheet.text, StyleSheet.search.titleTextStyle, {marginTop: 0}]}>{_('searchWhat')}</Text>
+              <TextInput
+                value={this.state.text}
+                onChangeText={text => {
+                  this.setState({text});
+                  this.props.onPressSearchGeneral({text});
+                }}
+                type="flat"
+                placeholder={_('searchWhatExample')}
+              />
+              {this._renderGeneralResults()}
+            </View>
+          )}
+
+          {this.state.tab === 'events' && (
+            <View>
+              <Text style={[StyleSheet.text, StyleSheet.search.titleTextStyle, {marginTop: 0}]}>{_('searchActivity')}</Text>
+
+              <TouchableHighlight
+                onPress={this.props.onPressActivity}
+                underlayColor="transparent"
+              >
+                <View style={StyleSheet.textInputs.flat.style}>
+                  <Text
+                    style={[
+                      StyleSheet.textInputs.flat.textStyle,
+                      {color: this.props.activity ? undefined : StyleSheet.textInputs.flat.placeholderTextColor},
+                    ]}
+                  >
+                    {this.props.activity ? this.props.activity.name : _('searchActivityExample')}
+                  </Text>
+                  <Icon name="chevronRightPink"/>
+                </View>
+              </TouchableHighlight>
+
               <Text style={[StyleSheet.text, StyleSheet.search.titleTextStyle]}>{_('searchWhen')}</Text>
               <DateInput
                 type="flat"
@@ -172,15 +273,17 @@ export default class Search extends React.Component {
           )}
         </ScrollView>
 
-        <View style={StyleSheet.buttons.bar}>
-          <Button
-            type={this.searchButtonEnabled() ? "dialogDefault" : "dialog"}
-            text={_('search')}
-            onPress={() => {
-              this.searchButtonEnabled() && this.onPressSearch();
-            }}
-          />
-        </View>
+        {this.state.tab === 'events' && (
+          <View style={StyleSheet.buttons.bar}>
+            <Button
+              type={this.searchButtonEnabled() ? "dialogDefault" : "dialog"}
+              text={_('search')}
+              onPress={() => {
+                this.searchButtonEnabled() && this.onPressSearch();
+              }}
+            />
+          </View>
+        )}
       </View>
     );
   }

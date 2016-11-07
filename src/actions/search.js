@@ -4,11 +4,11 @@ import * as elasticsearch from '../data/elasticsearch';
 //TODO This access directly to elasticsearch is not secure. We need to get a paid plan
 const client = new elasticsearch.Client({host: 'https://1nskag9:to8ns327hsvi000s@dogwood-428370.us-east-1.bonsai.io'});
 
-import * as events from './events';
-import * as navigation from './navigation';
-import * as users from './users';
+import * as eventsActions from './events';
+import * as navigationActions from './navigation';
+import * as usersActions from './users';
 
-export const search = (params) => {
+export const searchEvents = (params) => {
 
   return (dispatch, getState) => {
     let allEvents = getState().events.all;
@@ -69,14 +69,52 @@ export const search = (params) => {
     //If we got some results, load the event objects from database
     if(results.hits && results.hits.hits) {
       results.hits.hits.forEach(hit => {
-        dispatch(events.load(hit._id));
+        dispatch(eventsActions.load(hit._id));
       });
     }
 
     //Navigate to the results page
-    dispatch(navigation.push({key: 'searchResults'}));
+    dispatch(navigationActions.push({key: 'searchResults'}));
   };
 };
+
+export const searchGeneral = (params) => {
+  return (dispatch, getState) => {
+    let allEvents = getState().events.all;
+    let allUsers = getState().users.all;
+
+    let searchString = params.text ? params.text.toLowerCase() : '';
+
+    let events = Object.keys(allEvents).map(eventId => {
+      return {
+        ...allEvents[eventId],
+        id: eventId,
+      };
+    }).filter(event => {
+      return event.title.toLowerCase().search(searchString) !== -1;
+    });
+
+    let users = Object.keys(allUsers).map(userId => {
+      return {
+        ...allUsers[userId],
+        id: userId,
+      };
+    }).filter(user => {
+      if(user.publicProfile && user.publicProfile.name) {
+        return user.publicProfile.name.toLowerCase().search(searchString) !== -1;
+      }else{
+        return false;
+      }
+    });
+
+    dispatch({
+      type: 'SEARCH_GENERAL',
+      events,
+      users
+    });
+  };
+};
+
 
 /* For now, we do local searching only
 export const search = (params) => {
@@ -162,12 +200,12 @@ export const search = (params) => {
       //If we got some results, load the event objects from database
       if(results.hits && results.hits.hits) {
         results.hits.hits.forEach(hit => {
-          dispatch(events.load(hit._id));
+          dispatch(eventsActions.load(hit._id));
         });
       }
 
       //Navigate to the results page
-      dispatch(navigation.push({key: 'searchResults'}));
+      dispatch(navigationActions.push({key: 'searchResults'}));
 
     }).catch((err) => {
       dispatch({
@@ -214,7 +252,7 @@ export const nearby = (params) => {
       //If we got some results, load the event objects from database
       if(results.hits && results.hits.hits) {
         results.hits.hits.forEach(hit => {
-          dispatch(events.load(hit._id));
+          dispatch(eventsActions.load(hit._id));
         });
       }
     }).catch(err => {
@@ -258,7 +296,7 @@ export const searchUsers = (params) => {
 
     if(results.hits && results.hits.hits) {
       results.hits.hits.forEach(hit => {
-        dispatch(users.load(hit._id));
+        dispatch(usersActions.load(hit._id));
       });
     }
 
@@ -289,7 +327,7 @@ export const searchUsers = (params) => {
 
       if(results.hits && results.hits.hits) {
         results.hits.hits.forEach(hit => {
-          dispatch(users.load(hit._id));
+          dispatch(usersActions.load(hit._id));
         });
       }
     }).catch((err) => {
