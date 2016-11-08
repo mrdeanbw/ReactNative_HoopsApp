@@ -1,8 +1,8 @@
 
-import * as elasticsearch from '../data/elasticsearch';
+//import * as elasticsearch from '../data/elasticsearch';
 
 //TODO This access directly to elasticsearch is not secure. We need to get a paid plan
-const client = new elasticsearch.Client({host: 'https://1nskag9:to8ns327hsvi000s@dogwood-428370.us-east-1.bonsai.io'});
+//const client = new elasticsearch.Client({host: 'https://1nskag9:to8ns327hsvi000s@dogwood-428370.us-east-1.bonsai.io'});
 
 import * as eventsActions from './events';
 import * as navigationActions from './navigation';
@@ -224,6 +224,62 @@ export const search = (params) => {
  * params.limit {Number}
  */
 export const nearby = (params) => {
+  return (dispatch, getState) => {
+    let allEvents = getState().events.all;
+    let size = 10;
+
+    let matches = Object.keys(allEvents).map(eventId => {
+      return {
+        ...allEvents[eventId],
+        id: eventId,
+      };
+    }).map(event => {
+      if(params.lat && params.lon && event.addressCoords) {
+        //Very simple approximate radius calculation (pythagoras)
+        let dLat = params.lat - event.addressCoords.lat;
+        let dLon = params.lon - event.addressCoords.lon;
+        let distance = Math.sqrt(Math.pow(dLat, 2) + Math.pow(dLon, 2));
+
+        //Each degree of latitude is approximately 70 miles
+        distance = distance * 70;
+
+        event._distance = distance;
+      }
+
+      return event;
+    }).filter(event => {
+      return typeof event._distance !== 'undefined';
+    }).sort((a, b) => {
+      return a._distance > b._distance ? 1 : -1;
+    }).slice(0, size);
+
+    //We use this format because it is what elasticsearch will return
+    let results = {
+      hits: {
+        total: matches.length,
+        hits: matches.map(event => ({
+          _id: event.id,
+          sort: [event._distance],
+        })),
+      },
+    };
+
+    //If we got some results, load the event objects from database
+    if(results.hits && results.hits.hits) {
+      results.hits.hits.forEach(hit => {
+        dispatch(eventsActions.load(hit._id));
+      });
+    }
+
+    dispatch({
+      type: 'SEARCH_NEARBY_END',
+      results,
+    });
+
+  };
+};
+/* For now, we do local searching only
+export const nearby = (params) => {
   return dispatch => {
     let query = {
       match_all: {},
@@ -263,6 +319,7 @@ export const nearby = (params) => {
     });
   };
 };
+*/
 
 export const searchUsers = (params) => {
   return (dispatch, getState) => {
