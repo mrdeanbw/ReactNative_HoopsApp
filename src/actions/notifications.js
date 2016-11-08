@@ -118,9 +118,11 @@ export const updateBadge = () => {
     let state = getState();
 
     //count unread notifications and set the badge
-    let unread = Object.keys(state.notifications.notificationsById).map(notiId => {
+    let unseen = Object.keys(state.notifications.notificationsById).map(notiId => {
       return state.notifications.notificationsById[notiId];
     }).filter(notification => notification && notification.seen !== true);
+
+    FCM.setBadgeNumber(unseen.length);
   };
 };
 
