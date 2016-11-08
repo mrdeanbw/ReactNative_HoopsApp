@@ -10,6 +10,7 @@ import EventListItem from '../components/event-list-item';
 import Header from '../components/header';
 import Icon from '../components/icon';
 import icons from '../styles/resources/icons';
+import Button from '../components/button';
 
 export default class Home extends React.Component {
 
@@ -17,6 +18,7 @@ export default class Home extends React.Component {
     super();
     this.state = {
       scrollHeight: undefined,
+      showMap: true,
     };
   }
 
@@ -47,7 +49,7 @@ export default class Home extends React.Component {
     );
   }
 
-  render() {
+  _renderMap = () => {
     let annotations = this.props.nearby.filter(item => {
       return item.event && item.event.addressCoords;
     }).map(item => {
@@ -97,6 +99,44 @@ export default class Home extends React.Component {
     }
 
     return (
+      <View style={StyleSheet.home.nearbyMapContainer}>
+        <MapView style={StyleSheet.home.map}
+          zoomEnabled={false}
+          pitchEnabled={false}
+          rotateEnabled={false}
+          scrollEnabled={false}
+          showsCompass={false}
+          showsPointsOfInterest={false}
+          followUserLocation={false}
+          showsUserLocation={true}
+          region={region}
+          annotations={annotations}
+        />
+      </View>
+    );
+  }
+
+  _renderList() {
+    return (
+      this.props.nearby.map(item => (
+        <EventListItem
+          key={item.event.id}
+          onPress={() => this.props.onPressEvent(item.event)}
+          image={{uri: item.event.imageSrc}}
+          title={item.event.title}
+          players={item.event.players} maxPlayers={item.event.maxPlayers}
+          level={item.event.level}
+          venueName={item.event.address}
+          date={item.event.date}
+          distance={item.distance}
+        />
+      ))
+    );
+  }
+
+  render() {
+
+    return (
       <View style={{flex: 1}}>
         <Header
           title={this.props.mode === 'ORGANIZE' ? _('activeEvents') : _('upcomingEvents')}
@@ -116,23 +156,14 @@ export default class Home extends React.Component {
                 <Text style={[StyleSheet.text, StyleSheet.home.nearbyTitleText]}>
                   {_('nearbyEvents').toUpperCase()}
                 </Text>
-                <Icon style={StyleSheet.home.listIcon} name="list"/>
-              </View>
-
-              <View style={StyleSheet.home.nearbyMapContainer}>
-                <MapView style={StyleSheet.home.map}
-                  zoomEnabled={false}
-                  pitchEnabled={false}
-                  rotateEnabled={false}
-                  scrollEnabled={false}
-                  showsCompass={false}
-                  showsPointsOfInterest={false}
-                  followUserLocation={false}
-                  showsUserLocation={true}
-                  region={region}
-                  annotations={annotations}
+                <Button
+                  style={StyleSheet.home.listIcon}
+                  icon="list"
+                  onPress={() => this.setState({showMap: !this.state.showMap})}
                 />
               </View>
+
+              {this.state.showMap ? this._renderMap() : this._renderList()}
             </View>
           )}
         </ScrollView>

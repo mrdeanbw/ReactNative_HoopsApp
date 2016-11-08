@@ -33,7 +33,6 @@ export default StyleSheet => StyleSheet.extend({
     top: 0,
     bottom: 0,
     width: 24,
-    resizeMode: 'contain',
     alignItems: 'center',
     justifyContent: 'center',
     height: null

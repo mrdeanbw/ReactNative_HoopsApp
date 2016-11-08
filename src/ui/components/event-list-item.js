@@ -28,7 +28,7 @@ export default class EventListItem extends React.Component {
           </View>
 
           <View style={StyleSheet.eventListItem.textContainer}>
-            {this.props.distance && <Text style={[StyleSheet.text, StyleSheet.eventListItem.distance]}>{this.props.distance}</Text>}
+            {this.props.distance && <Text style={[StyleSheet.text, StyleSheet.eventListItem.distance]}>{this.props.distance.toFixed(2)} mi</Text>}
             <Text style={[StyleSheet.eventListItem.text, StyleSheet.eventListItem.title]} numberOfLines={1} ellipsizeMode="tail">{this.props.title}</Text>
             <Text style={[StyleSheet.eventListItem.text, StyleSheet.eventListItem.detail]} numberOfLines={2} ellipsizeMode="tail">
               {_('players')}&nbsp;
