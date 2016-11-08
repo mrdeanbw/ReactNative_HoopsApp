@@ -56,12 +56,12 @@ export default class TabBar extends React.Component {
         {this.state.menuVisible && (
           <Menu
             animation={this.state.menuAnimation}
-            notificationBadge={this.props.notificationBadge}
             onPressBackground={this.props.onHideMenu}
             user={this.props.user}
             onPressProfile={this.props.onPressProfile}
             currentTab={this.props.currentTab}
             onTabPress={this.props.onTabPress}
+            mode={this.props.mode}
           />
         )}
 
@@ -84,17 +84,22 @@ export default class TabBar extends React.Component {
 
           <Button type={this.props.actionType} icon={actionIcon} text={this.props.actionText} onPress={this.props.onActionPress} />
 
-          {this.props.mode === 'ORGANIZE' ? (
-            <Button type="tab" icon="calendar" text={_('calendar')}
-              active={this.props.currentTab === "calendar"}
-              onPress={() => this.props.onTabPress('calendar')}
+          <View>
+            <Button
+              type="tab"
+              icon="notifications"
+              text={_('notifications')}
+              active={this.props.currentTab === "notifications"}
+              onPress={() => this.props.onTabPress('notifications')}
             />
-          ) : (
-            <Button type="tab" icon="invitations" text={_('invitations')}
-              active={this.props.currentTab === 'invitations'}
-              onPress={() => this.props.onTabPress('invitations')}
-            />
-          )}
+            {!!this.props.notificationBadge && (
+              <View style={StyleSheet.menu.badgeContainer}>
+                <Text style={StyleSheet.menu.badge}>
+                  {this.props.notificationBadge}
+                </Text>
+              </View>
+            )}
+          </View>
 
           <Button type="tab" icon="more" text={_('more')}
             active={
@@ -103,7 +108,8 @@ export default class TabBar extends React.Component {
                 'help',
                 'settings',
                 'payments',
-                'notifications',
+                'calendar',
+                'invitations',
                 'friends'
               ].indexOf(this.props.currentTab) !== -1
             }

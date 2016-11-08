@@ -66,13 +66,12 @@ export default StyleSheet => StyleSheet.extend({
     underlayColor: colors.transparent,
 
     style: {
-      flex: null,
-      width: 60,
+      flex: 1,
       backgroundColor: colors.transparent
     },
 
     containerStyle: {
-      flexDirection: 'column'
+      flexDirection: 'column',
     },
 
     iconStyle: {

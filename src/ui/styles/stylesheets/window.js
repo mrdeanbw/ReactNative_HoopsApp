@@ -99,8 +99,8 @@ export default StyleSheet => StyleSheet.extend({
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: '#e6eaeb',
     backgroundColor: colors.white,
-    paddingLeft: 10,
-    paddingRight: 10
+    paddingLeft: 8,
+    paddingRight: 8
   },
 
   menuIcon: {

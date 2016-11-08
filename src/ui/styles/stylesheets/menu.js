@@ -93,8 +93,8 @@ export default StyleSheet => StyleSheet.extend({
   badgeContainer: {
     position: 'absolute',
     backgroundColor: colors.pink,
-    left: 12,
-    top: -7,
+    right: 2,
+    top: 2,
     paddingTop: 2,
     paddingBottom: 2,
     paddingLeft: 5,
