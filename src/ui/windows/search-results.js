@@ -29,7 +29,7 @@ export default class SearchResults extends React.Component {
               onPress={() => this.props.onPressUser(user)}
               imageSrc={user.imageSrc}
               name={user.name}
-              location={user.location}
+              location={user.city}
               dob={user.dob}
               hideDisclosure={true}
             />

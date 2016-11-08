@@ -142,7 +142,7 @@ export default class FriendsSearch extends React.Component {
               onPress={() => this.onPressUser(user)}
               imageSrc={user.imageSrc}
               name={user.name}
-              location={user.location}
+              location={user.city}
               dob={user.dob}
               checked={!!this.state.selected[user.id]}
               onPressCheck={() => this.onPressCheck(user)}

@@ -43,7 +43,7 @@ export default class Profile extends React.Component {
                 <Text style={[StyleSheet.text, StyleSheet.profile.nameTextStyle]}>{name}</Text>
               </View>
 
-              <Text style={[StyleSheet.text, StyleSheet.profile.locationTextStyle]}>{profile.location}</Text>
+              <Text style={[StyleSheet.text, StyleSheet.profile.locationTextStyle]}>{profile.city}</Text>
               <View style={{flex: 1}}/>
               <View style={StyleSheet.profile.buttonBarStyle}>
                 {owner && <Button type="profile" text={_('editProfile')} onPress={this.props.onPressEditProfile} />}

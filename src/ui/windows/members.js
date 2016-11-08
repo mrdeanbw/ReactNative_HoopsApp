@@ -89,7 +89,7 @@ export default class Members extends React.Component {
                 onPress={() => this.onPressUser(user)}
                 imageSrc={user.imageSrc}
                 name={user.name}
-                location={user.location}
+                location={user.city}
                 dob={user.dob}
                 status={request.status}
                 onPressDisclosure={() => this.onPressDisclosure(user)}
@@ -104,7 +104,7 @@ export default class Members extends React.Component {
                 onPress={() => this.onPressUser(user)}
                 imageSrc={user.imageSrc}
                 name={user.name}
-                location={user.location}
+                location={user.city}
                 dob={user.dob}
                 status={invite.status}
                 onPressDisclosure={() => this.onPressDisclosure(user)}
