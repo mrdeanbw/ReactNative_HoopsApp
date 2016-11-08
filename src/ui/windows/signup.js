@@ -47,7 +47,7 @@ export default class SignUp extends React.Component {
     return !!(
       name &&
       email &&
-      password.length >= 8 &&
+      password && password.length >= 8 &&
       dob &&
       gender &&
       city.key
