@@ -82,7 +82,7 @@ export default class Profile extends React.Component {
             </View>
 
             <View style={StyleSheet.profile.statsItemStyle}>
-              <Text style={[StyleSheet.text, StyleSheet.profile.statsValueTextStyle]}>{'21'}</Text>
+              <Text style={[StyleSheet.text, StyleSheet.profile.statsValueTextStyle]}>{Object.keys(profile.organizing).length}</Text>
               <Text style={[StyleSheet.text, StyleSheet.profile.statsKeyTextStyle]}>{_('eventsOrganized')}</Text>
             </View>
 
