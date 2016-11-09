@@ -29,7 +29,7 @@ export default handleActions({
   USERS_LOAD_ALL: (state, action) => {
     return {
       ...state,
-      all: action.users,
+      all: action.users || {},
     };
   },
 

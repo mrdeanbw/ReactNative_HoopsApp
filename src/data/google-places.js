@@ -32,7 +32,11 @@ export const autocomplete = (input, type = '(cities)') => {
     //cancel previous autocomplete request and start a new one
     clearTimeout(timeout);
     timeout = setTimeout(() => {
-      resolve(fetch(url).then(result => result.json()));
+      resolve(
+        fetch(url)
+          .then(result => result.json())
+          .catch(err => console.warn(err)) //eslint-disable-line no-console
+      );
     }, autocompleteDelay);
   });
 };

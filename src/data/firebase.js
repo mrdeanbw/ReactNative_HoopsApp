@@ -50,6 +50,7 @@ export const uploadImage = (uri, location) => {
   return new Promise((resolve, reject) => {
     if(!uri) {
       resolve();
+      return;
     }
 
     let storageRef = firebaseStorage.ref(location);

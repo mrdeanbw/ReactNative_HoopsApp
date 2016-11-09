@@ -19,7 +19,7 @@ export default handleActions({
   EVENTS_LOAD_ALL: (state, action) => {
     return {
       ...state,
-      all: action.events,
+      all: action.events || {},
     };
   },
 

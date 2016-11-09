@@ -123,6 +123,7 @@ export default handleActions({
       ...state,
       uid: action.uid,
       signInMethod: action.method,
+      isSigningIn: false,
     };
   },
 

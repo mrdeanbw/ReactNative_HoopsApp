@@ -6,7 +6,7 @@ import _ from '../i18n';
 import {Header, Button, Icon, Popup, LoadingAlert} from '../components';
 import StyleSheet from '../styles';
 
-export default class PaymentsBankSetup extends React.Component {
+export default class Payments extends React.Component {
   constructor(props) {
     super(props);
 

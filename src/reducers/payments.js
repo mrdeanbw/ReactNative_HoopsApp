@@ -4,6 +4,7 @@ import {handleActions} from 'redux-actions';
 const initialState = {
   isUpdatingAccount: false,
   isFetchingAccount: false,
+  isFetchingCards: false,
   isAddingCard: false,
   isDeletingCard: false,
 
@@ -21,9 +22,11 @@ export default handleActions({
 
   'persist/REHYDRATE': (state, action) => {
     return {
+      ...initialState,
       ...action.payload.payments,
       isUpdatingAccount: false,
       isFetchingAccount: false,
+      isFetchingCards: false,
       isAddingCard: false,
       isDeletingCard: false,
       updateAccountError: null,

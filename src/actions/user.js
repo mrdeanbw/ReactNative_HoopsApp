@@ -302,7 +302,7 @@ const listenToUser = () => {
 
       //We need to do routing if it is the first load, or if name isn't defined yet
       //and we are on the loading page
-      if((firstLoad || !state.user.name) && state.navigation.routes[0].key === 'loading') {
+      if(firstLoad || !state.user.name) {
         //If the user has a name, we can leave the login/signup views
         if(user.publicProfile && user.publicProfile.name) {
           if(state.user.mode) {
@@ -340,7 +340,9 @@ const listenToUser = () => {
           });
         });
       } else {
-        user.publicProfile.imageSrc = state.user.imageSrc; //Make we don't overwrite
+        if(user.publicProfile) {
+          user.publicProfile.imageSrc = state.user.imageSrc; //Make we don't overwrite
+        }
         dispatch({
           type: 'USER_CHANGE',
           user,
