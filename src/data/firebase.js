@@ -3,11 +3,12 @@ import * as firebase from 'firebase';
 import ReactNative from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
 
+import Config from '../config';
 const firebaseConfig = {
-  apiKey: "AIzaSyA-4UQyJ2wfj9OfgX4zkTQeFscFxGQ_agE",
+  apiKey: Config.FIREBASE_API_KEY,
   authDomain: "localhost",
-  databaseURL: "https://hoops-21a72.firebaseio.com",
-  storageBucket: "hoops-21a72.appspot.com",
+  databaseURL: Config.FIREBASE_DATABASE_URL,
+  storageBucket: Config.FIREBASE_STORAGE_BUCKET,
 };
 
 export default firebase;

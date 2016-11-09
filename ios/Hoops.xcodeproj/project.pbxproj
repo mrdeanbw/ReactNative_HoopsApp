@@ -26,11 +26,11 @@
 		2783E30F1DBE45EA00A672F0 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2783E30E1DBE45EA00A672F0 /* UserNotifications.framework */; };
 		27A15B471DB630E2008C2A16 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A15B3A1DB63070008C2A16 /* libRCTCameraRoll.a */; };
 		27A15B491DB638C5008C2A16 /* RCTImageRead.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A15B481DB638C5008C2A16 /* RCTImageRead.m */; };
-		27A4F9FE1D7F1B5700D017DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27A4F9FD1D7F1B5700D017DA /* GoogleService-Info.plist */; };
 		27A98DB71D81779C00AD839C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A98DB61D81779C00AD839C /* FBSDKCoreKit.framework */; };
 		27A98DC51D8177A700AD839C /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A98DC41D8177A700AD839C /* FBSDKLoginKit.framework */; };
 		27A98DC71D8177B300AD839C /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A98DC61D8177B300AD839C /* FBSDKShareKit.framework */; };
 		27A98DC91D8178CF00AD839C /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A98DC81D8178CF00AD839C /* Bolts.framework */; };
+		27EDFB171DD377DF00B06E0A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27EDFB161DD377DF00B06E0A /* GoogleService-Info.plist */; };
 		3D78388CA20B4D9EBC1E100A /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2D4D5B1546C48D49A6F9318 /* libRNI18n.a */; };
 		5C40A4044FCA44519C8AE820 /* SourceSansPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1E3578B3B2243B3872707AB /* SourceSansPro-Bold.ttf */; };
 		7925FE4CB3E555A337891DD0 /* Pods_Hoops.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D60E6630B31368B588BEBC2 /* Pods_Hoops.framework */; };
@@ -192,11 +192,12 @@
 		2783E30E1DBE45EA00A672F0 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		27A15B341DB63070008C2A16 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		27A15B481DB638C5008C2A16 /* RCTImageRead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RCTImageRead.m; path = Hoops/RCTImageRead.m; sourceTree = "<group>"; };
-		27A4F9FD1D7F1B5700D017DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		27A98DB61D81779C00AD839C /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		27A98DC41D8177A700AD839C /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		27A98DC61D8177B300AD839C /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		27A98DC81D8178CF00AD839C /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		27EDFB101DD3748900B06E0A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		27EDFB161DD377DF00B06E0A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		354872BBCA0E4B78AFFCF849 /* libRNFIRMessaging.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFIRMessaging.a; sourceTree = "<group>"; };
 		385BBA2870144C5A8528D869 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		44592B4F3EACE20E3D0EB671 /* Pods-Hoops.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoops.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hoops/Pods-Hoops.release.xcconfig"; sourceTree = "<group>"; };
@@ -339,7 +340,6 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				27A4F9FD1D7F1B5700D017DA /* GoogleService-Info.plist */,
 				27A15B481DB638C5008C2A16 /* RCTImageRead.m */,
 			);
 			name = Hoops;
@@ -372,6 +372,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		275D94E51DD3716C005911BA /* config */ = {
+			isa = PBXGroup;
+			children = (
+				27EDFB151DD377DF00B06E0A /* Release */,
+				27EDFB0F1DD3748900B06E0A /* Debug */,
+			);
+			name = config;
+			sourceTree = "<group>";
+		};
 		2783E31E1DBE5D9200A672F0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -402,6 +411,24 @@
 				27A98DDA1D817B1E00AD839C /* libRCTFBSDK.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		27EDFB0F1DD3748900B06E0A /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				27EDFB101DD3748900B06E0A /* GoogleService-Info.plist */,
+			);
+			name = Debug;
+			path = config/Debug;
+			sourceTree = "<group>";
+		};
+		27EDFB151DD377DF00B06E0A /* Release */ = {
+			isa = PBXGroup;
+			children = (
+				27EDFB161DD377DF00B06E0A /* GoogleService-Info.plist */,
+			);
+			name = Release;
+			path = config/Release;
 			sourceTree = "<group>";
 		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
@@ -445,6 +472,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				275D94E51DD3716C005911BA /* config */,
 				13B07FAE1A68108700A75B9A /* Hoops */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* HoopsTests */,
@@ -526,6 +554,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				D505E7147B2755CE9ED4C879 /* 📦 Embed Pods Frameworks */,
 				55F50981BAE6953C4CBA323B /* 📦 Copy Pods Resources */,
+				27EDFB0E1DD3734C00B06E0A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -777,8 +806,8 @@
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				5C40A4044FCA44519C8AE820 /* SourceSansPro-Bold.ttf in Resources */,
 				E7FF0860C1CF4F458FE99B4F /* SourceSansPro-Regular.ttf in Resources */,
-				27A4F9FE1D7F1B5700D017DA /* GoogleService-Info.plist in Resources */,
 				F5530B4363D74FD289FEE1A6 /* SourceSansPro-Semibold.ttf in Resources */,
+				27EDFB171DD377DF00B06E0A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -813,6 +842,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		27EDFB0E1DD3734C00B06E0A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp ${SRCROOT}/config/${CONFIGURATION}/GoogleService-Info.plist ${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleService-Info.plist";
 		};
 		55F50981BAE6953C4CBA323B /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

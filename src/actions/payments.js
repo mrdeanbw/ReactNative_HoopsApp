@@ -3,8 +3,10 @@ import * as navigationActions from './navigation';
 import url from 'url';
 import qs from 'qs';
 
-const server = 'https://arcane-ridge-17730.herokuapp.com/';
-const stripePublicKey = 'pk_test_3mN7EmjOlXkVjjZISQG4xq3J';
+import Config from '../config';
+
+const server = Config.PAYMENTS_SERVER;
+const stripePublicKey = Config.STRIPE_PUBLIC_KEY;
 
 import inflateEvent from '../data/inflaters/event';
 

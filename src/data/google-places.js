@@ -1,8 +1,8 @@
 
 import qs from 'qs';
 
-const API_KEY = 'AIzaSyBopRDu051G9W6fqJCwGgzxGICzhzuUxIg';
-
+import Config from '../config';
+const API_KEY = Config.GOOGLE_PLACES_API_KEY;
 
 
 //`timeout` allows us to cancel previous autocomplete attempts if a new one arrives
