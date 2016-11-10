@@ -60,6 +60,10 @@ export const uploadImage = (uri, location) => {
         storageRef.put(blob, {contentType: 'image/jpeg'}).then(function(snapshot) {
           blob.close();
           resolve({ref: location});
+        }).catch(err => {
+          //Image upload has failed
+          console.warn(err); //eslint-disable-line no-console
+          reject(err);
         });
       });
     });
