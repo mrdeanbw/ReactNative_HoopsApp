@@ -102,7 +102,7 @@ export default class Profile extends React.Component {
                     onPress={() => {}}
                   />
                 )}
-                {!owner && (profile.email || profile.phone) && (
+                {!owner && this.props.showContactInfo && (profile.email || profile.phone) && (
                   <Button
                     type="profileDefault"
                     icon="contact"

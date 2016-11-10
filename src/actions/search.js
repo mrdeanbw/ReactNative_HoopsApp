@@ -107,6 +107,9 @@ export const searchGeneral = (params) => {
       }
     });
 
+    events.forEach(event => dispatch(eventsActions.load(event.id)));
+    users.forEach(user => dispatch(usersActions.load(user.id)));
+
     dispatch({
       type: 'SEARCH_GENERAL',
       events,

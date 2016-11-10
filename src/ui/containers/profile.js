@@ -31,6 +31,19 @@ class Profile extends React.Component {
       });
     }).filter(event => !!event);
 
+    /*
+     * show contact info if current user is a participant of any of the user's events
+     * and the event.allowContactInfo is set to true.
+     */
+    let showContactInfo = false;
+    events.forEach(event => {
+      event.players.forEach(player => {
+        if(event.allowContactInfo && player.id === this.props.user.uid) {
+          showContactInfo = true;
+        }
+      });
+    });
+
     let isFriend = profile.id in this.props.user.friends;
 
     let isPending = !!Object.keys(this.props.user.friendRequests).map(requestId => {
@@ -67,6 +80,7 @@ class Profile extends React.Component {
           this.props.onNavigate('eventDetails', {id: event.id}, true);
         }}
         me={this.props.user}
+        showContactInfo={showContactInfo}
         upcoming={events}
       />
     );
