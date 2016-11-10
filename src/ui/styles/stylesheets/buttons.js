@@ -857,12 +857,13 @@ export default StyleSheet => StyleSheet.extend({
       borderWidth: 1,
       borderColor: colors.black,
       height: 30,
-      paddingLeft: 20,
-      paddingRight: 20,
+      paddingLeft: 10,
+      paddingRight: 10,
       marginRight: 10
     },
 
     textStyle: {
+      marginLeft: 5,
       color: colors.black,
       fontWeight: 'bold',
       letterSpacing: 1,
@@ -883,12 +884,13 @@ export default StyleSheet => StyleSheet.extend({
       borderColor: colors.pink,
       borderRadius: 15,
       height: 30,
-      paddingLeft: 20,
-      paddingRight: 20,
+      paddingLeft: 10,
+      paddingRight: 10,
       marginRight: 10
     },
 
     textStyle: {
+      marginLeft: 5,
       color: colors.white,
       fontWeight: 'bold',
       letterSpacing: 1,

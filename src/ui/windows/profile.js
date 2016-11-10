@@ -1,17 +1,19 @@
 
 import _ from '../i18n';
 import React from 'react';
-import {View,Text,Image,ScrollView} from 'react-native';
+import {View, Text, Image, ScrollView, Linking} from 'react-native';
 import moment from 'moment';
 
-import {Header, Button, EventListItem} from '../components';
+import {Header, Popup, Button, EventListItem} from '../components';
 import StyleSheet from '../styles';
 
 export default class Profile extends React.Component {
 
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      showContactPopup: false,
+    };
   }
 
   render() {
@@ -34,6 +36,35 @@ export default class Profile extends React.Component {
           onBack={this.props.onBack}
           title={(owner ? _('yourProfile') : _('profileTemplate')).replace(/\$1/g, name)}
         />
+        <Popup
+          visible={this.state.showContactPopup}
+          onClose={() => this.setState({showContactPopup: false})}
+        >
+          {profile.phone && (
+            <Button
+              type="alertVertical"
+              text={_('phone')}
+              onPress={() => {
+                let url = `tel:${profile.phone}`;
+                Linking.openURL(url).catch(err => {
+                  console.warn(err); //eslint-disable-line no-console
+                });
+              }}
+            />
+          )}
+          {profile.email && (
+            <Button
+              type="alertVertical"
+              text={_('email')}
+              onPress={() => {
+                let url = `mailto:${profile.email}`;
+                Linking.openURL(url).catch(err => {
+                  console.warn(err); //eslint-disable-line no-console
+                });
+              }}
+            />
+          )}
+        </Popup>
         <ScrollView>
           <View style={StyleSheet.profile.headlineBarStyle}>
             <Image source={{uri: profile.imageSrc}} style={StyleSheet.profile.avatarImageStyle} />
@@ -69,6 +100,14 @@ export default class Profile extends React.Component {
                     icon="plusBlack"
                     text={_('pendingFriendRequest')}
                     onPress={() => {}}
+                  />
+                )}
+                {!owner && (profile.email || profile.phone) && (
+                  <Button
+                    type="profileDefault"
+                    icon="contact"
+                    text={_('contact')}
+                    onPress={() => this.setState({showContactPopup: true})}
                   />
                 )}
               </View>
