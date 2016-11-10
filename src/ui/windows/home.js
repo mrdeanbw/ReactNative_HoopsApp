@@ -2,6 +2,7 @@
 import _ from '../i18n';
 
 import React from 'react';
+import Analytics from 'react-native-firebase-analytics';
 
 import {View, ScrollView, Text, MapView, TouchableHighlight} from 'react-native';
 
@@ -159,7 +160,12 @@ export default class Home extends React.Component {
                 <Button
                   style={StyleSheet.home.listIcon}
                   icon="list"
-                  onPress={() => this.setState({showMap: !this.state.showMap})}
+                  onPress={() => {
+                    Analytics.logEvent('click_maplist_toggle', {
+                      value: this.state.showMap ? 'list': 'map',
+                    });
+                    this.setState({showMap: !this.state.showMap});
+                  }}
                 />
               </View>
 
