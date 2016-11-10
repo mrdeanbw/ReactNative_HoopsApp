@@ -1,6 +1,7 @@
 package com.hoops;
 
 import com.facebook.react.ReactActivity;
+import com.evollu.react.fa.FIRAnalyticsPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
