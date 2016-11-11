@@ -892,7 +892,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n#../node_modules/react-native/packager/react-native-xcode.sh\n\n#We run our own packaging script to generate sourcemaps that are\n#uploaded to bugsnag\n../react-native-xcode.sh";
 		};
 		17A3C5DE0DBA6B0409259006 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
