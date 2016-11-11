@@ -5,6 +5,7 @@ import React from 'react';
 
 import {ScrollView, View} from 'react-native';
 import StyleSheet from '../styles';
+import Analytics from 'react-native-firebase-analytics';
 
 import Dialog from '../components/dialog';
 import Button from '../components/button';
@@ -45,6 +46,7 @@ export default class Interests extends React.Component {
   };
 
   onPressViewAll = () => {
+    Analytics.logEvent('press_view_all_interests');
     this.props.onPressViewAll(this.state.selected);
   };
 

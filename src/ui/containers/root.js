@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {navigation} from '../../actions';
 
 import {Navigator} from '../components';
+import Analytics from 'react-native-firebase-analytics';
 
 import LoadingWindow from '../windows/loading';
 
@@ -85,6 +86,21 @@ class Root extends React.Component {
         component: containers.ActivitiesSelect,
       },
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    //calculate a unique key for each page:
+    let route = nextProps.navigation.routes[nextProps.navigation.index];
+    let trackingKey = route.key;
+
+    if(route.key === 'tabs') {
+      //If we are on the tabs route, use the tab navigation's current view
+      let tab = nextProps.navigation.tabs[nextProps.navigation.tabKey];
+      let tabRoute = tab.routes[tab.index];
+      trackingKey = tabRoute.key;
+    }
+
+    Analytics.setScreenName(trackingKey);
   }
 
   render() {

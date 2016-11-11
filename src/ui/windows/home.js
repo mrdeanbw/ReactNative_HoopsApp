@@ -162,7 +162,7 @@ export default class Home extends React.Component {
                   icon="list"
                   onPress={() => {
                     Analytics.logEvent('click_maplist_toggle', {
-                      value: this.state.showMap ? 'list': 'map',
+                      item_name: this.state.showMap ? 'list' : 'map',
                     });
                     this.setState({showMap: !this.state.showMap});
                   }}

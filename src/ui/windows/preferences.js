@@ -2,6 +2,7 @@
 import _ from '../i18n';
 import React from 'react';
 import {View, ScrollView, Text, Linking} from 'react-native';
+import Analytics from 'react-native-firebase-analytics';
 
 import {Window, Button, Popup, Header} from '../components';
 import StyleSheet from '../styles';
@@ -36,11 +37,13 @@ export default class Preferences extends React.Component {
   };
 
   onPressSendFeedback = () => {
+    Analytics.logEvent('feedback_mailto_press');
     let url = "mailto:support@hoopsapp.co?subject=App%20Feedback";
     Linking.openURL(url).catch(err => console.warn('An error occurred', err));
   };
 
   onPressPrivacy = () => {
+    Analytics.logEvent('privacy_link_press');
     let url = "http://hoopsapp.co/privacy";
     Linking.openURL(url).catch(err => console.warn('An error occurred', err));
   };
