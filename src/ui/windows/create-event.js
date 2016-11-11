@@ -37,7 +37,8 @@ export default class CreateEvent extends React.Component {
         paymentMethod: '',
         deadline: null,
 
-        description: 'xx',
+        description: '',
+        rules: '',
       },
       focus: {},
     };
@@ -473,6 +474,16 @@ export default class CreateEvent extends React.Component {
                        modalTitle={_('eventNotes')}
                        modalPlaceholder={_('enterYourNotesForThisEvent')}
                        style={StyleSheet.halfMarginTop}/>
+
+                <TextInput type="flat"
+                       multiline="popup"
+                       value={this.state.eventDetails.rules}
+                       placeholder={_('rules')}
+                       rightBar={<Icon name="listIndicator" />}
+                       onChangeText={(rules) => this.setEventData({rules})}
+                       modalTitle={_('eventRules')}
+                       modalPlaceholder={_('enterYourRules')}
+                       style={StyleSheet.halfMarginTop}/>
               </View>
 
               <CheckButton
@@ -511,6 +522,7 @@ export default class CreateEvent extends React.Component {
                 />
               )}
 
+              <KeyboardSpacer/>
             </Form>
           </Wizard.Step>
         </Wizard>
