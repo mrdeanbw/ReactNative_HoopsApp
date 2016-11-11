@@ -201,6 +201,10 @@ class FriendRequestNotification extends React.Component {
     let user = this.props.notification.friendRequest.from;
     let status = this.props.notification.friendRequest.status;
 
+    if(!user || !status) {
+      return null;
+    }
+
     let description;
     let options = [{
       type: "alertVertical",
@@ -263,6 +267,10 @@ class EventRequestNotification extends React.Component {
     let user = this.props.notification.request.user;
     let event = this.props.notification.request.event;
     let status = this.props.notification.request.status;
+
+    if(!user || !event || !status) {
+      return null;
+    }
 
     let description;
 
@@ -333,6 +341,9 @@ class EventRequestNotification extends React.Component {
 class EventCancelledNotification extends React.Component {
   render() {
     let event = this.props.notification.event;
+    if(!event) {
+      return null;
+    }
     let description = replaceText(
       _('eventCancelledDescription'),
       <Text style={StyleSheet.notification.highlight}>{event.title}</Text>
