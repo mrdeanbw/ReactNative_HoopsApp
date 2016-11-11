@@ -32,6 +32,7 @@
 		27A98DC71D8177B300AD839C /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A98DC61D8177B300AD839C /* FBSDKShareKit.framework */; };
 		27A98DC91D8178CF00AD839C /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A98DC81D8178CF00AD839C /* Bolts.framework */; };
 		27EDFB171DD377DF00B06E0A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27EDFB161DD377DF00B06E0A /* GoogleService-Info.plist */; };
+		38FDFACCE0BB48189EE1572A /* libBugsnagReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B385DE1C4D954F2D964BFFE6 /* libBugsnagReactNative.a */; };
 		3D78388CA20B4D9EBC1E100A /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2D4D5B1546C48D49A6F9318 /* libRNI18n.a */; };
 		5C40A4044FCA44519C8AE820 /* SourceSansPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1E3578B3B2243B3872707AB /* SourceSansPro-Bold.ttf */; };
 		7925FE4CB3E555A337891DD0 /* Pods_Hoops.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D60E6630B31368B588BEBC2 /* Pods_Hoops.framework */; };
@@ -41,6 +42,7 @@
 		C6EDD0399F6244A98794587E /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 354872BBCA0E4B78AFFCF849 /* libRNFIRMessaging.a */; };
 		E7FF0860C1CF4F458FE99B4F /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E4494564083491AA550DDBE /* SourceSansPro-Regular.ttf */; };
 		F5530B4363D74FD289FEE1A6 /* SourceSansPro-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 033E7AE95FAF4D259A761CE2 /* SourceSansPro-Semibold.ttf */; };
+		FE7925DEE15E49818BED245A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 758CC36D5BDE43CA9D92B29A /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +130,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNFIRAnalytics;
 		};
+		2754EA081DD5FC0F0080FF9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B2DD186C9D54712B624A169 /* BugsnagReactNative.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8AD256131D6DE5F600C7D842;
+			remoteInfo = BugsnagReactNative;
+		};
 		2783E32E1DBE5D9200A672F0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DA3DB39272894699A885FA29 /* RNFIRMessaging.xcodeproj */;
@@ -210,13 +219,16 @@
 		385BBA2870144C5A8528D869 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		44592B4F3EACE20E3D0EB671 /* Pods-Hoops.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoops.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hoops/Pods-Hoops.release.xcconfig"; sourceTree = "<group>"; };
 		4AAF19993A3ECFBF6A2DB077 /* Pods_HoopsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoopsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		758CC36D5BDE43CA9D92B29A /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		77CBB4E4847D4791900A4C33 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		82F8030371FE4D5A9F2B642A /* RNI18n.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-i18n/RNI18n.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		8B2DD186C9D54712B624A169 /* BugsnagReactNative.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BugsnagReactNative.xcodeproj; path = "../node_modules/bugsnag-react-native/cocoa/BugsnagReactNative.xcodeproj"; sourceTree = "<group>"; };
 		933F1308FE4D49F7A1C2B222 /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
 		9D60E6630B31368B588BEBC2 /* Pods_Hoops.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hoops.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9166BFAC8004E3486F7CDA9 /* RNFIRAnalytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFIRAnalytics.xcodeproj; path = "../node_modules/react-native-firebase-analytics/ios/RNFIRAnalytics.xcodeproj"; sourceTree = "<group>"; };
+		B385DE1C4D954F2D964BFFE6 /* libBugsnagReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBugsnagReactNative.a; sourceTree = "<group>"; };
 		C1E3578B3B2243B3872707AB /* SourceSansPro-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SourceSansPro-Bold.ttf"; path = "../src/ui/styles/resources/fonts/SourceSansPro-Bold.ttf"; sourceTree = "<group>"; };
 		C2298F14567D0D8463DAF8ED /* Pods-HoopsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoopsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HoopsTests/Pods-HoopsTests.release.xcconfig"; sourceTree = "<group>"; };
 		D63AA81A6A484AD29657DCC3 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
@@ -261,6 +273,8 @@
 				C6EDD0399F6244A98794587E /* libRNFIRMessaging.a in Frameworks */,
 				7925FE4CB3E555A337891DD0 /* Pods_Hoops.framework in Frameworks */,
 				10E580E5448F4DD2B59ECF47 /* libRNFIRAnalytics.a in Frameworks */,
+				38FDFACCE0BB48189EE1572A /* libBugsnagReactNative.a in Frameworks */,
+				FE7925DEE15E49818BED245A /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +405,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2754EA051DD5FC0F0080FF9F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2754EA091DD5FC0F0080FF9F /* libBugsnagReactNative.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		275D94E51DD3716C005911BA /* config */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,6 +499,7 @@
 				385BBA2870144C5A8528D869 /* RNFetchBlob.xcodeproj */,
 				DA3DB39272894699A885FA29 /* RNFIRMessaging.xcodeproj */,
 				A9166BFAC8004E3486F7CDA9 /* RNFIRAnalytics.xcodeproj */,
+				8B2DD186C9D54712B624A169 /* BugsnagReactNative.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -524,6 +547,7 @@
 				27A98DB61D81779C00AD839C /* FBSDKCoreKit.framework */,
 				9D60E6630B31368B588BEBC2 /* Pods_Hoops.framework */,
 				4AAF19993A3ECFBF6A2DB077 /* Pods_HoopsTests.framework */,
+				758CC36D5BDE43CA9D92B29A /* libz.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -626,6 +650,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 2754EA051DD5FC0F0080FF9F /* Products */;
+					ProjectRef = 8B2DD186C9D54712B624A169 /* BugsnagReactNative.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -775,6 +803,13 @@
 			fileType = archive.ar;
 			path = libRNFIRAnalytics.a;
 			remoteRef = 2754E98F1DD4CAFE0080FF9F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2754EA091DD5FC0F0080FF9F /* libBugsnagReactNative.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBugsnagReactNative.a;
+			remoteRef = 2754EA081DD5FC0F0080FF9F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2783E32F1DBE5D9200A672F0 /* libRNFIRMessaging.a */ = {
@@ -1024,6 +1059,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1041,6 +1077,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1072,6 +1109,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-firebase-analytics/ios",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 				);
 				INFOPLIST_FILE = Hoops/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1106,6 +1144,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-firebase-analytics/ios",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 				);
 				INFOPLIST_FILE = Hoops/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1167,6 +1206,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-firebase-analytics/ios",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1215,6 +1255,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-firebase-analytics/ios",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

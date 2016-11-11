@@ -10,6 +10,8 @@ import * as interestsActions from '../actions/interests';
 import * as usersActions from '../actions/users';
 import * as eventsActions from '../actions/events';
 
+import {Client} from 'bugsnag-react-native';
+import Config from '../config';
 
 import {Root} from './containers';
 
@@ -34,6 +36,13 @@ store.dispatch(usersActions.getAll());
 store.dispatch(eventsActions.getAll());
 
 export default class App extends Component {
+
+  constructor(props) {
+    super(props);
+    if(Config.BUGSNAG_API_KEY) {
+      this.bugsnag = new Client(Config.BUGSNAG_API_KEY);
+    }
+  }
 
   render() {
     return (

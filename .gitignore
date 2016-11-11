@@ -46,3 +46,9 @@ android/app/src/main/assets
 #Pods
 ios/Podfile.lock
 ios/Pods
+
+#Bugsnag sourcemaps (from react-native bundle command)
+sourcemap.js
+main.jsbundle
+main.jsbundle.meta
+ios/assets/

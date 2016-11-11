@@ -9,6 +9,7 @@
     "lint": "eslint src || :"
   },
   "dependencies": {
+    "bugsnag-react-native": "^1.1.2",
     "color": "^0.11.3",
     "elasticsearch": "^11.0.1",
     "firebase": "^3.3.0",

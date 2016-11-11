@@ -126,6 +126,7 @@ android {
 }
 
 dependencies {
+    compile project(':bugsnag-react-native')
     compile project(':react-native-firebase-analytics')
     compile project(':react-native-fcm')
     compile project(':react-native-fetch-blob')
