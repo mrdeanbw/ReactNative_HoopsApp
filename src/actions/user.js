@@ -464,7 +464,9 @@ export const FCMInit = () => {
 
 export const setFCMToken = (token) => {
   return (dispatch, getState) => {
-    let uid = getState().user.uid;
-    firebaseDb.child(`users/${uid}/FCMToken`).set(token);
+    if(token) {
+      let uid = getState().user.uid;
+      firebaseDb.child(`users/${uid}/FCMToken`).set(token);
+    }
   };
 };
