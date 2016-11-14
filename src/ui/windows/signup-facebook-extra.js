@@ -33,6 +33,7 @@ export default class SignUpFacebookExtra extends React.Component {
       citiesAutocomplete: [],
       phone: props.phone,
       image: undefined,
+      facebookImageSrc: props.facebookImageSrc,
     };
   }
 
@@ -44,6 +45,7 @@ export default class SignUpFacebookExtra extends React.Component {
         dob: isNaN(new Date(nextProps.dob).getTime()) ? null : new Date(nextProps.dob),
         gender: nextProps.gender,
         phone: nextProps.phone,
+        facebookImageSrc: nextProps.facebookImageSrc,
       });
     }
   }
@@ -79,7 +81,7 @@ export default class SignUpFacebookExtra extends React.Component {
   };
 
   onPressContinue = () => {
-    this.props.onPressContinue({
+    let userData = {
       name: this.state.name,
       dob: this.state.dob,
       gender: this.state.gender,
@@ -87,7 +89,14 @@ export default class SignUpFacebookExtra extends React.Component {
       city: this.state.city.text,
       cityGooglePlaceId: this.state.city.key,
       image: this.state.image,
-    });
+    };
+
+    //If there was no custom image set, use the facebook one instead.
+    if(!this.state.image && this.state.facebookImageSrc) {
+      userData.facebookImageSrc = this.state.facebookImageSrc;
+    }
+
+    this.props.onPressContinue(userData);
   };
 
   render() {
@@ -211,7 +220,7 @@ export default class SignUpFacebookExtra extends React.Component {
 
           <AvatarEdit
             onChange={(image) => this.setState({image})}
-            image={this.state.image}
+            image={this.state.image || this.state.facebookImageSrc}
             style={StyleSheet.singleMarginTop}
           />
 

@@ -95,6 +95,7 @@ const savePersonalData = (data, callback) => {
       cityGooglePlaceId: null,
       cityCoords: null,
       image: null,
+      facebookImageSrc: null,
 
       ...data,
     };
@@ -105,6 +106,7 @@ const savePersonalData = (data, callback) => {
         firebaseDb.update({
           [`users/${uid}/publicProfile`]: {
             image: response ? response.ref : null,
+            facebookImageSrc: data.facebookImageSrc,
             name: data.name,
             username: data.username,
             gender: data.gender,
@@ -328,29 +330,33 @@ const listenToUser = () => {
         firstLoad = false;
       }
 
-      if(user.publicProfile && user.publicProfile.image && !state.user.imageSrc) {
+      var newImage = user.publicProfile ? user.publicProfile.image : null;
+      if(newImage && newImage !== state.user.image) {
+        //If there is an image, and we don't already know
         firebaseStorage.ref(user.publicProfile.image).getDownloadURL().then(uri => {
-          user.publicProfile.imageSrc = uri;
           dispatch({
-            type: 'USER_CHANGE',
-            user,
+            type: 'USER_IMAGE_CHANGE',
+            imageSrc: uri,
+            error: null,
           });
         }).catch(err => {
           dispatch({
-            type: 'USER_CHANGE',
-            user,
-            imageErr: err,
+            type: 'USER_IMAGE_CHANGE',
+            imageSrc: undefined,
+            error: err,
           });
         });
-      } else {
-        if(user.publicProfile) {
-          user.publicProfile.imageSrc = state.user.imageSrc; //Make we don't overwrite
-        }
+      } else if(user.publicProfile && user.publicProfile.facebookImageSrc) {
         dispatch({
-          type: 'USER_CHANGE',
-          user,
+          type: 'USER_IMAGE_CHANGE',
+          imageSrc: user.publicProfile.facebookImageSrc,
         });
       }
+
+      dispatch({
+        type: 'USER_CHANGE',
+        user,
+      });
 
       if(user.organizing) {
         for(let id in user.organizing) {

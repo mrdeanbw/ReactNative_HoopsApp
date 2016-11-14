@@ -24,7 +24,6 @@ export const convertStructure = (data) => {
 
     name: null,
     image: null,
-    imageSrc: undefined, //undefined means we can safely use with source={{uri: ...}}
     username: null,
     gender: null,
     city: null,
@@ -40,7 +39,6 @@ export const convertStructure = (data) => {
   if(data.publicProfile) {
     data.name = data.publicProfile.name;
     data.image = data.publicProfile.image;
-    data.imageSrc = data.publicProfile.imageSrc;
     data.username = data.publicProfile.username;
     data.gender = data.publicProfile.gender;
     data.city = data.publicProfile.city;
@@ -194,6 +192,14 @@ export default handleActions({
     return {
       ...state,
       ...convertStructure(action.user),
+    };
+  },
+
+  USER_IMAGE_CHANGE: (state, action) => {
+    return {
+      ...state,
+      imageSrc: action.imageSrc,
+      imageError: action.error,
     };
   },
 

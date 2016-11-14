@@ -11,7 +11,13 @@ class SignUpFacebookExtra extends React.Component {
   }
 
   render() {
-    let facebookUser = this.props.user.facebookUser;
+    let facebookUser = this.props.user.facebookUser || {};
+
+    let facebookImageSrc;
+    let picture = facebookUser.picture ? facebookUser.picture.data : undefined;
+    if(picture && picture.is_silhouette === false) {
+      facebookImageSrc = picture.url;
+    }
 
     return (
       <_SignUpFacebookExtra
@@ -26,6 +32,7 @@ class SignUpFacebookExtra extends React.Component {
         gender={facebookUser.gender}
         city={facebookUser.city}
         phone={facebookUser.phone}
+        facebookImageSrc={facebookImageSrc}
       />
     );
   }
