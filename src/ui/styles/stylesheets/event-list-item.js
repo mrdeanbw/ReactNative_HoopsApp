@@ -54,11 +54,15 @@ export default StyleSheet => StyleSheet.extend({
   highlight: {
     color: colors.pink
   },
+  bottomText: {
+    flex: 0,
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
+  },
   venue: {
-
+    flex: 1,
   },
   date: {
-
   },
 
   disclosure: {

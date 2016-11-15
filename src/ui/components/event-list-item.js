@@ -12,35 +12,81 @@ import StyleSheet from '../styles';
 export default class EventListItem extends React.Component {
 
   render() {
-    let date = moment(this.props.date).calendar(null, {
+    let event = this.props.event;
+    if(!event) {
+      return null;
+    }
+
+    let date = moment(event.date).calendar(null, {
       sameDay: "[Today], HH:mm",
       nextDay: "[Yesterday], HH:mm",
     });
 
     return (
-      <TouchableHighlight style={[StyleSheet.eventListItem.container, this.props.style]}
-                onPress={this.props.onPress}
-                activeOpacity={1.0}
-                underlayColor={StyleSheet.eventListItem.underlayColor}>
+      <TouchableHighlight
+        style={[StyleSheet.eventListItem.container, this.props.style]}
+        onPress={this.props.onPress}
+        activeOpacity={1.0}
+        underlayColor={StyleSheet.eventListItem.underlayColor}
+      >
         <View style={StyleSheet.eventListItem.wrapper}>
           <View style={StyleSheet.eventListItem.imageContainer}>
-            <Image source={this.props.image} style={StyleSheet.eventListItem.image} />
+            <Image
+              source={{uri: event.imageSrc}}
+              style={StyleSheet.eventListItem.image}
+            />
           </View>
 
           <View style={StyleSheet.eventListItem.textContainer}>
-            {this.props.distance && <Text style={[StyleSheet.text, StyleSheet.eventListItem.distance]}>{this.props.distance.toFixed(2)} mi</Text>}
-            <Text style={[StyleSheet.eventListItem.text, StyleSheet.eventListItem.title]} numberOfLines={1} ellipsizeMode="tail">{this.props.title}</Text>
-            <Text style={[StyleSheet.eventListItem.text, StyleSheet.eventListItem.detail]} numberOfLines={2} ellipsizeMode="tail">
+            {this.props.showDistance && event.distance && (
+              <Text
+                style={[StyleSheet.text, StyleSheet.eventListItem.distance]}
+              >
+                {event.distance.toFixed(2)} mi
+              </Text>
+            )}
+            <Text
+              style={[StyleSheet.eventListItem.text, StyleSheet.eventListItem.title]}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              {event.title}
+            </Text>
+            <Text
+              style={[StyleSheet.eventListItem.text, StyleSheet.eventListItem.detail]}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
               {_('players')}&nbsp;
               <Text style={StyleSheet.eventListItem.highlight}>
-                <Text>{this.props.players ? this.props.players.length : ''}</Text>
-                {this.props.maxPlayers && <Text>/{this.props.maxPlayers}</Text>}
+                <Text>{event.players ? event.players.length : ''}</Text>
+                {!!event.maxPlayers && <Text>/{event.maxPlayers}</Text>}
               </Text>
               {'\u00a0\u00a0|\u00a0\u00a0'}
-              {_('level')} <Text style={StyleSheet.eventListItem.highlight}>{this.props.level}</Text>{'\n'}
-              <Text style={StyleSheet.eventListItem.venue}>{this.props.venueName}</Text>{'\u00a0\u00a0|\u00a0\u00a0'}
-              <Text style={StyleSheet.eventListItem.date}>{date}</Text>
+              {_('level')}&nbsp;
+              <Text style={StyleSheet.eventListItem.highlight}>{event.level}</Text>
             </Text>
+            <View style={StyleSheet.eventListItem.bottomText}>
+              <View style={{flex: -1}}>
+                <Text
+                  numberOfLines={1}
+                  style={[
+                    StyleSheet.eventListItem.detail,
+                    StyleSheet.eventListItem.venue
+                  ]}
+                >
+                  {event.address}
+                </Text>
+              </View>
+              <View style={{flex: 0}}>
+                <Text
+                  style={[
+                    StyleSheet.eventListItem.date,
+                    StyleSheet.eventListItem.detail
+                  ]}
+                > | {date}</Text>
+              </View>
+            </View>
           </View>
 
           {!this.props.hideDisclosure && (
@@ -55,11 +101,8 @@ export default class EventListItem extends React.Component {
               />
             </TouchableHighlight>
           )}
-
-          {this.props.free && <Image source={StyleSheet.icons.free} style={StyleSheet.eventListItem.freeIcon} />}
         </View>
       </TouchableHighlight>
     );
   }
-};
-
+}

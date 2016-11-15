@@ -37,14 +37,9 @@ export default class SearchResults extends React.Component {
           {this.props.events.map(event =>
             <EventListItem
               key={event.id}
+              event={event}
               onPress={() => this.props.onPressEvent(event)}
-              image={{uri: event.imageSrc}}
-              title={event.title}
-              players={event.players} maxPlayers={event.maxPlayers}
-              level={event.level}
-              venueName={event.address}
-              date={event.date}
-              distance={event.distance}
+              showDistance={true}
             />
           )}
         </ScrollView>

@@ -157,15 +157,8 @@ export default class Invitations extends React.Component {
             <EventListItem
               key={i}
               onPress={() => this.onPressInvite(invite)}
-              image={{uri: invite.event.imageSrc}}
-              title={invite.event.title}
-              players={invite.event.players}
-              maxPlayers={invite.event.maxPlayers}
-              level={invite.event.level}
-              venueName={invite.event.address}
-              date={invite.event.date}
-              free={invite.event.entryFee === 0}
-              distance={this.props.mode === 'PARTICIPATE' ? "0.8 mi" : null}
+              event={invite.event}
+              showDisance={this.props.mode === 'PARTICIPATE'}
             />
           ))}
         </ScrollView>

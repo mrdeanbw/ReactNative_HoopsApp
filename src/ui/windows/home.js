@@ -36,14 +36,9 @@ export default class Home extends React.Component {
         {this.props.events.map(event =>
           <EventListItem
             key={event.id}
+            event={event}
             onPress={() => this.props.onPressEvent(event)}
-            image={{uri: event.imageSrc}}
-            title={event.title}
-            players={event.players} maxPlayers={event.maxPlayers}
-            level={event.level}
-            venueName={event.address}
-            date={event.date}
-            distance={this.props.mode === 'PARTICIPATE' ? event.distance : null}
+            showDistance={this.props.mode === 'PARTICIPATE'}
           />
         )}
       </View>
@@ -123,13 +118,8 @@ export default class Home extends React.Component {
         <EventListItem
           key={item.event.id}
           onPress={() => this.props.onPressEvent(item.event)}
-          image={{uri: item.event.imageSrc}}
-          title={item.event.title}
-          players={item.event.players} maxPlayers={item.event.maxPlayers}
-          level={item.event.level}
-          venueName={item.event.address}
-          date={item.event.date}
-          distance={item.distance}
+          event={item.event}
+          showDistance={true}
         />
       ))
     );

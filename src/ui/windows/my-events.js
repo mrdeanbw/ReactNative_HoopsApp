@@ -111,17 +111,15 @@ export default class MyEvents extends React.Component {
             <Text style={StyleSheet.noResults}>{_('noHistoricEvents')}</Text>
           )}
           {events.map(event =>
-            <EventListItem key={event.id}
-                     onPress={() => this.onPressEvent(event)}
-                     image={{uri: event.imageSrc}}
-                     title={event.title}
-                     players={event.players} maxPlayers={event.maxPlayers}
-                     level={event.level}
-                     venueName={event.address}
-                     disclosure={StyleSheet.icons.menu}
-                     onPressDisclosure={() => this.onPressDisclosure(event)}
-                     distance={event.distance}
-                     date={event.date} />)}
+            <EventListItem
+              key={event.id}
+              event={event}
+              onPress={() => this.onPressEvent(event)}
+              showDistance={true}
+              disclosure={StyleSheet.icons.menu}
+              onPressDisclosure={() => this.onPressDisclosure(event)}
+            />
+          )}
         </ScrollView>
       </View>
     );
