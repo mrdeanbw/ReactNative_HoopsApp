@@ -58,6 +58,7 @@ export default class Login extends React.Component {
         <View style={StyleSheet.login.containerStyle}>
           <View>
             <Image source={StyleSheet.images.login} style={StyleSheet.login.titleImageStyle}>
+              <Button type="title" icon="back" onPress={this.props.onBack} style={StyleSheet.login.backButton}/>
               <Image source={StyleSheet.images.logo} style={StyleSheet.login.titleLogoStyle}/>
               <HighlightText
                 highlight={_('productName')}

@@ -9,6 +9,7 @@ class Login extends React.Component {
   render() {
     return (
       <_Login
+        onBack={this.props.onBack}
         onSignIn={this.props.onSignIn}
         onFacebookSignIn={this.props.onFacebookSignIn}
         signInError={this.props.user.signInError}

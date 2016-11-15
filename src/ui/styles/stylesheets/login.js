@@ -15,6 +15,12 @@ export default StyleSheet => StyleSheet.extend({
     justifyContent: 'flex-start',
   },
 
+  backButton: {
+    position: 'absolute',
+    top: 15,
+    left: 5,
+  },
+
   errorText: {
     paddingTop: 10,
     color: colors.pink,
