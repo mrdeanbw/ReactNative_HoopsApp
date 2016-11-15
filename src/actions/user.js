@@ -158,16 +158,34 @@ export const signUpFailure = (err) => ({
 export const facebookSignUp = () => {
   return dispatch => {
     dispatch({type: 'USER_SIGN_UP'});
-    facebookAuth.signIn().then((user) => {
-      dispatch(loadFacebookData());
-      dispatch(signUpSuccess('facebook'));
-    }).catch((err) => {
-      dispatch(signUpFailure(err));
-    });
+    //We need to make sure that the USER_SIGN_UP action is sent before
+    //any of facebook SDK's native views intercept our react-native app.
+    //setTimeout is ugly but does the job here.
+    setTimeout(() => {
+      facebookAuth.signIn().then((user) => {
+        dispatch(signUpSuccess('facebook'));
+      }).catch((err) => {
+        dispatch(signUpFailure(err));
+      });
+    }, 300);
   };
 };
 
-export const facebookSignIn = facebookSignUp;
+export const facebookSignIn = () => {
+  return dispatch => {
+    dispatch({type: 'USER_SIGN_IN'});
+    //We need to make sure that the USER_SIGN_IN action is sent before
+    //any of facebook SDK's native views intercept our react-native app.
+    //setTimeout is ugly but does the job here.
+    setTimeout(() => {
+      facebookAuth.signIn().then((user) => {
+        dispatch(signInSuccess('facebook'));
+      }).catch((err) => {
+        dispatch(signInFailure(err));
+      });
+    }, 300);
+  };
+};
 
 export const loadFacebookData = () => {
   return dispatch => {
