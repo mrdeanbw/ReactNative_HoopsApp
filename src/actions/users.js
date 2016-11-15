@@ -1,17 +1,11 @@
 
 import {firebaseDb, firebaseStorage} from '../data/firebase';
-
-const usersRef = firebaseDb.child('users');
-
-const listening = {};
+import DBHelper from '../data/database-helper';
+const database = DBHelper('user');
 
 export const load = (id) => {
   return dispatch => {
-    if(listening[id] === true){
-      return;
-    }
-    listening[id] = true;
-    usersRef.child(id).on('value', (snapshot) => {
+    database.addListener(`users/${id}`, 'value', (snapshot) => {
       let value = snapshot.val();
 
       if(!value) {
@@ -53,7 +47,6 @@ export const sendFriendRequests = (userIds) => {
     let uid = getState().user.uid;
     userIds.forEach((userId) => {
       let friendRequest = firebaseDb.child('friendRequests').push();
-      let notification = firebaseDb.child('notifications').push();
 
       firebaseDb.update({
         [`friendRequests/${friendRequest.key}`]: {
@@ -72,7 +65,7 @@ export const loadFriendRequest = (id) => {
   return (dispatch, getState) => {
     let uid = getState().user.uid;
 
-    firebaseDb.child(`friendRequests/${id}`).on('value', (snapshot) => {
+    database.addListener(`friendRequests/${id}`, 'value', (snapshot) => {
       let friendRequest = snapshot.val();
       dispatch({
         type: 'FRIEND_REQUESTS_LOADED',

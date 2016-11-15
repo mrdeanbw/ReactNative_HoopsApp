@@ -1,12 +1,15 @@
 
 import {firebaseDb} from '../data/firebase';
+import DBHelper from '../data/database-helper';
+const database = DBHelper('user');
+
 import FCM from 'react-native-fcm';
 
 import * as usersActions from './users';
 
 export const load = (id) => {
   return dispatch => {
-    firebaseDb.child(`notifications/${id}`).on('value', (snapshot) => {
+    database.addListener(`notifications/${id}`, 'value', (snapshot) => {
       let notification = snapshot.val();
       dispatch({
         type: 'NOTIFICATION_LOADED',

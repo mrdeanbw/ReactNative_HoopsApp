@@ -121,7 +121,7 @@ export default handleActions({
       ...state,
       uid: action.uid,
       signInMethod: action.method,
-      isSigningIn: false,
+      //isSigningIn: false, //we also need to wait for user data to load
     };
   },
 
@@ -148,7 +148,7 @@ export default handleActions({
     return {
       ...state,
       uid: action.uid,
-      isSigningUp: false,
+      //isSigningUp: false, //we also need to wait for user data to load
       signUpError: null,
     };
   },
@@ -192,6 +192,8 @@ export default handleActions({
     return {
       ...state,
       ...convertStructure(action.user),
+      isSigningUp: false,
+      isSigningIn: false,
     };
   },
 

@@ -1,13 +1,13 @@
 
 import {firebaseDb} from '../data/firebase';
+import DBHelper from '../data/database-helper';
+const database = DBHelper('invites');
 
 import * as eventsActions from './events';
 import * as usersActions from './users';
 import * as paymentsActions from './payments';
 
 const inviteRef = firebaseDb.child('invites');
-
-const listening = {};
 
 export const create = (userId, eventId) => {
   return (dispatch, getState) => {
@@ -44,11 +44,7 @@ export const create = (userId, eventId) => {
 
 export const load = (id) => {
   return dispatch => {
-    if(listening[id] === true){
-      return;
-    }
-    listening[id] = true;
-    firebaseDb.child(`invites/${id}`).on('value', (snapshot) => {
+    database.addListener(`invites/${id}`, 'value', (snapshot) => {
       let invite = snapshot.val();
       /**
        * TODO: what if we have the event in local storage,

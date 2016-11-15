@@ -1,12 +1,12 @@
 
 import {firebaseDb} from '../data/firebase';
+import DBHelper from '../data/database-helper';
+const database = DBHelper('user');
 
 import * as eventsActions from './events';
 import * as usersActions from './users';
 
 const requestsRef = firebaseDb.child('requests');
-
-const listening = {};
 
 export const create = (eventId) => {
   return (dispatch, getState) => {
@@ -42,11 +42,7 @@ export const create = (eventId) => {
 
 export const load = (id) => {
   return (dispatch, getState) => {
-    if(listening[id] === true){
-      return;
-    }
-    listening[id] = true;
-    firebaseDb.child(`requests/${id}`).on('value', (snapshot) => {
+    database.addListener(`requests/${id}`, 'value', (snapshot) => {
       let request = snapshot.val();
 
       if(!request) {
@@ -97,7 +93,6 @@ export const decline = (request) => {
 export const cancel = (request) => {
   return (dispatch, getState) => {
     let state = getState();
-    let uid = state.user.uid;
     firebaseDb.update({
       [`requests/${request.id}/status`]: 'cancelled',
     });

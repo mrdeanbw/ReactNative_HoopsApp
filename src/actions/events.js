@@ -1,5 +1,7 @@
 
 import {firebaseDb, firebaseStorage, uploadImage} from '../data/firebase';
+import DBHelper from '../data/database-helper';
+const database = DBHelper('user');
 
 import * as usersActions from './users';
 import * as invitesActions from './invites';
@@ -9,9 +11,6 @@ import * as notificationsActions from './notifications';
 
 import {getPlace} from '../data/google-places';
 
-const eventsRef = firebaseDb.child('events');
-
-const listening = {};
 
 /**
  * @param promises {Object} object of promises
@@ -63,12 +62,8 @@ export const loadAddress = (event) => {
 
 export const load = (id) => {
   return (dispatch, getState) => {
-    if(listening[id] === true){
-      return;
-    }
-    listening[id] = true;
     let state = getState();
-    eventsRef.child(id).on('value', (snapshot) => {
+    database.addListener(`events/${id}`, 'value', (snapshot) => {
       let event = snapshot.val();
       if(!event) {
         return;
@@ -121,7 +116,7 @@ export const remove = (id) => {
 
 export const create = (eventData) => {
   return (dispatch, getState) => {
-    let ref = eventsRef.push();
+    let ref = firebaseDb.child('events').push();
     let newKey = ref.key;
     let uid = getState().user.uid;
 

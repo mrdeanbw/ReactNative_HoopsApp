@@ -1,4 +1,6 @@
 import firebase, {firebaseDb, firebaseStorage, uploadImage} from '../data/firebase';
+import DBHelper, {clearAllListeners} from '../data/database-helper';
+const database = DBHelper('user');
 
 import * as emailAuth from '../data/auth/email';
 import * as facebookAuth from '../data/auth/facebook';
@@ -155,6 +157,7 @@ export const signUpFailure = (err) => ({
 
 export const facebookSignUp = () => {
   return dispatch => {
+    dispatch({type: 'USER_SIGN_UP'});
     facebookAuth.signIn().then((user) => {
       dispatch(loadFacebookData());
       dispatch(signUpSuccess('facebook'));
@@ -209,6 +212,7 @@ export const facebookSaveExtra = (extraData) => {
 export const logOut = () => {
   return dispatch => {
     firebase.auth().signOut().then(() => {
+      clearAllListeners();
       dispatch({
         type: 'USER_LOGGED_OUT',
       });
@@ -299,33 +303,26 @@ const listenToUser = () => {
     let uid = firebase.auth().currentUser.uid;
 
     let firstLoad = true;
-    firebaseDb.child(`users/${uid}`).on('value', (snapshot) => {
+    database.addListener(`users/${uid}`, 'value', (snapshot) => {
       let user = snapshot.val() || {};
 
       let state = getState();
-      let nav = state.navigation;
 
-      //We need to do routing if it is the first load, or if name isn't defined yet
-      //and we are on the loading page
-      if(firstLoad || !state.user.name) {
-        //If the user has a name, we can leave the login/signup views
-        if(user.publicProfile && user.publicProfile.name) {
-          if(state.user.mode) {
-            //Go to home page
-            dispatch(navigationActions.reset({key: 'tabs'}));
-          } else if(Object.keys(user.publicProfile.interests || {}).length === 0) {
-            //Go to interests selection
-            dispatch(navigationActions.reset({key: 'selectInterests'}));
-          } else {
-            //Go to select-mode page
-            dispatch(navigationActions.reset({key: 'selectMode'}));
-          }
+      var name = user.publicProfile ? user.publicProfile.name : null;
+      if(firstLoad) {
+        //Only do routing on first load of the user data.
+        if(!name) {
+          //Name isn't defined. We need to ask for extra data
+          dispatch(navigationActions.reset({key: 'signupFacebookExtra'}));
+        } else if(Object.keys(user.publicProfile.interests || {}).length === 0) {
+          //Go to interests selection
+          dispatch(navigationActions.reset({key: 'selectInterests'}));
+        } else if(!state.user.mode) {
+          //Go to select-mode page
+          dispatch(navigationActions.reset({key: 'selectMode'}));
         } else {
-          //The user doesn't have a name, we need to send this user to complete reg.
-          if(nav.routes[nav.index].key !== 'signupFacebookExtra') {
-            dispatch(navigationActions.reset({key: 'signupFacebookExtra'}));
-            return;
-          }
+          //Go to home page
+          dispatch(navigationActions.reset({key: 'tabs'}));
         }
         firstLoad = false;
       }
@@ -358,6 +355,9 @@ const listenToUser = () => {
         user,
       });
 
+      /*
+       * Load connected resources
+       */
       if(user.organizing) {
         for(let id in user.organizing) {
           dispatch(eventsActions.load(id));
@@ -390,7 +390,7 @@ const listenToUser = () => {
       }
     });
 
-    firebaseDb.child(`userNotifications/${uid}`).on('child_added', (snapshot) => {
+    database.addListener(`userNotifications/${uid}`, 'child_added', (snapshot) => {
       dispatch(notificationsActions.load(snapshot.key));
     });
   };

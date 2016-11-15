@@ -9,6 +9,17 @@ const initialState = {
 
 export default handleActions({
 
+  /*
+   * when a user logs out, we need to reset all state except for `all`
+   */
+  USER_LOGGED_OUT: (state, action) => {
+    return {
+      ...state,
+      ...initialState,
+      all: state.all,
+    };
+  },
+
   EVENTS_LOAD: (state, action) => {
     return {
       ...state,

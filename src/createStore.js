@@ -16,9 +16,15 @@ const storeEnhancers = compose(middleware, rehydrate);
 export default (data = {}) => {
   const rootReducer = (state, action) => {
     if(action.type === 'USER_LOGGED_OUT') {
-      //Keep navigation state but reset all other store keys
-      const {navigation} = state;
-      state = {navigation};
+      /*
+       * Keep entire navigation and interests state.
+       * undefined keys such as state.requests will be reset to their initialState
+       *
+       * Reducers can also listen to the USER_LOGGED_OUT action (events, users)
+       * so that they can perform more complex logic than simple keep or reset.
+       */
+      const {navigation, interests, events, users} = state;
+      state = {navigation, interests, events, users};
     }
 
     return combineReducers(reducers)(state, action);
