@@ -116,6 +116,14 @@ export default handleActions({
     };
   },
 
+  USER_DATA_FIRST_LOAD: (state, action) => {
+    return {
+      ...state,
+      isSigningUp: false,
+      isSigningIn: false,
+    };
+  },
+
   USER_SIGN_IN_SUCCESS: (state, action) => {
     return {
       ...state,
@@ -192,8 +200,6 @@ export default handleActions({
     return {
       ...state,
       ...convertStructure(action.user),
-      isSigningUp: false,
-      isSigningIn: false,
     };
   },
 

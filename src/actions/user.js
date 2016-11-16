@@ -44,7 +44,6 @@ export const signInSuccess = (method) => {
       uid,
       method,
     });
-    dispatch(FCMInit());
   };
 };
 
@@ -218,7 +217,6 @@ export const facebookSaveExtra = (extraData) => {
         dispatch({
           type: 'FACEBOOK_EXTRA_DATA_SAVED',
         });
-        dispatch(navigationActions.reset({key: 'selectMode'}));
       }
     });
   };
@@ -320,15 +318,24 @@ const listenToUser = () => {
   return (dispatch, getState) => {
     let uid = firebase.auth().currentUser.uid;
 
+    let previousUser = {};
     let firstLoad = true;
     database.addListener(`users/${uid}`, 'value', (snapshot) => {
       let user = snapshot.val() || {};
 
       let state = getState();
 
-      var name = user.publicProfile ? user.publicProfile.name : null;
+      //On first load, the store needs to stop showing the sign in loading icon
       if(firstLoad) {
-        //Only do routing on first load of the user data.
+        dispatch({type: 'USER_DATA_FIRST_LOAD'});
+        firstLoad = false;
+      }
+
+      var previousName = previousUser.publicProfile ? previousUser.publicProfile.name : null;
+      var name = user.publicProfile ? user.publicProfile.name : null;
+      if(!previousName) {
+        //Only do routing when the name wasn't previously set
+        //It may now be, or not.
         if(!name) {
           //Name isn't defined. We need to ask for extra data
           dispatch(navigationActions.reset({key: 'signupFacebookExtra'}));
@@ -342,7 +349,11 @@ const listenToUser = () => {
           //Go to home page
           dispatch(navigationActions.reset({key: 'tabs'}));
         }
-        firstLoad = false;
+      }
+
+      //If we have just got a name for the first time, init notifications
+      if(!previousName && name) {
+        dispatch(FCMInit());
       }
 
       var newImage = user.publicProfile ? user.publicProfile.image : null;
@@ -406,6 +417,8 @@ const listenToUser = () => {
           dispatch(eventsActions.load(id));
         }
       }
+
+      previousUser = {...user};
     });
 
     database.addListener(`userNotifications/${uid}`, 'child_added', (snapshot) => {
@@ -424,7 +437,6 @@ export const registerWithStore = () => {
       //There is a bug where errors in this handler are silently swallowed. Be careful.
       if(user) {
         dispatch({type: 'FIREBASE_AUTH_INIT', uid: user.uid});
-        dispatch(FCMInit());
         dispatch(listenToUser());
       }else{
         dispatch({type: 'FIREBASE_AUTH_INIT', uid: null});

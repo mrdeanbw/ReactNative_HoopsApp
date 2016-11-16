@@ -6,7 +6,7 @@ import {user} from '../../actions';
 
 class SignUpFacebookExtra extends React.Component {
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.loadFacebookData();
   }
 
