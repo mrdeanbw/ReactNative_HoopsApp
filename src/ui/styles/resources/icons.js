@@ -120,4 +120,5 @@ export default {
   "switchActive": require('./icons/switch-active.png'),
   "username": require('./icons/username.png'),
   "visa": require('./icons/visa.png'),
+  "warning": require('./icons/warning.png'),
 };

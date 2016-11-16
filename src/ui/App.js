@@ -9,6 +9,7 @@ import * as userActions from '../actions/user';
 import * as interestsActions from '../actions/interests';
 import * as usersActions from '../actions/users';
 import * as eventsActions from '../actions/events';
+import * as networkActions from '../actions/network';
 
 import {Client} from 'bugsnag-react-native';
 import Config from '../config';
@@ -19,6 +20,7 @@ const store = createStore();
 persistStore(store, {
   storage: AsyncStorage,
   blacklist: [
+    'network',
     'navigation',
     'search',
   ],
@@ -26,6 +28,7 @@ persistStore(store, {
 
 store.dispatch(userActions.registerWithStore());
 store.dispatch(interestsActions.load());
+store.dispatch(networkActions.registerWithStore());
 
 /**
  * For now, we download all user and event data.

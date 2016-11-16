@@ -9,6 +9,7 @@ import requests from './requests';
 import search from './search';
 import notifications from './notifications';
 import payments from './payments';
+import network from './network';
 
 export default {
   user,
@@ -21,4 +22,5 @@ export default {
   search,
   notifications,
   payments,
+  network,
 };

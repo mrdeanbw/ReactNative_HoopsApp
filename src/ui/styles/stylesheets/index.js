@@ -19,6 +19,7 @@ import _loading from './loading';
 import _login from './login';
 import _mapView from './map-view';
 import _menu from './menu';
+import _networkAlert from './network-alert';
 import _notification from './notification';
 import _payments from './payments';
 import _picker from './picker';
@@ -48,6 +49,7 @@ export default {
   loading: _loading,
   mapView: _mapView,
   menu: _menu,
+  networkAlert: _networkAlert,
   notification: _notification,
   payments: _payments,
   picker: _picker,

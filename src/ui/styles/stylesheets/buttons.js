@@ -314,6 +314,24 @@ export default StyleSheet => StyleSheet.extend({
     }
   }),
 
+  roundedWhite: StyleSheet.extend({
+    underlayColor: colors.highlightPink,
+
+    style: {
+      backgroundColor: colors.white,
+      borderRadius: 22,
+      flex: null,
+    },
+
+    textStyle: {
+      color: colors.black,
+    },
+
+    containerStyle: {
+      height: 44,
+    },
+  }),
+
   facebook: StyleSheet.extend({
     underlayColor: colors.highlightFacebookBlue,
 

@@ -1,10 +1,11 @@
 
 import * as containers from './index';
 import React from 'react';
+import {View} from 'react-native';
 import {connect} from 'react-redux';
-import {navigation} from '../../actions';
+import {navigation, network} from '../../actions';
 
-import {Navigator} from '../components';
+import {Navigator, NetworkAlert} from '../components';
 import Analytics from 'react-native-firebase-analytics';
 
 import LoadingWindow from '../windows/loading';
@@ -105,12 +106,20 @@ class Root extends React.Component {
 
   render() {
     return (
-      <Navigator
-        onNavigateBack={this.props.onNavigateBack}
-        onNavigate={this.props.onNavigate}
-        navigationState={this.props.navigation}
-        routeConfig={this.routeConfig}
-      />
+      <View style={{flex: 1}}>
+        <NetworkAlert
+          visible={
+            this.props.network.connection === 'none' && !this.props.network.dismissed
+          }
+          onDismiss={this.props.onDismissNetworkAlert}
+        />
+        <Navigator
+          onNavigateBack={this.props.onNavigateBack}
+          onNavigate={this.props.onNavigate}
+          navigationState={this.props.navigation}
+          routeConfig={this.routeConfig}
+        />
+      </View>
     );
   }
 }
@@ -118,9 +127,11 @@ class Root extends React.Component {
 export default connect(
   (state) => ({
     navigation: state.navigation,
+    network: state.network,
   }),
   (dispatch) => ({
     onNavigateBack: () => dispatch(navigation.pop()),
     onNavigate: (key, props) => dispatch(navigation.push({key, props})),
+    onDismissNetworkAlert: () => dispatch(network.dismissAlert()),
   }),
 )(Root);
