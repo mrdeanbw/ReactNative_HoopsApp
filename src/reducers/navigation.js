@@ -73,6 +73,18 @@ const initialState = {
   showMenu: false,
 };
 
+const getCurrentKey = (state) => {
+  let currentRoute = state.routes[state.index];
+
+  //If we are on a tab, find out which route is active on _that_ tab.
+  if(currentRoute.key === 'tabs') {
+    let tabState = state.tabs[state.tabKey]
+    currentRoute = tabState.routes[tabState.index];
+  }
+
+  return currentRoute.key
+};
+
 export default handleActions({
   NAV_PUSH: (state, action) => {
     //if the current route is 'tabs' and we want to stay in tabs, alter the tab's state
@@ -81,6 +93,11 @@ export default handleActions({
       ...action.route,
       direction: 'horizontal',
     };
+
+    if(getCurrentKey(state) === newRoute.key) {
+      console.warn("Do not push the same route twice"); //eslint-disable-line no-console
+      return {...state};
+    }
 
     //If we are navigating away from tab view into a full-page view; vertical animation
     if(currentRoute.key === 'tabs' && !action.subTab) {
