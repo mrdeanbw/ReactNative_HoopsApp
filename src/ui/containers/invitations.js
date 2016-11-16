@@ -43,7 +43,7 @@ class Invitations extends React.Component {
         }
       );
     }).filter(invite => {
-      return invite && invite.event && invite.user;
+      return invite && invite.event;
     }).map((invite) => {
       //convert organizer from a user id to an object
       //we need to do a deep clone of invite.event.organizer
@@ -55,7 +55,7 @@ class Invitations extends React.Component {
         },
       };
     }).filter(invite => {
-      return invite && invite.event && invite.event.organizer;
+      return invite && invite.event && typeof invite.event.organizer === 'object';
     }).filter(invite => {
       return invite.status === 'pending';
     });
@@ -70,6 +70,18 @@ class Invitations extends React.Component {
       );
     }).filter(request => {
       return request && request.event;
+    }).map((request) => {
+      //convert organizer from a user id to an object
+      //we need to do a deep clone of invite.event.organizer
+      return {
+        ...request,
+        event: {
+          ...request.event,
+          organizer: this.props.users.usersById[request.event.organizer],
+        },
+      };
+    }).filter(request => {
+      return request && request.event && typeof request.event.organizer === 'object';
     }).filter(request => {
       return request.status === 'pending';
     });

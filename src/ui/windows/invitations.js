@@ -102,7 +102,7 @@ export default class Invitations extends React.Component {
       >
         <Button type="alertVerticalDefault" text={_('remove')} onPress={() => this.onPressRemove(invite)} />
         <Button type="alertVertical" text={_('eventDetails')} onPress={() => this.onPressEventDetails(invite.event)} />
-        <Button type="alertVertical" text={_('userDetails')} onPress={() => this.onPressUserDetails(invite.user)} />
+        <Button type="alertVertical" text={_('userDetails')} onPress={() => this.onPressUserDetails(invite.event.organizer)} />
       </Popup>
     );
   }
