@@ -72,7 +72,7 @@ export default class FriendsSearch extends React.Component {
 
   onPressInviteAll() {
     let allUsers = {};
-    this.getFilteredUsers().map((user) => {
+    this.props.users.map((user) => {
       allUsers[user.id] = true;
     });
     this.setState({
