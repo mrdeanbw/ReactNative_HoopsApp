@@ -26,11 +26,8 @@ export default class SearchResults extends React.Component {
           {this.props.users.map(user =>
             <UserListItem
               key={user.id}
+              user={user}
               onPress={() => this.props.onPressUser(user)}
-              imageSrc={user.imageSrc}
-              name={user.name}
-              location={user.city}
-              dob={user.dob}
               hideDisclosure={true}
             />
           )}

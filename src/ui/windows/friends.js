@@ -72,11 +72,8 @@ export default class Friends extends React.Component {
           {this.props.friends.map((user) =>
             <UserListItem
               key={user.id}
+              user={user}
               onPress={() => this.onPressUser(user)}
-              imageSrc={user.imageSrc}
-              name={user.name}
-              location={user.city}
-              dob={user.dob}
               onPressDisclosure={() => this.onPressDisclosure(user)}
             />
           )}

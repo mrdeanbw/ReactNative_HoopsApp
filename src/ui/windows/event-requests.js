@@ -49,9 +49,6 @@ export default class EventRequests extends React.Component {
   onPressDeclineAll = () => {
   };
 
-  onPressDisclosure = (user) => {
-  };
-
   setSelectedUser(id, value) {
     let selected = this.state.selected;
     this.setState({
@@ -91,14 +88,11 @@ export default class EventRequests extends React.Component {
             return (
               <UserListItem
                 key={request.id}
+                user={user}
                 onPress={() => this.onPressUser(user)}
-                imageSrc={user.imageSrc}
-                name={user.name}
-                location={user.city}
-                dob={user.dob}
                 checked={!!this.state.selected[request.id]}
                 onPressCheck={() => this.onPressCheck(request)}
-                onPressDisclosure={() => this.onPressDisclosure(request)}
+                hideDisclosure={true}
               />
             );
           })}

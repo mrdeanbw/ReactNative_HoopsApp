@@ -86,11 +86,8 @@ export default class Members extends React.Component {
             return (
               <UserListItem
                 key={user.id}
+                user={user}
                 onPress={() => this.onPressUser(user)}
-                imageSrc={user.imageSrc}
-                name={user.name}
-                location={user.city}
-                dob={user.dob}
                 status={request.status}
                 onPressDisclosure={() => this.onPressDisclosure(user)}
               />
@@ -101,11 +98,8 @@ export default class Members extends React.Component {
             return (
               <UserListItem
                 key={user.id}
+                user={user}
                 onPress={() => this.onPressUser(user)}
-                imageSrc={user.imageSrc}
-                name={user.name}
-                location={user.city}
-                dob={user.dob}
                 status={invite.status}
                 onPressDisclosure={() => this.onPressDisclosure(user)}
               />

@@ -179,11 +179,8 @@ export default class EventInvites extends React.Component {
           {users.map((user) => (
             <UserListItem
               key={user.id}
+              user={user}
               onPress={() => this.onPressUser(user)}
-              imageSrc={user.imageSrc}
-              name={user.name}
-              location={user.city}
-              dob={user.dob}
               checked={!!this.state.selected[user.id]}
               onPressCheck={() => this.onPressCheck(user)}
               onPressDisclosure={() => this.onPressDisclosure(user)}

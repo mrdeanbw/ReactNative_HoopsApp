@@ -84,12 +84,6 @@ export default class FriendsSearch extends React.Component {
     this.props.onViewProfile(user);
   }
 
-  onPressDisclosure(user) {
-    this.setState({
-      //inviteOptionsUser: user,
-    });
-  }
-
   setSelectedUser(id, value) {
     let selected = this.state.selected;
     this.setState({
@@ -139,14 +133,11 @@ export default class FriendsSearch extends React.Component {
           {this.props.users.map((user) => (
             <UserListItem
               key={user.id}
+              user={user}
               onPress={() => this.onPressUser(user)}
-              imageSrc={user.imageSrc}
-              name={user.name}
-              location={user.city}
-              dob={user.dob}
               checked={!!this.state.selected[user.id]}
+              hideDisclosure={true}
               onPressCheck={() => this.onPressCheck(user)}
-              onPressDisclosure={() => this.onPressDisclosure(user)}
             />
           ))}
         </ScrollView>
