@@ -114,6 +114,7 @@ export default class MyEvents extends React.Component {
             <EventListItem
               key={event.id}
               event={event}
+              ignoreDisabled={this.state.tab === 'history'}
               onPress={() => this.onPressEvent(event)}
               showDistance={true}
               disclosure={StyleSheet.icons.menu}

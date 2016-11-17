@@ -99,6 +99,8 @@ export const payments = 'Payments';
 export const notifications = 'Notifications';
 export const friends = 'Friends';
 
+export const ended = 'ENDED';
+export const cancelled = 'CANCELLED';
 export const players = 'Players';
 export const level = 'Level';
 export const nearbyEvents = 'Nearby Events';

@@ -22,6 +22,14 @@ export default class EventListItem extends React.Component {
       nextDay: "[Yesterday], HH:mm",
     });
 
+    let isEnded = moment(event.date).isBefore();
+    let isCancelled = event.cancelled;
+    let isDisabled = isEnded || isCancelled;
+
+    let textColorStyle = (!this.props.ignoreDisabled && isDisabled) ?
+      StyleSheet.eventListItem.disabledText :
+      null;
+
     return (
       <TouchableHighlight
         style={[StyleSheet.eventListItem.container, this.props.style]}
@@ -33,38 +41,65 @@ export default class EventListItem extends React.Component {
           <View style={StyleSheet.eventListItem.imageContainer}>
             <Image
               source={{uri: event.imageSrc}}
-              style={StyleSheet.eventListItem.image}
+              style={[StyleSheet.eventListItem.image]}
             />
+            {!this.props.ignoreDisabled && (isEnded || isCancelled) && (
+              <View
+                style={[
+                  StyleSheet.eventListItem.imageOverlay,
+                  isEnded && StyleSheet.eventListItem.endedImageOverlay,
+                  isCancelled && StyleSheet.eventListItem.cancelledImageOverlay,
+                ]}
+              >
+                <Text style={StyleSheet.eventListItem.disabledImageText}>
+                  {isEnded ? _('ended') : _('cancelled')}
+                </Text>
+              </View>
+            )}
           </View>
 
           <View style={StyleSheet.eventListItem.textContainer}>
             {this.props.showDistance && event.distance && (
               <Text
-                style={[StyleSheet.text, StyleSheet.eventListItem.distance]}
+                style={[
+                  StyleSheet.text,
+                  StyleSheet.eventListItem.distance,
+                  textColorStyle
+                ]}
               >
                 {event.distance.toFixed(2)} mi
               </Text>
             )}
             <Text
-              style={[StyleSheet.eventListItem.text, StyleSheet.eventListItem.title]}
+              style={[
+                StyleSheet.eventListItem.text,
+                StyleSheet.eventListItem.title,
+                textColorStyle,
+              ]}
               numberOfLines={1}
               ellipsizeMode="tail"
             >
               {event.title}
             </Text>
             <Text
-              style={[StyleSheet.eventListItem.text, StyleSheet.eventListItem.detail]}
+              style={[
+                StyleSheet.eventListItem.text,
+                StyleSheet.eventListItem.detail,
+                textColorStyle,
+              ]}
               numberOfLines={1}
               ellipsizeMode="tail"
             >
               {_('players')}&nbsp;
-              <Text style={StyleSheet.eventListItem.highlight}>
+              <Text style={[StyleSheet.eventListItem.highlight, textColorStyle]}>
                 <Text>{event.players ? event.players.length : ''}</Text>
                 {!!event.maxPlayers && <Text>/{event.maxPlayers}</Text>}
               </Text>
               {'\u00a0\u00a0|\u00a0\u00a0'}
               {_('level')}&nbsp;
-              <Text style={StyleSheet.eventListItem.highlight}>{event.level}</Text>
+              <Text style={[StyleSheet.eventListItem.highlight, textColorStyle]}>
+                {event.level}
+              </Text>
             </Text>
             <View style={StyleSheet.eventListItem.bottomText}>
               <View style={{flex: -1}}>
@@ -72,7 +107,8 @@ export default class EventListItem extends React.Component {
                   numberOfLines={1}
                   style={[
                     StyleSheet.eventListItem.detail,
-                    StyleSheet.eventListItem.venue
+                    StyleSheet.eventListItem.venue,
+                    textColorStyle,
                   ]}
                 >
                   {event.address}
@@ -82,7 +118,8 @@ export default class EventListItem extends React.Component {
                 <Text
                   style={[
                     StyleSheet.eventListItem.date,
-                    StyleSheet.eventListItem.detail
+                    StyleSheet.eventListItem.detail,
+                    textColorStyle,
                   ]}
                 > | {date}</Text>
               </View>
