@@ -2,8 +2,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {MyEvents as _MyEvents} from '../windows';
-import {user, navigation} from '../../actions';
 import moment from 'moment';
+
+import {
+  user as userActions,
+  events as eventsActions,
+  navigation as navigationActions,
+} from '../../actions';
 
 import inflateEvent from '../../data/inflaters/event';
 
@@ -69,6 +74,11 @@ class MyEvents extends React.Component {
         onChangeAvailability={(value) => {
           this.props.onChangeAvailability(value);
         }}
+        onPressOrganizerDetails={(user) => {
+          this.props.onNavigate('profile', {id: user.id});
+        }}
+        onPressDropOut={this.props.onPressDropOut}
+        onPressUnsave={this.props.onPressUnsave}
       />
     );
   }
@@ -83,7 +93,9 @@ export default connect(
     invites: state.invites,
   }),
   (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
-    onChangeAvailability: (value) => dispatch(user.setAvailability(value)),
+    onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
+    onChangeAvailability: (value) => dispatch(userActions.setAvailability(value)),
+    onPressDropOut: (event) => dispatch(eventsActions.quit(event.id)),
+    onPressUnsave: (event) => dispatch(eventsActions.unsave(event.id)),
   }),
 )(MyEvents);

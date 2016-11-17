@@ -3,20 +3,10 @@ import _ from '../i18n';
 import React from 'react';
 import {View, ScrollView, Text} from 'react-native';
 
-import {Window, Button, Popup, EventListItem, SwitchButton, Header} from '../components';
+import {Window, Button, Popup, EventListItem, Header} from '../components';
 import StyleSheet from '../styles';
 
-import Manage from './manage';
-
 export default class MyEvents extends React.Component {
-
-  static getTest(close) {
-    return {
-      title: 'My Events',
-      view: Window.Participant,
-      viewProps: { initialTab: MyEvents, onClose: close }
-    };
-  }
 
   constructor() {
     super();
@@ -39,8 +29,7 @@ export default class MyEvents extends React.Component {
   }
 
   onPressDropOut() {
-    //TODO
-    //let event = this.state.disclosureEvent;
+    this.props.onPressDropOut(this.state.disclosureEvent);
     this.setState({disclosureEvent: null});
   }
 
@@ -50,17 +39,12 @@ export default class MyEvents extends React.Component {
   }
 
   onPressOrganizerDetails() {
-    //TODO
-    this.setState({disclosureEvent: null});
-  }
-
-  onPressJoin() {
-    //TODO
+    this.props.onPressOrganizerDetails(this.state.disclosureEvent.organizer);
     this.setState({disclosureEvent: null});
   }
 
   onPressRemove() {
-    //TODO
+    this.props.onPressUnsave(this.state.disclosureEvent);
     this.setState({disclosureEvent: null});
   }
 
@@ -89,7 +73,6 @@ export default class MyEvents extends React.Component {
           onPressDropOut={this.onPressDropOut.bind(this)}
           onPressEventDetails={this.onPressEventDetails.bind(this)}
           onPressOrganizerDetails={this.onPressOrganizerDetails.bind(this)}
-          onPressJoin={this.onPressJoin.bind(this)}
           onPressRemove={this.onPressRemove.bind(this)}
           onPressParticipateAgain={this.onPressParticipateAgain.bind(this)}
         />
@@ -142,7 +125,6 @@ class DisclosurePopup extends React.Component {
   _renderSavedOptions() {
     return (
       <View>
-        <Button type="alertVertical" text={_('join')} onPress={this.props.onPressJoin} />
         <Button type="alertVertical" text={_('eventDetails')} onPress={this.props.onPressEventDetails} />
         <Button type="alertVertical" text={_('organizerDetails')} onPress={this.props.onPressOrganizerDetails} />
         <Button type="alertVerticalDefault" text={_('remove')} onPress={this.props.onPressRemove} />
@@ -153,7 +135,6 @@ class DisclosurePopup extends React.Component {
   _renderHistoryOptions() {
     return (
       <View>
-        <Button type="alertVertical" text={_('participateAgain')} onPress={this.props.onPressParticipateAgain} />
         <Button type="alertVertical" text={_('eventDetails')} onPress={this.props.onPressEventDetails} />
         <Button type="alertVertical" text={_('organizerDetails')} onPress={this.props.onPressOrganizerDetails} />
       </View>
