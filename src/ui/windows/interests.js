@@ -50,6 +50,15 @@ export default class Interests extends React.Component {
     this.props.onPressViewAll(this.state.selected);
   };
 
+  doneButtonEnabled = () => {
+    for(let id in this.state.selected) {
+      if(this.state.selected[id]) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   render() {
     return (
       <Dialog title={_('interests')} onClose={this.props.onClose}>
@@ -84,7 +93,11 @@ export default class Interests extends React.Component {
 
           <View style={StyleSheet.interests.footer}>
             {!this.state.viewAll && <Button type="rounded" text={_('viewAll')} onPress={this.onPressViewAll} style={StyleSheet.interests.viewAllButton} />}
-            <Button type="dialogDefault" text={_('done')} onPress={this.props.onDonePress} />
+            <Button
+              type={this.doneButtonEnabled() ? 'dialogDefault' : 'dialog'}
+              text={_('done')}
+              onPress={this.doneButtonEnabled() ? this.props.onDonePress : undefined}
+            />
           </View>
         </ScrollView>
 

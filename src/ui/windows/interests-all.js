@@ -52,6 +52,15 @@ export default class InterestsAll extends React.Component {
     });
   }
 
+  doneButtonEnabled = () => {
+    for(let id in this.state.selected) {
+      if(this.state.selected[id]) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   setSelected = (id, level) => {
     let selected = {
       ...this.state.selected,
@@ -179,9 +188,9 @@ export default class InterestsAll extends React.Component {
         {this.props.onDonePress && (
           <View style={StyleSheet.interests.footer}>
             <Button
-              type="dialogDefault"
+              type={this.doneButtonEnabled() ? 'dialogDefault' : 'dialog'}
               text={_('done')}
-              onPress={this.props.onDonePress}
+              onPress={this.doneButtonEnabled() ? this.props.onDonePress : undefined}
             />
           </View>
         )}
