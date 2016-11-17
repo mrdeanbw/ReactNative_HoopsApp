@@ -6,6 +6,7 @@ import {
   navigation as navigationActions,
   notifications as notificationsActions,
   requests as requestsActions,
+  invites as invitesActions,
 } from '../../actions';
 
 import inflateNotification from '../../data/inflaters/notification';
@@ -20,6 +21,7 @@ class Notifications extends React.Component {
         {
           friendRequests: this.props.notifications.friendRequestsById,
           requests: this.props.requests.requestsById,
+          invites: this.props.invites.invitesById,
           users: this.props.users.usersById,
           events: this.props.events.eventsById,
         }
@@ -48,6 +50,8 @@ class Notifications extends React.Component {
         onPressEvent={(event) => this.props.onNavigate('eventDetails', {id: event.id})}
         onAcceptEventRequest={this.props.onAcceptEventRequest}
         onDeclineEventRequest={this.props.onDeclineEventRequest}
+        onAcceptEventInvite={this.props.onAcceptEventInvite}
+        onDeclineEventInvite={this.props.onDeclineEventInvite}
       />
     );
   }
@@ -59,6 +63,7 @@ export default connect(
     users: state.users,
     notifications: state.notifications,
     requests: state.requests,
+    invites: state.invites,
     events: state.events,
   }),
   (dispatch) => ({
@@ -81,6 +86,14 @@ export default connect(
     },
     onDeclineEventRequest: (notification) => {
       dispatch(requestsActions.decline(notification.request));
+      dispatch(notificationsActions.markRead(notification.id));
+    },
+    onAcceptEventInvite: (notification) => {
+      dispatch(invitesActions.accept(notification.invite));
+      dispatch(notificationsActions.markRead(notification.id));
+    },
+    onDeclineEventInvite: (notification) => {
+      dispatch(invitesActions.decline(notification.invite));
       dispatch(notificationsActions.markRead(notification.id));
     },
   }),

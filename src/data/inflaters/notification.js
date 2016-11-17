@@ -27,6 +27,20 @@ export default (notification, extra) => {
     }
   }
 
+  if(notification.type === 'EVENT_INVITE' && extra.invites) {
+    notification.invite = {
+      ...extra.invites[notification.inviteId],
+    };
+
+    if(notification.invite && extra.users) {
+      notification.invite.from = extra.users[notification.invite.fromId];
+    }
+
+    if(notification.invite && extra.events) {
+      notification.invite.event = extra.events[notification.invite.eventId];
+    }
+  }
+
   if(notification.type === 'EVENT_CANCELLED') {
     if(extra.events) {
       notification.event = extra.events[notification.eventId];

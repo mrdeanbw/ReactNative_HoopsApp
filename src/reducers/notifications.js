@@ -11,6 +11,7 @@ const recognisedTypes = {
   FRIEND_REQUEST: true,
   EVENT_REQUEST: true,
   EVENT_CANCELLED: true,
+  EVENT_INVITE: true,
 };
 
 export default handleActions({

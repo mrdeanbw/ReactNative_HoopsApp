@@ -347,6 +347,10 @@ export const eventRequestDeclinedDescription = 'You declined $0\'s event request
 export const eventRequestConfirmedDescription = '$0 is now attending your event';
 export const eventCancelled = 'Event cancelled';
 export const eventCancelledDescription = '$0 has been cancelled';
+export const eventInvite = 'Invitation to join an event';
+export const eventInvitePendingDescription = 'You have been invited to join $0';
+export const eventInviteDeclinedDescription = 'You declined to join $0';
+export const eventInviteConfirmedDescription = 'You are now attending $0';
 
 export const connectionWarningTitle = 'NETWORK CONNECTION';
 export const connectionWarning = 'You are not connected to the network. Please check your 4G or Wi-Fi settings.';
