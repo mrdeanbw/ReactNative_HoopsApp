@@ -49,6 +49,9 @@ export default class Members extends React.Component {
   onPressViewProfile() {
     let user = this.state.popupOptionsMember;
     this.props.onPressUserProfile(user);
+    this.setState({
+      popupOptionsMember: null,
+    });
   }
 
   onPressUser(user) {
