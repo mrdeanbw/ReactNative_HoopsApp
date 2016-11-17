@@ -247,6 +247,8 @@ export const nearby = (params) => {
       };
     }).filter(event => {
       return moment(event.date).isAfter();
+    }).filter(event => {
+      return params.gender === event.gender || event.gender === 'mixed';
     }).map(event => {
       if(params.lat && params.lon && event.addressCoords) {
         //Very simple approximate radius calculation (pythagoras)

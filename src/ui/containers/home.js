@@ -35,10 +35,15 @@ class Home extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if(!this.state.location.lat && nextState.location.lat) {
+    //If location gets set for the first time, or gender changes
+    if(
+      !this.state.location.lat && nextState.location.lat ||
+      this.props.user.gender !== nextProps.user.gender
+    ) {
       this.props.onSearchNearby({
         lat: nextState.location.lat,
         lon: nextState.location.lon,
+        gender: nextProps.user.gender,
       });
     }
   }
