@@ -3,6 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Home as _Home} from '../windows';
 import {navigation, search} from '../../actions';
+import moment from 'moment';
 
 import inflateEvent from '../../data/inflaters/event';
 
@@ -70,6 +71,9 @@ class Home extends React.Component {
 
     let events = eventIds.map((id) => {
       return this.props.events.eventsById[id];
+    }).filter(event => {
+      //Filter out past events
+      return moment(event.date).isAfter();
     }).filter(event => !!event && event.id).map(event => {
       return inflateEvent(event, {
         requests: this.props.requests.requestsById,

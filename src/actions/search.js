@@ -4,6 +4,8 @@
 //TODO This access directly to elasticsearch is not secure. We need to get a paid plan
 //const client = new elasticsearch.Client({host: 'https://1nskag9:to8ns327hsvi000s@dogwood-428370.us-east-1.bonsai.io'});
 
+import moment from 'moment';
+
 import * as eventsActions from './events';
 import * as navigationActions from './navigation';
 import * as usersActions from './users';
@@ -46,6 +48,11 @@ export const searchEvents = (params) => {
         if(params.geospatial.radius <= distance) {
           return false;
         }
+      }
+
+      //Remove expired events
+      if(moment(event.date).isBefore()){
+        return false;
       }
 
       return true;
@@ -92,6 +99,8 @@ export const searchGeneral = (params) => {
       };
     }).filter(event => {
       return event.title.toLowerCase().search(searchString) !== -1;
+    }).filter(event => {
+      return moment(event.date).isAfter();
     });
 
     let users = Object.keys(allUsers).map(userId => {
@@ -236,6 +245,8 @@ export const nearby = (params) => {
         ...allEvents[eventId],
         id: eventId,
       };
+    }).filter(event => {
+      return moment(event.date).isAfter();
     }).map(event => {
       if(params.lat && params.lon && event.addressCoords) {
         //Very simple approximate radius calculation (pythagoras)

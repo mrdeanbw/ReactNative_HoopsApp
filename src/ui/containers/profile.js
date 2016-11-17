@@ -1,5 +1,6 @@
 
 import React from 'react';
+import moment from 'moment';
 import {connect} from 'react-redux';
 import _Profile from '../windows/profile';
 import {
@@ -29,7 +30,11 @@ class Profile extends React.Component {
         invites: this.props.invites.invitesById,
         requests: this.props.requests.requestsById,
       });
-    }).filter(event => !!event);
+    }).filter(
+      event => !!event
+    ).filter(
+      event => moment(event.date).isAfter()
+    );
 
     /*
      * show contact info if current user is a participant of any of the user's events

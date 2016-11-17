@@ -3,6 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {MyEvents as _MyEvents} from '../windows';
 import {user, navigation} from '../../actions';
+import moment from 'moment';
 
 import inflateEvent from '../../data/inflaters/event';
 
@@ -37,7 +38,7 @@ class MyEvents extends React.Component {
     });
 
     let history = events.filter((event) => {
-      return (new Date(event.date) < new Date());
+      return moment(event.date).isBefore();
     });
 
     let saved = savedEventIds.map(id => {
@@ -53,7 +54,7 @@ class MyEvents extends React.Component {
     });
 
     let upcoming = events.filter((event) => {
-      return (new Date(event.date) > new Date());
+      return moment(event.date).isAfter();
     });
 
     return (
