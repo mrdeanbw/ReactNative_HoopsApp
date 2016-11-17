@@ -137,21 +137,23 @@ export default handleActions({
   },
 
   NAV_CHANGE_TAB: (state, action) => {
-    //if the tab is already selected, reset it's route stack
-    if(state.tabKey === action.key) {
-      return {
-        ...state,
-        tabs: {
-          ...state.tabs,
-          [action.key]: initialState.tabs[action.key],
-        },
-      };
-    }else{
-      return {
-        ...state,
-        tabKey: action.key
-      };
-    }
+    //Select tab and reset it's stack
+    return {
+      ...state,
+      tabKey: action.key,
+      tabs: {
+        ...state.tabs,
+        [action.key]: initialState.tabs[action.key],
+      },
+    };
+
+    /*
+    //Just select the tab, don't reset it's stack too
+    return {
+      ...state,
+      tabKey: action.key
+    };
+    */
   },
 
   NAV_SHOW_MENU: (state, action) => {
