@@ -77,15 +77,17 @@ class Home extends React.Component {
     let events = eventIds.map((id) => {
       return this.props.events.eventsById[id];
     }).filter(event => {
+      return !!event && event.id
+    }).filter(event => {
       //Filter out past events
       return moment(event.date).isAfter();
-    }).filter(event => !!event && event.id).map(event => {
+    }).map(event => {
       return inflateEvent(event, {
         requests: this.props.requests.requestsById,
         invites: this.props.invites.invitesById,
         users: this.props.users.usersById,
       });
-    });
+    })
 
     events = events.sort((a, b) => {
       return a.date > b.date ? 1 : -1;
