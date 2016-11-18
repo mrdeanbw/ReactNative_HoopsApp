@@ -2,7 +2,7 @@
 import _ from '../i18n';
 import React from 'react';
 import ReactNative from 'react-native';
-import {View, Text, ScrollView, Image, ImagePickerIOS} from 'react-native';
+import {View, Text, ScrollView, Image, ImagePickerIOS, TouchableHighlight} from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 import {Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components';
@@ -17,10 +17,8 @@ export default class CreateEvent extends React.Component {
     this.state = {
       addressText: '',
       addressAutocomplete: [],
-      activityText: '',
       eventDetails: {
         title: '',
-        activity: {},
         gender: '',
         minAge: 0,
         maxAge: 0,
@@ -72,7 +70,10 @@ export default class CreateEvent extends React.Component {
 
   onComplete = () => {
     if(this.props.onComplete) {
-      this.props.onComplete(this.state.eventDetails);
+      this.props.onComplete({
+        ...this.state.eventDetails,
+        activity: this.props.activity,
+      });
     }
   };
 
@@ -96,7 +97,6 @@ export default class CreateEvent extends React.Component {
   validate(stepNumber) {
     let {
       title,
-      activity,
       gender,
       privacy,
       level,
@@ -112,11 +112,13 @@ export default class CreateEvent extends React.Component {
       description,
     } = this.state.eventDetails;
 
+    let activity = this.props.activity;
+
     switch(stepNumber) {
       case 1:
         return !!(
           title &&
-          activity && activity.key &&
+          activity &&
           gender &&
           privacy &&
           level
@@ -152,52 +154,33 @@ export default class CreateEvent extends React.Component {
 
 
           <Wizard.Step disabled={!this.validate(1)}>
-            <Form focusNode={this.state.focus['scrollView1']} contentContainerStyle={StyleSheet.padding}>
+            <Form extraKeyboardPadding={25} focusNode={this.state.focus['scrollView1']} contentContainerStyle={StyleSheet.padding}>
               <TextInput
                 value={this.state.eventDetails.title}
                 onChangeText={(title) => this.setEventData({title})}
                 type="flat"
                 style={StyleSheet.halfMarginTop}
                 placeholder={_('eventName')}
-                blurOnSubmit={false}
-                onSubmitEditing={() => {
-                  this.refs.activityInput.focus();
-                }}
+                blurOnSubmit={true}
               />
-              <TextInput
-                value={this.state.activityText}
-                onChangeText={(activityText) => {
-                  this.setState({activityText});
-                  this.setEventData({activity: {}});
-                }}
-                ref="activityInput"
-                type="flat"
-                style={StyleSheet.halfMarginTop}
-                placeholder={_('activity')}
-                blurOnSubmit={false}
-                onSubmitEditing={() => {
-                  this.refs.cityInput.focus();
-                }}
-                clearButtonMode="while-editing"
-                autocomplete={this.props.interests.map((interest) => {
-                  return {
-                    key: interest.id,
-                    text: interest.name,
-                  };
-                }).filter(item => {
-                  return (
-                    this.state.activityText &&
-                    (this.state.eventDetails.activity.text !== this.state.activityText) &&
-                    item.text.search(new RegExp(this.state.activityText, 'i')) !== -1
-                  );
-                })}
-                onAutocompletePress={(item) => {
-                  this.setState({
-                    activityText: item.text,
-                  });
-                  this.setEventData({activity: item});
-                }}
-              />
+
+              {/* TODO: refactor into it's own component */}
+              <TouchableHighlight
+                onPress={this.props.onPressActivity}
+                underlayColor="transparent"
+              >
+                <View style={StyleSheet.textInputs.flat.style}>
+                  <Text
+                    style={[
+                      StyleSheet.textInputs.flat.textStyle,
+                      {color: this.props.activity ? undefined : StyleSheet.textInputs.flat.placeholderTextColor},
+                    ]}
+                  >
+                    {this.props.activity ? this.props.activity.name : _('activity')}
+                  </Text>
+                  <Icon name="chevronRightPink"/>
+                </View>
+              </TouchableHighlight>
 
               <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMargin, {alignSelf: 'center'}]}>
                 <Button type="image" icon="male" active={this.state.eventDetails.gender === 'male'} onPress={() => this.setEventData({gender: 'male'})}/>
@@ -326,7 +309,6 @@ export default class CreateEvent extends React.Component {
               </View>
 
 
-              <KeyboardSpacer/>
             </Form>
           </Wizard.Step>
 
@@ -334,7 +316,7 @@ export default class CreateEvent extends React.Component {
 
 
           <Wizard.Step disabled={!this.validate(2)}>
-            <Form focusNode={this.state.focus['scrollView2']} contentContainerStyle={StyleSheet.padding}>
+            <Form extraKeyboardPadding={25} focusNode={this.state.focus['scrollView2']} contentContainerStyle={StyleSheet.padding}>
               <DateInput
                 type="flat"
                 placeholder={_('dateTime')}
@@ -446,7 +428,6 @@ export default class CreateEvent extends React.Component {
                   onChange={(deadline) => this.setEventData({deadline})}
                 />
 
-                <KeyboardSpacer/>
               </View>
             </Form>
           </Wizard.Step>
@@ -454,7 +435,7 @@ export default class CreateEvent extends React.Component {
 
 
           <Wizard.Step disabled={!this.validate(3)}>
-            <Form>
+            <Form extraKeyboardPadding={25}>
               <View style={StyleSheet.padding}>
                 <TextInput type="flat"
                        multiline="popup"
@@ -522,10 +503,10 @@ export default class CreateEvent extends React.Component {
                 />
               )}
 
-              <KeyboardSpacer/>
             </Form>
           </Wizard.Step>
         </Wizard>
+        <KeyboardSpacer/>
       </View>
     );
   }
