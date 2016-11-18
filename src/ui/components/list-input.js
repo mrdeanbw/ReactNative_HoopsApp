@@ -1,5 +1,6 @@
 
 import React from 'react';
+import dismissKeyboard from 'dismissKeyboard';
 import StyleSheet from '../styles';
 import { View, Text, TouchableHighlight} from 'react-native';
 
@@ -18,6 +19,7 @@ export default class ListInput extends React.Component {
   }
 
   onPress = () => {
+    dismissKeyboard();
     this.setState({showPopup: true});
   };
 
