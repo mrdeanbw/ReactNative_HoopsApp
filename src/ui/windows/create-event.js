@@ -28,6 +28,7 @@ export default class CreateEvent extends React.Component {
         minPlayers: 0,
 
         date: null,
+        endDate: null,
         courtType: '',
         recurring: false,
         address: {},
@@ -319,12 +320,22 @@ export default class CreateEvent extends React.Component {
             <Form extraKeyboardPadding={25} focusNode={this.state.focus['scrollView2']} contentContainerStyle={StyleSheet.padding}>
               <DateInput
                 type="flat"
-                placeholder={_('dateTime')}
+                placeholder={_('startDateTime')}
                 value={this.state.eventDetails.date}
                 rightBar={<Icon name="listIndicator" />}
                 date={true} time={true}
                 initialValue={new Date()}
                 onChange={(date) => this.setEventData({date})}
+              />
+
+              <DateInput
+                type="flat"
+                placeholder={_('endDateTime')}
+                value={this.state.eventDetails.endDate}
+                rightBar={<Icon name="listIndicator" />}
+                date={true} time={true}
+                initialValue={this.state.date || new Date()}
+                onChange={(endDate) => this.setEventData({endDate})}
               />
 
               <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop, {alignSelf: 'center'}]}>

@@ -210,6 +210,8 @@ export const minPlayers = 'Min Players';
 export const unlimited = 'Unlimited';
 
 export const dateTime = 'Date / Time';
+export const startDateTime = 'Start Date / Time';
+export const endDateTime = 'End Date / Time';
 export const time = 'Time';
 
 export const indoor = 'Indoor';
