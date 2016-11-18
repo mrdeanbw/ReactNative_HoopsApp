@@ -163,16 +163,6 @@ export default class Calendar extends React.Component {
           </TouchableHighlight>
         </View>
 
-        <View style={StyleSheet.calendar.dayLabels}>
-          {Array(7).fill(null).map((val, i) => {
-            return (
-              <Text key={i} style={StyleSheet.calendar.dayLabelText}>
-                {moment().day((i + 1) % 7).format('ddd')}
-              </Text>
-            );
-          })}
-        </View>
-
         <ScrollView
           style={StyleSheet.calendar.eventsContainer}
           onScroll={(e) => {
@@ -190,6 +180,17 @@ export default class Calendar extends React.Component {
               this.setState({calendarHeight: e.nativeEvent.layout.height});
             }}
           >
+
+            <View style={StyleSheet.calendar.dayLabels}>
+              {Array(7).fill(null).map((val, i) => {
+                return (
+                  <Text key={i} style={StyleSheet.calendar.dayLabelText}>
+                    {moment().day((i + 1) % 7).format('ddd')}
+                  </Text>
+                );
+              })}
+            </View>
+
             {this._renderDays()}
 
             <Text style={StyleSheet.calendar.eventsHeader}>
