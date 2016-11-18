@@ -166,14 +166,6 @@ export default class EventDetails extends React.Component {
   }
 
   render() {
-    const formatDate = (date) => {
-      return moment(date).format('D MMM');
-    };
-
-    const formatTime = (date) => {
-      return moment(date).format('HH:mm');
-    };
-
     let event = this.props.event;
     let address = event.addressGooglePlace && event.addressGooglePlace.formatted_address;
 
@@ -295,8 +287,7 @@ export default class EventDetails extends React.Component {
               {this.props.event.activity.name}
             </EventInfo>
             <EventInfo icon="calendarBig" label={_('dateAndTime')}>
-              <Text style={StyleSheet.eventDetails.lightTextStyle}>{formatDate(this.props.event.date)}{', '}</Text>
-              {formatTime(this.props.event.date)}
+              <DateText event={this.props.event} />
             </EventInfo>
           </EventInfo.Bar>
 
@@ -381,22 +372,41 @@ EventInfo.Bar = class EventInfoBar extends React.Component {
   }
 };
 
-class EventJoinPopup extends React.Component {
+class DateText extends React.Component {
   render() {
-    const formatDate = (date) => {
-      return moment(date).format('ddd, D MMM');
-    };
+    let start = moment(this.props.event.date);
+    let end = this.props.event.endDate ? moment(this.props.event.endDate) : null;
 
-    const formatTime = (date, duration) => {
+    let startComponent = (
+      <Text>
+        <Text style={StyleSheet.eventDetails.lightTextStyle}>
+          {moment(start).format('D MMM').replace(/ /g, '\u00a0')},&nbsp;
+        </Text>
+        <Text>{moment(start).format('HH:mm')}</Text>
+      </Text>
+    );
+
+    if(!end) {
+      return startComponent;
+    } else {
       return (
         <Text>
-          <Text>{moment(date).format('HH:mm')}</Text>
+          {startComponent}
           <Text> - </Text>
-          <Text>{moment(date).add(duration, 'minutes').format('HH:mm')}</Text>
+          {!moment(end).isSame(start, 'day') && (
+            <Text style={StyleSheet.eventDetails.lightTextStyle}>
+              {moment(end).format('D MMM').replace(/ /g, '\u00a0')},&nbsp;
+            </Text>
+          )}
+          <Text>{moment(end).format('HH:mm')}</Text>
         </Text>
       );
-    };
+    }
+  }
+}
 
+class EventJoinPopup extends React.Component {
+  render() {
     const formatCharge = (charge) => {
       return (parseFloat(charge) * 100).toFixed(0) + 'p';
     };
@@ -412,9 +422,7 @@ class EventJoinPopup extends React.Component {
 
           <EventInfo.Bar style={[StyleSheet.doubleMarginTop]}>
             <EventInfo.Summary icon="calendarBig" style={{width: 90}}>
-              <Text style={StyleSheet.eventDetails.lightTextStyle}>{formatDate(this.props.event.date)}</Text>
-              {'\n'}
-              <Text>{formatTime(event.date, event.duration)}</Text>
+              <DateText event={this.props.event} />
             </EventInfo.Summary>
             <EventInfo.Summary icon="pin" style={{width: 90}}>
               <Text style={StyleSheet.eventDetails.lightTextStyle}>{address}</Text>
