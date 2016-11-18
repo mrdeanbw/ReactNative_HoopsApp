@@ -16,6 +16,10 @@ export default class Calendar extends React.Component {
     super(props);
     this.state = {
       month: props.selectedDate,
+
+      scrollHeight: 0,
+      scrollOffset: {x: 0, y: 0},
+      calendarHeight: 0,
     };
   }
 
@@ -97,6 +101,13 @@ export default class Calendar extends React.Component {
   }
 
   render() {
+    //Max overlap is the height of one event list item
+    let maxOverlap = 50;
+
+    let bottom = this.state.scrollHeight - this.state.calendarHeight;
+    //NB overlap must not become positive.
+    let overlap = Math.min(bottom + this.state.scrollOffset.y - maxOverlap, 0);
+
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <Header
@@ -156,44 +167,71 @@ export default class Calendar extends React.Component {
           })}
         </View>
 
-        <View style={StyleSheet.calendar.days}>
-          {this._renderDays()}
-        </View>
-
         <ScrollView
           style={StyleSheet.calendar.eventsContainer}
+          onScroll={(e) => {
+            this.setState({scrollOffset: e.nativeEvent.contentOffset});
+          }}
+          scrollEventThrottle={16}
+          onLayout={(e) => {
+            this.setState({scrollHeight: e.nativeEvent.layout.height});
+          }}
         >
-          <Text style={StyleSheet.calendar.eventsHeader}>
-            {this.props.selectedDate.format('D MMMM YYYY')}
-          </Text>
-          {this.props.events.filter(event => {
-            return moment(this.props.selectedDate).isSame(event.date, 'day');
-          }).map(event => (
-            <TouchableHighlight
-              key={event.id}
-              onPress={() => this.props.onPressEvent(event)}
-              underlayColor={StyleSheet.calendar.eventUnderlay}
-            >
-              <View style={StyleSheet.calendar.event}>
-                <View style={StyleSheet.calendar.eventTime}>
-                  <Text style={StyleSheet.calendar.eventTimeText}>
-                    {moment(event.date).format('HH:MM a')}
-                  </Text>
+
+          <View
+            style={StyleSheet.calendar.days}
+            onLayout={(e) => {
+              this.setState({calendarHeight: e.nativeEvent.layout.height});
+            }}
+          >
+            {this._renderDays()}
+
+            <Text style={StyleSheet.calendar.eventsHeader}>
+              {this.props.selectedDate.format('D MMMM YYYY')}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              backgroundColor: 'white',
+              top: overlap,
+              ...(overlap !== 0 ? {
+                shadowColor: 'black',
+                shadowOffset: {height: -2},
+                shadowOpacity: 0.3,
+                shadowRadius: 2,
+              } : {}),
+            }}
+          >
+            {this.props.events.filter(event => {
+              return moment(this.props.selectedDate).isSame(event.date, 'day');
+            }).map(event => (
+              <TouchableHighlight
+                key={event.id}
+                onPress={() => this.props.onPressEvent(event)}
+                underlayColor={StyleSheet.calendar.eventUnderlay}
+              >
+                <View style={StyleSheet.calendar.event}>
+                  <View style={StyleSheet.calendar.eventTime}>
+                    <Text style={StyleSheet.calendar.eventTimeText}>
+                      {moment(event.date).format('HH:MM a')}
+                    </Text>
+                  </View>
+                  <View style={StyleSheet.calendar.eventDetails}>
+                    <Text style={StyleSheet.calendar.eventTitle} numberOfLines={1}>
+                      {event.title}
+                    </Text>
+                    <Text style={StyleSheet.calendar.eventAddress} numberOfLines={1}>
+                      {event.address}
+                    </Text>
+                  </View>
+                  <View style={StyleSheet.calendar.eventChevron}>
+                    <Icon name="chevronRight"/>
+                  </View>
                 </View>
-                <View style={StyleSheet.calendar.eventDetails}>
-                  <Text style={StyleSheet.calendar.eventTitle} numberOfLines={1}>
-                    {event.title}
-                  </Text>
-                  <Text style={StyleSheet.calendar.eventAddress} numberOfLines={1}>
-                    {event.address}
-                  </Text>
-                </View>
-                <View style={StyleSheet.calendar.eventChevron}>
-                  <Icon name="chevronRight"/>
-                </View>
-              </View>
-            </TouchableHighlight>
-          ))}
+              </TouchableHighlight>
+            ))}
+          </View>
         </ScrollView>
       </View>
     );
