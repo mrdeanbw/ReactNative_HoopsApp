@@ -7,12 +7,13 @@ import dismissKeyboard from 'dismissKeyboard';
 export default class Form extends React.Component {
 
   componentWillReceiveProps(nextProps) {
+    let extraPadding = nextProps.extraKeyboardPadding || 0;
     let inputNode = nextProps.focusNode;
-    if(inputNode) {
+    if(inputNode && inputNode !== this.props.focusNode) {
       let scrollResponder = this.refs.scrollRef.getScrollResponder();
       scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
         inputNode,
-        150,
+        150 + extraPadding,
         true
       );
     }
