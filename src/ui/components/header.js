@@ -12,6 +12,35 @@ import {connect} from 'react-redux';
 import {user as userActions} from '../../actions';
 
 class Header extends React.Component {
+  renderLeftAction = () => {
+    if(this.props.onClose) {
+      return (
+        <Button
+          type="title"
+          icon="close"
+          onPress={this.props.onClose}
+        />
+      );
+    }
+    if(this.props.onBack) {
+      return (
+        <Button
+          type="title"
+          icon="back"
+          onPress={this.props.onBack}
+        />
+      );
+    }
+    if(this.props.user.mode === 'PARTICIPATE') {
+      return (
+        <SwitchButton
+          value={this.props.user.availability}
+          onChange={this.props.onToggleAvailability}
+        />
+      );
+    }
+  };
+
   render() {
     let modeText, modeTextHighlight;
     if(this.props.user.mode === 'ORGANIZE') {
@@ -28,16 +57,9 @@ class Header extends React.Component {
           <View>
             <View style={StyleSheet.window.logoBarStyle}>
               <View style={StyleSheet.window.accessoryBarStyle}>
-                {this.props.onClose && <Button type="title" icon="close" style={StyleSheet.window.closeButton} onPress={this.props.onClose} />}
-                {this.props.onBack && <Button type="title" icon="back" onPress={this.props.onBack} />}
+                {this.renderLeftAction()}
               </View>
               <Image source={StyleSheet.images.logo} style={StyleSheet.window.logoStyle} />
-              {this.props.user.mode === 'PARTICIPATE' && (
-                <SwitchButton
-                  value={this.props.user.availability}
-                  onChange={this.props.onToggleAvailability}
-                />
-              )}
               <Button type="modeSwitch" hitSlop={{top: 10, bottom: 10, left: 10, right: 10}} icon="switch" onPress={this.props.onToggleMode} />
             </View>
 

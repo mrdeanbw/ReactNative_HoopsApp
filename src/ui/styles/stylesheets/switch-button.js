@@ -12,8 +12,8 @@ export default StyleSheet => StyleSheet.extend({
 
   containerStyle: {
     position: 'absolute',
-    top: 20,
-    right: 70,
+    top: 17,
+    left: 10,
     height: 15,
     width: 30,
     overflow: 'hidden',
