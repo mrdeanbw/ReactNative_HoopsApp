@@ -10,6 +10,12 @@ export default StyleSheet => StyleSheet.extend({
     height: 50,
   },
 
+  monthChangeButton: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+  },
+
   monthSelectorText: {
     fontSize: 13,
     fontWeight: 'bold',

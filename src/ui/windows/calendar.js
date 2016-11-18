@@ -121,14 +121,17 @@ export default class Calendar extends React.Component {
             onPress={() => {
               this.setState({month: moment(this.state.month).subtract(1, 'month')});
             }}
+            style={{flex: 1}}
           >
-            <View style={StyleSheet.calendar.arrow}>
-              <Icon name="arrowLeft"/>
+            <View style={StyleSheet.calendar.monthChangeButton}>
+              <View style={StyleSheet.calendar.arrow}>
+                <Icon name="arrowLeft"/>
+              </View>
+              <Text style={StyleSheet.calendar.monthSelectorText}>
+                {moment(this.state.month).subtract(1, 'month').format('MMMM')}
+              </Text>
             </View>
           </TouchableHighlight>
-          <Text style={StyleSheet.calendar.monthSelectorText}>
-            {moment(this.state.month).subtract(1, 'month').format('MMMM')}
-          </Text>
           <Text
             style={[
               StyleSheet.calendar.monthSelectorText,
@@ -142,17 +145,20 @@ export default class Calendar extends React.Component {
             <View style={StyleSheet.calendar.monthUnderline}/>
           </View>
 
-          <Text style={StyleSheet.calendar.monthSelectorText}>
-            {moment(this.state.month).add(1, 'month').format('MMMM')}
-          </Text>
           <TouchableHighlight
             underlayColor="transparent"
             onPress={() => {
               this.setState({month: moment(this.state.month).add(1, 'month')});
             }}
+            style={{flex: 1}}
           >
-            <View style={StyleSheet.calendar.arrow}>
-              <Icon name="arrowRight"/>
+            <View style={StyleSheet.calendar.monthChangeButton}>
+              <Text style={StyleSheet.calendar.monthSelectorText}>
+                {moment(this.state.month).add(1, 'month').format('MMMM')}
+              </Text>
+              <View style={StyleSheet.calendar.arrow}>
+                <Icon name="arrowRight"/>
+              </View>
             </View>
           </TouchableHighlight>
         </View>
