@@ -2,6 +2,7 @@
 import _ from '../i18n';
 
 import React from 'react';
+import moment from 'moment';
 
 import {View, ScrollView, Text} from 'react-native';
 
@@ -42,6 +43,10 @@ export default class Invitations extends React.Component {
   };
 
   onPressInvite = (invite) => {
+    if(moment(invite.event.date).isBefore()){
+      return;
+    }
+
     if(this.state.tab === 'received') {
       this.showReceivedPopup(invite);
     } else {

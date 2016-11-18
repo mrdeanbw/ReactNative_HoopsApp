@@ -60,7 +60,9 @@ export default class EventDetails extends React.Component {
 
   componentWillMount() {
     this._actionListener = this.props.actionButton.addListener('press', () => {
-      if(this.props.isMember) {
+      if(this.props.isExpired){
+        this.props.onBack();
+      } else if(this.props.isMember) {
         this.setState({showQuitPopup: true});
       } else if(this.props.isPendingRequest) {
         this.setState({showCancelRequestPopup: true});
@@ -88,7 +90,13 @@ export default class EventDetails extends React.Component {
   updateActionButton(props) {
     let entryFee = props.event.entryFee || 0;
 
-    if(props.isMember || props.isPendingRequest) {
+    if(this.props.isExpired) {
+      props.onChangeAction({
+        text: _('back'),
+        icon: "back",
+        type: "action",
+      });
+    } else if(props.isMember || props.isPendingRequest) {
       props.onChangeAction({
         text: _('quit'),
         icon: "actionRemove",

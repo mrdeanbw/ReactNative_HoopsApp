@@ -2,6 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {EventDetails as _EventDetails} from '../windows';
+import moment from 'moment';
 
 import {
   navigation,
@@ -80,6 +81,7 @@ class EventDetails extends React.Component {
         onClose={this.props.onClose}
         navKey={navRoute.key}
         event={event}
+        isExpired={moment(event.date).isBefore()}
         organizer={event.organizer}
         isMember={isMember}
         isPendingRequest={isPendingRequest}
@@ -116,9 +118,6 @@ class EventDetails extends React.Component {
         }}
         onPressInvite={() => {
           this.props.onNavigate('eventInvites', {id: event.id, friendsOnly: true});
-        }}
-        onCancelEvent={(message) => {
-          //TODO
         }}
       />
     );
