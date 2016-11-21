@@ -29,9 +29,19 @@ class Friends extends React.Component {
       );
     });
 
+    let requested = Object.keys(this.props.user.friendRequests).map(requestId => {
+      return this.props.notifications.friendRequestsById[requestId];
+    }).map(request => {
+      let id = request.toId === this.props.user.uid ? request.fromId : request.toId;
+      return this.props.users.usersById[id];
+    }).filter(user => {
+      return user && user.name;
+    });
+
     return (
       <_Friends
         friends={friends}
+        requestedUsers={requested}
         onBack={this.props.onBack}
         onClose={this.props.onClose}
         onChangeSearchText={(searchText) => this.setState({searchText})}
@@ -51,6 +61,7 @@ export default connect(
   (state) => ({
     user: state.user,
     users: state.users,
+    notifications: state.notifications,
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),

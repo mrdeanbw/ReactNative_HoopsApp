@@ -69,6 +69,16 @@ export default class Friends extends React.Component {
           />
         </View>
         <ScrollView style={{flex: 1}}>
+          {this.props.requestedUsers.map((user) =>
+            <UserListItem
+              key={user.id}
+              user={user}
+              onPress={() => this.onPressUser(user)}
+              hideDisclosure={true}
+              status="pending"
+            />
+          )}
+
           {this.props.friends.map((user) =>
             <UserListItem
               key={user.id}
