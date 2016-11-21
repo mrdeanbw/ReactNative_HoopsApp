@@ -86,6 +86,10 @@ class Root extends React.Component {
       activitiesSelect: {
         component: containers.ActivitiesSelect,
       },
+
+      friendsInvite: {
+        component: containers.FriendsInvite,
+      },
     };
   }
 

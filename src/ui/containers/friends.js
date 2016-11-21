@@ -50,7 +50,11 @@ class Friends extends React.Component {
         }}
 
         onPressUser={(user) => this.props.onNavigate('profile', {id: user.id})}
-        onPressInvite={(user) => {}}
+        onPressInvite={(user) => {
+          this.props.onNavigate('friendsInvite', {
+            selectedUser: user,
+          }, false);
+        }}
         onPressRemove={(user) => this.props.onPressRemove(user)}
       />
     );
@@ -64,7 +68,9 @@ export default connect(
     notifications: state.notifications,
   }),
   (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
+    onNavigate: (key, props, subTab = true) => {
+      dispatch(navigationActions.push({key, props}, subTab));
+    },
     onPressRemove: (user) => dispatch(userActions.removeFriend(user)),
   }),
 )(Friends);
