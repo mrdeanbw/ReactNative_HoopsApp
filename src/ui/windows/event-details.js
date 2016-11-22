@@ -323,8 +323,7 @@ export default class EventDetails extends React.Component {
 
           <HorizontalRule style={StyleSheet.eventDetails.horizontalRule}/>
           <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionTitleTextStyle]}>{_('notes')}</Text>
-          <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionBodyTextStyle]}>{this.props.event.notes}</Text>
-
+          <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionBodyTextStyle, StyleSheet.doubleMarginBottom]}>{this.props.event.notes}</Text>
         </ScrollView>
       </View>
     );
