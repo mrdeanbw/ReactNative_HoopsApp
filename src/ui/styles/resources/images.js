@@ -1,9 +1,4 @@
 export default {
-  "basketballCover": require('./images/basketball-cover.png'),
-  "basketball": require('./images/basketball.png'),
-  "basketballNet": require('./images/basketball-net.png'),
-  "football": require('./images/football.png'),
-  "footballNet": require('./images/football-net.png'),
   "login": require('./images/login.png'),
   "logo": require('./images/logo.png'),
   "organize": require('./images/organize.png'),
@@ -12,16 +7,4 @@ export default {
   "screengrab2": require('./images/screengrab-2.png'),
   "screengrab3": require('./images/screengrab-3.png'),
   "walkthrough": require('./images/walkthrough.png'),
-
-
-  "avatarJohnDoe": require('./images/avatar-john-doe.png'),
-  "avatarChristianJones": require('./images/avatar-christian-jones.png'),
-  "avatarDanNeal": require('./images/avatar-dan-neal.png'),
-  "avatarRalphCarroll": require('./images/avatar-ralph-carroll.png'),
-  "avatarChrisMurray": require('./images/avatar-chris-murray.png'),
-  "avatarTimDavies": require('./images/avatar-tim-davies.png'),
-  "avatarTimSimmons": require('./images/avatar-tim-simmons.png'),
-  "avatarBenJenkins": require('./images/avatar-ben-jenkins.png'),
-  "avatarToddThompson": require('./images/avatar-todd-thompson.png'),
-  "avatarJamieRamirez": require('./images/avatar-jamie-ramirez.png'),
 };

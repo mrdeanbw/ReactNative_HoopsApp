@@ -5,17 +5,8 @@ import {View,Text, ScrollView, Image} from 'react-native';
 
 import {Window, Button} from '../components';
 import StyleSheet from '../styles';
-import EventData from '../../data/events.json';
 
 export default class Gallery extends React.Component {
-
-  static getTest(close) {
-    return {
-      title: 'Gallery',
-      view: Window.Organizer,
-      viewProps: { initialTab: Gallery, initialTabProps: { event: EventData[0] }, onClose: close }
-    };
-  }
 
   static getTitle(props) {
     return _('galleryTitle').replace(/\$1/g, props.event.title);
