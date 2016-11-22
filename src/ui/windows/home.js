@@ -13,6 +13,41 @@ import Icon from '../components/icon';
 import icons from '../styles/resources/icons';
 import Button from '../components/button';
 
+const iconsMap = {
+  AMERICAN_FOOTBALL: 'pinAmericanFootball',
+  ARCHERY: 'pinArchery',
+  AUTOMOBILE_RACING: 'pinAutomobileRacing',
+  BADMINTON: 'pinBadminton',
+  BASEBALL: 'pinBaseball',
+  BASKETBALL: 'pinBasketball',
+  BEACH_VOLLEYBALL: 'pinVolleyball',
+  BIKE: 'pinBike',
+  BOWLING: 'pinBowling',
+  BOXING: 'pinBoxing',
+  CANOEING: 'pinCanoeing',
+  CARDS: 'pinCards',
+  CHESS: 'pinChess',
+  DEFAULT: 'pinDefault',
+  FOOTBALL: 'pinFootball',
+  FRISBEE: 'pinFrisbee',
+  GOLF: 'pinGolf',
+  GYM: 'pinGym',
+  GYMNASTICS: 'pinGymnastics',
+  HOCKEY: 'pinHockey',
+  ICE_HOCKEY: 'pinIceHockey',
+  ICE_SKATING: 'pinIceSkating',
+  MOUNTAINEERING: 'pinMountaineering',
+  POOL: 'pinPool',
+  RUGBY: 'pinRugby',
+  RUNNING: 'pinRunning',
+  SKATEBOARDING: 'pinSkateboarding',
+  SKIING: 'pinSkiing',
+  SWIMMING: 'pinSwimming',
+  TABLE_TENNIS: 'pinTableTennis',
+  TENNIS: 'pinTennis',
+  YOGA: 'pinYoga',
+};
+
 export default class Home extends React.Component {
 
   constructor() {
@@ -52,7 +87,7 @@ export default class Home extends React.Component {
       return {
         latitude: item.event.addressCoords.lat,
         longitude: item.event.addressCoords.lon,
-        image: icons.mapPin,
+        image: icons[iconsMap[item.event.activity] || iconsMap.DEFAULT],
         title: item.event.title,
         rightCalloutView: (
           <TouchableHighlight
