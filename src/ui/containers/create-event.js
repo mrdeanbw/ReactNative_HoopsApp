@@ -6,10 +6,17 @@ import {navigation, events} from '../../actions';
 
 class CreateEvent extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    let event;
+    if(props.id) {
+      event = props.events.eventsById[props.id];
+    }
+
     this.state = {
-      activityKey: null,
+      activityKey: event.activity ? event.activity : null,
+      event: event,
     };
   }
 
@@ -22,6 +29,8 @@ class CreateEvent extends React.Component {
       <_CreateEvent
         onBack={this.props.onBack}
         onClose={this.props.onClose}
+        event={this.state.event}
+        editMode={!!this.state.event}
         onPressActivity={() => {
           this.props.onNavigate('activitiesSelect', {
             activities: this.props.interests.interestsById,
@@ -41,7 +50,11 @@ class CreateEvent extends React.Component {
             address: eventData.address.text,
             addressGooglePlaceId: eventData.address.key,
           };
-          this.props.onSaveEvent(eventData);
+          if(this.props.id) {
+            this.props.onEditEvent(this.props.id, eventData);
+          } else {
+            this.props.onSaveEvent(eventData);
+          }
         }}
         onSelectAppPayments={() => {
           if(!this.props.user.stripeAccount) {
@@ -65,5 +78,6 @@ export default connect(
     onNavigate: (key, props, subTab) => dispatch(navigation.push({key, props}, subTab)),
     onNavigateBack: () => dispatch(navigation.pop()),
     onSaveEvent: (eventData) => dispatch(events.create(eventData)),
+    onEditEvent: (eventId, eventData) => dispatch(events.edit(eventId, eventData)),
   }),
 )(CreateEvent);

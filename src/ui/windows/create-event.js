@@ -12,33 +12,55 @@ import {autocomplete} from '../../data/google-places';
 
 export default class CreateEvent extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    let event = props.event || {};
+    let blankEvent = {
+      title: '',
+      gender: '',
+      minAge: 0,
+      maxAge: 0,
+      privacy: '',
+      level: '',
+      maxPlayers: 0,
+      minPlayers: 0,
+
+      date: null,
+      endDate: null,
+      courtType: '',
+      recurring: false,
+      address: {},
+      entryFee: 0,
+      paymentMethod: 'cash',
+      deadline: null,
+
+      description: '',
+      notes: '',
+      rules: '',
+      allowContactInfo: false,
+    };
+
+    let eventDetails = {};
+    if(props.event) {
+      for(let key in blankEvent) {
+        if(typeof props.event[key] === 'undefined') {
+          eventDetails[key] = blankEvent[key];
+        } else {
+          eventDetails[key] = props.event[key];
+        }
+      }
+
+      eventDetails.address = {
+        key: props.event.addressGooglePlaceId,
+        text: props.event.address,
+      };
+    }
+
     this.state = {
-      addressText: '',
+      addressText: event.address,
       addressAutocomplete: [],
-      eventDetails: {
-        title: '',
-        gender: '',
-        minAge: 0,
-        maxAge: 0,
-        privacy: '',
-        level: '',
-        maxPlayers: 0,
-        minPlayers: 0,
-
-        date: null,
-        endDate: null,
-        courtType: '',
-        recurring: false,
-        address: {},
-        entryFee: 0,
-        paymentMethod: 'cash',
-        deadline: null,
-
-        description: '',
-        rules: '',
-      },
+      image: undefined,
+      eventDetails: eventDetails,
       focus: {},
     };
   }
@@ -71,18 +93,14 @@ export default class CreateEvent extends React.Component {
 
   onComplete = () => {
     if(this.props.onComplete) {
-      this.props.onComplete({
-        ...this.state.eventDetails,
-        activity: this.props.activity,
-      });
-    }
-  };
+      let data = this.state.eventDetails;
+      data.activity = this.props.activity;
+      if(typeof this.state.image !== 'undefined') {
+        //image could have been set to null, meaning delete the image
+        data.image = this.state.image;
+      }
 
-  onChangeEventPicture = (value) => {
-    if(value) {
-      this.setState({eventPicture: StyleSheet.images.basketballCover});
-    } else {
-      this.setState({eventPicture: null});
+      this.props.onComplete(data);
     }
   };
 
@@ -143,6 +161,14 @@ export default class CreateEvent extends React.Component {
   }
 
   render() {
+    let imageSrc;
+    if(this.props.event) {
+      imageSrc = this.props.event.imageSrc;
+    }
+    if(typeof this.state.image !== 'undefined') {
+      imageSrc = this.state.image || undefined; //Make sure imageSrc is never null
+    }
+
     return (
       <View style={{flex: 1}}>
         <Header
@@ -151,8 +177,10 @@ export default class CreateEvent extends React.Component {
           hideSwitcher={true}
         />
 
-        <Wizard completeText={_('create')} onComplete={this.onComplete}>
-
+        <Wizard
+          completeText={this.props.editMode ? _('save') : _('create')}
+          onComplete={this.onComplete}
+        >
 
           <Wizard.Step disabled={!this.validate(1)}>
             <Form extraKeyboardPadding={25} focusNode={this.state.focus['scrollView1']} contentContainerStyle={StyleSheet.padding}>
@@ -243,9 +271,14 @@ export default class CreateEvent extends React.Component {
                 />
               </View>
 
-              <ListInput type="flat" style={StyleSheet.halfMarginTop}  placeholder={_('privacy')} value={this.state.eventDetails.privacy}
-                     rightBar={<Icon name="listIndicator" />}
-                     onChange={(privacy) => this.setEventData({privacy})}>
+              <ListInput
+                type="flat"
+                style={StyleSheet.halfMarginTop}
+                disabled={this.props.editMode}
+                placeholder={_('privacy')}
+                value={this.state.eventDetails.privacy}
+                onChange={(privacy) => this.setEventData({privacy})}
+              >
                 <ListInput.Item text={_('publicEvent')} value="public" />
                 <ListInput.Item text={_('privateEvent')} value="private" />
               </ListInput>
@@ -388,6 +421,7 @@ export default class CreateEvent extends React.Component {
                 <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
                   <TextInput
                     ref="costInput"
+                    disabled={this.props.editMode}
                     type="flat"
                     keyboardType="numeric"
                     placeholder={_('costPP')}
@@ -405,9 +439,9 @@ export default class CreateEvent extends React.Component {
                   />
                   <Button
                     type="roundedGrey"
-                    active={this.state.eventDetails.entryFee === 0}
+                    active={!this.props.editMode && this.state.eventDetails.entryFee === 0}
                     text={_('free')}
-                    onPress={() => this.setEventData({entryFee: 0})}
+                    onPress={this.props.editMode ? undefined : () => this.setEventData({entryFee: 0})}
                     style={{width: 110}}
                   />
                 </View>
@@ -417,6 +451,7 @@ export default class CreateEvent extends React.Component {
                   type="flat"
                   style={StyleSheet.halfMarginTop}
                   placeholder={_('paymentMethod')}
+                  disabled={this.props.editMode}
                   value={this.state.eventDetails.paymentMethod}
                   rightBar={<Icon name="listIndicator" />}
                   onChange={(paymentMethod) => {
@@ -498,25 +533,23 @@ export default class CreateEvent extends React.Component {
                 type="wizardCheck"
                 text={_('eventPicture')}
                 icon="none" checkIcon="minus"
-                checked={!!this.state.eventDetails.picture}
+                checked={!!imageSrc}
                 onChange={(value) => {
                   if(value) {
                     ImagePickerIOS.openSelectDialog({}, (result) => {
-                      this.setEventData({picture: result});
+                      this.setState({image: result});
                     }, (err) => {
                       console.warn(err); //eslint-disable-line no-console
                     });
                   } else {
-                    this.setEventData({picture: null});
+                    this.setState({image: null});
                   }
                 }}
               />
-              {this.state.eventDetails.picture && (
-                <Image
-                  source={{uri: this.state.eventDetails.picture}}
-                  style={{ resizeMode: 'cover', height: 180, width: null }}
-                />
-              )}
+              <Image
+                source={{uri: imageSrc}}
+                style={{ resizeMode: 'cover', height: 180, width: null }}
+              />
 
             </Form>
           </Wizard.Step>

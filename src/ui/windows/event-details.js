@@ -67,7 +67,7 @@ export default class EventDetails extends React.Component {
       } else if(this.props.isPendingRequest) {
         this.setState({showCancelRequestPopup: true});
       } else if(this.props.isOrganizer) {
-        this.setState({showCancelEventPopup: true});
+        this.props.onEditEvent();
       } else {
         this.setState({showJoinPopup: true});
       }
@@ -104,8 +104,8 @@ export default class EventDetails extends React.Component {
       });
     } else if(props.isOrganizer) {
       props.onChangeAction({
-        text: _('cancel'),
-        icon: "actionRemove",
+        text: _('edit'),
+        icon: "actionEdit",
         type: "action",
       });
     } else {

@@ -126,6 +126,7 @@ export const finances = 'Finances';
 export const requests = 'Requests';
 
 export const cancel = 'Cancel';
+export const edit = 'Edit';
 
 export const cancelEventQuestion = 'Why is this event being cancelled?';
 export const cancelEventPrompt = 'Enter your reason for cancelling...';

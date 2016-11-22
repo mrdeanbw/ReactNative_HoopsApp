@@ -8,6 +8,7 @@ import * as invitesActions from './invites';
 import * as requestsActions from './requests';
 import * as paymentsActions from './payments';
 import * as notificationsActions from './notifications';
+import * as navigationActions from './navigation';
 
 import {getPlace} from '../data/google-places';
 
@@ -114,51 +115,57 @@ export const remove = (id) => {
   };
 };
 
+const preSave = (eventData, eventKey, uid) => {
+  let chain = [];
+  if(eventData.image) {
+    //upload images first:
+    chain.push(uploadImage(eventData.image, `events/${eventKey}/main.jpeg`));
+  } else {
+    chain.push(null);
+  }
+
+  if(eventData.addressGooglePlaceId) {
+    chain.push(
+      getPlace(eventData.addressGooglePlaceId).then(result => {
+        return result.result && result.result.geometry;
+      })
+    );
+  }else{
+    chain.push(null);
+  }
+
+  return Promise.all(chain).then(result => {
+    let imageRef = result[0] ? result[0].ref : null;
+    let coords = result[1] ? result[1].location : null;
+
+    eventData = {
+      ...eventData,
+      //Replace the original eventData.image with our firebase reference
+      image: imageRef,
+      organizer: uid,
+      id: eventKey,
+    };
+
+    if(coords) {
+      eventData.addressCoords = {
+        lat: coords.lat,
+        lon: coords.lng, //GooglePlaces uses `lng`, but elasticsearch needs `lon`
+      };
+    }
+
+    return eventData;
+  });
+};
+
 export const create = (eventData) => {
   return (dispatch, getState) => {
     let ref = firebaseDb.child('events').push();
     let newKey = ref.key;
     let uid = getState().user.uid;
 
-    var chain = [];
-    if(eventData.picture) {
-      //upload images first:
-      chain.push(uploadImage(eventData.picture, `events/${newKey}/main.jpeg`));
-    } else {
-      chain.push(null);
-    }
-
-    if(eventData.addressGooglePlaceId) {
-      chain.push(
-        getPlace(eventData.addressGooglePlaceId).then(result => {
-          return result.result && result.result.geometry;
-        })
-      );
-    }else{
-      chain.push(null);
-    }
-
-    Promise.all(chain).then((result) => {
-      let imageRef = result[0] ? result[0].ref : null;
-      let coords = result[1] ? result[1].location : null;
-
-      eventData = {
-        ...eventData,
-        //Replace the original eventData.image with our firebase reference
-        image: imageRef,
-        organizer: uid,
-        id: newKey,
-      };
-
-      if(coords) {
-        eventData.addressCoords = {
-          lat: coords.lat,
-          lon: coords.lng, //GooglePlaces uses `lng`, but elasticsearch needs `lon`
-        };
-      }
-
+    preSave(eventData, newKey, uid).then((data) => {
       firebaseDb.update({
-        [`events/${newKey}`]: eventData,
+        [`events/${newKey}`]: data,
         [`users/${uid}/organizing/${newKey}`]: true,
       }, (err) => {
         if(err) {
@@ -169,14 +176,48 @@ export const create = (eventData) => {
         } else {
           dispatch({
             type: 'EVENT_ADDED',
-            eventData,
+            eventData: data,
           });
           dispatch(notificationsActions.scheduleDeadlineAlert({
-            ...eventData,
+            ...data,
           }));
         }
       });
 
+    });
+  };
+};
+
+export const edit = (eventId, eventData) => {
+  return (dispatch, getState) => {
+    let uid = getState().user.uid;
+
+    let event = {};
+    let newData = {};
+
+    firebaseDb.child(`events/${eventId}`).once('value').then(snapshot => {
+      event = snapshot.val();
+
+      return preSave(eventData, eventId, uid);
+    }).then(result => {
+      newData = result;
+      return firebaseDb.child(`events/${eventId}`).set({
+        ...event,
+        ...newData,
+
+        image: newData.image || event.image || null, //newData.image could be null
+      });
+    }).then(() => {
+      dispatch({
+        type: 'EVENT_EDIT',
+        eventData: newData,
+      });
+      dispatch(navigationActions.pop());
+    }).catch(err => {
+      dispatch({
+        type: 'EVENT_EDIT_ERROR',
+        err,
+      });
     });
   };
 };

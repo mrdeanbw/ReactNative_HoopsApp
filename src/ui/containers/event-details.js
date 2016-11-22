@@ -119,6 +119,9 @@ class EventDetails extends React.Component {
         onPressInvite={() => {
           this.props.onNavigate('eventInvites', {id: event.id, friendsOnly: true});
         }}
+        onEditEvent={() => {
+          this.props.onNavigate('createEvent', {id: event.id}, false);
+        }}
       />
     );
   }

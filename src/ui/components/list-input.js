@@ -7,6 +7,7 @@ import { View, Text, TouchableHighlight} from 'react-native';
 import Button from './button';
 import TextInput from './text-input';
 import Popup from './popup';
+import Icon from './icon';
 
 export default class ListInput extends React.Component {
 
@@ -29,7 +30,7 @@ export default class ListInput extends React.Component {
   };
 
   render() {
-    const {rightBar, value, placeholder, style, ...props} = this.props;
+    const {disabled, value, placeholder, style, ...props} = this.props;
 
     const defaultTextInput = StyleSheet.textInputs.default || {};
     const textInput = this.props.type ? StyleSheet.textInputs[this.props.type] || defaultTextInput : defaultTextInput;
@@ -55,7 +56,7 @@ export default class ListInput extends React.Component {
           })}
         </Popup>
         <TouchableHighlight
-          onPress={this.onPress}
+          onPress={disabled ? undefined : this.onPress}
           activeOpacity={'activeOpacity' in textInput ? textInput.activeOpacity : defaultTextInput.activeOpacity}
           underlayColor={'underlayColor' in textInput ? textInput.underlayColor : defaultTextInput.underlayColor}
         >
@@ -68,12 +69,14 @@ export default class ListInput extends React.Component {
                 defaultTextInput.staticTextStyle,
                 textInput.staticTextStyle,
                 this.props.textStyle,
-                !selectedChild && { color: this.props.placeholderTextColor || textInput.placeholderTextColor || defaultTextInput.placeholderTextColor }
+                (!selectedChild || disabled) && { color: this.props.placeholderTextColor || textInput.placeholderTextColor || defaultTextInput.placeholderTextColor }
               ]}>
                 {selectedChild ? selectedChild.props.text : placeholder}
               </Text>
             } {...props} />
-            <View style={[defaultTextInput.barStyle, textInput.barStyle]}>{rightBar}</View>
+            <View style={[defaultTextInput.barStyle, textInput.barStyle]}>
+              <Icon name={disabled ? "listIndicatorGrey" : "listIndicator"} />
+            </View>
           </View>
         </TouchableHighlight>
       </View>
