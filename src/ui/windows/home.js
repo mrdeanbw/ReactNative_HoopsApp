@@ -132,10 +132,10 @@ export default class Home extends React.Component {
     return (
       <View style={StyleSheet.home.nearbyMapContainer}>
         <MapView style={StyleSheet.home.map}
-          zoomEnabled={false}
+          zoomEnabled={true}
           pitchEnabled={false}
           rotateEnabled={false}
-          scrollEnabled={false}
+          scrollEnabled={true}
           showsCompass={false}
           showsPointsOfInterest={false}
           followUserLocation={false}
