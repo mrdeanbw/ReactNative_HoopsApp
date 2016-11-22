@@ -17,6 +17,7 @@ const icons = {
   BADMINTON: 'activityBadminton',
   BASEBALL: 'activityBaseball',
   BASKETBALL: 'activityBasketball',
+  BEACH_VOLLEYBALL: 'activityVolleyball',
   BIKE: 'activityBike',
   BOWLING: 'activityBowling',
   BOXING: 'activityBoxing',

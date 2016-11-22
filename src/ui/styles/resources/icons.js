@@ -43,6 +43,7 @@ export default {
   "activitySwimming": require('./icons/activity-swimming.png'),
   "activityTableTennis": require('./icons/activity-table-tennis.png'),
   "activityTennis": require('./icons/activity-tennis.png'),
+  "activityVolleyball": require('./icons/activity-volleyball.png'),
   "activityYoga": require('./icons/activity-yoga.png'),
   "back": require('./icons/back.png'),
   "calendar": require('./icons/calendar.png'),
