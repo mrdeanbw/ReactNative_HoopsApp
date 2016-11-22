@@ -283,9 +283,14 @@ export default class CreateEvent extends React.Component {
                 <ListInput.Item text={_('privateEvent')} value="private" />
               </ListInput>
 
-              <ListInput type="flat" style={StyleSheet.halfMarginTop} placeholder={_('level')} value={this.state.eventDetails.level}
-                     rightBar={<Icon name="listIndicator" />}
-                     onChange={(level) => this.setEventData({level})}>
+              <ListInput
+                type="flat"
+                style={StyleSheet.halfMarginTop}
+                placeholder={_('level')}
+                value={this.state.eventDetails.level}
+                onChange={(level) => this.setEventData({level})}
+                disabled={true}
+              >
                 <ListInput.Item text={_('casual')} value="casual" />
                 <ListInput.Item text={_('competitive')} value="competitive" />
                 <ListInput.Item text={_('open')} value="open" />
@@ -453,7 +458,6 @@ export default class CreateEvent extends React.Component {
                   placeholder={_('paymentMethod')}
                   disabled={this.props.editMode}
                   value={this.state.eventDetails.paymentMethod}
-                  rightBar={<Icon name="listIndicator" />}
                   onChange={(paymentMethod) => {
                     if(paymentMethod === 'app') {
                       this.props.onSelectAppPayments();

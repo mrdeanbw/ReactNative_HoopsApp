@@ -237,7 +237,6 @@ export default class Search extends React.Component {
                 style={StyleSheet.halfMarginTop}
                 placeholder={_('level')}
                 value={this.state.level}
-                rightBar={<Icon name="listIndicator" />}
                 onChange={this.onChangeLevel}
               >
                 <ListInput.Item text={_('casual')} value="casual" />
@@ -250,7 +249,6 @@ export default class Search extends React.Component {
                 style={StyleSheet.halfMarginTop}
                 placeholder={_('courtType')}
                 value={this.state.courtType}
-                rightBar={<Icon name="listIndicator" />}
                 onChange={this.onChangeVenueType}
               >
                 <ListInput.Item text={_('outdoor')} value="outdoor" />

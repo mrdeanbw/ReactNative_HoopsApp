@@ -86,7 +86,6 @@ export default class ListInput extends React.Component {
 
 ListInput.propTypes = {
   onChange: React.PropTypes.func,
-  rightBar: React.PropTypes.node,
   value: React.PropTypes.string,
   placeholder: React.PropTypes.string,
   children: React.PropTypes.arrayOf(React.PropTypes.node),
