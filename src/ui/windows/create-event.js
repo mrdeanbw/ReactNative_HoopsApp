@@ -289,7 +289,6 @@ export default class CreateEvent extends React.Component {
                 placeholder={_('level')}
                 value={this.state.eventDetails.level}
                 onChange={(level) => this.setEventData({level})}
-                disabled={true}
               >
                 <ListInput.Item text={_('casual')} value="casual" />
                 <ListInput.Item text={_('competitive')} value="competitive" />
