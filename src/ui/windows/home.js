@@ -184,7 +184,7 @@ export default class Home extends React.Component {
                 </Text>
                 <Button
                   style={StyleSheet.home.listIcon}
-                  icon="list"
+                  icon={this.state.showMap ? 'list' : 'pinWhite'}
                   onPress={() => {
                     Analytics.logEvent('click_maplist_toggle', {
                       item_name: this.state.showMap ? 'list' : 'map',
