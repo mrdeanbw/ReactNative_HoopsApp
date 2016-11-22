@@ -318,8 +318,10 @@ export const netherlands = 'Netherlands';
 export const spain = 'Spain';
 export const usa = 'USA';
 
+export const activities = 'Activities';
 export const selectActivities = 'Select Activities';
 export const searchActivities = 'Search activities...';
+export const suggestMoreActivities = 'Suggest new event type';
 
 export const searchFriends = 'Search Friends...';
 

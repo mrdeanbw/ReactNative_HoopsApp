@@ -102,6 +102,7 @@ export default class ListSelect extends React.Component {
               </TouchableHighlight>
             );
           }}
+          renderFooter={this.props.renderFooter}
         />
       </View>
     );

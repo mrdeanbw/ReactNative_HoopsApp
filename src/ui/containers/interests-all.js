@@ -15,6 +15,8 @@ class InterestsAll extends React.Component {
 
     return (
       <_InterestsAll
+        onClose={this.props.onClose}
+        onBack={this.props.onBack}
         selected={this.props.selected}
         interests={interests}
         onDonePress={this.props.onDonePress}

@@ -3,7 +3,7 @@ import React from 'react';
 import _ from '../i18n';
 
 import {View, ListView, Text, TouchableHighlight} from 'react-native';
-import {Header, TextInput, Button, Popup} from '../components';
+import {Header, TextInput, Button, Popup, SuggestEvent} from '../components';
 import StyleSheet from '../styles';
 
 export default class InterestsAll extends React.Component {
@@ -86,6 +86,8 @@ export default class InterestsAll extends React.Component {
     return (
       <View style={StyleSheet.profile.interests}>
         <Header
+          onClose={this.props.onClose}
+          onBack={this.props.onBack}
           title={_('interests')}
           hideSwitcher={true}
         />
@@ -183,6 +185,9 @@ export default class InterestsAll extends React.Component {
               </TouchableHighlight>
             );
           }}
+          renderFooter={() => (
+            <SuggestEvent/>
+          )}
         />
 
         {this.props.onDonePress && (

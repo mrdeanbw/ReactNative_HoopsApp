@@ -25,4 +25,12 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   highlightColor: colors.lightGrey,
+
+  footerButton: {
+  },
+
+  footerButtonText: {
+    padding: 16,
+    color: colors.pink,
+  },
 });
