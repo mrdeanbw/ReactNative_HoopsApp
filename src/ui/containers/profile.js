@@ -53,6 +53,9 @@ class Profile extends React.Component {
 
     let isPending = !!Object.keys(this.props.user.friendRequests).map(requestId => {
       let request = this.props.notifications.friendRequestsById[requestId];
+      if(!request) {
+        return;
+      }
       if(request.status !== 'pending') {
         return;
       }

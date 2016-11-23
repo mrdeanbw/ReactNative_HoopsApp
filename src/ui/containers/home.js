@@ -63,11 +63,11 @@ class Home extends React.Component {
     } else {
       let requests = Object.keys(this.props.user.requests).map(requestId => {
         return this.props.requests.requestsById[requestId];
-      }).filter(request => request.status === 'confirmed');
+      }).filter(request => request && request.status === 'confirmed');
 
       let invites = Object.keys(this.props.user.invites).map(inviteId => {
         return this.props.invites.invitesById[inviteId];
-      }).filter(invite => invite.status === 'confirmed');
+      }).filter(invite => invite && invite.status === 'confirmed');
 
       eventIds = requests.concat(invites).map(connection => {
         return connection.eventId;
