@@ -61,7 +61,7 @@ export default class ListInput extends React.Component {
           underlayColor={'underlayColor' in textInput ? textInput.underlayColor : defaultTextInput.underlayColor}
         >
           <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-            <TextInput style={[{flex:1}, style]} view={
+            <TextInput style={style} view={
               <Text style={[
                 StyleSheet.text,
                 defaultTextInput.textStyle,

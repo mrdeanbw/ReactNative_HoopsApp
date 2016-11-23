@@ -15,15 +15,17 @@ export default StyleSheet => StyleSheet.escape({
     style: {
       flexDirection: 'row',
       alignItems: 'flex-start',
+      justifyContent: 'center',
       backgroundColor: colors.transparent
     },
 
     textStyle: {
-      flex: 1
+      flex: 1,
+      height: 44,
     },
 
     staticTextStyle: {
-      lineHeight: 0
+      lineHeight: 44,
     },
 
     barStyle: {
@@ -164,6 +166,7 @@ export default StyleSheet => StyleSheet.escape({
 
     textStyle: {
       flex: 1,
+      height: undefined,
       paddingTop: 10,
       paddingLeft: 10,
       paddingRight: 10,

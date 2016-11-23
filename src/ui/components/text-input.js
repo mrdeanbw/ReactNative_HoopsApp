@@ -91,10 +91,12 @@ export default class TextInput extends React.Component {
                 >
                   {this.props.value && this.props.value.replace(/\s+/g, ' ') || this.props.placeholder}
                 </Text> ||
-                <View style={{flexDirection: 'row', flex: 1}}>
+                <View style={{flexDirection: 'row', flex: 1, alignItems: 'center'}}>
                   <Text
                     style={[
+                      StyleSheet.text,
                       this.props.disabled && {color: this.props.placeholderTextColor || defaultTextInput.placeholderTextColor},
+                      {flex: 0, paddingBottom: 3},
                     ]}
                   >{this.props.prefix}</Text>
                   <_TextInput
@@ -105,7 +107,6 @@ export default class TextInput extends React.Component {
                       textInput.textStyle,
                       textStyle,
                       this.props.disabled && {color: textInput.placeholderTextColor || defaultTextInput.placeholderTextColor},
-                      {flex: 1}
                     ]}
                     placeholderTextColor={this.props.error ? StyleSheet.textInputs.errorPlaceholderColor : textInput.placeholderTextColor || defaultTextInput.placeholderTextColor}
                     selectionColor={textInput.selectionColor || defaultTextInput.selectionColor}
