@@ -50,7 +50,7 @@ export default (event, extra) => {
 
   if(extra.requests && extra.invites && extra.users) {
     event.players = event.requests.concat(event.invites).filter(connection => {
-      return connection.status === 'confirmed';
+      return connection && connection.status === 'confirmed';
     }).map(connection => {
       return connection.user;
     });
