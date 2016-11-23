@@ -54,6 +54,8 @@ export default class CreateEvent extends React.Component {
         key: props.event.addressGooglePlaceId,
         text: props.event.address,
       };
+    } else {
+      eventDetails = blankEvent;
     }
 
     this.state = {

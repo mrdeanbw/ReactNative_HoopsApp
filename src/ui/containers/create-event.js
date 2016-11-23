@@ -15,7 +15,7 @@ class CreateEvent extends React.Component {
     }
 
     this.state = {
-      activityKey: event.activity ? event.activity : null,
+      activityKey: (event && event.activity) ? event.activity : null,
       event: event,
     };
   }
