@@ -3,6 +3,10 @@ import {firebaseDb, firebaseStorage} from '../data/firebase';
 import DBHelper from '../data/database-helper';
 const database = DBHelper('users');
 
+import * as eventsActions from './events';
+import * as invitesActions from './invites';
+import * as requestsActions from './requests';
+
 export const load = (id) => {
   return dispatch => {
     database.addListener(`users/${id}`, 'value', (snapshot) => {
@@ -41,6 +45,17 @@ export const load = (id) => {
               [id]: {imageSrc: user.publicProfile.facebookImageSrc},
             }
           });
+        }
+
+        if(user.requests) {
+          for(let id in user.requests) {
+            dispatch(requestsActions.load(id));
+          }
+        }
+        if(user.invites) {
+          for(let id in user.invites) {
+            dispatch(invitesActions.load(id));
+          }
         }
       }
     });

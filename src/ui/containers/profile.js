@@ -10,6 +10,7 @@ import {
 } from '../../actions';
 
 import inflateEvent from '../../data/inflaters/event';
+import inflateUser from '../../data/inflaters/user';
 
 class Profile extends React.Component {
   render() {
@@ -20,6 +21,16 @@ class Profile extends React.Component {
     }else{
       profile = this.props.users.usersById[this.props.id];
     }
+
+    profile = inflateUser(profile, {
+      invites: this.props.invites.invitesById,
+      requests: this.props.requests.requestsById,
+    });
+    console.log("PROFILE", profile);
+
+    let numParticipated = profile.invites.concat(profile.requests).filter(connection => {
+      return connection && connection.status === 'confirmed';
+    }).length;
 
     let eventIds = Object.keys(profile.organizing);
     let events = eventIds.map((eventId) => {
@@ -78,6 +89,7 @@ class Profile extends React.Component {
         onClose={this.props.onClose}
         onBack={this.props.onBack}
         profile={profile}
+        numParticipated={numParticipated}
         interests={interests}
         isFriend={isFriend}
         isPending={isPending}

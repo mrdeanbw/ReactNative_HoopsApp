@@ -116,7 +116,7 @@ export default class Profile extends React.Component {
 
           <View style={StyleSheet.profile.statsBarStyle}>
             <View style={StyleSheet.profile.statsItemStyle}>
-              <Text style={[StyleSheet.text, StyleSheet.profile.statsValueTextStyle]}>{'253'}</Text>
+              <Text style={[StyleSheet.text, StyleSheet.profile.statsValueTextStyle]}>{this.props.numParticipated}</Text>
               <Text style={[StyleSheet.text, StyleSheet.profile.statsKeyTextStyle]}>{_('eventsParticipated')}</Text>
             </View>
 
