@@ -258,17 +258,25 @@ export default class EventDetails extends React.Component {
             </TouchableHighlight>
           </View>
 
-          {this.props.organizer && <View style={StyleSheet.eventDetails.avatarStyle}>
-            <View style={StyleSheet.eventDetails.avatarContainerStyle}>
-              <Image source={{uri: this.props.organizer.imageSrc}} style={StyleSheet.eventDetails.avatarImageStyle} />
-            </View>
-            <Text style={[StyleSheet.text, StyleSheet.eventDetails.avatarNameStyle]}>
-              {this.props.organizer.name}
-            </Text>
-            <Text style={[StyleSheet.text, StyleSheet.eventDetails.avatarOccupationStyle]}>
-              {_('theOrganizer')}
-            </Text>
-          </View>}
+          {this.props.organizer && (
+            <TouchableHighlight
+              style={StyleSheet.eventDetails.profileContainer}
+              onPress={() => this.props.onPressOrganizer(this.props.organizer)}
+              underlayColor="transparent"
+            >
+              <View style={StyleSheet.eventDetails.avatarStyle}>
+                <View style={StyleSheet.eventDetails.avatarContainerStyle}>
+                  <Image source={{uri: this.props.organizer.imageSrc}} style={StyleSheet.eventDetails.avatarImageStyle} />
+                </View>
+                <Text style={[StyleSheet.text, StyleSheet.eventDetails.avatarNameStyle]}>
+                  {this.props.organizer.name}
+                </Text>
+                <Text style={[StyleSheet.text, StyleSheet.eventDetails.avatarOccupationStyle]}>
+                  {_('theOrganizer')}
+                </Text>
+              </View>
+            </TouchableHighlight>
+          )}
 
           <EventInfo.Bar>
             <EventInfo icon="attendees" label={_('attendees')}>

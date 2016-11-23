@@ -63,13 +63,19 @@ export default StyleSheet => StyleSheet.extend({
     overflow: 'visible'
   },
 
+  profileContainer: {
+    flex: 0,
+    marginTop: -35,
+    marginBottom: 25,
+    alignSelf: 'center',
+  },
+
   avatarStyle: {
     alignItems: 'center',
-    marginBottom: 25,
-    marginTop: -35
   },
 
   avatarContainerStyle: {
+    backgroundColor: 'white',
     borderRadius: 35,
     overflow: 'visible',
     shadowRadius: 15,

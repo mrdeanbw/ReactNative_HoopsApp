@@ -89,6 +89,9 @@ class EventDetails extends React.Component {
         isSaved={isSaved}
         actionButton={this.props.actionButton}
         onChangeAction={this.props.onChangeAction}
+        onPressOrganizer={(user) => {
+          this.props.onNavigate('profile', {id: user.id});
+        }}
         onPressSave={() => {
           if(isSaved) {
             this.props.onPressUnsave(this.props.id);
