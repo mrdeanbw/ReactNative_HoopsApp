@@ -100,10 +100,8 @@ export const load = (id) => {
         }
       }
 
-      //Load organizer if it is not me
-      if(event.organizer !== state.user.uid) {
-        dispatch(usersActions.load(event.organizer));
-      }
+      //Load organizer, even if it is me
+      dispatch(usersActions.load(event.organizer));
     });
   };
 };
