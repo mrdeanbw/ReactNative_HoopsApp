@@ -1,7 +1,7 @@
 
 import {firebaseDb, firebaseStorage} from '../data/firebase';
 import DBHelper from '../data/database-helper';
-const database = DBHelper('user');
+const database = DBHelper('users');
 
 export const load = (id) => {
   return dispatch => {

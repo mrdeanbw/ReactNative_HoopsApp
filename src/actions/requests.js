@@ -1,7 +1,7 @@
 
 import {firebaseDb} from '../data/firebase';
 import DBHelper from '../data/database-helper';
-const database = DBHelper('user');
+const database = DBHelper('requests');
 
 import * as eventsActions from './events';
 import * as usersActions from './users';

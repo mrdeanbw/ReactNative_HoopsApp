@@ -1,7 +1,7 @@
 
 import {firebaseDb, firebaseStorage, uploadImage} from '../data/firebase';
 import DBHelper from '../data/database-helper';
-const database = DBHelper('user');
+const database = DBHelper('events');
 
 import * as usersActions from './users';
 import * as invitesActions from './invites';
