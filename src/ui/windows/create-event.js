@@ -31,7 +31,7 @@ export default class CreateEvent extends React.Component {
       recurring: false,
       address: {},
       entryFee: 0,
-      paymentMethod: 'cash',
+      paymentMethod: '',
       deadline: null,
 
       description: '',
@@ -452,7 +452,6 @@ export default class CreateEvent extends React.Component {
                   />
                 </View>
 
-                {/*
                 <ListInput
                   type="flat"
                   style={StyleSheet.halfMarginTop}
@@ -470,7 +469,6 @@ export default class CreateEvent extends React.Component {
                   <ListInput.Item text={_('cashOnSite')} value="cash" />
                   <ListInput.Item text={_('unrestricted')} value={"unrestricted"} />
                 </ListInput>
-                */}
 
                 <DateInput
                   type="flat"
