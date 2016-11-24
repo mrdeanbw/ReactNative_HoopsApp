@@ -78,6 +78,13 @@ const initialState = {
         key: 'payments',
       }],
     },
+    wallet: {
+      index: 0,
+      routes: [{
+        scene: 'wallet',
+        key: 'wallet',
+      }],
+    },
   },
 
   showMenu: false,

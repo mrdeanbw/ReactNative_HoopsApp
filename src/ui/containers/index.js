@@ -34,6 +34,7 @@ import _SignUp from './signup';
 import _SignUpFacebookExtra from './signup-facebook-extra';
 import _TabBar from './tab-bar';
 import _Walkthrough from './walkthrough';
+import _Wallet from './wallet';
 
 export const ActivitiesSelect = _ActivitiesSelect;
 export const Calendar = _Calendar;
@@ -70,3 +71,4 @@ export const SignUp = _SignUp;
 export const SignUpFacebookExtra = _SignUpFacebookExtra;
 export const TabBar = _TabBar;
 export const Walkthrough = _Walkthrough;
+export const Wallet = _Wallet;

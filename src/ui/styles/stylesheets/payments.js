@@ -40,4 +40,8 @@ export default StyleSheet => StyleSheet.extend({
 
   underlayColor: colors.white,
 
+  accountDataText: {
+    fontSize: 16,
+  },
+
 });

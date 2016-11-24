@@ -60,12 +60,21 @@ export default class Menu extends React.Component {
               text={_('preferences')}
               onPress={() => this.props.onTabPress('settings')}
             />
-            <MenuItem
-              active={this.props.currentTab === 'payments'}
-              icon="payments"
-              text={_('payments')}
-              onPress={() => this.props.onTabPress('payments')}
-            />
+            {this.props.mode === 'ORGANIZE' ? (
+              <MenuItem
+                active={this.props.currentTab === 'wallet'}
+                icon="payments"
+                text={_('myWallet')}
+                onPress={() => this.props.onTabPress('wallet')}
+              />
+            ) : (
+              <MenuItem
+                active={this.props.currentTab === 'payments'}
+                icon="payments"
+                text={_('payments')}
+                onPress={() => this.props.onTabPress('payments')}
+              />
+            )}
 
             {this.props.mode === 'ORGANIZE' ? (
               <MenuItem

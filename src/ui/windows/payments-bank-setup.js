@@ -3,15 +3,17 @@ import React from 'react';
 
 import {View} from 'react-native';
 import _ from '../i18n';
-import {Header, TextInput, Button, LoadingAlert} from '../components';
+import {Header, TextInput, Button, LoadingAlert, Form} from '../components';
 import StyleSheet from '../styles';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 export default class PaymentsBankSetup extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      accountNumber: this.props.account.accountNumber,
+      accountNumberPlaceholder: this.props.account.accountNumber,
+      accountNumber: '',
       sortCode: this.props.account.sortCode,
       addressLine1: this.props.account.addressLine1,
       addressLine2: this.props.account.addressLine2,
@@ -59,7 +61,7 @@ export default class PaymentsBankSetup extends React.Component {
           onClose={this.props.onClose}
         />
 
-        <View style={[{flex: 1}, StyleSheet.padding]}>
+        <Form style={[{flex: 1}, StyleSheet.padding]}>
 
           <LoadingAlert visible={this.props.isLoading}/>
 
@@ -67,7 +69,7 @@ export default class PaymentsBankSetup extends React.Component {
             type="flat"
             keyboardType="numeric"
             value={this.state.accountNumber}
-            placeholder={_('accountNumber')}
+            placeholder={this.state.accountNumberPlaceholder || _('accountNumber')}
             onChangeText={(accountNumber) => this.setState({accountNumber})}
           />
 
@@ -104,7 +106,7 @@ export default class PaymentsBankSetup extends React.Component {
             onChangeText={(postcode) => this.setState({postcode})}
           />
 
-        </View>
+        </Form>
 
         <View style={StyleSheet.interests.footer}>
           <Button
@@ -113,6 +115,7 @@ export default class PaymentsBankSetup extends React.Component {
             onPress={this.onDonePress}
           />
         </View>
+        <KeyboardSpacer/>
       </View>
     );
   }

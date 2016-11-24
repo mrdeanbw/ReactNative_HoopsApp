@@ -153,6 +153,16 @@ class TabBar extends React.Component {
         },
       },
 
+      wallet: {
+        component: containers.Wallet,
+        action: {
+          text: _('edit'),
+          icon: "actionEdit",
+          type: "actionDefault",
+          onPress: () => props.onNavigate('paymentsBankSetup', {}, false),
+        },
+      },
+
       calendar: {
         component: containers.Calendar,
         action: {

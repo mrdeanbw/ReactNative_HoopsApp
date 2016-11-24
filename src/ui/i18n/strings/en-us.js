@@ -96,6 +96,7 @@ export const noInvitations = 'You have no invitations';
 export const help = 'Help';
 export const settings = 'Settings';
 export const payments = 'Payments';
+export const myWallet = 'My Wallet';
 export const notifications = 'Notifications';
 export const friends = 'Friends';
 
@@ -245,6 +246,7 @@ export const sortCode = 'Sort Code';
 export const addressLine1 = 'Address Line 1';
 export const addressLine2 = 'Address Line 2';
 export const postcode = 'Postcode';
+export const noAccount = 'NO ACCOUNT';
 
 export const addCard = 'Add Card';
 export const cardNumber = 'Credit Card Number';

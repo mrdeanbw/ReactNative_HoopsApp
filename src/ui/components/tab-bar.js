@@ -109,6 +109,7 @@ export default class TabBar extends React.Component {
                 'help',
                 'settings',
                 'payments',
+                'wallet',
                 'calendar',
                 'invitations',
                 'friends'
