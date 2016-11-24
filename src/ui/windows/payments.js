@@ -50,13 +50,6 @@ export default class Payments extends React.Component {
         </Popup>
 
         <ScrollView style={{flex: 1}}>
-          <Button
-            type="preference"
-            text={_('paymentOptions')}
-            icon="chevronRight"
-            onPress={this.props.onPressPaymentOptions}
-          />
-
           {this.props.cards.length === 0 && (
             <Text style={StyleSheet.payments.noCardsText}>{_('noCards')}</Text>
           )}

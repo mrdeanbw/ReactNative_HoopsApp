@@ -3,8 +3,9 @@ import React from 'react';
 
 import {View} from 'react-native';
 import _ from '../i18n';
-import {Header, TextInput, Button, LoadingAlert} from '../components';
+import {Header, TextInput, Button, LoadingAlert, Form} from '../components';
 import StyleSheet from '../styles';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 export default class PaymentsBankSetup extends React.Component {
   constructor(props) {
@@ -44,7 +45,7 @@ export default class PaymentsBankSetup extends React.Component {
       this.state.expiryYear &&
       this.state.cvc
     );
-  }
+  };
 
   render() {
     return (
@@ -57,11 +58,11 @@ export default class PaymentsBankSetup extends React.Component {
           onClose={this.props.onClose}
         />
 
-        <View style={[{flex: 1}, StyleSheet.padding]}>
+        <Form contentContainerStyle={{flex: 1}}>
 
           <LoadingAlert visible={this.props.isLoading}/>
 
-          <View>
+          <View style={StyleSheet.padding}>
             <TextInput
               type="flat"
               style={StyleSheet.halfMarginTop}
@@ -71,23 +72,26 @@ export default class PaymentsBankSetup extends React.Component {
               onChangeText={(cardNumber) => this.setState({cardNumber})}
             />
 
-            <TextInput
-              type="flat"
-              style={StyleSheet.halfMarginTop}
-              keyboardType="numeric"
-              value={this.state.expiryMonth}
-              placeholder={_('expiryMonth')}
-              onChangeText={(expiryMonth) => this.setState({expiryMonth})}
-            />
+            <View style={{flexDirection: 'row'}}>
+              <TextInput
+                type="flat"
+                style={[StyleSheet.halfMarginTop, {marginRight: 8}]}
+                keyboardType="numeric"
+                returnKeyType="next"
+                value={this.state.expiryMonth}
+                placeholder={_('expiryMonth')}
+                onChangeText={(expiryMonth) => this.setState({expiryMonth})}
+              />
 
-            <TextInput
-              type="flat"
-              style={StyleSheet.halfMarginTop}
-              keyboardType="numeric"
-              value={this.state.expiryYear}
-              placeholder={_('expiryYear')}
-              onChangeText={(expiryYear) => this.setState({expiryYear})}
-            />
+              <TextInput
+                type="flat"
+                style={StyleSheet.halfMarginTop}
+                keyboardType="numeric"
+                value={this.state.expiryYear}
+                placeholder={_('expiryYear')}
+                onChangeText={(expiryYear) => this.setState({expiryYear})}
+              />
+            </View>
 
             <TextInput
               type="flat"
@@ -99,7 +103,7 @@ export default class PaymentsBankSetup extends React.Component {
             />
           </View>
 
-        </View>
+        </Form>
 
         <View style={StyleSheet.interests.footer}>
           <Button
@@ -108,6 +112,8 @@ export default class PaymentsBankSetup extends React.Component {
             onPress={this.onDonePress}
           />
         </View>
+
+        <KeyboardSpacer/>
       </View>
     );
   }

@@ -8,14 +8,9 @@ import {
 } from '../../actions';
 
 class Payments extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
 
   componentWillMount() {
-    //when this component mounts, fetch account information from Stripe
-    this.props.onLoadAccount();
+    //when this component mounts, fetch cards information from Stripe
     this.props.onGetCards();
   }
 
@@ -23,14 +18,10 @@ class Payments extends React.Component {
 
     return (
       <_Payments
-        onPressPaymentOptions={() => {
-          this.props.onNavigate('paymentsBankSetup');
-        }}
         cards={this.props.payments.cards}
         onPressRemove={this.props.onPressRemove}
         isLoading={(
           this.props.payments.isDeletingCard ||
-          this.props.payments.isFetchingAccount ||
           this.props.payments.isFetchingCards
         )}
       />
@@ -45,8 +36,6 @@ export default connect(
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, false)),
-    onCreateAccount: (data) => dispatch(paymentsActions.createAccount(data)),
-    onLoadAccount: () => dispatch(paymentsActions.getAccount()),
     onGetCards: () => dispatch(paymentsActions.getCards()),
     onPressRemove: (card) => dispatch(paymentsActions.deleteCard(card.id)),
   }),
