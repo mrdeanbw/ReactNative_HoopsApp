@@ -189,7 +189,7 @@ export default handleActions({
   USER_LOGGED_OUT: (state, action) => {
     return {
       ...initialState,
-      routes: [{key: 'walkthrough'}],
+      routes: [{scene: 'walkthrough', key: 'walkthrough'}],
     };
   },
 
@@ -218,6 +218,7 @@ export default handleActions({
       ...state,
       index: 0,
       routes: [{
+        scene: 'tabs',
         key: 'tabs',
       }],
       tabKey: action.tabKey,
@@ -243,6 +244,7 @@ export default handleActions({
         ...state,
         index: 0,
         routes: [{
+          scene: 'tabs',
           key: 'tabs',
         }],
         tabKey: 'home',
@@ -251,13 +253,16 @@ export default handleActions({
           home: {
             index: 2,
             routes: [{
+              scene: 'home',
               key: 'home',
             },{
+              scene: 'eventDashboard',
               key: 'eventDashboard',
               props: {
                 id: matches[1],
               },
             },{
+              scene: 'eventDetails',
               key: 'eventDetails',
               props: {
                 id: matches[1],
@@ -276,6 +281,7 @@ export default handleActions({
       ...state,
       index: 0,
       routes: [{
+        scene: 'tabs',
         key: 'tabs',
       }],
       tabKey: 'home',
@@ -284,8 +290,10 @@ export default handleActions({
         home: {
           index: 1,
           routes: [{
+            scene: 'home',
             key: 'home',
           },{
+            scene: 'eventDashboard',
             key: 'eventDashboard',
             props: {
               id: action.eventData.id,
