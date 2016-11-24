@@ -47,6 +47,11 @@ export const load = (id) => {
           });
         }
 
+        if(user.organizing) {
+          for(let id in user.organizing) {
+            dispatch(eventsActions.load(id));
+          }
+        }
         if(user.requests) {
           for(let id in user.requests) {
             dispatch(requestsActions.load(id));
