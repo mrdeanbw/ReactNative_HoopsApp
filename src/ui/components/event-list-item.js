@@ -19,7 +19,7 @@ export default class EventListItem extends React.Component {
 
     let date = moment(event.date).calendar(null, {
       sameDay: "[Today], HH:mm",
-      nextDay: "[Yesterday], HH:mm",
+      nextDay: "[Tomorrow], HH:mm",
     });
 
     let isEnded = moment(event.date).isBefore();
