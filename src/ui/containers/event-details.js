@@ -79,7 +79,7 @@ class EventDetails extends React.Component {
       <_EventDetails
         onBack={this.props.onBack}
         onClose={this.props.onClose}
-        navKey={navRoute.key}
+        navKey={navRoute.scene}
         event={event}
         isExpired={moment(event.date).isBefore()}
         organizer={event.organizer}
