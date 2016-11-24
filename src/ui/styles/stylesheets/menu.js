@@ -90,6 +90,20 @@ export default StyleSheet => StyleSheet.extend({
     fontSize: 11
   },
 
+  sidedrawBadgeContainer: {
+    position: 'absolute',
+    backgroundColor: colors.pink,
+    right: -5,
+    top: -2,
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 5,
+    paddingRight: 5,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
   badgeContainer: {
     position: 'absolute',
     backgroundColor: colors.pink,

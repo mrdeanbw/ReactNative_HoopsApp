@@ -89,3 +89,13 @@ export const decline = (invite) => {
     });
   };
 };
+
+export const markSeen = (invites) => {
+  return dispatch => {
+    let update = {};
+    invites.forEach(invite => {
+      update[`invites/${invite.id}/seen`] = true;
+    });
+    firebaseDb.update(update);
+  };
+};

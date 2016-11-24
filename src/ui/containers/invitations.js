@@ -32,9 +32,12 @@ class Invitations extends React.Component {
     }
   }
 
-  render() {
+  componentDidMount() {
+    this.props.onMarkInvitesSeen(this.getReceived());
+  }
 
-    let received = Object.keys(this.props.user.invites).map(id => {
+  getReceived = () => {
+    return Object.keys(this.props.user.invites).map(id => {
       return inflateInvite(
         this.props.invites.invitesById[id],
         {
@@ -59,6 +62,12 @@ class Invitations extends React.Component {
     }).filter(invite => {
       return invite.status === 'pending';
     });
+
+
+  };
+
+  render() {
+    let received = this.getReceived();
 
     let sent = Object.keys(this.props.user.requests).map(id => {
       return inflateRequest(
@@ -128,5 +137,6 @@ export default connect(
     onPressAccept: (invite) => dispatch(invitesActions.accept(invite)),
     onPressDecline: (invite) => dispatch(invitesActions.decline(invite)),
     onPressCancel: (request) => dispatch(requestsActions.cancel(request)),
+    onMarkInvitesSeen: (invites) => dispatch(invitesActions.markSeen(invites)),
   }),
 )(Invitations);

@@ -62,6 +62,7 @@ export default class TabBar extends React.Component {
             currentTab={this.props.currentTab}
             onTabPress={this.props.onTabPress}
             mode={this.props.mode}
+            invitationsBadge={this.props.invitationsBadge}
           />
         )}
 

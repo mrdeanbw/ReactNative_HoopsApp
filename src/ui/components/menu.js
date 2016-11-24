@@ -79,6 +79,7 @@ export default class Menu extends React.Component {
                 active={this.props.currentTab === 'invitations'}
                 icon="invitations"
                 text={_('invitations')}
+                badge={this.props.invitationsBadge}
                 onPress={() => this.props.onTabPress('invitations')}
               />
             )}
@@ -110,7 +111,7 @@ class MenuItem extends React.Component {
               style={StyleSheet.menu.icon}
             />
             {!!this.props.badge && (
-              <View style={StyleSheet.menu.badgeContainer}>
+              <View style={StyleSheet.menu.sidedrawBadgeContainer}>
                 <Text style={StyleSheet.menu.badge}>{this.props.badge}</Text>
               </View>
             )}

@@ -235,6 +235,13 @@ class TabBar extends React.Component {
       return notification && notification.seen !== true;
     });
 
+    let invitationIds = Object.keys(this.props.user.invites);
+    let unseenInvitations = invitationIds.map(id => {
+      return this.props.invites.invitesById[id];
+    }).filter(invite => {
+      return invite && invite.status === 'pending' && invite.seen !== true;
+    });
+
     return (
       <_TabBar
         currentTab={this.props.navigation.tabKey}
@@ -263,6 +270,7 @@ class TabBar extends React.Component {
         mode={this.props.user.mode}
         user={this.props.user}
         notificationBadge={unseenNotifications.length}
+        invitationsBadge={unseenInvitations.length}
         onPressProfile={() => {
           this.props.onNavigate('profile', {id: this.props.user.uid});
           this.props.onHideMenu();
@@ -279,6 +287,7 @@ export default connect(
     navigation: state.navigation,
     user: state.user,
     notifications: state.notifications,
+    invites: state.invites,
   }),
   (dispatch) => ({
     onChangeTab: (key) => dispatch(navigation.changeTab(key)),
