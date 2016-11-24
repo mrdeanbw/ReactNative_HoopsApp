@@ -203,9 +203,9 @@ class TabBar extends React.Component {
     }
     let route = tabState.routes[tabState.index];
 
-    let config = this.routeConfig[route.key];
+    let config = this.routeConfig[route.scene];
     if(!config) {
-      throw new Error(`TabBar config for ${route.key} is not defined`);
+      throw new Error(`TabBar config for ${route.scene} is not defined`);
     }
 
     /**

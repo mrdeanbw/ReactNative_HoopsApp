@@ -18,9 +18,9 @@ export default class Navigator extends React.Component {
 
   renderScene = (props) => {
     let route = props.scene.route;
-    let config = this.props.routeConfig[route.key];
+    let config = this.props.routeConfig[route.scene];
     if(!config){
-      throw new Error(`route config not defined for ${route.key}`);
+      throw new Error(`route config not defined for ${route.scene}`);
     }
 
     let onBack, onClose;

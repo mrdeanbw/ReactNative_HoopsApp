@@ -9,6 +9,7 @@ const {
 const initialState = {
   index: 0,
   routes: [{
+    scene: 'loading',
     key: 'loading',
   }],
 
@@ -17,54 +18,63 @@ const initialState = {
     home: {
       index: 0,
       routes: [{
+        scene: 'home',
         key: 'home',
       }],
     },
     manage: {
       index: 0,
       routes: [{
+        scene: 'manage',
         key: 'manage',
       }],
     },
     myEvents: {
       index: 0,
       routes: [{
+        scene: 'myEvents',
         key: 'myEvents',
       }],
     },
     calendar: {
       index: 0,
       routes: [{
+        scene: 'calendar',
         key: 'calendar',
       }],
     },
     invitations: {
       index: 0,
       routes: [{
+        scene: 'invitations',
         key: 'invitations',
       }],
     },
     settings: {
       index: 0,
       routes: [{
+        scene: 'preferences',
         key: 'preferences',
       }],
     },
     notifications: {
       index: 0,
       routes: [{
+        scene: 'notifications',
         key: 'notifications',
       }],
     },
     friends: {
       index: 0,
       routes: [{
+        scene: 'friends',
         key: 'friends',
       }],
     },
     payments: {
       index: 0,
       routes: [{
+        scene: 'payments',
         key: 'payments',
       }],
     },
@@ -73,7 +83,7 @@ const initialState = {
   showMenu: false,
 };
 
-const getCurrentKey = (state) => {
+const getCurrentScene = (state) => {
   let currentRoute = state.routes[state.index];
 
   //If we are on a tab, find out which route is active on _that_ tab.
@@ -82,7 +92,7 @@ const getCurrentKey = (state) => {
     currentRoute = tabState.routes[tabState.index];
   }
 
-  return currentRoute.key
+  return currentRoute.scene;
 };
 
 export default handleActions({
@@ -91,10 +101,12 @@ export default handleActions({
     let currentRoute = state.routes[state.index];
     let newRoute = {
       ...action.route,
+      scene: action.route.key,
+      key: action.route.key + '_' + Math.random(),
       direction: 'horizontal',
     };
 
-    if(getCurrentKey(state) === newRoute.key) {
+    if(getCurrentScene(state) === newRoute.scene) {
       console.warn("Do not push the same route twice"); //eslint-disable-line no-console
       return {...state};
     }
@@ -133,7 +145,11 @@ export default handleActions({
   },
 
   NAV_RESET: (state, action) => {
-    return StateUtils.reset(state, [action.route], 0);
+    let newRoute = {
+      ...action.route,
+      scene: action.route.key,
+    };
+    return StateUtils.reset(state, [newRoute], 0);
   },
 
   NAV_CHANGE_TAB: (state, action) => {
