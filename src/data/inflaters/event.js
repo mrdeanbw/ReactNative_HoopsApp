@@ -15,6 +15,9 @@ import inflateRequest from './request';
  * @param extra.invites {Object} - Invites to inflate into the event
  */
 export default (event, extra) => {
+  if(typeof event !== 'object') {
+    return event;
+  }
   event = {...event}; //clone
 
   if(extra.invites) {

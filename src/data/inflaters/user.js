@@ -1,5 +1,8 @@
 
 export default (user, extra) => {
+  if(typeof user !== 'object') {
+    return user;
+  }
   user = {...user};
 
   if(extra.requests) {
