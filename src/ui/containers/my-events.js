@@ -54,9 +54,7 @@ class MyEvents extends React.Component {
         invites: this.props.invites.invitesById,
         users: this.props.users.usersById,
       });
-    }).filter(event => {
-      return event.id in this.props.user.savedEvents;
-    });
+    }).filter(event => !!event);
 
     let upcoming = events.filter((event) => {
       return moment(event.date).isAfter();
