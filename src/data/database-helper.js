@@ -28,14 +28,31 @@ const helper = (store) => {
         return;
       }
 
+      /*
+       * It is really important that we make sure storeListeners[ref] is truthy
+       * before attaching the firebase function to it.
+       *
+       * firebase's .on(type, func) will return func so it is possible to do this:
+       * ```
+       * storeListeners[ref] = {
+       *   ref: ref,
+       *   type: type,
+       *   func: firebaseDb.child(ref).on(type, func),
+       * };
+       * ```
+       * DO NOT DO THIS ^
+       * func will get called before the storeListeners[ref] key is set, which
+       * will cause infinite recursion if func uses this addListener method.
+       */
       storeListeners[ref] = {
         ref: ref,
         type: type,
-        func: firebaseDb.child(ref).on(type, func),
+        func: func,
       };
-    },
 
-    isListening: isListening,
+      //Make sure storeListeners[ref] is defined before attaching this listener
+      firebaseDb.child(ref).on(type, func);
+    },
   };
 };
 
