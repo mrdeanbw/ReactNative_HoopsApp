@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 import _ from '../i18n';
 import {Header, TextInput, Button, LoadingAlert, Form} from '../components';
 import StyleSheet from '../styles';
@@ -64,6 +64,12 @@ export default class PaymentsBankSetup extends React.Component {
         <Form style={[{flex: 1}, StyleSheet.padding]}>
 
           <LoadingAlert visible={this.props.isLoading}/>
+
+          {this.props.error && (
+            <Text style={StyleSheet.login.errorText}>
+              {this.props.error.message}
+            </Text>
+          )}
 
           <TextInput
             type="flat"

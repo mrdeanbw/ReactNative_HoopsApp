@@ -20,7 +20,7 @@ const get = (path, params) => {
   }).then(response => {
     if(!response.ok) {
       return response.json().then(obj => {
-        throw new Error(obj.message);
+        throw obj;
       });
     }else{
       return response.json();
@@ -38,7 +38,7 @@ const del = (path, params) => {
   }).then(response => {
     if(!response.ok) {
       return response.json().then(obj => {
-        throw new Error(obj.message);
+        throw obj;
       });
     }else{
       return response.json();
@@ -56,7 +56,7 @@ const post = (path, body) => {
   }).then(response => {
     if(!response.ok) {
       return response.json().then(obj => {
-        throw new Error(obj.message);
+        throw obj;
       });
     }else{
       return response.json();

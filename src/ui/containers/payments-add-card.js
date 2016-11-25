@@ -9,6 +9,10 @@ import {
 
 class PaymentsAddCard extends React.Component {
 
+  componentWillUnmount() {
+    this.props.onDismissError();
+  }
+
   render() {
     return (
       <_PaymentsAddCard
@@ -16,7 +20,6 @@ class PaymentsAddCard extends React.Component {
         onBack={this.props.onBack}
         isLoading={this.props.payments.isAddingCard}
         error={this.props.payments.addCardError}
-        onDismissError={this.props.onDismissError}
         onDonePress={(data) => {
           this.props.onCreateCard({
             ...data,

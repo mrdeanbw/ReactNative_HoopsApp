@@ -15,12 +15,17 @@ class PaymentsBankSetup extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+    this.props.onDismissError();
+  }
+
   render() {
     return (
       <_PaymentsBankSetup
         onClose={this.props.onClose}
         onBack={this.props.onBack}
         account={this.props.payments.accountData}
+        error={this.props.payments.updateAccountError}
         isLoading={this.props.payments.isUpdatingAccount}
         onDonePress={(data) => {
           this.props.onCreateAccount({
@@ -45,5 +50,6 @@ export default connect(
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, false)),
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onCreateAccount: (data) => dispatch(paymentsActions.createAccount(data)),
+    onDismissError: () => dispatch(paymentsActions.dismissError()),
   }),
 )(PaymentsBankSetup);

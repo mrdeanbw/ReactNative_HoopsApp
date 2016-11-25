@@ -3,7 +3,7 @@ import React from 'react';
 
 import {View, Text} from 'react-native';
 import _ from '../i18n';
-import {Header, TextInput, Button, LoadingAlert, Form, Popup} from '../components';
+import {Header, TextInput, Button, LoadingAlert, Form} from '../components';
 import StyleSheet from '../styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 

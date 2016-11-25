@@ -189,6 +189,7 @@ export default handleActions({
     return {
       ...state,
       addCardError: false,
+      updateAccountError: false,
     };
   },
 
