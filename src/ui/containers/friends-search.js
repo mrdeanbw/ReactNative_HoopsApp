@@ -51,7 +51,10 @@ class FriendsSearch extends React.Component {
         onSearchChange={(text) => {
           this.props.onSearch(text);
         }}
-        onSendFriendRequests={this.props.onSendFriendRequests}
+        onSendFriendRequests={(ids) => {
+          this.props.onSendFriendRequests(ids);
+          this.props.onNavigateBack();
+        }}
         onViewProfile={(user) => {
           this.props.onNavigate('profile', {id: user.id});
         }}

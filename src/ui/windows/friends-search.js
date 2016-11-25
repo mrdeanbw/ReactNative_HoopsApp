@@ -42,6 +42,7 @@ export default class FriendsSearch extends React.Component {
     this._actionListener = this.props.actionButton.addListener('press', () => {
       if(this.getSelectedIds().length > 0){
         this.props.onSendFriendRequests(this.getSelectedIds());
+        this.setState({selected: {}});
       }else{
         this.onPressInviteAll();
       }

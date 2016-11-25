@@ -31,6 +31,8 @@ class Friends extends React.Component {
 
     let requested = Object.keys(this.props.user.friendRequests).map(requestId => {
       return this.props.notifications.friendRequestsById[requestId];
+    }).filter(request => {
+      return !!request;
     }).map(request => {
       let id = request.toId === this.props.user.uid ? request.fromId : request.toId;
       return this.props.users.usersById[id];
