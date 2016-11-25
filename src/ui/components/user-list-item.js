@@ -70,6 +70,12 @@ export default class UserListItem extends React.Component {
             <View style={StyleSheet.userListItem.textContainer}>
               <Text style={[StyleSheet.text, StyleSheet.userListItem.textStyle, StyleSheet.userListItem.titleTextStyle]} numberOfLines={1} ellipsizeMode="tail">
                 {user.name}
+                {this.props.paymentMethod === 'app' && (
+                  <Text style={StyleSheet.userListItem.paidText}> ({_('paid')})</Text>
+                )}
+                {this.props.paymentMethod === 'cash' && (
+                  <Text style={StyleSheet.userListItem.cashText}> ({_('cash')})</Text>
+                )}
               </Text>
               <Text style={[StyleSheet.text, StyleSheet.userListItem.textStyle]} numberOfLines={1} ellipsizeMode="tail">
                 <Text>{user.city}</Text>

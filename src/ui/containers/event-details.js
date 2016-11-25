@@ -19,6 +19,7 @@ class EventDetails extends React.Component {
     super();
     this.state = {
       isAwaitingCard: false,
+      userPaymentMethod: undefined,
     };
   }
 
@@ -30,7 +31,7 @@ class EventDetails extends React.Component {
       this.props.payments.cards.length === 0 &&
       nextProps.payments.cards.length === 1
     ) {
-      this.props.onJoin(this.props.id);
+      this.props.onJoin(this.props.id, this.state.userPaymentMethod);
     }
   }
 
@@ -89,7 +90,7 @@ class EventDetails extends React.Component {
         isSaved={isSaved}
         actionButton={this.props.actionButton}
         onChangeAction={this.props.onChangeAction}
-        onPressOrganizer={(user) => {
+        onPressOrganizer={() => {
           this.props.onNavigate('profile', {id: user.id});
         }}
         onPressSave={() => {
@@ -99,13 +100,16 @@ class EventDetails extends React.Component {
             this.props.onPressSave(this.props.id);
           }
         }}
-        onPressJoin={() => {
-          if(event.entryFee === 0 || event.paymentMethod !== 'app') {
-            this.props.onJoin(this.props.id);
-          } else if(this.props.payments.cards.length > 0) {
-            this.props.onJoin(this.props.id);
+        onPressJoin={(userPaymentMethod) => {
+          if(
+            event.entryFee === 0 ||
+            event.paymentMethod === 'cash' ||
+            userPaymentMethod === 'cash' ||
+            this.props.payments.cards.length > 0
+          ) {
+            this.props.onJoin(this.props.id, userPaymentMethod);
           } else {
-            this.setState({isAwaitingCard: true});
+            this.setState({isAwaitingCard: true, userPaymentMethod});
             this.props.onNavigate('addCard', {}, false);
           }
         }}
@@ -151,7 +155,9 @@ export default connect(
     onDeepLinkTab: (key, tabKey, props) => {
       dispatch(navigation.deepLinkTab(null, tabKey));
     },
-    onJoin: (eventId) => dispatch(events.join(eventId)),
+    onJoin: (eventId, userPaymentMethod) => {
+      dispatch(events.join(eventId, userPaymentMethod));
+    },
     onPressQuit: (eventId) => dispatch(events.quit(eventId)),
     onPressSave: (eventId) => dispatch(events.save(eventId)),
     onPressUnsave: (eventId) => dispatch(events.unsave(eventId)),

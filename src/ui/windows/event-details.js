@@ -4,7 +4,7 @@ import React from 'react';
 import {ScrollView,View,Text, Image, ActionSheetIOS, TouchableHighlight, Linking} from 'react-native';
 
 import StyleSheet from '../styles';
-import {Icon, HorizontalRule, Button, MapView, Popup, Header} from '../components';
+import {Icon, HorizontalRule, Button, Popup, Header} from '../components';
 
 import moment from 'moment';
 
@@ -56,6 +56,8 @@ export default class EventDetails extends React.Component {
       showQuitPopup: false,
       showCancelEventPopup: false,
       showCancelRequestPopup: false,
+      showPaymentTypePopup: false,
+      paymentMethod: undefined,
     };
   }
 
@@ -70,7 +72,7 @@ export default class EventDetails extends React.Component {
       } else if(this.props.isOrganizer) {
         this.props.onEditEvent();
       } else {
-        this.setState({showJoinPopup: true});
+        this.onPressJoinTabAction();
       }
     });
 
@@ -87,6 +89,20 @@ export default class EventDetails extends React.Component {
       this.updateActionButton(nextProps);
     }
   }
+
+  onPressJoinTabAction = () => {
+    let event = this.props.event;
+    if(event.entryFee > 0 && event.paymentMethod === 'unrestricted') {
+      //If we are on an 'unrestricted' payment type, show payment types popup
+      this.setState({showPaymentTypePopup: true});
+    } else {
+      //If we are on an event with a specified payment type, show the join popup
+      this.setState({
+        showJoinPopup: true,
+        paymentMethod: event.entryFee === 0 ? 'cash' : event.paymentMethod
+      });
+    }
+  };
 
   updateActionButton(props) {
     let entryFee = props.event.entryFee || 0;
@@ -127,7 +143,7 @@ export default class EventDetails extends React.Component {
       showJoinPopup: false,
     });
 
-    this.props.onPressJoin();
+    this.props.onPressJoin(this.state.paymentMethod);
   };
 
   onPressInvite = () => {
@@ -159,7 +175,7 @@ export default class EventDetails extends React.Component {
         let url = `http://maps.apple.com/?daddr=${address}`;
         Linking.openURL(url).catch(err => console.warn(err)); //eslint-disable-line no-console
       }
-    })
+    });
   };
 
   getIcon(activityKey) {
@@ -194,7 +210,7 @@ export default class EventDetails extends React.Component {
           event={this.props.event}
           onPressCancel={() => this.setState({showJoinPopup: false})}
           onPressJoin={this.onPressJoin}
-          charge={this.props.event.entryFee ? 0.5 : 0}
+          charge={(this.state.paymentMethod === 'app' && this.props.event.entryFee) ? 0.5 : 0}
         />
         <EventJoinedConfirmation
           visible={this.state.showJoinedConfirmation}
@@ -226,6 +242,17 @@ export default class EventDetails extends React.Component {
           onSubmit={(message) => {
             this.setState({showCancelEventPopup: false});
             this.props.onCancelEvent(message);
+          }}
+        />
+        <PaymentTypePopup
+          visible={this.state.showPaymentTypePopup}
+          onClose={() => this.setState({showPaymentTypePopup: false})}
+          onSelect={(paymentMethod) => {
+            this.setState({
+              showJoinPopup: true,
+              showPaymentTypePopup: false,
+              paymentMethod,
+            });
           }}
         />
         <ScrollView style={StyleSheet.eventDetails.style}>
@@ -453,6 +480,25 @@ class EventJoinPopup extends React.Component {
             onPress={this.props.onPressJoin}
           />
         </View>
+      </Popup>
+    );
+  }
+}
+
+class PaymentTypePopup extends React.Component {
+  render() {
+    return (
+      <Popup visible={this.props.visible} onClose={this.props.onClose}>
+        <Button
+          type="alertVertical"
+          text={_('cashOnSite')}
+          onPress={() => this.props.onSelect('cash')}
+        />
+        <Button
+          type="alertVertical"
+          text={_('inAppPayment')}
+          onPress={() => this.props.onSelect('app')}
+        />
       </Popup>
     );
   }

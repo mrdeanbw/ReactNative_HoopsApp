@@ -459,7 +459,7 @@ export default class CreateEvent extends React.Component {
                   disabled={this.props.editMode}
                   value={this.state.eventDetails.paymentMethod}
                   onChange={(paymentMethod) => {
-                    if(paymentMethod === 'app') {
+                    if(paymentMethod === 'app' || paymentMethod === 'unrestricted') {
                       this.props.onSelectAppPayments();
                     }
                     this.setEventData({paymentMethod});

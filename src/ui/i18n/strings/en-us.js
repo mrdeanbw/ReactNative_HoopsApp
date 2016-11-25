@@ -146,6 +146,9 @@ export const google = 'google';
 export const importFrom = 'Import from';
 export const importFromContacts = 'Import from Contacts';
 
+export const paid = 'paid';
+export const cash = 'cash';
+
 export const manageRequests = 'Manage Requests';
 export const approve = 'Approve';
 export const approveAll = 'Approve All';

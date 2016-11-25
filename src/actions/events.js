@@ -229,15 +229,30 @@ export const inviteUsers = (userIds, eventId) => {
   };
 };
 
-export const join = (eventId) => {
+/*
+ * @param userPaymentMethod {String} [optional] payment method that the user wants
+ * to use for an 'unrestricted' payment. 'app' or 'cash'
+ */
+export const join = (eventId, userPaymentMethod) => {
   return (dispatch, getState) => {
     let state = getState();
     let event = state.events.eventsById[eventId];
 
-    if(event.entryFee === 0 || event.paymentMethod !== 'app') {
+    /*
+     * if event is free, or method is 'cash' join immediately.
+     * else if method is 'app' take payment.
+     * else if method is 'unrestricted' ask the user what they want to do
+     */
+    if(event.entryFee === 0 || event.paymentMethod === 'cash') {
       dispatch(requestJoin(event));
-    } else {
+    } else if(event.paymentMethod === 'app') {
       dispatch(paymentsActions.pay(event));
+    } else {
+      if(userPaymentMethod === 'cash') {
+        dispatch(requestJoin(event, userPaymentMethod));
+      } else {
+        dispatch(paymentsActions.pay(event));
+      }
     }
   };
 };
@@ -262,6 +277,7 @@ export const requestJoin = (event) => {
         userId: uid,
         status: event.privacy === 'public' ? 'confirmed' : 'pending',
         date: new Date(),
+        paymentMethod: event.entryFee === 0 ? null : 'cash',
       }
     }, (err) => {
       if(err) {

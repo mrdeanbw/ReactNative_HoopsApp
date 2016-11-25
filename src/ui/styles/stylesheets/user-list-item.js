@@ -110,6 +110,14 @@ export default StyleSheet => StyleSheet.extend({
 
   }),
 
+  paidText: {
+    color: colors.pink,
+  },
+
+  cashText: {
+    color: colors.green,
+  },
+
   spacer: {
     marginRight: 15,
     marginLeft: 15

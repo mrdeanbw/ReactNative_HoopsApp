@@ -93,6 +93,7 @@ export default class Members extends React.Component {
                 onPress={() => this.onPressUser(user)}
                 status={request.status}
                 onPressDisclosure={() => this.onPressDisclosure(user)}
+                paymentMethod={request.paymentMethod}
               />
             );
           })}
@@ -105,6 +106,7 @@ export default class Members extends React.Component {
                 onPress={() => this.onPressUser(user)}
                 status={invite.status}
                 onPressDisclosure={() => this.onPressDisclosure(user)}
+                paymentMethod={invite.paymentMethod}
               />
             );
           })}
