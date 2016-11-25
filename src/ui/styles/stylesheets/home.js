@@ -40,10 +40,7 @@ export default StyleSheet => StyleSheet.extend({
 
   nearbyMapContainer: {
     alignItems: 'stretch',
-    flex: 0,
+    flex: 1,
+    height: 250,
   },
-
-  map: {
-    height: 250
-  }
 });

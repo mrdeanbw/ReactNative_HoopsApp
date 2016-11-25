@@ -4,49 +4,13 @@ import _ from '../i18n';
 import React from 'react';
 import Analytics from 'react-native-firebase-analytics';
 
-import {View, ScrollView, Text, MapView, TouchableHighlight} from 'react-native';
+import {View, ScrollView, Text} from 'react-native';
 
 import StyleSheet from '../styles';
 import EventListItem from '../components/event-list-item';
 import Header from '../components/header';
-import Icon from '../components/icon';
-import icons from '../styles/resources/icons';
 import Button from '../components/button';
-
-const iconsMap = {
-  AMERICAN_FOOTBALL: 'pinAmericanFootball',
-  ARCHERY: 'pinArchery',
-  AUTOMOBILE_RACING: 'pinAutomobileRacing',
-  BADMINTON: 'pinBadminton',
-  BASEBALL: 'pinBaseball',
-  BASKETBALL: 'pinBasketball',
-  BEACH_VOLLEYBALL: 'pinVolleyball',
-  BIKE: 'pinBike',
-  BOWLING: 'pinBowling',
-  BOXING: 'pinBoxing',
-  CANOEING: 'pinCanoeing',
-  CARDS: 'pinCards',
-  CHESS: 'pinChess',
-  DEFAULT: 'pinDefault',
-  FOOTBALL: 'pinFootball',
-  FRISBEE: 'pinFrisbee',
-  GOLF: 'pinGolf',
-  GYM: 'pinGym',
-  GYMNASTICS: 'pinGymnastics',
-  HOCKEY: 'pinHockey',
-  ICE_HOCKEY: 'pinIceHockey',
-  ICE_SKATING: 'pinIceSkating',
-  MOUNTAINEERING: 'pinMountaineering',
-  POOL: 'pinPool',
-  RUGBY: 'pinRugby',
-  RUNNING: 'pinRunning',
-  SKATEBOARDING: 'pinSkateboarding',
-  SKIING: 'pinSkiing',
-  SWIMMING: 'pinSwimming',
-  TABLE_TENNIS: 'pinTableTennis',
-  TENNIS: 'pinTennis',
-  YOGA: 'pinYoga',
-};
+import MapView from '../components/map-view';
 
 export default class Home extends React.Component {
 
@@ -81,67 +45,13 @@ export default class Home extends React.Component {
   }
 
   _renderMap = () => {
-    let annotations = this.props.nearby.filter(item => {
-      return item.event && item.event.addressCoords;
-    }).map(item => {
-      return {
-        latitude: item.event.addressCoords.lat,
-        longitude: item.event.addressCoords.lon,
-        image: icons[iconsMap[item.event.activity] || iconsMap.DEFAULT],
-        title: item.event.title,
-        rightCalloutView: (
-          <TouchableHighlight
-            onPress={() => this.props.onPressEvent(item.event)}
-            underlayColor="transparent"
-          >
-            <View>
-              <Icon name="chevronRight"/>
-            </View>
-          </TouchableHighlight>
-        ),
-      };
-    });
-
-    //Calculate region size based on nearby events distances
-    let region;
-    if(this.props.location.lat && this.props.location.lon) {
-      let location = this.props.location;
-
-      //Calculate the maximum lat/lon delta
-      let maxDelta = this.props.nearby.filter(item => {
-        return item && item.event && item.event.addressCoords;
-      }).reduce((prev, item) => {
-        let coords = item.event.addressCoords;
-
-        let delta = Math.max(
-          Math.abs(coords.lat - location.lat),
-          Math.abs(coords.lon - location.lon)
-        );
-
-        return Math.max(delta, prev);
-      }, 0);
-
-      region = {
-        latitude: location.lat,
-        longitude: location.lon,
-        latitudeDelta: maxDelta * 2.5, // Double (for left+right) and add some padding.
-        longitudeDelta: maxDelta * 2.5,
-      };
-    }
-
     return (
       <View style={StyleSheet.home.nearbyMapContainer}>
-        <MapView style={StyleSheet.home.map}
-          zoomEnabled={true}
-          pitchEnabled={false}
-          rotateEnabled={false}
-          scrollEnabled={true}
-          showsCompass={false}
-          showsPointsOfInterest={false}
-          followUserLocation={false}
+        <MapView
+          events={this.props.nearby.map(item => item.event)}
+          location={this.props.location}
           showsUserLocation={true}
-          region={region}
-          annotations={annotations}
+          onPressEvent={this.props.onPressEvent}
         />
       </View>
     );

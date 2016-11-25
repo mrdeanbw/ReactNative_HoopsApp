@@ -41,7 +41,7 @@ export default class Search extends React.Component {
   searchButtonEnabled() {
     if(this.state.tab === 'events') {
       return (
-        this.state.activity ||
+        this.props.activity ||
         this.state.date ||
         this.state.gender ||
         this.state.level ||

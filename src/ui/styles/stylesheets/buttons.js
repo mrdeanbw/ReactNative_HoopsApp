@@ -695,6 +695,20 @@ export default StyleSheet => StyleSheet.extend({
       right: 15.5,
       width: 28,
       height: 28,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+  }),
+
+  headerActionCircle: StyleSheet.extend({
+    underlayColor: colors.grey,
+
+    style: {
+      position: 'absolute',
+      top: -14,
+      right: 15.5,
+      width: 28,
+      height: 28,
       borderRadius: 14,
       borderColor: colors.white,
       borderWidth: 1,

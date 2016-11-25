@@ -100,7 +100,7 @@ class Header extends React.Component {
             {this.props.actionButton && (
               <View>
                 <Button
-                  type="headerAction"
+                  type={this.props.actionButtonType || "headerActionCircle"}
                   icon={this.props.actionButton}
                   onPress={this.props.onActionPress}
                 />

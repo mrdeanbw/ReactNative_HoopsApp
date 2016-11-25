@@ -32,12 +32,4 @@ export default StyleSheet => StyleSheet.extend({
     top: 13,
     right: 20
   },
-
-  containerStyle: {
-
-  },
-
-  mapStyle: {
-    height: 250
-  }
 });
