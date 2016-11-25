@@ -7,6 +7,14 @@ import {Header, TextInput, Button, LoadingAlert, Form} from '../components';
 import StyleSheet from '../styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
+const zeroPad = (number) => {
+  if(number) {
+    return ("00" + number).slice(-2);
+  } else {
+    return "";
+  }
+};
+
 export default class PaymentsBankSetup extends React.Component {
   constructor(props) {
     super(props);
@@ -19,8 +27,8 @@ export default class PaymentsBankSetup extends React.Component {
     */
     this.state = {
       cardNumber: '',
-      expiryMonth: '',
-      expiryYear: '',
+      expiryMonth: undefined,
+      expiryYear: undefined,
       cvc: '',
     };
   }
@@ -111,7 +119,15 @@ export default class PaymentsBankSetup extends React.Component {
                 returnKeyType="next"
                 value={this.state.expiryMonth}
                 placeholder={_('expiryMonth')}
-                onChangeText={(expiryMonth) => this.setState({expiryMonth})}
+                onChangeText={(expiryMonth) => {
+                  let month = parseInt(expiryMonth.substr(0, 2), 10);
+                  if(!isNaN(month) && month >= 1 && month <= 12){
+                    this.setState({expiryMonth: month});
+                  }
+                }}
+                onBlur={() => {
+                  this.setState({expiryMonth: zeroPad(this.state.expiryMonth)});
+                }}
               />
 
               <TextInput
@@ -121,7 +137,15 @@ export default class PaymentsBankSetup extends React.Component {
                 keyboardType="numeric"
                 value={this.state.expiryYear}
                 placeholder={_('expiryYear')}
-                onChangeText={(expiryYear) => this.setState({expiryYear})}
+                onChangeText={(expiryYear) => {
+                  let year = parseInt(expiryYear.substr(0, 2), 10);
+                  if(!isNaN(year)){
+                    this.setState({expiryYear: year});
+                  }
+                }}
+                onBlur={() => {
+                  this.setState({expiryYear: zeroPad(this.state.expiryYear)});
+                }}
               />
             </View>
 

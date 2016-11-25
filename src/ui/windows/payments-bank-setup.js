@@ -84,7 +84,15 @@ export default class PaymentsBankSetup extends React.Component {
             keyboardType="numeric"
             value={this.state.sortCode}
             placeholder={_('sortCode')}
-            onChangeText={(sortCode) => this.setState({sortCode})}
+            onChangeText={(sortCode) => {
+              let numbers = sortCode.replace(/[^0-9]/g, ''); //strip non-numbers
+              numbers = numbers.substr(0, 6); //Only allow up to 6 numbers
+              let matches = numbers.match(/([0-9]{1,2})/g);
+              if(matches) {
+                sortCode = matches.join('-'); //join with dashes in numerical pairs
+              }
+              this.setState({sortCode})
+            }}
           />
 
           <TextInput
