@@ -1,9 +1,9 @@
 
 import React from 'react';
 
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 import _ from '../i18n';
-import {Header, TextInput, Button, LoadingAlert, Form} from '../components';
+import {Header, TextInput, Button, LoadingAlert, Form, Popup} from '../components';
 import StyleSheet from '../styles';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
@@ -48,6 +48,32 @@ export default class PaymentsBankSetup extends React.Component {
   };
 
   render() {
+
+    let numberError, monthError, yearError, cvcError;
+    if(this.props.error) {
+      let errorComponent = (
+        <Text style={StyleSheet.login.errorText}>
+          {this.props.error.message}
+        </Text>
+      );
+
+      switch(this.props.error.param) {
+        case 'number':
+          numberError = errorComponent;
+          break;
+        case 'exp_month':
+          monthError = errorComponent;
+          break;
+        case 'exp_year':
+          yearError = errorComponent;
+          break;
+        case 'cvc':
+          cvcError = errorComponent;
+          break;
+      }
+
+    }
+
     return (
       <View style={{flex: 1}}>
         <Header
@@ -63,19 +89,24 @@ export default class PaymentsBankSetup extends React.Component {
           <LoadingAlert visible={this.props.isLoading}/>
 
           <View style={StyleSheet.padding}>
+            {numberError}
             <TextInput
               type="flat"
               style={StyleSheet.halfMarginTop}
+              error={!!numberError}
               keyboardType="numeric"
               value={this.state.cardNumber}
               placeholder={_('cardNumber')}
               onChangeText={(cardNumber) => this.setState({cardNumber})}
             />
 
+            {monthError}
+            {yearError}
             <View style={{flexDirection: 'row'}}>
               <TextInput
                 type="flat"
                 style={[StyleSheet.halfMarginTop, {marginRight: 8}]}
+                error={!!monthError}
                 keyboardType="numeric"
                 returnKeyType="next"
                 value={this.state.expiryMonth}
@@ -86,6 +117,7 @@ export default class PaymentsBankSetup extends React.Component {
               <TextInput
                 type="flat"
                 style={StyleSheet.halfMarginTop}
+                error={!!yearError}
                 keyboardType="numeric"
                 value={this.state.expiryYear}
                 placeholder={_('expiryYear')}
@@ -93,9 +125,11 @@ export default class PaymentsBankSetup extends React.Component {
               />
             </View>
 
+            {cvcError}
             <TextInput
               type="flat"
               style={StyleSheet.halfMarginTop}
+              error={!!cvcError}
               keyboardType="numeric"
               value={this.state.cvc}
               placeholder={_('cvc')}

@@ -163,7 +163,7 @@ export const createCard = (data) => {
     }).then(response => {
       if(!response.ok) {
         return response.json().then(obj => {
-          throw new Error(obj.error.message);
+          throw obj.error;
         });
       } else {
         return response.json();
@@ -312,3 +312,7 @@ export const pay = (event, invite = null) => {
     });
   };
 };
+
+export const dismissError = () => ({
+  type: 'PAYMENTS_ERROR_DISMISS',
+});

@@ -185,4 +185,11 @@ export default handleActions({
     };
   },
 
+  PAYMENTS_ERROR_DISMISS: (state, action) => {
+    return {
+      ...state,
+      addCardError: false,
+    };
+  },
+
 }, initialState);
