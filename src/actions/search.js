@@ -21,6 +21,9 @@ export const searchEvents = (params) => {
         id: id,
       };
     }).filter(event => {
+      if(params.activity && params.activity !== event.activity) {
+        return false;
+      }
       if(params.text && event.title.toLowerCase().search(params.text.toLowerCase()) === -1) {
         return false;
       }
