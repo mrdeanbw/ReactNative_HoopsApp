@@ -95,7 +95,7 @@ const getCurrentScene = (state) => {
 
   //If we are on a tab, find out which route is active on _that_ tab.
   if(currentRoute.key === 'tabs') {
-    let tabState = state.tabs[state.tabKey]
+    let tabState = state.tabs[state.tabKey];
     currentRoute = tabState.routes[tabState.index];
   }
 
@@ -216,8 +216,12 @@ export default handleActions({
     };
 
     if(action.route) {
+      let newRoute = {
+        ...action.route,
+        scene: action.route.key,
+      };
       //Don't use .push() due to a need for pure functions
-      subNav.routes = subNav.routes.concat(action.route);
+      subNav.routes = subNav.routes.concat(newRoute);
       subNav.index = 1;
     }
 
