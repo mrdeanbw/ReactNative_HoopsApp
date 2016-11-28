@@ -4,7 +4,7 @@ import _ from '../i18n';
 import React from 'react';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
-import {View, Image, Text} from 'react-native';
+import {View, ScrollView, Image, Text} from 'react-native';
 import StyleSheet from '../styles';
 
 import Button from '../components/button';
@@ -50,9 +50,10 @@ export default class Login extends React.Component {
     ].indexOf(errorCode) !== -1;
 
     return (
+
       <Form
         contentContainerStyle={StyleSheet.login.style}
-        bounces={false}
+        bounces={true}
       >
         {this.props.isLoading && <LoadingAlert/>}
 

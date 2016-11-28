@@ -3,7 +3,6 @@ import {colors} from '../resources';
 
 export default StyleSheet => StyleSheet.extend({
   style: {
-    flex: 1,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     flexDirection: 'column'
