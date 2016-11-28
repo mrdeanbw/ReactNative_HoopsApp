@@ -4,7 +4,7 @@ import _ from '../i18n';
 import React from 'react';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
-import {View, ScrollView, Image, Text} from 'react-native';
+import {View, Image, Text} from 'react-native';
 import StyleSheet from '../styles';
 
 import Button from '../components/button';

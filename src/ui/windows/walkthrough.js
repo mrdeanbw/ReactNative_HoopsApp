@@ -33,10 +33,10 @@ export default class Walkthrough extends React.Component {
               paginationStyle={StyleSheet.walkthrough.paginator}
               dot={<View style={StyleSheet.walkthrough.dot}/>}
               activeDot={<View style={StyleSheet.walkthrough.activeDot}/>}>
-            <WalkthroughPage image={StyleSheet.images.screengrab1} text={_('walkthrough1')}></WalkthroughPage>
-            <WalkthroughPage image={StyleSheet.images.screengrab2} text={_('walkthrough2')}></WalkthroughPage>
-            <WalkthroughPage image={StyleSheet.images.screengrab3} text={_('walkthrough3')}></WalkthroughPage>
-            <WalkthroughPage image={StyleSheet.images.screengrab3} text={_('walkthrough4')}></WalkthroughPage>
+            <WalkthroughPage image={StyleSheet.images.screengrab1} text={_('walkthrough1')} />
+            <WalkthroughPage image={StyleSheet.images.screengrab2} text={_('walkthrough2')} />
+            <WalkthroughPage image={StyleSheet.images.screengrab3} text={_('walkthrough3')} />
+            <WalkthroughPage image={StyleSheet.images.screengrab3} text={_('walkthrough4')} />
           </Swiper>
         </View>
         <View style={StyleSheet.walkthrough.buttonBar}>

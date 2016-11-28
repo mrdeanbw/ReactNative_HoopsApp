@@ -1,7 +1,7 @@
 
 import _ from '../i18n';
 import React from 'react';
-import {View, ScrollView, Text, Linking} from 'react-native';
+import {View, ScrollView, Linking} from 'react-native';
 import Analytics from 'react-native-firebase-analytics';
 
 import {Window, Button, Popup, Header} from '../components';
