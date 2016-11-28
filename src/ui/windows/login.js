@@ -22,6 +22,7 @@ export default class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      showPassword: false,
     };
   }
 
@@ -118,12 +119,19 @@ export default class Login extends React.Component {
                 passwordError && StyleSheet.login.errorTextInput,
                 StyleSheet.singleMarginTop
               ]}
-              secureTextEntry={true}
+              secureTextEntry={!this.state.showPassword}
               returnKeyType="go"
               selectTextOnFocus={true}
               clearTextOnFocus={true}
               enablesReturnKeyAutomatically={true}
               onSubmitEditing={() => this.onPressSignIn()}
+              rightBar={<Button
+                style={StyleSheet.login.eye}
+                type="disclosure"
+                active={this.state.showPassword}
+                icon="eye"
+                onPress={() => this.setState({showPassword: !this.state.showPassword})} />
+              }
             />
 
             <Button type="roundedDefault" text={_('signin')} style={StyleSheet.doubleMargin} onPress={this.onPressSignIn}/>

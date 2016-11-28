@@ -74,5 +74,11 @@ export default StyleSheet => StyleSheet.extend({
     paddingBottom: 30,
     paddingLeft: 25,
     paddingRight: 25
+  },
+
+  eye: {
+    position: 'absolute',
+    right: 8,
+    bottom: 6,
   }
 })
