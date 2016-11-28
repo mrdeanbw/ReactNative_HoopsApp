@@ -56,7 +56,7 @@ export default class Search extends React.Component {
   onPressSearch = () => {
     if(this.state.tab === 'events') {
       let searchParams = {
-        activity: this.props.activity.id,
+        activity: this.props.activity && this.props.activity.id,
         date: this.state.date,
         gender: this.state.gender,
         level: this.state.level,
