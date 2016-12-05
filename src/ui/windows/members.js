@@ -66,14 +66,6 @@ export default class Members extends React.Component {
         <Header
           onBack={this.props.onBack}
           onClose={this.props.onClose}
-          title={(
-            <Button
-              type="dialogGreen"
-              icon="plus"
-              text={isEmpty ? _('invite') : _('inviteMore')}
-              onPress={this.onPressInviteMore.bind(this)}
-            />
-          )}
         />
         <MemberOptions
           visible={!!this.state.popupOptionsMember}
@@ -115,8 +107,6 @@ export default class Members extends React.Component {
     );
   }
 }
-
-
 
 class MemberOptions extends React.Component {
   render() {

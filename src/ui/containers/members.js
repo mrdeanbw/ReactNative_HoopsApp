@@ -39,6 +39,7 @@ class Members extends React.Component {
         onPressInviteMore={() => {
           this.props.onNavigate('eventInvites', {id: event.id});
         }}
+        actionButton={this.props.actionButton}
       />
     );
   }

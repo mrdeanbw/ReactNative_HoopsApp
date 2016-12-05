@@ -62,10 +62,10 @@ class TabBar extends React.Component {
       eventMembers: {
         component: containers.EventMembers,
         action: {
-          text: _('back'),
-          icon: "actionBack",
-          type: "action",
-          onPress: () => props.onNavigateBack(),
+          pressEmitter: new EventEmitter(),
+          text: _('invite'),
+          icon: "actionAdd",
+          type: "actionGreen"
         },
       },
 
