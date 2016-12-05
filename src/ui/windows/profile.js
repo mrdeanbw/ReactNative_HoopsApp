@@ -34,7 +34,6 @@ export default class Profile extends React.Component {
         <Header
           onClose={this.props.onClose}
           onBack={this.props.onBack}
-          title={(owner ? _('yourProfile') : _('profileTemplate')).replace(/\$1/g, name)}
         />
         <Popup
           visible={this.state.showContactPopup}

@@ -26,7 +26,6 @@ class Profile extends React.Component {
       invites: this.props.invites.invitesById,
       requests: this.props.requests.requestsById,
     });
-    console.log("PROFILE", profile);
 
     let numParticipated = profile.invites.concat(profile.requests).filter(connection => {
       return connection && connection.status === 'confirmed';
