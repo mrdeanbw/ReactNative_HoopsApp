@@ -20,6 +20,16 @@ export default class Members extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this._actionListener = this.props.actionButton.addListener('press', () => {
+      this.props.onPressInviteMore();
+    });
+  }
+
+  componentWillUnmount() {
+    this._actionListener && this._actionListener.remove();
+  }
+
   static getTabHighlight(props) {
     return Manage;
   }
@@ -34,10 +44,6 @@ export default class Members extends React.Component {
 
   onChangeMode(nextMode, nextProps) {
     nextProps.initialTab = MyEvents;
-  }
-
-  onPressInviteMore() {
-    this.props.onPressInviteMore();
   }
 
   onPressDisclosure(user) {
