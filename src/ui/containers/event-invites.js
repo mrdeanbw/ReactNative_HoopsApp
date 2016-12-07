@@ -53,7 +53,6 @@ class EventInvites extends React.Component {
         users={friends}
         onSendInvites={(userIds) => {
           this.props.onSendInvites(userIds, this.props.id);
-          this.props.onNavigateBack();
         }}
         onViewProfile={(user) => {
           this.props.onNavigate('profile', {id: user.id});

@@ -72,10 +72,9 @@ class TabBar extends React.Component {
       eventInvites: {
         component: containers.EventInvites,
         action: {
-          pressEmitter: new EventEmitter(),
-          text: _('inviteAll'),
-          icon: "actionCheck",
-          type: "actionDefault",
+          text: _('create'),
+          icon: "actionAdd",
+          onPress: () => props.onNavigate('createEvent', {}, false),
         },
       },
 
