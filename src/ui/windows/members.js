@@ -46,9 +46,10 @@ export default class Members extends React.Component {
     nextProps.initialTab = MyEvents;
   }
 
-  onPressDisclosure(user) {
+  onPressDisclosure(user, invite) {
     this.setState({
       popupOptionsMember: user,
+      popupOptionsInvite: invite,
     });
   }
 
@@ -57,11 +58,21 @@ export default class Members extends React.Component {
     this.props.onPressUserProfile(user);
     this.setState({
       popupOptionsMember: null,
+      popupOptionsInvite: null
     });
   }
 
   onPressUser(user) {
     this.props.onPressUserProfile(user);
+  }
+
+  onPressRemove() {
+    const invite = this.state.popupOptionsInvite;
+    this.props.onPressRemove(invite);
+    this.setState({
+      popupOptionsMember: null,
+      popupOptionsInvite: null
+    });
   }
 
   render() {
@@ -77,6 +88,7 @@ export default class Members extends React.Component {
           visible={!!this.state.popupOptionsMember}
           onClose={() => this.setState({popupOptionsMember: null})}
           onPressViewProfile={this.onPressViewProfile.bind(this)}
+          onPressRemove={this.onPressRemove.bind(this)}
         />
         <ScrollView contentContainerStyle={StyleSheet.container}>
           {this.props.requests.map((request) => {
@@ -103,7 +115,7 @@ export default class Members extends React.Component {
                 user={user}
                 onPress={() => this.onPressUser(user)}
                 status={invite.status}
-                onPressDisclosure={() => this.onPressDisclosure(user)}
+                onPressDisclosure={() => this.onPressDisclosure(user, invite)}
                 paymentMethod={invite.paymentMethod}
               />
             );
@@ -120,7 +132,7 @@ class MemberOptions extends React.Component {
       <Popup visible={this.props.visible} style={StyleSheet.dialog.optionsMenu} onClose={this.props.onClose}>
         <Button type="alertVertical" text={_('viewProfile')} onPress={this.props.onPressViewProfile} />
         <Button type="alertVertical" text={_('message')} onPress={this.props.onPressMessage} />
-        <Button type="alertVerticalDefault" text={_('remove')} onPress={this.props.onPressRemove} />
+        <Button type="alertVertical" text={_('remove')} onPress={this.props.onPressRemove} />
       </Popup>
     );
   }

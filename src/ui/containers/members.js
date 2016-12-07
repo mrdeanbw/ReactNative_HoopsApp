@@ -3,7 +3,8 @@ import React from 'react';
 import _Members from '../windows/members';
 import {connect} from 'react-redux';
 import {
-  navigation as navigationActions
+  navigation as navigationActions,
+  invites as inviteActions,
 } from '../../actions';
 
 import inflateEvent from '../../data/inflaters/event';
@@ -39,6 +40,9 @@ class Members extends React.Component {
         onPressInviteMore={() => {
           this.props.onNavigate('eventInvites', {id: event.id});
         }}
+        onPressRemove={(invite) => {
+          this.props.removeInvite(invite);
+        }}
         actionButton={this.props.actionButton}
       />
     );
@@ -56,5 +60,6 @@ export default connect(
   (dispatch) => ({
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
+    removeInvite: (invite) => dispatch(inviteActions.removeInvite(invite))
   }),
 )(Members);

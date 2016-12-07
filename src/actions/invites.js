@@ -42,6 +42,17 @@ export const create = (userId, eventId) => {
   };
 };
 
+export const removeInvite = (invite) => {
+  return dispatch => {
+    firebaseDb.child(`events/${invite.eventId}/invites/${invite.id}`).remove();
+    firebaseDb.child(`users/${invite.userId}/invites/${invite.id}`).remove();
+
+    // Deleting an object that has a listener breaks
+    database.removeListeners(`invites/${invite.id}`);
+    firebaseDb.child(`invites/${invite.id}`).remove();  
+  };
+};
+
 export const load = (id) => {
   return dispatch => {
     database.addListener(`invites/${id}`, 'value', (snapshot) => {
@@ -85,7 +96,7 @@ export const accept = (invite) => {
 export const decline = (invite) => {
   return dispatch => {
     firebaseDb.update({
-      [`invites/${invite.id}/status`]: 'rejected',
+      [`invites/${invite.id}/status`]: 'rejected', 
     });
   };
 };
