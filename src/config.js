@@ -6,6 +6,7 @@ const dev = {
   FIREBASE_DATABASE_URL: 'https://hoops-21a72.firebaseio.com',
   FIREBASE_STORAGE_BUCKET: 'hoops-21a72.appspot.com',
   GOOGLE_PLACES_API_KEY: 'AIzaSyBopRDu051G9W6fqJCwGgzxGICzhzuUxIg',
+  REDUCER_VERSION: '3',
 };
 
 const prod = {
@@ -15,6 +16,7 @@ const prod = {
   FIREBASE_DATABASE_URL: 'https://hoops-us-149010.firebaseio.com',
   FIREBASE_STORAGE_BUCKET: 'hoops-us-149010.appspot.com',
   GOOGLE_PLACES_API_KEY: 'AIzaSyBLk4Cz8aQU3XaQWJJtvMtqkVcMm2UUBc8',
+  REDUCER_VERSION: '3',
   //Bugsnag is only enabled when the API key is given
   BUGSNAG_API_KEY: '25983a784e900e85ae661a2e5685d61a',
 };
