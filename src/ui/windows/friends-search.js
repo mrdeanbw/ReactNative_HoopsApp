@@ -24,89 +24,7 @@ export default class FriendsSearch extends React.Component {
     super();
     this.state = {
       search: '',
-      selected: {},
     };
-  }
-
-  /**
-   * WARNING! This isn't the 'react' way of doing things.
-   * Usually props are passed down to children, however since the action
-   * button lives outside of the navigator, we don't want to pass down props
-   * from that far up.
-   * Some containers would like to handle the action button being pressed.
-   *
-   * See this discussion: https://github.com/facebook/react-native/issues/795
-   */
-  componentWillMount() {
-    //listen to action press
-    this._actionListener = this.props.actionButton.addListener('press', () => {
-      if(this.getSelectedIds().length > 0){
-        this.props.onSendFriendRequests(this.getSelectedIds());
-        this.setState({selected: {}});
-      }else{
-        this.onPressInviteAll();
-      }
-    });
-  }
-
-  componentWillUnmount() {
-    this._actionListener && this._actionListener.remove();
-  }
-
-  componentDidUpdate(nextProps, nextState) {
-    if(this.getSelectedIds().length !== this.getSelectedIds(nextState).length){
-      if(this.getSelectedIds().length > 0){
-        this.props.onChangeAction({
-          text: _('sendInvites'),
-          icon: "actionCheck",
-          type: "actionGreen",
-        });
-      } else {
-        this.props.onChangeAction({
-          text: _('inviteAll'),
-          icon: "actionCheck",
-          type: "actionDefault",
-        });
-      }
-    }
-  }
-
-  onPressInviteAll() {
-    let allUsers = {};
-    this.props.users.map((user) => {
-      allUsers[user.id] = true;
-    });
-    this.setState({
-      selected: allUsers,
-    });
-  }
-
-  onPressUser(user) {
-    this.props.onViewProfile(user);
-  }
-
-  setSelectedUser(id, value) {
-    let selected = this.state.selected;
-    this.setState({
-      selected: {
-        ...selected,
-        [id]: value,
-      },
-    });
-  }
-
-  onPressCheck(user) {
-    if(this.state.selected[user.id]) {
-      this.setSelectedUser(user.id, false);
-    } else {
-      this.setSelectedUser(user.id, true);
-    }
-  }
-
-  getSelectedIds(state = this.state) {
-    return Object.keys(state.selected).filter(userId => {
-      return state.selected[userId];
-    });
   }
 
   render() {
@@ -135,10 +53,10 @@ export default class FriendsSearch extends React.Component {
             <UserListItem
               key={user.id}
               user={user}
-              onPress={() => this.onPressUser(user)}
+              onPress={() => this.props.onViewProfile(user)}
               checked={!!this.state.selected[user.id]}
               hideDisclosure={true}
-              onPressCheck={() => this.onPressCheck(user)}
+              onPressCheck={() => this.props.onSendFriendRequests([user.id])}
             />
           ))}
         </ScrollView>
