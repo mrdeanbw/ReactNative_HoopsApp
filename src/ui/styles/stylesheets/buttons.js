@@ -725,7 +725,19 @@ export default StyleSheet => StyleSheet.extend({
       backgroundColor: colors.pink,
       alignSelf: 'stretch',
       marginTop: -1,
-      marginBottom: -1
+      marginBottom: -1,
+    },
+
+    containerStyle: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+    },
+
+    iconStyle: {
+      height: 60,
+      width: 60,
     },
 
     textStyle: {

@@ -54,12 +54,14 @@ export default class EventDashboard extends React.Component {
         <View style={[StyleSheet.buttons.bar, StyleSheet.flex]}>
           <Button type="dashboard"
               text={_('details')}
+              icon="dashboard-details"
               style={StyleSheet.buttons.dashboard.gradient[0]}
               underlayColor={StyleSheet.buttons.dashboard.highlightGradient[0]}
-              onPress={this.props.onPressDetails} />
+              onPress={this.props.onPressDetails}/>
 
           <Button type="dashboard"
               text={_('members')}
+              icon="dashboard-members"
               style={StyleSheet.buttons.dashboard.gradient[1]}
               underlayColor={StyleSheet.buttons.dashboard.highlightGradient[1]}
               onPress={this.props.onPressMembers}/>
@@ -67,11 +69,13 @@ export default class EventDashboard extends React.Component {
         <View style={[StyleSheet.buttons.bar, StyleSheet.flex]}>
           <Button type="dashboard"
               text={_('messages')}
+              icon="dashboard-messages"
               style={StyleSheet.buttons.dashboard.gradient[2]}
               underlayColor={StyleSheet.buttons.dashboard.highlightGradient[2]}
               onPress={this.props.onPressMessages}/>
           <Button type="dashboard"
               text={_('gallery')}
+              icon="dashboard-gallery"
               style={StyleSheet.buttons.dashboard.gradient[3]}
               underlayColor={StyleSheet.buttons.dashboard.highlightGradient[3]}
               onPress={this.props.onPressGallery}/>
@@ -79,12 +83,14 @@ export default class EventDashboard extends React.Component {
         <View style={[StyleSheet.buttons.bar, StyleSheet.flex]}>
           <Button type="dashboard"
               text={_('finances')}
+              icon="dashboard-finances"
               style={StyleSheet.buttons.dashboard.gradient[4]}
               underlayColor={StyleSheet.buttons.dashboard.highlightGradient[4]}
               onPress={this.props.onPressFinances}/>
 
           {this.props.event.privacy === 'private' && <Button type="dashboard"
               text={_('requests')}
+              icon="dashboard-requests"
               style={ StyleSheet.buttons.dashboard.gradient[5]}
               underlayColor={StyleSheet.buttons.dashboard.highlightGradient[5]}
               onPress={this.props.onPressRequests}/> || <View style={StyleSheet.flex}/>}

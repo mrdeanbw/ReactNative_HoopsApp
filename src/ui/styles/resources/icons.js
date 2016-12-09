@@ -156,4 +156,11 @@ export default {
   "username": require('./icons/username.png'),
   "visa": require('./icons/visa.png'),
   "warning": require('./icons/warning.png'),
+
+  "dashboard-details": require('./icons/dashboard-details.png'),
+  "dashboard-members": require('./icons/dashboard-members.png'),
+  "dashboard-messages": require('./icons/dashboard-messages.png'),
+  "dashboard-gallery": require('./icons/dashboard-gallery.png'),
+  "dashboard-finances": require('./icons/dashboard-finances.png'),
+  "dashboard-requests": require('./icons/dashboard-requests.png'),
 };
