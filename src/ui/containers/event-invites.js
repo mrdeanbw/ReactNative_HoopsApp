@@ -66,7 +66,6 @@ class EventInvites extends React.Component {
 
 EventInvites.propTypes = {
   id: React.PropTypes.string.isRequired,
-  actionButton: React.PropTypes.object.isRequired,
 };
 
 export default connect(
