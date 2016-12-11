@@ -44,9 +44,7 @@ class FriendsSearch extends React.Component {
       <_FriendsSearch
         onBack={this.props.onBack}
         onClose={this.props.onClose}
-        actionButton={this.props.actionButton}
         onChangeAction={this.props.onChangeAction}
-
         users={users}
         onSearchChange={(text) => {
           this.props.onSearch(text);
@@ -61,10 +59,6 @@ class FriendsSearch extends React.Component {
     );
   }
 }
-
-FriendsSearch.propTypes = {
-  actionButton: React.PropTypes.object.isRequired,
-};
 
 export default connect(
   (state) => ({
