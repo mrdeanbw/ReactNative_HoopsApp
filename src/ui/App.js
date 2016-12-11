@@ -28,7 +28,6 @@ const storeConfig = {
 };
 
 AsyncStorage.getItem('reducerVersion').then((localVersion) => {
-
   if (localVersion !== reducerVersion) {
     // Purge store
     persistStore(store, storeConfig, startup).purge();
