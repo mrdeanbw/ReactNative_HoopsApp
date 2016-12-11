@@ -19,7 +19,6 @@ class Wallet extends React.Component {
   }
 
   render() {
-
     return (
       <_Wallet
         isLoading={(
@@ -27,8 +26,15 @@ class Wallet extends React.Component {
           this.props.payments.isUpdatingAccount
         )}
         account={this.props.payments.accountData}
+        onChangeAction={this.props.onChangeAction}
+        hasAccount={this.hasAccount.bind(this)}
       />
     );
+  }
+
+  hasAccount() {
+    const account = this.props.payments.accountData;
+    return account && account.accountNumber || false;
   }
 }
 

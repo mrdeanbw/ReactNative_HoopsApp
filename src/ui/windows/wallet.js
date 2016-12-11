@@ -7,6 +7,14 @@ import {Header, LoadingAlert} from '../components';
 import StyleSheet from '../styles';
 
 export default class Wallet extends React.Component {
+  componentWillMount() {
+    if (!this.props.hasAccount()) {
+        this.props.onChangeAction({
+          text: _('add'),
+          icon: "actionAdd",
+        });
+    }
+  }
 
   render() {
     let account = this.props.account;

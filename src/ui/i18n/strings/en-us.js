@@ -126,6 +126,7 @@ export const gallery = 'Gallery';
 export const finances = 'Finances';
 export const requests = 'Requests';
 
+export const add = 'Add';
 export const cancel = 'Cancel';
 export const edit = 'Edit';
 
