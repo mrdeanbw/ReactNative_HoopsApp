@@ -6,7 +6,8 @@
     "start": "react-native start",
     "ios": "react-native run-ios",
     "android": "react-native run-android",
-    "lint": "eslint src || :"
+    "lint": "eslint src || :",
+    "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver"
   },
   "dependencies": {
     "bugsnag-react-native": "^1.1.2",
@@ -42,6 +43,8 @@
   "devDependencies": {
     "babel-eslint": "^6.1.2",
     "eslint": "^3.4.0",
-    "eslint-plugin-react": "^6.2.0"
+    "eslint-plugin-react": "^6.2.0",
+    "remote-redux-devtools": "^0.5.7",
+    "remote-redux-devtools-on-debugger": "^0.7.0"
   }
 }

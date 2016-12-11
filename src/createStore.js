@@ -1,17 +1,18 @@
-
+import { Platform } from 'react-native';
 import {createStore, applyMiddleware, combineReducers, compose} from 'redux';
-
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import {autoRehydrate} from 'redux-persist';
+import { composeWithDevTools } from 'remote-redux-devtools';
 
 import reducers from './reducers';
 
 const logger = createLogger();
 const middleware = applyMiddleware(thunk, logger);
 const rehydrate = autoRehydrate();
+const composeEnhancers = composeWithDevTools({ realtime: true });
 
-const storeEnhancers = compose(middleware, rehydrate);
+const storeEnhancers = composeEnhancers(middleware, rehydrate);
 
 export default (data = {}) => {
   const rootReducer = (state, action) => {
@@ -29,7 +30,6 @@ export default (data = {}) => {
 
     return combineReducers(reducers)(state, action);
   };
-
 
   return createStore(rootReducer, data, storeEnhancers);
 };
