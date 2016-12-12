@@ -22,7 +22,7 @@ const storeConfig = {
   storage: AsyncStorage,
   blacklist: [
     'network',
-    'navigation',
+    // 'navigation',
     'search',
   ],
 };
