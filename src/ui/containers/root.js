@@ -1,14 +1,12 @@
-
-import * as containers from './index';
 import React from 'react';
 import {View} from 'react-native';
 import {connect} from 'react-redux';
-import {navigation, network} from '../../actions';
-
-import {Navigator, NetworkAlert} from '../components';
 import Analytics from 'react-native-firebase-analytics';
 
+import * as containers from './index';
+import {navigation, network} from '../../actions';
 import LoadingWindow from '../windows/loading';
+import {DevIndicator, Navigator, NetworkAlert} from '../components';
 
 class Root extends React.Component {
 
@@ -123,6 +121,7 @@ class Root extends React.Component {
           navigationState={this.props.navigation}
           routeConfig={this.routeConfig}
         />
+        <DevIndicator />
       </View>
     );
   }

@@ -1,13 +1,11 @@
-
 import _base from './base';
 export const base = _base;
-
-
 
 import _buttons from './buttons';
 import _calendar from './calendar';
 import _dialog from './dialog';
 import _dateInput from './date-input';
+import _devIndicator from './dev-indicator';
 import _eventDetails from './event-details';
 import _eventListItem from './event-list-item';
 import _home from './home';
@@ -38,6 +36,7 @@ export default {
   calendar: _calendar,
   dialog: _dialog,
   dateInput: _dateInput,
+  devIndicator: _devIndicator,
   eventDetails: _eventDetails,
   eventListItem: _eventListItem,
   home: _home,
