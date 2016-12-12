@@ -736,8 +736,8 @@ export default StyleSheet => StyleSheet.extend({
     },
 
     iconStyle: {
-      height: 60,
-      width: 60,
+      height: 40,
+      width: 40,
     },
 
     textStyle: {
