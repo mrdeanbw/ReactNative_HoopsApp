@@ -54,7 +54,6 @@ export default class FriendsSearch extends React.Component {
               key={user.id}
               user={user}
               onPress={() => this.props.onViewProfile(user)}
-              checked={!!this.state.selected[user.id]}
               hideDisclosure={true}
               onPressCheck={() => this.props.onSendFriendRequests([user.id])}
             />
