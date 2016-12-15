@@ -103,7 +103,7 @@ class Root extends React.Component {
       trackingKey = tabRoute.key;
     }
 
-    Analytics.setScreenName(trackingKey);
+    // Analytics.setScreenName(trackingKey);
   }
 
   render() {
