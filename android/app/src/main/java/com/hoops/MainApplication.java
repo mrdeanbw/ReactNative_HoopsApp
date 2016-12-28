@@ -14,7 +14,9 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.FacebookSdk;
 import com.i18n.reactnativei18n.ReactNativeI18n;
-import  com.RNFetchBlob.RNFetchBlobPackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.evollu.react.fcm.FIRMessagingPackage;
+import com.evollu.react.fa.FIRAnalyticsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,7 +50,9 @@ public class MainApplication extends Application implements ReactApplication {
           new ReactNativeI18n(),
           new RNFetchBlobPackage(),
           BugsnagReactNative.getPackage(),
-          new FBSDKPackage(mCallbackManager)
+          new FBSDKPackage(mCallbackManager),
+          new FIRMessagingPackage(),
+          new FIRAnalyticsPackage()
       );
     }
   };
