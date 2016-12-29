@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "android": "react-native run-android",
     "lint": "eslint src || :",
-    "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver"
+    "android:build": "cd android && ./gradlew assembleRelease"
   },
   "dependencies": {
     "bugsnag-react-native": "^1.1.2",

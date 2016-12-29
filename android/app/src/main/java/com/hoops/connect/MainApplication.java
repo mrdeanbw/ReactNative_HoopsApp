@@ -1,4 +1,4 @@
-package com.hoops;
+package com.hoops.connect;
 
 import android.app.Application;
 import android.util.Log;

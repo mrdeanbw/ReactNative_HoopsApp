@@ -1,4 +1,4 @@
-package com.hoops;
+package com.hoops.connect;
 
 import com.facebook.react.ReactActivity;
 import com.evollu.react.fa.FIRAnalyticsPackage;
