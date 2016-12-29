@@ -1,4 +1,3 @@
-
 import _ from '../i18n';
 
 import React from 'react';
@@ -81,6 +80,10 @@ export default class Login extends React.Component {
             {errorCode === 'auth/user-disabled' && (
               <Text style={StyleSheet.login.errorText}>User is disabled</Text>
             )}
+            {errorCode === 'auth/account-exists-with-different-credential' && (
+              <Text style={StyleSheet.login.errorText}>Login with the correct provider</Text>
+            )}
+            
             <TextInput
               value={this.state.email}
               onChangeText={(email) => {
