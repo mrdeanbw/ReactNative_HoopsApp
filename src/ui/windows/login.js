@@ -81,7 +81,7 @@ export default class Login extends React.Component {
               <Text style={StyleSheet.login.errorText}>User is disabled</Text>
             )}
             {errorCode === 'auth/account-exists-with-different-credential' && (
-              <Text style={StyleSheet.login.errorText}>Login with the correct provider</Text>
+              <Text style={StyleSheet.login.errorText}>You've signed up with this email already. Please login with your details</Text>
             )}
             
             <TextInput
