@@ -40,6 +40,7 @@ export const searchEvents = (params) => {
       }
 
       if(params.geospatial && params.geospatial.radius && event.addressCoords) {
+
         //Very simple approximate radius calculation (pythagoras)
         let dLat = params.geospatial.coords.latitude - event.addressCoords.lat;
         let dLon = params.geospatial.coords.longitude - event.addressCoords.lon;
