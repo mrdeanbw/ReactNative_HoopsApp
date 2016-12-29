@@ -65,6 +65,7 @@ export default class DateInput extends React.Component {
           <DatePicker
             value={this.state.value && new Date(this.state.value)}
             minValue={this.props.minValue}
+            maxValue={this.props.maxValue}
             date={'date' in this.props ? this.props.date : true}
             time={!!this.props.time}
             onClose={() => this.setState({showPopup: false})}

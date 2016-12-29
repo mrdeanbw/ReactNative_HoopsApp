@@ -221,6 +221,7 @@ export default class Search extends React.Component {
                 rightBar={<Icon name="listIndicator" />}
                 date={true} time={true}
                 onChange={this.onChangeDate}
+                maxValue={new Date().setFullYear(new Date().getFullYear() + 4)}
               />
 
               <Text style={[StyleSheet.text, StyleSheet.search.titleTextStyle]}>{_('searchGender')}</Text>
