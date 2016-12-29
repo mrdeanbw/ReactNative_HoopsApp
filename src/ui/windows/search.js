@@ -14,6 +14,7 @@ import {
   Header
 } from '../components';
 import StyleSheet from '../styles';
+import {autocomplete, getPlace} from '../../data/google-places';
 
 export default class Search extends React.Component {
 
@@ -28,6 +29,11 @@ export default class Search extends React.Component {
       level: null,
       courtType: null,
       searchRadius: null,
+
+      cityText: '',
+      city: {},
+      citiesAutocomplete: [],
+      cityCoords: null,
     };
   }
 
@@ -46,6 +52,7 @@ export default class Search extends React.Component {
         this.state.gender ||
         this.state.level ||
         this.state.courtType ||
+        this.state.cityCoords ||
         this.state.searchRadius
       );
     } else {
@@ -55,6 +62,13 @@ export default class Search extends React.Component {
 
   onPressSearch = () => {
     if(this.state.tab === 'events') {
+      let coords = null;
+      if (this.state.cityCoords) {
+        coords = this.state.cityCoords;
+      } else {
+        coords = this.props.coords;
+      }
+
       let searchParams = {
         activity: this.props.activity && this.props.activity.id,
         date: this.state.date,
@@ -62,7 +76,7 @@ export default class Search extends React.Component {
         level: this.state.level,
         courtType: this.state.courtType,
         geospatial: {
-          coords: this.props.coords,
+          coords,
           radius: this.state.searchRadius,
         },
       };
@@ -256,6 +270,52 @@ export default class Search extends React.Component {
                 <ListInput.Item text={_('indoor')} value="indoor" />
                 <ListInput.Item text={_('both')} value="both" />
               </ListInput>
+
+              <Text style={[StyleSheet.text, StyleSheet.search.titleTextStyle]}>{_('searchCity')}</Text>
+              <TextInput
+                value={this.state.cityText}
+                onChangeText={(cityText) => {
+                  this.setState({
+                    cityText,
+                    city: {},
+                  });
+                  autocomplete(cityText, '(cities)').then(result => {
+                    this.setState({
+                      citiesAutocomplete: result.predictions,
+                    });
+                  });
+                }}
+                type="flat"
+                ref="city"
+                placeholder={_('city')}
+                autocomplete={this.state.citiesAutocomplete.map(suggestion => {
+                  return {
+                    key: suggestion.place_id,
+                    text: suggestion.description,
+                  };
+                })}
+                onAutocompletePress={(item) => {
+                  getPlace(item.key).then(result => {
+                    if(result.result && result.result.geometry) {
+                      this.setState({
+                        cityText: item.text,
+                        city: item,
+                        citiesAutocomplete: [],
+                        cityCoords: result.result.geometry.location
+                      });
+                    }}).catch(function(e) {
+                    console.log(e);
+                  });
+                }}
+                style={StyleSheet.halfMarginBottom}
+                autoCapitalize="none"
+                autoCorrect={false}
+                returnKeyType="next"
+                selectTextOnFocus={true}
+                enablesReturnKeyAutomatically={true}
+                icon="city"
+                onSubmitEditing={() => this.onSubmitEditing("phone")}
+              />
 
               <Text style={[StyleSheet.text, StyleSheet.search.titleTextStyle]}>{_('searchRadius')}</Text>
               <Slider minimumValue={0} maximumValue={100} value={this.state.searchRadius}
