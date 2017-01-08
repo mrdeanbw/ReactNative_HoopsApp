@@ -394,7 +394,6 @@ export default class CreateEvent extends React.Component {
                   <Text style={{flex: 1, marginRight: 25, color: StyleSheet.colors.pink, fontSize: 13}}>{_('recurEvery').toUpperCase()}</Text>
                   <TextInput
                     ref="recurringValue"
-                    disabled={this.props.editMode}
                     type="flat"
                     keyboardType="numeric"
                     value={this.state.eventDetails.recurringValue.toString()}
