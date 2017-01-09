@@ -389,9 +389,10 @@ export default class CreateEvent extends React.Component {
                 <Button type="roundedGrey" active={this.state.eventDetails.recurring === false} text={_('oneTime')} onPress={() => this.setEventData({recurring: false})} style={{width: 110}}/>
               </View>
 
-              { this.state.eventDetails.recurring ?
-                <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop]}>
-                  <Text style={{flex: 1, marginRight: 25, color: StyleSheet.colors.pink, fontSize: 13}}>{_('recurEvery').toUpperCase()}</Text>
+              <View style={[StyleSheet.doubleMarginTop, {flex:1, flexDirection: 'row'}]}>
+                  <Text style={[{flex: 1, marginTop: 14, marginRight: 25, color: StyleSheet.colors.pink, fontSize: 13}]}>
+                    {_('recurEvery').toUpperCase()}
+                  </Text>
                   <TextInput
                     ref="recurringValue"
                     type="flat"
@@ -399,6 +400,7 @@ export default class CreateEvent extends React.Component {
                     value={this.state.eventDetails.recurringValue.toString()}
                     onChangeText={recurringValue => this.setEventData({recurringValue})}
                     style={{flex: 1, marginRight: 25}}
+                    disabled={!this.state.eventDetails.recurring}
                     onFocus={() => {
                       this.scrollToInput('scrollView2', this.refs.recurringValue);
                     }}
@@ -406,13 +408,14 @@ export default class CreateEvent extends React.Component {
                   <ListInput
                     type="flat"
                     value={this.state.eventDetails.recurringType}
+                    containerStyle={{flex:1}}
                     onChange={(recurringType) => this.setEventData({recurringType})}
+                    disabled={!this.state.eventDetails.recurring}
                   >
                     <ListInput.Item text={_('days')} value="d" />
                     <ListInput.Item text={_('weeks')} value="w" />
                   </ListInput>
                 </View>
-              : null }
 
               <View style={StyleSheet.halfMarginTop}>
                 <TextInput

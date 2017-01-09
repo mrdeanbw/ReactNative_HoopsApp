@@ -34,11 +34,12 @@ export default class ListInput extends React.Component {
 
     const defaultTextInput = StyleSheet.textInputs.default || {};
     const textInput = this.props.type ? StyleSheet.textInputs[this.props.type] || defaultTextInput : defaultTextInput;
+    const containerStyle = this.props.containerStyle ? this.props.containerStyle : null;
 
     const selectedChild = (typeof value !== "undefined") ? this.props.children.find(x => x.props.value === value) : null;
 
     return (
-      <View>
+      <View style={containerStyle}>
         <Popup
           visible={this.state.showPopup}
           onClose={() => this.setState({showPopup: false})}
