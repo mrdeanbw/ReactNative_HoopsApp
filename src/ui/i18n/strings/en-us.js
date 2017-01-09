@@ -71,7 +71,7 @@ export const participateMode = 'I\'m here to\nPARTICIPATE';
 
 export const home = 'Home';
 export const manage = 'Manage';
-export const myEvents = 'My Events';
+export const myEvents = 'Events';
 export const calendar = 'Calendar';
 export const invitations = 'Invitations';
 export const more = 'More';
