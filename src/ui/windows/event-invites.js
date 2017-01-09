@@ -72,7 +72,7 @@ export default class EventInvites extends React.Component {
           onBack={this.props.onBack}
           onClose={this.props.onClose}
         />
-        <View style={{flex: null, height: 50}}>
+        <View style={{flex: 0, height: 50}}>
           <TextInput
             type="search"
             icon="searchGrey"
