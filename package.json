@@ -6,6 +6,7 @@
     "start": "react-native start",
     "ios": "react-native run-ios",
     "android": "react-native run-android",
+    "android:build": "cd android && ./gradlew assembleRelease",
     "lint": "eslint src || :",
     "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver"
   },
