@@ -795,6 +795,7 @@ export default StyleSheet => StyleSheet.extend({
     underlayColor: colors.lightGrey,
 
     style: {
+      flex: 0,
       width: 270,
       backgroundColor: colors.transparent,
       borderStyle: 'solid',
