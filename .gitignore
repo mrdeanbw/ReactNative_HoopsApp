@@ -52,3 +52,5 @@ sourcemap.js
 main.jsbundle
 main.jsbundle.meta
 ios/assets/
+
+android/app/hoops.keystore

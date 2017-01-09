@@ -3,7 +3,6 @@ import _ from '../i18n';
 import React from 'react';
 import {View,Text,ScrollView,Slider,TouchableHighlight} from 'react-native';
 import {EventListItem, UserListItem} from '../components';
-import Analytics from 'react-native-firebase-analytics';
 
 import {
   Button,
@@ -35,13 +34,6 @@ export default class Search extends React.Component {
       citiesAutocomplete: [],
       cityCoords: null,
     };
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    if(this.state.tab !== nextState.tab) {
-      //Tab has changed. Log an analytics event
-      Analytics.logEvent('search_tab', {content_type: nextState.tab});
-    }
   }
 
   searchButtonEnabled() {

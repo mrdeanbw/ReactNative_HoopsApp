@@ -7,7 +7,6 @@ target 'Hoops' do
 
 	pod 'Firebase'
 	pod 'Firebase/Messaging'
-	pod 'Firebase/Analytics'
 
 end
 
@@ -15,7 +14,6 @@ target 'HoopsTests' do
 
 	pod 'Firebase'
 	pod 'Firebase/Messaging'
-	pod 'Firebase/Analytics'
 
 end
 

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "741448821558",
+    "firebase_url": "https://hoops-21a72.firebaseio.com",
+    "project_id": "hoops-21a72",
+    "storage_bucket": "hoops-21a72.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741448821558:android:f0fb3e5bace864b7",
+        "android_client_info": {
+          "package_name": "com.hoops.connect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741448821558-nkjrvuqdnsrf9a0n340k0gqk0df3rq4t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDudgJ_5iXQQBKxi9oS3kp-AuWKy5iRNrs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

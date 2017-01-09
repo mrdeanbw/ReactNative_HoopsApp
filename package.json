@@ -7,8 +7,7 @@
     "ios": "react-native run-ios",
     "android": "react-native run-android",
     "android:build": "cd android && ./gradlew assembleRelease",
-    "lint": "eslint src || :",
-    "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver"
+    "lint": "eslint src || :"
   },
   "dependencies": {
     "bugsnag-react-native": "^1.1.2",
@@ -22,7 +21,6 @@
     "react-native-fbsdk": "^0.3.0",
     "react-native-fcm": "^2.3.2",
     "react-native-fetch-blob": "0.10.1-beta.1",
-    "react-native-firebase-analytics": "https://github.com/mikemonteith/react-native-firebase-analytics",
     "react-native-google-places-autocomplete": "^1.2.6",
     "react-native-i18n": "0.0.8",
     "react-native-keyboard-spacer": "^0.3.0",

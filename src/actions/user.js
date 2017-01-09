@@ -5,7 +5,6 @@ const database = DBHelper('user');
 import * as emailAuth from '../data/auth/email';
 import * as facebookAuth from '../data/auth/facebook';
 import {getPlace} from '../data/google-places';
-import Analytics from 'react-native-firebase-analytics';
 
 import * as eventsActions from './events';
 import * as usersActions from './users';
@@ -145,7 +144,6 @@ const savePersonalData = (data, callback) => {
 };
 
 export const signUpSuccess = (method) => {
-  Analytics.logEvent('signup', {sign_up_method: method});
   return signInSuccess(method);
 };
 
@@ -298,7 +296,6 @@ export const updateProfile = (data) => {
  * Set the user's availability
  */
 export const toggleAvailability = () => {
-  Analytics.logEvent('availability_toggle');
   return (dispatch, getState) => {
     let value = !getState().user.availability;
 
