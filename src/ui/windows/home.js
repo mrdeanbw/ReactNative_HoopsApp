@@ -1,9 +1,6 @@
-
 import _ from '../i18n';
 
 import React from 'react';
-import Analytics from 'react-native-firebase-analytics';
-
 import {View, ScrollView, Text} from 'react-native';
 
 import StyleSheet from '../styles';
@@ -98,9 +95,6 @@ export default class Home extends React.Component {
                   style={StyleSheet.home.listIcon}
                   icon={this.state.showMap ? 'list' : 'pinWhite'}
                   onPress={() => {
-                    Analytics.logEvent('click_maplist_toggle', {
-                      item_name: this.state.showMap ? 'list' : 'map',
-                    });
                     this.setState({showMap: !this.state.showMap});
                   }}
                 />

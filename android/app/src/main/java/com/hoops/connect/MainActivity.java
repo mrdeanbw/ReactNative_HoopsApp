@@ -1,7 +1,6 @@
 package com.hoops.connect;
 
 import com.facebook.react.ReactActivity;
-import com.evollu.react.fa.FIRAnalyticsPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
@@ -18,11 +17,5 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "Hoops";
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        MainApplication.getCallbackManager().onActivityResult(requestCode, resultCode, data);
     }
 }

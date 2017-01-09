@@ -1,7 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
 import {connect} from 'react-redux';
-import Analytics from 'react-native-firebase-analytics';
 
 import * as containers from './index';
 import {navigation, network} from '../../actions';
@@ -101,9 +100,7 @@ class Root extends React.Component {
       let tab = nextProps.navigation.tabs[nextProps.navigation.tabKey];
       let tabRoute = tab.routes[tab.index];
       trackingKey = tabRoute.key;
-    }
-
-    // Analytics.setScreenName(trackingKey);
+    };
   }
 
   render() {

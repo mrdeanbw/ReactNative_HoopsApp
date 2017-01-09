@@ -3,8 +3,6 @@ rootProject.name = 'Hoops'
 include ':app'
 include ':bugsnag-react-native'
 project(':bugsnag-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/bugsnag-react-native/android')
-include ':react-native-firebase-analytics'
-project(':react-native-firebase-analytics').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-firebase-analytics/android')
 include ':react-native-fcm'
 project(':react-native-fcm').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fcm/android')
 include ':react-native-fetch-blob'

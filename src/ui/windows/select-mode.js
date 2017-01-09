@@ -5,19 +5,16 @@ import React from 'react';
 
 import {View, Image, TouchableWithoutFeedback} from 'react-native';
 import StyleSheet from '../styles';
-import Analytics from 'react-native-firebase-analytics';
 
 import HighlightText from '../components/highlight-text';
 
 export default class SelectMode extends React.Component {
 
   onPressOrganize = () => {
-    Analytics.logEvent('select_mode', {item_name: 'ORGANIZE'});
     this.props.onSetMode('ORGANIZE');
   };
 
   onPressParticipate = () => {
-    Analytics.logEvent('select_mode', {item_name: 'PARTICIPATE'});
     this.props.onSetMode('PARTICIPATE');
   };
 

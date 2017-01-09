@@ -5,7 +5,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {navigation, user} from '../../actions';
 import EventEmitter from 'EventEmitter';
-import Analytics from 'react-native-firebase-analytics';
 
 import {TabBar as _TabBar, Navigator} from '../components';
 
@@ -176,11 +175,6 @@ class TabBar extends React.Component {
 
     if(key !== nextKey || nav.tabs[key].index !== nextNav.tabs[nextKey].index){
       this.setState({action: null});
-    }
-
-    //Track menu opening and closing
-    if(this.props.navigation.showMenu !== nextProps.navigation.showMenu) {
-      Analytics.logEvent('toggle_menu');
     }
   }
 
