@@ -98,7 +98,7 @@ export default StyleSheet => StyleSheet.extend({
     underlayColor: colors.highlightBlack,
 
     style: {
-      flex: null,
+      flex: 0,
       zIndex: 1,
       width: 75,
       height: 75,
@@ -142,7 +142,7 @@ export default StyleSheet => StyleSheet.extend({
     underlayColor: colors.highlightPink,
 
     style: {
-      flex: null,
+      flex: 0,
       zIndex: 1,
       width: 75,
       height: 75,
@@ -186,7 +186,7 @@ export default StyleSheet => StyleSheet.extend({
     underlayColor: colors.highlightGreen,
 
     style: {
-      flex: null,
+      flex: 0,
       zIndex: 1,
       width: 75,
       height: 75,
@@ -274,7 +274,7 @@ export default StyleSheet => StyleSheet.extend({
 
     style: {
       borderRadius: 22,
-      flex: null
+      flex: 0
     },
 
     containerStyle: {
@@ -288,7 +288,7 @@ export default StyleSheet => StyleSheet.extend({
     style: {
       borderRadius: 22,
       backgroundColor: colors.grey,
-      flex: null
+      flex: 0
     },
 
     activeStyle: {
@@ -306,7 +306,7 @@ export default StyleSheet => StyleSheet.extend({
     style: {
       backgroundColor: colors.pink,
       borderRadius: 22,
-      flex: null
+      flex: 0
     },
 
     containerStyle: {
@@ -320,7 +320,7 @@ export default StyleSheet => StyleSheet.extend({
     style: {
       backgroundColor: colors.white,
       borderRadius: 22,
-      flex: null,
+      flex: 0,
     },
 
     textStyle: {
@@ -338,7 +338,7 @@ export default StyleSheet => StyleSheet.extend({
     style: {
       backgroundColor: colors.facebookBlue,
       borderRadius: 22,
-      flex: null
+      flex: 0
     },
 
     iconStyle: {
@@ -380,7 +380,7 @@ export default StyleSheet => StyleSheet.extend({
       paddingRight: 12,
       paddingTop: 6,
       paddingBottom: 6,
-      flex: null
+      flex: 0
     },
 
     iconStyle: {
@@ -403,7 +403,7 @@ export default StyleSheet => StyleSheet.extend({
     style: {
       alignSelf: 'flex-start',
       backgroundColor: colors.transparent,
-      flex: null,
+      flex: 0,
       width: null,
       height: null,
       paddingTop: 10,
@@ -418,7 +418,7 @@ export default StyleSheet => StyleSheet.extend({
 
     style: {
       backgroundColor: colors.white,
-      flex: null,
+      flex: 0,
       width: null,
       height: null,
       alignSelf: 'stretch'
@@ -463,7 +463,7 @@ export default StyleSheet => StyleSheet.extend({
 
     style: {
       backgroundColor: colors.transparent,
-      flex: null,
+      flex: 0,
       width: null,
       height: null,
       borderRadius: 0,
@@ -511,7 +511,7 @@ export default StyleSheet => StyleSheet.extend({
 
     style: {
       backgroundColor: colors.transparent,
-      flex: null,
+      flex: 0,
       width: null,
       height: null,
       alignSelf: 'stretch',
@@ -555,7 +555,7 @@ export default StyleSheet => StyleSheet.extend({
 
     style: {
       backgroundColor: colors.transparent,
-      flex: null,
+      flex: 0,
       width: null,
       height: null,
       alignSelf: 'stretch'
@@ -604,7 +604,7 @@ export default StyleSheet => StyleSheet.extend({
     style: {
       backgroundColor: colors.white,
       borderRadius: 15,
-      flex: null,
+      flex: 0,
       width: null,
       height: null,
       alignSelf: 'center',
@@ -639,7 +639,7 @@ export default StyleSheet => StyleSheet.extend({
     underlayColor: colors.lightGrey,
 
     style: {
-      flex: null,
+      flex: 0,
       backgroundColor: colors.transparent,
       width: 32,
       height: 32,
@@ -654,7 +654,7 @@ export default StyleSheet => StyleSheet.extend({
     underlayColor: colors.lightGrey,
 
     style: {
-      flex: null,
+      flex: 0,
       backgroundColor: colors.transparent,
       width: 60,
       height: 60,
@@ -893,7 +893,7 @@ export default StyleSheet => StyleSheet.extend({
 
     style: {
       backgroundColor: colors.transparent,
-      flex: null,
+      flex: 0,
       alignSelf: 'flex-end',
 
       borderStyle: 'solid',
@@ -920,7 +920,7 @@ export default StyleSheet => StyleSheet.extend({
 
     style: {
       backgroundColor: colors.pink,
-      flex: null,
+      flex: 0,
       alignSelf: 'flex-end',
 
       borderStyle: 'solid',
@@ -947,7 +947,7 @@ export default StyleSheet => StyleSheet.extend({
 
     style: {
       backgroundColor: colors.transparent,
-      flex: null,
+      flex: 0,
       paddingLeft: 20,
       paddingRight: 20,
       paddingTop: 20,
@@ -982,7 +982,7 @@ export default StyleSheet => StyleSheet.extend({
 
     style: {
       backgroundColor: colors.white,
-      flex: null,
+      flex: 0,
       paddingLeft: 20,
       paddingRight: 20,
       paddingTop: 20,
@@ -1036,7 +1036,7 @@ export default StyleSheet => StyleSheet.extend({
 
     style: {
       backgroundColor: colors.white,
-      flex: null,
+      flex: 0,
       paddingLeft: 20,
       paddingRight: 20,
       paddingTop: 20,
@@ -1100,7 +1100,7 @@ export default StyleSheet => StyleSheet.extend({
 
     style: {
       backgroundColor: '#e5e9ea',
-      flex: null,
+      flex: 0,
       paddingLeft: 20,
       paddingRight: 20,
       paddingTop: 20,
@@ -1155,7 +1155,7 @@ export default StyleSheet => StyleSheet.extend({
 
     style: {
       backgroundColor: '#e5e9ea',
-      flex: null,
+      flex: 0,
       paddingLeft: 20,
       paddingRight: 20,
       paddingTop: 20,

@@ -75,7 +75,6 @@ export default StyleSheet => StyleSheet.extend({
 
   titleStyle: {
     flexDirection: 'row',
-    flex: 1,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',

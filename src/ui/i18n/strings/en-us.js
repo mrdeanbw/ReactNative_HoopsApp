@@ -26,7 +26,8 @@ export const city = 'City';
 export const optionalPhone = 'Phone (optional)';
 export const facebookConnect = 'Connect with Facebook';
 
-
+export const days = 'Days';
+export const weeks = 'Weeks';
 export const date = 'Date';
 export const back = 'Back';
 export const submit = 'Submit';
@@ -77,7 +78,7 @@ export const more = 'More';
 export const create = 'Create';
 export const search = 'Search';
 export const searchResults = 'Search Results';
-
+export const searchCity = 'Search City';
 
 export const organizerMode = 'Using as an Organiser';
 export const organizer = 'organiser';
@@ -223,6 +224,7 @@ export const time = 'Time';
 export const indoor = 'Indoor';
 export const outdoor = 'Outdoor';
 export const recurring = 'Recurring';
+export const recurEvery = 'Recur every ...';
 export const oneTime = 'One-Time';
 
 export const venueName = 'Venue Name';

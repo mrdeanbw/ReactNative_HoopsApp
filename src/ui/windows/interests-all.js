@@ -91,7 +91,7 @@ export default class InterestsAll extends React.Component {
           title={_('interests')}
           hideSwitcher={true}
         />
-        <View style={{flex: null, height: 50}}>
+        <View style={{flex: 0, height: 50}}>
           <TextInput
             type="search"
             icon="searchGrey"

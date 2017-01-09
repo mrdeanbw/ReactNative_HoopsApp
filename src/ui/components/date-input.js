@@ -65,6 +65,7 @@ export default class DateInput extends React.Component {
           <DatePicker
             value={this.state.value && new Date(this.state.value)}
             minValue={this.props.minValue}
+            maxValue={this.props.maxValue}
             date={'date' in this.props ? this.props.date : true}
             time={!!this.props.time}
             onClose={() => this.setState({showPopup: false})}
@@ -191,6 +192,8 @@ class DatePicker extends React.Component {
     for(let i = maxValue.getFullYear(); i >= minValue.getFullYear(); i--) years.push(i.toString());
     years.reverse();
 
+    const minutes = [0, 15, 30, 45]
+
     return (
       <View>
         {this.props.date && <View>
@@ -230,8 +233,8 @@ class DatePicker extends React.Component {
             <Picker style={StyleSheet.dateInput.minutePickerStyle}
                 value={value.getMinutes()}
                 onChange={this.onChangeMinute}>
-              {new Array(60).fill(null).map((v, i) => (
-                <Picker.Item label={zeroPad(i, 2)} value={i} key={i}/>
+              {minutes.map((v, i) => (
+                <Picker.Item label={zeroPad(v, 2)} value={v} key={v}/>
               ))}
             </Picker>
           </View>

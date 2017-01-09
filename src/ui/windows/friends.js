@@ -60,7 +60,7 @@ export default class Friends extends React.Component {
             onPress={() => this.onPressRemove(this.state.popupUser)}
           />
         </Popup>
-        <View style={{flex: null, height: 50}}>
+        <View style={{flex: 0, height: 50}}>
           <TextInput
             type="search"
             icon="searchGrey"

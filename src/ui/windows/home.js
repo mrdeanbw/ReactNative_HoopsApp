@@ -75,19 +75,21 @@ export default class Home extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Header
-          title={this.props.mode === 'ORGANIZE' ? _('activeEvents') : _('upcomingEvents')}
+          title={this.props.mode === 'ORGANIZE' ? _('activeEvents') : null}
         />
         <ScrollView
           contentContainerStyle={StyleSheet.home.container}
           onLayout={(e) => this.setState({scrollHeight: e.nativeEvent.layout.height})}
         >
-          <View style={{minHeight: (this.state.scrollHeight - 300)}}>
-            {this._renderEvents()}
-          </View>
+
+          {this.props.mode === 'ORGANIZE' && (
+            <View style={{minHeight: (this.state.scrollHeight - 300)}}>
+              {this._renderEvents()}
+            </View>
+          )}
 
           {this.props.mode === 'PARTICIPATE' && (
             <View style={StyleSheet.home.nearbyContainer}>
-
               <View style={StyleSheet.home.nearbyTitle}>
                 <Text style={[StyleSheet.text, StyleSheet.home.nearbyTitleText]}>
                   {_('nearbyEvents').toUpperCase()}

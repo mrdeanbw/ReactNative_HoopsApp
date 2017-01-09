@@ -1,12 +1,14 @@
+import { Dimensions } from 'react-native';
 
 import {colors} from '../resources';
 
 export default StyleSheet => StyleSheet.extend({
   container: {
-    alignItems: 'stretch'
+    flex: 1
   },
 
   nearbyContainer: {
+    flex: 1
   },
 
   nearbyTitle: {
@@ -37,10 +39,7 @@ export default StyleSheet => StyleSheet.extend({
     justifyContent: 'center',
     height: null
   },
-
   nearbyMapContainer: {
-    alignItems: 'stretch',
-    flex: 1,
-    height: 250,
+    flex: 1
   },
 });

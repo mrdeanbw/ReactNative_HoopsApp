@@ -1,4 +1,3 @@
-
 import _ from '../i18n';
 import React from 'react';
 import ReactNative from 'react-native';
@@ -29,6 +28,8 @@ export default class CreateEvent extends React.Component {
       endDate: null,
       courtType: '',
       recurring: false,
+      recurringType: 'd',
+      recurringValue: 1,
       address: {},
       entryFee: 0,
       paymentMethod: '',
@@ -125,6 +126,8 @@ export default class CreateEvent extends React.Component {
       date,
       courtType,
       recurring,
+      recurringType,
+      recurringValue,
       address,
       entryFee,
       paymentMethod,
@@ -352,9 +355,6 @@ export default class CreateEvent extends React.Component {
             </Form>
           </Wizard.Step>
 
-
-
-
           <Wizard.Step disabled={!this.validate(2)}>
             <Form extraKeyboardPadding={25} focusNode={this.state.focus['scrollView2']} contentContainerStyle={StyleSheet.padding}>
               <DateInput
@@ -383,15 +383,38 @@ export default class CreateEvent extends React.Component {
                 <Button type="roundedGrey" active={this.state.eventDetails.courtType === 'outdoor'} text={_('outdoor')} onPress={() => this.setEventData({courtType: 'outdoor'})} style={{width: 110}}/>
               </View>
 
-              {/*
               <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop, {alignSelf: 'center'}]}>
                 <Button type="roundedGrey" active={this.state.eventDetails.recurring === true} text={_('recurring')} onPress={() => this.setEventData({recurring: true})} style={{width: 110}}/>
                 <Text style={[StyleSheet.text, StyleSheet.horizontalRule.textStyle, {flex: 1}]}>{_('or').toUpperCase()}</Text>
                 <Button type="roundedGrey" active={this.state.eventDetails.recurring === false} text={_('oneTime')} onPress={() => this.setEventData({recurring: false})} style={{width: 110}}/>
               </View>
-              */}
 
-              <View style={StyleSheet.doubleMarginTop}>
+              { this.state.eventDetails.recurring ?
+                <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop]}>
+                  <Text style={{flex: 1, marginRight: 25, color: StyleSheet.colors.pink, fontSize: 13}}>{_('recurEvery').toUpperCase()}</Text>
+                  <TextInput
+                    ref="recurringValue"
+                    type="flat"
+                    keyboardType="numeric"
+                    value={this.state.eventDetails.recurringValue.toString()}
+                    onChangeText={recurringValue => this.setEventData({recurringValue})}
+                    style={{flex: 1, marginRight: 25}}
+                    onFocus={() => {
+                      this.scrollToInput('scrollView2', this.refs.recurringValue);
+                    }}
+                  /> 
+                  <ListInput
+                    type="flat"
+                    value={this.state.eventDetails.recurringType}
+                    onChange={(recurringType) => this.setEventData({recurringType})}
+                  >
+                    <ListInput.Item text={_('days')} value="d" />
+                    <ListInput.Item text={_('weeks')} value="w" />
+                  </ListInput>
+                </View>
+              : null }
+
+              <View style={StyleSheet.halfMarginTop}>
                 <TextInput
                   value={this.state.addressText}
                   onChangeText={(addressText) => {
@@ -423,7 +446,7 @@ export default class CreateEvent extends React.Component {
                     this.setEventData({address: prediction});
                   }}
                 />
-
+                
                 <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
                   <TextInput
                     ref="costInput"

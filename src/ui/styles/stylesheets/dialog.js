@@ -81,7 +81,7 @@ export default StyleSheet => StyleSheet.extend({
     overflow: 'visible',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: null
+    flex: 0
   },
 
   popupBackgroundTouchable: {
@@ -93,7 +93,7 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   popupContentContainerStyle: {
-    flex: null,
+    flex: 0,
     justifyContent: 'center'
   },
 
