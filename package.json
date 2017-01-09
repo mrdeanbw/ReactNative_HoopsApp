@@ -7,8 +7,7 @@
     "ios": "react-native run-ios",
     "android": "react-native run-android",
     "android:build": "cd android && ./gradlew assembleRelease",
-    "lint": "eslint src || :",
-    "android:build": "cd android && ./gradlew assembleRelease"
+    "lint": "eslint src || :"
   },
   "dependencies": {
     "bugsnag-react-native": "^1.1.2",
