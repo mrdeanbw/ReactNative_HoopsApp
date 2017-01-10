@@ -53,6 +53,7 @@ export default class Notifications extends React.Component {
         <ListView
           contentContainerStyle={StyleSheet.container}
           dataSource={this.state.dataSource}
+          enableEmptySections={true}
           renderRow={(rowData, sectionId, rowId) => {
             let Component = this.ComponentMap[rowData.type];
             return (
