@@ -254,8 +254,6 @@ class BaseWindow extends React.Component {
       buttons[0],
       buttons[1],
 
-      <Menu.Item icon="help" text={_('help')}
-          onPress={() => this.onShowModal(windows.Help)}/>,
       <Menu.Item icon="settings" text={_('settings')}
           onPress={() => this.onShowModal(windows.Settings)}/>,
       <Menu.Item icon="payments" text={_('payments')}

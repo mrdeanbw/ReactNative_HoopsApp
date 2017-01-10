@@ -49,12 +49,6 @@ export default class Menu extends React.Component {
 
           <View style={StyleSheet.menu.items}>
             <MenuItem
-              active={this.props.currentTab === 'help'}
-              icon="help"
-              text={_('help')}
-              onPress={() => {}}
-            />
-            <MenuItem
               active={this.props.currentTab === 'settings'}
               icon="settings"
               text={_('preferences')}
