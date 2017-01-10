@@ -181,7 +181,7 @@ export default class EventDetails extends React.Component {
 
   render() {
     let event = this.props.event;
-    let address = event.addressGooglePlace && event.addressGooglePlace.formatted_address;
+    let address = event.address;
 
     let ageText;
     if(this.props.event.minAge && this.props.event.maxAge) {
@@ -444,7 +444,7 @@ class EventJoinPopup extends React.Component {
     };
 
     let event = this.props.event;
-    let address = event.addressGooglePlace && event.addressGooglePlace.formatted_address;
+    let address = event.address;
 
     return (
       <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>
@@ -454,7 +454,7 @@ class EventJoinPopup extends React.Component {
 
           <EventInfo.Bar style={[StyleSheet.doubleMarginTop]}>
             <EventInfo.Summary icon="calendarBig" style={{width: 90}}>
-              <DateText event={this.props.event} />
+              <DateText event={event} />
             </EventInfo.Summary>
             <EventInfo.Summary icon="pin" style={{width: 90}}>
               <Text style={StyleSheet.eventDetails.lightTextStyle}>{address}</Text>

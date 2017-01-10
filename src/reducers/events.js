@@ -66,48 +66,4 @@ export default handleActions({
     };
   },
 
-  EVENTS_GOOGLE_PLACE_START: (state, action) => {
-    return {
-      ...state,
-      eventsById: {
-        ...state.eventsById,
-        [action.id]: {
-          ...state.eventsById[action.id],
-          addressGoogleLoading: true,
-        },
-      },
-    };
-  },
-
-  EVENTS_GOOGLE_PLACE_SUCCESS: (state, action) => {
-    let eventsById = {
-      ...state.eventsById,
-      [action.id]: {
-        ...state.eventsById[action.id],
-        addressGooglePlace: action.result,
-        addressGoogleLoading: false,
-      },
-    };
-
-    return {
-      ...state,
-      eventsById,
-    };
-  },
-
-  EVENTS_GOOGLE_PLACE_ERROR: (state, action) => {
-    return {
-      ...state,
-      eventsById: {
-        ...state.eventsById,
-        [action.id]: {
-          ...state.eventsById[action.id],
-          addressGoogleLoading: false,
-          addressGoogleError: action.err,
-        },
-      },
-    };
-  },
-
-
 }, initialState);
