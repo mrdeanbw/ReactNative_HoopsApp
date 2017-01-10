@@ -1,2 +1,2 @@
 
-module.exports = require('./src/ui');
+module.exports = require('./src');
