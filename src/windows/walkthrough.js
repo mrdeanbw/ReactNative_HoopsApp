@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {View, Image} from 'react-native';
 import Swiper from 'react-native-swiper';
@@ -19,10 +18,10 @@ export default class Walkthrough extends React.Component {
   }
 
   render() {
+    console.log("Walkthrough:RENDER");
+
     return (
       <Image source={StyleSheet.images.walkthrough} style={StyleSheet.walkthrough.backgroundImage}>
-        {this.props.onClose && <Button type="title" icon="close" style={StyleSheet.closeButton} onPress={this.props.onClose} />}
-
         <View style={StyleSheet.walkthrough.logoContainer}>
           <Image source={StyleSheet.images.logo} style={StyleSheet.walkthrough.logo} />
         </View>
