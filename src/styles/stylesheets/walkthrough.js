@@ -1,6 +1,6 @@
+import {Platform} from 'react-native';
 
 import {colors} from '../resources';
-
 
 export default StyleSheet => StyleSheet.extend({
   backgroundImage: {
@@ -11,28 +11,17 @@ export default StyleSheet => StyleSheet.extend({
     alignItems: 'center'
   },
 
-  swiperContainer: {
-    flex: 1
-  },
-
   logoContainer: {
-    position: 'absolute',
-    top: 44,
-    left: 0,
-    right: 0,
+    marginTop: (Platform.OS === 'ios') ? 64 : 54,
     alignItems: 'center',
   },
 
   logo: {},
 
-  swiper: {
-    paddingTop: 51
-  },
-
   paginator: {
     position: 'absolute',
     alignItems: 'flex-start',
-    top: 160,
+    top: 80,
     left: 0,
     bottom: 0,
     right: 0,
@@ -70,24 +59,30 @@ export default StyleSheet => StyleSheet.extend({
     right: 0,
   },
 
+  swiper: {
+    marginTop: 10
+  },
+
   page: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 100,
+    marginLeft: 10,
+    marginRight: 10,
   },
 
   pageText: {
     textAlign: 'center',
     color: colors.white,
+    marginBottom: 50,
   },
 
   pageTextHighlight: {
-    color: colors.pink
+    // color: colors.pink
   },
 
   pageImage: {
+    // flex: 1,
     resizeMode: 'contain',
-    width: 300,
   }
 });
