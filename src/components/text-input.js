@@ -101,6 +101,7 @@ export default class TextInput extends React.Component {
                   >{this.props.prefix}</Text>
                   <_TextInput
                     ref="input"
+                    underlineColorAndroid="transparent"
                     style={[
                       StyleSheet.text,
                       defaultTextInput.textStyle,

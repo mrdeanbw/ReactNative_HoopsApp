@@ -46,7 +46,7 @@ export default StyleSheet => StyleSheet.extend({
       letterSpacing: 1,
       fontWeight: 'bold',
       fontSize: 13,
-      lineHeight: 0,
+      lineHeight: 13,
       color: colors.white,
       margin: 0,
       padding: 0
@@ -235,13 +235,12 @@ export default StyleSheet => StyleSheet.extend({
     underlayColor: colors.highlightPink,
 
     style: {
-      backgroundColor: colors.pink
+      backgroundColor: colors.pink,
     },
 
     containerStyle: {
       height: 50
     },
-
 
   }),
 
