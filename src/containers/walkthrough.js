@@ -18,8 +18,6 @@ class Walkthrough extends React.Component {
 
 export default connect(
   (state) => ({
-    user: state.user,
-    router: state.router,
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigation.push({key, props})),
