@@ -3,7 +3,7 @@ import {View, Image} from 'react-native';
 import Swiper from 'react-native-swiper';
 
 import StyleSheet from '../styles';
-import Button from '../components/button';
+import {Button} from '../components';
 import HighlightText from '../components/highlight-text';
 import _ from '../i18n';
 
@@ -18,24 +18,20 @@ export default class Walkthrough extends React.Component {
   }
 
   render() {
-    console.log("Walkthrough:RENDER");
-
     return (
       <Image source={StyleSheet.images.walkthrough} style={StyleSheet.walkthrough.backgroundImage}>
         <View style={StyleSheet.walkthrough.logoContainer}>
           <Image source={StyleSheet.images.logo} style={StyleSheet.walkthrough.logo} />
         </View>
-        <View style={StyleSheet.walkthrough.swiperContainer}>
-          <Swiper autoplay={false} style={StyleSheet.walkthrough.swiper}
-              paginationStyle={StyleSheet.walkthrough.paginator}
-              dot={<View style={StyleSheet.walkthrough.dot}/>}
-              activeDot={<View style={StyleSheet.walkthrough.activeDot}/>}>
-            <WalkthroughPage image={StyleSheet.images.screengrab1} text={_('walkthrough1')} />
-            <WalkthroughPage image={StyleSheet.images.screengrab2} text={_('walkthrough2')} />
-            <WalkthroughPage image={StyleSheet.images.screengrab3} text={_('walkthrough3')} />
-            <WalkthroughPage image={StyleSheet.images.screengrab3} text={_('walkthrough4')} />
-          </Swiper>
-        </View>
+        <Swiper autoplay={false} style={StyleSheet.walkthrough.swiper}
+            paginationStyle={StyleSheet.walkthrough.paginator}
+            dot={<View style={StyleSheet.walkthrough.dot}/>}
+            activeDot={<View style={StyleSheet.walkthrough.activeDot}/>}>
+          <WalkthroughPage image={StyleSheet.images.screengrab1} text={_('walkthrough1')} />
+          <WalkthroughPage image={StyleSheet.images.screengrab2} text={_('walkthrough2')} />
+          <WalkthroughPage image={StyleSheet.images.screengrab3} text={_('walkthrough3')} />
+          <WalkthroughPage image={StyleSheet.images.screengrab3} text={_('walkthrough4')} />
+        </Swiper>
         <View style={StyleSheet.walkthrough.buttonBar}>
           <Button
             type="dialog"
