@@ -35,6 +35,9 @@ export default class TextInput extends React.Component {
     const defaultTextInput = StyleSheet.textInputs.default || {};
     const textInput = type ? StyleSheet.textInputs[type] || defaultTextInput : defaultTextInput;
 
+    // Need to break up the styling for find a nicer way of doing this. Aka. Hack
+    const flex = type === 'alert' ?  0 : 1;
+
     const touchable = (node) => {
       if(multiline === 'popup') {
         return (
@@ -50,7 +53,7 @@ export default class TextInput extends React.Component {
     };
 
     return (
-      <View style={{flex: 1, zIndex: 1}}>
+      <View style={{flex, zIndex: 1}}>
         {multiline === 'popup' && (<MultilineTextInputDialog
           visible={this.state.showPopup}
           onClose={() => this.setState({showPopup: false})}
@@ -62,7 +65,7 @@ export default class TextInput extends React.Component {
           {...props}
         />)}
         {touchable(
-          <View style={{flex: 1, flexDirection: 'row', alignItems: 'flex-end'}}>
+          <View style={{flex, flexDirection: 'row', alignItems: 'flex-end'}}>
             <View
               style={[
                 defaultTextInput.style,
