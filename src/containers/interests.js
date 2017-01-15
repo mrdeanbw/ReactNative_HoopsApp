@@ -9,8 +9,8 @@ import {user, navigation} from '../actions';
 class InterestsAll extends React.Component {
 
   render() {
-    let interests = Object.keys(this.props.interests.interestsById).map(id => {
-      return this.props.interests.interestsById[id];
+    let interests = Object.keys(this.props.interests).map(id => {
+      return this.props.interests[id];
     }).filter(interest => interest.important === true);
 
     let onDonePress = () => {

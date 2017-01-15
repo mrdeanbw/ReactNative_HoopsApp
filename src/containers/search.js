@@ -37,14 +37,14 @@ class Search extends React.Component {
         onClose={this.props.onNavigateBack}
         onPressActivity={() => {
           this.props.onNavigate('activitiesSelect', {
-            activities: this.props.interests.interestsById,
+            activities: this.props.interests,
             onSelect: (activityKey) => {
               this.setState({activityKey});
               this.props.onNavigateBack();
             }
           }, false);
         }}
-        activity={this.props.interests.interestsById[this.state.activityKey]}
+        activity={this.props.interests[this.state.activityKey]}
         onPressSearchEvents={(searchParams) => {
           this.props.onSearchEvents(searchParams);
         }}

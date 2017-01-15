@@ -79,7 +79,7 @@ class Profile extends React.Component {
     });
 
     let interests = Object.keys(profile.interests || {}).map(id => {
-      return this.props.interests.interestsById[id];
+      return this.props.interests[id];
     });
 
     return (

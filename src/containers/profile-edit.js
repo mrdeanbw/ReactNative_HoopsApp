@@ -24,7 +24,7 @@ class ProfileEdit extends React.Component {
   getInterestObjects(interestsMap = {}) {
     return Object.keys(interestsMap).map(id => {
       return {
-        ...this.props.interests.interestsById[id],
+        ...this.props.interests[id],
         level: interestsMap[id],
       };
     }).filter(interest => interest.level);

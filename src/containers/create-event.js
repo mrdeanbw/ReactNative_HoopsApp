@@ -21,8 +21,8 @@ class CreateEvent extends React.Component {
   }
 
   render() {
-    let interests = Object.keys(this.props.interests.interestsById).map(id => {
-      return this.props.interests.interestsById[id];
+    let interests = Object.keys(this.props.interests).map(id => {
+      return this.props.interests[id];
     });
 
     return (
@@ -33,14 +33,14 @@ class CreateEvent extends React.Component {
         editMode={!!this.state.event}
         onPressActivity={() => {
           this.props.onNavigate('activitiesSelect', {
-            activities: this.props.interests.interestsById,
+            activities: this.props.interests,
             onSelect: (activityKey) => {
               this.setState({activityKey});
               this.props.onNavigateBack();
             }
           }, false);
         }}
-        activity={this.props.interests.interestsById[this.state.activityKey]}
+        activity={this.props.interests[this.state.activityKey]}
         onComplete={(eventData) => {
           eventData = {
             ...eventData,

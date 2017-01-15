@@ -42,7 +42,7 @@ class EventDetails extends React.Component {
         },
         invites: this.props.invites.invitesById,
         requests: this.props.requests.requestsById,
-        interests: this.props.interests.interestsById,
+        interests: this.props.interests,
       }
     );
 
