@@ -820,7 +820,8 @@ export default StyleSheet => StyleSheet.extend({
       borderStyle: 'solid',
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.grey,
-      height: 55
+      height: 55,
+      flex: 0,
     },
 
     textStyle: {
@@ -840,7 +841,8 @@ export default StyleSheet => StyleSheet.extend({
       borderStyle: 'solid',
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.grey,
-      height: 55
+      height: 55,
+      flex: 0,
     },
 
     textStyle: {
