@@ -121,7 +121,6 @@ const savePersonalData = (data, callback) => {
             email: data.email,
             phone: data.phone,
           },
-          [`usernames/${data.username}`]: uid, //for uniqueness validation
         }, callback);
       });
   };
