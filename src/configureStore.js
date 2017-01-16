@@ -9,12 +9,18 @@ import {startupActions} from './actions';
 import config from './config';
 
 export default (rootReducer) => {
-  const middleware = [
-    createLogger(config.LOGGER),
-    thunk
-  ];
+  const middleware = [];
   const enhancers = [];
 
+  // Middleware
+  // Add Redux-logger
+  if (config.LOGGER_ACTIVE) {
+    middleware.push(createLogger(config.LOGGER_CONFIG));
+  }
+
+  middleware.push(thunk);
+
+  // Enhancers
   enhancers.push(applyMiddleware(...middleware));
 
   const composeEnhancers = composeWithDevTools({ realtime: true });
