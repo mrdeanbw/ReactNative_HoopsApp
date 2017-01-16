@@ -1,14 +1,10 @@
-
-import _ from '../i18n';
-
 import React from 'react';
-
 import moment from 'moment';
-
 import {View, Image, Text, TouchableHighlight, Animated} from 'react-native';
 
 import StyleSheet from '../styles';
 import {Button, Icon} from './index';
+import _ from '../i18n';
 
 export default class UserListItem extends React.Component {
 
