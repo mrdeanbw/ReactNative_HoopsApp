@@ -1,4 +1,4 @@
-import interests from '../interests';
+import interests from '../config/interests';
 
 export const load = () => {
   return dispatch => {
