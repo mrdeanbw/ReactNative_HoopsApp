@@ -11,17 +11,15 @@ import * as payments from './payments';
 import * as network from './network';
 import * as startup from './startup';
 
-export {
-  user,
-  users,
-  events,
-  navigation,
-  interests,
-  invites,
-  requests,
-  search,
-  notifications,
-  payments,
-  network,
-  startup,
-};
+export const userActions = user;
+export const usersActions = users;
+export const eventActions = events;
+export const navigationActions = navigation;
+export const interestActions = interests;
+export const inviteActions = invites;
+export const requestActions = requests;
+export const searchActions = search;
+export const notificationActions = notifications;
+export const paymentActions = payments;
+export const networkActions = network;
+export const startupActions = startup;

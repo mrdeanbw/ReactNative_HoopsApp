@@ -1,12 +1,8 @@
-
 import React from 'react';
 import {connect} from 'react-redux';
 
 import _PaymentsAddCard from '../windows/payments-add-card';
-import {
-  navigation as navigationActions,
-  payments as paymentsActions,
-} from '../actions';
+import {navigationActions, paymentActions} from '../actions';
 
 class PaymentsAddCard extends React.Component {
 
@@ -40,7 +36,7 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, false)),
     onNavigateBack: () => dispatch(navigationActions.pop()),
-    onCreateCard: (data) => dispatch(paymentsActions.createCard(data)),
-    onDismissError: () => dispatch(paymentsActions.dismissError()),
+    onCreateCard: (data) => dispatch(paymentActions.createCard(data)),
+    onDismissError: () => dispatch(paymentActions.dismissError()),
   }),
 )(PaymentsAddCard);

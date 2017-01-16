@@ -2,10 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {Friends as _Friends} from '../windows';
-import {
-  user as userActions,
-  navigation as navigationActions
-} from '../actions';
+import {userActions, navigationActions} from '../actions';
 
 class Friends extends React.Component {
 

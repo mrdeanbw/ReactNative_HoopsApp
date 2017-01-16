@@ -3,11 +3,7 @@ import {View} from 'react-native';
 import {connect} from 'react-redux';
 
 import * as containers from './index';
-import {
-  navigation as navigationActions,
-  network as networkActions,
-  startup as startupActions
-} from '../actions';
+import {navigationActions, networkActions, startupActions} from '../actions';
 import LoadingWindow from '../windows/loading';
 import {DevIndicator, Navigator, NetworkAlert} from '../components';
 import config from '../config';

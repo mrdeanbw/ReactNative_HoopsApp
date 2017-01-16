@@ -1,9 +1,8 @@
-
 import React from 'react';
 import {connect} from 'react-redux';
 
 import _EventDashboard from '../windows/event-dashboard';
-import {events, navigation} from '../actions';
+import {eventActions, navigationActions} from '../actions';
 
 class EventDashboard extends React.Component {
 
@@ -65,8 +64,8 @@ export default connect(
     events: state.events,
   }),
   (dispatch) => ({
-    onNavigate: (key, props, subTab) => dispatch(navigation.push({key, props}, subTab)),
-    onNavigateBack: () => dispatch(navigation.pop()),
-    onCancel: (eventId, message) => dispatch(events.cancel(eventId, message)),
+    onNavigate: (key, props, subTab) => dispatch(navigationActions.push({key, props}, subTab)),
+    onNavigateBack: () => dispatch(navigationActions.pop()),
+    onCancel: (eventId, message) => dispatch(eventActions.cancel(eventId, message)),
   }),
 )(EventDashboard);

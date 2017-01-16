@@ -1,3 +1,5 @@
+import FCM from 'react-native-fcm';
+
 import firebase, {firebaseDb, firebaseStorage, uploadImage} from '../data/firebase';
 import DBHelper, {clearAllListeners} from '../data/database-helper';
 const database = DBHelper('user');
@@ -6,14 +8,11 @@ import * as emailAuth from '../data/auth/email';
 import * as facebookAuth from '../data/auth/facebook';
 import {getPlace} from '../data/google-places';
 
-import * as eventsActions from './events';
-import * as usersActions from './users';
-import * as invitesActions from './invites';
-import * as requestsActions from './requests';
-import * as notificationsActions from './notifications';
-import * as navigationActions from './navigation';
+import {
+  eventActions, usersActions, inviteActions,
+  requestActions, notificationsActions, navigationActions
+} from '../actions';
 
-import FCM from 'react-native-fcm';
 
 export const signIn = (email, password) => {
   return (dispatch) => {
@@ -382,7 +381,7 @@ const listenToUser = () => {
        */
       if(user.organizing) {
         for(let id in user.organizing) {
-          dispatch(eventsActions.load(id));
+          dispatch(eventActions.load(id));
         }
       }
       if(user.friends) {
@@ -392,12 +391,12 @@ const listenToUser = () => {
       }
       if(user.invites) {
         for(let id in user.invites) {
-          dispatch(invitesActions.load(id));
+          dispatch(inviteActions.load(id));
         }
       }
       if(user.requests) {
         for(let id in user.requests) {
-          dispatch(requestsActions.load(id));
+          dispatch(requestActions.load(id));
         }
       }
       if(user.friendRequests) {
@@ -407,7 +406,7 @@ const listenToUser = () => {
       }
       if(user.savedEvents) {
         for(let id in user.savedEvents) {
-          dispatch(eventsActions.load(id));
+          dispatch(eventActions.load(id));
         }
       }
 

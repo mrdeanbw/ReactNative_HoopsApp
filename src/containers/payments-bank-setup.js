@@ -2,12 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import _PaymentsBankSetup from '../windows/payments-bank-setup';
-import {
-  navigation as navigationActions,
-  payments as paymentsActions,
-} from '../actions';
+import {navigationActions, paymentActions} from '../actions';
 
 class PaymentsBankSetup extends React.Component {
+
   constructor() {
     super();
     this.state = {
@@ -49,7 +47,7 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, false)),
     onNavigateBack: () => dispatch(navigationActions.pop()),
-    onCreateAccount: (data) => dispatch(paymentsActions.createAccount(data)),
-    onDismissError: () => dispatch(paymentsActions.dismissError()),
+    onCreateAccount: (data) => dispatch(paymentActions.createAccount(data)),
+    onDismissError: () => dispatch(paymentActions.dismissError()),
   }),
 )(PaymentsBankSetup);

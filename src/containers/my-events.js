@@ -3,11 +3,7 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 
 import {MyEvents as _MyEvents} from '../windows';
-import {
-  user as userActions,
-  events as eventsActions,
-  navigation as navigationActions,
-} from '../actions';
+import {userActions, eventActions, navigationActions} from '../actions';
 import inflateEvent from '../data/inflaters/event';
 
 class MyEvents extends React.Component {
@@ -91,7 +87,7 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
     onChangeAvailability: (value) => dispatch(userActions.setAvailability(value)),
-    onPressDropOut: (event) => dispatch(eventsActions.quit(event.id)),
-    onPressUnsave: (event) => dispatch(eventsActions.unsave(event.id)),
+    onPressDropOut: (event) => dispatch(eventActions.quit(event.id)),
+    onPressUnsave: (event) => dispatch(eventActions.unsave(event.id)),
   }),
 )(MyEvents);

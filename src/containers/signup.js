@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {SignUp as _SignUp} from '../windows';
-import {user} from '../actions';
+import {userActions} from '../actions';
 
 class SignUp extends React.Component {
 
@@ -25,9 +25,7 @@ export default connect(
     user: state.user,
   }),
   (dispatch) => ({
-    onSignUp: (username, password, extra) => {
-      dispatch(user.signUp(username, password, extra));
-    },
-    onFacebookSignUp: () => dispatch(user.facebookSignUp()),
+    onSignUp: (username, password, extra) => dispatch(userActions.signUp(username, password, extra)),
+    onFacebookSignUp: () => dispatch(userActions.facebookSignUp()),
   }),
 )(SignUp);

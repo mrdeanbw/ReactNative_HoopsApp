@@ -1,4 +1,3 @@
-
 import {NetInfo} from 'react-native';
 
 export const registerWithStore = () => {

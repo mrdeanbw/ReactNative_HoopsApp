@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 
 import {Home as _Home} from '../windows';
-import {navigation, search} from '../actions';
+import {navigationActions, searchActions} from '../actions';
 import inflateEvent from '../data/inflaters/event';
 
 class Home extends React.Component {
@@ -126,7 +126,7 @@ export default connect(
     search: state.search,
   }),
   (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
-    onSearchNearby: (params) => dispatch(search.nearby(params)),
+    onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
+    onSearchNearby: (params) => dispatch(searchActions.nearby(params)),
   }),
 )(Home);

@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import StyleSheet from '../styles';
 import SwitchButton from './switch-button';
 import _ from '../i18n';
-import {user as userActions} from '../actions';
+import {userActions} from '../actions';
 import Button from './button';
 import HighlightText from './highlight-text';
 

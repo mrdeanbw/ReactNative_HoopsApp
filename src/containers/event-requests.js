@@ -3,10 +3,7 @@ import {connect} from 'react-redux';
 
 import _EventRequests from '../windows/event-requests';
 import inflateEvent from '../data/inflaters/event';
-import {
-  navigation as navigationActions,
-  requests as requestsActions,
-} from '../actions';
+import {navigationActions, requestActions} from '../actions';
 
 class EventRequests extends React.Component {
 
@@ -57,7 +54,7 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
     onNavigateBack: () => dispatch(navigationActions.pop()),
-    onPressApprove: (id) => dispatch(requestsActions.allow(id)),
-    onPressDecline: (id) => dispatch(requestsActions.cancel(id)),
+    onPressApprove: (id) => dispatch(requestActions.allow(id)),
+    onPressDecline: (id) => dispatch(requestActions.cancel(id)),
   }),
 )(EventRequests);

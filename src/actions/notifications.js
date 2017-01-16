@@ -1,11 +1,9 @@
+import FCM from 'react-native-fcm';
 
 import {firebaseDb} from '../data/firebase';
 import DBHelper from '../data/database-helper';
 const database = DBHelper('notifications');
-
-import FCM from 'react-native-fcm';
-
-import * as usersActions from './users';
+import {usersActions} from '../actions';
 
 export const load = (id) => {
   return dispatch => {

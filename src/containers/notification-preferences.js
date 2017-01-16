@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {Notifications as _Notifications} from '../windows';
-import {navigation} from '../actions';
+import {navigationActions} from '../actions';
 
 class Notifications extends React.Component {
 
@@ -20,6 +20,6 @@ export default connect(
   (state) => ({
   }),
   (dispatch) => ({
-    onNavigateBack: () => dispatch(navigation.pop()),
+    onNavigateBack: () => dispatch(navigationActions.pop()),
   }),
 )(Notifications);

@@ -2,10 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import _Members from '../windows/members';
-import {
-  navigation as navigationActions,
-  invites as inviteActions,
-} from '../actions';
+import {navigationActions,inviteActions} from '../actions';
 import inflateEvent from '../data/inflaters/event';
 
 class Members extends React.Component {

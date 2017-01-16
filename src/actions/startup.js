@@ -1,15 +1,14 @@
-import * as userActions from './user';
-import * as interestsActions from './interests';
-import * as usersActions from './users';
-import * as eventsActions from './events';
-import * as networkActions from './network';
+import {
+  userActions, interestActions, usersActions,
+  eventActions, networkActions
+} from '../actions';
 
 export const startup = (email, password) => {
   return (dispatch) => {
     dispatch({type: 'STARTUP'});
 
     dispatch(userActions.registerWithStore());
-    dispatch(interestsActions.load());
+    dispatch(interestActions.load());
     dispatch(networkActions.registerWithStore());
 
     /**
@@ -18,6 +17,6 @@ export const startup = (email, password) => {
      * be connected to for looking up this data.
      */
     dispatch(usersActions.getAll());
-    dispatch(eventsActions.getAll());
+    dispatch(eventActions.getAll());
   };
 };

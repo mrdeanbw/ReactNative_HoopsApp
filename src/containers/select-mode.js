@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {SelectMode as _SelectMode} from '../windows';
-import {user, navigation} from '../actions';
+import {userActions, navigationActions} from '../actions';
 
 class SelectMode extends React.Component {
 
@@ -28,7 +28,7 @@ export default connect(
     user: state.user,
   }),
   (dispatch) => ({
-    onSetMode: (mode) => dispatch(user.setMode(mode)),
-    onNavigate: (key, props) => dispatch(navigation.reset({key, props})),
+    onSetMode: (mode) => dispatch(userActions.setMode(mode)),
+    onNavigate: (key, props) => dispatch(navigationActions.reset({key, props})),
   }),
 )(SelectMode);

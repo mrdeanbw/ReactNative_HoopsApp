@@ -1,11 +1,8 @@
-
 import {firebaseDb, firebaseStorage} from '../data/firebase';
 import DBHelper from '../data/database-helper';
 const database = DBHelper('users');
 
-import * as eventsActions from './events';
-import * as invitesActions from './invites';
-import * as requestsActions from './requests';
+import {eventActions, inviteActions, requestActions} from '../actions';
 
 export const load = (id) => {
   return dispatch => {
@@ -49,17 +46,17 @@ export const load = (id) => {
 
         if(user.organizing) {
           for(let id in user.organizing) {
-            dispatch(eventsActions.load(id));
+            dispatch(eventActions.load(id));
           }
         }
         if(user.requests) {
           for(let id in user.requests) {
-            dispatch(requestsActions.load(id));
+            dispatch(requestActions.load(id));
           }
         }
         if(user.invites) {
           for(let id in user.invites) {
-            dispatch(invitesActions.load(id));
+            dispatch(inviteActions.load(id));
           }
         }
       }

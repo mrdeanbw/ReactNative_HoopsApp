@@ -1,13 +1,8 @@
-
 import React from 'react';
 import {connect} from 'react-redux';
 
 import _FriendsSearch from '../windows/friends-search';
-import {
-  users as usersActions,
-  navigation as navigationActions,
-  search as searchActions
-} from '../actions';
+import {usersActions,navigationActions,searchActions} from '../actions';
 
 class FriendsSearch extends React.Component {
 

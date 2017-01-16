@@ -1,4 +1,3 @@
-
 import _ActivitiesSelect from './activities-select';
 import _Calendar from './calendar';
 import _CreateEvent from './create-event';

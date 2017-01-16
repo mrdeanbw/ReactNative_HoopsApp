@@ -2,10 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {Search as _Search} from '../windows';
-import {
-  navigation,
-  search as searchActions,
-} from '../actions';
+import {navigationActions, searchActions} from '../actions';
 import inflateEvent from '../data/inflaters/event';
 
 class Search extends React.Component {
@@ -94,10 +91,10 @@ export default connect(
     requests: state.requests,
   }),
   (dispatch) => ({
-    onNavigate: (key, props, subTab) => dispatch(navigation.push({key, props}, subTab)),
-    onNavigateBack: () => dispatch(navigation.pop()),
+    onNavigate: (key, props, subTab) => dispatch(navigationActions.push({key, props}, subTab)),
+    onNavigateBack: () => dispatch(navigatinavigationActionson.pop()),
     onDeepLinkTab: (key, tabKey, props) => dispatch(
-      navigation.deepLinkTab({key, props}, tabKey)
+      navigationActions.deepLinkTab({key, props}, tabKey)
     ),
     onSearchEvents: (params) => dispatch(searchActions.searchEvents(params)),
     onSearchGeneral: (params) => dispatch(searchActions.searchGeneral(params)),

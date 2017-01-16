@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {Manage as _Manage} from '../windows';
-import {navigation} from '../actions';
+import {navigationActions} from '../actions';
 import inflateEvent from '../data/inflaters/event';
 
 class Manage extends React.Component {
@@ -45,6 +45,6 @@ export default connect(
     invites: state.invites,
   }),
   (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
+    onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
   }),
 )(Manage);

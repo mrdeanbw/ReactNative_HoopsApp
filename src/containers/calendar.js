@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 
 import {Calendar as _Calendar} from '../windows';
-import {navigation} from '../actions';
+import {navigationActions} from '../actions';
 
 class Calendar extends React.Component {
 
@@ -40,7 +40,7 @@ export default connect(
     events: state.events,
   }),
   (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigation.push({key, props})),
-    onNavigateBack: () => dispatch(navigation.pop()),
+    onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
+    onNavigateBack: () => dispatch(navigationActions.pop()),
   }),
 )(Calendar);

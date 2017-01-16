@@ -1,14 +1,11 @@
-
 import {firebaseDb, firebaseStorage, uploadImage} from '../data/firebase';
 import DBHelper from '../data/database-helper';
 const database = DBHelper('events');
 
-import * as usersActions from './users';
-import * as invitesActions from './invites';
-import * as requestsActions from './requests';
-import * as paymentsActions from './payments';
-import * as notificationsActions from './notifications';
-import * as navigationActions from './navigation';
+import {
+  usersActions, inviteActions, requestActions, paymentActions,
+  notificationsActions, navigationActions
+} from '../actions';
 
 import {getPlace} from '../data/google-places';
 
@@ -72,12 +69,12 @@ export const load = (id) => {
 
       if(event.invites) {
         for(let inviteId in event.invites) {
-          dispatch(invitesActions.load(inviteId));
+          dispatch(inviteActions.load(inviteId));
         }
       }
       if(event.requests) {
         for(let requestId in event.requests) {
-          dispatch(requestsActions.load(requestId));
+          dispatch(requestActions.load(requestId));
         }
       }
 
@@ -204,7 +201,7 @@ export const edit = (eventId, eventData) => {
 export const inviteUsers = (userIds, eventId) => {
   return dispatch => {
     userIds.forEach((userId) => {
-      dispatch(invitesActions.create(userId, eventId));
+      dispatch(inviteActions.create(userId, eventId));
     });
 
   };
@@ -227,12 +224,12 @@ export const join = (eventId, userPaymentMethod) => {
     if(event.entryFee === 0 || event.paymentMethod === 'cash') {
       dispatch(requestJoin(event));
     } else if(event.paymentMethod === 'app') {
-      dispatch(paymentsActions.pay(event));
+      dispatch(paymentActions.pay(event));
     } else {
       if(userPaymentMethod === 'cash') {
         dispatch(requestJoin(event, userPaymentMethod));
       } else {
-        dispatch(paymentsActions.pay(event));
+        dispatch(paymentActions.pay(event));
       }
     }
   };

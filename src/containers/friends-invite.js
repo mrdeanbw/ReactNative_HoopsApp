@@ -3,11 +3,7 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 
 import {FriendsInvite as _FriendsInvite} from '../windows';
-
-import {
-  events as eventsActions,
-  navigation as navigationActions
-} from '../actions';
+import {eventActions, navigationActions} from '../actions';
 import inflateEvent from '../data/inflaters/event';
 
 class FriendsInvite extends React.Component {
@@ -57,7 +53,7 @@ export default connect(
   (dispatch) => ({
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onInviteUser: (user, event) => {
-      dispatch(eventsActions.inviteUsers([user.id], event.id));
+      dispatch(eventActions.inviteUsers([user.id], event.id));
     },
   }),
 )(FriendsInvite);

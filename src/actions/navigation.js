@@ -1,4 +1,3 @@
-
 /**
  * @param route {Object}
  * @param subTab {boolean} The new route should keep the global tab bar

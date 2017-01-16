@@ -1,10 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {
-  InterestsAll as _InterestsAll,
-} from '../windows';
-import {user, navigation} from '../actions';
+import {InterestsAll as _InterestsAll} from '../windows';
+import {userActions, navigationActions} from '../actions';
 
 class InterestsAll extends React.Component {
 
@@ -34,7 +32,7 @@ export default connect(
     interests: state.interests,
   }),
   (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigation.reset({key, props})),
-    onInterestsChange: (interests) => dispatch(user.setInterests(interests)),
+    onNavigate: (key, props) => dispatch(navigationActions.reset({key, props})),
+    onInterestsChange: (interests) => dispatch(userActions.setInterests(interests)),
   }),
 )(InterestsAll);

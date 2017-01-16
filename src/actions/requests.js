@@ -1,10 +1,8 @@
-
 import {firebaseDb} from '../data/firebase';
 import DBHelper from '../data/database-helper';
 const database = DBHelper('requests');
 
-import * as eventsActions from './events';
-import * as usersActions from './users';
+import {eventActions, usersActions} from '../actions';
 
 const requestsRef = firebaseDb.child('requests');
 
@@ -55,7 +53,7 @@ export const load = (id) => {
       }
 
       if(request.eventId) {
-        dispatch(eventsActions.load(request.eventId));
+        dispatch(eventActions.load(request.eventId));
       }
       if(request.userId) {
         dispatch(usersActions.load(request.userId));

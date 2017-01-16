@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {user} from '../actions';
+import {userActions} from '../actions';
 import {SignUpFacebookExtra as _SignUpFacebookExtra} from '../windows';
 
 class SignUpFacebookExtra extends React.Component {
@@ -43,7 +43,7 @@ export default connect(
     user: state.user,
   }),
   (dispatch) => ({
-    onPressContinue: (data) => dispatch(user.facebookSaveExtra(data)),
-    loadFacebookData: () => dispatch(user.loadFacebookData()),
+    onPressContinue: (data) => dispatch(userActions.facebookSaveExtra(data)),
+    loadFacebookData: () => dispatch(userActions.loadFacebookData()),
   }),
 )(SignUpFacebookExtra);

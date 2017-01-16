@@ -3,15 +3,12 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 
 import _Profile from '../windows/profile';
-import {
-  user as userActions,
-  users as usersActions,
-  navigation as navigationActions,
-} from '../actions';
+import {userActions, usersActions, navigationActions} from '../actions';
 import inflateEvent from '../data/inflaters/event';
 import inflateUser from '../data/inflaters/user';
 
 class Profile extends React.Component {
+
   render() {
     let profile;
     if(this.props.id === this.props.user.uid) {

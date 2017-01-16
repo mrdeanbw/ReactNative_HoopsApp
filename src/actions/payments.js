@@ -1,9 +1,8 @@
-
-import * as navigationActions from './navigation';
 import url from 'url';
 import qs from 'qs';
 
 import Config from '../config';
+import {navigationActions} from '../actions';
 
 const server = Config.PAYMENTS_SERVER;
 const stripePublicKey = Config.STRIPE_PUBLIC_KEY;

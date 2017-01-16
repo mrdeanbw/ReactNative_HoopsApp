@@ -24,6 +24,6 @@ export default connect(
   }),
   (dispatch) => ({
     onLogOut: () => dispatch(user.logOut()),
-    onNavigate: (key, props, subTab=true) => dispatch(navigation.push({key, props}, subTab)),
+    onNavigate: (key, props, subTab = true) => dispatch(navigation.push({key, props}, subTab)),
   }),
 )(Preferences);

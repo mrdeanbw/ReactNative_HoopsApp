@@ -1,14 +1,8 @@
-
 import React from 'react';
 import {connect} from 'react-redux';
 
 import {Notifications as _Notifications} from '../windows';
-import {
-  navigation as navigationActions,
-  notifications as notificationsActions,
-  requests as requestsActions,
-  invites as invitesActions,
-} from '../actions';
+import {navigationActions, notificationsActions, requestActions, inviteActions} from '../actions';
 import inflateNotification from '../data/inflaters/notification';
 
 class Notifications extends React.Component {
@@ -81,19 +75,19 @@ export default connect(
       dispatch(notificationsActions.markRead(notification.id));
     },
     onAcceptEventRequest: (notification) => {
-      dispatch(requestsActions.allow(notification.request));
+      dispatch(requestActions.allow(notification.request));
       dispatch(notificationsActions.markRead(notification.id));
     },
     onDeclineEventRequest: (notification) => {
-      dispatch(requestsActions.decline(notification.request));
+      dispatch(requestActions.decline(notification.request));
       dispatch(notificationsActions.markRead(notification.id));
     },
     onAcceptEventInvite: (notification) => {
-      dispatch(invitesActions.accept(notification.invite));
+      dispatch(inviteActions.accept(notification.invite));
       dispatch(notificationsActions.markRead(notification.id));
     },
     onDeclineEventInvite: (notification) => {
-      dispatch(invitesActions.decline(notification.invite));
+      dispatch(inviteActions.decline(notification.invite));
       dispatch(notificationsActions.markRead(notification.id));
     },
   }),

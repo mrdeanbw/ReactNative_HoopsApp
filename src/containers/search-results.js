@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {SearchResults as _SearchResults} from '../windows';
-import {navigation} from '../actions';
+import {navigationActions} from '../actions';
 
 class SearchResults extends React.Component {
 
@@ -50,11 +50,11 @@ export default connect(
     search: state.search,
   }),
   (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigation.push({key, props})),
+    onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
     onDeepLinkTab: (key, tabKey, props) => dispatch(
-      navigation.deepLinkTab({key, props}, tabKey)
+      navigationActions.deepLinkTab({key, props}, tabKey)
     ),
-    onNavigateBack: () => dispatch(navigation.pop()),
+    onNavigateBack: () => dispatch(navigationActions.pop()),
   }),
 )(SearchResults);
 

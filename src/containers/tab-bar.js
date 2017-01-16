@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import EventEmitter from 'EventEmitter';
 
 import * as containers from './index';
-import {navigation, user} from '../actions';
+import {userActions, navigationActions} from '../actions';
 import _ from '../i18n';
 
 import {TabBar as _TabBar, Navigator} from '../components';
@@ -288,13 +288,13 @@ export default connect(
     invites: state.invites,
   }),
   (dispatch) => ({
-    onChangeTab: (key) => dispatch(navigation.changeTab(key)),
-    onNavigateBack: () => dispatch(navigation.pop()),
+    onChangeTab: (key) => dispatch(navigationActions.changeTab(key)),
+    onNavigateBack: () => dispatch(navigationActions.pop()),
     onNavigate: (key, props, subTab = true) => {
-      dispatch(navigation.push({key, props}, subTab));
+      dispatch(navigationActions.push({key, props}, subTab));
     },
-    onLogOut: () => dispatch(user.logOut()),
-    onShowMenu: () => dispatch(navigation.showMenu()),
-    onHideMenu: () => dispatch(navigation.hideMenu()),
+    onLogOut: () => dispatch(userActions.logOut()),
+    onShowMenu: () => dispatch(navigationActions.showMenu()),
+    onHideMenu: () => dispatch(navigationActions.hideMenu()),
   }),
 )(TabBar);

@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {CreateEvent as _CreateEvent} from '../windows';
-import {navigation, events} from '../actions';
+import {navigationActions, eventActions} from '../actions';
 
 class CreateEvent extends React.Component {
 
@@ -75,9 +75,9 @@ export default connect(
     interests: state.interests,
   }),
   (dispatch) => ({
-    onNavigate: (key, props, subTab) => dispatch(navigation.push({key, props}, subTab)),
-    onNavigateBack: () => dispatch(navigation.pop()),
-    onSaveEvent: (eventData) => dispatch(events.create(eventData)),
-    onEditEvent: (eventId, eventData) => dispatch(events.edit(eventId, eventData)),
+    onNavigate: (key, props, subTab) => dispatch(navigationActions.push({key, props}, subTab)),
+    onNavigateBack: () => dispatch(navigationActions.pop()),
+    onSaveEvent: (eventData) => dispatch(eventActions.create(eventData)),
+    onEditEvent: (eventId, eventData) => dispatch(eventActions.edit(eventId, eventData)),
   }),
 )(CreateEvent);

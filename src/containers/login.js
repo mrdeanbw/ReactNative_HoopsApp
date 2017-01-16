@@ -1,9 +1,8 @@
-
 import React from 'react';
 import {connect} from 'react-redux';
 
 import {Login as _Login} from '../windows';
-import {user as actions} from '../actions';
+import {userActions} from '../actions';
 
 class Login extends React.Component {
 
@@ -26,8 +25,8 @@ export default connect(
     user: state.user,
   }),
   (dispatch) => ({
-    onSignIn: (email, password) => dispatch(actions.signIn(email, password)),
-    onFacebookSignIn: () => dispatch(actions.facebookSignIn()),
-    onFormEdit: () => dispatch(actions.signInFormEdit()),
+    onSignIn: (email, password) => dispatch(userActions.signIn(email, password)),
+    onFacebookSignIn: () => dispatch(userActions.facebookSignIn()),
+    onFormEdit: () => dispatch(userActions.signInFormEdit()),
   }),
 )(Login);

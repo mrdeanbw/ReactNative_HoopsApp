@@ -6,9 +6,7 @@
 
 import moment from 'moment';
 
-import * as eventsActions from './events';
-import * as navigationActions from './navigation';
-import * as usersActions from './users';
+import {eventActions, navigationActions, usersActions} from '../actions';
 
 export const searchEvents = (params) => {
 
@@ -80,7 +78,7 @@ export const searchEvents = (params) => {
     //If we got some results, load the event objects from database
     if(results.hits && results.hits.hits) {
       results.hits.hits.forEach(hit => {
-        dispatch(eventsActions.load(hit._id));
+        dispatch(eventActions.load(hit._id));
       });
     }
 
@@ -120,7 +118,7 @@ export const searchGeneral = (params) => {
       }
     });
 
-    events.forEach(event => dispatch(eventsActions.load(event.id)));
+    events.forEach(event => dispatch(eventActions.load(event.id)));
     users.forEach(user => dispatch(usersActions.load(user.id)));
 
     dispatch({
@@ -216,7 +214,7 @@ export const search = (params) => {
       //If we got some results, load the event objects from database
       if(results.hits && results.hits.hits) {
         results.hits.hits.forEach(hit => {
-          dispatch(eventsActions.load(hit._id));
+          dispatch(eventActions.load(hit._id));
         });
       }
 
@@ -287,7 +285,7 @@ export const nearby = (params) => {
     //If we got some results, load the event objects from database
     if(results.hits && results.hits.hits) {
       results.hits.hits.forEach(hit => {
-        dispatch(eventsActions.load(hit._id));
+        dispatch(eventActions.load(hit._id));
       });
     }
 
@@ -328,7 +326,7 @@ export const nearby = (params) => {
       //If we got some results, load the event objects from database
       if(results.hits && results.hits.hits) {
         results.hits.hits.forEach(hit => {
-          dispatch(eventsActions.load(hit._id));
+          dispatch(eventActions.load(hit._id));
         });
       }
     }).catch(err => {

@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {Walkthrough as _Walkthrough} from '../windows';
-import {navigation} from '../actions';
+import {navigationActions} from '../actions';
 
 class Walkthrough extends React.Component {
 
@@ -20,7 +20,7 @@ export default connect(
   (state) => ({
   }),
   (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigation.push({key, props})),
-    onNavigateReset: (key, props) => dispatch(navigation.reset({key, props})),
+    onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
+    onNavigateReset: (key, props) => dispatch(navigationActions.reset({key, props})),
   }),
 )(Walkthrough);

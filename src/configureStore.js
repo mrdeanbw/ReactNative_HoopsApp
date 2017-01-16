@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import { AsyncStorage } from 'react-native';
 import { composeWithDevTools } from 'remote-redux-devtools';
 
-import * as startupActions from './actions/startup';
+import {startupActions} from './actions';
 import config from './config';
 
 export default (rootReducer) => {

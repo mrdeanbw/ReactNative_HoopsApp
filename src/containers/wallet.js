@@ -2,10 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import _Wallet from '../windows/wallet';
-import {
-  navigation as navigationActions,
-  payments as paymentsActions,
-} from '../actions';
+import {navigationActions, paymentActions} from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -45,7 +42,7 @@ export default connect(
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, false)),
-    onCreateAccount: (data) => dispatch(paymentsActions.createAccount(data)),
-    onLoadAccount: () => dispatch(paymentsActions.getAccount()),
+    onCreateAccount: (data) => dispatch(paymentActions.createAccount(data)),
+    onLoadAccount: () => dispatch(paymentActions.getAccount()),
   }),
 )(Wallet);

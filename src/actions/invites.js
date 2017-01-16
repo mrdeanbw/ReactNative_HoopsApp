@@ -1,11 +1,8 @@
-
 import {firebaseDb} from '../data/firebase';
 import DBHelper from '../data/database-helper';
 const database = DBHelper('invites');
 
-import * as eventsActions from './events';
-import * as usersActions from './users';
-import * as paymentsActions from './payments';
+import {eventActions, usersActions, paymentActions} from '../actions';
 
 const inviteRef = firebaseDb.child('invites');
 
@@ -49,7 +46,7 @@ export const removeInvite = (invite) => {
 
     // Deleting an object that has a listener breaks
     database.removeListeners(`invites/${invite.id}`);
-    firebaseDb.child(`invites/${invite.id}`).remove();  
+    firebaseDb.child(`invites/${invite.id}`).remove();
   };
 };
 
@@ -62,7 +59,7 @@ export const load = (id) => {
        * but it's not being listened to with firebaseDb.on() ?
        */
       if(invite.eventId) {
-        dispatch(eventsActions.load(invite.eventId));
+        dispatch(eventActions.load(invite.eventId));
       }
       if(invite.userId) {
         dispatch(usersActions.load(invite.userId));
@@ -88,7 +85,7 @@ export const accept = (invite) => {
         [`invites/${invite.id}/status`]: 'confirmed',
       });
     } else {
-      dispatch(paymentsActions.pay(invite.event, invite));
+      dispatch(paymentActions.pay(invite.event, invite));
     }
   };
 };
@@ -96,7 +93,7 @@ export const accept = (invite) => {
 export const decline = (invite) => {
   return dispatch => {
     firebaseDb.update({
-      [`invites/${invite.id}/status`]: 'rejected', 
+      [`invites/${invite.id}/status`]: 'rejected',
     });
   };
 };

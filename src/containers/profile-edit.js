@@ -2,13 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import _ProfileEdit from '../windows/profile-edit';
-import {
-  user as userActions,
-  users as usersActions,
-  navigation as navigationActions,
-} from '../actions';
+import {userActions, usersActions, navigationActions} from '../actions';
 
 class ProfileEdit extends React.Component {
+
   constructor(props) {
     super(props);
 

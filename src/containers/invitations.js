@@ -1,13 +1,8 @@
-
 import React from 'react';
 import {connect} from 'react-redux';
 
 import {Invitations as _Invitations} from '../windows';
-import {
-  navigation as navigationActions,
-  invites as invitesActions,
-  requests as requestsActions,
-} from '../actions';
+import {navigationActions, inviteActions, requestActions} from '../actions';
 import inflateInvite from '../data/inflaters/invite';
 import inflateRequest from '../data/inflaters/request';
 
@@ -134,9 +129,9 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props, subTab) => dispatch(navigationActions.push({key, props}, subTab)),
     onNavigateBack: () => dispatch(navigationActions.pop()),
-    onPressAccept: (invite) => dispatch(invitesActions.accept(invite)),
-    onPressDecline: (invite) => dispatch(invitesActions.decline(invite)),
-    onPressCancel: (request) => dispatch(requestsActions.cancel(request)),
-    onMarkInvitesSeen: (invites) => dispatch(invitesActions.markSeen(invites)),
+    onPressAccept: (invite) => dispatch(inviteActions.accept(invite)),
+    onPressDecline: (invite) => dispatch(inviteActions.decline(invite)),
+    onPressCancel: (request) => dispatch(requestActions.cancel(request)),
+    onMarkInvitesSeen: (invites) => dispatch(inviteActions.markSeen(invites)),
   }),
 )(Invitations);

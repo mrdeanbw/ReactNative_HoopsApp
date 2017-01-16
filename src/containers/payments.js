@@ -1,12 +1,8 @@
-
 import React from 'react';
 import {connect} from 'react-redux';
 
 import _Payments from '../windows/payments';
-import {
-  navigation as navigationActions,
-  payments as paymentsActions,
-} from '../actions';
+import {navigationActions, paymentActions} from '../actions';
 
 class Payments extends React.Component {
 
@@ -37,7 +33,7 @@ export default connect(
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, false)),
-    onGetCards: () => dispatch(paymentsActions.getCards()),
-    onPressRemove: (card) => dispatch(paymentsActions.deleteCard(card.id)),
+    onGetCards: () => dispatch(paymentActions.getCards()),
+    onPressRemove: (card) => dispatch(paymentActions.deleteCard(card.id)),
   }),
 )(Payments);
