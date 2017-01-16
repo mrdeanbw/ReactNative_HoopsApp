@@ -3,9 +3,14 @@ import {View} from 'react-native';
 import {connect} from 'react-redux';
 
 import * as containers from './index';
-import {navigation, network} from '../actions';
+import {
+  navigation as navigationActions,
+  network as networkActions,
+  startup as startupActions
+} from '../actions';
 import LoadingWindow from '../windows/loading';
 import {DevIndicator, Navigator, NetworkAlert} from '../components';
+import config from '../config';
 
 class Root extends React.Component {
 
@@ -90,6 +95,13 @@ class Root extends React.Component {
     };
   }
 
+  componentDidMount () {
+    // if redux persist is disabled fire startup action
+    if (!config.REDUCER_PERSIST) {
+      this.props.startup();
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     //calculate a unique key for each page:
     let route = nextProps.navigation.routes[nextProps.navigation.index];
@@ -130,8 +142,9 @@ export default connect(
     network: state.network,
   }),
   (dispatch) => ({
-    onNavigateBack: () => dispatch(navigation.pop()),
-    onNavigate: (key, props) => dispatch(navigation.push({key, props})),
-    onDismissNetworkAlert: () => dispatch(network.dismissAlert()),
+    onNavigateBack: () => dispatch(navigationActions.pop()),
+    onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
+    onDismissNetworkAlert: () => dispatch(networkActions.dismissAlert()),
+    startup: () => dispatch(startupActions.startup()),
   }),
 )(Root);

@@ -9,6 +9,7 @@ import * as search from './search';
 import * as notifications from './notifications';
 import * as payments from './payments';
 import * as network from './network';
+import * as startup from './startup';
 
 export {
   user,
@@ -22,4 +23,5 @@ export {
   notifications,
   payments,
   network,
+  startup,
 };

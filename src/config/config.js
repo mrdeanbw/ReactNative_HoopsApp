@@ -4,7 +4,7 @@ const common = {
   GOOGLE_PLACES_API_KEY: 'AIzaSyBopRDu051G9W6fqJCwGgzxGICzhzuUxIg',
 
   REDUCER_VERSION: '104',
-  REDUCER_PERSIST: true,
+  REDUCER_PERSIST: false,
   REDUCER_CONFIG: {
     storage: AsyncStorage,
     blacklist: [
@@ -36,4 +36,4 @@ const prod = Object.assign(common, {
   BUGSNAG_API_KEY: '25983a784e900e85ae661a2e5685d61a',
 });
 
-export default __DEV__ ? dev : prod;
+export default __DEV__ ? prod : prod;
