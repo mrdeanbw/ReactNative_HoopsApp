@@ -21,7 +21,7 @@ const common = {
   }
 };
 
-const dev = Object.assign(common, {
+const dev = Object.assign({}, common, {
   PAYMENTS_SERVER: 'https://arcane-ridge-17730.herokuapp.com/',
   STRIPE_PUBLIC_KEY: 'pk_test_3mN7EmjOlXkVjjZISQG4xq3J',
 
@@ -32,7 +32,7 @@ const dev = Object.assign(common, {
   LOGGER_ACTIVE: true,
 });
 
-const prod = Object.assign(common, {
+const prod = Object.assign({}, common, {
   PAYMENTS_SERVER: 'https://hoops-us-149010.appspot.com/',
   STRIPE_PUBLIC_KEY: 'pk_test_QkhKNXx4BFg7TmyOl7fEyR0E',
 
