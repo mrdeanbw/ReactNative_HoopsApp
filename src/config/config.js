@@ -4,7 +4,7 @@ const common = {
   GOOGLE_PLACES_API_KEY: 'AIzaSyBopRDu051G9W6fqJCwGgzxGICzhzuUxIg',
 
   REDUCER_VERSION: '104',
-  REDUCER_PERSIST: false,
+  REDUCER_PERSIST: true,
   REDUCER_CONFIG: {
     storage: AsyncStorage,
     blacklist: [
@@ -12,6 +12,12 @@ const common = {
       // 'navigation',
       'search',
     ],
+  },
+
+  LOGGER_ACTIVE: false,
+  LOGGER_CONFIG: {
+      duration: true,
+      collapsed: true,
   }
 };
 
@@ -22,6 +28,8 @@ const dev = Object.assign(common, {
   FIREBASE_API_KEY: 'AIzaSyA-4UQyJ2wfj9OfgX4zkTQeFscFxGQ_agE',
   FIREBASE_DATABASE_URL: 'https://hoops-21a72.firebaseio.com',
   FIREBASE_STORAGE_BUCKET: 'hoops-21a72.appspot.com',
+
+  LOGGER_ACTIVE: true,
 });
 
 const prod = Object.assign(common, {
@@ -36,4 +44,4 @@ const prod = Object.assign(common, {
   BUGSNAG_API_KEY: '25983a784e900e85ae661a2e5685d61a',
 });
 
-export default __DEV__ ? prod : prod;
+export default __DEV__ ? dev : prod;

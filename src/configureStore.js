@@ -9,7 +9,10 @@ import {startupActions} from './actions';
 import config from './config';
 
 export default (rootReducer) => {
-  const middleware = [createLogger(), thunk];
+  const middleware = [
+    createLogger(config.LOGGER),
+    thunk
+  ];
   const enhancers = [];
 
   enhancers.push(applyMiddleware(...middleware));
