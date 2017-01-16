@@ -10,7 +10,7 @@ import {getPlace} from '../data/google-places';
 
 import {
   eventActions, usersActions, inviteActions,
-  requestActions, notificationsActions, navigationActions
+  requestActions, notificationActions, navigationActions
 } from '../actions';
 
 
@@ -414,7 +414,7 @@ const listenToUser = () => {
     });
 
     database.addListener(`userNotifications/${uid}`, 'child_added', (snapshot) => {
-      dispatch(notificationsActions.load(snapshot.key));
+      dispatch(notificationActions.load(snapshot.key));
     });
   };
 };
@@ -481,7 +481,7 @@ export const FCMInit = () => {
     });
 
     this.notificationUnsubscribe = FCM.on('notification', (notif) => {
-      dispatch(notificationsActions.receivePush(notif));
+      dispatch(notificationActions.receivePush(notif));
     });
     this.refreshUnsubscribe = FCM.on('refreshToken', (token) => {
       // fcm token may not be available on first load, catch it here

@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {Notifications as _Notifications} from '../windows';
-import {navigationActions, notificationsActions, requestActions, inviteActions} from '../actions';
+import {navigationActions, notificationActions, requestActions, inviteActions} from '../actions';
 import inflateNotification from '../data/inflaters/notification';
 
 class Notifications extends React.Component {
@@ -63,32 +63,32 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
     onNavigateBack: () => dispatch(navigationActions.pop()),
-    onMarkRead: (id) => dispatch(notificationsActions.markRead(id)),
-    onMarkUnead: (id) => dispatch(notificationsActions.markUnread(id)),
-    onMarkSeen: (id) => dispatch(notificationsActions.markSeen(id)),
+    onMarkRead: (id) => dispatch(notificationActions.markRead(id)),
+    onMarkUnead: (id) => dispatch(notificationActions.markUnread(id)),
+    onMarkSeen: (id) => dispatch(notificationActions.markSeen(id)),
     onAcceptFriendRequest: (notification) => {
-      dispatch(notificationsActions.acceptFriendRequest(notification.friendRequest));
-      dispatch(notificationsActions.markRead(notification.id));
+      dispatch(notificationActions.acceptFriendRequest(notification.friendRequest));
+      dispatch(notificationActions.markRead(notification.id));
     },
     onDeclineFriendRequest: (notification) => {
-      dispatch(notificationsActions.declineFriendRequest(notification.friendRequest));
-      dispatch(notificationsActions.markRead(notification.id));
+      dispatch(notificationActions.declineFriendRequest(notification.friendRequest));
+      dispatch(notificationActions.markRead(notification.id));
     },
     onAcceptEventRequest: (notification) => {
       dispatch(requestActions.allow(notification.request));
-      dispatch(notificationsActions.markRead(notification.id));
+      dispatch(notificationActions.markRead(notification.id));
     },
     onDeclineEventRequest: (notification) => {
       dispatch(requestActions.decline(notification.request));
-      dispatch(notificationsActions.markRead(notification.id));
+      dispatch(notificationActions.markRead(notification.id));
     },
     onAcceptEventInvite: (notification) => {
       dispatch(inviteActions.accept(notification.invite));
-      dispatch(notificationsActions.markRead(notification.id));
+      dispatch(notificationActions.markRead(notification.id));
     },
     onDeclineEventInvite: (notification) => {
       dispatch(inviteActions.decline(notification.invite));
-      dispatch(notificationsActions.markRead(notification.id));
+      dispatch(notificationActions.markRead(notification.id));
     },
   }),
 )(Notifications);

@@ -3,8 +3,8 @@ import DBHelper from '../data/database-helper';
 const database = DBHelper('events');
 
 import {
-  usersActions, inviteActions, requestActions, paymentActions,
-  notificationsActions, navigationActions
+  usersActions, inviteActions, requestActions,
+  paymentActions, notificationActions, navigationActions
 } from '../actions';
 
 import {getPlace} from '../data/google-places';
@@ -154,7 +154,7 @@ export const create = (eventData) => {
             type: 'EVENT_ADDED',
             eventData: data,
           });
-          dispatch(notificationsActions.scheduleDeadlineAlert({
+          dispatch(notificationActions.scheduleDeadlineAlert({
             ...data,
           }));
         }
