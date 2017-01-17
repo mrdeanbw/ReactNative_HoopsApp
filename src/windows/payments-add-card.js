@@ -91,7 +91,7 @@ export default class PaymentsBankSetup extends React.Component {
           onClose={this.props.onClose}
         />
 
-        <Form contentContainerStyle={{flex: 1}}>
+        <Form style={{flex: 1}}>
 
           <LoadingAlert visible={this.props.isLoading}/>
 
@@ -159,18 +159,17 @@ export default class PaymentsBankSetup extends React.Component {
               onChangeText={(cvc) => this.setState({cvc})}
             />
           </View>
-
         </Form>
 
-        <View style={StyleSheet.interests.footer}>
+        <View style={StyleSheet.buttons.bar}>
           <Button
             type={this.validate() ? "dialogDefault" : "dialog"}
             text={_('done')}
             onPress={this.onDonePress}
           />
         </View>
-
         <KeyboardSpacer/>
+
       </View>
     );
   }

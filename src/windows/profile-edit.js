@@ -123,7 +123,7 @@ export default class ProfileEdit extends React.Component {
           />
         </ScrollView>
 
-        <View style={StyleSheet.interests.footer}>
+        <View style={StyleSheet.buttons.bar}>
           <Button
             type="dialogDefault"
             text={_('save')}
