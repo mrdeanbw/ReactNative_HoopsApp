@@ -265,8 +265,8 @@ export default class SignUp extends React.Component {
             onPress={this.validate() ? this.onPressSignUp : undefined}
             style={[StyleSheet.doubleMarginTop, StyleSheet.singleMarginBottom]}
           />
-          <KeyboardSpacer/>
         </Form>
+        <KeyboardSpacer/>
       </View>
     );
   }
