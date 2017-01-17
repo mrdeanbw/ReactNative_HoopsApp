@@ -20,7 +20,6 @@ class Preferences extends React.Component {
 export default connect(
   (state) => ({
     user: state.user,
-    events: state.events,
   }),
   (dispatch) => ({
     onLogOut: () => dispatch(userActions.logOut()),
