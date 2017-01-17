@@ -92,7 +92,7 @@ export default connect(
   }),
   (dispatch) => ({
     onNavigate: (key, props, subTab) => dispatch(navigationActions.push({key, props}, subTab)),
-    onNavigateBack: () => dispatch(navigatinavigationActionson.pop()),
+    onNavigateBack: () => dispatch(navigationActions.pop()),
     onDeepLinkTab: (key, tabKey, props) => dispatch(
       navigationActions.deepLinkTab({key, props}, tabKey)
     ),
