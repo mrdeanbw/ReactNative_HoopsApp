@@ -19,31 +19,6 @@ export const load = (id) => {
 
         dispatch({type: 'USERS_LOADED', users: {[id]: user}});
 
-        if(user.publicProfile && user.publicProfile.image) {
-          firebaseStorage.ref(user.publicProfile.image).getDownloadURL().then(uri => {
-            dispatch({
-              type: 'USERS_IMAGE_LOADED',
-              images: {
-                [id]: {imageSrc: uri},
-              }
-            });
-          }).catch(err => {
-            dispatch({
-              type: 'USERS_IMAGE_ERROR',
-              images: {
-                [id]: {imageErr: err},
-              }
-            });
-          });
-        } else if(user.publicProfile && user.publicProfile.facebookImageSrc) {
-          dispatch({
-            type: 'USERS_IMAGE_LOADED',
-            images: {
-              [id]: {imageSrc: user.publicProfile.facebookImageSrc},
-            }
-          });
-        }
-
         if(user.organizing) {
           for(let id in user.organizing) {
             dispatch(eventActions.load(id));

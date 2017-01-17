@@ -24,6 +24,7 @@ export const convertStructure = (data) => {
 
     name: null,
     image: null,
+    imageUrl: null,
     username: null,
     gender: null,
     city: null,
@@ -39,6 +40,16 @@ export const convertStructure = (data) => {
   if(data.publicProfile) {
     data.name = data.publicProfile.name;
     data.image = data.publicProfile.image;
+    data.imageUrl = data.publicProfile.imageUrl;
+
+    let imageSrc = null;
+    if (data.publicProfile.imageUrl) {
+      imageSrc = data.publicProfile.imageUrl;
+    } else if (data.publicProfile.facebookImageSrc) {
+      imageSrc = data.publicProfile.facebookImageSrc;
+    }
+
+    data.imageSrc = imageSrc;
     data.username = data.publicProfile.username;
     data.gender = data.publicProfile.gender;
     data.city = data.publicProfile.city;
@@ -200,14 +211,6 @@ export default handleActions({
     return {
       ...state,
       ...convertStructure(action.user),
-    };
-  },
-
-  USER_IMAGE_CHANGE: (state, action) => {
-    return {
-      ...state,
-      imageSrc: action.imageSrc,
-      imageError: action.error,
     };
   },
 

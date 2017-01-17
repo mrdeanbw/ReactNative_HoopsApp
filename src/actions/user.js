@@ -94,17 +94,20 @@ const savePersonalData = (data, callback) => {
       cityGooglePlaceId: null,
       cityCoords: null,
       image: null,
+      imageUrl: null,
       facebookImageSrc: null,
 
       ...data,
     };
 
-    uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`)
-      .then((response) => {
+    uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`).then((response) => {
+      const imageRef = response ? response.ref : null;
+      firebaseStorage.ref(imageRef).getDownloadURL().then(imageUrl => {
 
         firebaseDb.update({
           [`users/${uid}/publicProfile`]: {
-            image: response ? response.ref : null,
+            image: imageRef,
+            imageUrl,
             facebookImageSrc: data.facebookImageSrc,
             name: data.name,
             username: data.username,
@@ -122,6 +125,7 @@ const savePersonalData = (data, callback) => {
           },
         }, callback);
       });
+    });
   };
 
   //Add city coordinates by looking up data.cityGooglePlaceId
@@ -260,32 +264,38 @@ export const updateProfile = (data) => {
     let uid = firebase.auth().currentUser.uid;
 
     uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`).then((response) => {
-      let imageRef = response ? response.ref : null;
+      const imageRef = response ? response.ref : null;
 
-      let update = {};
-      if(data.name) {
-        update[`users/${uid}/publicProfile/name`] = data.name;
-      }
-      if(imageRef) {
-        update[`users/${uid}/publicProfile/image`] = imageRef;
-      }
-      if(data.gender) {
-        update[`users/${uid}/publicProfile/gender`] = data.gender;
-      }
-      if(data.city) {
-        update[`users/${uid}/publicProfile/city`] = data.city;
-      }
-      if(data.cityGooglePlaceId) {
-        update[`users/${uid}/publicProfile/cityGooglePlaceId`] = data.cityGooglePlaceId;
-      }
-      if(data.interests) {
-        update[`users/${uid}/publicProfile/interests`] = data.interests;
-      }
-      if(data.dob) {
-        update[`users/${uid}/restrictedProfile/dob`] = new Date(data.dob).valueOf();
-      }
+      // Cache the full image URL in firebase
+      firebaseStorage.ref(imageRef).getDownloadURL().then(imageUrl => {
+        const update = {};
+        if(data.name) {
+          update[`users/${uid}/publicProfile/name`] = data.name;
+        }
+        if(imageRef) {
+          update[`users/${uid}/publicProfile/image`] = imageRef;
+        }
+        if(imageUrl) {
+          update[`users/${uid}/publicProfile/imageUrl`] = imageUrl;
+        }
+        if(data.gender) {
+          update[`users/${uid}/publicProfile/gender`] = data.gender;
+        }
+        if(data.city) {
+          update[`users/${uid}/publicProfile/city`] = data.city;
+        }
+        if(data.cityGooglePlaceId) {
+          update[`users/${uid}/publicProfile/cityGooglePlaceId`] = data.cityGooglePlaceId;
+        }
+        if(data.interests) {
+          update[`users/${uid}/publicProfile/interests`] = data.interests;
+        }
+        if(data.dob) {
+          update[`users/${uid}/restrictedProfile/dob`] = new Date(data.dob).valueOf();
+        }
 
-      firebaseDb.update(update);
+        firebaseDb.update(update);
+      });
     });
   };
 };
@@ -346,29 +356,6 @@ const listenToUser = () => {
       //If we have just got a name for the first time, init notifications
       if(!previousName && name) {
         dispatch(FCMInit());
-      }
-
-      var newImage = user.publicProfile ? user.publicProfile.image : null;
-      if(newImage && newImage !== state.user.image) {
-        //If there is an image, and we don't already know
-        firebaseStorage.ref(user.publicProfile.image).getDownloadURL().then(uri => {
-          dispatch({
-            type: 'USER_IMAGE_CHANGE',
-            imageSrc: uri,
-            error: null,
-          });
-        }).catch(err => {
-          dispatch({
-            type: 'USER_IMAGE_CHANGE',
-            imageSrc: undefined,
-            error: err,
-          });
-        });
-      } else if(user.publicProfile && user.publicProfile.facebookImageSrc) {
-        dispatch({
-          type: 'USER_IMAGE_CHANGE',
-          imageSrc: user.publicProfile.facebookImageSrc,
-        });
       }
 
       dispatch({

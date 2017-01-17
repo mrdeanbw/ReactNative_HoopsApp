@@ -60,7 +60,9 @@ export default class UserListItem extends React.Component {
 
           <View style={StyleSheet.userListItem.detail}>
             <View style={StyleSheet.userListItem.imageContainer}>
-              <Image source={{uri: user.imageSrc}} style={StyleSheet.userListItem.avatar} />
+              {user.imageSrc && (
+                <Image source={{uri: user.imageSrc}} style={StyleSheet.userListItem.avatar} />
+              )}
             </View>
 
             <View style={StyleSheet.userListItem.textContainer}>

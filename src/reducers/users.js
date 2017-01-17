@@ -72,19 +72,4 @@ export default handleActions({
     };
   },
 
-  USERS_IMAGE_LOADED: (state, action) => {
-    let usersById = {...state.usersById};
-
-    for(let id in action.images) {
-      if(usersById[id]) {
-        usersById[id].imageSrc = action.images[id].imageSrc;
-      }
-    }
-
-    return {
-      ...state,
-      usersById: usersById,
-    };
-  },
-
 }, initialState);
