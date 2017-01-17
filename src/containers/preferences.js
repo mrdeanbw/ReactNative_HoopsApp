@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {Preferences as _Preferences} from '../windows';
-import {navigation, user} from '../actions';
+import {navigationActions, userActions} from '../actions';
 
 class Preferences extends React.Component {
 
@@ -23,7 +23,7 @@ export default connect(
     events: state.events,
   }),
   (dispatch) => ({
-    onLogOut: () => dispatch(user.logOut()),
-    onNavigate: (key, props, subTab = true) => dispatch(navigation.push({key, props}, subTab)),
+    onLogOut: () => dispatch(userActions.logOut()),
+    onNavigate: (key, props, subTab = true) => dispatch(navigationActions.push({key, props}, subTab)),
   }),
 )(Preferences);
