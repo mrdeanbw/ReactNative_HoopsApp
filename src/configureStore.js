@@ -13,12 +13,12 @@ export default (rootReducer) => {
   const enhancers = [];
 
   // Middleware
+  middleware.push(thunk);
+
   // Add Redux-logger
   if (config.LOGGER_ACTIVE) {
     middleware.push(createLogger(config.LOGGER_CONFIG));
   }
-
-  middleware.push(thunk);
 
   // Enhancers
   enhancers.push(applyMiddleware(...middleware));
