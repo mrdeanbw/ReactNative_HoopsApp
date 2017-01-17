@@ -462,7 +462,7 @@ export default StyleSheet => StyleSheet.extend({
 
     style: {
       backgroundColor: colors.transparent,
-      flex: 0,
+      flex: 1,
       width: null,
       height: null,
       borderRadius: 0,
