@@ -1,10 +1,7 @@
-
-
-import _ from '../i18n'
-
 import React from 'react'
 import { View, TextInput as _TextInput, Text, TouchableHighlight} from 'react-native'
 
+import _ from '../i18n'
 import StyleSheet from '../styles'
 import HorizontalRule from './horizontal-rule'
 import Icon from './icon'
