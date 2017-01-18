@@ -1,7 +1,7 @@
 
-import {handleActions} from 'redux-actions';
+import {handleActions} from 'redux-actions'
 
-import {convertStructure} from './user';
+import {convertStructure} from './user'
 
 const emptyUserObject = {
   name: null,
@@ -15,14 +15,14 @@ const emptyUserObject = {
   requests: {},
   savedEvents: {},
   friends: {},
-};
+}
 
 const initialState = {
   isLoading: false,
 
   usersById: {},
   all: {},
-};
+}
 
 export default handleActions({
 
@@ -34,32 +34,32 @@ export default handleActions({
       ...state,
       ...initialState,
       all: state.all,
-    };
+    }
   },
 
   USERS_LOAD_ALL: (state, action) => {
     return {
       ...state,
       all: action.users || {},
-    };
+    }
   },
 
   USERS_LOAD: (state, action) => {
     return {
       ...state,
       isLoading: true,
-    };
+    }
   },
 
   USERS_LOADED: (state, action) => {
-    let newUsers = {...action.users};
+    let newUsers = {...action.users}
     for(let id in newUsers) {
       newUsers[id] = {
         ...convertStructure({
           ...emptyUserObject,
           ...newUsers[id],
         }),
-      };
+      }
     }
 
     return {
@@ -69,7 +69,7 @@ export default handleActions({
         ...state.usersById,
         ...newUsers,
       },
-    };
+    }
   },
 
-}, initialState);
+}, initialState)

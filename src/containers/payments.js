@@ -1,14 +1,14 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import _Payments from '../windows/payments';
-import {navigationActions, paymentActions} from '../actions';
+import _Payments from '../windows/payments'
+import {navigationActions, paymentActions} from '../actions'
 
 class Payments extends React.Component {
 
   componentWillMount() {
     //when this component mounts, fetch cards information from Stripe
-    this.props.onGetCards();
+    this.props.onGetCards()
   }
 
   render() {
@@ -22,7 +22,7 @@ class Payments extends React.Component {
           this.props.payments.isFetchingCards
         )}
       />
-    );
+    )
   }
 }
 
@@ -36,4 +36,4 @@ export default connect(
     onGetCards: () => dispatch(paymentActions.getCards()),
     onPressRemove: (card) => dispatch(paymentActions.deleteCard(card.id)),
   }),
-)(Payments);
+)(Payments)

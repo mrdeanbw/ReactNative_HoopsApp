@@ -1,29 +1,29 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import {CreateEvent as _CreateEvent} from '../windows';
-import {navigationActions, eventActions} from '../actions';
+import {CreateEvent as _CreateEvent} from '../windows'
+import {navigationActions, eventActions} from '../actions'
 
 class CreateEvent extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
-    let event;
+    let event
     if(props.id) {
-      event = props.events.eventsById[props.id];
+      event = props.events.eventsById[props.id]
     }
 
     this.state = {
       activityKey: (event && event.activity) ? event.activity : null,
       event: event,
-    };
+    }
   }
 
   render() {
     let interests = Object.keys(this.props.interests).map(id => {
-      return this.props.interests[id];
-    });
+      return this.props.interests[id]
+    })
 
     return (
       <_CreateEvent
@@ -35,10 +35,10 @@ class CreateEvent extends React.Component {
           this.props.onNavigate('activitiesSelect', {
             activities: this.props.interests,
             onSelect: (activityKey) => {
-              this.setState({activityKey});
-              this.props.onNavigateBack();
+              this.setState({activityKey})
+              this.props.onNavigateBack()
             }
-          }, false);
+          }, false)
         }}
         activity={this.props.interests[this.state.activityKey]}
         onComplete={(eventData) => {
@@ -49,21 +49,21 @@ class CreateEvent extends React.Component {
             //Replace address with it's text description (i.e. 'New York, USA')
             address: eventData.address.text,
             addressGooglePlaceId: eventData.address.key,
-          };
+          }
           if(this.props.id) {
-            this.props.onEditEvent(this.props.id, eventData);
+            this.props.onEditEvent(this.props.id, eventData)
           } else {
-            this.props.onSaveEvent(eventData);
+            this.props.onSaveEvent(eventData)
           }
         }}
         onSelectAppPayments={() => {
           if(!this.props.user.stripeAccount) {
-            this.props.onNavigate('paymentsBankSetup');
+            this.props.onNavigate('paymentsBankSetup')
           }
         }}
         interests={interests}
       />
-    );
+    )
   }
 }
 
@@ -80,4 +80,4 @@ export default connect(
     onSaveEvent: (eventData) => dispatch(eventActions.create(eventData)),
     onEditEvent: (eventId, eventData) => dispatch(eventActions.edit(eventId, eventData)),
   }),
-)(CreateEvent);
+)(CreateEvent)

@@ -1,4 +1,4 @@
-import {handleActions} from 'redux-actions';
+import {handleActions} from 'redux-actions'
 
 /**
  * Take a data object from the database and convert it to one that is
@@ -34,45 +34,45 @@ export const convertStructure = (data) => {
 
     //overwrite with actual data
     ...data,
-  };
+  }
 
   //flatten scoped data
   if(data.publicProfile) {
-    data.name = data.publicProfile.name;
-    data.image = data.publicProfile.image;
-    data.imageUrl = data.publicProfile.imageUrl;
+    data.name = data.publicProfile.name
+    data.image = data.publicProfile.image
+    data.imageUrl = data.publicProfile.imageUrl
 
-    let imageSrc = null;
+    let imageSrc = null
     if (data.publicProfile.imageUrl) {
-      imageSrc = data.publicProfile.imageUrl;
+      imageSrc = data.publicProfile.imageUrl
     } else if (data.publicProfile.facebookImageSrc) {
-      imageSrc = data.publicProfile.facebookImageSrc;
+      imageSrc = data.publicProfile.facebookImageSrc
     }
 
-    data.imageSrc = imageSrc;
-    data.username = data.publicProfile.username;
-    data.gender = data.publicProfile.gender;
-    data.city = data.publicProfile.city;
-    data.interests = data.publicProfile.interests;
-    data.availability = data.publicProfile.availability;
-    delete data.publicProfile;
+    data.imageSrc = imageSrc
+    data.username = data.publicProfile.username
+    data.gender = data.publicProfile.gender
+    data.city = data.publicProfile.city
+    data.interests = data.publicProfile.interests
+    data.availability = data.publicProfile.availability
+    delete data.publicProfile
   }
 
   //flatten scoped data
   if(data.contactInfo) {
-    data.email = data.contactInfo.email;
-    data.phone = data.contactInfo.phone;
-    delete data.contactInfo;
+    data.email = data.contactInfo.email
+    data.phone = data.contactInfo.phone
+    delete data.contactInfo
   }
 
   //flatten scoped data
   if(data.restrictedProfile) {
-    data.dob = data.restrictedProfile.dob;
-    delete data.restrictedProfile;
+    data.dob = data.restrictedProfile.dob
+    delete data.restrictedProfile
   }
 
-  return data;
-};
+  return data
+}
 
 const initialState = {
   uid: null,
@@ -92,7 +92,7 @@ const initialState = {
   signUpError: null,
 
   mode: null,
-};
+}
 
 export default handleActions({
 
@@ -103,28 +103,28 @@ export default handleActions({
       isSigningIn: false,
       isSigningUp: false,
       isFacebookUserLoading: false,
-    };
+    }
   },
 
   FIREBASE_AUTH_INIT: (state, action) => {
     return {
       ...state,
       uid: action.uid,
-    };
+    }
   },
 
   USER_SIGN_IN_FORM_EDIT: (state, action) => {
     return {
       ...state,
       signInError: null,
-    };
+    }
   },
 
   USER_SIGN_IN: (state, action) => {
     return {
       ...state,
       isSigningIn: true,
-    };
+    }
   },
 
   USER_DATA_FIRST_LOAD: (state, action) => {
@@ -132,7 +132,7 @@ export default handleActions({
       ...state,
       isSigningUp: false,
       isSigningIn: false,
-    };
+    }
   },
 
   USER_SIGN_IN_SUCCESS: (state, action) => {
@@ -141,7 +141,7 @@ export default handleActions({
       uid: action.uid,
       signInMethod: action.method,
       //isSigningIn: false, //we also need to wait for user data to load
-    };
+    }
   },
 
   USER_SIGN_IN_FAILURE: (state, action) => {
@@ -153,14 +153,14 @@ export default handleActions({
 
       isSigningIn: false,
       signInError: action.err,
-    };
+    }
   },
 
   USER_SIGN_UP: (state, action) => {
     return {
       ...state,
       isSigningUp: true,
-    };
+    }
   },
 
   USER_SIGN_UP_SUCCESS: (state, action) => {
@@ -169,14 +169,14 @@ export default handleActions({
       uid: action.uid,
       //isSigningUp: false, //we also need to wait for user data to load
       signUpError: null,
-    };
+    }
   },
 
   FACEBOOK_USER_DATA_START: (state, action) => {
     return {
       ...state,
       isFacebookUserLoading: true,
-    };
+    }
   },
 
   FACEBOOK_USER_DATA: (state, action) => {
@@ -184,7 +184,7 @@ export default handleActions({
       ...state,
       facebookUser: action.facebookUser,
       isFacebookUserLoading: false,
-    };
+    }
   },
 
   USER_SIGN_UP_FAILURE: (state, action) => {
@@ -193,32 +193,32 @@ export default handleActions({
       uid: false,
       isSigningUp: false,
       signUpError: action.err,
-    };
+    }
   },
 
   USER_LOGGED_OUT: (state, action) => {
-    return initialState;
+    return initialState
   },
 
   SET_UI_MODE: (state, action) => {
     return {
       ...state,
       mode: action.mode,
-    };
+    }
   },
 
   USER_CHANGE: (state, action) => {
     return {
       ...state,
       ...convertStructure(action.user),
-    };
+    }
   },
 
   USER_SET_AVAILABILITY: (state, action) => {
     return {
       ...state,
       availability: action.value,
-    };
+    }
   },
 
-}, initialState);
+}, initialState)

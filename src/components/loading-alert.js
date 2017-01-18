@@ -1,8 +1,8 @@
 
-import React from 'react';
-import {View, Text, ActivityIndicator} from 'react-native';
-import {Popup} from './';
-import StyleSheet from '../styles';
+import React from 'react'
+import {View, Text, ActivityIndicator} from 'react-native'
+import {Popup} from './'
+import StyleSheet from '../styles'
 
 export default class LoadingAlert extends React.Component {
   render() {
@@ -12,6 +12,6 @@ export default class LoadingAlert extends React.Component {
           <ActivityIndicator color={StyleSheet.colors.pink}/>
         </View>
       </Popup>
-    );
+    )
   }
 }

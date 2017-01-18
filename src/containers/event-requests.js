@@ -1,9 +1,9 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import _EventRequests from '../windows/event-requests';
-import inflateEvent from '../data/inflaters/event';
-import {navigationActions, requestActions} from '../actions';
+import _EventRequests from '../windows/event-requests'
+import inflateEvent from '../data/inflaters/event'
+import {navigationActions, requestActions} from '../actions'
 
 class EventRequests extends React.Component {
 
@@ -14,11 +14,11 @@ class EventRequests extends React.Component {
         requests: this.props.requests.requestsById,
         users: this.props.users.usersById,
       }
-    );
+    )
 
     let requests = event.requests.filter(request => {
-      return request && request.user && request.status === 'pending';
-    });
+      return request && request.user && request.status === 'pending'
+    })
 
     return (
       <_EventRequests
@@ -27,22 +27,22 @@ class EventRequests extends React.Component {
         requests={requests}
         onPressApprove={(ids) => {
           ids.forEach(id => {
-            this.props.onPressApprove(this.props.requests.requestsById[id]);
-          });
+            this.props.onPressApprove(this.props.requests.requestsById[id])
+          })
         }}
         onPressDecline={(ids) => {
           ids.forEach(id => {
-            this.props.onPressDecline(this.props.requests.requestsById[id]);
-          });
+            this.props.onPressDecline(this.props.requests.requestsById[id])
+          })
         }}
       />
-    );
+    )
   }
 }
 
 EventRequests.propTypes = {
   id: React.PropTypes.string.isRequired,
-};
+}
 
 export default connect(
   (state) => ({
@@ -57,4 +57,4 @@ export default connect(
     onPressApprove: (id) => dispatch(requestActions.allow(id)),
     onPressDecline: (id) => dispatch(requestActions.cancel(id)),
   }),
-)(EventRequests);
+)(EventRequests)

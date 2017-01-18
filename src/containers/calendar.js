@@ -1,23 +1,23 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import moment from 'moment';
+import React from 'react'
+import {connect} from 'react-redux'
+import moment from 'moment'
 
-import {Calendar as _Calendar} from '../windows';
-import {navigationActions} from '../actions';
+import {Calendar as _Calendar} from '../windows'
+import {navigationActions} from '../actions'
 
 class Calendar extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       selected: moment(),
-    };
+    }
   }
 
   render() {
     let events = Object.keys(this.props.user.organizing).map(id => {
-      return this.props.events.eventsById[id];
-    }).filter(event => event);
+      return this.props.events.eventsById[id]
+    }).filter(event => event)
 
     return (
       <_Calendar
@@ -27,10 +27,10 @@ class Calendar extends React.Component {
         onChangeDate={(date) => this.setState({selected: moment(date)})}
         events={events}
         onPressEvent={(event) => {
-          this.props.onNavigate('eventDetails', {id: event.id});
+          this.props.onNavigate('eventDetails', {id: event.id})
         }}
       />
-    );
+    )
   }
 }
 
@@ -43,4 +43,4 @@ export default connect(
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
     onNavigateBack: () => dispatch(navigationActions.pop()),
   }),
-)(Calendar);
+)(Calendar)

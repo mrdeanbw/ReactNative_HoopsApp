@@ -1,4 +1,4 @@
-import interests from '../config/interests';
+import interests from '../config/interests'
 
 export const load = () => {
   return dispatch => {
@@ -6,12 +6,12 @@ export const load = () => {
       interests[id] = {
         ...interests[id],
         id,
-      };
+      }
     }
 
     dispatch({
       type: 'INTERESTS_LOAD_ALL',
       interests,
-    });
-  };
-};
+    })
+  }
+}

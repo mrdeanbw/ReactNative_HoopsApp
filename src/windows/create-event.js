@@ -1,17 +1,17 @@
-import React from 'react';
-import ReactNative, {View, Text, ScrollView, Image, ImagePickerIOS, TouchableHighlight} from 'react-native';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+import React from 'react'
+import ReactNative, {View, Text, Image, ImagePickerIOS, TouchableHighlight} from 'react-native'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import {Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components';
-import StyleSheet from '../styles';
-import {autocomplete} from '../data/google-places';
-import _ from '../i18n';
+import {Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components'
+import StyleSheet from '../styles'
+import {autocomplete} from '../data/google-places'
+import _ from '../i18n'
 
 export default class CreateEvent extends React.Component {
 
   constructor(props) {
-    super(props);
-    let event = props.event || {};
+    super(props)
+    let event = props.event || {}
     let blankEvent = {
       title: '',
       gender: '',
@@ -37,24 +37,24 @@ export default class CreateEvent extends React.Component {
       notes: '',
       rules: '',
       allowContactInfo: false,
-    };
+    }
 
-    let eventDetails = {};
+    let eventDetails = {}
     if(props.event) {
       for(let key in blankEvent) {
         if(typeof props.event[key] === 'undefined') {
-          eventDetails[key] = blankEvent[key];
+          eventDetails[key] = blankEvent[key]
         } else {
-          eventDetails[key] = props.event[key];
+          eventDetails[key] = props.event[key]
         }
       }
 
       eventDetails.address = {
         key: props.event.addressGooglePlaceId,
         text: props.event.address,
-      };
+      }
     } else {
-      eventDetails = blankEvent;
+      eventDetails = blankEvent
     }
 
     this.state = {
@@ -63,7 +63,7 @@ export default class CreateEvent extends React.Component {
       image: undefined,
       eventDetails: eventDetails,
       focus: {},
-    };
+    }
   }
 
   setEventData = (data) => {
@@ -72,36 +72,36 @@ export default class CreateEvent extends React.Component {
         ...this.state.eventDetails,
         ...data,
       },
-    });
+    })
   };
 
   getEntryFeeLabel = () => {
-    let {entryFee} = this.state.eventDetails;
+    let {entryFee} = this.state.eventDetails
     if(typeof entryFee === 'number' && !isNaN(entryFee)){
-      return entryFee.toString();
+      return entryFee.toString()
     }else{
-      return '';
+      return ''
     }
   };
 
   getNumericLabel = (value) => {
     if(typeof value === 'number' && !isNaN(value) && value !== 0) {
-      return value.toString();
+      return value.toString()
     }else{
-      return '';
+      return ''
     }
   }
 
   onComplete = () => {
     if(this.props.onComplete) {
-      let data = this.state.eventDetails;
-      data.activity = this.props.activity;
+      let data = this.state.eventDetails
+      data.activity = this.props.activity
       if(typeof this.state.image !== 'undefined') {
         //image could have been set to null, meaning delete the image
-        data.image = this.state.image;
+        data.image = this.state.image
       }
 
-      this.props.onComplete(data);
+      this.props.onComplete(data)
     }
   };
 
@@ -111,7 +111,7 @@ export default class CreateEvent extends React.Component {
         ...this.state.focus,
         [scrollRef]: ReactNative.findNodeHandle(inputRef),
       },
-    });
+    })
   };
 
   validate(stepNumber) {
@@ -132,9 +132,9 @@ export default class CreateEvent extends React.Component {
       deadline,
 
       description,
-    } = this.state.eventDetails;
+    } = this.state.eventDetails
 
-    let activity = this.props.activity;
+    let activity = this.props.activity
 
     switch(stepNumber) {
       case 1:
@@ -144,7 +144,7 @@ export default class CreateEvent extends React.Component {
           gender &&
           privacy &&
           level
-        );
+        )
 
       case 2:
         return !!(
@@ -155,21 +155,21 @@ export default class CreateEvent extends React.Component {
           Number.isFinite(entryFee) && //`entryFee` could be 0
           paymentMethod &&
           deadline
-        );
+        )
 
       case 3:
-        return !!(description);
+        return !!(description)
     }
 
   }
 
   render() {
-    let imageSrc;
+    let imageSrc
     if(this.props.event) {
-      imageSrc = this.props.event.imageSrc;
+      imageSrc = this.props.event.imageSrc
     }
     if(typeof this.state.image !== 'undefined') {
-      imageSrc = this.state.image || undefined; //Make sure imageSrc is never null
+      imageSrc = this.state.image || undefined //Make sure imageSrc is never null
     }
 
     return (
@@ -233,11 +233,11 @@ export default class CreateEvent extends React.Component {
                   onChangeText={minAge => {
                     this.setEventData({
                       minAge: minAge === '' ? '' : parseInt(minAge, 10)
-                    });
+                    })
                   }}
                   style={{flex: 1, marginRight: 25}}
                   onFocus={() => {
-                    this.scrollToInput('scrollView1', this.refs.minAgeInput);
+                    this.scrollToInput('scrollView1', this.refs.minAgeInput)
                   }}
                 />
                 <Button
@@ -258,11 +258,11 @@ export default class CreateEvent extends React.Component {
                   onChangeText={maxAge => {
                     this.setEventData({
                       maxAge: maxAge === '' ? '' : parseInt(maxAge, 10)
-                    });
+                    })
                   }}
                   style={{flex: 1, marginRight: 25}}
                   onFocus={() => {
-                    this.scrollToInput('scrollView1', this.refs.maxAgeInput);
+                    this.scrollToInput('scrollView1', this.refs.maxAgeInput)
                   }}
                 />
                 <Button
@@ -308,11 +308,11 @@ export default class CreateEvent extends React.Component {
                   onChangeText={maxPlayers => {
                     this.setEventData({
                       maxPlayers: maxPlayers === '' ? '' : parseInt(maxPlayers, 10)
-                    });
+                    })
                   }}
                   style={{flex: 1, marginRight: 25}}
                   onFocus={() => {
-                    this.scrollToInput('scrollView1', this.refs.maxPlayersInput);
+                    this.scrollToInput('scrollView1', this.refs.maxPlayersInput)
                   }}
                 />
                 <Button
@@ -333,11 +333,11 @@ export default class CreateEvent extends React.Component {
                   onChangeText={minPlayers => {
                     this.setEventData({
                       minPlayers: minPlayers === '' ? '' : parseInt(minPlayers, 10)
-                    });
+                    })
                   }}
                   style={{flex: 1, marginRight: 25}}
                   onFocus={() => {
-                    this.scrollToInput('scrollView1', this.refs.minPlayersInput);
+                    this.scrollToInput('scrollView1', this.refs.minPlayersInput)
                   }}
                 />
                 <Button
@@ -388,41 +388,41 @@ export default class CreateEvent extends React.Component {
               </View>
 
               <View style={[StyleSheet.doubleMarginTop, {flex:1, flexDirection: 'row'}]}>
-                  <Text style={[{flex: 1, marginTop: 14, marginRight: 25, color: StyleSheet.colors.pink, fontSize: 13}]}>
-                    {_('recurEvery').toUpperCase()}
-                  </Text>
-                  <TextInput
-                    ref="recurringValue"
-                    type="flat"
-                    keyboardType="numeric"
-                    value={this.state.eventDetails.recurringValue.toString()}
-                    onChangeText={recurringValue => this.setEventData({recurringValue})}
-                    style={{flex: 1, marginRight: 25}}
-                    disabled={!this.state.eventDetails.recurring}
-                    onFocus={() => {
-                      this.scrollToInput('scrollView2', this.refs.recurringValue);
-                    }}
-                  /> 
-                  <ListInput
-                    type="flat"
-                    value={this.state.eventDetails.recurringType}
-                    containerStyle={{flex:1}}
-                    onChange={(recurringType) => this.setEventData({recurringType})}
-                    disabled={!this.state.eventDetails.recurring}
-                  >
-                    <ListInput.Item text={_('days')} value="d" />
-                    <ListInput.Item text={_('weeks')} value="w" />
-                  </ListInput>
-                </View>
+                <Text style={[{flex: 1, marginTop: 14, marginRight: 25, color: StyleSheet.colors.pink, fontSize: 13}]}>
+                  {_('recurEvery').toUpperCase()}
+                </Text>
+                <TextInput
+                  ref="recurringValue"
+                  type="flat"
+                  keyboardType="numeric"
+                  value={this.state.eventDetails.recurringValue.toString()}
+                  onChangeText={recurringValue => this.setEventData({recurringValue})}
+                  style={{flex: 1, marginRight: 25}}
+                  disabled={!this.state.eventDetails.recurring}
+                  onFocus={() => {
+                    this.scrollToInput('scrollView2', this.refs.recurringValue)
+                  }}
+                />
+                <ListInput
+                  type="flat"
+                  value={this.state.eventDetails.recurringType}
+                  containerStyle={{flex:1}}
+                  onChange={(recurringType) => this.setEventData({recurringType})}
+                  disabled={!this.state.eventDetails.recurring}
+                >
+                  <ListInput.Item text={_('days')} value="d" />
+                  <ListInput.Item text={_('weeks')} value="w" />
+                </ListInput>
+              </View>
 
               <View style={StyleSheet.halfMarginTop}>
                 <TextInput
                   value={this.state.addressText}
                   onChangeText={(addressText) => {
-                    this.setState({addressText});
+                    this.setState({addressText})
                     autocomplete(addressText, '').then(result => {
-                      this.setState({addressAutocomplete: result.predictions});
-                    });
+                      this.setState({addressAutocomplete: result.predictions})
+                    })
                   }}
                   ref="venueAddressInput"
                   type="flat"
@@ -430,10 +430,10 @@ export default class CreateEvent extends React.Component {
                   placeholder={_('venueAddress')}
                   blurOnSubmit={false}
                   onSubmitEditing={() => {
-                    this.refs.costInput.focus();
+                    this.refs.costInput.focus()
                   }}
                   onFocus={() => {
-                    this.scrollToInput('scrollView2', this.refs.venueAddressInput);
+                    this.scrollToInput('scrollView2', this.refs.venueAddressInput)
                   }}
                   autocomplete={this.state.addressAutocomplete.map(prediction => ({
                     key: prediction.place_id,
@@ -443,11 +443,11 @@ export default class CreateEvent extends React.Component {
                     this.setState({
                       addressText: prediction.text,
                       addressAutocomplete: [],
-                    });
-                    this.setEventData({address: prediction});
+                    })
+                    this.setEventData({address: prediction})
                   }}
                 />
-                
+
                 <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
                   <TextInput
                     ref="costInput"
@@ -460,11 +460,11 @@ export default class CreateEvent extends React.Component {
                     onChangeText={entryFee => {
                       this.setEventData({
                         entryFee: entryFee === '' ? '' : parseInt(entryFee, 10)
-                      });
+                      })
                     }}
                     style={{flex: 1, marginRight: 25}}
                     onFocus={() => {
-                      this.scrollToInput('scrollView2', this.refs.costInput);
+                      this.scrollToInput('scrollView2', this.refs.costInput)
                     }}
                   />
                   <Button
@@ -484,9 +484,9 @@ export default class CreateEvent extends React.Component {
                   value={this.state.eventDetails.paymentMethod}
                   onChange={(paymentMethod) => {
                     if(paymentMethod === 'app' || paymentMethod === 'unrestricted') {
-                      this.props.onSelectAppPayments();
+                      this.props.onSelectAppPayments()
                     }
-                    this.setEventData({paymentMethod});
+                    this.setEventData({paymentMethod})
                   }}
                 >
                   <ListInput.Item text={_('inAppPayment')} value="app" />
@@ -552,7 +552,7 @@ export default class CreateEvent extends React.Component {
                 onChange={() => {
                   this.setEventData({
                     allowContactInfo: !this.state.eventDetails.allowContactInfo,
-                  });
+                  })
                 }}
               />
 
@@ -564,12 +564,12 @@ export default class CreateEvent extends React.Component {
                 onChange={(value) => {
                   if(value) {
                     ImagePickerIOS.openSelectDialog({}, (result) => {
-                      this.setState({image: result});
+                      this.setState({image: result})
                     }, (err) => {
-                      console.warn(err); //eslint-disable-line no-console
-                    });
+                      console.warn(err) //eslint-disable-line no-console
+                    })
                   } else {
-                    this.setState({image: null});
+                    this.setState({image: null})
                   }
                 }}
               />
@@ -583,6 +583,6 @@ export default class CreateEvent extends React.Component {
         </Wizard>
         <KeyboardSpacer/>
       </View>
-    );
+    )
   }
 }

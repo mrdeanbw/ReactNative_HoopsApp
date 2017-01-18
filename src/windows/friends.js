@@ -1,36 +1,36 @@
-import React from 'react';
-import {View, ScrollView} from 'react-native';
+import React from 'react'
+import {View, ScrollView} from 'react-native'
 
-import {Button, UserListItem, TextInput, Header, Popup} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {Button, UserListItem, TextInput, Header, Popup} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class Friends extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       popupUser: null,
-    };
+    }
   }
 
   onPressDisclosure = (user) => {
-    this.setState({popupUser: user});
+    this.setState({popupUser: user})
   };
 
   onPressUser = (user) => {
-    this.props.onPressUser(user);
+    this.props.onPressUser(user)
   };
 
   onPressInvite = (user) => {
-    this.setState({popupUser: null});
-    this.props.onPressInvite(user);
+    this.setState({popupUser: null})
+    this.props.onPressInvite(user)
   };
 
   onPressRemove = (user) => {
-    this.setState({popupUser: null});
-    this.props.onPressRemove(user);
+    this.setState({popupUser: null})
+    this.props.onPressRemove(user)
   };
 
   render() {
@@ -88,6 +88,6 @@ export default class Friends extends React.Component {
           )}
         </ScrollView>
       </View>
-    );
+    )
   }
 }

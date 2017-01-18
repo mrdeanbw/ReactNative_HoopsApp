@@ -1,14 +1,14 @@
-import React from 'react';
-import {View, Text} from 'react-native';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+import React from 'react'
+import {View, Text} from 'react-native'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import {Header, TextInput, Button, LoadingAlert, Form} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {Header, TextInput, Button, LoadingAlert, Form} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class PaymentsBankSetup extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       accountNumberPlaceholder: this.props.account.accountNumber,
@@ -18,16 +18,16 @@ export default class PaymentsBankSetup extends React.Component {
       addressLine2: this.props.account.addressLine2,
       city: this.props.account.city,
       postcode: this.props.account.postcode,
-    };
+    }
   }
 
   onDonePress = () => {
     if(!this.validate()) {
-      return;
+      return
     }
 
     //Remove any dashes or other non-numerics from sort code
-    let sortCode = (this.state.sortCode || '').replace(/[^0-9]/g, '');
+    let sortCode = (this.state.sortCode || '').replace(/[^0-9]/g, '')
 
     this.props.onDonePress({
       accountNumber: this.state.accountNumber,
@@ -36,7 +36,7 @@ export default class PaymentsBankSetup extends React.Component {
       addressLine2: this.state.addressLine2,
       city: this.state.city,
       postcode: this.state.postcode,
-    });
+    })
   };
 
   validate = () => {
@@ -46,7 +46,7 @@ export default class PaymentsBankSetup extends React.Component {
       this.state.addressLine1 &&
       this.state.city &&
       this.state.postcode
-    );
+    )
   }
 
   render() {
@@ -84,11 +84,11 @@ export default class PaymentsBankSetup extends React.Component {
             value={this.state.sortCode}
             placeholder={_('sortCode')}
             onChangeText={(sortCode) => {
-              let numbers = sortCode.replace(/[^0-9]/g, ''); //strip non-numbers
-              numbers = numbers.substr(0, 6); //Only allow up to 6 numbers
-              let matches = numbers.match(/([0-9]{1,2})/g);
+              let numbers = sortCode.replace(/[^0-9]/g, '') //strip non-numbers
+              numbers = numbers.substr(0, 6) //Only allow up to 6 numbers
+              let matches = numbers.match(/([0-9]{1,2})/g)
               if(matches) {
-                sortCode = matches.join('-'); //join with dashes in numerical pairs
+                sortCode = matches.join('-') //join with dashes in numerical pairs
               }
               this.setState({sortCode})
             }}
@@ -130,7 +130,7 @@ export default class PaymentsBankSetup extends React.Component {
         </View>
         <KeyboardSpacer/>
       </View>
-    );
+    )
   }
 
 }

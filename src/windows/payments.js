@@ -1,34 +1,34 @@
-import React from 'react';
-import {ScrollView, View, Text, TouchableHighlight} from 'react-native';
+import React from 'react'
+import {ScrollView, View, Text, TouchableHighlight} from 'react-native'
 
-import {Header, Button, Icon, Popup, LoadingAlert} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {Header, Button, Icon, Popup, LoadingAlert} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class Payments extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       popopCard: null,
-    };
+    }
   }
 
   onPressCard = (card) => {
-    this.setState({popupCard: card});
+    this.setState({popupCard: card})
   };
 
   onPressDisclosure = (card) => {
-    this.setState({popupCard: card});
+    this.setState({popupCard: card})
   };
 
   onPressClose = () => {
-    this.setState({popupCard: null});
+    this.setState({popupCard: null})
   };
 
   onPressRemove = (card) => {
-    this.props.onPressRemove(card);
-    this.setState({popupCard: null});
+    this.props.onPressRemove(card)
+    this.setState({popupCard: null})
   };
 
   render() {
@@ -83,13 +83,13 @@ export default class Payments extends React.Component {
                   </TouchableHighlight>
                 </View>
               </TouchableHighlight>
-            );
+            )
           })}
 
         </ScrollView>
 
       </View>
-    );
+    )
   }
 
 }

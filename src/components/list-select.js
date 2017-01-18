@@ -1,65 +1,65 @@
 
-import React from 'react';
-import {View, Text, ListView, TouchableHighlight} from 'react-native';
-import {TextInput} from './';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import React from 'react'
+import {View, Text, ListView, TouchableHighlight} from 'react-native'
+import {TextInput} from './'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class ListSelect extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this._ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-    });
+    })
     this.state = {
       search: '',
       dataSource: this.getDataSource(props.rows, ''),
-    };
+    }
   }
 
   getDataSource = (rows, search) => {
     //Filter out by text search
     if(search) {
-      let searchString = search.toLowerCase();
+      let searchString = search.toLowerCase()
       rows = rows.filter(row => {
-        return row.name.toLowerCase().search(searchString) !== -1;
-      });
+        return row.name.toLowerCase().search(searchString) !== -1
+      })
     }
 
     //format into alphabetical sections
-    let {sections, sectionIds} = this._getSections(rows);
+    let {sections, sectionIds} = this._getSections(rows)
 
-    return this._ds.cloneWithRowsAndSections(sections, sectionIds);
+    return this._ds.cloneWithRowsAndSections(sections, sectionIds)
   }
 
   _getSections = (rows) => {
-    let sections = {};
+    let sections = {}
 
     rows.forEach(row => {
       //get the first letter
-      let letter = row.name.substr(0, 1).toLowerCase();
+      let letter = row.name.substr(0, 1).toLowerCase()
       if(!sections[letter]) {
-        sections[letter] = [];
+        sections[letter] = []
       }
       sections[letter].push({
         ...row, //clone
-      });
-    });
+      })
+    })
 
-    let sectionIds = Object.keys(sections);
+    let sectionIds = Object.keys(sections)
 
     return {
       sections,
       sectionIds,
-    };
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       dataSource: this.getDataSource(nextProps.rows, this.state.search),
-    });
+    })
   }
 
   render() {
@@ -74,7 +74,7 @@ export default class ListSelect extends React.Component {
               this.setState({
                 search,
                 dataSource: this.getDataSource(this.props.rows, search),
-              });
+              })
             }}
           />
         </View>
@@ -88,7 +88,7 @@ export default class ListSelect extends React.Component {
                   {sectionId.toUpperCase()}
                 </Text>
               </View>
-            );
+            )
           }}
           renderRow={(rowData) => {
             return (
@@ -100,11 +100,11 @@ export default class ListSelect extends React.Component {
                   <Text style={StyleSheet.list.rowText}>{rowData.name}</Text>
                 </View>
               </TouchableHighlight>
-            );
+            )
           }}
           renderFooter={this.props.renderFooter}
         />
       </View>
-    );
+    )
   }
 }

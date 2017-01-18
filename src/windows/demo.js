@@ -1,33 +1,33 @@
-import React from 'react';
-import {ScrollView, View, Modal} from 'react-native';
+import React from 'react'
+import {ScrollView, View, Modal} from 'react-native'
 
-import StyleSheet from '../styles';
-import {Application, Dialog, Button} from '../components';
+import StyleSheet from '../styles'
+import {Application, Dialog, Button} from '../components'
 
 export default class Demo extends React.Component {
 
   constructor() {
-    super();
-    this.state = {};
+    super()
+    this.state = {}
   }
 
   startTest(test) {
-    this.setState({ test: test, testVisible: true });
+    this.setState({ test: test, testVisible: true })
   }
 
   finishTest = () => {
-    this.setState({testVisible: false});
+    this.setState({testVisible: false})
   };
 
   render() {
-    const { application, ...props } = this.props;
+    const { application, ...props } = this.props
 
-    const windows = require('./index.js');
-    const tests = [];
+    const windows = require('./index.js')
+    const tests = []
     Object.keys(windows).filter(v => !!windows[v].getTest).map(v => windows[v].getTest(this.finishTest)).forEach(t => {
-      if(!Array.isArray(t)) tests.push(t);
-      else tests.push(...t);
-    });
+      if(!Array.isArray(t)) tests.push(t)
+      else tests.push(...t)
+    })
 
     return (
       <View style={{flex: 1}}>
@@ -40,7 +40,7 @@ export default class Demo extends React.Component {
           <Application onClose={this.finishTest} view={this.state.test.view} viewProps={this.state.test.viewProps} />
         </Modal>}
       </View>
-    );
+    )
   }
 
 }

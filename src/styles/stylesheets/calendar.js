@@ -1,5 +1,5 @@
 
-import {colors} from '../resources';
+import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
   monthSelector: {
@@ -180,4 +180,4 @@ export default StyleSheet => StyleSheet.extend({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})

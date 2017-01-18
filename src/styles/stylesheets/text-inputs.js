@@ -1,7 +1,7 @@
 
 
 
-import {colors} from '../resources';
+import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.escape({
 
@@ -207,4 +207,4 @@ export default StyleSheet => StyleSheet.escape({
 
   errorPlaceholderColor: colors.pink,
 
-});
+})

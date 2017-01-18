@@ -1,9 +1,9 @@
 
-import React from 'react';
-import {View, MapView as _MapView, TouchableHighlight} from 'react-native';
+import React from 'react'
+import {View, MapView as _MapView, TouchableHighlight} from 'react-native'
 
-import icons from '../styles/resources/icons';
-import Icon from './icon';
+import icons from '../styles/resources/icons'
+import Icon from './icon'
 
 const iconsMap = {
   AMERICAN_FOOTBALL: 'pinAmericanFootball',
@@ -38,13 +38,13 @@ const iconsMap = {
   TABLE_TENNIS: 'pinTableTennis',
   TENNIS: 'pinTennis',
   YOGA: 'pinYoga',
-};
+}
 
 
 export default class MapView extends React.Component {
   render() {
     let annotations = this.props.events.filter(event => {
-      return event && event.addressCoords;
+      return event && event.addressCoords
     }).map(event => {
       return {
         latitude: event.addressCoords.lat,
@@ -61,54 +61,54 @@ export default class MapView extends React.Component {
             </View>
           </TouchableHighlight>
         ),
-      };
-    });
+      }
+    })
 
     //Calculate region size based on events distances
-    let region;
+    let region
     if(this.props.location && this.props.location.lat && this.props.location.lon) {
-      let location = this.props.location;
+      let location = this.props.location
 
       //Calculate the maximum lat/lon delta
       let maxDelta = this.props.events.filter(event => {
-        return event && event.addressCoords;
+        return event && event.addressCoords
       }).reduce((prev, event) => {
-        let coords = event.addressCoords;
+        let coords = event.addressCoords
 
-        let deltaLat = Math.abs(coords.lat - location.lat);
-        let deltaLon = Math.abs(coords.lon - location.lon);
+        let deltaLat = Math.abs(coords.lat - location.lat)
+        let deltaLon = Math.abs(coords.lon - location.lon)
 
         return {
           lat: Math.max(deltaLat, prev.lat),
           lon: Math.max(deltaLon, prev.lon),
-        };
-      }, {lat: 0, lon: 0});
+        }
+      }, {lat: 0, lon: 0})
 
       region = {
         latitude: location.lat,
         longitude: location.lon,
         latitudeDelta: maxDelta.lat * 2.5, // Double (for left+right) and add some padding.
         longitudeDelta: maxDelta.lon * 2.5,
-      };
+      }
     } else {
-      let minLat, minLon;
-      let maxLat, maxLon;
+      let minLat, minLon
+      let maxLat, maxLon
       this.props.events.forEach(event => {
         if(event && event.addressCoords) {
-          let coords = event.addressCoords;
-          minLat = minLat ? Math.min(minLat, coords.lat) : coords.lat;
-          maxLat = maxLat ? Math.max(maxLat, coords.lat) : coords.lat;
-          minLon = minLon ? Math.min(minLon, coords.lon) : coords.lon;
-          maxLon = maxLon ? Math.max(maxLon, coords.lon) : coords.lon;
+          let coords = event.addressCoords
+          minLat = minLat ? Math.min(minLat, coords.lat) : coords.lat
+          maxLat = maxLat ? Math.max(maxLat, coords.lat) : coords.lat
+          minLon = minLon ? Math.min(minLon, coords.lon) : coords.lon
+          maxLon = maxLon ? Math.max(maxLon, coords.lon) : coords.lon
         }
-      });
+      })
       if(minLat && maxLat && minLon && maxLon) {
         region = {
           latitude: (minLat + maxLat) / 2, //middle of extreme east+west
           longitude: (minLon + maxLon) / 2, //middle of extreme north+south
           latitudeDelta: Math.max(0.1, Math.abs(minLat - maxLat)),
           longitudeDelta: Math.max(0.1, Math.abs(minLon - maxLon)),
-        };
+        }
       }
     }
 
@@ -120,10 +120,10 @@ export default class MapView extends React.Component {
         annotations={annotations}
         {...this.props}
       />
-    );
+    )
   }
 }
 
 MapView.defaultProps = {
   events: [],
-};
+}

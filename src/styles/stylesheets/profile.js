@@ -1,5 +1,5 @@
 
-import {colors} from '../resources';
+import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
 
@@ -244,4 +244,4 @@ export default StyleSheet => StyleSheet.extend({
     width: 32,
     borderRadius: 16,
   },
-});
+})

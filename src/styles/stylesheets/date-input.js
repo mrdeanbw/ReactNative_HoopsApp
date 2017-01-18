@@ -1,6 +1,3 @@
-
-import {colors} from '../resources';
-
 export default StyleSheet => StyleSheet.extend({
 
   style: {
@@ -72,4 +69,4 @@ export default StyleSheet => StyleSheet.extend({
 
 
 
-});
+})

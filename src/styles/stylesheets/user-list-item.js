@@ -1,5 +1,5 @@
 
-import {colors} from '../resources';
+import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
   underlayColor: colors.lightGrey,
@@ -122,4 +122,4 @@ export default StyleSheet => StyleSheet.extend({
     marginRight: 15,
     marginLeft: 15
   },
-});
+})

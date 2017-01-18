@@ -1,22 +1,22 @@
-import React from 'react';
-import {View} from 'react-native';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+import React from 'react'
+import {View} from 'react-native'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import Button from '../components/button';
-import TextInput from '../components/text-input';
-import DateInput from '../components/date-input';
-import Header from '../components/header';
-import LoadingAlert from '../components/loading-alert';
-import Form from '../components/form';
-import AvatarEdit from '../components/avatar-edit';
-import StyleSheet from '../styles';
-import {autocomplete} from '../data/google-places';
-import _ from '../i18n';
+import Button from '../components/button'
+import TextInput from '../components/text-input'
+import DateInput from '../components/date-input'
+import Header from '../components/header'
+import LoadingAlert from '../components/loading-alert'
+import Form from '../components/form'
+import AvatarEdit from '../components/avatar-edit'
+import StyleSheet from '../styles'
+import {autocomplete} from '../data/google-places'
+import _ from '../i18n'
 
 export default class SignUpFacebookExtra extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       showPassword: false,
       showDobInfo: false,
@@ -30,7 +30,7 @@ export default class SignUpFacebookExtra extends React.Component {
       phone: props.phone,
       image: undefined,
       facebookImageSrc: props.facebookImageSrc,
-    };
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,7 +42,7 @@ export default class SignUpFacebookExtra extends React.Component {
         gender: nextProps.gender,
         phone: nextProps.phone,
         facebookImageSrc: nextProps.facebookImageSrc,
-      });
+      })
     }
   }
 
@@ -53,7 +53,7 @@ export default class SignUpFacebookExtra extends React.Component {
       dob,
       gender,
       city,
-    } = this.state;
+    } = this.state
 
     return !!(
       name &&
@@ -61,19 +61,19 @@ export default class SignUpFacebookExtra extends React.Component {
       dob &&
       gender &&
       city.key
-    );
+    )
   }
 
   onSubmitEditing = (nextField) => {
-    this.refs[nextField].focus();
+    this.refs[nextField].focus()
   };
 
   onPressMale = () => {
-    this.setState({gender: 'male'});
+    this.setState({gender: 'male'})
   };
 
   onPressFemale = () => {
-    this.setState({gender: 'female'});
+    this.setState({gender: 'female'})
   };
 
   onPressContinue = () => {
@@ -85,14 +85,14 @@ export default class SignUpFacebookExtra extends React.Component {
       city: this.state.city.text,
       cityGooglePlaceId: this.state.city.key,
       image: this.state.image,
-    };
+    }
 
     //If there was no custom image set, use the facebook one instead.
     if(!this.state.image && this.state.facebookImageSrc) {
-      userData.facebookImageSrc = this.state.facebookImageSrc;
+      userData.facebookImageSrc = this.state.facebookImageSrc
     }
 
-    this.props.onPressContinue(userData);
+    this.props.onPressContinue(userData)
   };
 
   render() {
@@ -165,25 +165,25 @@ export default class SignUpFacebookExtra extends React.Component {
               this.setState({
                 cityText,
                 city: {},
-              });
+              })
               autocomplete(cityText, '(cities)').then(result => {
                 this.setState({
                   citiesAutocomplete: result.predictions,
-                });
-              });
+                })
+              })
             }}
             autocomplete={this.state.citiesAutocomplete.map(suggestion => {
               return {
                 key: suggestion.place_id,
                 text: suggestion.description,
-              };
+              }
             })}
             onAutocompletePress={(item) => {
               this.setState({
                 cityText: item.text,
                 city: item,
                 citiesAutocomplete: [],
-              });
+              })
             }}
             type="flat"
             ref="city"
@@ -229,9 +229,9 @@ export default class SignUpFacebookExtra extends React.Component {
           <KeyboardSpacer/>
         </Form>
       </View>
-    );
+    )
   }
 }
 
 SignUpFacebookExtra.propTypes = {
-};
+}

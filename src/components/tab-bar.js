@@ -1,50 +1,50 @@
 
-import React from 'react';
-import _ from '../i18n';
+import React from 'react'
+import _ from '../i18n'
 
-import StyleSheet from '../styles';
+import StyleSheet from '../styles'
 
-import {View, Animated, Text} from 'react-native';
-import Button from './button';
-import Menu from './menu';
+import {View, Animated, Text} from 'react-native'
+import Button from './button'
+import Menu from './menu'
 
 export default class TabBar extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       menuAnimation: new Animated.Value(0),
       menuVisible: props.menuVisible, //control this state for animations
-    };
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if(this.props.menuVisible !== nextProps.menuVisible) {
       if(nextProps.menuVisible) {
-        this.setState({menuVisible: true});
+        this.setState({menuVisible: true})
         Animated.timing(
           this.state.menuAnimation,
           {toValue: 1, friction: 1, duration: 200}
-        ).start();
+        ).start()
       } else {
         Animated.timing(
           this.state.menuAnimation,
           {toValue: 0, friction: 1, duration: 200}
         ).start(() => {
-          this.setState({menuVisible: false});
-        });
+          this.setState({menuVisible: false})
+        })
       }
     }
   }
 
   render() {
-    let actionIcon = this.props.actionIcon;
+    let actionIcon = this.props.actionIcon
     if(this.props.actionTextLarge){
       actionIcon = (
         <Text style={[StyleSheet.text, StyleSheet.eventDetails.actionButtonTextStyle]}>
           {this.props.actionTextLarge}
         </Text>
-      );
+      )
     }
 
     return (
@@ -119,7 +119,7 @@ export default class TabBar extends React.Component {
           />
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -131,8 +131,8 @@ TabBar.propTypes = {
   actionType: React.PropTypes.string,
 
   onTabPress: React.PropTypes.func.isRequired,
-};
+}
 
 TabBar.defaultProps = {
   actionType: "actionDefault",
-};
+}

@@ -1,31 +1,31 @@
 
-import {firebaseDb} from './firebase';
+import {firebaseDb} from './firebase'
 
-const listeners = {};
+const listeners = {}
 
 const helper = (store) => {
 
   if(!listeners[store]) {
-    listeners[store] = {};
+    listeners[store] = {}
   }
-  const storeListeners = listeners[store];
+  const storeListeners = listeners[store]
 
   const isListening = (ref) => {
-    return !!storeListeners[ref];
-  };
+    return !!storeListeners[ref]
+  }
 
   return {
     removeListeners: () => {
       for(let key in storeListeners) {
-        let listener = storeListeners[key];
-        firebaseDb.child(listener.ref).off(listener.type, listener.func);
-        delete storeListeners[key];
+        let listener = storeListeners[key]
+        firebaseDb.child(listener.ref).off(listener.type, listener.func)
+        delete storeListeners[key]
       }
     },
 
     addListener: (ref, type, func) => {
       if(isListening(ref)) {
-        return;
+        return
       }
 
       /*
@@ -48,18 +48,18 @@ const helper = (store) => {
         ref: ref,
         type: type,
         func: func,
-      };
+      }
 
       //Make sure storeListeners[ref] is defined before attaching this listener
-      firebaseDb.child(ref).on(type, func);
+      firebaseDb.child(ref).on(type, func)
     },
-  };
-};
+  }
+}
 
 export const clearAllListeners = () => {
   for(let store in listeners) {
-    helper(store).removeListeners();
+    helper(store).removeListeners()
   }
-};
+}
 
-export default helper;
+export default helper

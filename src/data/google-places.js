@@ -1,14 +1,14 @@
 
-import qs from 'qs';
+import qs from 'qs'
 
-import Config from '../config';
-const API_KEY = Config.GOOGLE_PLACES_API_KEY;
+import Config from '../config'
+const API_KEY = Config.GOOGLE_PLACES_API_KEY
 
 
 //`timeout` allows us to cancel previous autocomplete attempts if a new one arrives
-let timeout;
+let timeout
 
-const autocompleteDelay = 300; //ms
+const autocompleteDelay = 300 //ms
 
 /*
  * Returns a promise
@@ -16,7 +16,7 @@ const autocompleteDelay = 300; //ms
 export const autocomplete = (input, type = '(cities)') => {
   return new Promise((resolve, reject) => {
     if(!input) {
-      reject();
+      reject()
     }
 
     let query = qs.stringify({
@@ -24,30 +24,30 @@ export const autocomplete = (input, type = '(cities)') => {
       input: input,
       type: type,
       components: 'country:uk',
-    });
+    })
 
 
-    let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?${query}`;
+    let url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?${query}`
 
     //cancel previous autocomplete request and start a new one
-    clearTimeout(timeout);
+    clearTimeout(timeout)
     timeout = setTimeout(() => {
       resolve(
         fetch(url)
           .then(result => result.json())
           .catch(err => console.warn(err)) //eslint-disable-line no-console
-      );
-    }, autocompleteDelay);
-  });
-};
+      )
+    }, autocompleteDelay)
+  })
+}
 
 export const getPlace = (placeId) => {
   let query = qs.stringify({
     key: API_KEY,
     placeid: placeId,
-  });
+  })
 
-  let url = `https://maps.googleapis.com/maps/api/place/details/json?${query}`;
+  let url = `https://maps.googleapis.com/maps/api/place/details/json?${query}`
 
-  return fetch(url).then(result => result.json());
-};
+  return fetch(url).then(result => result.json())
+}

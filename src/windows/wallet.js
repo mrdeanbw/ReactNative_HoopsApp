@@ -1,10 +1,10 @@
 
-import React from 'react';
-import {View, Text} from 'react-native';
+import React from 'react'
+import {View, Text} from 'react-native'
 
-import _ from '../i18n';
-import {Header, LoadingAlert} from '../components';
-import StyleSheet from '../styles';
+import _ from '../i18n'
+import {Header, LoadingAlert} from '../components'
+import StyleSheet from '../styles'
 
 export default class Wallet extends React.Component {
   componentWillMount() {
@@ -12,15 +12,15 @@ export default class Wallet extends React.Component {
         this.props.onChangeAction({
           text: _('add'),
           icon: "actionAdd",
-        });
+        })
     }
   }
 
   render() {
-    let account = this.props.account;
+    let account = this.props.account
 
-    let titleStyle = StyleSheet.profile.editLabel;
-    let detailStyle = StyleSheet.payments.accountDataText;
+    let titleStyle = StyleSheet.profile.editLabel
+    let detailStyle = StyleSheet.payments.accountDataText
 
     return (
       <View style={{flex: 1}}>
@@ -59,7 +59,7 @@ export default class Wallet extends React.Component {
         </View>
 
       </View>
-    );
+    )
   }
 
 }

@@ -1,18 +1,18 @@
 
-import React from 'react';
+import React from 'react'
 
-import {View, Text, TouchableHighlight} from 'react-native';
+import {View, Text, TouchableHighlight} from 'react-native'
 
-import Icon from './icon';
-import StyleSheet from '../styles';
+import Icon from './icon'
+import StyleSheet from '../styles'
 
 export default class Button extends React.Component {
   render() {
-    const {type, icon, active, text, style, activeStyle, containerStyle, iconStyle, activeIconStyle, textStyle, activeTextStyle, children, ...props} = this.props;
+    const {type, icon, active, text, style, activeStyle, containerStyle, iconStyle, activeIconStyle, textStyle, activeTextStyle, children, ...props} = this.props
 
-    const defaultButton = StyleSheet.buttons.default || {};
-    const button = type ? StyleSheet.buttons[type] || defaultButton : defaultButton;
-    const textTransform = button.textTransform || defaultButton.textTransform || (s => s);
+    const defaultButton = StyleSheet.buttons.default || {}
+    const button = type ? StyleSheet.buttons[type] || defaultButton : defaultButton
+    const textTransform = button.textTransform || defaultButton.textTransform || (s => s)
 
     return (
       <TouchableHighlight style={[
@@ -50,6 +50,6 @@ export default class Button extends React.Component {
           {children}
         </View>
       </TouchableHighlight>
-    );
+    )
   }
-};
+}

@@ -1,7 +1,7 @@
 
-import {firebaseApp, firebaseDb} from '../firebase';
+import {firebaseApp, firebaseDb} from '../firebase'
 
-const usersRef = firebaseDb.child('users');
+const usersRef = firebaseDb.child('users')
 
 /**
  * @param email {String}
@@ -9,8 +9,8 @@ const usersRef = firebaseDb.child('users');
  * @returns {Promise} with a firebase user object
  */
 export const signIn = (email, password) => {
-  return firebaseApp.auth().signInWithEmailAndPassword(email, password);
-};
+  return firebaseApp.auth().signInWithEmailAndPassword(email, password)
+}
 
 /**
  * @param email {String}
@@ -18,5 +18,5 @@ export const signIn = (email, password) => {
  * @returns {Promise} with a firebase user object
  */
 export const signUp = (email, password) => {
-  return firebaseApp.auth().createUserWithEmailAndPassword(email, password);
-};
+  return firebaseApp.auth().createUserWithEmailAndPassword(email, password)
+}

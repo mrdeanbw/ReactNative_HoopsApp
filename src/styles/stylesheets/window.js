@@ -1,5 +1,5 @@
 
-import {colors} from '../resources';
+import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
 
@@ -120,4 +120,4 @@ export default StyleSheet => StyleSheet.extend({
     bottom: 0,
     zIndex: 500
   }
-});
+})

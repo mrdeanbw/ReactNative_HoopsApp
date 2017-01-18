@@ -1,55 +1,55 @@
-import React from 'react';
-import {View, ScrollView, Text} from 'react-native';
+import React from 'react'
+import {View, ScrollView, Text} from 'react-native'
 
-import {Button, Popup, EventListItem, Header} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {Button, Popup, EventListItem, Header} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class MyEvents extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       tab: 'upcoming',
       disclosureEvent: null,
-    };
+    }
   }
 
   onChangeSwitch(switchValue) {
-    this.props.onChangeAvailability(switchValue);
+    this.props.onChangeAvailability(switchValue)
   }
 
   onPressEvent(event) {
-    this.props.onPressEvent(event);
+    this.props.onPressEvent(event)
   }
 
   onPressDisclosure(event) {
-    this.setState({disclosureEvent: event});
+    this.setState({disclosureEvent: event})
   }
 
   onPressDropOut() {
-    this.props.onPressDropOut(this.state.disclosureEvent);
-    this.setState({disclosureEvent: null});
+    this.props.onPressDropOut(this.state.disclosureEvent)
+    this.setState({disclosureEvent: null})
   }
 
   onPressEventDetails() {
-    this.props.onPressEvent(this.state.disclosureEvent);
-    this.setState({disclosureEvent: null});
+    this.props.onPressEvent(this.state.disclosureEvent)
+    this.setState({disclosureEvent: null})
   }
 
   onPressOrganizerDetails() {
-    this.props.onPressOrganizerDetails(this.state.disclosureEvent.organizer);
-    this.setState({disclosureEvent: null});
+    this.props.onPressOrganizerDetails(this.state.disclosureEvent.organizer)
+    this.setState({disclosureEvent: null})
   }
 
   onPressRemove() {
-    this.props.onPressUnsave(this.state.disclosureEvent);
-    this.setState({disclosureEvent: null});
+    this.props.onPressUnsave(this.state.disclosureEvent)
+    this.setState({disclosureEvent: null})
   }
 
   onPressParticipateAgain() {
     //TODO
-    this.setState({disclosureEvent: null});
+    this.setState({disclosureEvent: null})
   }
 
   render() {
@@ -57,7 +57,7 @@ export default class MyEvents extends React.Component {
       upcoming: this.props.upcoming,
       saved: this.props.saved,
       history: this.props.history,
-    }[this.state.tab];
+    }[this.state.tab]
 
     return (
       <View>
@@ -105,7 +105,7 @@ export default class MyEvents extends React.Component {
           )}
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
@@ -118,7 +118,7 @@ class DisclosurePopup extends React.Component {
         <Button type="alertVertical" text={_('eventDetails')} onPress={this.props.onPressEventDetails} />
         <Button type="alertVertical" text={_('organizerDetails')} onPress={this.props.onPressOrganizerDetails} />
       </View>
-    );
+    )
   }
 
   _renderSavedOptions() {
@@ -128,7 +128,7 @@ class DisclosurePopup extends React.Component {
         <Button type="alertVertical" text={_('organizerDetails')} onPress={this.props.onPressOrganizerDetails} />
         <Button type="alertVerticalDefault" text={_('remove')} onPress={this.props.onPressRemove} />
       </View>
-    );
+    )
   }
 
   _renderHistoryOptions() {
@@ -137,17 +137,17 @@ class DisclosurePopup extends React.Component {
         <Button type="alertVertical" text={_('eventDetails')} onPress={this.props.onPressEventDetails} />
         <Button type="alertVertical" text={_('organizerDetails')} onPress={this.props.onPressOrganizerDetails} />
       </View>
-    );
+    )
   }
 
   render() {
-    let buttons;
+    let buttons
     if(this.props.type === 'upcoming'){
-      buttons = this._renderUpcomingOptions();
+      buttons = this._renderUpcomingOptions()
     }else if(this.props.type === 'saved') {
-      buttons = this._renderSavedOptions();
+      buttons = this._renderSavedOptions()
     }else{
-      buttons = this._renderHistoryOptions();
+      buttons = this._renderHistoryOptions()
     }
 
     return (
@@ -158,6 +158,6 @@ class DisclosurePopup extends React.Component {
       >
         {buttons}
       </Popup>
-    );
+    )
   }
 }

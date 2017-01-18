@@ -1,16 +1,16 @@
-import React from 'react';
-import {View,Text,ScrollView,Slider,TouchableHighlight} from 'react-native';
+import React from 'react'
+import {View,Text,ScrollView,Slider,TouchableHighlight} from 'react-native'
 
-import {EventListItem, UserListItem} from '../components';
-import _ from '../i18n';
-import {Button,TextInput,DateInput,ListInput,Icon,Header} from '../components';
-import StyleSheet from '../styles';
-import {autocomplete, getPlace} from '../data/google-places';
+import {EventListItem, UserListItem} from '../components'
+import _ from '../i18n'
+import {Button,TextInput,DateInput,ListInput,Icon,Header} from '../components'
+import StyleSheet from '../styles'
+import {autocomplete, getPlace} from '../data/google-places'
 
 export default class Search extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       tab: 'events',
 
@@ -25,7 +25,7 @@ export default class Search extends React.Component {
       city: {},
       citiesAutocomplete: [],
       cityCoords: null,
-    };
+    }
   }
 
   searchButtonEnabled() {
@@ -38,19 +38,19 @@ export default class Search extends React.Component {
         this.state.courtType ||
         this.state.cityCoords ||
         this.state.searchRadius
-      );
+      )
     } else {
-      return !!this.state.text;
+      return !!this.state.text
     }
   }
 
   onPressSearch = () => {
     if(this.state.tab === 'events') {
-      let coords = null;
+      let coords = null
       if (this.state.cityCoords) {
-        coords = this.state.cityCoords;
+        coords = this.state.cityCoords
       } else {
-        coords = this.props.coords;
+        coords = this.props.coords
       }
 
       let searchParams = {
@@ -63,45 +63,45 @@ export default class Search extends React.Component {
           coords,
           radius: this.state.searchRadius,
         },
-      };
-      this.props.onPressSearchEvents(searchParams);
+      }
+      this.props.onPressSearchEvents(searchParams)
     }
   };
 
   onChangeDate = (date) => {
-    this.setState({date});
+    this.setState({date})
   };
 
   onPressGender = (gender) => {
     if(this.state.gender === gender) {
-      this.setState({gender: null});
+      this.setState({gender: null})
     } else {
-      this.setState({gender});
+      this.setState({gender})
     }
   };
 
   onChangeLevel = (level) => {
-    this.setState({level});
+    this.setState({level})
   };
 
   onChangeVenueType = (courtType) => {
-    this.setState({courtType});
+    this.setState({courtType})
   };
 
   onChangeSearchRadius = () => {
-    this.setState({searchRadius: this.state.liveSearchRadius, liveSearchRadius: null});
+    this.setState({searchRadius: this.state.liveSearchRadius, liveSearchRadius: null})
   };
 
   onUpdateSearchRadius = (searchRadius) => {
     if(!this.state.liveSearchRadius && searchRadius > 0) {
-      this.props.requestGeolocation();
+      this.props.requestGeolocation()
     }
-    this.setState({liveSearchRadius: searchRadius});
+    this.setState({liveSearchRadius: searchRadius})
   };
 
   _renderGeneralResults() {
     if(this.props.results.events.length + this.props.results.users.length === 0) {
-      return;
+      return
     }
 
     return (
@@ -157,7 +157,7 @@ export default class Search extends React.Component {
           </View>
         )}
       </View>
-    );
+    )
   }
 
   render() {
@@ -179,8 +179,8 @@ export default class Search extends React.Component {
               <TextInput
                 value={this.state.text}
                 onChangeText={text => {
-                  this.setState({text});
-                  this.props.onPressSearchGeneral({text});
+                  this.setState({text})
+                  this.props.onPressSearchGeneral({text})
                 }}
                 type="flat"
                 placeholder={_('searchWhatExample')}
@@ -262,12 +262,12 @@ export default class Search extends React.Component {
                   this.setState({
                     cityText,
                     city: {},
-                  });
+                  })
                   autocomplete(cityText, '(cities)').then(result => {
                     this.setState({
                       citiesAutocomplete: result.predictions,
-                    });
-                  });
+                    })
+                  })
                 }}
                 type="flat"
                 ref="city"
@@ -276,7 +276,7 @@ export default class Search extends React.Component {
                   return {
                     key: suggestion.place_id,
                     text: suggestion.description,
-                  };
+                  }
                 })}
                 onAutocompletePress={(item) => {
                   getPlace(item.key).then(result => {
@@ -286,10 +286,10 @@ export default class Search extends React.Component {
                         city: item,
                         citiesAutocomplete: [],
                         cityCoords: result.result.geometry.location
-                      });
+                      })
                     }}).catch(function(e) {
-                    console.log(e);
-                  });
+                    console.log(e)
+                  })
                 }}
                 style={StyleSheet.halfMarginBottom}
                 autoCapitalize="none"
@@ -322,12 +322,12 @@ export default class Search extends React.Component {
               type={this.searchButtonEnabled() ? "dialogDefault" : "dialog"}
               text={_('search')}
               onPress={() => {
-                this.searchButtonEnabled() && this.onPressSearch();
+                this.searchButtonEnabled() && this.onPressSearch()
               }}
             />
           </View>
         )}
       </View>
-    );
+    )
   }
 }

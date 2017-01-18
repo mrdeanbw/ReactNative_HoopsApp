@@ -1,13 +1,13 @@
-import {firebaseDb, firebaseStorage} from '../data/firebase';
-import DBHelper from '../data/database-helper';
-const database = DBHelper('users');
+import {firebaseDb, firebaseStorage} from '../data/firebase'
+import DBHelper from '../data/database-helper'
+const database = DBHelper('users')
 
-import {eventActions, inviteActions, requestActions} from '../actions';
+import {eventActions, inviteActions, requestActions} from '../actions'
 
 export const load = (id) => {
   return dispatch => {
     database.addListener(`users/${id}`, 'value', (snapshot) => {
-      let value = snapshot.val();
+      let value = snapshot.val()
 
       if(!value) {
         //User is not defined, probably a bad id was attempted
@@ -15,46 +15,46 @@ export const load = (id) => {
         let user = {
           ...value,
           id: snapshot.key,
-        };
+        }
 
-        dispatch({type: 'USERS_LOADED', users: {[id]: user}});
+        dispatch({type: 'USERS_LOADED', users: {[id]: user}})
 
         if(user.organizing) {
           for(let id in user.organizing) {
-            dispatch(eventActions.load(id));
+            dispatch(eventActions.load(id))
           }
         }
         if(user.requests) {
           for(let id in user.requests) {
-            dispatch(requestActions.load(id));
+            dispatch(requestActions.load(id))
           }
         }
         if(user.invites) {
           for(let id in user.invites) {
-            dispatch(inviteActions.load(id));
+            dispatch(inviteActions.load(id))
           }
         }
       }
-    });
-  };
-};
+    })
+  }
+}
 
 export const loadMany = (userIds) => {
 
   return dispatch => {
 
     userIds.map((id) => {
-      dispatch(load(id));
-    });
+      dispatch(load(id))
+    })
 
-  };
-};
+  }
+}
 
 export const sendFriendRequests = (userIds) => {
   return (dispatch, getState) => {
-    let uid = getState().user.uid;
+    let uid = getState().user.uid
     userIds.forEach((userId) => {
-      let friendRequest = firebaseDb.child('friendRequests').push();
+      let friendRequest = firebaseDb.child('friendRequests').push()
 
       firebaseDb.update({
         [`friendRequests/${friendRequest.key}`]: {
@@ -64,17 +64,17 @@ export const sendFriendRequests = (userIds) => {
         },
         [`users/${uid}/friendRequests/${friendRequest.key}`]: true,
         [`users/${userId}/friendRequests/${friendRequest.key}`]: true,
-      });
-    });
-  };
-};
+      })
+    })
+  }
+}
 
 export const loadFriendRequest = (id) => {
   return (dispatch, getState) => {
-    let uid = getState().user.uid;
+    let uid = getState().user.uid
 
     database.addListener(`friendRequests/${id}`, 'value', (snapshot) => {
-      let friendRequest = snapshot.val();
+      let friendRequest = snapshot.val()
       dispatch({
         type: 'FRIEND_REQUESTS_LOADED',
         friendRequests: {
@@ -83,18 +83,18 @@ export const loadFriendRequest = (id) => {
             id,
           },
         },
-      });
+      })
 
       if(friendRequest.fromId === uid) {
         //Friend request is from me, to a user.
-        dispatch(load(friendRequest.toId));
+        dispatch(load(friendRequest.toId))
       } else {
         //Friend request is from a user, to me.
-        dispatch(load(friendRequest.fromId));
+        dispatch(load(friendRequest.fromId))
       }
-    });
-  };
-};
+    })
+  }
+}
 
 export const getAll = () => {
   return dispatch => {
@@ -102,7 +102,7 @@ export const getAll = () => {
       dispatch({
         type: 'USERS_LOAD_ALL',
         users: snapshot.val(),
-      });
-    });
-  };
-};
+      })
+    })
+  }
+}

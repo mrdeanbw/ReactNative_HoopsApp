@@ -1,9 +1,9 @@
-import React from 'react';
-import {View, ScrollView, Linking} from 'react-native';
+import React from 'react'
+import {View, ScrollView, Linking} from 'react-native'
 
-import {Window, Button, Popup, Header} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {Window, Button, Popup, Header} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class Preferences extends React.Component {
 
@@ -12,36 +12,36 @@ export default class Preferences extends React.Component {
       title: 'Preferences',
       view: Window.Organizer,
       viewProps: { initialTab: Preferences, onClose: close }
-    };
+    }
   }
 
   constructor() {
-    super();
+    super()
     this.state = {
       currencyPopup: false,
       currency: 'GBP'
-    };
+    }
   }
 
   onPressCurrency = () => {
-    this.setState({currencyPopup: true});
+    this.setState({currencyPopup: true})
   };
 
   setCurrency = (currency) => {
     this.setState({
       currency,
       currencyPopup: false,
-    });
+    })
   };
 
   onPressSendFeedback = () => {
-    let url = "mailto:support@hoopsapp.co?subject=App%20Feedback";
-    Linking.openURL(url).catch(err => console.warn('An error occurred', err));
+    let url = "mailto:support@hoopsapp.co?subject=App%20Feedback"
+    Linking.openURL(url).catch(err => console.warn('An error occurred', err))
   };
 
   onPressPrivacy = () => {
-    let url = "http://hoopsapp.co/privacy";
-    Linking.openURL(url).catch(err => console.warn('An error occurred', err));
+    let url = "http://hoopsapp.co/privacy"
+    Linking.openURL(url).catch(err => console.warn('An error occurred', err))
   };
 
   onPressDeactivateAccount = () => {
@@ -97,6 +97,6 @@ export default class Preferences extends React.Component {
           </View>
         </ScrollView>
       </View>
-    );
+    )
   }
 }

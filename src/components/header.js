@@ -1,13 +1,13 @@
-import React from 'react';
-import {View, Image, Text} from 'react-native';
-import {connect} from 'react-redux';
+import React from 'react'
+import {View, Image, Text} from 'react-native'
+import {connect} from 'react-redux'
 
-import StyleSheet from '../styles';
-import SwitchButton from './switch-button';
-import _ from '../i18n';
-import {userActions} from '../actions';
-import Button from './button';
-import HighlightText from './highlight-text';
+import StyleSheet from '../styles'
+import SwitchButton from './switch-button'
+import _ from '../i18n'
+import {userActions} from '../actions'
+import Button from './button'
+import HighlightText from './highlight-text'
 
 class Header extends React.Component {
   renderLeftAction = () => {
@@ -18,7 +18,7 @@ class Header extends React.Component {
           icon="close"
           onPress={this.props.onClose}
         />
-      );
+      )
     }
     if(this.props.onBack) {
       return (
@@ -27,7 +27,7 @@ class Header extends React.Component {
           icon="back"
           onPress={this.props.onBack}
         />
-      );
+      )
     }
     if(this.props.user.mode === 'PARTICIPATE') {
       return (
@@ -35,18 +35,18 @@ class Header extends React.Component {
           value={this.props.user.availability}
           onChange={this.props.onToggleAvailability}
         />
-      );
+      )
     }
   };
 
   render() {
-    let modeText, modeTextHighlight;
+    let modeText, modeTextHighlight
     if(this.props.user.mode === 'ORGANIZE') {
-      modeText = _('organizerMode');
-      modeTextHighlight = _('organizer');
+      modeText = _('organizerMode')
+      modeTextHighlight = _('organizer')
     }else{
-      modeText = _('participantMode');
-      modeTextHighlight = _('participant');
+      modeText = _('participantMode')
+      modeTextHighlight = _('participant')
     }
 
     return (
@@ -108,7 +108,7 @@ class Header extends React.Component {
         )}
 
       </View>
-    );
+    )
   }
 
 }
@@ -121,4 +121,4 @@ export default connect(
     onToggleMode: () => dispatch(userActions.toggleMode()),
     onToggleAvailability: () => dispatch(userActions.toggleAvailability()),
   }),
-)(Header);
+)(Header)

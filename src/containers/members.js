@@ -1,9 +1,9 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import _Members from '../windows/members';
-import {navigationActions,inviteActions} from '../actions';
-import inflateEvent from '../data/inflaters/event';
+import _Members from '../windows/members'
+import {navigationActions,inviteActions} from '../actions'
+import inflateEvent from '../data/inflaters/event'
 
 class Members extends React.Component {
 
@@ -15,10 +15,10 @@ class Members extends React.Component {
         requests: this.props.requests.requestsById,
         users: this.props.users.usersById,
       }
-    );
+    )
 
-    let invites = event.invites.filter(invite => invite && invite.user);
-    let requests = event.requests.filter(request => request && request.user);
+    let invites = event.invites.filter(invite => invite && invite.user)
+    let requests = event.requests.filter(request => request && request.user)
 
     return (
       <_Members
@@ -28,20 +28,20 @@ class Members extends React.Component {
         requests={requests}
         invites={invites}
         onPressBack={() => {
-          this.props.onNavigateBack();
+          this.props.onNavigateBack()
         }}
         onPressUserProfile={(user) => {
-          this.props.onNavigate('profile', {id: user.id});
+          this.props.onNavigate('profile', {id: user.id})
         }}
         onPressInviteMore={() => {
-          this.props.onNavigate('eventInvites', {id: event.id});
+          this.props.onNavigate('eventInvites', {id: event.id})
         }}
         onPressRemove={(invite) => {
-          this.props.removeInvite(invite);
+          this.props.removeInvite(invite)
         }}
         actionButton={this.props.actionButton}
       />
-    );
+    )
   }
 }
 
@@ -58,4 +58,4 @@ export default connect(
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
     removeInvite: (invite) => dispatch(inviteActions.removeInvite(invite))
   }),
-)(Members);
+)(Members)

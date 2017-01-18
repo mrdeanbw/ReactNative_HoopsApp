@@ -1,14 +1,14 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import {Notifications as _Notifications} from '../windows';
-import {navigationActions, notificationActions, requestActions, inviteActions} from '../actions';
-import inflateNotification from '../data/inflaters/notification';
+import {Notifications as _Notifications} from '../windows'
+import {navigationActions, notificationActions, requestActions, inviteActions} from '../actions'
+import inflateNotification from '../data/inflaters/notification'
 
 class Notifications extends React.Component {
 
   render() {
-    let ids = Object.keys(this.props.notifications.notificationsById);
+    let ids = Object.keys(this.props.notifications.notificationsById)
     let notifications = ids.map(id => {
       return inflateNotification(
         this.props.notifications.notificationsById[id],
@@ -19,8 +19,8 @@ class Notifications extends React.Component {
           users: this.props.users.usersById,
           events: this.props.events.eventsById,
         }
-      );
-    }).filter(notification => !!notification);
+      )
+    }).filter(notification => !!notification)
 
     return (
       <_Notifications
@@ -29,12 +29,12 @@ class Notifications extends React.Component {
         notifications={notifications}
         onSeen={(notification) => {
           if(!notification.seen) {
-            this.props.onMarkSeen(notification.id);
+            this.props.onMarkSeen(notification.id)
           }
         }}
         onRead={(notification) => {
           if(!notification.read) {
-            this.props.onMarkRead(notification.id);
+            this.props.onMarkRead(notification.id)
           }
         }}
 
@@ -47,7 +47,7 @@ class Notifications extends React.Component {
         onAcceptEventInvite={this.props.onAcceptEventInvite}
         onDeclineEventInvite={this.props.onDeclineEventInvite}
       />
-    );
+    )
   }
 }
 
@@ -67,28 +67,28 @@ export default connect(
     onMarkUnead: (id) => dispatch(notificationActions.markUnread(id)),
     onMarkSeen: (id) => dispatch(notificationActions.markSeen(id)),
     onAcceptFriendRequest: (notification) => {
-      dispatch(notificationActions.acceptFriendRequest(notification.friendRequest));
-      dispatch(notificationActions.markRead(notification.id));
+      dispatch(notificationActions.acceptFriendRequest(notification.friendRequest))
+      dispatch(notificationActions.markRead(notification.id))
     },
     onDeclineFriendRequest: (notification) => {
-      dispatch(notificationActions.declineFriendRequest(notification.friendRequest));
-      dispatch(notificationActions.markRead(notification.id));
+      dispatch(notificationActions.declineFriendRequest(notification.friendRequest))
+      dispatch(notificationActions.markRead(notification.id))
     },
     onAcceptEventRequest: (notification) => {
-      dispatch(requestActions.allow(notification.request));
-      dispatch(notificationActions.markRead(notification.id));
+      dispatch(requestActions.allow(notification.request))
+      dispatch(notificationActions.markRead(notification.id))
     },
     onDeclineEventRequest: (notification) => {
-      dispatch(requestActions.decline(notification.request));
-      dispatch(notificationActions.markRead(notification.id));
+      dispatch(requestActions.decline(notification.request))
+      dispatch(notificationActions.markRead(notification.id))
     },
     onAcceptEventInvite: (notification) => {
-      dispatch(inviteActions.accept(notification.invite));
-      dispatch(notificationActions.markRead(notification.id));
+      dispatch(inviteActions.accept(notification.invite))
+      dispatch(notificationActions.markRead(notification.id))
     },
     onDeclineEventInvite: (notification) => {
-      dispatch(inviteActions.decline(notification.invite));
-      dispatch(notificationActions.markRead(notification.id));
+      dispatch(inviteActions.decline(notification.invite))
+      dispatch(notificationActions.markRead(notification.id))
     },
   }),
-)(Notifications);
+)(Notifications)

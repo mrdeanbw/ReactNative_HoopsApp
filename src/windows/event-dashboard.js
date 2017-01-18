@@ -1,41 +1,41 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React from 'react'
+import {View, Text} from 'react-native'
 
-import {Button, Header, Popup, TextInput} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
-import MyEvents from './my-events';
+import {Button, Header, Popup, TextInput} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
+import MyEvents from './my-events'
 
 export default class EventDashboard extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       showCancelPopup: false,
-    };
+    }
   }
 
   componentWillMount() {
     this._actionListener = this.props.actionButton.addListener('press', () => {
-      this.onCancel();
-    });
+      this.onCancel()
+    })
   }
 
   componentWillUnmount() {
-    this._actionListener && this._actionListener.remove();
+    this._actionListener && this._actionListener.remove()
   }
 
   onChangeMode(nextMode, nextProps) {
-    nextProps.initialTab = MyEvents;
+    nextProps.initialTab = MyEvents
   }
 
   onCancel() {
-    this.setState({showCancelPopup: true});
+    this.setState({showCancelPopup: true})
   }
 
   onCancelSubmit = (message) => {
-    this.props.onCancel(message);
-    this.setState({showCancelPopup: false});
+    this.props.onCancel(message)
+    this.setState({showCancelPopup: false})
   };
 
   render() {
@@ -95,7 +95,7 @@ export default class EventDashboard extends React.Component {
               onPress={this.props.onPressRequests}/> || <View style={StyleSheet.flex}/>}
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -108,27 +108,27 @@ EventDashboard.propTypes = {
   onPressGallery: React.PropTypes.func.isRequired,
   onPressFinances: React.PropTypes.func.isRequired,
   onPressRequests: React.PropTypes.func.isRequired,
-};
+}
 
 
 class CancelEventPopup extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       message: '',
-    };
+    }
   }
 
   onBack = () => {
     //Reset the text input value
-    this.setState({message: ''});
+    this.setState({message: ''})
 
-    this.props.onClose && this.props.onClose();
+    this.props.onClose && this.props.onClose()
   }
 
   onSubmit = () => {
-    this.props.onSubmit && this.props.onSubmit(this.state.message);
+    this.props.onSubmit && this.props.onSubmit(this.state.message)
   }
 
   render() {
@@ -159,7 +159,7 @@ class CancelEventPopup extends React.Component {
           <Button type="alertDefault" text={_('submit')} onPress={this.onSubmit} />
         </View>
       </Popup>
-    );
+    )
   }
 }
 
@@ -167,6 +167,6 @@ CancelEventPopup.propTypes = {
   visible: React.PropTypes.bool.isRequired,
   onClose: React.PropTypes.func.isRequired,
   onSubmit: React.PropTypes.func.isRequired,
-};
+}
 
-EventDashboard.CancelEventPopup = CancelEventPopup;
+EventDashboard.CancelEventPopup = CancelEventPopup

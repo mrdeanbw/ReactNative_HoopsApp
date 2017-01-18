@@ -1,86 +1,86 @@
-import React from 'react';
-import {View, ListView, Text, TouchableHighlight} from 'react-native';
+import React from 'react'
+import {View, ListView, Text, TouchableHighlight} from 'react-native'
 
-import {Header, TextInput, Button, Popup, SuggestEvent} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {Header, TextInput, Button, Popup, SuggestEvent} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class InterestsAll extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this._ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-    });
+    })
 
     this.state = {
       search: '',
       selected: this.props.selected || {},
       levelPopupInterest: null,
-    };
+    }
   }
 
   _getSections(interests, selected = {}) {
-    let sections = {};
+    let sections = {}
 
     interests.forEach(interest => {
       //get the first letter
-      let letter = interest.name.substr(0, 1).toLowerCase();
+      let letter = interest.name.substr(0, 1).toLowerCase()
       if(!sections[letter]) {
-        sections[letter] = [];
+        sections[letter] = []
       }
       sections[letter].push({
         ...interest,
         active: !!selected[interest.id],
-      });
-    });
+      })
+    })
 
-    let sectionIds = Object.keys(sections);
+    let sectionIds = Object.keys(sections)
 
     return {
       sections,
       sectionIds,
-    };
+    }
   }
 
   getSelectedIds() {
     return Object.keys(this.state.selected).filter(userId => {
-      return this.state.selected[userId];
-    });
+      return this.state.selected[userId]
+    })
   }
 
   doneButtonEnabled = () => {
     for(let id in this.state.selected) {
       if(this.state.selected[id]) {
-        return true;
+        return true
       }
     }
-    return false;
+    return false
   };
 
   setSelected = (id, level) => {
     let selected = {
       ...this.state.selected,
       [id]: level,
-    };
+    }
 
     this.setState({
       selected,
-    });
+    })
 
-    this.props.onInterestsChange(selected);
+    this.props.onInterestsChange(selected)
   };
 
   render() {
 
-    let searchString = this.state.search.toLowerCase();
+    let searchString = this.state.search.toLowerCase()
     let interests = this.props.interests.filter(interest => {
-      return interest.name.toLowerCase().search(searchString) !== -1;
-    });
-    let {sections, sectionIds} = this._getSections(interests, this.state.selected);
-    let dataSource = this._ds.cloneWithRowsAndSections(sections, sectionIds);
+      return interest.name.toLowerCase().search(searchString) !== -1
+    })
+    let {sections, sectionIds} = this._getSections(interests, this.state.selected)
+    let dataSource = this._ds.cloneWithRowsAndSections(sections, sectionIds)
 
     return (
       <View style={StyleSheet.profile.interests}>
@@ -97,7 +97,7 @@ export default class InterestsAll extends React.Component {
             clearButtonMode="always"
             placeholder={_('search')}
             onChangeText={(search) => {
-              this.setState({search});
+              this.setState({search})
             }}
           />
         </View>
@@ -113,24 +113,24 @@ export default class InterestsAll extends React.Component {
                 type="alertVertical"
                 text={_('casual')}
                 onPress={() => {
-                  this.setSelected(this.state.levelPopupInterest.id, 'casual');
-                  this.setState({levelPopupInterest: null});
+                  this.setSelected(this.state.levelPopupInterest.id, 'casual')
+                  this.setState({levelPopupInterest: null})
                 }}
               />
               <Button
                 type="alertVertical"
                 text={_('competitive')}
                 onPress={() => {
-                  this.setSelected(this.state.levelPopupInterest.id, 'competitive');
-                  this.setState({levelPopupInterest: null});
+                  this.setSelected(this.state.levelPopupInterest.id, 'competitive')
+                  this.setState({levelPopupInterest: null})
                 }}
               />
               <Button
                 type="alertVertical"
                 text={_('both')}
                 onPress={() => {
-                  this.setSelected(this.state.levelPopupInterest.id, 'both');
-                  this.setState({levelPopupInterest: null});
+                  this.setSelected(this.state.levelPopupInterest.id, 'both')
+                  this.setState({levelPopupInterest: null})
                 }}
               />
             </View>
@@ -139,8 +139,8 @@ export default class InterestsAll extends React.Component {
               type="alertVertical"
               text={_('remove')}
               onPress={() => {
-                this.setSelected(this.state.levelPopupInterest.id, null);
-                this.setState({levelPopupInterest: null});
+                this.setSelected(this.state.levelPopupInterest.id, null)
+                this.setState({levelPopupInterest: null})
               }}
             />
           )}
@@ -155,7 +155,7 @@ export default class InterestsAll extends React.Component {
                   {sectionId.toUpperCase()}
                 </Text>
               </View>
-            );
+            )
           }}
           renderRow={(rowData) => {
             return (
@@ -173,7 +173,7 @@ export default class InterestsAll extends React.Component {
                   //show the level popup
                   this.setState({
                     levelPopupInterest: rowData,
-                  });
+                  })
                 }}
               >
                 <Text
@@ -182,7 +182,7 @@ export default class InterestsAll extends React.Component {
                   ]}
                 >{rowData.name}</Text>
               </TouchableHighlight>
-            );
+            )
           }}
           renderFooter={() => (
             <SuggestEvent/>
@@ -200,6 +200,6 @@ export default class InterestsAll extends React.Component {
         )}
 
       </View>
-    );
+    )
   }
 }

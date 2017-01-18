@@ -1,25 +1,25 @@
-import React from 'react';
-import {View, ScrollView, Text} from 'react-native';
+import React from 'react'
+import {View, ScrollView, Text} from 'react-native'
 
-import StyleSheet from '../styles';
-import EventListItem from '../components/event-list-item';
-import Header from '../components/header';
-import Button from '../components/button';
-import MapView from '../components/map-view';
-import _ from '../i18n';
+import StyleSheet from '../styles'
+import EventListItem from '../components/event-list-item'
+import Header from '../components/header'
+import Button from '../components/button'
+import MapView from '../components/map-view'
+import _ from '../i18n'
 
 export default class Home extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       scrollHeight: undefined,
       showMap: true,
-    };
+    }
   }
 
   _renderEvents() {
-    let noEvents = this.props.events.length === 0;
+    let noEvents = this.props.events.length === 0
     return (
       <View>
         {noEvents && this.props.mode === 'ORGANIZE' && (
@@ -37,7 +37,7 @@ export default class Home extends React.Component {
           />
         )}
       </View>
-    );
+    )
   }
 
   _renderMap = () => {
@@ -50,7 +50,7 @@ export default class Home extends React.Component {
           onPressEvent={this.props.onPressEvent}
         />
       </View>
-    );
+    )
   }
 
   _renderList() {
@@ -63,7 +63,7 @@ export default class Home extends React.Component {
           showDistance={true}
         />
       ))
-    );
+    )
   }
 
   render() {
@@ -94,7 +94,7 @@ export default class Home extends React.Component {
                   style={StyleSheet.home.listIcon}
                   icon={this.state.showMap ? 'list' : 'pinWhite'}
                   onPress={() => {
-                    this.setState({showMap: !this.state.showMap});
+                    this.setState({showMap: !this.state.showMap})
                   }}
                 />
               </View>
@@ -104,6 +104,6 @@ export default class Home extends React.Component {
           )}
         </ScrollView>
       </View>
-    );
+    )
   }
 }

@@ -1,42 +1,42 @@
 
-import React from 'react';
-import dismissKeyboard from 'dismissKeyboard';
-import StyleSheet from '../styles';
-import { View, Text, TouchableHighlight} from 'react-native';
+import React from 'react'
+import dismissKeyboard from 'dismissKeyboard'
+import StyleSheet from '../styles'
+import { View, Text, TouchableHighlight} from 'react-native'
 
-import Button from './button';
-import TextInput from './text-input';
-import Popup from './popup';
-import Icon from './icon';
+import Button from './button'
+import TextInput from './text-input'
+import Popup from './popup'
+import Icon from './icon'
 
 export default class ListInput extends React.Component {
 
   constructor() {
-    super();
+    super()
 
     this.state = {
       showPopup: false,
-    };
+    }
   }
 
   onPress = () => {
-    dismissKeyboard();
-    this.setState({showPopup: true});
+    dismissKeyboard()
+    this.setState({showPopup: true})
   };
 
   onPressChild = (value) => {
-    this.setState({showPopup: false});
-    this.props.onChange && this.props.onChange(value);
+    this.setState({showPopup: false})
+    this.props.onChange && this.props.onChange(value)
   };
 
   render() {
-    const {disabled, value, placeholder, style, ...props} = this.props;
+    const {disabled, value, placeholder, style, ...props} = this.props
 
-    const defaultTextInput = StyleSheet.textInputs.default || {};
-    const textInput = this.props.type ? StyleSheet.textInputs[this.props.type] || defaultTextInput : defaultTextInput;
-    const containerStyle = this.props.containerStyle ? this.props.containerStyle : null;
+    const defaultTextInput = StyleSheet.textInputs.default || {}
+    const textInput = this.props.type ? StyleSheet.textInputs[this.props.type] || defaultTextInput : defaultTextInput
+    const containerStyle = this.props.containerStyle ? this.props.containerStyle : null
 
-    const selectedChild = (typeof value !== "undefined") ? this.props.children.find(x => x.props.value === value) : null;
+    const selectedChild = (typeof value !== "undefined") ? this.props.children.find(x => x.props.value === value) : null
 
     return (
       <View style={containerStyle}>
@@ -53,7 +53,7 @@ export default class ListInput extends React.Component {
                 onPress: () => this.onPressChild(child.props.value),
                 ...child.props,
               }
-            );
+            )
           })}
         </Popup>
         <TouchableHighlight
@@ -81,7 +81,7 @@ export default class ListInput extends React.Component {
           </View>
         </TouchableHighlight>
       </View>
-    );
+    )
   }
 }
 
@@ -94,17 +94,17 @@ ListInput.propTypes = {
   textStyle: Text.propTypes.style,
   type: React.PropTypes.string.isRequired,
   placeholderTextColor: React.PropTypes.string,
-};
+}
 
 ListInput.Item = class ListInputItem extends React.Component {
   render() {
     return (
       <Button type="alertVertical" text={this.props.text} onPress={this.props.onPress} />
-    );
+    )
   }
-};
+}
 
 ListInput.Item.propTypes = {
   onPress: React.PropTypes.func,
   text: React.PropTypes.string.isRequired,
-};
+}

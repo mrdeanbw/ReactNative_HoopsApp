@@ -1,19 +1,19 @@
-import React from 'react';
-import moment from 'moment';
-import {View, Image, Text, TouchableHighlight, Animated} from 'react-native';
+import React from 'react'
+import moment from 'moment'
+import {View, Image, Text, TouchableHighlight, Animated} from 'react-native'
 
-import StyleSheet from '../styles';
-import {Button, Icon} from './index';
-import _ from '../i18n';
+import StyleSheet from '../styles'
+import {Button, Icon} from './index'
+import _ from '../i18n'
 
 export default class UserListItem extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       checkedAnimation: new Animated.Value(props.checked === true ? 1 : 0),
-    };
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -22,18 +22,18 @@ export default class UserListItem extends React.Component {
         toValue: nextProps.checked === true ? 1 : 0,
         friction: 1,
         duration: 200
-      }).start();
+      }).start()
     }
   }
 
   render() {
-    let user = this.props.user;
+    let user = this.props.user
     if(!user) {
-      return null;
+      return null
     }
 
-    let {status, checked} = this.props;
-    let age = user.dob ? moment().diff(user.dob, 'years') : null;
+    let {status, checked} = this.props
+    let age = user.dob ? moment().diff(user.dob, 'years') : null
 
     return (
       <TouchableHighlight
@@ -100,11 +100,11 @@ export default class UserListItem extends React.Component {
           </TouchableHighlight>
         </View>
       </TouchableHighlight>
-    );
+    )
   }
 }
 
 UserListItem.propTypes = {
   user: React.PropTypes.object.isRequired,
   status: React.PropTypes.oneOf(['pending', 'confirmed', 'rejected']),
-};
+}

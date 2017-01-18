@@ -1,9 +1,9 @@
 
-import React from 'react';
-import {TouchableHighlight, ImagePickerIOS, View, Image} from 'react-native';
-import {Icon} from './';
+import React from 'react'
+import {TouchableHighlight, ImagePickerIOS, View, Image} from 'react-native'
+import {Icon} from './'
 
-import StyleSheet from '../styles';
+import StyleSheet from '../styles'
 
 export default class AvatarEdit extends React.Component {
   render() {
@@ -11,10 +11,10 @@ export default class AvatarEdit extends React.Component {
       <TouchableHighlight
         onPress={() => {
           ImagePickerIOS.openSelectDialog({}, (image) => {
-            this.props.onChange(image);
+            this.props.onChange(image)
           }, (err) => {
-            console.warn(err); //eslint-disable-line no-console
-          });
+            console.warn(err) //eslint-disable-line no-console
+          })
         }}
         style={[StyleSheet.profile.imageContainer, this.props.style]}
       >
@@ -27,11 +27,11 @@ export default class AvatarEdit extends React.Component {
           <Icon style={StyleSheet.profile.imageIconOverlay} name="camera" />
         </View>
       </TouchableHighlight>
-    );
+    )
   }
 }
 
 AvatarEdit.propTypes = {
   onChange: React.PropTypes.func.isRequired,
   image: React.PropTypes.string,
-};
+}

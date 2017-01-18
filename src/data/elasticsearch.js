@@ -1,7 +1,7 @@
 
 export class Client {
   constructor(config) {
-    this._host = config.host || 'http://localhost';
+    this._host = config.host || 'http://localhost'
   }
 
   search(path, query) {
@@ -13,7 +13,7 @@ export class Client {
       },
       body: JSON.stringify(query),
     }).then((res) => {
-      return res.json();
-    });
+      return res.json()
+    })
   }
 }

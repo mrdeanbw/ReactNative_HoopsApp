@@ -1,32 +1,32 @@
-import React from 'react';
-import {View, Text, Image, ScrollView, Linking} from 'react-native';
-import moment from 'moment';
+import React from 'react'
+import {View, Text, Image, ScrollView, Linking} from 'react-native'
+import moment from 'moment'
 
-import {Header, Popup, Button, EventListItem} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {Header, Popup, Button, EventListItem} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class Profile extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       showContactPopup: false,
-    };
+    }
   }
 
   render() {
-    const profile = this.props.profile;
-    const name = profile.name;
-    const owner = profile.id === this.props.me.uid;
+    const profile = this.props.profile
+    const name = profile.name
+    const owner = profile.id === this.props.me.uid
 
     const age = (date) => {
-      return moment().diff(date, 'years');
-    };
+      return moment().diff(date, 'years')
+    }
 
     const interestsString = this.props.interests.map(interest => {
-      return interest.name;
-    }).join(', ');
+      return interest.name
+    }).join(', ')
 
     return (
       <View style={{flex: 1}}>
@@ -43,10 +43,10 @@ export default class Profile extends React.Component {
               type="alertVertical"
               text={_('phone')}
               onPress={() => {
-                let url = `tel:${profile.phone}`;
+                let url = `tel:${profile.phone}`
                 Linking.openURL(url).catch(err => {
-                  console.warn(err); //eslint-disable-line no-console
-                });
+                  console.warn(err) //eslint-disable-line no-console
+                })
               }}
             />
           )}
@@ -55,10 +55,10 @@ export default class Profile extends React.Component {
               type="alertVertical"
               text={_('email')}
               onPress={() => {
-                let url = `mailto:${profile.email}`;
+                let url = `mailto:${profile.email}`
                 Linking.openURL(url).catch(err => {
-                  console.warn(err); //eslint-disable-line no-console
-                });
+                  console.warn(err) //eslint-disable-line no-console
+                })
               }}
             />
           )}
@@ -159,6 +159,6 @@ export default class Profile extends React.Component {
           )}
         </ScrollView>
       </View>
-    );
+    )
   }
 }

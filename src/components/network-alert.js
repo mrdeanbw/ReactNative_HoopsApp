@@ -1,9 +1,9 @@
 
-import React from 'react';
-import {Text} from 'react-native';
-import {Popup, Icon, Button} from './';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import React from 'react'
+import {Text} from 'react-native'
+import {Popup, Icon, Button} from './'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class LoadingAlert extends React.Component {
   render() {
@@ -28,6 +28,6 @@ export default class LoadingAlert extends React.Component {
           onPress={this.props.onDismiss}
         />
       </Popup>
-    );
+    )
   }
 }

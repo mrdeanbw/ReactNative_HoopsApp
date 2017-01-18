@@ -1,8 +1,8 @@
 
-import React from 'react';
-import {ScrollView, TouchableWithoutFeedback, View} from 'react-native';
+import React from 'react'
+import {ScrollView, TouchableWithoutFeedback, View} from 'react-native'
 
-import dismissKeyboard from 'dismissKeyboard';
+import dismissKeyboard from 'dismissKeyboard'
 
 export default class Form extends React.Component {
 
@@ -19,6 +19,6 @@ export default class Form extends React.Component {
           </View>
         </TouchableWithoutFeedback>
       </ScrollView>
-    );
+    )
   }
 }

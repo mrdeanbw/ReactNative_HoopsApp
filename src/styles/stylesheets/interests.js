@@ -1,9 +1,9 @@
 
-import Color from 'color';
-import {colors} from '../resources';
+import Color from 'color'
+import {colors} from '../resources'
 
-const PinkGradient = Object.keys(colors).filter(v => /^pink\d+$/.test(v)).map(v => colors[v]);
-const PinkGradientHighlight = PinkGradient.map(c => Color(c).lighten(0.25).hexString());
+const PinkGradient = Object.keys(colors).filter(v => /^pink\d+$/.test(v)).map(v => colors[v])
+const PinkGradientHighlight = PinkGradient.map(c => Color(c).lighten(0.25).hexString())
 
 export default StyleSheet => StyleSheet.extend({
   checkButtonGradient: StyleSheet.escape(PinkGradient.map(c => StyleSheet.extend({ gradient: {backgroundColor: c} }).gradient)),
@@ -88,4 +88,4 @@ export default StyleSheet => StyleSheet.extend({
   organizeImage: {
     paddingTop: 20
   }
-});
+})

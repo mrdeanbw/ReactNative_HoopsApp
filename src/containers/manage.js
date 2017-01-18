@@ -1,17 +1,17 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import {Manage as _Manage} from '../windows';
-import {navigationActions} from '../actions';
-import inflateEvent from '../data/inflaters/event';
+import {Manage as _Manage} from '../windows'
+import {navigationActions} from '../actions'
+import inflateEvent from '../data/inflaters/event'
 
 class Manage extends React.Component {
 
   onPressEvent(event) {
     if(this.props.user.mode === 'ORGANIZE') {
-      this.props.onNavigate('eventDashboard', {id: event.id});
+      this.props.onNavigate('eventDashboard', {id: event.id})
     }else{
-      this.props.onNavigate('eventDetails', {id: event.id});
+      this.props.onNavigate('eventDetails', {id: event.id})
     }
   }
 
@@ -21,8 +21,8 @@ class Manage extends React.Component {
         requests: this.props.requests.requestsById,
         invites: this.props.invites.invitesById,
         users: this.props.users.usersById,
-      });
-    }).filter(event => !!event);
+      })
+    }).filter(event => !!event)
 
     return (
       <_Manage
@@ -32,7 +32,7 @@ class Manage extends React.Component {
         events={events}
         onPressCreate={() => {}}
       />
-    );
+    )
   }
 }
 
@@ -47,4 +47,4 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
   }),
-)(Manage);
+)(Manage)

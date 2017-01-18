@@ -1,42 +1,42 @@
 
 
-import _ from '../i18n';
+import _ from '../i18n'
 
-import React from 'react';
-import { View, TextInput as _TextInput, Text, TouchableHighlight} from 'react-native';
+import React from 'react'
+import { View, TextInput as _TextInput, Text, TouchableHighlight} from 'react-native'
 
-import StyleSheet from '../styles';
-import HorizontalRule from './horizontal-rule';
-import Icon from './icon';
-import Popup from './popup';
-import Button from './button';
+import StyleSheet from '../styles'
+import HorizontalRule from './horizontal-rule'
+import Icon from './icon'
+import Popup from './popup'
+import Button from './button'
 
 
 export default class TextInput extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       showPopup: false,
-    };
+    }
   }
 
   focus() {
-    if(this.refs.input) this.refs.input.focus();
+    if(this.refs.input) this.refs.input.focus()
   }
 
   onPress = () => {
-    this.setState({showPopup: true});
+    this.setState({showPopup: true})
   };
 
   render() {
-    const {type, view, icon, active, style, iconStyle, textStyle, multiline, numberOfLines, rightBar, barStyle, ...props} = this.props;
+    const {type, view, icon, active, style, iconStyle, textStyle, multiline, numberOfLines, rightBar, barStyle, ...props} = this.props
 
-    const defaultTextInput = StyleSheet.textInputs.default || {};
-    const textInput = type ? StyleSheet.textInputs[type] || defaultTextInput : defaultTextInput;
+    const defaultTextInput = StyleSheet.textInputs.default || {}
+    const textInput = type ? StyleSheet.textInputs[type] || defaultTextInput : defaultTextInput
 
     // Need to break up the styling for find a nicer way of doing this. Aka. Hack
-    const flex = type === 'alert' ?  0 : 1;
+    const flex = type === 'alert' ?  0 : 1
 
     const touchable = (node) => {
       if(multiline === 'popup') {
@@ -46,11 +46,11 @@ export default class TextInput extends React.Component {
                   underlayColor={'underlayColor' in textInput ? textInput.underlayColor : defaultTextInput.underlayColor}>
             {node}
           </TouchableHighlight>
-        );
+        )
       } else {
-        return node;
+        return node
       }
-    };
+    }
 
     return (
       <View style={{flex, zIndex: 1}}>
@@ -58,9 +58,9 @@ export default class TextInput extends React.Component {
           visible={this.state.showPopup}
           onClose={() => this.setState({showPopup: false})}
           onSubmit={(value) => {
-            if(this.props.onChangeText) this.props.onChangeText(value);
-            if(this.props.onChange) this.props.onChange();
-            this.setState({showPopup: false});
+            if(this.props.onChangeText) this.props.onChangeText(value)
+            if(this.props.onChange) this.props.onChange()
+            this.setState({showPopup: false})
           }}
           {...props}
         />)}
@@ -133,7 +133,7 @@ export default class TextInput extends React.Component {
                 style={StyleSheet.textInputs.autocomplete.row}
                 key={entry.key}
                 onPress={() => {
-                  this.props.onAutocompletePress(entry);
+                  this.props.onAutocompletePress(entry)
                 }}
               >
                 <Text style={StyleSheet.textInputs.autocomplete.text}>
@@ -144,23 +144,23 @@ export default class TextInput extends React.Component {
           </View>
         )}
       </View>
-    );
+    )
   }
 }
 
 class MultilineTextInputDialog extends React.Component {
 
   constructor() {
-    super();
-    this.state = {};
+    super()
+    this.state = {}
   }
 
   onPressSubmit = () => {
-    this.props.onSubmit && this.props.onSubmit('value' in this.state ? this.state.value : this.props.value);
+    this.props.onSubmit && this.props.onSubmit('value' in this.state ? this.state.value : this.props.value)
   };
 
   render() {
-    const { modalTitle, modalPlaceholder } = this.props;
+    const { modalTitle, modalPlaceholder } = this.props
 
     return (
       <Popup visible={this.props.visible} keyboardSpacer contentStyle={{flex: 1, marginTop: 30, marginBottom: 15}} popupContentStyle={{flex: 1}}>
@@ -182,6 +182,6 @@ class MultilineTextInputDialog extends React.Component {
           {('value' in this.state) && <Button type="alertDefault" text={_('save')} onPress={this.onPressSubmit} />}
         </View>
       </Popup>
-    );
+    )
   }
 }

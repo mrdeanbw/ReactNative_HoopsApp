@@ -1,58 +1,58 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import moment from 'moment';
+import React from 'react'
+import {connect} from 'react-redux'
+import moment from 'moment'
 
-import {MyEvents as _MyEvents} from '../windows';
-import {userActions, eventActions, navigationActions} from '../actions';
-import inflateEvent from '../data/inflaters/event';
+import {MyEvents as _MyEvents} from '../windows'
+import {userActions, eventActions, navigationActions} from '../actions'
+import inflateEvent from '../data/inflaters/event'
 
 class MyEvents extends React.Component {
 
   onPressEvent(event) {
-    this.props.onNavigate('eventDetails', {id: event.id});
+    this.props.onNavigate('eventDetails', {id: event.id})
   }
 
   render() {
     let requests = Object.keys(this.props.user.requests).map(requestId => {
-      return this.props.requests.requestsById[requestId];
-    }).filter(request => request && request.status === 'confirmed');
+      return this.props.requests.requestsById[requestId]
+    }).filter(request => request && request.status === 'confirmed')
 
     let invites = Object.keys(this.props.user.invites).map(inviteId => {
-      return this.props.invites.invitesById[inviteId];
-    }).filter(invite => invite && invite.status === 'confirmed');
+      return this.props.invites.invitesById[inviteId]
+    }).filter(invite => invite && invite.status === 'confirmed')
 
-    let savedEventIds = Object.keys(this.props.user.savedEvents);
+    let savedEventIds = Object.keys(this.props.user.savedEvents)
     let connectedEventIds = requests.concat(invites).map(connection => {
-      return connection.eventId;
-    });
+      return connection.eventId
+    })
 
     let events = connectedEventIds.map((id) => {
-      return this.props.events.eventsById[id];
+      return this.props.events.eventsById[id]
     }).filter(event => !!event).map(event => {
       return inflateEvent(event, {
         requests: this.props.requests.requestsById,
         invites: this.props.invites.invitesById,
         users: this.props.users.usersById,
-      });
-    });
+      })
+    })
 
     let history = events.filter((event) => {
-      return moment(event.date).isBefore();
-    });
+      return moment(event.date).isBefore()
+    })
 
     let saved = savedEventIds.map(id => {
-      return this.props.events.eventsById[id];
+      return this.props.events.eventsById[id]
     }).map(event => {
       return inflateEvent(event, {
         requests: this.props.requests.requestsById,
         invites: this.props.invites.invitesById,
         users: this.props.users.usersById,
-      });
-    }).filter(event => !!event);
+      })
+    }).filter(event => !!event)
 
     let upcoming = events.filter((event) => {
-      return moment(event.date).isAfter();
-    });
+      return moment(event.date).isAfter()
+    })
 
     return (
       <_MyEvents
@@ -64,15 +64,15 @@ class MyEvents extends React.Component {
         history={history}
         availability={this.props.user.availability}
         onChangeAvailability={(value) => {
-          this.props.onChangeAvailability(value);
+          this.props.onChangeAvailability(value)
         }}
         onPressOrganizerDetails={(user) => {
-          this.props.onNavigate('profile', {id: user.id});
+          this.props.onNavigate('profile', {id: user.id})
         }}
         onPressDropOut={this.props.onPressDropOut}
         onPressUnsave={this.props.onPressUnsave}
       />
-    );
+    )
   }
 }
 
@@ -90,4 +90,4 @@ export default connect(
     onPressDropOut: (event) => dispatch(eventActions.quit(event.id)),
     onPressUnsave: (event) => dispatch(eventActions.unsave(event.id)),
   }),
-)(MyEvents);
+)(MyEvents)

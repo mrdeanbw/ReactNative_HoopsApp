@@ -436,4 +436,4 @@ export default {
   "YOGA" : {
     "name" : "Yoga"
   }
-};
+}

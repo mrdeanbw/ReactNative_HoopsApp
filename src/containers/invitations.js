@@ -1,18 +1,18 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import {Invitations as _Invitations} from '../windows';
-import {navigationActions, inviteActions, requestActions} from '../actions';
-import inflateInvite from '../data/inflaters/invite';
-import inflateRequest from '../data/inflaters/request';
+import {Invitations as _Invitations} from '../windows'
+import {navigationActions, inviteActions, requestActions} from '../actions'
+import inflateInvite from '../data/inflaters/invite'
+import inflateRequest from '../data/inflaters/request'
 
 class Invitations extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       awaitingCardForInvite: null,
-    };
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -23,12 +23,12 @@ class Invitations extends React.Component {
       this.props.payments.cards.length === 0 &&
       nextProps.payments.cards.length === 1
     ) {
-      this.props.onPressAccept(this.state.awaitingCardForInvite);
+      this.props.onPressAccept(this.state.awaitingCardForInvite)
     }
   }
 
   componentDidMount() {
-    this.props.onMarkInvitesSeen(this.getReceived());
+    this.props.onMarkInvitesSeen(this.getReceived())
   }
 
   getReceived = () => {
@@ -39,9 +39,9 @@ class Invitations extends React.Component {
           users: this.props.users.usersById,
           events: this.props.events.eventsById,
         }
-      );
+      )
     }).filter(invite => {
-      return invite && invite.event;
+      return invite && invite.event
     }).map((invite) => {
       //convert organizer from a user id to an object
       //we need to do a deep clone of invite.event.organizer
@@ -51,18 +51,18 @@ class Invitations extends React.Component {
           ...invite.event,
           organizer: this.props.users.usersById[invite.event.organizer],
         },
-      };
+      }
     }).filter(invite => {
-      return invite && invite.event && typeof invite.event.organizer === 'object';
+      return invite && invite.event && typeof invite.event.organizer === 'object'
     }).filter(invite => {
-      return invite.status === 'pending';
-    });
+      return invite.status === 'pending'
+    })
 
 
   };
 
   render() {
-    let received = this.getReceived();
+    let received = this.getReceived()
 
     let sent = Object.keys(this.props.user.requests).map(id => {
       return inflateRequest(
@@ -71,9 +71,9 @@ class Invitations extends React.Component {
           users: this.props.users.usersById,
           events: this.props.events.eventsById,
         }
-      );
+      )
     }).filter(request => {
-      return request && request.event;
+      return request && request.event
     }).map((request) => {
       //convert organizer from a user id to an object
       //we need to do a deep clone of invite.event.organizer
@@ -83,12 +83,12 @@ class Invitations extends React.Component {
           ...request.event,
           organizer: this.props.users.usersById[request.event.organizer],
         },
-      };
+      }
     }).filter(request => {
-      return request && request.event && typeof request.event.organizer === 'object';
+      return request && request.event && typeof request.event.organizer === 'object'
     }).filter(request => {
-      return request.status === 'pending';
-    });
+      return request.status === 'pending'
+    })
 
     return (
       <_Invitations
@@ -96,24 +96,24 @@ class Invitations extends React.Component {
         sent={sent}
 
         onPressUser={(user) => {
-          this.props.onNavigate('profile', {id: user.id});
+          this.props.onNavigate('profile', {id: user.id})
         }}
         onPressEventDetails={(event) => {
-          this.props.onNavigate('eventDetails', {id: event.id});
+          this.props.onNavigate('eventDetails', {id: event.id})
         }}
         onPressAccept={(invite) => {
           if(invite.event.entryFee === 0 || invite.event.paymentMethod !== 'app') {
-            this.props.onPressAccept(invite);
+            this.props.onPressAccept(invite)
           } else if(this.props.payments.cards.length > 0) {
-            this.props.onPressAccept(invite);
+            this.props.onPressAccept(invite)
           } else {
-            this.setState({awaitingCardForInvite: invite});
-            this.props.onNavigate('addCard', {}, false);
+            this.setState({awaitingCardForInvite: invite})
+            this.props.onNavigate('addCard', {}, false)
           }
         }}
         onPressDecline={this.props.onPressDecline}
       />
-    );
+    )
   }
 }
 
@@ -134,4 +134,4 @@ export default connect(
     onPressCancel: (request) => dispatch(requestActions.cancel(request)),
     onMarkInvitesSeen: (invites) => dispatch(inviteActions.markSeen(invites)),
   }),
-)(Invitations);
+)(Invitations)

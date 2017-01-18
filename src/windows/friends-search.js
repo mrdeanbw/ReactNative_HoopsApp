@@ -1,17 +1,17 @@
-import React from 'react';
-import {ScrollView,Text,View} from 'react-native';
+import React from 'react'
+import {ScrollView, View} from 'react-native'
 
-import {TextInput,Button,UserListItem,Header,Popup} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {TextInput,Button,UserListItem,Header,Popup} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class FriendsSearch extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       search: '',
-    };
+    }
   }
 
   render() {
@@ -30,8 +30,8 @@ export default class FriendsSearch extends React.Component {
             icon="searchGrey"
             placeholder={_('searchPeople')}
             onChangeText={(search) => {
-              this.setState({search});
-              this.props.onSearchChange(search);
+              this.setState({search})
+              this.props.onSearchChange(search)
             }}
           />
         </View>
@@ -48,15 +48,15 @@ export default class FriendsSearch extends React.Component {
           ))}
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
 FriendsSearch.propTypes = {
   users: React.PropTypes.array.isRequired,
-};
+}
 
-//TODO do something with an options popup
+// TODO do something with an options popup
 class Options extends React.Component {
   render() {
     return (
@@ -66,6 +66,6 @@ class Options extends React.Component {
         <Button type="alertVertical" text={_('message')} onPress={this.props.onPressMessage} />
         <Button type="alertVertical" text={_('viewProfile')} onPress={this.props.onPressViewProfile} />
       </Popup>
-    );
+    )
   }
 }

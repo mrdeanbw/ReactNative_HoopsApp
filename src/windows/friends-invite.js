@@ -1,9 +1,9 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React from 'react'
+import {View, Text} from 'react-native'
 
-import {Header, EventListItem} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {Header, EventListItem} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class FriendsInvite extends React.Component {
   render() {
@@ -25,6 +25,6 @@ export default class FriendsInvite extends React.Component {
           <Text style={StyleSheet.noResults}>{_('noUpcomingEvents')}</Text>
         )}
       </View>
-    );
+    )
   }
 }

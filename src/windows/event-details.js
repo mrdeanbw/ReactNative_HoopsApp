@@ -1,11 +1,11 @@
-import React from 'react';
-import {ScrollView,View,Text, Image, ActionSheetIOS, TouchableHighlight, Linking} from 'react-native';
-import moment from 'moment';
+import React from 'react'
+import {ScrollView,View,Text, Image, ActionSheetIOS, TouchableHighlight, Linking} from 'react-native'
+import moment from 'moment'
 
-import StyleSheet from '../styles';
-import {Icon, HorizontalRule, Button, Popup, Header} from '../components';
-import _ from '../i18n';
-import EventDashboard from './event-dashboard';
+import StyleSheet from '../styles'
+import {Icon, HorizontalRule, Button, Popup, Header} from '../components'
+import _ from '../i18n'
+import EventDashboard from './event-dashboard'
 
 const icons = {
   AMERICAN_FOOTBALL: 'activityAmericanFootball',
@@ -40,12 +40,12 @@ const icons = {
   TABLE_TENNIS: 'activityTableTennis',
   TENNIS: 'activityTennis',
   YOGA: 'activityYoga',
-};
+}
 
 export default class EventDetails extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       showJoinPopup: false,
@@ -55,25 +55,25 @@ export default class EventDetails extends React.Component {
       showCancelRequestPopup: false,
       showPaymentTypePopup: false,
       paymentMethod: undefined,
-    };
+    }
   }
 
   componentWillMount() {
     this._actionListener = this.props.actionButton.addListener('press', () => {
       if(this.props.isExpired){
-        this.props.onBack();
+        this.props.onBack()
       } else if(this.props.isMember) {
-        this.setState({showQuitPopup: true});
+        this.setState({showQuitPopup: true})
       } else if(this.props.isPendingRequest) {
-        this.setState({showCancelRequestPopup: true});
+        this.setState({showCancelRequestPopup: true})
       } else if(this.props.isOrganizer) {
-        this.props.onEditEvent();
+        this.props.onEditEvent()
       } else {
-        this.onPressJoinTabAction();
+        this.onPressJoinTabAction()
       }
-    });
+    })
 
-    this.updateActionButton(this.props);
+    this.updateActionButton(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -83,68 +83,68 @@ export default class EventDetails extends React.Component {
       nextProps.isOrganizer !== this.props.isOrganizer ||
       (nextProps.navKey !== this.props.navKey && nextProps.navKey === 'eventDetails')
     ){
-      this.updateActionButton(nextProps);
+      this.updateActionButton(nextProps)
     }
   }
 
   onPressJoinTabAction = () => {
-    let event = this.props.event;
+    let event = this.props.event
     if(event.entryFee > 0 && event.paymentMethod === 'unrestricted') {
       //If we are on an 'unrestricted' payment type, show payment types popup
-      this.setState({showPaymentTypePopup: true});
+      this.setState({showPaymentTypePopup: true})
     } else {
       //If we are on an event with a specified payment type, show the join popup
       this.setState({
         showJoinPopup: true,
         paymentMethod: event.entryFee === 0 ? 'cash' : event.paymentMethod
-      });
+      })
     }
   };
 
   updateActionButton(props) {
-    let entryFee = props.event.entryFee || 0;
+    let entryFee = props.event.entryFee || 0
 
     if(this.props.isExpired) {
       props.onChangeAction({
         text: _('back'),
         icon: "back",
         type: "action",
-      });
+      })
     } else if(props.isMember || props.isPendingRequest) {
       props.onChangeAction({
         text: _('quit'),
         icon: "actionRemove",
         type: "action",
-      });
+      })
     } else if(props.isOrganizer) {
       props.onChangeAction({
         text: _('edit'),
         icon: "actionEdit",
         type: "action",
-      });
+      })
     } else {
       props.onChangeAction({
         text: _('join'),
         textLarge: '£' + entryFee,
         type: "actionDefault",
-      });
+      })
     }
   }
 
   componentWillUnmount() {
-    this._actionListener && this._actionListener.remove();
+    this._actionListener && this._actionListener.remove()
   }
 
   onPressJoin = () => {
     this.setState({
       showJoinPopup: false,
-    });
+    })
 
-    this.props.onPressJoin(this.state.paymentMethod);
+    this.props.onPressJoin(this.state.paymentMethod)
   };
 
   onPressInvite = () => {
-    this.props.onPressInvite();
+    this.props.onPressInvite()
   };
 
   onPressShare = () => {
@@ -154,10 +154,10 @@ export default class EventDetails extends React.Component {
       message: 'Check out this event, want to join?',
       subject: 'Join this event',
     }, (err) => {
-      console.warn(err); //eslint-disable-line no-console
+      console.warn(err) //eslint-disable-line no-console
     }, (success, method) => {
       //This callback does nothing but is required by ActionSheetIOS
-    });
+    })
   };
 
   onPressAddress = (address) => {
@@ -169,29 +169,29 @@ export default class EventDetails extends React.Component {
       cancelButtonIndex: 1,
     }, (index) => {
       if(index === 0) {
-        let url = `http://maps.apple.com/?daddr=${address}`;
-        Linking.openURL(url).catch(err => console.warn(err)); //eslint-disable-line no-console
+        let url = `http://maps.apple.com/?daddr=${address}`
+        Linking.openURL(url).catch(err => console.warn(err)) //eslint-disable-line no-console
       }
-    });
+    })
   };
 
   getIcon(activityKey) {
-    return icons[activityKey] || icons.DEFAULT;
+    return icons[activityKey] || icons.DEFAULT
   }
 
   render() {
-    let event = this.props.event;
-    let address = event.address;
+    let event = this.props.event
+    let address = event.address
 
-    let ageText;
+    let ageText
     if(this.props.event.minAge && this.props.event.maxAge) {
-      ageText = <Text>{this.props.event.minAge} - {this.props.event.maxAge}</Text>;
+      ageText = <Text>{this.props.event.minAge} - {this.props.event.maxAge}</Text>
     } else if(this.props.event.minAge) {
-      ageText = <Text>Min Age {this.props.event.minAge}</Text>;
+      ageText = <Text>Min Age {this.props.event.minAge}</Text>
     } else if(this.props.event.maxAge) {
-      ageText = <Text>Max Age {this.props.event.maxAge}</Text>;
+      ageText = <Text>Max Age {this.props.event.maxAge}</Text>
     } else {
-      ageText = _('unrestricted');
+      ageText = _('unrestricted')
     }
 
     return (
@@ -220,8 +220,8 @@ export default class EventDetails extends React.Component {
           event={this.props.event}
           onPressCancel={() => this.setState({showQuitPopup: false})}
           onPressQuit={() => {
-            this.setState({showQuitPopup: false});
-            this.props.onPressQuit();
+            this.setState({showQuitPopup: false})
+            this.props.onPressQuit()
           }}
         />
         <EventCancelRequestPopup
@@ -229,16 +229,16 @@ export default class EventDetails extends React.Component {
           event={this.props.event}
           onPressCancel={() => this.setState({showCancelRequestPopup: false})}
           onPressConfirm={() => {
-            this.setState({showCancelRequestPopup: false});
-            this.props.onCancelRequest();
+            this.setState({showCancelRequestPopup: false})
+            this.props.onCancelRequest()
           }}
         />
         <EventDashboard.CancelEventPopup
           visible={this.state.showCancelEventPopup}
           onClose={() => this.setState({showCancelEventPopup: false})}
           onSubmit={(message) => {
-            this.setState({showCancelEventPopup: false});
-            this.props.onCancelEvent(message);
+            this.setState({showCancelEventPopup: false})
+            this.props.onCancelEvent(message)
           }}
         />
         <PaymentTypePopup
@@ -249,7 +249,7 @@ export default class EventDetails extends React.Component {
               showJoinPopup: true,
               showPaymentTypePopup: false,
               paymentMethod,
-            });
+            })
           }}
         />
         <ScrollView style={StyleSheet.eventDetails.style}>
@@ -358,7 +358,7 @@ export default class EventDetails extends React.Component {
           <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionBodyTextStyle, StyleSheet.doubleMarginBottom]}>{this.props.event.notes}</Text>
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
@@ -376,7 +376,7 @@ class EventInfo extends React.Component {
           {this.props.label}
         </Text>
       </View>
-    );
+    )
   }
 }
 
@@ -390,9 +390,9 @@ EventInfo.Summary = class EventSummaryInfo extends React.Component {
           {this.props.children}
         </Text>
       </View>
-    );
+    )
   }
-};
+}
 
 EventInfo.Bar = class EventInfoBar extends React.Component {
   render() {
@@ -400,14 +400,14 @@ EventInfo.Bar = class EventInfoBar extends React.Component {
       <View style={[StyleSheet.eventDetails.eventInfoBarStyle, this.props.style]}>
         {this.props.children}
       </View>
-    );
+    )
   }
-};
+}
 
 class DateText extends React.Component {
   render() {
-    let start = moment(this.props.event.date);
-    let end = this.props.event.endDate ? moment(this.props.event.endDate) : null;
+    let start = moment(this.props.event.date)
+    let end = this.props.event.endDate ? moment(this.props.event.endDate) : null
 
     let startComponent = (
       <Text>
@@ -416,10 +416,10 @@ class DateText extends React.Component {
         </Text>
         <Text>{moment(start).format('HH:mm')}</Text>
       </Text>
-    );
+    )
 
     if(!end) {
-      return startComponent;
+      return startComponent
     } else {
       return (
         <Text>
@@ -432,7 +432,7 @@ class DateText extends React.Component {
           )}
           <Text>{moment(end).format('HH:mm')}</Text>
         </Text>
-      );
+      )
     }
   }
 }
@@ -440,11 +440,11 @@ class DateText extends React.Component {
 class EventJoinPopup extends React.Component {
   render() {
     const formatCharge = (charge) => {
-      return (parseFloat(charge) * 100).toFixed(0) + 'p';
-    };
+      return (parseFloat(charge) * 100).toFixed(0) + 'p'
+    }
 
-    let event = this.props.event;
-    let address = event.address;
+    let event = this.props.event
+    let address = event.address
 
     return (
       <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>
@@ -478,7 +478,7 @@ class EventJoinPopup extends React.Component {
           />
         </View>
       </Popup>
-    );
+    )
   }
 }
 
@@ -497,7 +497,7 @@ class PaymentTypePopup extends React.Component {
           onPress={() => this.props.onSelect('app')}
         />
       </Popup>
-    );
+    )
   }
 }
 
@@ -524,7 +524,7 @@ class EventJoinedConfirmation extends React.Component {
               onPress={this.props.onPressViewList} />
         </View>
       </Popup>
-    );
+    )
   }
 }
 
@@ -551,7 +551,7 @@ class EventQuitPopup extends React.Component {
           />
         </View>
       </Popup>
-    );
+    )
   }
 }
 
@@ -578,6 +578,6 @@ class EventCancelRequestPopup extends React.Component {
           />
         </View>
       </Popup>
-    );
+    )
   }
 }

@@ -1,14 +1,14 @@
-import FCM from 'react-native-fcm';
+import FCM from 'react-native-fcm'
 
-import {firebaseDb} from '../data/firebase';
-import DBHelper from '../data/database-helper';
-const database = DBHelper('notifications');
-import {usersActions} from '../actions';
+import {firebaseDb} from '../data/firebase'
+import DBHelper from '../data/database-helper'
+const database = DBHelper('notifications')
+import {usersActions} from '../actions'
 
 export const load = (id) => {
   return dispatch => {
     database.addListener(`notifications/${id}`, 'value', (snapshot) => {
-      let notification = snapshot.val();
+      let notification = snapshot.val()
       dispatch({
         type: 'NOTIFICATION_LOADED',
         notifications: {
@@ -17,18 +17,18 @@ export const load = (id) => {
             id,
           },
         },
-      });
+      })
 
       if(notification.type === 'FRIEND_REQUEST') {
         //TODO: is this needed? Maybe users/friendRequests/id is already watched?
-        dispatch(usersActions.loadFriendRequest(notification.friendRequestId));
+        dispatch(usersActions.loadFriendRequest(notification.friendRequestId))
       }
 
-      dispatch(updateBadge());
+      dispatch(updateBadge())
 
-    });
-  };
-};
+    })
+  }
+}
 
 export const acceptFriendRequest = (friendRequest) => {
   return dispatch => {
@@ -46,16 +46,16 @@ export const acceptFriendRequest = (friendRequest) => {
         dispatch({
           type: 'FRIEND_REQUEST_ACCEPTED_ERROR',
           err,
-        });
+        })
       } else {
         dispatch({
           type: 'FRIEND_REQUEST_ACCEPTED',
           friendRequest,
-        });
+        })
       }
-    });
-  };
-};
+    })
+  }
+}
 
 export const declineFriendRequest = (friendRequest) => {
   return dispatch => {
@@ -69,76 +69,76 @@ export const declineFriendRequest = (friendRequest) => {
         dispatch({
           type: 'FRIEND_REQUEST_DENIED_ERROR',
           err,
-        });
+        })
       } else {
         dispatch({
           type: 'FRIEND_REQUEST_DENIED',
           friendRequest,
-        });
+        })
       }
-    });
-  };
-};
+    })
+  }
+}
 
 export const markRead = (id) => {
   return dispatch => {
-    firebaseDb.child(`notifications/${id}/read`).set(true);
+    firebaseDb.child(`notifications/${id}/read`).set(true)
 
     dispatch({
       type: 'NOTIFICATION_MARK_READ',
       id,
-    });
-  };
-};
+    })
+  }
+}
 
 export const markUnread = (id) => {
   return dispatch => {
-    firebaseDb.child(`notifications/${id}/read`).set(false);
+    firebaseDb.child(`notifications/${id}/read`).set(false)
 
     dispatch({
       type: 'NOTIFICATION_MARK_UNREAD',
       id,
-    });
-  };
-};
+    })
+  }
+}
 
 export const markSeen = (id) => {
   return dispatch => {
-    firebaseDb.child(`notifications/${id}/seen`).set(true);
+    firebaseDb.child(`notifications/${id}/seen`).set(true)
 
     dispatch({
       type: 'NOTIFICATION_MARK_SEEN',
       id,
-    });
-    dispatch(updateBadge());
-  };
-};
+    })
+    dispatch(updateBadge())
+  }
+}
 
 export const updateBadge = () => {
   return (dispatch, getState) => {
-    let state = getState();
+    let state = getState()
 
     //count unread notifications and set the badge
     let unseen = Object.keys(state.notifications.notificationsById).map(notiId => {
-      return state.notifications.notificationsById[notiId];
-    }).filter(notification => notification && notification.seen !== true);
+      return state.notifications.notificationsById[notiId]
+    }).filter(notification => notification && notification.seen !== true)
 
-    FCM.setBadgeNumber(unseen.length);
-  };
-};
+    FCM.setBadgeNumber(unseen.length)
+  }
+}
 
 export const receivePush = (notification) => {
   return {
     type: 'NOTIFICATION_PUSH',
     notification,
-  };
-};
+  }
+}
 
 export const scheduleDeadlineAlert = (event) => {
   if(!event.deadline) {
-    return;
+    return
   }
-  let id = `DEADLINE_${event.id}`;
+  let id = `DEADLINE_${event.id}`
 
   FCM.scheduleLocalNotification({
     fire_date: new Date(event.deadline).getTime(),
@@ -146,10 +146,10 @@ export const scheduleDeadlineAlert = (event) => {
     body: 'Your event deadline has passed',
     title: `${event.title} deadline`,
     deeplink: `hoops://events/${event.id}`,
-  });
+  })
 
   return {
     type: 'NOTIFICATION_SCHEDULED',
     id: id,
-  };
-};
+  }
+}

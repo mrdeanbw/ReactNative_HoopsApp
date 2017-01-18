@@ -1,8 +1,8 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import {SignUp as _SignUp} from '../windows';
-import {userActions} from '../actions';
+import {SignUp as _SignUp} from '../windows'
+import {userActions} from '../actions'
 
 class SignUp extends React.Component {
 
@@ -16,7 +16,7 @@ class SignUp extends React.Component {
         onBack={this.props.onBack}
         onClose={this.props.onClose}
       />
-    );
+    )
   }
 }
 
@@ -28,4 +28,4 @@ export default connect(
     onSignUp: (username, password, extra) => dispatch(userActions.signUp(username, password, extra)),
     onFacebookSignUp: () => dispatch(userActions.facebookSignUp()),
   }),
-)(SignUp);
+)(SignUp)

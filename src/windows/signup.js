@@ -1,23 +1,23 @@
-import React from 'react';
-import {View, Text} from 'react-native';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+import React from 'react'
+import {View, Text} from 'react-native'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import Button from '../components/button';
-import HorizontalRule from '../components/horizontal-rule';
-import TextInput from '../components/text-input';
-import DateInput from '../components/date-input';
-import Form from '../components/form';
-import Header from '../components/header';
-import LoadingAlert from '../components/loading-alert';
-import AvatarEdit from '../components/avatar-edit';
-import StyleSheet from '../styles';
-import {autocomplete} from '../data/google-places';
-import _ from '../i18n';
+import Button from '../components/button'
+import HorizontalRule from '../components/horizontal-rule'
+import TextInput from '../components/text-input'
+import DateInput from '../components/date-input'
+import Form from '../components/form'
+import Header from '../components/header'
+import LoadingAlert from '../components/loading-alert'
+import AvatarEdit from '../components/avatar-edit'
+import StyleSheet from '../styles'
+import {autocomplete} from '../data/google-places'
+import _ from '../i18n'
 
 export default class SignUp extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       showPassword: false,
       showDobInfo: false,
@@ -26,7 +26,7 @@ export default class SignUp extends React.Component {
       citiesAutocomplete: [],
       phone: '',
       image: undefined,
-    };
+    }
   }
 
   validate() {
@@ -37,7 +37,7 @@ export default class SignUp extends React.Component {
       dob,
       gender,
       city
-    } = this.state;
+    } = this.state
 
     return !!(
       name &&
@@ -46,19 +46,19 @@ export default class SignUp extends React.Component {
       dob &&
       gender &&
       city.key
-    );
+    )
   }
 
   onSubmitEditing = (nextField) => {
-    this.refs[nextField].focus();
+    this.refs[nextField].focus()
   };
 
   onPressMale = () => {
-    this.setState({gender: 'male'});
+    this.setState({gender: 'male'})
   };
 
   onPressFemale = () => {
-    this.setState({gender: 'female'});
+    this.setState({gender: 'female'})
   };
 
   onPressSignUp = () => {
@@ -69,22 +69,22 @@ export default class SignUp extends React.Component {
       city: this.state.city.text,
       cityGooglePlaceId: this.state.city.key,
       image: this.state.image,
-    });
+    })
   };
 
   onPressFacebookConnect = () => {
-    this.props.onFacebookSignUp();
+    this.props.onFacebookSignUp()
   };
 
   render() {
-    let errorCode = this.props.signUpError && this.props.signUpError.code;
+    let errorCode = this.props.signUpError && this.props.signUpError.code
     let emailError = [
       'auth/email-already-in-use',
       'auth/invalid-email',
-    ].indexOf(errorCode) !== -1;
+    ].indexOf(errorCode) !== -1
     let passwordError = [
       'auth/weak-password',
-    ].indexOf(errorCode) !== -1;
+    ].indexOf(errorCode) !== -1
     return (
       <View style={{flex: 1}}>
         <Header
@@ -203,12 +203,12 @@ export default class SignUp extends React.Component {
               this.setState({
                 cityText,
                 city: {},
-              });
+              })
               autocomplete(cityText, '(cities)').then(result => {
                 this.setState({
                   citiesAutocomplete: result.predictions,
-                });
-              });
+                })
+              })
             }}
             type="flat"
             ref="city"
@@ -217,14 +217,14 @@ export default class SignUp extends React.Component {
               return {
                 key: suggestion.place_id,
                 text: suggestion.description,
-              };
+              }
             })}
             onAutocompletePress={(item) => {
               this.setState({
                 cityText: item.text,
                 city: item,
                 citiesAutocomplete: [],
-              });
+              })
             }}
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="none"
@@ -268,10 +268,10 @@ export default class SignUp extends React.Component {
         </Form>
         <KeyboardSpacer/>
       </View>
-    );
+    )
   }
 }
 
 SignUp.propTypes = {
   onSignUp: React.PropTypes.func.isRequired,
-};
+}

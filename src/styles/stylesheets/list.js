@@ -1,5 +1,5 @@
 
-import {colors} from '../resources';
+import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
   container: {
@@ -33,4 +33,4 @@ export default StyleSheet => StyleSheet.extend({
     padding: 16,
     color: colors.pink,
   },
-});
+})

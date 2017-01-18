@@ -1,13 +1,13 @@
-import React from 'react';
-import {View, ScrollView, Text} from 'react-native';
+import React from 'react'
+import {View, ScrollView, Text} from 'react-native'
 
-import {AvatarEdit, Button, Header, TextInput, DateInput, Icon, CheckButton} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {AvatarEdit, Button, Header, TextInput, DateInput, Icon, CheckButton} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class ProfileEdit extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       image: undefined, //image is a new uploaded image local uri
@@ -16,11 +16,11 @@ export default class ProfileEdit extends React.Component {
       city: props.city,
       gender: props.gender,
       dob: props.dob,
-    };
+    }
   }
 
   onPressAddActivity = () => {
-    this.props.onPressAddActivity();
+    this.props.onPressAddActivity()
   };
 
   onSavePress = () => {
@@ -30,7 +30,7 @@ export default class ProfileEdit extends React.Component {
       city: this.state.city,
       gender: this.state.gender,
       dob: this.state.dob,
-    });
+    })
   };
 
   render() {
@@ -57,7 +57,7 @@ export default class ProfileEdit extends React.Component {
             placeholder={_('name')}
             blurOnSubmit={false}
             onSubmitEditing={() => {
-              this.refs.activityInput.focus();
+              this.refs.activityInput.focus()
             }}
           />
 
@@ -69,7 +69,7 @@ export default class ProfileEdit extends React.Component {
             placeholder={_('city')}
             blurOnSubmit={false}
             onSubmitEditing={() => {
-              this.refs.activityInput.focus();
+              this.refs.activityInput.focus()
             }}
           />
 
@@ -131,6 +131,6 @@ export default class ProfileEdit extends React.Component {
           />
         </View>
       </View>
-    );
+    )
   }
 }

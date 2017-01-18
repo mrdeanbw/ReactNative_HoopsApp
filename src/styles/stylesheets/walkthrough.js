@@ -1,6 +1,6 @@
-import {Platform} from 'react-native';
+import {Platform} from 'react-native'
 
-import {colors} from '../resources';
+import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
   backgroundImage: {
@@ -85,4 +85,4 @@ export default StyleSheet => StyleSheet.extend({
     // flex: 1,
     resizeMode: 'contain',
   }
-});
+})

@@ -1,5 +1,5 @@
 
-import {colors} from '../resources';
+import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
   underlayColor: colors.lightGrey,
@@ -115,4 +115,4 @@ export default StyleSheet => StyleSheet.extend({
   disabledText: {
     color: '#8E8E93',
   },
-});
+})

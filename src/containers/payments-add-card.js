@@ -1,13 +1,13 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import _PaymentsAddCard from '../windows/payments-add-card';
-import {navigationActions, paymentActions} from '../actions';
+import _PaymentsAddCard from '../windows/payments-add-card'
+import {navigationActions, paymentActions} from '../actions'
 
 class PaymentsAddCard extends React.Component {
 
   componentWillUnmount() {
-    this.props.onDismissError();
+    this.props.onDismissError()
   }
 
   render() {
@@ -21,10 +21,10 @@ class PaymentsAddCard extends React.Component {
           this.props.onCreateCard({
             ...data,
             uid: this.props.user.uid,
-          });
+          })
         }}
       />
-    );
+    )
   }
 }
 
@@ -39,4 +39,4 @@ export default connect(
     onCreateCard: (data) => dispatch(paymentActions.createCard(data)),
     onDismissError: () => dispatch(paymentActions.dismissError()),
   }),
-)(PaymentsAddCard);
+)(PaymentsAddCard)

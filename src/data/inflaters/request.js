@@ -1,14 +1,14 @@
 
 export default (request, extra) => {
-  request = {...request}; //clone
+  request = {...request} //clone
 
   if(extra.users) {
-    request.user = extra.users[request.userId];
+    request.user = extra.users[request.userId]
   }
 
   if(extra.events) {
-    request.event = extra.events[request.eventId];
+    request.event = extra.events[request.eventId]
   }
 
-  return request;
-};
+  return request
+}

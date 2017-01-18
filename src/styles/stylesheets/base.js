@@ -1,9 +1,9 @@
 
-import {fonts, colors} from '../resources';
+import {fonts, colors} from '../resources'
 
-const halfMargin = 5;
-const singleMargin = 15;
-const doubleMargin = singleMargin * 2;
+const halfMargin = 5
+const singleMargin = 15
+const doubleMargin = singleMargin * 2
 
 export default StyleSheet => StyleSheet.extend({
   application: StyleSheet.extend({
@@ -101,4 +101,4 @@ export default StyleSheet => StyleSheet.extend({
     color: colors.grey,
     textAlign: 'center',
   },
-});
+})

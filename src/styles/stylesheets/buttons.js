@@ -1,9 +1,9 @@
 
-import {colors} from '../resources';
-import Color from 'color';
+import {colors} from '../resources'
+import Color from 'color'
 
-const DashboardGradient = Object.keys(colors).filter(v => /^dashboard\d+$/.test(v)).map(v => colors[v]);
-const DashboardGradientHighlight = DashboardGradient.map(c => Color(c).lighten(0.25).hexString());
+const DashboardGradient = Object.keys(colors).filter(v => /^dashboard\d+$/.test(v)).map(v => colors[v])
+const DashboardGradientHighlight = DashboardGradient.map(c => Color(c).lighten(0.25).hexString())
 
 export default StyleSheet => StyleSheet.extend({
 
@@ -1209,4 +1209,4 @@ export default StyleSheet => StyleSheet.extend({
     textTransform: s => s
   }),
 
-});
+})

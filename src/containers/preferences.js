@@ -1,8 +1,8 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import {Preferences as _Preferences} from '../windows';
-import {navigationActions, userActions} from '../actions';
+import {Preferences as _Preferences} from '../windows'
+import {navigationActions, userActions} from '../actions'
 
 class Preferences extends React.Component {
 
@@ -13,7 +13,7 @@ class Preferences extends React.Component {
         onPressNotifications={() => this.props.onNavigate('notifications')}
         onPressEditAccount={() => this.props.onNavigate('profileEdit', {}, false)}
       />
-    );
+    )
   }
 }
 
@@ -25,4 +25,4 @@ export default connect(
     onLogOut: () => dispatch(userActions.logOut()),
     onNavigate: (key, props, subTab = true) => dispatch(navigationActions.push({key, props}, subTab)),
   }),
-)(Preferences);
+)(Preferences)

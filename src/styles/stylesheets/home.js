@@ -1,6 +1,4 @@
-import { Dimensions } from 'react-native';
-
-import {colors} from '../resources';
+import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
   container: {
@@ -42,4 +40,4 @@ export default StyleSheet => StyleSheet.extend({
   nearbyMapContainer: {
     flex: 1
   },
-});
+})

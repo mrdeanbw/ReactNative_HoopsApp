@@ -1,22 +1,22 @@
-import React from 'react';
-import {View,Text, ScrollView, Image} from 'react-native';
+import React from 'react'
+import {View,Text, ScrollView, Image} from 'react-native'
 
-import {Button} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {Button} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class Gallery extends React.Component {
 
   static getTitle(props) {
-    return _('galleryTitle').replace(/\$1/g, props.event.title);
+    return _('galleryTitle').replace(/\$1/g, props.event.title)
   }
 
   static getActionButton(props) {
-    return <Button type="action" icon="actionBack" text={_('back')} onPress={this.prototype.onPressBack} />;
+    return <Button type="action" icon="actionBack" text={_('back')} onPress={this.prototype.onPressBack} />
   }
 
   onPressBack = () => {
-    if(this.props.onClose) this.props.onClose();
+    if(this.props.onClose) this.props.onClose()
   };
 
   onPressImage = (image) => {
@@ -24,15 +24,15 @@ export default class Gallery extends React.Component {
   };
 
   render() {
-    const albums = this.props.event.gallery || [];
-    const rows = [];
+    const albums = this.props.event.gallery || []
+    const rows = []
     for(var i = 0; i < albums.length; i += 2) {
-      if(i + 1 < albums.length) rows.push([albums[i], albums[i + 1]]);
-      else rows.push([albums[i]]);
+      if(i + 1 < albums.length) rows.push([albums[i], albums[i + 1]])
+      else rows.push([albums[i]])
     }
 
-    const coverStyle = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 };
-    const imageStyle = { resizeMode: 'cover', width: 145, height: 145, backgroundColor: '#46d' };
+    const coverStyle = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }
+    const imageStyle = { resizeMode: 'cover', width: 145, height: 145, backgroundColor: '#46d' }
 
     return (
       <ScrollView style={{flex: 1}} contentContainerStyle={{ paddingBottom: 10, paddingRight: 10 }}>
@@ -46,6 +46,6 @@ export default class Gallery extends React.Component {
           </View>)}
         </View>)}
       </ScrollView>
-    );
+    )
   }
-};
+}

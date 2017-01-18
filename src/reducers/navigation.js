@@ -1,10 +1,10 @@
 
-import {handleActions} from 'redux-actions';
-import {NavigationExperimental} from 'react-native';
+import {handleActions} from 'redux-actions'
+import {NavigationExperimental} from 'react-native'
 
 const {
   StateUtils,
-} = NavigationExperimental;
+} = NavigationExperimental
 
 const initialState = {
   index: 0,
@@ -88,39 +88,39 @@ const initialState = {
   },
 
   showMenu: false,
-};
+}
 
 const getCurrentScene = (state) => {
-  let currentRoute = state.routes[state.index];
+  let currentRoute = state.routes[state.index]
 
   //If we are on a tab, find out which route is active on _that_ tab.
   if(currentRoute.key === 'tabs') {
-    let tabState = state.tabs[state.tabKey];
-    currentRoute = tabState.routes[tabState.index];
+    let tabState = state.tabs[state.tabKey]
+    currentRoute = tabState.routes[tabState.index]
   }
 
-  return currentRoute.scene;
-};
+  return currentRoute.scene
+}
 
 export default handleActions({
   NAV_PUSH: (state, action) => {
     //if the current route is 'tabs' and we want to stay in tabs, alter the tab's state
-    let currentRoute = state.routes[state.index];
+    let currentRoute = state.routes[state.index]
     let newRoute = {
       ...action.route,
       scene: action.route.key,
       key: action.route.key + '_' + Math.random(),
       direction: 'horizontal',
-    };
+    }
 
     if(getCurrentScene(state) === newRoute.scene) {
-      console.warn("Do not push the same route twice"); //eslint-disable-line no-console
-      return {...state};
+      console.warn("Do not push the same route twice") //eslint-disable-line no-console
+      return {...state}
     }
 
     //If we are navigating away from tab view into a full-page view; vertical animation
     if(currentRoute.key === 'tabs' && !action.subTab) {
-      newRoute.direction = 'vertical';
+      newRoute.direction = 'vertical'
     }
 
     if(currentRoute.key === 'tabs' && action.subTab){
@@ -130,14 +130,14 @@ export default handleActions({
           ...state.tabs,
           [state.tabKey]: StateUtils.push(state.tabs[state.tabKey], newRoute),
         },
-      };
+      }
     }else{
-      return StateUtils.push(state, newRoute);
+      return StateUtils.push(state, newRoute)
     }
   },
 
   NAV_POP: (state, action) => {
-    let currentRoute = state.routes[state.index];
+    let currentRoute = state.routes[state.index]
     if(currentRoute.key === 'tabs'){
       return {
         ...state,
@@ -145,9 +145,9 @@ export default handleActions({
           ...state.tabs,
           [state.tabKey]: StateUtils.pop(state.tabs[state.tabKey]),
         },
-      };
+      }
     }else{
-      return StateUtils.pop(state);
+      return StateUtils.pop(state)
     }
   },
 
@@ -155,8 +155,8 @@ export default handleActions({
     let newRoute = {
       ...action.route,
       scene: action.route.key,
-    };
-    return StateUtils.reset(state, [newRoute], 0);
+    }
+    return StateUtils.reset(state, [newRoute], 0)
   },
 
   NAV_CHANGE_TAB: (state, action) => {
@@ -168,7 +168,7 @@ export default handleActions({
         ...state.tabs,
         [action.key]: initialState.tabs[action.key],
       },
-    };
+    }
 
     /*
     //Just select the tab, don't reset it's stack too
@@ -183,21 +183,21 @@ export default handleActions({
     return {
       ...state,
       showMenu: true,
-    };
+    }
   },
 
   NAV_HIDE_MENU: (state, action) => {
     return {
       ...state,
       showMenu: false,
-    };
+    }
   },
 
   USER_LOGGED_OUT: (state, action) => {
     return {
       ...initialState,
       routes: [{scene: 'walkthrough', key: 'walkthrough'}],
-    };
+    }
   },
 
   SET_UI_MODE: (state, action) => {
@@ -206,23 +206,23 @@ export default handleActions({
       ...state,
       tabKey: 'home',
       tabs: initialState.tabs,
-    };
+    }
   },
 
   DEEP_LINK_TAB: (state, action) => {
 
     let subNav = {
       ...initialState.tabs[action.tabKey]
-    };
+    }
 
     if(action.route) {
       let newRoute = {
         ...action.route,
         scene: action.route.key,
-      };
+      }
       //Don't use .push() due to a need for pure functions
-      subNav.routes = subNav.routes.concat(newRoute);
-      subNav.index = 1;
+      subNav.routes = subNav.routes.concat(newRoute)
+      subNav.index = 1
     }
 
     return {
@@ -237,19 +237,19 @@ export default handleActions({
         ...state.tabs,
         [action.tabKey]: subNav,
       },
-    };
+    }
   },
 
   NOTIFICATION_PUSH: (state, action) => {
     //Don't navigate unless the notification was opened from the tray
     if(!action.notification.opened_from_tray) {
-      return state;
+      return state
     }
 
-    let deeplink = action.notification.deeplink;
+    let deeplink = action.notification.deeplink
 
     //Match the hoops://events/<eventId> scheme
-    let matches = deeplink.match(/hoops:\/\/events\/(.*)/);
+    let matches = deeplink.match(/hoops:\/\/events\/(.*)/)
     if(matches.length === 2) {
       return {
         ...state,
@@ -281,9 +281,9 @@ export default handleActions({
             }],
           },
         },
-      };
+      }
     } else {
-      return state;
+      return state
     }
   },
 
@@ -312,7 +312,7 @@ export default handleActions({
           }],
         },
       },
-    };
+    }
   },
 
-}, initialState);
+}, initialState)

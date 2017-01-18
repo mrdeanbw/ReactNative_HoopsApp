@@ -1,17 +1,17 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import _ProfileEdit from '../windows/profile-edit';
-import {userActions, usersActions, navigationActions} from '../actions';
+import _ProfileEdit from '../windows/profile-edit'
+import {userActions, usersActions, navigationActions} from '../actions'
 
 class ProfileEdit extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       interests: this.getInterestObjects(props.user.interests),
-    };
+    }
   }
 
   /*
@@ -23,15 +23,15 @@ class ProfileEdit extends React.Component {
       return {
         ...this.props.interests[id],
         level: interestsMap[id],
-      };
-    }).filter(interest => interest.level);
+      }
+    }).filter(interest => interest.level)
 
   }
 
   onRemoveInterest = (id) => {
     this.setState({
       interests: this.state.interests.filter(interest => interest.id !== id),
-    });
+    })
   };
 
   /*
@@ -39,20 +39,20 @@ class ProfileEdit extends React.Component {
    * and turns it into a keyed object {FOOTBALL: 'casual'} for saving into the db
    */
   interestsToMap = (interestsArray) => {
-    let map = {};
+    let map = {}
     interestsArray.forEach(interest => {
       if(interest.level) {
-        map[interest.id] = interest.level;
+        map[interest.id] = interest.level
       }
-    });
+    })
 
-    return map;
+    return map
   };
 
   render() {
-    let user = this.props.user;
+    let user = this.props.user
 
-    let selected = this.interestsToMap(this.state.interests);
+    let selected = this.interestsToMap(this.state.interests)
 
     return (
       <_ProfileEdit
@@ -70,24 +70,24 @@ class ProfileEdit extends React.Component {
           this.props.onNavigate('selectInterestsAll', {
             selected: selected,
             onDonePress: () => {
-              this.props.onNavigateBack();
+              this.props.onNavigateBack()
             },
             onInterestsChangeOverride: (interests) => {
               //By default, the selectInterestsAll screen will try to save
               //interests data to the database.
               //We want to intercept that behaviour and just save to this.state
-              this.setState({interests: this.getInterestObjects(interests)});
+              this.setState({interests: this.getInterestObjects(interests)})
             }
-          });
+          })
         }}
         onSavePress={(userInfo) => {
-          let newInterests = this.interestsToMap(this.state.interests);
+          let newInterests = this.interestsToMap(this.state.interests)
 
-          this.props.onSavePress({...userInfo, interests: newInterests});
-          this.props.onNavigateBack();
+          this.props.onSavePress({...userInfo, interests: newInterests})
+          this.props.onNavigateBack()
         }}
       />
-    );
+    )
   }
 }
 
@@ -107,4 +107,4 @@ export default connect(
     sendFriendRequest: (user) => dispatch(usersActions.sendFriendRequests([user.id])),
     onSavePress: (data) => dispatch(userActions.updateProfile(data)),
   }),
-)(ProfileEdit);
+)(ProfileEdit)

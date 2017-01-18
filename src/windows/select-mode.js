@@ -1,18 +1,18 @@
-import React from 'react';
-import {View, Image, TouchableWithoutFeedback} from 'react-native';
+import React from 'react'
+import {View, Image, TouchableWithoutFeedback} from 'react-native'
 
-import StyleSheet from '../styles';
-import HighlightText from '../components/highlight-text';
-import _ from '../i18n';
+import StyleSheet from '../styles'
+import HighlightText from '../components/highlight-text'
+import _ from '../i18n'
 
 export default class SelectMode extends React.Component {
 
   onPressOrganize = () => {
-    this.props.onSetMode('ORGANIZE');
+    this.props.onSetMode('ORGANIZE')
   };
 
   onPressParticipate = () => {
-    this.props.onSetMode('PARTICIPATE');
+    this.props.onSetMode('PARTICIPATE')
   };
 
   render() {
@@ -33,10 +33,10 @@ export default class SelectMode extends React.Component {
           </Image>
         </TouchableWithoutFeedback>
       </View>
-    );
+    )
   }
 }
 
 SelectMode.propTypes = {
   onSetMode: React.PropTypes.func.isRequired,
-};
+}

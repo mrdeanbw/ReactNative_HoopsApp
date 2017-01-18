@@ -1,50 +1,50 @@
-import React from 'react';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
-import {View, Image, Text} from 'react-native';
+import React from 'react'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
+import {View, Image, Text} from 'react-native'
 
-import StyleSheet from '../styles';
-import Button from '../components/button';
-import HorizontalRule from '../components/horizontal-rule';
-import HighlightText from '../components/highlight-text';
-import TextInput from '../components/text-input';
-import Form from '../components/form';
-import LoadingAlert from '../components/loading-alert';
-import _ from '../i18n';
+import StyleSheet from '../styles'
+import Button from '../components/button'
+import HorizontalRule from '../components/horizontal-rule'
+import HighlightText from '../components/highlight-text'
+import TextInput from '../components/text-input'
+import Form from '../components/form'
+import LoadingAlert from '../components/loading-alert'
+import _ from '../i18n'
 
 export default class Login extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       email: '',
       password: '',
       showPassword: false,
-    };
+    }
   }
 
   onSubmitEditing = (nextField) => {
-    this.refs[nextField].focus();
+    this.refs[nextField].focus()
   };
 
   onPressSignIn = () => {
-    this.props.onSignIn(this.state.email, this.state.password);
+    this.props.onSignIn(this.state.email, this.state.password)
   };
 
   onPressFacebookLogin = () => {
-    this.props.onFacebookSignIn();
+    this.props.onFacebookSignIn()
   };
 
   render() {
-    let errorCode = this.props.signInError && this.props.signInError.code;
+    let errorCode = this.props.signInError && this.props.signInError.code
     let emailError = [
       'auth/invalid-email',
       'auth/user-not-found',
       'auth/user-disabled'
-    ].indexOf(errorCode) !== -1;
+    ].indexOf(errorCode) !== -1
     let passwordError = [
       'auth/wrong-password',
-    ].indexOf(errorCode) !== -1;
+    ].indexOf(errorCode) !== -1
 
     return (
 
@@ -81,12 +81,12 @@ export default class Login extends React.Component {
             {errorCode === 'auth/account-exists-with-different-credential' && (
               <Text style={StyleSheet.login.errorText}>You've signed up with this email already. Please login with your details</Text>
             )}
-            
+
             <TextInput
               value={this.state.email}
               onChangeText={(email) => {
-                this.setState({email});
-                this.props.onFormEdit();
+                this.setState({email})
+                this.props.onFormEdit()
               }}
               style={emailError && StyleSheet.login.errorTextInput}
               error={emailError}
@@ -109,8 +109,8 @@ export default class Login extends React.Component {
             <TextInput
               value={this.state.password}
               onChangeText={(password) => {
-                this.setState({password});
-                this.props.onFormEdit();
+                this.setState({password})
+                this.props.onFormEdit()
               }}
               error={passwordError}
               type="rounded"
@@ -143,10 +143,10 @@ export default class Login extends React.Component {
         </View>
         <KeyboardSpacer/>
       </Form>
-    );
+    )
   }
 }
 
 Login.propTypes = {
   onSignIn: React.PropTypes.func.isRequired,
-};
+}

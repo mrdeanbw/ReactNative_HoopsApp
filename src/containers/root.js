@@ -1,17 +1,17 @@
-import React from 'react';
-import {View} from 'react-native';
-import {connect} from 'react-redux';
+import React from 'react'
+import {View} from 'react-native'
+import {connect} from 'react-redux'
 
-import * as containers from './index';
-import {navigationActions, networkActions, startupActions} from '../actions';
-import LoadingWindow from '../windows/loading';
-import {DevIndicator, Navigator, NetworkAlert} from '../components';
-import config from '../config';
+import * as containers from './index'
+import {navigationActions, networkActions, startupActions} from '../actions'
+import LoadingWindow from '../windows/loading'
+import {DevIndicator, Navigator, NetworkAlert} from '../components'
+import config from '../config'
 
 class Root extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.routeConfig = {
       loading: {
         component: LoadingWindow,
@@ -88,27 +88,27 @@ class Root extends React.Component {
       friendsInvite: {
         component: containers.FriendsInvite,
       },
-    };
+    }
   }
 
   componentDidMount () {
     // if redux persist is disabled fire startup action
     if (!config.REDUCER_PERSIST) {
-      this.props.startup();
+      this.props.startup()
     }
   }
 
   componentWillReceiveProps(nextProps) {
     //calculate a unique key for each page:
-    let route = nextProps.navigation.routes[nextProps.navigation.index];
-    let trackingKey = route.key;
+    let route = nextProps.navigation.routes[nextProps.navigation.index]
+    let trackingKey = route.key
 
     if(route.key === 'tabs') {
       //If we are on the tabs route, use the tab navigation's current view
-      let tab = nextProps.navigation.tabs[nextProps.navigation.tabKey];
-      let tabRoute = tab.routes[tab.index];
-      trackingKey = tabRoute.key;
-    };
+      let tab = nextProps.navigation.tabs[nextProps.navigation.tabKey]
+      let tabRoute = tab.routes[tab.index]
+      trackingKey = tabRoute.key
+    }
   }
 
   render() {
@@ -128,7 +128,7 @@ class Root extends React.Component {
         />
         <DevIndicator />
       </View>
-    );
+    )
   }
 }
 
@@ -143,4 +143,4 @@ export default connect(
     onDismissNetworkAlert: () => dispatch(networkActions.dismissAlert()),
     startup: () => dispatch(startupActions.startup()),
   }),
-)(Root);
+)(Root)

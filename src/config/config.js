@@ -1,4 +1,4 @@
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage} from 'react-native'
 
 const common = {
   GOOGLE_PLACES_API_KEY: 'AIzaSyBopRDu051G9W6fqJCwGgzxGICzhzuUxIg',
@@ -19,7 +19,7 @@ const common = {
       duration: true,
       collapsed: true,
   }
-};
+}
 
 const dev = Object.assign({}, common, {
   PAYMENTS_SERVER: 'https://arcane-ridge-17730.herokuapp.com/',
@@ -30,7 +30,7 @@ const dev = Object.assign({}, common, {
   FIREBASE_STORAGE_BUCKET: 'hoops-21a72.appspot.com',
 
   LOGGER_ACTIVE: true,
-});
+})
 
 const prod = Object.assign({}, common, {
   PAYMENTS_SERVER: 'https://hoops-us-149010.appspot.com/',
@@ -42,6 +42,6 @@ const prod = Object.assign({}, common, {
 
   //Bugsnag is only enabled when the API key is given
   BUGSNAG_API_KEY: '25983a784e900e85ae661a2e5685d61a',
-});
+})
 
-export default __DEV__ ? dev : prod;
+export default __DEV__ ? dev : prod

@@ -1,11 +1,11 @@
-import React from 'react';
-import {View, Image} from 'react-native';
-import Swiper from 'react-native-swiper';
+import React from 'react'
+import {View, Image} from 'react-native'
+import Swiper from 'react-native-swiper'
 
-import StyleSheet from '../styles';
-import {Button} from '../components';
-import HighlightText from '../components/highlight-text';
-import _ from '../i18n';
+import StyleSheet from '../styles'
+import {Button} from '../components'
+import HighlightText from '../components/highlight-text'
+import _ from '../i18n'
 
 export default class Walkthrough extends React.Component {
 
@@ -14,7 +14,7 @@ export default class Walkthrough extends React.Component {
       title: 'Walkthrough',
       view: Walkthrough,
       viewProps: { onClose: close }
-    };
+    }
   }
 
   render() {
@@ -43,19 +43,19 @@ export default class Walkthrough extends React.Component {
             type="dialogDefault"
             text={_('signup')}
             onPress={() => {
-              this.props.onPressSignUp();
+              this.props.onPressSignUp()
             }}
           />
         </View>
       </Image>
-    );
+    )
   }
 }
 
 Walkthrough.propTypes = {
   onPressSignUp: React.PropTypes.func.isRequired,
   onPressLogIn: React.PropTypes.func.isRequired,
-};
+}
 
 
 class WalkthroughPage extends React.Component {
@@ -67,6 +67,6 @@ class WalkthroughPage extends React.Component {
                  highlightStyle={StyleSheet.walkthrough.pageTextHighlight} />
         <Image style={StyleSheet.walkthrough.pageImage} source={this.props.image} />
       </View>
-    );
+    )
   }
 }

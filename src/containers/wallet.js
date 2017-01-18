@@ -1,18 +1,18 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import _Wallet from '../windows/wallet';
-import {navigationActions, paymentActions} from '../actions';
+import _Wallet from '../windows/wallet'
+import {navigationActions, paymentActions} from '../actions'
 
 class Wallet extends React.Component {
   constructor() {
-    super();
-    this.state = {};
+    super()
+    this.state = {}
   }
 
   componentWillMount() {
     //when this component mounts, fetch account information from Stripe
-    this.props.onLoadAccount();
+    this.props.onLoadAccount()
   }
 
   render() {
@@ -26,12 +26,12 @@ class Wallet extends React.Component {
         onChangeAction={this.props.onChangeAction}
         hasAccount={this.hasAccount.bind(this)}
       />
-    );
+    )
   }
 
   hasAccount() {
-    const account = this.props.payments.accountData;
-    return account && account.accountNumber || false;
+    const account = this.props.payments.accountData
+    return account && account.accountNumber || false
   }
 }
 
@@ -45,4 +45,4 @@ export default connect(
     onCreateAccount: (data) => dispatch(paymentActions.createAccount(data)),
     onLoadAccount: () => dispatch(paymentActions.getAccount()),
   }),
-)(Wallet);
+)(Wallet)

@@ -1,28 +1,28 @@
-import * as firebase from 'firebase';
+import * as firebase from 'firebase'
 
-import ReactNative from 'react-native';
-import RNFetchBlob from 'react-native-fetch-blob';
+import ReactNative from 'react-native'
+import RNFetchBlob from 'react-native-fetch-blob'
 
-import Config from '../config';
+import Config from '../config'
 const firebaseConfig = {
   apiKey: Config.FIREBASE_API_KEY,
   authDomain: "localhost",
   databaseURL: Config.FIREBASE_DATABASE_URL,
   storageBucket: Config.FIREBASE_STORAGE_BUCKET,
-};
+}
 
-export default firebase;
+export default firebase
 
-export const firebaseApp = firebase.initializeApp(firebaseConfig);
+export const firebaseApp = firebase.initializeApp(firebaseConfig)
 
-export const firebaseDb = firebaseApp.database().ref();
+export const firebaseDb = firebaseApp.database().ref()
 
-export const firebaseStorage = firebaseApp.storage();
+export const firebaseStorage = firebaseApp.storage()
 
-const ReadImageData = ReactNative.NativeModules.ReadImageData;
+const ReadImageData = ReactNative.NativeModules.ReadImageData
 /* global Blob */
-window.Blob = RNFetchBlob.polyfill.Blob;
-window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
+window.Blob = RNFetchBlob.polyfill.Blob
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
 
 /*
  * We need to replace the in-build fetch() API since we are messing around
@@ -44,28 +44,28 @@ window.fetch = new RNFetchBlob.polyfill.Fetch({
         'audio/',
         'foo/',
     ]
-}).build();
+}).build()
 
 export const uploadImage = (uri, location) => {
   return new Promise((resolve, reject) => {
     if(!uri) {
-      resolve();
-      return;
+      resolve()
+      return
     }
 
-    let storageRef = firebaseStorage.ref(location);
+    let storageRef = firebaseStorage.ref(location)
 
     ReadImageData.readImage(uri, (image) => {
       Blob.build(image, {type : 'image/jpeg;base64'}).then((blob) => {
         storageRef.put(blob, {contentType: 'image/jpeg'}).then(function(snapshot) {
-          blob.close();
-          resolve({ref: location});
+          blob.close()
+          resolve({ref: location})
         }).catch(err => {
           //Image upload has failed
-          console.warn(err); //eslint-disable-line no-console
-          reject(err);
-        });
-      });
-    });
-  });
-};
+          console.warn(err) //eslint-disable-line no-console
+          reject(err)
+        })
+      })
+    })
+  })
+}

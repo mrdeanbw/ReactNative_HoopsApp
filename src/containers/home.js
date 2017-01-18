@@ -1,21 +1,21 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import moment from 'moment';
+import React from 'react'
+import {connect} from 'react-redux'
+import moment from 'moment'
 
-import {Home as _Home} from '../windows';
-import {navigationActions, searchActions} from '../actions';
-import inflateEvent from '../data/inflaters/event';
+import {Home as _Home} from '../windows'
+import {navigationActions, searchActions} from '../actions'
+import inflateEvent from '../data/inflaters/event'
 
 class Home extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       location: {
         lat: undefined,
         lon: undefined,
       },
-    };
+    }
 
     this._watchId = navigator.geolocation.watchPosition(position => {
       this.setState({
@@ -23,14 +23,14 @@ class Home extends React.Component {
           lat: position.coords.latitude,
           lon: position.coords.longitude,
         }
-      });
+      })
     }, (err) => {
-      console.warn(err); //eslint-disable-line no-console
-    });
+      console.warn(err) //eslint-disable-line no-console
+    })
   }
 
   componentWillUnmount() {
-    navigator.geolocation.clearWatch(this._watchId);
+    navigator.geolocation.clearWatch(this._watchId)
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -47,61 +47,61 @@ class Home extends React.Component {
         lat: nextState.location.lat,
         lon: nextState.location.lon,
         gender: nextProps.user.gender,
-      });
+      })
     }
   }
 
   onPressEvent(event) {
     if(this.props.user.mode === 'ORGANIZE') {
-      this.props.onNavigate('eventDashboard', {id: event.id});
+      this.props.onNavigate('eventDashboard', {id: event.id})
     }else{
-      this.props.onNavigate('eventDetails', {id: event.id});
+      this.props.onNavigate('eventDetails', {id: event.id})
     }
   }
 
   render() {
-    let eventIds = [];
+    let eventIds = []
     if(this.props.user.mode === 'ORGANIZE') {
-      eventIds = Object.keys(this.props.user.organizing);
+      eventIds = Object.keys(this.props.user.organizing)
     } else {
       let requests = Object.keys(this.props.user.requests).map(requestId => {
-        return this.props.requests.requestsById[requestId];
-      }).filter(request => request && request.status === 'confirmed');
+        return this.props.requests.requestsById[requestId]
+      }).filter(request => request && request.status === 'confirmed')
 
       let invites = Object.keys(this.props.user.invites).map(inviteId => {
-        return this.props.invites.invitesById[inviteId];
-      }).filter(invite => invite && invite.status === 'confirmed');
+        return this.props.invites.invitesById[inviteId]
+      }).filter(invite => invite && invite.status === 'confirmed')
 
       eventIds = requests.concat(invites).map(connection => {
-        return connection.eventId;
-      });
+        return connection.eventId
+      })
     }
 
     let events = eventIds.map((id) => {
-      return this.props.events.eventsById[id];
+      return this.props.events.eventsById[id]
     }).filter(event => {
       return !!event && event.id
     }).filter(event => {
       //Filter out past events
-      return moment(event.date).isAfter();
+      return moment(event.date).isAfter()
     }).map(event => {
       return inflateEvent(event, {
         requests: this.props.requests.requestsById,
         invites: this.props.invites.invitesById,
         users: this.props.users.usersById,
-      });
+      })
     })
 
     events = events.sort((a, b) => {
-      return a.date > b.date ? 1 : -1;
-    });
+      return a.date > b.date ? 1 : -1
+    })
 
     let nearby = this.props.search.nearby.map(item => {
       return {
         event: this.props.events.eventsById[item.id],
         distance: item.sort,
-      };
-    }).filter(item => !!item.event);
+      }
+    }).filter(item => !!item.event)
 
     return (
       <_Home
@@ -112,7 +112,7 @@ class Home extends React.Component {
         location={this.state.location}
         nearby={nearby}
       />
-    );
+    )
   }
 }
 
@@ -129,4 +129,4 @@ export default connect(
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
     onSearchNearby: (params) => dispatch(searchActions.nearby(params)),
   }),
-)(Home);
+)(Home)

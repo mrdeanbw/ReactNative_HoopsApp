@@ -1,14 +1,14 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import {SelectMode as _SelectMode} from '../windows';
-import {userActions, navigationActions} from '../actions';
+import {SelectMode as _SelectMode} from '../windows'
+import {userActions, navigationActions} from '../actions'
 
 class SelectMode extends React.Component {
 
   componentWillUpdate(nextProps) {
     if(nextProps.user.mode) {
-      this.props.onNavigate('tabs');
+      this.props.onNavigate('tabs')
     }
   }
 
@@ -16,10 +16,10 @@ class SelectMode extends React.Component {
     return (
       <_SelectMode
         onSetMode={(mode) => {
-          this.props.onSetMode(mode);
+          this.props.onSetMode(mode)
         }}
       />
-    );
+    )
   }
 }
 
@@ -31,4 +31,4 @@ export default connect(
     onSetMode: (mode) => dispatch(userActions.setMode(mode)),
     onNavigate: (key, props) => dispatch(navigationActions.reset({key, props})),
   }),
-)(SelectMode);
+)(SelectMode)

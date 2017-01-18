@@ -4,61 +4,61 @@
 //TODO This access directly to elasticsearch is not secure. We need to get a paid plan
 //const client = new elasticsearch.Client({host: 'https://1nskag9:to8ns327hsvi000s@dogwood-428370.us-east-1.bonsai.io'});
 
-import moment from 'moment';
+import moment from 'moment'
 
-import {eventActions, navigationActions, usersActions} from '../actions';
+import {eventActions, navigationActions, usersActions} from '../actions'
 
 export const searchEvents = (params) => {
 
   return (dispatch, getState) => {
-    let allEvents = getState().events.all;
+    let allEvents = getState().events.all
 
     let matches = Object.keys(allEvents).map(id => {
       return {
         ...allEvents[id],
         id: id,
-      };
+      }
     }).filter(event => {
       if(params.activity && params.activity !== event.activity) {
-        return false;
+        return false
       }
       if(params.text && event.title.toLowerCase().search(params.text.toLowerCase()) === -1) {
-        return false;
+        return false
       }
       if(params.gender && params.gender !== event.gender) {
-        return false;
+        return false
       }
       if(params.level && params.level !== event.level) {
-        return false;
+        return false
       }
       if(params.courtType && params.courtType !== 'both') {
         if(params.courtType !== event.courtType) {
-          return false;
+          return false
         }
       }
 
       if(params.geospatial && params.geospatial.radius && event.addressCoords) {
 
         //Very simple approximate radius calculation (pythagoras)
-        let dLat = params.geospatial.coords.latitude - event.addressCoords.lat;
-        let dLon = params.geospatial.coords.longitude - event.addressCoords.lon;
-        let distance = Math.sqrt(Math.pow(dLat, 2) + Math.pow(dLon, 2));
+        let dLat = params.geospatial.coords.latitude - event.addressCoords.lat
+        let dLon = params.geospatial.coords.longitude - event.addressCoords.lon
+        let distance = Math.sqrt(Math.pow(dLat, 2) + Math.pow(dLon, 2))
 
         //Each degree of latitude is approximately 70 miles
-        distance = distance * 70;
+        distance = distance * 70
 
         if(params.geospatial.radius <= distance) {
-          return false;
+          return false
         }
       }
 
       //Remove expired events
       if(moment(event.date).isBefore()){
-        return false;
+        return false
       }
 
-      return true;
-    });
+      return true
+    })
 
     //We use this format because it is what elasticsearch will return
     let results = {
@@ -68,66 +68,66 @@ export const searchEvents = (params) => {
           _id: event.id,
         })),
       },
-    };
+    }
 
     dispatch({
       type: 'SEARCH_END',
       results,
-    });
+    })
 
     //If we got some results, load the event objects from database
     if(results.hits && results.hits.hits) {
       results.hits.hits.forEach(hit => {
-        dispatch(eventActions.load(hit._id));
-      });
+        dispatch(eventActions.load(hit._id))
+      })
     }
 
     //Navigate to the results page
-    dispatch(navigationActions.push({key: 'searchResults'}));
-  };
-};
+    dispatch(navigationActions.push({key: 'searchResults'}))
+  }
+}
 
 export const searchGeneral = (params) => {
   return (dispatch, getState) => {
-    let allEvents = getState().events.all;
-    let allUsers = getState().users.all;
+    let allEvents = getState().events.all
+    let allUsers = getState().users.all
 
-    let searchString = params.text ? params.text.toLowerCase() : '';
+    let searchString = params.text ? params.text.toLowerCase() : ''
 
     let events = Object.keys(allEvents).map(eventId => {
       return {
         ...allEvents[eventId],
         id: eventId,
-      };
+      }
     }).filter(event => {
-      return event.title.toLowerCase().search(searchString) !== -1;
+      return event.title.toLowerCase().search(searchString) !== -1
     }).filter(event => {
-      return moment(event.date).isAfter();
-    });
+      return moment(event.date).isAfter()
+    })
 
     let users = Object.keys(allUsers).map(userId => {
       return {
         ...allUsers[userId],
         id: userId,
-      };
+      }
     }).filter(user => {
       if(user.publicProfile && user.publicProfile.name) {
-        return user.publicProfile.name.toLowerCase().search(searchString) !== -1;
+        return user.publicProfile.name.toLowerCase().search(searchString) !== -1
       }else{
-        return false;
+        return false
       }
-    });
+    })
 
-    events.forEach(event => dispatch(eventActions.load(event.id)));
-    users.forEach(user => dispatch(usersActions.load(user.id)));
+    events.forEach(event => dispatch(eventActions.load(event.id)))
+    users.forEach(user => dispatch(usersActions.load(user.id)))
 
     dispatch({
       type: 'SEARCH_GENERAL',
       events,
       users
-    });
-  };
-};
+    })
+  }
+}
 
 
 /* For now, we do local searching only
@@ -239,37 +239,37 @@ export const search = (params) => {
  */
 export const nearby = (params) => {
   return (dispatch, getState) => {
-    let allEvents = getState().events.all;
-    let size = 10;
+    let allEvents = getState().events.all
+    let size = 10
 
     let matches = Object.keys(allEvents).map(eventId => {
       return {
         ...allEvents[eventId],
         id: eventId,
-      };
+      }
     }).filter(event => {
-      return moment(event.date).isAfter();
+      return moment(event.date).isAfter()
     }).filter(event => {
-      return params.gender === event.gender || event.gender === 'mixed';
+      return params.gender === event.gender || event.gender === 'mixed'
     }).map(event => {
       if(params.lat && params.lon && event.addressCoords) {
         //Very simple approximate radius calculation (pythagoras)
-        let dLat = params.lat - event.addressCoords.lat;
-        let dLon = params.lon - event.addressCoords.lon;
-        let distance = Math.sqrt(Math.pow(dLat, 2) + Math.pow(dLon, 2));
+        let dLat = params.lat - event.addressCoords.lat
+        let dLon = params.lon - event.addressCoords.lon
+        let distance = Math.sqrt(Math.pow(dLat, 2) + Math.pow(dLon, 2))
 
         //Each degree of latitude is approximately 70 miles
-        distance = distance * 70;
+        distance = distance * 70
 
-        event._distance = distance;
+        event._distance = distance
       }
 
-      return event;
+      return event
     }).filter(event => {
-      return typeof event._distance !== 'undefined';
+      return typeof event._distance !== 'undefined'
     }).sort((a, b) => {
-      return a._distance > b._distance ? 1 : -1;
-    }).slice(0, size);
+      return a._distance > b._distance ? 1 : -1
+    }).slice(0, size)
 
     //We use this format because it is what elasticsearch will return
     let results = {
@@ -280,22 +280,22 @@ export const nearby = (params) => {
           sort: [event._distance],
         })),
       },
-    };
+    }
 
     //If we got some results, load the event objects from database
     if(results.hits && results.hits.hits) {
       results.hits.hits.forEach(hit => {
-        dispatch(eventActions.load(hit._id));
-      });
+        dispatch(eventActions.load(hit._id))
+      })
     }
 
     dispatch({
       type: 'SEARCH_NEARBY_END',
       results,
-    });
+    })
 
-  };
-};
+  }
+}
 /* For now, we do local searching only
 export const nearby = (params) => {
   return dispatch => {
@@ -341,23 +341,23 @@ export const nearby = (params) => {
 
 export const searchUsers = (params) => {
   return (dispatch, getState) => {
-    let allUsers = getState().users.all;
+    let allUsers = getState().users.all
 
     let matches = Object.keys(allUsers).map(id => {
       return {
         ...allUsers[id],
         id,
-      };
+      }
     }).filter(user => {
       if(params.name){
-        let name = user.publicProfile.name.toLowerCase();
+        let name = user.publicProfile.name.toLowerCase()
         if(name.search(params.name.toLowerCase()) === -1){
-          return false;
+          return false
         }
       }
 
-      return true;
-    });
+      return true
+    })
 
     //We use this format because it is what elasticsearch will return
     let results = {
@@ -367,21 +367,21 @@ export const searchUsers = (params) => {
           _id: user.id,
         })),
       },
-    };
+    }
 
     if(results.hits && results.hits.hits) {
       results.hits.hits.forEach(hit => {
-        dispatch(usersActions.load(hit._id));
-      });
+        dispatch(usersActions.load(hit._id))
+      })
     }
 
     dispatch({
       type: 'SEARCH_USERS_END',
       results,
-    });
+    })
 
-  };
-};
+  }
+}
 
 /* For now, we do local searching only
 export const searchUsers = (params) => {

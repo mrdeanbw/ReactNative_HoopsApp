@@ -1,20 +1,20 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import _PaymentsBankSetup from '../windows/payments-bank-setup';
-import {navigationActions, paymentActions} from '../actions';
+import _PaymentsBankSetup from '../windows/payments-bank-setup'
+import {navigationActions, paymentActions} from '../actions'
 
 class PaymentsBankSetup extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
 
-    };
+    }
   }
 
   componentWillUnmount() {
-    this.props.onDismissError();
+    this.props.onDismissError()
   }
 
   render() {
@@ -32,10 +32,10 @@ class PaymentsBankSetup extends React.Component {
             email: this.props.user.email,
             dob: this.props.user.dob,
             uid: this.props.user.uid,
-          });
+          })
         }}
       />
-    );
+    )
   }
 }
 
@@ -50,4 +50,4 @@ export default connect(
     onCreateAccount: (data) => dispatch(paymentActions.createAccount(data)),
     onDismissError: () => dispatch(paymentActions.dismissError()),
   }),
-)(PaymentsBankSetup);
+)(PaymentsBankSetup)

@@ -1,9 +1,9 @@
-import React from 'react';
-import {View, ScrollView, Text} from 'react-native';
+import React from 'react'
+import {View, ScrollView, Text} from 'react-native'
 
-import {Window, EventListItem, Header} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {Window, EventListItem, Header} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class Manage extends React.Component {
 
@@ -12,7 +12,7 @@ export default class Manage extends React.Component {
       title: 'Manage',
       view: Window.Organizer,
       viewProps: { initialTab: Manage, onClose: close }
-    };
+    }
   }
 
   render() {
@@ -36,7 +36,7 @@ export default class Manage extends React.Component {
           )}
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 

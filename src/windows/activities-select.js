@@ -1,8 +1,8 @@
-import React from 'react';
-import {View} from 'react-native';
+import React from 'react'
+import {View} from 'react-native'
 
-import _ from '../i18n';
-import {Header, ListSelect, SuggestEvent} from '../components';
+import _ from '../i18n'
+import {Header, ListSelect, SuggestEvent} from '../components'
 
 export default class ActivitiesSelect extends React.Component {
 
@@ -23,6 +23,6 @@ export default class ActivitiesSelect extends React.Component {
           )}
         />
       </View>
-    );
+    )
   }
 }

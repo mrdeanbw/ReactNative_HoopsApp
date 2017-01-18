@@ -1,22 +1,22 @@
-import React from 'react';
-import {View, Text} from 'react-native';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+import React from 'react'
+import {View, Text} from 'react-native'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import {Header, TextInput, Button, LoadingAlert, Form} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {Header, TextInput, Button, LoadingAlert, Form} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 const zeroPad = (number) => {
   if(number) {
-    return ("00" + number).slice(-2);
+    return ("00" + number).slice(-2)
   } else {
-    return "";
+    return ""
   }
-};
+}
 
 export default class PaymentsBankSetup extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     /* Stripe test details:
       cardNumber: '4242424242424242',
@@ -29,12 +29,12 @@ export default class PaymentsBankSetup extends React.Component {
       expiryMonth: undefined,
       expiryYear: undefined,
       cvc: '',
-    };
+    }
   }
 
   onDonePress = () => {
     if(!this.validate()) {
-      return;
+      return
     }
 
     this.props.onDonePress({
@@ -42,7 +42,7 @@ export default class PaymentsBankSetup extends React.Component {
       expiryMonth: this.state.expiryMonth,
       expiryYear: this.state.expiryYear,
       cvc: this.state.cvc,
-    });
+    })
   };
 
   validate = () => {
@@ -51,32 +51,32 @@ export default class PaymentsBankSetup extends React.Component {
       this.state.expiryMonth &&
       this.state.expiryYear &&
       this.state.cvc
-    );
+    )
   };
 
   render() {
 
-    let numberError, monthError, yearError, cvcError;
+    let numberError, monthError, yearError, cvcError
     if(this.props.error) {
       let errorComponent = (
         <Text style={StyleSheet.login.errorText}>
           {this.props.error.message}
         </Text>
-      );
+      )
 
       switch(this.props.error.param) {
         case 'number':
-          numberError = errorComponent;
-          break;
+          numberError = errorComponent
+          break
         case 'exp_month':
-          monthError = errorComponent;
-          break;
+          monthError = errorComponent
+          break
         case 'exp_year':
-          yearError = errorComponent;
-          break;
+          yearError = errorComponent
+          break
         case 'cvc':
-          cvcError = errorComponent;
-          break;
+          cvcError = errorComponent
+          break
       }
 
     }
@@ -119,13 +119,13 @@ export default class PaymentsBankSetup extends React.Component {
                 value={this.state.expiryMonth}
                 placeholder={_('expiryMonth')}
                 onChangeText={(expiryMonth) => {
-                  let month = parseInt(expiryMonth.substr(0, 2), 10);
+                  let month = parseInt(expiryMonth.substr(0, 2), 10)
                   if(!isNaN(month) && month >= 1 && month <= 12){
-                    this.setState({expiryMonth: month});
+                    this.setState({expiryMonth: month})
                   }
                 }}
                 onBlur={() => {
-                  this.setState({expiryMonth: zeroPad(this.state.expiryMonth)});
+                  this.setState({expiryMonth: zeroPad(this.state.expiryMonth)})
                 }}
               />
 
@@ -137,13 +137,13 @@ export default class PaymentsBankSetup extends React.Component {
                 value={this.state.expiryYear}
                 placeholder={_('expiryYear')}
                 onChangeText={(expiryYear) => {
-                  let year = parseInt(expiryYear.substr(0, 2), 10);
+                  let year = parseInt(expiryYear.substr(0, 2), 10)
                   if(!isNaN(year)){
-                    this.setState({expiryYear: year});
+                    this.setState({expiryYear: year})
                   }
                 }}
                 onBlur={() => {
-                  this.setState({expiryYear: zeroPad(this.state.expiryYear)});
+                  this.setState({expiryYear: zeroPad(this.state.expiryYear)})
                 }}
               />
             </View>
@@ -171,7 +171,7 @@ export default class PaymentsBankSetup extends React.Component {
         <KeyboardSpacer/>
 
       </View>
-    );
+    )
   }
 
 }

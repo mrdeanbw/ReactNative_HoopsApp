@@ -1,55 +1,57 @@
 
-import _ from '../i18n';
-import moment from 'moment';
-import React from 'react';
-import StyleSheet from '../styles';
-import { View, Text, TouchableHighlight } from 'react-native';
+import _ from '../i18n'
+import moment from 'moment'
+import React from 'react'
+import StyleSheet from '../styles'
+import { View, Text, TouchableHighlight } from 'react-native'
 
-import Picker from './picker';
-import Button from './button';
-import TextInput from './text-input';
-import Popup from './popup';
+import Picker from './picker'
+import Button from './button'
+import TextInput from './text-input'
+import Popup from './popup'
 
 const zeroPad = (s, n) => {
-  s = s.toString();
-  while(s.length < n) s = '0' + s;
-  return s;
-};
+  s = s.toString()
+  while(s.length < n) {
+    s = '0' + s
+  }
+  return s
+}
 
 export default class DateInput extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       showPopup: false,
       value: props.value || props.initialValue,
-    };
+    }
   }
 
   onPress = () => {
-    this.setState({showPopup: true});
+    this.setState({showPopup: true})
   };
 
   onPressSave = () => {
-    this.props.onChange && this.props.onChange(this.state.value);
-    this.setState({showPopup: false});
+    this.props.onChange && this.props.onChange(this.state.value)
+    this.setState({showPopup: false})
   };
 
   render() {
-    const {rightBar, placeholder, style, ...props} = this.props;
+    const {rightBar, placeholder, style, ...props} = this.props
 
-    const defaultTextInput = StyleSheet.textInputs.default || {};
-    const textInput = this.props.type ? StyleSheet.textInputs[this.props.type] || defaultTextInput : defaultTextInput;
+    const defaultTextInput = StyleSheet.textInputs.default || {}
+    const textInput = this.props.type ? StyleSheet.textInputs[this.props.type] || defaultTextInput : defaultTextInput
 
-    const _value = moment(this.props.value);
+    const _value = moment(this.props.value)
 
-    let format = 'Do MMMM YYYY';
+    let format = 'Do MMMM YYYY'
     if(!this.props.hideDay) {
-      format = 'dddd ' + format;
+      format = 'dddd ' + format
     }
     if(this.props.time) {
-      format = 'HH:mm ' + format;
+      format = 'HH:mm ' + format
     }
 
     return (
@@ -70,7 +72,7 @@ export default class DateInput extends React.Component {
             time={!!this.props.time}
             onClose={() => this.setState({showPopup: false})}
             onChange={value => {
-              this.setState({value});
+              this.setState({value})
             }}
           />
         </Popup>
@@ -95,102 +97,102 @@ export default class DateInput extends React.Component {
           </View>
         </TouchableHighlight>
       </View>
-    );
+    )
   }
 }
 
 class DatePicker extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       value: this.props.value || new Date(),
-    };
+    }
   }
 
   onChangeMinute = (minute) => {
-    minute = parseInt(minute, 10);
+    minute = parseInt(minute, 10)
     if(minute !== this.state.value.getMinutes()) {
-      let date = new Date(this.state.value);
-      date.setMinutes(minute);
+      let date = new Date(this.state.value)
+      date.setMinutes(minute)
 
-      this.setState({value: date});
+      this.setState({value: date})
 
       if (this.props.onChange) {
-        this.props.onChange(date);
+        this.props.onChange(date)
       }
     }
   };
 
   onChangeHour = (hour) => {
-    hour = parseInt(hour, 10);
+    hour = parseInt(hour, 10)
     if(hour !== this.state.value.getHours()) {
-      let date = new Date(this.state.value);
-      date.setHours(hour);
+      let date = new Date(this.state.value)
+      date.setHours(hour)
 
-      this.setState({value: date});
+      this.setState({value: date})
 
       if (this.props.onChange) {
-        this.props.onChange(date);
+        this.props.onChange(date)
       }
     }
   };
 
   onChangeDay = (day) => {
-    day = parseInt(day, 10);
+    day = parseInt(day, 10)
     if(day !== this.state.value.getDate()) {
-      let date = new Date(this.state.value);
-      date.setFullYear(date.getFullYear(), date.getMonth(), day);
+      let date = new Date(this.state.value)
+      date.setFullYear(date.getFullYear(), date.getMonth(), day)
 
-      this.setState({value: date});
+      this.setState({value: date})
 
       if (this.props.onChange) {
-        this.props.onChange(date);
+        this.props.onChange(date)
       }
     }
   };
 
   onChangeMonth = (month) => {
-    month = parseInt(month, 10);
+    month = parseInt(month, 10)
     if(month !== this.state.value.getMonth()) {
-      let date = new Date(this.state.value);
-      date.setFullYear(date.getFullYear(), month, date.getDate());
+      let date = new Date(this.state.value)
+      date.setFullYear(date.getFullYear(), month, date.getDate())
 
-      this.setState({value: date});
+      this.setState({value: date})
 
       if (this.props.onChange) {
-        this.props.onChange(date);
+        this.props.onChange(date)
       }
     }
   };
 
   onChangeYear = (year) => {
-    year = parseInt(year, 10);
+    year = parseInt(year, 10)
     if(year !== this.state.value.getFullYear()) {
-      let date = new Date(this.state.value);
-      date.setYear(year);
+      let date = new Date(this.state.value)
+      date.setYear(year)
 
-      this.setState({value: date});
+      this.setState({value: date})
 
       if (this.props.onChange) {
-        this.props.onChange(date);
+        this.props.onChange(date)
       }
     }
   };
 
   render() {
-    let value = new Date(this.props.value);
-    const maxValue = new Date(this.props.maxValue || new Date());
-    const minValue = new Date(this.props.minValue || new Date(new Date().getTime() - 365.25 * 40 * 24 * 3600 * 1000));
+    let value = new Date(this.props.value)
+    const maxValue = new Date(this.props.maxValue || new Date())
+    const minValue = new Date(this.props.minValue || new Date(new Date().getTime() - 365.25 * 40 * 24 * 3600 * 1000))
 
-    if(value > maxValue) value = maxValue;
-    if(value < minValue) value = minValue;
+    if(value > maxValue) value = maxValue
+    if(value < minValue) value = minValue
 
-    const days = [], months = [], years = [];
-    for(let i = 1; i <= 31; i++) days.push(i.toString());
-    for(let i = 0; i < 12; i++) months.push(moment().month(i).format('MMM'));
-    for(let i = maxValue.getFullYear(); i >= minValue.getFullYear(); i--) years.push(i.toString());
-    years.reverse();
+    const days = [], months = [], years = []
+    for(let i = 1; i <= 31; i++) days.push(i.toString())
+    for(let i = 0; i < 12; i++) months.push(moment().month(i).format('MMM'))
+    for(let i = maxValue.getFullYear(); i >= minValue.getFullYear(); i--) years.push(i.toString())
+    years.reverse()
 
     const minutes = [0, 15, 30, 45]
 
@@ -240,6 +242,6 @@ class DatePicker extends React.Component {
           </View>
         </View>}
       </View>
-    );
+    )
   }
 }

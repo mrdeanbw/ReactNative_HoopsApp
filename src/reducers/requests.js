@@ -1,9 +1,9 @@
 
-import {handleActions} from 'redux-actions';
+import {handleActions} from 'redux-actions'
 
 const initialState = {
   requestsById: {},
-};
+}
 
 export default handleActions({
 
@@ -14,17 +14,17 @@ export default handleActions({
         ...state.requestsById,
         ...action.requests,
       },
-    };
+    }
   },
 
   REQUEST_DELETED: (state, action) => {
-    let requestsById = {...state.requestsById}; //clone
-    delete requestsById[action.id];
+    let requestsById = {...state.requestsById} //clone
+    delete requestsById[action.id]
 
     return {
       ...state,
       requestsById,
-    };
+    }
   },
 
-}, initialState);
+}, initialState)

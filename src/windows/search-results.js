@@ -1,16 +1,16 @@
-import React from 'react';
-import {View, ScrollView} from 'react-native';
+import React from 'react'
+import {View, ScrollView} from 'react-native'
 
-import {EventListItem,UserListItem,Header,MapView} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {EventListItem,UserListItem,Header,MapView} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class SearchResults extends React.Component {
   constructor() {
-    super();
+    super()
     this.state = {
       showMap: false,
-    };
+    }
   }
 
   render() {
@@ -23,7 +23,7 @@ export default class SearchResults extends React.Component {
           actionButtonType="headerAction"
           actionButton={this.state.showMap ? 'list' : 'pinWhite'}
           onActionPress={() => {
-            this.setState({showMap: !this.state.showMap});
+            this.setState({showMap: !this.state.showMap})
           }}
         />
 
@@ -56,6 +56,6 @@ export default class SearchResults extends React.Component {
         )}
 
       </View>
-    );
+    )
   }
 }

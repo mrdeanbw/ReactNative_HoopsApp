@@ -1,9 +1,9 @@
 
-import {handleActions} from 'redux-actions';
+import {handleActions} from 'redux-actions'
 
 const initialState = {
   invitesById: {},
-};
+}
 
 export default handleActions({
 
@@ -14,7 +14,7 @@ export default handleActions({
         ...state.invitesById,
         ...action.invites,
       },
-    };
+    }
   },
 
-}, initialState);
+}, initialState)

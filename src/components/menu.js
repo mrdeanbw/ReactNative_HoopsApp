@@ -1,6 +1,6 @@
 
 
-import React from 'react';
+import React from 'react'
 
 import {
   Animated,
@@ -9,12 +9,12 @@ import {
   Image,
   TouchableWithoutFeedback,
   TouchableHighlight
-} from 'react-native';
+} from 'react-native'
 
-import {Icon} from './';
-import _ from '../i18n';
+import {Icon} from './'
+import _ from '../i18n'
 
-import StyleSheet from '../styles';
+import StyleSheet from '../styles'
 
 export default class Menu extends React.Component {
 
@@ -97,7 +97,7 @@ export default class Menu extends React.Component {
         </Animated.View>
 
       </View>
-    );
+    )
   }
 
 }
@@ -130,7 +130,7 @@ class MenuItem extends React.Component {
           </Text>
         </View>
       </TouchableHighlight>
-    );
+    )
   }
 }
 
@@ -140,6 +140,6 @@ MenuItem.propTypes = {
   icon: React.PropTypes.string.isRequired,
   onPress: React.PropTypes.func,
   active: React.PropTypes.bool,
-};
+}
 
-Menu.Item = MenuItem;
+Menu.Item = MenuItem

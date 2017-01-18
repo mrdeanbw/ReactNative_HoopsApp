@@ -1,8 +1,8 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import {Login as _Login} from '../windows';
-import {userActions} from '../actions';
+import {Login as _Login} from '../windows'
+import {userActions} from '../actions'
 
 class Login extends React.Component {
 
@@ -16,7 +16,7 @@ class Login extends React.Component {
         onFormEdit={this.props.onFormEdit}
         isLoading={this.props.user.isSigningIn}
       />
-    );
+    )
   }
 }
 
@@ -29,4 +29,4 @@ export default connect(
     onFacebookSignIn: () => dispatch(userActions.facebookSignIn()),
     onFormEdit: () => dispatch(userActions.signInFormEdit()),
   }),
-)(Login);
+)(Login)

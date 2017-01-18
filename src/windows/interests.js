@@ -1,31 +1,31 @@
 
-import React from 'react';
-import {ScrollView, View} from 'react-native';
+import React from 'react'
+import {ScrollView, View} from 'react-native'
 
-import StyleSheet from '../styles';
-import Dialog from '../components/dialog';
-import Button from '../components/button';
-import CheckButton from '../components/check-button';
-import HighlightText from '../components/highlight-text';
-import Popup from '../components/popup';
-import _ from '../i18n';
+import StyleSheet from '../styles'
+import Dialog from '../components/dialog'
+import Button from '../components/button'
+import CheckButton from '../components/check-button'
+import HighlightText from '../components/highlight-text'
+import Popup from '../components/popup'
+import _ from '../i18n'
 
 export default class Interests extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       viewAll: false,
       selected: {},
       levelPopupInterest: null,
-    };
+    }
   }
 
   onChangeInterest = (interest, value) => {
     if(value) {
-      this.setState({levelPopupInterest: interest});
+      this.setState({levelPopupInterest: interest})
     }else{
-      this.onSelectLevel(interest, null);
+      this.onSelectLevel(interest, null)
     }
   };
 
@@ -33,26 +33,26 @@ export default class Interests extends React.Component {
     let selected = {
       ...this.state.selected,
       [interest.id]: level,
-    };
+    }
 
     this.setState({
       selected,
-    });
+    })
 
-    this.props.onInterestsChange(selected);
+    this.props.onInterestsChange(selected)
   };
 
   onPressViewAll = () => {
-    this.props.onPressViewAll(this.state.selected);
+    this.props.onPressViewAll(this.state.selected)
   };
 
   doneButtonEnabled = () => {
     for(let id in this.state.selected) {
       if(this.state.selected[id]) {
-        return true;
+        return true
       }
     }
-    return false;
+    return false
   };
 
   render() {
@@ -64,7 +64,7 @@ export default class Interests extends React.Component {
           onClose={() => this.setState({levelPopupInterest: null})}
           active={this.state.levelPopupInterest && this.state.levelPopupInterest.active}
           onSelectLevel={(level) => {
-            this.onSelectLevel(this.state.levelPopupInterest, level);
+            this.onSelectLevel(this.state.levelPopupInterest, level)
           }}
         />
 
@@ -98,7 +98,7 @@ export default class Interests extends React.Component {
         </ScrollView>
 
       </Dialog>
-    );
+    )
   }
 }
 
@@ -115,8 +115,8 @@ class InterestLevelPopup extends React.Component {
             type="alertVertical"
             text={_('remove')}
             onPress={() => {
-              this.props.onSelectLevel(null);
-              this.props.onClose();
+              this.props.onSelectLevel(null)
+              this.props.onClose()
             }}
           />
         ) : (
@@ -125,30 +125,30 @@ class InterestLevelPopup extends React.Component {
               type="alertVertical"
               text={_('casual')}
               onPress={() => {
-                this.props.onSelectLevel('casual');
-                this.props.onClose();
+                this.props.onSelectLevel('casual')
+                this.props.onClose()
               }}
             />
             <Button
               type="alertVertical"
               text={_('competitive')}
               onPress={() => {
-                this.props.onSelectLevel('competitive');
-                this.props.onClose();
+                this.props.onSelectLevel('competitive')
+                this.props.onClose()
               }}
             />
             <Button
               type="alertVertical"
               text={_('both')}
               onPress={() => {
-                this.props.onSelectLevel('both');
-                this.props.onClose();
+                this.props.onSelectLevel('both')
+                this.props.onClose()
               }}
             />
           </View>
         )}
       </Popup>
-    );
+    )
   }
 }
 
@@ -158,6 +158,6 @@ InterestLevelPopup.propTypes = {
   interest: React.PropTypes.shape({
     id: React.PropTypes.string.isRequired,
   }),
-};
+}
 
-Interests.InterestLevelPopup = InterestLevelPopup;
+Interests.InterestLevelPopup = InterestLevelPopup

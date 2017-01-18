@@ -1,5 +1,5 @@
 
-import {colors} from '../resources';
+import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
   container: {
@@ -27,4 +27,4 @@ export default StyleSheet => StyleSheet.extend({
     margin: 20,
     //textAlign: 'center',
   },
-});
+})

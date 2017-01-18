@@ -1,6 +1,6 @@
 
-import inflateInvite from './invite';
-import inflateRequest from './request';
+import inflateInvite from './invite'
+import inflateRequest from './request'
 
 /**
  *
@@ -16,48 +16,48 @@ import inflateRequest from './request';
  */
 export default (event, extra) => {
   if(typeof event !== 'object') {
-    return event;
+    return event
   }
-  event = {...event}; //clone
+  event = {...event} //clone
 
   if(extra.invites) {
     event.invites = Object.keys(event.invites || {}).map(inviteId => {
 
-      let invite = extra.invites[inviteId];
+      let invite = extra.invites[inviteId]
       if(extra.users){
         //If users are defined, inflate the invite
-        invite = inflateInvite(invite, {users: extra.users});
+        invite = inflateInvite(invite, {users: extra.users})
       }
-      return invite;
+      return invite
 
-    });
+    })
   }
 
   if(extra.requests) {
     event.requests = Object.keys(event.requests || {}).map(requestId => {
-      let request = extra.requests[requestId];
+      let request = extra.requests[requestId]
       if(extra.users){
-        request = inflateRequest(request, {users: extra.users});
+        request = inflateRequest(request, {users: extra.users})
       }
-      return request;
-    });
+      return request
+    })
   }
 
   if(extra.users) {
-    event.organizer = extra.users[event.organizer];
+    event.organizer = extra.users[event.organizer]
   }
 
   if(extra.interests) {
-    event.activity = extra.interests[event.activity];
+    event.activity = extra.interests[event.activity]
   }
 
   if(extra.requests && extra.invites && extra.users) {
     event.players = event.requests.concat(event.invites).filter(connection => {
-      return connection && connection.status === 'confirmed';
+      return connection && connection.status === 'confirmed'
     }).map(connection => {
-      return connection.user;
-    });
+      return connection.user
+    })
   }
 
-  return event;
-};
+  return event
+}

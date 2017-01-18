@@ -78,4 +78,4 @@ export default StyleSheet => StyleSheet.extend({
   redText: {
     color: StyleSheet.pink
   }
-});
+})

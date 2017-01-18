@@ -1,66 +1,66 @@
-import React from 'react';
-import {ScrollView,View} from 'react-native';
+import React from 'react'
+import {ScrollView,View} from 'react-native'
 
-import {Button,UserListItem,Header} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {Button,UserListItem,Header} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class EventRequests extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       search: '',
       selected: {},
       inviteOptionsUser: null,
       showImportContacts: false,
-    };
+    }
   }
 
   onPressApprove = () => {
-    this.props.onPressApprove(this.getSelectedIds());
+    this.props.onPressApprove(this.getSelectedIds())
   };
 
   onPressDecline = () => {
-    this.props.onPressDecline(this.getSelectedIds());
+    this.props.onPressDecline(this.getSelectedIds())
   };
 
   onPressApproveAll = () => {
-    let allIds = {};
+    let allIds = {}
     this.props.requests.map(request => {
-      allIds[request.id] = true;
-    });
+      allIds[request.id] = true
+    })
 
     this.setState({
       selected: allIds,
-    });
+    })
   };
 
   onPressDeclineAll = () => {
   };
 
   setSelectedUser(id, value) {
-    let selected = this.state.selected;
+    let selected = this.state.selected
     this.setState({
       selected: {
         ...selected,
         [id]: value,
       },
-    });
+    })
   }
 
   onPressCheck(user) {
     if(this.state.selected[user.id]) {
-      this.setSelectedUser(user.id, false);
+      this.setSelectedUser(user.id, false)
     } else {
-      this.setSelectedUser(user.id, true);
+      this.setSelectedUser(user.id, true)
     }
   }
 
   getSelectedIds() {
     return Object.keys(this.state.selected).filter(userId => {
-      return this.state.selected[userId];
-    });
+      return this.state.selected[userId]
+    })
   }
 
   render() {
@@ -74,7 +74,7 @@ export default class EventRequests extends React.Component {
         />
         <ScrollView style={{flex: 1}} contentContainerStyle={StyleSheet.container}>
           {this.props.requests.map((request) => {
-            let user = request.user;
+            let user = request.user
             return (
               <UserListItem
                 key={request.id}
@@ -84,7 +84,7 @@ export default class EventRequests extends React.Component {
                 onPressCheck={() => this.onPressCheck(request)}
                 hideDisclosure={true}
               />
-            );
+            )
           })}
         </ScrollView>
           {this.getSelectedIds().length > 0 ? (
@@ -99,10 +99,10 @@ export default class EventRequests extends React.Component {
             </View>
           )}
       </View>
-    );
+    )
   }
 }
 
 EventRequests.propTypes = {
   requests: React.PropTypes.array.isRequired,
-};
+}

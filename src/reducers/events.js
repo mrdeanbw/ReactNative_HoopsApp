@@ -1,11 +1,11 @@
-import {handleActions} from 'redux-actions';
+import {handleActions} from 'redux-actions'
 
 const initialState = {
   isLoading: false,
 
   eventsById: {},
   all: {},
-};
+}
 
 export default handleActions({
 
@@ -17,21 +17,21 @@ export default handleActions({
       ...state,
       ...initialState,
       all: state.all,
-    };
+    }
   },
 
   EVENTS_LOAD: (state, action) => {
     return {
       ...state,
       isLoading: true,
-    };
+    }
   },
 
   EVENTS_LOAD_ALL: (state, action) => {
     return {
       ...state,
       all: action.events || {},
-    };
+    }
   },
 
   EVENTS_LOADED: (state, action) => {
@@ -42,17 +42,17 @@ export default handleActions({
         ...state.eventsById,
         ...action.events,
       },
-    };
+    }
   },
 
   EVENT_REMOVED: (state, action) => {
-    let eventsById = state.eventsById;
-    delete eventsById[action.id];
+    let eventsById = state.eventsById
+    delete eventsById[action.id]
 
     return {
       ...state,
       eventsById,
-    };
+    }
   },
 
   EVENT_ADDED: (state, action) => {
@@ -63,7 +63,7 @@ export default handleActions({
         ...state.eventsById,
         [action.eventData.id]: action.eventData,
       },
-    };
+    }
   },
 
-}, initialState);
+}, initialState)

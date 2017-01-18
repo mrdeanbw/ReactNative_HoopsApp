@@ -1,15 +1,15 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import {InterestsAll as _InterestsAll} from '../windows';
-import {userActions, navigationActions} from '../actions';
+import {InterestsAll as _InterestsAll} from '../windows'
+import {userActions, navigationActions} from '../actions'
 
 class InterestsAll extends React.Component {
 
   render() {
     let interests = Object.keys(this.props.interests).map(id => {
-      return this.props.interests[id];
-    });
+      return this.props.interests[id]
+    })
 
     return (
       <_InterestsAll
@@ -22,7 +22,7 @@ class InterestsAll extends React.Component {
           this.props.onInterestsChangeOverride || this.props.onInterestsChange
         }
       />
-    );
+    )
   }
 }
 
@@ -35,4 +35,4 @@ export default connect(
     onNavigate: (key, props) => dispatch(navigationActions.reset({key, props})),
     onInterestsChange: (interests) => dispatch(userActions.setInterests(interests)),
   }),
-)(InterestsAll);
+)(InterestsAll)

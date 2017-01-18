@@ -1,34 +1,30 @@
+import React from 'react'
+import {View, Image, Text, TouchableHighlight} from 'react-native'
+import moment from 'moment'
 
-import moment from 'moment';
-import _ from '../i18n';
-
-import React from 'react';
-
-
-import {View, Image, Text, TouchableHighlight} from 'react-native';
-
-import StyleSheet from '../styles';
+import _ from '../i18n'
+import StyleSheet from '../styles'
 
 export default class EventListItem extends React.Component {
 
   render() {
-    let event = this.props.event;
+    let event = this.props.event
     if(!event) {
-      return null;
+      return null
     }
 
     let date = moment(event.date).calendar(null, {
       sameDay: "[Today], HH:mm",
       nextDay: "[Tomorrow], HH:mm",
-    });
+    })
 
-    let isEnded = moment(event.date).isBefore();
-    let isCancelled = event.cancelled;
-    let isDisabled = isEnded || isCancelled;
+    let isEnded = moment(event.date).isBefore()
+    let isCancelled = event.cancelled
+    let isDisabled = isEnded || isCancelled
 
     let textColorStyle = (!this.props.ignoreDisabled && isDisabled) ?
       StyleSheet.eventListItem.disabledText :
-      null;
+      null
 
     return (
       <TouchableHighlight
@@ -140,6 +136,6 @@ export default class EventListItem extends React.Component {
           )}
         </View>
       </TouchableHighlight>
-    );
+    )
   }
 }

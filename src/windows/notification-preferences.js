@@ -1,22 +1,22 @@
-import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import React from 'react'
+import {View, Text, ScrollView} from 'react-native'
 
-import {Button, Icon, Header} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {Button, Icon, Header} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class Notifications extends React.Component {
   constructor() {
-    super();
-    this.state = {};
+    super()
+    this.state = {}
   }
 
   render() {
     const button = (name) => <Button type="preferenceCheck" text={_(name)} icon={<Icon name={this.state[name] ? 'check' : 'none'} style={[StyleSheet.buttons.preferenceCheck.iconStyle, !!this.state[name] && StyleSheet.buttons.preferenceCheck.activeIconStyle]} />} onPress={() => {
-      const obj = {};
-      obj[name] = !this.state[name];
-      this.setState(obj);
-    }}/>;
+      const obj = {}
+      obj[name] = !this.state[name]
+      this.setState(obj)
+    }}/>
 
     return (
       <View style={{flex: 1}}>
@@ -42,6 +42,6 @@ export default class Notifications extends React.Component {
           {button('friendzone')}
         </ScrollView>
       </View>
-    );
+    )
   }
 }

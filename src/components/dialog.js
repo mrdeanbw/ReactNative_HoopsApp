@@ -1,24 +1,23 @@
+import React from 'react'
+import { View, Text, Modal, ScrollView, TouchableWithoutFeedback } from 'react-native'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-
-import React from 'react';
-import { View, Text, Modal, ScrollView, TouchableWithoutFeedback } from 'react-native';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
-
-import StyleSheet from '../styles';
-import Button from './button';
+import _ from '../i18n'
+import StyleSheet from '../styles'
+import Button from './button'
 
 export default class Dialog extends React.Component {
   constructor() {
-    super();
-    this.state = {};
+    super()
+    this.state = {}
   }
 
   showModal(modal, animationType = 'fade', transparent = true) {
-    this.setState({ modal: modal, modalVisible: true, animationType, transparent });
+    this.setState({ modal: modal, modalVisible: true, animationType, transparent })
   }
 
   hideModal() {
-    this.setState({ modal: null, modalVisible: false });
+    this.setState({ modal: null, modalVisible: false })
   }
 
   render() {
@@ -42,9 +41,9 @@ export default class Dialog extends React.Component {
       popupContentStyle,
 
       ...props
-    } = this.props;
+    } = this.props
 
-    const _children = !this.props.popup ? children : <View style={[StyleSheet.dialog.popupContentStyle, popupContentStyle]}>{children}</View>;
+    const _children = !this.props.popup ? children : <View style={[StyleSheet.dialog.popupContentStyle, popupContentStyle]}>{children}</View>
 
     return (
       <View style={[StyleSheet.dialog.style, !!this.props.popup && StyleSheet.dialog.popupStyle, , style]} {...props}>
@@ -102,6 +101,6 @@ export default class Dialog extends React.Component {
           {this.state.modal}
         </Modal>}
       </View>
-    );
+    )
   }
-};
+}

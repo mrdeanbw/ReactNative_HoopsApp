@@ -1,22 +1,22 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import _EventDashboard from '../windows/event-dashboard';
-import {eventActions, navigationActions} from '../actions';
+import _EventDashboard from '../windows/event-dashboard'
+import {eventActions, navigationActions} from '../actions'
 
 class EventDashboard extends React.Component {
 
   onCancel(message) {
-    this.props.onCancel(this.props.id, message);
-    this.props.onNavigateBack();
+    this.props.onCancel(this.props.id, message)
+    this.props.onNavigateBack()
   }
 
   onPressDetails() {
-    this.props.onNavigate('eventDetails', {id: this.props.id});
+    this.props.onNavigate('eventDetails', {id: this.props.id})
   }
 
   onPressMembers() {
-    this.props.onNavigate('eventMembers', {id: this.props.id});
+    this.props.onNavigate('eventMembers', {id: this.props.id})
   }
 
   onPressMessages() {
@@ -32,7 +32,7 @@ class EventDashboard extends React.Component {
   }
 
   onPressRequests() {
-    this.props.onNavigate('eventRequests', {id: this.props.id}, false);
+    this.props.onNavigate('eventRequests', {id: this.props.id}, false)
   }
 
   render() {
@@ -49,13 +49,13 @@ class EventDashboard extends React.Component {
         actionButton={this.props.actionButton}
         onBack={this.props.onNavigateBack}
       />
-    );
+    )
   }
 }
 
 EventDashboard.propTypes = {
   id: React.PropTypes.string.isRequired,
-};
+}
 
 export default connect(
   (state) => ({
@@ -68,4 +68,4 @@ export default connect(
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onCancel: (eventId, message) => dispatch(eventActions.cancel(eventId, message)),
   }),
-)(EventDashboard);
+)(EventDashboard)

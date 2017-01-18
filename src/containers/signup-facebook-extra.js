@@ -1,22 +1,22 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
+import {connect} from 'react-redux'
 
-import {userActions} from '../actions';
-import {SignUpFacebookExtra as _SignUpFacebookExtra} from '../windows';
+import {userActions} from '../actions'
+import {SignUpFacebookExtra as _SignUpFacebookExtra} from '../windows'
 
 class SignUpFacebookExtra extends React.Component {
 
   componentDidMount() {
-    this.props.loadFacebookData();
+    this.props.loadFacebookData()
   }
 
   render() {
-    let facebookUser = this.props.user.facebookUser || {};
+    let facebookUser = this.props.user.facebookUser || {}
 
-    let facebookImageSrc;
-    let picture = facebookUser.picture ? facebookUser.picture.data : undefined;
+    let facebookImageSrc
+    let picture = facebookUser.picture ? facebookUser.picture.data : undefined
     if(picture && picture.is_silhouette === false) {
-      facebookImageSrc = picture.url;
+      facebookImageSrc = picture.url
     }
 
     return (
@@ -34,7 +34,7 @@ class SignUpFacebookExtra extends React.Component {
         phone={facebookUser.phone}
         facebookImageSrc={facebookImageSrc}
       />
-    );
+    )
   }
 }
 
@@ -46,4 +46,4 @@ export default connect(
     onPressContinue: (data) => dispatch(userActions.facebookSaveExtra(data)),
     loadFacebookData: () => dispatch(userActions.loadFacebookData()),
   }),
-)(SignUpFacebookExtra);
+)(SignUpFacebookExtra)

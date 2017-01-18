@@ -1,47 +1,47 @@
-import React from 'react';
-import {View, Text, TouchableHighlight, ScrollView} from 'react-native';
-import moment from 'moment';
+import React from 'react'
+import {View, Text, TouchableHighlight, ScrollView} from 'react-native'
+import moment from 'moment'
 
-import Header from '../components/header';
-import Icon from '../components/icon';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import Header from '../components/header'
+import Icon from '../components/icon'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 export default class Calendar extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       month: props.selectedDate,
 
       scrollHeight: 0,
       scrollOffset: {x: 0, y: 0},
       calendarHeight: 0,
-    };
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({month: nextProps.selectedDate});
+    this.setState({month: nextProps.selectedDate})
   }
 
   _renderDays = () => {
-    let start = moment(this.state.month).startOf('month').startOf('isoWeek');
-    let end = moment(this.state.month).endOf('month').endOf('isoWeek');
-    let date = moment(start);
+    let start = moment(this.state.month).startOf('month').startOf('isoWeek')
+    let end = moment(this.state.month).endOf('month').endOf('isoWeek')
+    let date = moment(start)
 
-    let weeks = [];
-    let components = [];
+    let weeks = []
+    let components = []
 
     while(date.diff(end, 'days') <= 0) {
-      let isToday = date.isSame(moment(), 'day');
-      let isSelected = date.isSame(this.props.selectedDate, 'day');
-      let isInMonth = date.isSame(this.state.month, 'month');
+      let isToday = date.isSame(moment(), 'day')
+      let isSelected = date.isSame(this.props.selectedDate, 'day')
+      let isInMonth = date.isSame(this.state.month, 'month')
       let events = this.props.events.filter(event => {
-        return moment(date).isSame(event.date, 'day');
-      });
+        return moment(date).isSame(event.date, 'day')
+      })
 
       if(date.day() === 1) {
-        components = [];
+        components = []
       }
 
       components.push(
@@ -49,7 +49,7 @@ export default class Calendar extends React.Component {
           underlayColor={StyleSheet.calendar.dayHighlight}
           key={date.day()}
           onPress={(function(date) { // eslint-disable-line no-shadow
-            this.props.onChangeDate(date);
+            this.props.onChangeDate(date)
           }).bind(this, date)}
         >
           <View
@@ -78,7 +78,7 @@ export default class Calendar extends React.Component {
             />)}
           </View>
         </TouchableHighlight>
-      );
+      )
 
       if(date.day() === 0) {
         weeks.push(
@@ -88,22 +88,22 @@ export default class Calendar extends React.Component {
           >
             {components.slice(0)}
           </View>
-        );
+        )
       }
 
-      date = moment(date).add(1, 'day');
+      date = moment(date).add(1, 'day')
     }
 
-    return weeks;
+    return weeks
   }
 
   render() {
     //Max overlap is the height of one event list item
-    let maxOverlap = 50;
+    let maxOverlap = 50
 
-    let bottom = this.state.scrollHeight - this.state.calendarHeight;
+    let bottom = this.state.scrollHeight - this.state.calendarHeight
     //NB overlap must not become positive.
-    let overlap = Math.min(bottom + this.state.scrollOffset.y - maxOverlap, 0);
+    let overlap = Math.min(bottom + this.state.scrollOffset.y - maxOverlap, 0)
 
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -116,7 +116,7 @@ export default class Calendar extends React.Component {
           <TouchableHighlight
             underlayColor="transparent"
             onPress={() => {
-              this.setState({month: moment(this.state.month).subtract(1, 'month')});
+              this.setState({month: moment(this.state.month).subtract(1, 'month')})
             }}
             style={{flex: 1}}
           >
@@ -145,7 +145,7 @@ export default class Calendar extends React.Component {
           <TouchableHighlight
             underlayColor="transparent"
             onPress={() => {
-              this.setState({month: moment(this.state.month).add(1, 'month')});
+              this.setState({month: moment(this.state.month).add(1, 'month')})
             }}
             style={{flex: 1}}
           >
@@ -163,18 +163,18 @@ export default class Calendar extends React.Component {
         <ScrollView
           style={StyleSheet.calendar.eventsContainer}
           onScroll={(e) => {
-            this.setState({scrollOffset: e.nativeEvent.contentOffset});
+            this.setState({scrollOffset: e.nativeEvent.contentOffset})
           }}
           scrollEventThrottle={16}
           onLayout={(e) => {
-            this.setState({scrollHeight: e.nativeEvent.layout.height});
+            this.setState({scrollHeight: e.nativeEvent.layout.height})
           }}
         >
 
           <View
             style={StyleSheet.calendar.days}
             onLayout={(e) => {
-              this.setState({calendarHeight: e.nativeEvent.layout.height});
+              this.setState({calendarHeight: e.nativeEvent.layout.height})
             }}
           >
 
@@ -184,7 +184,7 @@ export default class Calendar extends React.Component {
                   <Text key={i} style={StyleSheet.calendar.dayLabelText}>
                     {moment().day((i + 1) % 7).format('ddd')}
                   </Text>
-                );
+                )
               })}
             </View>
 
@@ -208,7 +208,7 @@ export default class Calendar extends React.Component {
             }}
           >
             {this.props.events.filter(event => {
-              return moment(this.props.selectedDate).isSame(event.date, 'day');
+              return moment(this.props.selectedDate).isSame(event.date, 'day')
             }).map(event => (
               <TouchableHighlight
                 key={event.id}
@@ -238,6 +238,6 @@ export default class Calendar extends React.Component {
           </View>
         </ScrollView>
       </View>
-    );
+    )
   }
 }

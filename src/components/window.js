@@ -1,68 +1,68 @@
 
-import _ from '../i18n';
+import _ from '../i18n'
 
-import React from 'react';
-import {Animated, View, Text, Image, Modal} from 'react-native';
+import React from 'react'
+import {Animated, View, Text, Image, Modal} from 'react-native'
 
-import StyleSheet from '../styles';
+import StyleSheet from '../styles'
 
-import Menu from './menu';
-import HighlightText from './highlight-text';
-import Button from './button';
+import Menu from './menu'
+import HighlightText from './highlight-text'
+import Button from './button'
 
-import * as windows from '../windows';
+import * as windows from '../windows'
 
 export default class Window extends React.Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
       menuAnimation: new Animated.Value(0),
       menuVisible: false,
       modalTransparent: true
-    };
+    }
   }
 
   hideMenu = (onStop) => {
-    if(!this.state.menuVisible) return onStop && onStop();
+    if(!this.state.menuVisible) return onStop && onStop()
 
     Animated.timing(this.state.menuAnimation, {toValue: 0, friction: 1, duration: 200}).start(() => {
       this.setState({
         menuVisible: false
-      });
-      if(onStop) onStop();
-    });
+      })
+      if(onStop) onStop()
+    })
   };
 
   showMenu = (onStop) => {
-    if(this.state.menuVisible) return onStop();
+    if(this.state.menuVisible) return onStop()
 
-    this.setState({menuVisible: true});
+    this.setState({menuVisible: true})
     setTimeout(() => {
       Animated.timing(this.state.menuAnimation, {toValue: 1, friction: 1, duration: 200}).start(() => {
-        if(onStop) onStop();
-      });
-    }, 0);
+        if(onStop) onStop()
+      })
+    }, 0)
   };
 
   showModal = (modal, modalAnimation = 'fade', modalTransparent = true) => {
-    this.setState({ modal: modal, modalAnimation: modalAnimation, modalTransparent: modalTransparent });
+    this.setState({ modal: modal, modalAnimation: modalAnimation, modalTransparent: modalTransparent })
   };
 
   hideModal = () => {
-    this.setState({ modal: null });
+    this.setState({ modal: null })
   };
 
   render() {
     const transform = (...buttons) => [].concat(...buttons).map((button, i) => React.cloneElement(button, {
       key: i,
       active: button.props.active && !this.state.menuVisible,
-      onPress: (...args) => { this.hideMenu(); button.props.onPress && button.props.onPress(...args); }
-    }));
+      onPress: (...args) => { this.hideMenu(); button.props.onPress && button.props.onPress(...args) }
+    }))
 
-    const { buttons, actionButton } = this.props;
-    const tabButtons = transform(buttons.slice(0, 2), [actionButton], buttons.slice(2, buttons.length > 4 ? 3 : 4));
-    const menuButtons = transform(buttons.slice(buttons.length > 4 ? 3 : 4));
+    const { buttons, actionButton } = this.props
+    const tabButtons = transform(buttons.slice(0, 2), [actionButton], buttons.slice(2, buttons.length > 4 ? 3 : 4))
+    const menuButtons = transform(buttons.slice(buttons.length > 4 ? 3 : 4))
 
     return (
       <View style={StyleSheet.window.style}>
@@ -110,7 +110,7 @@ export default class Window extends React.Component {
           <Menu
             animation={this.state.menuAnimation}
             onPressBackground={() => {
-              this.hideMenu();
+              this.hideMenu()
             }}
           >
             {menuButtons}
@@ -127,36 +127,36 @@ export default class Window extends React.Component {
 
         {this.state.modal && <Modal animationType={this.state.modalAnimation || 'fade'} transparent={this.state.modalTransparent}>{this.state.modal}</Modal>}
       </View>
-    );
+    )
   }
-};
+}
 
 class BaseWindow extends React.Component {
 
   constructor() {
-    super();
+    super()
 
-    this.state = this.getTabState(windows.Home);
+    this.state = this.getTabState(windows.Home)
   }
 
   componentWillMount() {
-    this.componentWillReceiveProps(this.props);
+    this.componentWillReceiveProps(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
-    const { initialTab, initialTabProps } = nextProps;
-    if(initialTab) this.onChangeTab(initialTab, initialTabProps || {});
+    const { initialTab, initialTabProps } = nextProps
+    if(initialTab) this.onChangeTab(initialTab, initialTabProps || {})
   }
 
   getViewProps(view, viewProps = {}) {
     return {
       mode: this.mode,
       ...viewProps
-    };
+    }
   }
 
   getTabState(view, viewProps = {}) {
-    viewProps = this.getViewProps(view, viewProps);
+    viewProps = this.getViewProps(view, viewProps)
 
     return {
       activeTab: view,
@@ -165,82 +165,82 @@ class BaseWindow extends React.Component {
       actionButton: this.decorateView(view.getActionButton(viewProps)),
       accessoryViews: view.getAccessoryViews ? view.getAccessoryViews(viewProps).map(this.decorateView) : [],
       emulatesDialog: view.emulatesDialog
-    };
+    }
   }
 
   decorateView = (el, i) => {
     if(el === null || typeof el !== 'object' || el.props === null || typeof el.props !== 'object') {
-      return el;
+      return el
     }
 
-    const props = {};
-    let empty = true;
+    const props = {}
+    let empty = true
     Object.keys(el.props).filter(v => typeof el.props[v] === 'function').forEach(v => {
-      const fn = el.props[v];
-      empty = false;
+      const fn = el.props[v]
+      empty = false
 
-      props[v] = (...args) => fn.apply(this.refs.activeView, args);
-    });
+      props[v] = (...args) => fn.apply(this.refs.activeView, args)
+    })
     if(typeof i !== 'undefined' && typeof props.key === 'undefined') {
-      props.key = i;
-      empty = false;
+      props.key = i
+      empty = false
     }
 
-    return empty ? el : React.cloneElement(el, props);
+    return empty ? el : React.cloneElement(el, props)
   };
 
   getModalState(view, viewProps = {}) {
-    viewProps = this.getViewProps(view, viewProps);
+    viewProps = this.getViewProps(view, viewProps)
 
     this.setState({
       modal: view,
       modalProps: viewProps,
       modalTitle: view.getTitle(viewProps)
-    });
+    })
   }
 
   onChangeTab(view, viewProps = {}) {
-    this.setState(this.getTabState(view, viewProps));
+    this.setState(this.getTabState(view, viewProps))
   }
 
   setView(view, viewProps = {}) {
-    this.onChangeTab(view, viewProps);
+    this.onChangeTab(view, viewProps)
   }
 
   setActionButton(actionButton) {
-    this.setState({ actionButton: this.decorateView(actionButton) });
+    this.setState({ actionButton: this.decorateView(actionButton) })
   }
 
   setAccessoryViews(...accessoryViews) {
-    this.setState({ accessoryViews: accessoryViews.map(this.decorateView) });
+    this.setState({ accessoryViews: accessoryViews.map(this.decorateView) })
   }
 
   onChangeMode = () => {
-    const { initialMode, initialTab, initialTabProps, ...initialProps } = this.props;
-    const activeTab = this.state.activeTab;
-    const { mode, ...activeTabProps } = this.state.activeTabProps;
+    const { initialMode, initialTab, initialTabProps, ...initialProps } = this.props
+    const activeTab = this.state.activeTab
+    const { mode, ...activeTabProps } = this.state.activeTabProps
 
     const nextProps = {
       ...initialProps,
       initialTab: activeTab,
       initialTabProps: activeTabProps,
-    };
-    const nextMode = this.mode === 'organizer' ? 'participant' : 'organizer';
+    }
+    const nextMode = this.mode === 'organizer' ? 'participant' : 'organizer'
     if(this.refs.activeView && this.refs.activeView.onChangeMode) {
-      this.refs.activeView.onChangeMode(nextMode, nextProps);
+      this.refs.activeView.onChangeMode(nextMode, nextProps)
     }
 
-    this.props.application.setRootView(nextMode === 'organizer' ? Window.Organizer : Window.Participant, nextProps, false);
+    this.props.application.setRootView(nextMode === 'organizer' ? Window.Organizer : Window.Participant, nextProps, false)
   };
 
   onShowModal(view, viewProps = {}) {
-    this.setState(this.getModalState(view, viewProps));
+    this.setState(this.getModalState(view, viewProps))
   }
 
   isTabButtonActive(view) {
-    const activeTab = this.state.activeTab;
-    if(activeTab.getTabHighlight) return activeTab.getTabHighlight(this.state.activeTabProps) === view;
-    else return activeTab === view;
+    const activeTab = this.state.activeTab
+    if(activeTab.getTabHighlight) return activeTab.getTabHighlight(this.state.activeTabProps) === view
+    else return activeTab === view
   }
 
   showModal = (...args) => this.refs.window.showModal(...args);
@@ -262,10 +262,10 @@ class BaseWindow extends React.Component {
           onPress={() => this.onShowModal(windows.Notifications)}/>,
       <Menu.Item icon="friends" text={_('friends')}
           onPress={() => this.onShowModal(windows.Friends)}/>
-    ].concat(buttons.slice(2));
+    ].concat(buttons.slice(2))
 
-    const modal = this.state.modal && <this.state.modal {...this.state.modalProps}/>;
-    const { onClose, ...props } = this.props;
+    const modal = this.state.modal && <this.state.modal {...this.state.modalProps}/>
+    const { onClose, ...props } = this.props
 
     return (
       <Window ref="window"
@@ -281,7 +281,7 @@ class BaseWindow extends React.Component {
           {...props}>
         <this.state.activeTab ref="activeView" window={this} {...this.state.activeTabProps}/>
       </Window>
-    );
+    )
   }
 }
 
@@ -297,10 +297,10 @@ Window.Organizer = class OrganizerWindow extends BaseWindow {
       <Button type="tab" icon="calendar" text={_('calendar')}
           active={this.isTabButtonActive(windows.Calendar)}
           onPress={() => this.onChangeTab(windows.Calendar)} />
-    );
+    )
   }
 
-};
+}
 
 
 Window.Participant = class ParticipantWindow extends BaseWindow {
@@ -318,7 +318,7 @@ Window.Participant = class ParticipantWindow extends BaseWindow {
 
       <Menu.Item icon="calendar" text={_('calendar')}
           onPress={() => this.onShowModal(windows.Calendar)} />
-    );
+    )
   }
 
-};
+}

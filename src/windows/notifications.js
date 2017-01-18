@@ -1,29 +1,29 @@
-import React from 'react';
-import {View, Text, ListView, Image, TouchableHighlight} from 'react-native';
-import moment from 'moment';
+import React from 'react'
+import {View, Text, ListView, Image, TouchableHighlight} from 'react-native'
+import moment from 'moment'
 
-import {Header, Button, Popup} from '../components';
-import StyleSheet from '../styles';
-import _ from '../i18n';
+import {Header, Button, Popup} from '../components'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 /*
  * A map of notification types to row component
  */
 export default class Notifications extends React.Component {
   constructor(props) {
-    super(props);
-    this._dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    super(props)
+    this._dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.state = {
       optionsPopupIndex: null,
       dataSource: this._dataSource.cloneWithRows(props.notifications),
-    };
+    }
 
     this.ComponentMap = {
       FRIEND_REQUEST: FriendRequestNotification,
       EVENT_REQUEST: EventRequestNotification,
       EVENT_CANCELLED: EventCancelledNotification,
       EVENT_INVITE: EventInviteNotification,
-    };
+    }
 
   }
 
@@ -32,14 +32,14 @@ export default class Notifications extends React.Component {
    */
   componentDidMount() {
     this.props.notifications.map((notification) => {
-      this.props.onSeen(notification);
-    });
+      this.props.onSeen(notification)
+    })
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       dataSource: this._dataSource.cloneWithRows(nextProps.notifications),
-    });
+    })
   }
 
   render() {
@@ -55,16 +55,16 @@ export default class Notifications extends React.Component {
           dataSource={this.state.dataSource}
           enableEmptySections={true}
           renderRow={(rowData, sectionId, rowId) => {
-            let Component = this.ComponentMap[rowData.type];
+            let Component = this.ComponentMap[rowData.type]
             return (
               <Component
                 key={rowData.id}
                 notification={rowData}
                 onHideOptions={() => {
-                  this.setState({optionsPopupIndex: null});
+                  this.setState({optionsPopupIndex: null})
                 }}
                 onPress={() => {
-                  this.setState({optionsPopupIndex: rowId});
+                  this.setState({optionsPopupIndex: rowId})
                 }}
                 onRead={() => this.props.onRead(rowData)}
                 showOptions={this.state.optionsPopupIndex === rowId}
@@ -77,11 +77,11 @@ export default class Notifications extends React.Component {
                 onAcceptEventInvite={this.props.onAcceptEventInvite}
                 onDeclineEventInvite={this.props.onDeclineEventInvite}
               />
-            );
+            )
           }}
         />
       </View>
-    );
+    )
   }
 }
 
@@ -99,8 +99,8 @@ class NotificationRow extends React.Component {
               type={option.type}
               text={option.text}
               onPress={() => {
-                this.props.onHideOptions();
-                option.onPress && option.onPress();
+                this.props.onHideOptions()
+                option.onPress && option.onPress()
               }}
             />
           ))}
@@ -155,7 +155,7 @@ class NotificationRow extends React.Component {
           </View>
         </TouchableHighlight>
       </View>
-    );
+    )
   }
 }
 
@@ -173,7 +173,7 @@ NotificationRow.propTypes = {
     }).isRequired,
   ),
   onHideOptions: React.PropTypes.func.isRequired,
-};
+}
 
 /**
  * Find instances of $0 $1 $2 etc from a template string and replace with
@@ -186,66 +186,66 @@ NotificationRow.propTypes = {
  * @param ...replacements {Node}
  */
 function replaceText(template, ...replacements) {
-  let regex = /(\$[0-9])/g;
-  let parts = template.split(regex);
+  let regex = /(\$[0-9])/g
+  let parts = template.split(regex)
   return parts.map((part, i) => {
     if(part.match(regex)){
-      let index = part.substr(1);
-      return <Text key={i}>{replacements[index]}</Text>;
+      let index = part.substr(1)
+      return <Text key={i}>{replacements[index]}</Text>
     }else{
-      return <Text key={i}>{part}</Text>;
+      return <Text key={i}>{part}</Text>
     }
-  });
+  })
 }
 
 class FriendRequestNotification extends React.Component {
   render() {
-    let user = this.props.notification.friendRequest.from;
-    let status = this.props.notification.friendRequest.status;
+    let user = this.props.notification.friendRequest.from
+    let status = this.props.notification.friendRequest.status
 
     if(!user || !status) {
-      return null;
+      return null
     }
 
-    let description;
+    let description
     let options = [{
       type: "alertVertical",
       text: _('viewProfile'),
       onPress: () => {
-        this.props.onPressUserProfile(this.props.notification.friendRequest.from);
+        this.props.onPressUserProfile(this.props.notification.friendRequest.from)
       }
-    }];
+    }]
 
     if(status === 'pending') {
       description = replaceText(
         _('friendRequestPendingDescription'),
         <Text style={StyleSheet.notification.highlight}>{user.name}</Text>
-      );
+      )
 
       //Accept and Decline options are only available for 'pending' requests.
       options = options.concat([{
         type: "alertVerticalGreen",
         text: _('accept'),
         onPress: () => {
-          this.props.onAcceptFriendRequest(this.props.notification);
+          this.props.onAcceptFriendRequest(this.props.notification)
         },
       },{
         type: "alertVerticalDefault",
         text: _('decline'),
         onPress: () => {
-          this.props.onDeclineFriendRequest(this.props.notification);
+          this.props.onDeclineFriendRequest(this.props.notification)
         },
-      }]);
+      }])
     } else if(status === 'declined') {
       description = replaceText(
         _('friendRequestDeclinedDescription'),
         <Text style={StyleSheet.notification.highlight}>{user.name}</Text>
-      );
+      )
     } else if(status === 'confirmed') {
       description = replaceText(
         _('friendRequestConfirmedDescription'),
         <Text style={StyleSheet.notification.highlight}>{user.name}</Text>
-      );
+      )
     }
 
     return (
@@ -260,68 +260,68 @@ class FriendRequestNotification extends React.Component {
         onHideOptions={this.props.onHideOptions}
         options={options}
       />
-    );
+    )
   }
 }
 
 class EventRequestNotification extends React.Component {
   render() {
-    let user = this.props.notification.request.user;
-    let event = this.props.notification.request.event;
-    let status = this.props.notification.request.status;
+    let user = this.props.notification.request.user
+    let event = this.props.notification.request.event
+    let status = this.props.notification.request.status
 
     if(!user || !event || !status) {
-      return null;
+      return null
     }
 
-    let description;
+    let description
 
     let options = [{
       type: "alertVertical",
       text: _('viewProfile'),
       onPress: () => {
-        this.props.onPressUserProfile(user);
+        this.props.onPressUserProfile(user)
       }
     },{
       type: "alertVertical",
       text: _('eventDetails'),
       onPress: () => {
-        this.props.onPressEvent(event);
+        this.props.onPressEvent(event)
       }
-    }];
+    }]
 
     if(status === 'pending') {
       description = replaceText(
         _('eventRequestPendingDescription'),
         <Text style={StyleSheet.notification.highlight}>{user.name}</Text>,
         <Text style={StyleSheet.notification.highlight}>{event.title}</Text>
-      );
+      )
       options = options.concat([{
         type: "alertVerticalGreen",
         text: _('accept'),
         onPress: () => {
-          this.props.onAcceptEventRequest(this.props.notification);
+          this.props.onAcceptEventRequest(this.props.notification)
         },
       },{
         type: "alertVerticalDefault",
         text: _('decline'),
         onPress: () => {
-          this.props.onDeclineEventRequest(this.props.notification);
+          this.props.onDeclineEventRequest(this.props.notification)
         },
-      }]);
+      }])
     }else if(status === 'declined'){
       description = replaceText(
         _('eventRequestDeclinedDescription'),
         <Text style={StyleSheet.notification.highlight}>{user.name}</Text>,
-      );
+      )
     } else if(status === 'confirmed') {
       description = replaceText(
         _('eventRequestConfirmedDescription'),
         <Text style={StyleSheet.notification.highlight}>{user.name}</Text>,
-      );
+      )
     } else {
       //The status could be 'cancelled'. In which case we just render nothing
-      return null;
+      return null
     }
 
     return (
@@ -336,20 +336,20 @@ class EventRequestNotification extends React.Component {
         onHideOptions={this.props.onHideOptions}
         options={options}
       />
-    );
+    )
   }
 }
 
 class EventCancelledNotification extends React.Component {
   render() {
-    let event = this.props.notification.event;
+    let event = this.props.notification.event
     if(!event) {
-      return null;
+      return null
     }
     let description = replaceText(
       _('eventCancelledDescription'),
       <Text style={StyleSheet.notification.highlight}>{event.title}</Text>
-    );
+    )
     return (
       <NotificationRow
         image={{uri: event.imageSrc}}
@@ -361,64 +361,64 @@ class EventCancelledNotification extends React.Component {
         onHideOptions={this.props.onHideOptions}
         options={null}
       />
-    );
+    )
   }
 }
 
 class EventInviteNotification extends React.Component {
   render() {
-    let user = this.props.notification.invite.from;
-    let event = this.props.notification.invite.event;
-    let status = this.props.notification.invite.status;
+    let user = this.props.notification.invite.from
+    let event = this.props.notification.invite.event
+    let status = this.props.notification.invite.status
 
     if(!user || !event || !status) {
-      return null;
+      return null
     }
 
     let description = replaceText(
       _('eventCancelledDescription'),
       <Text style={StyleSheet.notification.highlight}>{event.title}</Text>
-    );
+    )
 
     let options = [{
       type: "alertVertical",
       text: _('eventDetails'),
       onPress: () => {
-        this.props.onPressEvent(event);
+        this.props.onPressEvent(event)
       }
-    }];
+    }]
 
     if(status === 'pending') {
       description = replaceText(
         _('eventInvitePendingDescription'),
         <Text style={StyleSheet.notification.highlight}>{event.title}</Text>
-      );
+      )
       options = options.concat([{
         type: "alertVerticalGreen",
         text: _('accept'),
         onPress: () => {
-          this.props.onAcceptEventInvite(this.props.notification);
+          this.props.onAcceptEventInvite(this.props.notification)
         },
       },{
         type: "alertVerticalDefault",
         text: _('decline'),
         onPress: () => {
-          this.props.onDeclineEventInvite(this.props.notification);
+          this.props.onDeclineEventInvite(this.props.notification)
         },
-      }]);
+      }])
     } else if(status === 'declined') {
       description = replaceText(
         _('eventInviteDeclinedDescription'),
         <Text style={StyleSheet.notification.highlight}>{event.title}</Text>,
-      );
+      )
     } else if(status === 'confirmed') {
       description = replaceText(
         _('eventInviteConfirmedDescription'),
         <Text style={StyleSheet.notification.highlight}>{event.title}</Text>,
-      );
+      )
     } else {
       //The status could be 'cancelled'. In which case we just render nothing
-      return null;
+      return null
     }
 
     return (
@@ -433,6 +433,6 @@ class EventInviteNotification extends React.Component {
         onHideOptions={this.props.onHideOptions}
         options={options}
       />
-    );
+    )
   }
 }

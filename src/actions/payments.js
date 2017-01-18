@@ -1,49 +1,49 @@
-import url from 'url';
-import qs from 'qs';
+import url from 'url'
+import qs from 'qs'
 
-import Config from '../config';
-import {navigationActions} from '../actions';
+import Config from '../config'
+import {navigationActions} from '../actions'
 
-const server = Config.PAYMENTS_SERVER;
-const stripePublicKey = Config.STRIPE_PUBLIC_KEY;
+const server = Config.PAYMENTS_SERVER
+const stripePublicKey = Config.STRIPE_PUBLIC_KEY
 
-import inflateEvent from '../data/inflaters/event';
+import inflateEvent from '../data/inflaters/event'
 
 const get = (path, params) => {
   params = url.format({
     query: params,
-  });
+  })
 
   return fetch(server + path + params, {
     method: 'GET',
   }).then(response => {
     if(!response.ok) {
       return response.json().then(obj => {
-        throw obj;
-      });
+        throw obj
+      })
     }else{
-      return response.json();
+      return response.json()
     }
-  });
-};
+  })
+}
 
 const del = (path, params) => {
   params = url.format({
     query: params,
-  });
+  })
 
   return fetch(server + path + params, {
     method: 'DELETE',
   }).then(response => {
     if(!response.ok) {
       return response.json().then(obj => {
-        throw obj;
-      });
+        throw obj
+      })
     }else{
-      return response.json();
+      return response.json()
     }
-  });
-};
+  })
+}
 
 const post = (path, body) => {
   return fetch(server + path, {
@@ -55,25 +55,25 @@ const post = (path, body) => {
   }).then(response => {
     if(!response.ok) {
       return response.json().then(obj => {
-        throw obj;
-      });
+        throw obj
+      })
     }else{
-      return response.json();
+      return response.json()
     }
-  });
-};
+  })
+}
 
 export const getAccount = () => {
   return (dispatch, getState) => {
-    let stripeAccountId = getState().user.stripeAccount;
+    let stripeAccountId = getState().user.stripeAccount
     if(!stripeAccountId) {
       //If there is no stripe account associated. Don't attempt to fetch
-      return;
+      return
     }
 
     dispatch({
       type: 'PAYMENTS_GET_ACCOUNT_START',
-    });
+    })
 
     get('accounts', {
       stripeAccountId,
@@ -81,22 +81,22 @@ export const getAccount = () => {
       dispatch({
         type: 'PAYMENTS_GET_ACCOUNT_SUCCESS',
         response,
-      });
+      })
     }).catch(err => {
       dispatch({
         type: 'PAYMENTS_GET_ACCOUNT_ERROR',
         err,
-      });
-    });
-  };
-};
+      })
+    })
+  }
+}
 
 export const updateAccount = (data) => {
   return dispatch => {
 
     dispatch({
       type: 'PAYMENTS_UPDATE_ACCOUNT_START',
-    });
+    })
 
     post('accounts', {
       accountNumber: data.accountNumber,
@@ -116,27 +116,27 @@ export const updateAccount = (data) => {
       dispatch({
         type: 'PAYMENTS_UPDATE_ACCOUNT_SUCCESS',
         response,
-      });
-      dispatch(navigationActions.pop());
+      })
+      dispatch(navigationActions.pop())
     }).catch(err => {
       dispatch({
         type: 'PAYMENTS_UPDATE_ACCOUNT_ERROR',
         err,
-      });
-    });
-  };
-};
+      })
+    })
+  }
+}
 
 /*
  * creating and updating are the same API call
  */
-export const createAccount = updateAccount;
+export const createAccount = updateAccount
 
 export const createCard = (data) => {
   return dispatch => {
     dispatch({
       type: 'PAYMENTS_ADD_CARD_START',
-    });
+    })
 
     let query = qs.stringify({
       card: {
@@ -145,7 +145,7 @@ export const createCard = (data) => {
         exp_year: data.expiryYear,
         cvc: data.cvc,
       },
-    });
+    })
 
     fetch('https://api.stripe.com/v1/tokens', {
       method: 'POST',
@@ -162,46 +162,46 @@ export const createCard = (data) => {
     }).then(response => {
       if(!response.ok) {
         return response.json().then(obj => {
-          throw obj.error;
-        });
+          throw obj.error
+        })
       } else {
-        return response.json();
+        return response.json()
       }
     }).then(response => {
-      let cardToken = response.id;
+      let cardToken = response.id
 
       return post('cards', {
         uid: data.uid,
         cardToken: cardToken,
-      });
+      })
     }).then(response => {
       dispatch({
         type: 'PAYMENTS_ADD_CARD_SUCCESS',
         response,
-      });
-      dispatch(navigationActions.pop());
+      })
+      dispatch(navigationActions.pop())
     }).catch(err => {
       dispatch({
         type: 'PAYMENTS_ADD_CARD_ERROR',
         err,
-      });
-    });
-  };
-};
+      })
+    })
+  }
+}
 
 export const getCards = () => {
   return (dispatch, getState) => {
-    let stripeAccountId = getState().user.stripeAccount;
+    let stripeAccountId = getState().user.stripeAccount
     if(!stripeAccountId) {
       //If there is no stripe account associated. Don't attempt to fetch
-      return;
+      return
     }
 
-    let uid = getState().user.uid;
+    let uid = getState().user.uid
 
     dispatch({
       type: 'PAYMENTS_GET_CARDS_START',
-    });
+    })
 
     get('cards', {
       uid: uid,
@@ -209,22 +209,22 @@ export const getCards = () => {
       dispatch({
         type: 'PAYMENTS_GET_CARDS_SUCCESS',
         response,
-      });
+      })
     }).catch(err => {
       dispatch({
         type: 'PAYMENTS_GET_CARDS_ERROR',
         err,
-      });
-    });
-  };
-};
+      })
+    })
+  }
+}
 
 export const deleteCard = (id) => {
   return (dispatch, getState) => {
-    let uid = getState().user.uid;
+    let uid = getState().user.uid
     dispatch({
       type: 'PAYMENTS_DELETE_CARD_START',
-    });
+    })
 
     del('cards', {
       cardId: id,
@@ -233,23 +233,23 @@ export const deleteCard = (id) => {
       dispatch({
         type: 'PAYMENTS_DELETE_CARD_SUCCESS',
         response,
-      });
+      })
     }).catch(err => {
       dispatch({
         type: 'PAYMENTS_DELETE_CARD_ERROR',
         err,
-      });
-    });
-  };
-};
+      })
+    })
+  }
+}
 
 export const getTransactions = () => {
   return (dispatch, getState) => {
-    let accountKey = getState().user.stripeAccount;
+    let accountKey = getState().user.stripeAccount
 
     dispatch({
       type: 'PAYMENTS_GET_TRANSACTIONS_START',
-    });
+    })
 
     get('transactions', {
       accountKey,
@@ -257,15 +257,15 @@ export const getTransactions = () => {
       dispatch({
         type: 'PAYMENTS_GET_TRANSACTIONS_SUCCESS',
         response,
-      });
+      })
     }).catch(err => {
       dispatch({
         type: 'PAYMENTS_GET_TRANSACTIONS_ERROR',
         err,
-      });
-    });
-  };
-};
+      })
+    })
+  }
+}
 
 /*
  * @param event {Event}
@@ -275,22 +275,22 @@ export const getTransactions = () => {
  */
 export const pay = (event, invite = null) => {
   return (dispatch, getState) => {
-    let state = getState();
-    let uid = state.user.uid;
+    let state = getState()
+    let uid = state.user.uid
 
     event = inflateEvent(event, {
       users: state.users.usersById,
-    });
+    })
 
     if(state.payments.cards.length === 0) {
-      throw new Error('No cards found to make payment with');
+      throw new Error('No cards found to make payment with')
     }
     //TODO we are always using the first card. What if the user wants to use another?
-    var cardId = state.payments.cards[0].id;
+    var cardId = state.payments.cards[0].id
 
     dispatch({
       type: 'PAYMENTS_PAY_START',
-    });
+    })
 
     post('charge', {
       inviteId: invite ? invite.id : null,
@@ -302,16 +302,16 @@ export const pay = (event, invite = null) => {
       dispatch({
         type: 'PAYMENTS_PAY_SUCCESS',
         response,
-      });
+      })
     }).catch(err => {
       dispatch({
         type: 'PAYMENTS_PAY_ERROR',
         err,
-      });
-    });
-  };
-};
+      })
+    })
+  }
+}
 
 export const dismissError = () => ({
   type: 'PAYMENTS_ERROR_DISMISS',
-});
+})

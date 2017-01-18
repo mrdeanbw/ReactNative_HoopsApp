@@ -1,10 +1,10 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import moment from 'moment';
+import React from 'react'
+import {connect} from 'react-redux'
+import moment from 'moment'
 
-import {FriendsInvite as _FriendsInvite} from '../windows';
-import {eventActions, navigationActions} from '../actions';
-import inflateEvent from '../data/inflaters/event';
+import {FriendsInvite as _FriendsInvite} from '../windows'
+import {eventActions, navigationActions} from '../actions'
+import inflateEvent from '../data/inflaters/event'
 
 class FriendsInvite extends React.Component {
   render() {
@@ -13,20 +13,20 @@ class FriendsInvite extends React.Component {
         requests: this.props.requests.requestsById,
         invites: this.props.invites.invitesById,
         users: this.props.users.usersById,
-      });
+      })
     }).filter(event => !!event).filter(event => {
-      return moment(event.date).isAfter();
+      return moment(event.date).isAfter()
     }).filter(event => {
 
       //Filter out users that are already attending
       event.players.forEach(player => {
         if(player.id === this.props.selectedUser.id) {
-          return false;
+          return false
         }
-      });
+      })
 
-      return true;
-    });
+      return true
+    })
 
     return (
       <_FriendsInvite
@@ -34,11 +34,11 @@ class FriendsInvite extends React.Component {
         user={this.props.selectedUser}
         events={events}
         onPressEvent={(event) => {
-          this.props.onInviteUser(this.props.selectedUser, event);
-          this.props.onNavigateBack();
+          this.props.onInviteUser(this.props.selectedUser, event)
+          this.props.onNavigateBack()
         }}
       />
-    );
+    )
   }
 }
 
@@ -53,7 +53,7 @@ export default connect(
   (dispatch) => ({
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onInviteUser: (user, event) => {
-      dispatch(eventActions.inviteUsers([user.id], event.id));
+      dispatch(eventActions.inviteUsers([user.id], event.id))
     },
   }),
-)(FriendsInvite);
+)(FriendsInvite)

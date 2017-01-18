@@ -1,29 +1,29 @@
 
-import React from 'react';
+import React from 'react'
 
-import {View, Text, TouchableHighlight} from 'react-native';
+import {View, Text, TouchableHighlight} from 'react-native'
 
-import Icon from './icon';
-import StyleSheet from '../styles';
+import Icon from './icon'
+import StyleSheet from '../styles'
 
 export default class CheckButton extends React.Component {
 
   onPress = (...args) => {
     if(this.props.onPress) {
-      this.props.onPress(...args);
+      this.props.onPress(...args)
     }
 
     if(this.props.onChange) {
-      this.props.onChange(!this.props.checked);
+      this.props.onChange(!this.props.checked)
     }
   }
 
   render() {
-    const {type, onPress, onChange, icon, checkIcon, checked, text, style, checkedStyle, containerStyle, checkedContainerStyle, iconStyle, checkedIconStyle, textStyle, checkedTextStyle, children, ...props} = this.props;
+    const {type, icon, checkIcon, checked, text, style, checkedStyle, containerStyle, checkedContainerStyle, iconStyle, checkedIconStyle, textStyle, checkedTextStyle, children, ...props} = this.props
 
-    const defaultButton = StyleSheet.buttons.check || {};
-    const button = type ? StyleSheet.buttons[type] || defaultButton : defaultButton;
-    const textTransform = button.textTransform || defaultButton.textTransform || (s => s);
+    const defaultButton = StyleSheet.buttons.check || {}
+    const button = type ? StyleSheet.buttons[type] || defaultButton : defaultButton
+    const textTransform = button.textTransform || defaultButton.textTransform || (s => s)
 
     return (
       <TouchableHighlight style={[
@@ -62,6 +62,6 @@ export default class CheckButton extends React.Component {
           {checked && checkIcon && <Icon name={checkIcon} style={[defaultButton.iconStyle, defaultButton.checkedIconStyle, button.iconStyle, button.checkedIconStyle, iconStyle, checkedIconStyle]}/>}
         </View>
       </TouchableHighlight>
-    );
+    )
   }
-};
+}

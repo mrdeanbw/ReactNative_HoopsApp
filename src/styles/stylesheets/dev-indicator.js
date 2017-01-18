@@ -1,5 +1,3 @@
-import {colors} from '../resources';
-
 export default StyleSheet => StyleSheet.extend({
   style: {
     'backgroundColor': '#ffff00',
@@ -9,4 +7,4 @@ export default StyleSheet => StyleSheet.extend({
     'left': 0,
     'height': 2
   }
-});
+})

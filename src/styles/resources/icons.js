@@ -163,4 +163,4 @@ export default {
   "dashboard-gallery": require('./icons/dashboard-gallery.png'),
   "dashboard-finances": require('./icons/dashboard-finances.png'),
   "dashboard-requests": require('./icons/dashboard-requests.png'),
-};
+}
