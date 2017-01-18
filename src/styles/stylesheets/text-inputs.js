@@ -1,6 +1,3 @@
-
-
-
 import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.escape({
