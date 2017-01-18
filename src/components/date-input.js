@@ -1,10 +1,9 @@
-
-import _ from '../i18n'
 import moment from 'moment'
 import React from 'react'
 import StyleSheet from '../styles'
 import { View, Text, TouchableHighlight } from 'react-native'
 
+import _ from '../i18n'
 import Picker from './picker'
 import Button from './button'
 import TextInput from './text-input'
@@ -55,7 +54,7 @@ export default class DateInput extends React.Component {
     }
 
     return (
-      <View>
+      <View style={{flex:1}}>
         <Popup
           visible={this.state.showPopup}
           onClose={() => this.setState({showPopup: false})}
