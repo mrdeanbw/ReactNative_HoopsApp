@@ -348,7 +348,6 @@ const listenToUser = () => {
 
       var previousName = previousUser.publicProfile ? previousUser.publicProfile.name : null
       var name = user.publicProfile ? user.publicProfile.name : null
-
       if(!previousName) {
         //Only do routing when the name wasn't previously set
         //It may now be, or not.
@@ -361,9 +360,6 @@ const listenToUser = () => {
         } else if(!state.user.mode) {
           //Go to select-mode page
           dispatch(navigationActions.reset({key: 'selectMode'}))
-        } else {
-          //Go to home page
-          dispatch(navigationActions.reset({key: 'tabs'}))
         }
       }
 
