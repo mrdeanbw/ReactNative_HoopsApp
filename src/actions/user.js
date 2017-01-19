@@ -360,6 +360,9 @@ const listenToUser = () => {
         } else if(!state.user.mode) {
           //Go to select-mode page
           dispatch(navigationActions.reset({key: 'selectMode'}))
+        } else {
+          //Go to home page
+          dispatch(navigationActions.reset({key: 'tabs'}))
         }
       }
 
