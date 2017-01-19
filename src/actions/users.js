@@ -1,8 +1,8 @@
-import {firebaseDb, firebaseStorage} from '../data/firebase'
+import {firebaseDb} from '../data/firebase'
 import DBHelper from '../data/database-helper'
 const database = DBHelper('users')
 
-import {eventActions, inviteActions, requestActions} from '../actions'
+import {eventActions, requestActions} from '../actions'
 
 export const load = (id) => {
   return dispatch => {
@@ -20,33 +20,31 @@ export const load = (id) => {
         dispatch({type: 'USERS_LOADED', users: {[id]: user}})
 
         if(user.organizing) {
-          for(let id in user.organizing) {
-            dispatch(eventActions.load(id))
+          for(let eventId in user.organizing) {
+            dispatch(eventActions.load(eventId))
           }
         }
         if(user.requests) {
-          for(let id in user.requests) {
-            dispatch(requestActions.load(id))
+          for(let requestId in user.requests) {
+            dispatch(requestActions.load(requestId))
           }
         }
-        if(user.invites) {
-          for(let id in user.invites) {
-            dispatch(inviteActions.load(id))
-          }
-        }
+        // todo: Invites loaded as part of the startup routine
+        // if(user.invites) {
+        //   for(let id in user.invites) {
+        //     dispatch(inviteActions.load(id))
+        //   }
+        // }
       }
     })
   }
 }
 
 export const loadMany = (userIds) => {
-
   return dispatch => {
-
     userIds.map((id) => {
       dispatch(load(id))
     })
-
   }
 }
 

@@ -17,4 +17,13 @@ export default handleActions({
     }
   },
 
+  INVITES_LOAD_ALL: (state, action) => {
+    return {
+    invitesById: {
+        ...state.invitesById,
+        ...action.invites,
+      },
+    }
+  },
+
 }, initialState)

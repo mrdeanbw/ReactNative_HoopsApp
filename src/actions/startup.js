@@ -1,6 +1,6 @@
 import {
   userActions, interestActions, usersActions,
-  eventActions, networkActions
+  eventActions, networkActions, inviteActions
 } from '../actions'
 
 export const startup = (email, password) => {
@@ -18,5 +18,6 @@ export const startup = (email, password) => {
      */
     dispatch(usersActions.getAll())
     dispatch(eventActions.getAll())
+    dispatch(inviteActions.getAll())
   }
 }

@@ -66,11 +66,12 @@ export const load = (id) => {
         onLoaded(event)
       })
 
-      if(event.invites) {
-        for(let inviteId in event.invites) {
-          dispatch(inviteActions.load(inviteId))
-        }
-      }
+      // todo: Invites loaded as part of the startup routine
+      // if(event.invites) {
+      //   for(let inviteId in event.invites) {
+      //     dispatch(inviteActions.load(inviteId))
+      //   }
+      // }
       if(event.requests) {
         for(let requestId in event.requests) {
           dispatch(requestActions.load(requestId))

@@ -386,11 +386,12 @@ const listenToUser = () => {
           dispatch(usersActions.load(id))
         }
       }
-      if(user.invites) {
-        for(let id in user.invites) {
-          dispatch(inviteActions.load(id))
-        }
-      }
+      // todo: Invites loaded as part of the startup routine
+      // if(user.invites) {
+      //   for(let id in user.invites) {
+      //     dispatch(inviteActions.load(id))
+      //   }
+      // }
       if(user.requests) {
         for(let id in user.requests) {
           dispatch(requestActions.load(id))

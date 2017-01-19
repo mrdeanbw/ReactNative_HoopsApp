@@ -78,6 +78,18 @@ export const load = (id) => {
   }
 }
 
+export const getAll = () => {
+  return dispatch => {
+    database.addListener(`invites`, 'value', (snapshot) => {
+      dispatch({
+        type: 'INVITES_LOAD_ALL',
+        invites: snapshot.val(),
+      })
+    })
+  }
+}
+
+
 export const accept = (invite) => {
   return (dispatch, getState) => {
     if(invite.event.entryFee === 0 || invite.event.paymentMethod !== 'app') {
