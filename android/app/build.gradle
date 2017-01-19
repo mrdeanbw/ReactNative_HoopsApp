@@ -92,7 +92,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 3
-        versionName "0.2.25"
+        versionName "0.2.31"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -136,6 +136,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-maps')
     compile project(':bugsnag-react-native')
     compile project(':react-native-fcm')
     compile project(':react-native-fetch-blob')

@@ -1,6 +1,6 @@
-
 import React from 'react'
-import {View, MapView as _MapView, TouchableHighlight} from 'react-native'
+import {View, TouchableHighlight} from 'react-native'
+import _MapView from 'react-native-maps'
 
 import icons from '../styles/resources/icons'
 import Icon from './icon'
