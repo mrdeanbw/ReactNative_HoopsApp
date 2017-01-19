@@ -1,11 +1,11 @@
-
 import React from 'react'
 import {TouchableHighlight, ImagePickerIOS, View, Image} from 'react-native'
-import {Icon} from './'
 
 import StyleSheet from '../styles'
+import {Icon} from './'
 
-export default class AvatarEdit extends React.Component {
+class AvatarEdit extends React.Component {
+
   render() {
     return (
       <TouchableHighlight
@@ -19,10 +19,14 @@ export default class AvatarEdit extends React.Component {
         style={[StyleSheet.profile.imageContainer, this.props.style]}
       >
         <View style={StyleSheet.profile.imageContainer}>
-          <Image
-            style={StyleSheet.profile.image}
-            source={{uri: this.props.image}}
-          />
+          {this.props.imageUrl ? (
+            <Image
+              style={StyleSheet.profile.image}
+              source={{uri: this.props.imageUrl}}
+            />
+          ) : (
+            <View style={StyleSheet.profile.image} />
+          )}
           <View style={StyleSheet.profile.imageTintOverlay} />
           <Icon style={StyleSheet.profile.imageIconOverlay} name="camera" />
         </View>
@@ -33,5 +37,7 @@ export default class AvatarEdit extends React.Component {
 
 AvatarEdit.propTypes = {
   onChange: React.PropTypes.func.isRequired,
-  image: React.PropTypes.string,
+  imageUrl: React.PropTypes.string,
 }
+
+export default AvatarEdit

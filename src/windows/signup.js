@@ -16,8 +16,9 @@ import _ from '../i18n'
 
 export default class SignUp extends React.Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+
     this.state = {
       showPassword: false,
       showDobInfo: false,
@@ -26,18 +27,12 @@ export default class SignUp extends React.Component {
       citiesAutocomplete: [],
       phone: '',
       image: undefined,
+      imageUrl: this.props.imageUrl,
     }
   }
 
   validate() {
-    let {
-      name,
-      email,
-      password,
-      dob,
-      gender,
-      city
-    } = this.state
+    const {name, email, password, dob, gender, city} = this.state
 
     return !!(
       name &&
@@ -77,14 +72,15 @@ export default class SignUp extends React.Component {
   };
 
   render() {
-    let errorCode = this.props.signUpError && this.props.signUpError.code
-    let emailError = [
+    const errorCode = this.props.signUpError && this.props.signUpError.code
+    const emailError = [
       'auth/email-already-in-use',
       'auth/invalid-email',
     ].indexOf(errorCode) !== -1
-    let passwordError = [
+    const passwordError = [
       'auth/weak-password',
     ].indexOf(errorCode) !== -1
+
     return (
       <View style={{flex: 1}}>
         <Header
@@ -130,6 +126,7 @@ export default class SignUp extends React.Component {
           {errorCode === 'auth/invalid-email' && (
             <Text style={StyleSheet.signup.errorText}>Invalid email</Text>
           )}
+
           <TextInput
             value={this.state.email}
             onChangeText={(email) => this.setState({email})}
@@ -148,34 +145,33 @@ export default class SignUp extends React.Component {
             icon="email"
           />
 
-          <View>
-            {errorCode === 'auth/weak-password' && (
-              <Text style={StyleSheet.signup.errorText}>Invalid email</Text>
-            )}
-            <TextInput
-              value={this.state.password}
-              onChangeText={(password) => this.setState({password})}
-              type="flat"
-              ref="password"
-              error={passwordError}
-              placeholder={_('password')}
-              style={StyleSheet.halfMarginBottom}
-              secureTextEntry={!this.state.showPassword}
-              returnKeyType="next"
-              selectTextOnFocus={false}
-              clearTextOnFocus={false}
-              enablesReturnKeyAutomatically={true}
-              icon="password"
-              multiline={false}
-              rightBar={<Button
-                style={StyleSheet.signup.eye}
-                type="disclosure"
-                active={this.state.showPassword}
-                icon="eye"
-                onPress={() => this.setState({showPassword: !this.state.showPassword})}
-              />}
-            />
-          </View>
+          {errorCode === 'auth/weak-password' && (
+            <Text style={StyleSheet.signup.errorText}>Invalid email</Text>
+          )}
+
+          <TextInput
+            value={this.state.password}
+            onChangeText={(password) => this.setState({password})}
+            type="flat"
+            ref="password"
+            error={passwordError}
+            placeholder={_('password')}
+            style={StyleSheet.halfMarginBottom}
+            secureTextEntry={!this.state.showPassword}
+            returnKeyType="next"
+            selectTextOnFocus={false}
+            clearTextOnFocus={false}
+            enablesReturnKeyAutomatically={true}
+            icon="password"
+            multiline={false}
+            rightBar={<Button
+              style={StyleSheet.signup.eye}
+              type="disclosure"
+              active={this.state.showPassword}
+              icon="eye"
+              onPress={() => this.setState({showPassword: !this.state.showPassword})}
+            />}
+          />
 
           <DateInput
             type="flat"
@@ -236,26 +232,24 @@ export default class SignUp extends React.Component {
             onSubmitEditing={() => this.onSubmitEditing("phone")}
           />
 
-          <View>
-            <TextInput
-              value={this.state.phone}
-              onChangeText={(phone) => this.setState({phone})}
-              type="flat"
-              ref="phone"
-              placeholder={_('optionalPhone')}
-              autoCapitalize="none"
-              autoCorrect={false}
-              returnKeyType="next"
-              selectTextOnFocus={true}
-              enablesReturnKeyAutomatically={true}
-              keyboardType="phone-pad"
-              icon="phone"
-            />
-          </View>
+          <TextInput
+            value={this.state.phone}
+            onChangeText={(phone) => this.setState({phone})}
+            type="flat"
+            ref="phone"
+            placeholder={_('optionalPhone')}
+            autoCapitalize="none"
+            autoCorrect={false}
+            returnKeyType="next"
+            selectTextOnFocus={true}
+            enablesReturnKeyAutomatically={true}
+            keyboardType="phone-pad"
+            icon="phone"
+          />
 
           <AvatarEdit
             onChange={(image) => this.setState({image})}
-            image={this.state.image}
+            imageUrl={this.state.image || this.state.imageUrl}
             style={StyleSheet.singleMarginTop}
           />
 

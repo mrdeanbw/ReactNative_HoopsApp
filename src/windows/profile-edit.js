@@ -6,12 +6,13 @@ import StyleSheet from '../styles'
 import _ from '../i18n'
 
 export default class ProfileEdit extends React.Component {
+
   constructor(props) {
     super(props)
 
     this.state = {
-      image: undefined, //image is a new uploaded image local uri
-      imageSrc: props.imageSrc, //imageSrc is a previously uploaded image url
+      image: undefined, // image is a new uploaded image local uri
+      imageUrl: props.imageUrl, // imageSrc is a previously uploaded image url
       name: props.name,
       city: props.city,
       gender: props.gender,
@@ -46,7 +47,7 @@ export default class ProfileEdit extends React.Component {
         <ScrollView contentContainerStyle={StyleSheet.padding}>
           <AvatarEdit
             onChange={(image) => this.setState({image})}
-            image={this.state.image || this.state.imageSrc}
+            imageUrl={this.state.image || this.state.imageUrl}
           />
 
           <Text style={StyleSheet.profile.editLabel}>{_('name')}</Text>

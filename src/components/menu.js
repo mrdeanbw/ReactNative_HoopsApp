@@ -36,7 +36,7 @@ export default class Menu extends React.Component {
               <View>
                 <View style={[StyleSheet.menu.avatarContainer]}>
                   <Image
-                    source={{uri: this.props.user.imageSrc}}
+                    source={{uri: this.props.user.imageUrl}}
                     style={[StyleSheet.menu.avatarImage]}
                   />
                 </View>

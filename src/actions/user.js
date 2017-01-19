@@ -79,9 +79,8 @@ export const signUp = (email, password, extraData) => {
 }
 
 const savePersonalData = (data, callback) => {
-  let uid = firebase.auth().currentUser.uid
-
-  let firebaseSave = (data) => {
+  const uid = firebase.auth().currentUser.uid
+  const firebaseSave = (formData) => {
     //nullify undefined keys
     data = {
       name: null,
@@ -97,34 +96,45 @@ const savePersonalData = (data, callback) => {
       imageUrl: null,
       facebookImageSrc: null,
 
-      ...data,
+      ...formData,
     }
 
     uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`).then((response) => {
       const imageRef = response ? response.ref : null
-      firebaseStorage.ref(imageRef).getDownloadURL().then(imageUrl => {
 
-        firebaseDb.update({
-          [`users/${uid}/publicProfile`]: {
-            image: imageRef,
-            imageUrl,
-            facebookImageSrc: data.facebookImageSrc,
-            name: data.name,
-            username: data.username,
-            gender: data.gender,
-            city: data.city,
-            cityGooglePlaceId: data.cityGooglePlaceId,
-            cityCoords: data.cityCoords,
-          },
-          [`users/${uid}/restrictedProfile`]: {
-            dob: data.dob,
-          },
-          [`users/${uid}/contactInfo`]: {
-            email: data.email,
-            phone: data.phone,
-          },
-        }, callback)
-      })
+      const publicProfileKey = `users/${uid}/publicProfile`
+      const restrictedProfileKey = `users/${uid}/restrictedProfile`
+      const contactInfoKey = `users/${uid}/contactInfo`
+
+      const profileData = {
+        [`${publicProfileKey}`]: {
+          facebookImageSrc: data.facebookImageSrc,
+          name: data.name,
+          username: data.username,
+          gender: data.gender,
+          city: data.city,
+          cityGooglePlaceId: data.cityGooglePlaceId,
+          cityCoords: data.cityCoords,
+        },
+        [`${restrictedProfileKey}`]: {
+          dob: data.dob,
+        },
+        [`${contactInfoKey}`]: {
+          email: data.email,
+          phone: data.phone,
+        },
+      }
+
+      if (imageRef) {
+        firebaseStorage.ref(imageRef).getDownloadURL().then(imageUrl => {
+          profileData[publicProfileKey]['image'] = imageRef
+          profileData[publicProfileKey]['imageUrl'] = imageUrl
+
+          firebaseDb.update(profileData, callback)
+        })
+      } else {
+        firebaseDb.update(profileData, callback)
+      }
     })
   }
 

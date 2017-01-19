@@ -11,10 +11,10 @@ class SignUpFacebookExtra extends React.Component {
   }
 
   render() {
-    let facebookUser = this.props.user.facebookUser || {}
+    const facebookUser = this.props.user.facebookUser || {}
+    const picture = facebookUser.picture ? facebookUser.picture.data : undefined
 
-    let facebookImageSrc
-    let picture = facebookUser.picture ? facebookUser.picture.data : undefined
+    let facebookImageSrc = null
     if(picture && picture.is_silhouette === false) {
       facebookImageSrc = picture.url
     }
@@ -22,9 +22,7 @@ class SignUpFacebookExtra extends React.Component {
     return (
       <_SignUpFacebookExtra
         onPressContinue={this.props.onPressContinue}
-
         isLoading={this.props.user.isFacebookUserLoading}
-
         name={facebookUser.name}
         email={facebookUser.email}
         username={facebookUser.username}

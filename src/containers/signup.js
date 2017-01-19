@@ -7,6 +7,9 @@ import {userActions} from '../actions'
 class SignUp extends React.Component {
 
   render() {
+    const user = this.props.user
+    const imageUrl = (user.imageUrl || user.facebookImageSrc || null)
+
     return (
       <_SignUp
         onSignUp={this.props.onSignUp}
@@ -15,6 +18,7 @@ class SignUp extends React.Component {
         signUpError={this.props.user.signUpError}
         onBack={this.props.onBack}
         onClose={this.props.onClose}
+        imageUrl={imageUrl}
       />
     )
   }

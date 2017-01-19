@@ -216,7 +216,7 @@ export default class SignUpFacebookExtra extends React.Component {
 
           <AvatarEdit
             onChange={(image) => this.setState({image})}
-            image={this.state.image || this.state.facebookImageSrc}
+            imageUrl={this.state.imageUrl || this.state.facebookImageSrc}
             style={StyleSheet.singleMarginTop}
           />
 
