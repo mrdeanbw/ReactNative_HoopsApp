@@ -99,6 +99,7 @@ class Root extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps);
     //calculate a unique key for each page:
     let route = nextProps.navigation.routes[nextProps.navigation.index]
     let trackingKey = route.key

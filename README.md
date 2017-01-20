@@ -13,9 +13,16 @@ Make sure you have the Facebook SDK in your ~/Documents as per facebook instruct
 
 `npm run ios`
 
+# Debugging
+Follow these instructions to install redux debugger
+https://github.com/jhen0409/react-native-debugger
+
+Add this patch to open the debugger
+https://github.com/jhen0409/react-native-debugger/tree/master/patch
+
 # Lint
 
-`npm run lint` to lint the entire project 
+`npm run lint` to lint the entire project
 `./node_modules/.bin/eslint $FILENAME` to run lint a specific file
 
 # Bugsnag / Sourcemaps
