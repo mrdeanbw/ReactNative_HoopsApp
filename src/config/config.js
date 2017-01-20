@@ -9,7 +9,7 @@ const common = {
     storage: AsyncStorage,
     blacklist: [
       'network',
-      'navigation',
+        // 'navigation',
       'search',
     ],
   },

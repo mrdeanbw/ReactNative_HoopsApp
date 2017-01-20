@@ -1,9 +1,11 @@
 
 import React from 'react'
 // import {View, MapView as _MapView, TouchableHighlight} from 'react-native'
-import {View, TouchableHighlight} from 'react-native'
+import {View, TouchableHighlight, Text} from 'react-native'
 import _MapView from 'react-native-maps';
 
+
+import StyleSheet from '../styles'
 import icons from '../styles/resources/icons'
 import Icon from './icon'
 
@@ -49,8 +51,10 @@ export default class MapView extends React.Component {
       return event && event.addressCoords
     }).map(event => {
       return {
-        latitude: event.addressCoords.lat,
-        longitude: event.addressCoords.lon,
+        latlng: {
+          latitude: event.addressCoords.lat,
+          longitude: event.addressCoords.lon
+        },
         image: icons[iconsMap[event.activity] || iconsMap.DEFAULT],
         title: event.title,
         rightCalloutView: (
@@ -113,7 +117,7 @@ export default class MapView extends React.Component {
         }
       }
     }
-
+    console.log(annotations);
     return (
       <_MapView
         style={[{flex: 1}, this.props.style]}
@@ -121,7 +125,22 @@ export default class MapView extends React.Component {
         region={region}
         annotations={annotations}
         {...this.props}
-      />
+      >
+        {annotations.map((marker, ind) => (
+          <_MapView.Marker
+            key={ind}
+            image={marker.image}
+            coordinate={marker.latlng}
+          >
+            <_MapView.Callout style={StyleSheet.mapView.callOut}>
+              <View style={StyleSheet.mapView.toolTip}>
+                <Text>{marker.title}</Text>
+                {marker.rightCalloutView}
+              </View>
+            </_MapView.Callout>
+          </_MapView.Marker>
+        ))}
+      </_MapView>
     )
   }
 }
