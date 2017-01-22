@@ -1,9 +1,6 @@
-
 import React from 'react'
-// import {View, MapView as _MapView, TouchableHighlight} from 'react-native'
 import {View, TouchableHighlight, Text} from 'react-native'
 import _MapView from 'react-native-maps';
-
 
 import StyleSheet from '../styles'
 import icons from '../styles/resources/icons'
@@ -57,16 +54,6 @@ export default class MapView extends React.Component {
         },
         image: icons[iconsMap[event.activity] || iconsMap.DEFAULT],
         title: event.title,
-        rightCalloutView: (
-          <TouchableHighlight
-            onPress={() => this.props.onPressEvent(event)}
-            underlayColor="transparent"
-          >
-            <View>
-              <Icon name="chevronRight"/>
-            </View>
-          </TouchableHighlight>
-        ),
       }
     })
 
@@ -117,13 +104,11 @@ export default class MapView extends React.Component {
         }
       }
     }
-    console.log(annotations);
     return (
       <_MapView
         style={[{flex: 1}, this.props.style]}
         showsPointsOfInterest={true}
         region={region}
-        annotations={annotations}
         {...this.props}
       >
         {annotations.map((marker, ind) => (

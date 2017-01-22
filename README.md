@@ -7,13 +7,24 @@
 `rnpm link`
 
 Make sure you have CocoaPods installed https://cocoapods.org/
+
 `cd ios && pod install`
 
 Make sure you have the Facebook SDK in your ~/Documents as per facebook instructions https://developers.facebook.com/docs/ios/getting-started/#download
 
 `npm run ios`
 
+# Google Play Service Android
+
+In order for react native maps to work, make sure your android sdk manager is upto date 'Support Repository / Google Repository'
+
+If you are testing on Genymotion Emulator you need to set up Google Play support.
+You can follow the instructions to set it up here.
+https://github.com/codepath/android_guides/wiki/Genymotion-2.0-Emulators-with-Google-Play-support
+
+
 # Debugging
+
 Follow these instructions to install redux debugger
 https://github.com/jhen0409/react-native-debugger
 

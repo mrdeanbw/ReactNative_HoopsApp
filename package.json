@@ -8,7 +8,12 @@
     "android": "react-native run-android",
     "android:build": "cd android && ./gradlew assembleRelease",
     "postinstall": "rndebugger-open",
-    "lint": "eslint src || :"
+    "lint": "eslint src || :",
+    "log-android": "adb logcat *:S ReactNative:V ReactNativeJS:V",
+    "clean-app": "npm cache clean && watchman watch-del-all && rm -fr $TMPDIR/react-*",
+    "clean-gradle": "rm -rf $HOME/.gradle/caches/",
+    "android-setup-port": "adb reverse tcp:8081 tcp:8081",
+    "lint-fix": "eslint -c .eslintrc src --fix"
   },
   "dependencies": {
     "bugsnag-react-native": "^1.1.2",
