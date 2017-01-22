@@ -54,6 +54,16 @@ export default class MapView extends React.Component {
         },
         image: icons[iconsMap[event.activity] || iconsMap.DEFAULT],
         title: event.title,
+        rightCalloutView: (
+          <TouchableHighlight
+            onPress={() => this.props.onPressEvent(event)}
+            underlayColor="transparent"
+          >
+            <View>
+              <Icon name="chevronRight"/>
+            </View>
+          </TouchableHighlight>
+        ),
       }
     })
 

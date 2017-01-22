@@ -34,7 +34,8 @@ export default StyleSheet => StyleSheet.extend({
 
   callOut: {
     flex: 1,
-    position: 'relative'
+    position: 'relative',
+    flexDirection: 'row'
   },
 
   toolTip: {
