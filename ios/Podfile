@@ -7,6 +7,8 @@ target 'Hoops' do
 
 	pod 'Firebase'
 	pod 'Firebase/Messaging'
+    
+    pod 'GoogleMaps'
 
 end
 

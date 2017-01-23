@@ -7,7 +7,13 @@
     "ios": "react-native run-ios",
     "android": "react-native run-android",
     "android:build": "cd android && ./gradlew assembleRelease",
-    "lint": "eslint src || :"
+    "postinstall": "rndebugger-open",
+    "lint": "eslint src || :",
+    "log-android": "adb logcat *:S ReactNative:V ReactNativeJS:V",
+    "clean-app": "npm cache clean && watchman watch-del-all && rm -fr $TMPDIR/react-*",
+    "clean-gradle": "rm -rf $HOME/.gradle/caches/",
+    "android-setup-port": "adb reverse tcp:8081 tcp:8081",
+    "lint-fix": "eslint -c .eslintrc src --fix"
   },
   "dependencies": {
     "bugsnag-react-native": "^1.1.2",
@@ -24,6 +30,7 @@
     "react-native-google-places-autocomplete": "^1.2.6",
     "react-native-i18n": "0.0.8",
     "react-native-keyboard-spacer": "^0.3.0",
+    "react-native-maps": "^0.12.4",
     "react-native-side-menu": "^0.20.0",
     "react-native-swiper": "^1.5.4",
     "react-redux": "^5.0.2",
@@ -43,6 +50,7 @@
     "babel-eslint": "^6.1.2",
     "eslint": "^3.4.0",
     "eslint-plugin-react": "^6.2.0",
+    "react-native-debugger-open": "^0.3.2",
     "remote-redux-devtools": "^0.5.7",
     "remote-redux-devtools-on-debugger": "^0.7.0"
   }

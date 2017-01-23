@@ -21,7 +21,7 @@
       android:theme="@style/AppTheme">
 
       <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-      <meta-data android:name="com.google.android.geo.API_KEY" android:value="Your Google maps API Key Here"/>
+      <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/google_play_api_key"/>
 
       <receiver android:name="com.evollu.react.fcm.FIRLocalMessagingPublisher"/>
       <receiver android:enabled="true" android:exported="true"  android:name="com.evollu.react.fcm.FIRSystemBootEventReceiver">

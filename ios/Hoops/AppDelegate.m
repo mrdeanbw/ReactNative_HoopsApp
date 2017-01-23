@@ -17,12 +17,17 @@
 #import <UserNotifications/UserNotifications.h>
 #import "RNFIRMessaging.h"
 
+@import GoogleMaps;
+
 @implementation AppDelegate 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   //initialise firebase
   [FIRApp configure];
+  
+  //initialise Google Maps
+  [GMSServices provideAPIKey:@"AIzaSyDq5CiPvq-HfgMbELWKPWfpHPyTKm8tWRs"];
   
 #if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
   // For iOS 10 display notification (sent via APNS)

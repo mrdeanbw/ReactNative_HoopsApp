@@ -1,4 +1,3 @@
-
 import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
@@ -32,4 +31,16 @@ export default StyleSheet => StyleSheet.extend({
     top: 13,
     right: 20
   },
+
+  callOut: {
+    flex: 1,
+    position: 'relative',
+    flexDirection: 'row'
+  },
+
+  toolTip: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 })
