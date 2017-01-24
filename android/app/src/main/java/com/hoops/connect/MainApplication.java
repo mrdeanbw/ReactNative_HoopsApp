@@ -9,12 +9,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.react.ReactApplication;
-import com.airbnb.android.react.maps.MapsPackage;
-import com.i18n.reactnativei18n.ReactNativeI18n;
-import com.RNFetchBlob.RNFetchBlobPackage;
-import com.evollu.react.fcm.FIRMessagingPackage;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import com.bugsnag.BugsnagReactNative;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -50,12 +44,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
-            new MapsPackage(),
-            new ReactNativeI18n(),
-            new RNFetchBlobPackage(),
-            new FIRMessagingPackage(),
-            new FBSDKPackage(),
-            BugsnagReactNative.getPackage(),
         new MapsPackage(),
         new ReactNativeI18n(),
         new RNFetchBlobPackage(),
