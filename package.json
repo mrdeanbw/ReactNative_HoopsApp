@@ -16,7 +16,7 @@
     "lint-fix": "eslint -c .eslintrc src --fix"
   },
   "dependencies": {
-    "bugsnag-react-native": "^1.1.2",
+    "bugsnag-react-native": "^1.2.4",
     "color": "^0.11.3",
     "elasticsearch": "^11.0.1",
     "firebase": "^3.6.5",
