@@ -25,14 +25,13 @@ export default (rootReducer) => {
 
   // const composeEnhancers = composeWithDevTools({ realtime: true })
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({/* options */}) :
-    compose;
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({/* options */}) : compose
 
   if (config.REDUCER_PERSIST) {
     enhancers.push(autoRehydrate())
   }
 
-  const store = createStore(rootReducer, composeEnhancers(...enhancers));
+  const store = createStore(rootReducer, composeEnhancers(...enhancers))
 
   if (config.REDUCER_PERSIST) {
     updateReducers(store)
