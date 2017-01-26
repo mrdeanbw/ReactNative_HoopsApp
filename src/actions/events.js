@@ -2,10 +2,10 @@ import {firebaseDb, firebaseStorage, uploadImage} from '../data/firebase'
 import DBHelper from '../data/database-helper'
 const database = DBHelper('events')
 
-import {
+import actionTypes, {
   usersActions, inviteActions, requestActions,
   paymentActions, notificationActions, navigationActions
-} from '../actions'
+} from './'
 
 import {getPlace} from '../data/google-places'
 
@@ -49,7 +49,7 @@ export const load = (id) => {
       }
 
       let onLoaded = (eventObj) => {
-        dispatch({type: 'EVENTS_LOADED', events: {[id] : eventObj}})
+        dispatch({type: actionTypes.EVENTS_LOADED, events: {[id] : eventObj}})
       }
 
       /*
@@ -86,7 +86,7 @@ export const load = (id) => {
 
 export const remove = (id) => {
   return {
-    type: 'EVENT_REMOVED',
+    type: actionTypes.EVENT_REMOVED,
     id,
   }
 }
@@ -146,12 +146,12 @@ export const create = (eventData) => {
       }, (err) => {
         if(err) {
           dispatch({
-            type: 'EVENT_ADD_ERROR',
+            type: actionTypes.EVENT_ADD_ERROR,
             err,
           })
         } else {
           dispatch({
-            type: 'EVENT_ADDED',
+            type: actionTypes.EVENT_ADDED,
             eventData: data,
           })
           dispatch(notificationActions.scheduleDeadlineAlert({
@@ -185,13 +185,13 @@ export const edit = (eventId, eventData) => {
       })
     }).then(() => {
       dispatch({
-        type: 'EVENT_EDIT',
+        type: actionTypes.EVENT_EDIT,
         eventData: newData,
       })
       dispatch(navigationActions.pop())
     }).catch(err => {
       dispatch({
-        type: 'EVENT_EDIT_ERROR',
+        type: actionTypes.EVENT_EDIT_ERROR,
         err,
       })
     })
@@ -260,12 +260,12 @@ export const requestJoin = (event) => {
     }, (err) => {
       if(err) {
         dispatch({
-          type: 'EVENT_JOIN_ERROR',
+          type: actionTypes.EVENT_JOIN_ERROR,
           err,
         })
       } else {
         dispatch({
-          type: 'EVENT_JOINED',
+          type: actionTypes.EVENT_JOINED,
         })
       }
     })
@@ -293,12 +293,12 @@ export const quit = (eventId) => {
     let resultHandler = (err) => {
       if(err) {
         dispatch({
-          type: 'EVENT_QUIT_ERROR',
+          type: actionTypes.EVENT_QUIT_ERROR,
           err,
         })
       }else{
         dispatch({
-          type: 'EVENT_QUIT',
+          type: actionTypes.EVENT_QUIT,
           eventId,
         })
       }
@@ -365,7 +365,7 @@ export const getAll = () => {
   return dispatch => {
     firebaseDb.child(`events`).on('value', snapshot => {
       dispatch({
-        type: 'EVENTS_LOAD_ALL',
+        type: actionTypes.EVENTS_LOAD_ALL,
         events: snapshot.val(),
       })
     })

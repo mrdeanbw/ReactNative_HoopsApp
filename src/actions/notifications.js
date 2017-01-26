@@ -4,13 +4,14 @@ import {firebaseDb} from '../data/firebase'
 import DBHelper from '../data/database-helper'
 const database = DBHelper('notifications')
 import {usersActions} from '../actions'
+import actionTypes from './'
 
 export const load = (id) => {
   return dispatch => {
     database.addListener(`notifications/${id}`, 'value', (snapshot) => {
       let notification = snapshot.val()
       dispatch({
-        type: 'NOTIFICATION_LOADED',
+        type: actionTypes.NOTIFICATION_LOADED,
         notifications: {
           [id]: {
             ...notification,
@@ -44,12 +45,12 @@ export const acceptFriendRequest = (friendRequest) => {
     }, (err) => {
       if(err) {
         dispatch({
-          type: 'FRIEND_REQUEST_ACCEPTED_ERROR',
+          type: actionTypes.FRIEND_REQUEST_ACCEPTED_ERROR,
           err,
         })
       } else {
         dispatch({
-          type: 'FRIEND_REQUEST_ACCEPTED',
+          type: actionTypes.FRIEND_REQUEST_ACCEPTED,
           friendRequest,
         })
       }
@@ -67,12 +68,12 @@ export const declineFriendRequest = (friendRequest) => {
     }, (err) => {
       if(err) {
         dispatch({
-          type: 'FRIEND_REQUEST_DENIED_ERROR',
+          type: actionTypes.FRIEND_REQUEST_DENIED_ERROR,
           err,
         })
       } else {
         dispatch({
-          type: 'FRIEND_REQUEST_DENIED',
+          type: actionTypes.FRIEND_REQUEST_DENIED,
           friendRequest,
         })
       }
@@ -85,7 +86,7 @@ export const markRead = (id) => {
     firebaseDb.child(`notifications/${id}/read`).set(true)
 
     dispatch({
-      type: 'NOTIFICATION_MARK_READ',
+      type: actionTypes.NOTIFICATION_MARK_READ,
       id,
     })
   }
@@ -96,7 +97,7 @@ export const markUnread = (id) => {
     firebaseDb.child(`notifications/${id}/read`).set(false)
 
     dispatch({
-      type: 'NOTIFICATION_MARK_UNREAD',
+      type: actionTypes.NOTIFICATION_MARK_UNREAD,
       id,
     })
   }
@@ -107,7 +108,7 @@ export const markSeen = (id) => {
     firebaseDb.child(`notifications/${id}/seen`).set(true)
 
     dispatch({
-      type: 'NOTIFICATION_MARK_SEEN',
+      type: actionTypes.NOTIFICATION_MARK_SEEN,
       id,
     })
     dispatch(updateBadge())
@@ -129,7 +130,7 @@ export const updateBadge = () => {
 
 export const receivePush = (notification) => {
   return {
-    type: 'NOTIFICATION_PUSH',
+    type: actionTypes.NOTIFICATION_PUSH,
     notification,
   }
 }
@@ -149,7 +150,7 @@ export const scheduleDeadlineAlert = (event) => {
   })
 
   return {
-    type: 'NOTIFICATION_SCHEDULED',
+    type: actionTypes.NOTIFICATION_SCHEDULED,
     id: id,
   }
 }

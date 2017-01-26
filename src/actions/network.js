@@ -1,10 +1,12 @@
 import {NetInfo} from 'react-native'
 
+import actionTypes from './'
+
 export const registerWithStore = () => {
   return dispatch => {
     NetInfo.addEventListener('change', (connection) => {
       dispatch({
-        type: 'NETWORK_CHANGE',
+        type: actionTypes.NETWORK_CHANGE,
         connection,
       })
     })
@@ -12,5 +14,5 @@ export const registerWithStore = () => {
 }
 
 export const dismissAlert = () => ({
-  type: 'NETWORK_DISMISS_ALERT',
+  type: actionTypes.NETWORK_DISMISS_ALERT,
 })

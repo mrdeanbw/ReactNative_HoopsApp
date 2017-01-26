@@ -1,3 +1,4 @@
+import actionTypes from './'
 
 //import * as elasticsearch from '../data/elasticsearch';
 
@@ -71,7 +72,7 @@ export const searchEvents = (params) => {
     }
 
     dispatch({
-      type: 'SEARCH_END',
+      type: actionTypes.SEARCH_END,
       results,
     })
 
@@ -122,7 +123,7 @@ export const searchGeneral = (params) => {
     users.forEach(user => dispatch(usersActions.load(user.id)))
 
     dispatch({
-      type: 'SEARCH_GENERAL',
+      type: actionTypes.SEARCH_GENERAL,
       events,
       users
     })
@@ -290,7 +291,7 @@ export const nearby = (params) => {
     }
 
     dispatch({
-      type: 'SEARCH_NEARBY_END',
+      type: actionTypes.SEARCH_NEARBY_END,
       results,
     })
 
@@ -376,7 +377,7 @@ export const searchUsers = (params) => {
     }
 
     dispatch({
-      type: 'SEARCH_USERS_END',
+      type: actionTypes.SEARCH_USERS_END,
       results,
     })
 

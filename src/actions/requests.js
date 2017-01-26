@@ -1,9 +1,8 @@
 import {firebaseDb} from '../data/firebase'
 import DBHelper from '../data/database-helper'
+import actionTypes, {eventActions, usersActions} from './'
+
 const database = DBHelper('requests')
-
-import {eventActions, usersActions} from '../actions'
-
 const requestsRef = firebaseDb.child('requests')
 
 export const create = (eventId) => {
@@ -25,12 +24,12 @@ export const create = (eventId) => {
     }, (err) => {
       if(err) {
         dispatch({
-          type: 'REQUEST_ADD_ERROR',
+          type: actionTypes.REQUEST_ADD_ERROR,
           err,
         })
       } else {
         dispatch({
-          type: 'REQUEST_ADDED',
+          type: actionTypes.REQUEST_ADDED,
           requestData,
         })
       }
@@ -46,7 +45,7 @@ export const load = (id) => {
       if(!request) {
         //The request has been deleted
         dispatch({
-          type: 'REQUEST_DELETED',
+          type: actionTypes.REQUEST_DELETED,
           id,
         })
         return
@@ -60,7 +59,7 @@ export const load = (id) => {
       }
 
       dispatch({
-        type: 'REQUESTS_LOADED',
+        type: actionTypes.REQUESTS_LOADED,
         requests: {
           [id]: {
             ...snapshot.val(),

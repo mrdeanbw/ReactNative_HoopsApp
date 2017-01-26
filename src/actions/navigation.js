@@ -1,3 +1,5 @@
+import actionTypes from './'
+
 /**
  * @param route {Object}
  * @param subTab {boolean} The new route should keep the global tab bar
@@ -11,29 +13,29 @@ export const push = (route, subTab = true) => {
 }
 
 export const pop = () => ({
-  type: 'NAV_POP',
+  type: actionTypes.NAV_POP,
 })
 
 export const reset = (route) => ({
-  type: 'NAV_RESET',
+  type: actionTypes.NAV_RESET,
   route,
 })
 
 export const changeTab = (key) => ({
-  type: 'NAV_CHANGE_TAB',
+  type: actionTypes.NAV_CHANGE_TAB,
   key,
 })
 
 export const showMenu = () => ({
-  type: 'NAV_SHOW_MENU',
+  type: actionTypes.NAV_SHOW_MENU,
 })
 
 export const hideMenu = () => ({
-  type: 'NAV_HIDE_MENU',
+  type: actionTypes.NAV_HIDE_MENU,
 })
 
 export const deepLinkTab = (route, tabKey) => ({
-  type: 'DEEP_LINK_TAB',
+  type: actionTypes.DEEP_LINK_TAB,
   route,
   tabKey,
 })

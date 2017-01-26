@@ -1,11 +1,11 @@
-import {
+import actionTypes, {
   userActions, interestActions, usersActions,
   eventActions, networkActions, inviteActions
 } from '../actions'
 
 export const startup = (email, password) => {
   return (dispatch) => {
-    dispatch({type: 'STARTUP'})
+    dispatch({type: actionTypes.STARTUP})
 
     dispatch(userActions.registerWithStore())
     dispatch(interestActions.load())
