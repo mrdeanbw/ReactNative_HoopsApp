@@ -24,23 +24,23 @@ export default class Window extends React.Component {
   }
 
   hideMenu = (onStop) => {
-    if(!this.state.menuVisible) return onStop && onStop()
+    if(!this.state.menuVisible) {return onStop && onStop()}
 
     Animated.timing(this.state.menuAnimation, {toValue: 0, friction: 1, duration: 200}).start(() => {
       this.setState({
         menuVisible: false
       })
-      if(onStop) onStop()
+      if(onStop) {onStop()}
     })
   };
 
   showMenu = (onStop) => {
-    if(this.state.menuVisible) return onStop()
+    if(this.state.menuVisible) {return onStop()}
 
     this.setState({menuVisible: true})
     setTimeout(() => {
       Animated.timing(this.state.menuAnimation, {toValue: 1, friction: 1, duration: 200}).start(() => {
-        if(onStop) onStop()
+        if(onStop) {onStop()}
       })
     }, 0)
   };
@@ -145,7 +145,7 @@ class BaseWindow extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { initialTab, initialTabProps } = nextProps
-    if(initialTab) this.onChangeTab(initialTab, initialTabProps || {})
+    if(initialTab) {this.onChangeTab(initialTab, initialTabProps || {})}
   }
 
   getViewProps(view, viewProps = {}) {
@@ -239,8 +239,8 @@ class BaseWindow extends React.Component {
 
   isTabButtonActive(view) {
     const activeTab = this.state.activeTab
-    if(activeTab.getTabHighlight) return activeTab.getTabHighlight(this.state.activeTabProps) === view
-    else return activeTab === view
+    if(activeTab.getTabHighlight) {return activeTab.getTabHighlight(this.state.activeTabProps) === view}
+    else {return activeTab === view}
   }
 
   showModal = (...args) => this.refs.window.showModal(...args);

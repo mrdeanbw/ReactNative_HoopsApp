@@ -16,7 +16,7 @@ export default class Gallery extends React.Component {
   }
 
   onPressBack = () => {
-    if(this.props.onClose) this.props.onClose()
+    if(this.props.onClose) {this.props.onClose()}
   };
 
   onPressImage = (image) => {
@@ -27,8 +27,8 @@ export default class Gallery extends React.Component {
     const albums = this.props.event.gallery || []
     const rows = []
     for(var i = 0; i < albums.length; i += 2) {
-      if(i + 1 < albums.length) rows.push([albums[i], albums[i + 1]])
-      else rows.push([albums[i]])
+      if(i + 1 < albums.length) {rows.push([albums[i], albums[i + 1]])}
+      else {rows.push([albums[i]])}
     }
 
     const coverStyle = { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }

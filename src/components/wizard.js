@@ -22,7 +22,7 @@ export default class Wizard extends React.Component {
   onPressNext = () => {
     const onPressNext = this.props.children[this.state.step].props.onPressNext
     let cancel = false
-    if(onPressNext) onPressNext(() => cancel = true)
+    if(onPressNext) {onPressNext(() => cancel = true)}
     if(!cancel) {
       this.setState({ step: (this.state.step || 0) + 1 })
     }

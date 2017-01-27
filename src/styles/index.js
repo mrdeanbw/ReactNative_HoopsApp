@@ -36,12 +36,12 @@ let StyleSheet = new class {
     return this.escape(out)
   }
 
-}
+}()
 
 EscapeTable.set(StyleSheet, true)
 const globalStyleSheet = base(StyleSheet)
-for(let v in resources) globalStyleSheet[v] = resources[v]
-for(let v in sheets) globalStyleSheet[v] = sheets[v](StyleSheet)
+for(let v in resources) {globalStyleSheet[v] = resources[v]}
+for(let v in sheets) {globalStyleSheet[v] = sheets[v](StyleSheet)}
 export default globalStyleSheet
 
 

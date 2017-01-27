@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, TouchableHighlight, Text} from 'react-native'
-import _MapView from 'react-native-maps';
+import _MapView from 'react-native-maps'
 
 import StyleSheet from '../styles'
 import icons from '../styles/resources/icons'

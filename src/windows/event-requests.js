@@ -87,11 +87,11 @@ export default class EventRequests extends React.Component {
             )
           })}
         </ScrollView>
-          {this.getSelectedIds().length > 0 ? (
-            <View style={StyleSheet.buttons.bar}>
-              <Button type="dialog" text={_('decline')} onPress={this.onPressDecline} />
-              <Button type="dialogGreen" text={_('approve')} onPress={this.onPressApprove} />
-            </View>
+        {this.getSelectedIds().length > 0 ? (
+          <View style={StyleSheet.buttons.bar}>
+            <Button type="dialog" text={_('decline')} onPress={this.onPressDecline} />
+            <Button type="dialogGreen" text={_('approve')} onPress={this.onPressApprove} />
+          </View>
           ) : (
             <View style={StyleSheet.buttons.bar}>
               <Button type="dialog" text={_('declineAll')} onPress={this.onPressDeclineAll} />

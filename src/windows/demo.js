@@ -25,8 +25,8 @@ export default class Demo extends React.Component {
     const windows = require('./index.js')
     const tests = []
     Object.keys(windows).filter(v => !!windows[v].getTest).map(v => windows[v].getTest(this.finishTest)).forEach(t => {
-      if(!Array.isArray(t)) tests.push(t)
-      else tests.push(...t)
+      if(!Array.isArray(t)) {tests.push(t)}
+      else {tests.push(...t)}
     })
 
     return (

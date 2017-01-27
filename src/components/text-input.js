@@ -19,7 +19,7 @@ export default class TextInput extends React.Component {
   }
 
   focus() {
-    if(this.refs.input) this.refs.input.focus()
+    if(this.refs.input) {this.refs.input.focus()}
   }
 
   onPress = () => {
@@ -55,8 +55,8 @@ export default class TextInput extends React.Component {
           visible={this.state.showPopup}
           onClose={() => this.setState({showPopup: false})}
           onSubmit={(value) => {
-            if(this.props.onChangeText) this.props.onChangeText(value)
-            if(this.props.onChange) this.props.onChange()
+            if(this.props.onChangeText) {this.props.onChangeText(value)}
+            if(this.props.onChange) {this.props.onChange()}
             this.setState({showPopup: false})
           }}
           {...props}

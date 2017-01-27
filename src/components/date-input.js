@@ -184,13 +184,13 @@ class DatePicker extends React.Component {
     const maxValue = new Date(this.props.maxValue || new Date())
     const minValue = new Date(this.props.minValue || new Date(new Date().getTime() - 365.25 * 40 * 24 * 3600 * 1000))
 
-    if(value > maxValue) value = maxValue
-    if(value < minValue) value = minValue
+    if(value > maxValue) {value = maxValue}
+    if(value < minValue) {value = minValue}
 
     const days = [], months = [], years = []
-    for(let i = 1; i <= 31; i++) days.push(i.toString())
-    for(let i = 0; i < 12; i++) months.push(moment().month(i).format('MMM'))
-    for(let i = maxValue.getFullYear(); i >= minValue.getFullYear(); i--) years.push(i.toString())
+    for(let i = 1; i <= 31; i++) {days.push(i.toString())}
+    for(let i = 0; i < 12; i++) {months.push(moment().month(i).format('MMM'))}
+    for(let i = maxValue.getFullYear(); i >= minValue.getFullYear(); i--) {years.push(i.toString())}
     years.reverse()
 
     const minutes = [0, 15, 30, 45]

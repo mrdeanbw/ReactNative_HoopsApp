@@ -71,7 +71,7 @@ export default class Dialog extends React.Component {
                                    contentStyle,
                                    {flex: 0}
                                  ]}>
-            {this.props.popup && this.props.onClose && <TouchableWithoutFeedback onPress={this.props.onClose} style={StyleSheet.dialog.popupBackgroundTouchable}><View style={{flex:1}}></View></TouchableWithoutFeedback>}
+            {this.props.popup && this.props.onClose && <TouchableWithoutFeedback onPress={this.props.onClose} style={StyleSheet.dialog.popupBackgroundTouchable}><View style={{flex:1}} /></TouchableWithoutFeedback>}
             {_children}
             <KeyboardSpacer/>
           </ScrollView>}
