@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import _EventInvites from '../windows/event-invites'
-import {navigation, events} from '../actions'
+import {navigationActions, eventActions} from '../actions'
 import inflateEvent from '../data/inflaters/event'
 
 class EventInvites extends React.Component {
@@ -76,8 +76,8 @@ export default connect(
     requests: state.requests,
   }),
   (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigation.push({key, props}, true)),
-    onNavigateBack: () => dispatch(navigation.pop()),
-    onSendInvites: (userIds, eventId) => dispatch(events.inviteUsers(userIds, eventId)),
+    onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
+    onNavigateBack: () => dispatch(navigationActions.pop()),
+    onSendInvites: (userIds, eventId) => dispatch(eventActions.inviteUsers(userIds, eventId)),
   }),
 )(EventInvites)
