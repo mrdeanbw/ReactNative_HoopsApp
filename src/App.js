@@ -8,6 +8,10 @@ import Config from './config'
 
 export const store = createStore()
 
+// Disable Yellow Box and show in the console instead
+// Its better for performance in dev mode
+if (__DEV__) console.disableYellowBox = true
+
 class App extends Component {
 
   constructor(props) {

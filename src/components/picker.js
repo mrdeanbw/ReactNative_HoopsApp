@@ -33,17 +33,20 @@ export default class Picker extends React.Component {
 
   render() {
     return (
+      <View style={[StyleSheet.picker.style, this.props.style, {height: 40 * 3}]}>
         <ScrollView ref="scrollView"
-          onScroll={()=>{console.log('inner responding');}}
-              snapToInterval={40}
-              snapToAlignment="center"
-              contentContainerStyle={StyleSheet.picker.containerStyle}
-              style={StyleSheet.picker.contentStyle}
-              showsVerticalScrollIndicator={false}
-              onScroll={this.onScroll}
-              scrollEventThrottle={16}>
+          snapToInterval={40}
+          snapToAlignment="center"
+          contentContainerStyle={StyleSheet.picker.containerStyle}
+          style={StyleSheet.picker.contentStyle}
+          showsVerticalScrollIndicator={false}
+          onScroll={this.onScroll}
+          scrollEventThrottle={16}>
           {this.props.children}
         </ScrollView>
+        <View style={[StyleSheet.picker.overlayStyle, StyleSheet.picker.topOverlayStyle]} pointerEvents="none" />
+        <View style={[StyleSheet.picker.overlayStyle, StyleSheet.picker.bottomOverlayStyle]} pointerEvents="none" />
+      </View>
     )
   }
 }
