@@ -1,5 +1,3 @@
-import actionTypes from './'
-
 //import * as elasticsearch from '../data/elasticsearch';
 
 //TODO This access directly to elasticsearch is not secure. We need to get a paid plan
@@ -7,7 +5,7 @@ import actionTypes from './'
 
 import moment from 'moment'
 
-import {eventActions, navigationActions, usersActions} from '../actions'
+import actionTypes, {eventActions, navigationActions, usersActions} from './'
 
 export const searchEvents = (params) => {
 

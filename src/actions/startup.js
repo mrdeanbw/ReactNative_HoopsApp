@@ -1,7 +1,7 @@
 import actionTypes, {
   userActions, interestActions, usersActions,
   eventActions, networkActions, inviteActions
-} from '../actions'
+} from './'
 
 export const startup = (email, password) => {
   return (dispatch) => {
