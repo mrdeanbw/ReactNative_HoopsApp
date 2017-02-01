@@ -21,7 +21,7 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   contentStyle: {
-    overflow: 'visible'
+    overflow: 'visible', height: 150
   },
 
   textStyle: {

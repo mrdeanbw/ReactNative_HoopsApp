@@ -104,5 +104,5 @@ export default connect(
     removeFriend: (user) => dispatch(userActions.removeFriend(user)),
     sendFriendRequest: (user) => dispatch(usersActions.sendFriendRequests([user.id])),
     onSavePress: (data) => dispatch(userActions.updateProfile(data)),
-  }),
+  })
 )(ProfileEdit)

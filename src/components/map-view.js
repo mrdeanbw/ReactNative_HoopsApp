@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, TouchableHighlight, Text} from 'react-native'
+import {View, TouchableHighlight, Text, ActivityIndicator, InteractionManager} from 'react-native'
 import _MapView from 'react-native-maps'
 
 import StyleSheet from '../styles'
@@ -43,6 +43,46 @@ const iconsMap = {
 
 
 export default class MapView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      renderPlaceholderOnly: true
+    };
+  }
+
+  componentDidMount = () => InteractionManager.runAfterInteractions(() => this.setState({ renderPlaceholderOnly: false }))
+
+  renderLoader = () => (
+    <ActivityIndicator
+      style={{ marginTop: 20, alignSelf: 'center' }}
+      animating={this.state.renderPlaceholderOnly}
+    />
+  )
+
+  renderMap = (region, annotations) => (
+    <_MapView
+      style={[{flex: 1}, this.props.style]}
+      showsPointsOfInterest={true}
+      region={region}
+      {...this.props}
+    >
+      {annotations.map((marker, ind) => (
+        <_MapView.Marker
+          key={ind}
+          image={marker.image}
+          coordinate={marker.latlng}
+        >
+          <_MapView.Callout style={StyleSheet.mapView.callOut}>
+            <View style={StyleSheet.mapView.toolTip}>
+              <Text>{marker.title}</Text>
+              {marker.rightCalloutView}
+            </View>
+          </_MapView.Callout>
+        </_MapView.Marker>
+      ))}
+    </_MapView>
+  )
+
   render() {
     let annotations = this.props.events.filter(event => {
       return event && event.addressCoords
@@ -114,29 +154,7 @@ export default class MapView extends React.Component {
         }
       }
     }
-    return (
-      <_MapView
-        style={[{flex: 1}, this.props.style]}
-        showsPointsOfInterest={true}
-        region={region}
-        {...this.props}
-      >
-        {annotations.map((marker, ind) => (
-          <_MapView.Marker
-            key={ind}
-            image={marker.image}
-            coordinate={marker.latlng}
-          >
-            <_MapView.Callout style={StyleSheet.mapView.callOut}>
-              <View style={StyleSheet.mapView.toolTip}>
-                <Text>{marker.title}</Text>
-                {marker.rightCalloutView}
-              </View>
-            </_MapView.Callout>
-          </_MapView.Marker>
-        ))}
-      </_MapView>
-    )
+    return (this.state.renderPlaceholderOnly ? this.renderLoader() : this.renderMap(region, annotations))
   }
 }
 
