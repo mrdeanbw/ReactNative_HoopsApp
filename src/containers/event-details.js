@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import moment from 'moment'
 
 import {EventDetails as _EventDetails} from '../windows'
-import {navigation, events, requests} from '../actions'
+import {navigationActions as navigation, eventActions as events, requestActions as requests} from '../actions'
 import inflateEvent from '../data/inflaters/event'
 import inflateUser from '../data/inflaters/user'
 
