@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import moment from 'moment'
 
 import {EventDetails as _EventDetails} from '../windows'
-import {navigationActions as navigation, eventActions as events, requestActions as requests} from '../actions'
+import {navigationActions, eventActions, requestActions} from '../actions'
 import inflateEvent from '../data/inflaters/event'
 import inflateUser from '../data/inflaters/user'
 
@@ -145,16 +145,16 @@ export default connect(
     navigation: state.navigation,
   }),
   (dispatch) => ({
-    onNavigate: (key, props, subTab) => dispatch(navigation.push({key, props}, subTab)),
+    onNavigate: (key, props, subTab) => dispatch(navigationActions.push({key, props}, subTab)),
     onDeepLinkTab: (key, tabKey, props) => {
-      dispatch(navigation.deepLinkTab(null, tabKey))
+      dispatch(navigationActions.deepLinkTab(null, tabKey))
     },
     onJoin: (eventId, userPaymentMethod) => {
-      dispatch(events.join(eventId, userPaymentMethod))
+      dispatch(eventActions.join(eventId, userPaymentMethod))
     },
-    onPressQuit: (eventId) => dispatch(events.quit(eventId)),
-    onPressSave: (eventId) => dispatch(events.save(eventId)),
-    onPressUnsave: (eventId) => dispatch(events.unsave(eventId)),
-    onCancelRequest: (request) => dispatch(requests.cancel(request)),
+    onPressQuit: (eventId) => dispatch(eventActions.quit(eventId)),
+    onPressSave: (eventId) => dispatch(eventActions.save(eventId)),
+    onPressUnsave: (eventId) => dispatch(eventActions.unsave(eventId)),
+    onCancelRequest: (request) => dispatch(requestActions.cancel(request)),
   }),
 )(EventDetails)
