@@ -8,6 +8,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.react.ReactApplication;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
+import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
@@ -50,6 +51,7 @@ public class MainApplication extends Application implements ReactApplication {
           new RNFetchBlobPackage(),
           new FIRMessagingPackage(),
           new FBSDKPackage(mCallbackManager),
+          new ImagePickerPackage(),
           BugsnagReactNative.getPackage()
       );
     }
