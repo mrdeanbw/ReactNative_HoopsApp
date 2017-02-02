@@ -73,10 +73,17 @@ export default class MapView extends React.Component {
           coordinate={marker.latlng}
         >
           <_MapView.Callout style={StyleSheet.mapView.callOut}>
-            <View style={StyleSheet.mapView.toolTip}>
-              <Text>{marker.title}</Text>
-              {marker.rightCalloutView}
-            </View>
+            <TouchableHighlight
+              onPress={marker.rightCalloutView}
+              underlayColor="transparent"
+            >
+              <View style={StyleSheet.mapView.toolTip}>
+                <Text>{marker.title}</Text>
+                <View>
+                  <Icon name="chevronRight" />
+                </View>
+              </View>
+            </TouchableHighlight>
           </_MapView.Callout>
         </_MapView.Marker>
       ))}
@@ -94,22 +101,13 @@ export default class MapView extends React.Component {
         },
         image: icons[iconsMap[event.activity] || iconsMap.DEFAULT],
         title: event.title,
-        rightCalloutView: (
-          <TouchableHighlight
-            onPress={() => this.props.onPressEvent(event)}
-            underlayColor="transparent"
-          >
-            <View>
-              <Icon name="chevronRight"/>
-            </View>
-          </TouchableHighlight>
-        ),
+        rightCalloutView: () => this.props.onPressEvent(event),
       }
     })
 
     //Calculate region size based on events distances
     let region
-    if(this.props.location && this.props.location.lat && this.props.location.lon) {
+    if (this.props.location && this.props.location.lat && this.props.location.lon) {
       let location = this.props.location
 
       //Calculate the maximum lat/lon delta
@@ -125,7 +123,7 @@ export default class MapView extends React.Component {
           lat: Math.max(deltaLat, prev.lat),
           lon: Math.max(deltaLon, prev.lon),
         }
-      }, {lat: 0, lon: 0})
+      }, { lat: 0, lon: 0 })
 
       region = {
         latitude: location.lat,
@@ -137,7 +135,7 @@ export default class MapView extends React.Component {
       let minLat, minLon
       let maxLat, maxLon
       this.props.events.forEach(event => {
-        if(event && event.addressCoords) {
+        if (event && event.addressCoords) {
           let coords = event.addressCoords
           minLat = minLat ? Math.min(minLat, coords.lat) : coords.lat
           maxLat = maxLat ? Math.max(maxLat, coords.lat) : coords.lat
@@ -145,7 +143,7 @@ export default class MapView extends React.Component {
           maxLon = maxLon ? Math.max(maxLon, coords.lon) : coords.lon
         }
       })
-      if(minLat && maxLat && minLon && maxLon) {
+      if (minLat && maxLat && minLon && maxLon) {
         region = {
           latitude: (minLat + maxLat) / 2, //middle of extreme east+west
           longitude: (minLon + maxLon) / 2, //middle of extreme north+south
@@ -154,6 +152,7 @@ export default class MapView extends React.Component {
         }
       }
     }
+    console.log(annotations);
     return (this.state.renderPlaceholderOnly ? this.renderLoader() : this.renderMap(region, annotations))
   }
 }
