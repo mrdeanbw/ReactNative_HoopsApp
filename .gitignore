@@ -27,6 +27,7 @@ project.xcworkspace
 *.iml
 .idea
 .gradle
+.vscode
 local.properties
 
 # node.js
