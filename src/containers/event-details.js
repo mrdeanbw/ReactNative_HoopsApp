@@ -156,5 +156,5 @@ export default connect(
     onPressSave: (eventId) => dispatch(eventActions.save(eventId)),
     onPressUnsave: (eventId) => dispatch(eventActions.unsave(eventId)),
     onCancelRequest: (request) => dispatch(requestActions.cancel(request)),
-  }),
+  })
 )(EventDetails)

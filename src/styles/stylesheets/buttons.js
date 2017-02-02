@@ -10,7 +10,8 @@ export default StyleSheet => StyleSheet.extend({
   bar: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    bottom: 0,
   },
 
   separator: {

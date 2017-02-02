@@ -152,7 +152,6 @@ export default class MapView extends React.Component {
         }
       }
     }
-    console.log(annotations);
     return (this.state.renderPlaceholderOnly ? this.renderLoader() : this.renderMap(region, annotations))
   }
 }
