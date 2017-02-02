@@ -8,9 +8,9 @@ import Config from './config'
 
 export const store = createStore()
 
-// Disable Yellow Box and show in the console instead
-// Its better for performance in dev mode
-if (__DEV__) console.disableYellowBox = true
+if (__DEV__) {
+  console.disableYellowBox = Config.DISABLE_YELLOW_BOX //eslint-disable-line no-console
+}
 
 class App extends Component {
 

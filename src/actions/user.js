@@ -8,15 +8,16 @@ import * as emailAuth from '../data/auth/email'
 import * as facebookAuth from '../data/auth/facebook'
 import {getPlace} from '../data/google-places'
 
-import {
-  eventActions, usersActions, inviteActions,
-  requestActions, notificationActions, navigationActions
-} from '../actions'
+import actionTypes, {
+  eventActions, usersActions,
+  requestActions, notificationActions,
+  navigationActions
+} from './'
 
 
 export const signIn = (email, password) => {
   return (dispatch) => {
-    dispatch({type: 'USER_SIGN_IN'})
+    dispatch({type: actionTypes.USER_SIGN_IN})
 
     emailAuth.signIn(email, password)
       .then((user) => {
@@ -28,7 +29,7 @@ export const signIn = (email, password) => {
 }
 
 export const signInFormEdit = () => ({
-  type: 'USER_SIGN_IN_FORM_EDIT',
+  type: actionTypes.USER_SIGN_IN_FORM_EDIT,
 })
 
 /**
@@ -38,7 +39,7 @@ export const signInSuccess = (method) => {
   let uid = firebase.auth().currentUser.uid
   return dispatch => {
     dispatch({
-      type: 'USER_SIGN_IN_SUCCESS',
+      type: actionTypes.USER_SIGN_IN_SUCCESS,
       uid,
       method,
     })
@@ -46,7 +47,7 @@ export const signInSuccess = (method) => {
 }
 
 export const signInFailure = (err) => ({
-  type: 'USER_SIGN_IN_FAILURE',
+  type: actionTypes.USER_SIGN_IN_FAILURE,
   err,
 })
 
@@ -57,7 +58,7 @@ export const signInFailure = (err) => ({
  */
 export const signUp = (email, password, extraData) => {
   return (dispatch) => {
-    dispatch({type: 'USER_SIGN_UP'})
+    dispatch({type: actionTypes.USER_SIGN_UP})
 
     emailAuth.signUp(email, password)
       .then((user) => {
@@ -160,13 +161,13 @@ export const signUpSuccess = (method) => {
 }
 
 export const signUpFailure = (err) => ({
-  type: 'USER_SIGN_UP_FAILURE',
+  type: actionTypes.USER_SIGN_UP_FAILURE,
   err,
 })
 
 export const facebookSignUp = () => {
   return dispatch => {
-    dispatch({type: 'USER_SIGN_UP'})
+    dispatch({type: actionTypes.USER_SIGN_UP})
     //We need to make sure that the USER_SIGN_UP action is sent before
     //any of facebook SDK's native views intercept our react-native app.
     //setTimeout is ugly but does the job here.
@@ -182,7 +183,7 @@ export const facebookSignUp = () => {
 
 export const facebookSignIn = () => {
   return dispatch => {
-    dispatch({type: 'USER_SIGN_IN'})
+    dispatch({type: actionTypes.USER_SIGN_IN})
     //We need to make sure that the USER_SIGN_IN action is sent before
     //any of facebook SDK's native views intercept our react-native app.
     //setTimeout is ugly but does the job here.
@@ -199,11 +200,11 @@ export const facebookSignIn = () => {
 export const loadFacebookData = () => {
   return dispatch => {
     dispatch({
-      type: 'FACEBOOK_USER_DATA_START',
+      type: actionTypes.FACEBOOK_USER_DATA_START,
     })
     facebookAuth.getUserData().then(facebookUser => {
       dispatch({
-        type: 'FACEBOOK_USER_DATA',
+        type: actionTypes.FACEBOOK_USER_DATA,
         facebookUser,
       })
     }).catch(err => {
@@ -220,12 +221,12 @@ export const facebookSaveExtra = (extraData) => {
     }, (err) => {
       if(err) {
         dispatch({
-          type: 'FACEBOOK_EXTRA_DATA_ERROR',
+          type: actionTypes.FACEBOOK_EXTRA_DATA_ERROR,
           err,
         })
       } else {
         dispatch({
-          type: 'FACEBOOK_EXTRA_DATA_SAVED',
+          type: actionTypes.FACEBOOK_EXTRA_DATA_SAVED,
         })
       }
     })
@@ -240,7 +241,7 @@ export const logOut = () => {
     firebase.auth().signOut().then(() => {
       clearAllListeners()
       dispatch({
-        type: 'USER_LOGGED_OUT',
+        type: actionTypes.USER_LOGGED_OUT,
       })
     })
   }
@@ -250,7 +251,7 @@ export const logOut = () => {
  * Set the UI mode to ORGANIZE or PARTICIPATE
  */
 export const setMode = (mode) => ({
-  type: 'SET_UI_MODE',
+  type: actionTypes.SET_UI_MODE,
   mode,
 })
 
@@ -319,7 +320,7 @@ export const toggleAvailability = () => {
 
     //Update local state first
     dispatch({
-      type: 'USER_SET_AVAILABILITY',
+      type: actionTypes.USER_SET_AVAILABILITY,
       value,
     })
 
@@ -342,7 +343,7 @@ const listenToUser = () => {
 
       //On first load, the store needs to stop showing the sign in loading icon
       if(firstLoad) {
-        dispatch({type: 'USER_DATA_FIRST_LOAD'})
+        dispatch({type: actionTypes.USER_DATA_FIRST_LOAD})
         firstLoad = false
       }
 
@@ -372,7 +373,7 @@ const listenToUser = () => {
       }
 
       dispatch({
-        type: 'USER_CHANGE',
+        type: actionTypes.USER_CHANGE,
         user,
       })
 
@@ -429,10 +430,10 @@ export const registerWithStore = () => {
     firebase.auth().onAuthStateChanged((user) => {
       //There is a bug where errors in this handler are silently swallowed. Be careful.
       if(user) {
-        dispatch({type: 'FIREBASE_AUTH_INIT', uid: user.uid})
+        dispatch({type: actionTypes.FIREBASE_AUTH_INIT, uid: user.uid})
         dispatch(listenToUser())
       }else{
-        dispatch({type: 'FIREBASE_AUTH_INIT', uid: null})
+        dispatch({type: actionTypes.FIREBASE_AUTH_INIT, uid: null})
         dispatch(navigationActions.reset({key: 'walkthrough'}))
       }
     }, error => {
@@ -456,12 +457,12 @@ export const removeFriend = (user) => {
     }, (err) => {
       if(err) {
         dispatch({
-          type: 'FRIEND_REMOVE_ERROR',
+          type: actionTypes.FRIEND_REMOVE_ERROR,
           err,
         })
       } else {
         dispatch({
-          type: 'FRIEND_REMOVE',
+          type: actionTypes.FRIEND_REMOVE,
           id: user.id,
         })
       }

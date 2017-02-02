@@ -18,7 +18,11 @@ const common = {
   LOGGER_CONFIG: {
       duration: true,
       collapsed: true,
-  }
+  },
+
+  // Disable Yellow Box and show in the console instead
+  // Its better for performance in dev mode
+  DISABLE_YELLOW_BOX:  true,
 }
 
 const dev = Object.assign({}, common, {

@@ -1,5 +1,6 @@
-
 import {handleActions} from 'redux-actions'
+
+import actionTypes from '../actions'
 
 const initialState = {
   eventIds: [],
@@ -14,7 +15,7 @@ const initialState = {
 
 export default handleActions({
 
-  SEARCH_START: (state, action) => {
+  [actionTypes.SEARCH_START]: (state, action) => {
     //action.params
     return state
   },
@@ -30,7 +31,7 @@ export default handleActions({
     }
   },
 
-  SEARCH_ERROR: (state, action) => {
+  [actionTypes.SEARCH_ERROR]: (state, action) => {
     return {
       ...state,
       eventIds: [],
@@ -38,7 +39,7 @@ export default handleActions({
     }
   },
 
-  SEARCH_GENERAL: (state, action) => {
+  [actionTypes.SEARCH_GENERAL]: (state, action) => {
     return {
       ...state,
       general: {
@@ -48,11 +49,11 @@ export default handleActions({
     }
   },
 
-  SEARCH_NEARBY_START: (state, action) => {
+  [actionTypes.SEARCH_NEARBY_START]: (state, action) => {
     return state
   },
 
-  SEARCH_NEARBY_END: (state, action) => {
+  [actionTypes.SEARCH_NEARBY_END]: (state, action) => {
     if(!action.results) {
       return state
     }
@@ -63,7 +64,7 @@ export default handleActions({
     }
   },
 
-  SEARCH_NEARBY_ERROR: (state, action) => {
+  [actionTypes.SEARCH_NEARBY_ERROR]: (state, action) => {
     return {
       ...state,
       nearby: [],
@@ -71,12 +72,12 @@ export default handleActions({
     }
   },
 
-  SEARCH_USERS_START: (state, action) => {
+  [actionTypes.SEARCH_USERS_START]: (state, action) => {
     return state
   },
 
-  SEARCH_USERS_END: (state, action) => {
-    if(!action.results) {
+  [actionTypes.SEARCH_USERS_END]: (state, action) => {
+    if (!action.results) {
       return state
     }
     return {

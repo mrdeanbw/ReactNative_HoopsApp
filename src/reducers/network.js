@@ -1,5 +1,6 @@
-
 import {handleActions} from 'redux-actions'
+
+import actionTypes from '../actions'
 
 const initialState = {
   connection: 'unknown',
@@ -7,7 +8,7 @@ const initialState = {
 }
 
 export default handleActions({
-  NETWORK_CHANGE: (state, action) => {
+  [actionTypes.NETWORK_CHANGE]: (state, action) => {
     return {
       ...state,
       connection: action.connection,
@@ -16,7 +17,7 @@ export default handleActions({
     }
   },
 
-  NETWORK_DISMISS_ALERT: (state, action) => {
+  [actionTypes.NETWORK_DISMISS_ALERT]: (state, action) => {
     return {
       ...state,
       dismissed: true,

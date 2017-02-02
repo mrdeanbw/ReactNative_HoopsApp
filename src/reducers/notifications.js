@@ -1,9 +1,9 @@
-
 import {handleActions} from 'redux-actions'
+
+import actionTypes from '../actions'
 
 const initialState = {
   notificationsById: {},
-
   friendRequestsById: {},
 }
 
@@ -16,7 +16,7 @@ const recognisedTypes = {
 
 export default handleActions({
 
-  NOTIFICATION_LOADED: (state, action) => {
+  [actionTypes.NOTIFICATION_LOADED]: (state, action) => {
     let newNotifications = {...action.notifications}
 
     /* for futureproofing, filter out any notifications that we don't recognise */
@@ -35,7 +35,7 @@ export default handleActions({
     }
   },
 
-  FRIEND_REQUESTS_LOADED: (state, action) => {
+  [actionTypes.FRIEND_REQUESTS_LOADED]: (state, action) => {
     return {
       ...state,
       friendRequestsById: {
@@ -45,8 +45,8 @@ export default handleActions({
     }
   },
 
-  NOTIFICATION_PUSH: (state, action) => {
-    let deeplink = action.notification.deeplink
+  [actionTypes.NOTIFICATION_PUSH]: (state, action) => {
+    const deeplink = action.notification.deeplink
     return state
   },
 

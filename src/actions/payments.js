@@ -2,12 +2,11 @@ import url from 'url'
 import qs from 'qs'
 
 import Config from '../config'
-import {navigationActions} from '../actions'
+import inflateEvent from '../data/inflaters/event'
+import actionTypes, {navigationActions} from './'
 
 const server = Config.PAYMENTS_SERVER
 const stripePublicKey = Config.STRIPE_PUBLIC_KEY
-
-import inflateEvent from '../data/inflaters/event'
 
 const get = (path, params) => {
   params = url.format({
@@ -72,19 +71,19 @@ export const getAccount = () => {
     }
 
     dispatch({
-      type: 'PAYMENTS_GET_ACCOUNT_START',
+      type: actionTypes.PAYMENTS_GET_ACCOUNT_START,
     })
 
     get('accounts', {
       stripeAccountId,
     }).then(response => {
       dispatch({
-        type: 'PAYMENTS_GET_ACCOUNT_SUCCESS',
+        type: actionTypes.PAYMENTS_GET_ACCOUNT_SUCCESS,
         response,
       })
     }).catch(err => {
       dispatch({
-        type: 'PAYMENTS_GET_ACCOUNT_ERROR',
+        type: actionTypes.PAYMENTS_GET_ACCOUNT_ERROR,
         err,
       })
     })
@@ -95,7 +94,7 @@ export const updateAccount = (data) => {
   return dispatch => {
 
     dispatch({
-      type: 'PAYMENTS_UPDATE_ACCOUNT_START',
+      type: actionTypes.PAYMENTS_UPDATE_ACCOUNT_START,
     })
 
     post('accounts', {
@@ -114,13 +113,13 @@ export const updateAccount = (data) => {
       city: data.city,
     }).then(response => {
       dispatch({
-        type: 'PAYMENTS_UPDATE_ACCOUNT_SUCCESS',
+        type: actionTypes.PAYMENTS_UPDATE_ACCOUNT_SUCCESS,
         response,
       })
       dispatch(navigationActions.pop())
     }).catch(err => {
       dispatch({
-        type: 'PAYMENTS_UPDATE_ACCOUNT_ERROR',
+        type: actionTypes.PAYMENTS_UPDATE_ACCOUNT_ERROR,
         err,
       })
     })
@@ -135,7 +134,7 @@ export const createAccount = updateAccount
 export const createCard = (data) => {
   return dispatch => {
     dispatch({
-      type: 'PAYMENTS_ADD_CARD_START',
+      type: actionTypes.PAYMENTS_ADD_CARD_START,
     })
 
     let query = qs.stringify({
@@ -176,13 +175,13 @@ export const createCard = (data) => {
       })
     }).then(response => {
       dispatch({
-        type: 'PAYMENTS_ADD_CARD_SUCCESS',
+        type: actionTypes.PAYMENTS_ADD_CARD_SUCCESS,
         response,
       })
       dispatch(navigationActions.pop())
     }).catch(err => {
       dispatch({
-        type: 'PAYMENTS_ADD_CARD_ERROR',
+        type: actionTypes.PAYMENTS_ADD_CARD_ERROR,
         err,
       })
     })
@@ -200,19 +199,19 @@ export const getCards = () => {
     let uid = getState().user.uid
 
     dispatch({
-      type: 'PAYMENTS_GET_CARDS_START',
+      type: actionTypes.PAYMENTS_GET_CARDS_START,
     })
 
     get('cards', {
       uid: uid,
     }).then(response => {
       dispatch({
-        type: 'PAYMENTS_GET_CARDS_SUCCESS',
+        type: actionTypes.PAYMENTS_GET_CARDS_SUCCESS,
         response,
       })
     }).catch(err => {
       dispatch({
-        type: 'PAYMENTS_GET_CARDS_ERROR',
+        type: actionTypes.PAYMENTS_GET_CARDS_ERROR,
         err,
       })
     })
@@ -223,7 +222,7 @@ export const deleteCard = (id) => {
   return (dispatch, getState) => {
     let uid = getState().user.uid
     dispatch({
-      type: 'PAYMENTS_DELETE_CARD_START',
+      type: actionTypes.PAYMENTS_DELETE_CARD_START,
     })
 
     del('cards', {
@@ -231,12 +230,12 @@ export const deleteCard = (id) => {
       uid: uid,
     }).then(response => {
       dispatch({
-        type: 'PAYMENTS_DELETE_CARD_SUCCESS',
+        type: actionTypes.PAYMENTS_DELETE_CARD_SUCCESS,
         response,
       })
     }).catch(err => {
       dispatch({
-        type: 'PAYMENTS_DELETE_CARD_ERROR',
+        type: actionTypes.PAYMENTS_DELETE_CARD_ERROR,
         err,
       })
     })
@@ -248,19 +247,19 @@ export const getTransactions = () => {
     let accountKey = getState().user.stripeAccount
 
     dispatch({
-      type: 'PAYMENTS_GET_TRANSACTIONS_START',
+      type: actionTypes.PAYMENTS_GET_TRANSACTIONS_START,
     })
 
     get('transactions', {
       accountKey,
     }).then(response => {
       dispatch({
-        type: 'PAYMENTS_GET_TRANSACTIONS_SUCCESS',
+        type: actionTypes.PAYMENTS_GET_TRANSACTIONS_SUCCESS,
         response,
       })
     }).catch(err => {
       dispatch({
-        type: 'PAYMENTS_GET_TRANSACTIONS_ERROR',
+        type: actionTypes.PAYMENTS_GET_TRANSACTIONS_ERROR,
         err,
       })
     })
@@ -289,7 +288,7 @@ export const pay = (event, invite = null) => {
     var cardId = state.payments.cards[0].id
 
     dispatch({
-      type: 'PAYMENTS_PAY_START',
+      type: actionTypes.PAYMENTS_PAY_START,
     })
 
     post('charge', {
@@ -300,12 +299,12 @@ export const pay = (event, invite = null) => {
       uid: uid,
     }).then(response => {
       dispatch({
-        type: 'PAYMENTS_PAY_SUCCESS',
+        type: actionTypes.PAYMENTS_PAY_SUCCESS,
         response,
       })
     }).catch(err => {
       dispatch({
-        type: 'PAYMENTS_PAY_ERROR',
+        type: actionTypes.PAYMENTS_PAY_ERROR,
         err,
       })
     })
@@ -313,5 +312,5 @@ export const pay = (event, invite = null) => {
 }
 
 export const dismissError = () => ({
-  type: 'PAYMENTS_ERROR_DISMISS',
+  type: actionTypes.PAYMENTS_ERROR_DISMISS,
 })
