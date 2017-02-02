@@ -1,5 +1,7 @@
 import {firebaseDb} from '../data/firebase'
 import DBHelper from '../data/database-helper'
+import actionTypes from './'
+
 const database = DBHelper('invites')
 
 import {eventActions, usersActions, paymentActions} from '../actions'
@@ -26,12 +28,12 @@ export const create = (userId, eventId) => {
     }, (err) => {
       if(err) {
         dispatch({
-          type: 'INVITE_ADD_ERROR',
+          type: actionTypes.INVITE_ADD_ERROR,
           err,
         })
       } else {
         dispatch({
-          type: 'INVITE_ADDED',
+          type: actionTypes.INVITE_ADDED,
           inviteData,
         })
       }
@@ -66,7 +68,7 @@ export const load = (id) => {
       }
 
       dispatch({
-        type: 'INVITES_LOADED',
+        type: actionTypes.INVITES_LOADED,
         invites: {
           [id]: {
             ...snapshot.val(),
@@ -82,7 +84,7 @@ export const getAll = () => {
   return dispatch => {
     database.addListener(`invites`, 'value', (snapshot) => {
       dispatch({
-        type: 'INVITES_LOAD_ALL',
+        type: actionTypes.INVITES_LOAD_ALL,
         invites: snapshot.val(),
       })
     })

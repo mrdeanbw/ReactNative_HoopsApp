@@ -1,5 +1,6 @@
-
 import {handleActions} from 'redux-actions'
+
+import actionTypes from '../actions'
 
 const initialState = {
   requestsById: {},
@@ -7,7 +8,7 @@ const initialState = {
 
 export default handleActions({
 
-  REQUESTS_LOADED: (state, action) => {
+  [actionTypes.REQUESTS_LOADED]: (state, action) => {
     return {
       ...state,
       requestsById: {
@@ -17,8 +18,8 @@ export default handleActions({
     }
   },
 
-  REQUEST_DELETED: (state, action) => {
-    let requestsById = {...state.requestsById} //clone
+  [actionTypes.REQUEST_DELETED]: (state, action) => {
+    const requestsById = {...state.requestsById} //clone
     delete requestsById[action.id]
 
     return {

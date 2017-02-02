@@ -1,6 +1,7 @@
-
 import {handleActions} from 'redux-actions'
 import {NavigationExperimental} from 'react-native'
+
+import actionTypes from '../actions'
 
 const {
   StateUtils,
@@ -103,7 +104,7 @@ const getCurrentScene = (state) => {
 }
 
 export default handleActions({
-  NAV_PUSH: (state, action) => {
+  [actionTypes.NAV_PUSH]: (state, action) => {
     //if the current route is 'tabs' and we want to stay in tabs, alter the tab's state
     let currentRoute = state.routes[state.index]
     let newRoute = {
@@ -136,7 +137,7 @@ export default handleActions({
     }
   },
 
-  NAV_POP: (state, action) => {
+  [actionTypes.NAV_POP]: (state, action) => {
     let currentRoute = state.routes[state.index]
     if(currentRoute.key === 'tabs'){
       return {
@@ -151,7 +152,7 @@ export default handleActions({
     }
   },
 
-  NAV_RESET: (state, action) => {
+  [actionTypes.NAV_RESET]: (state, action) => {
     let newRoute = {
       ...action.route,
       scene: action.route.key,
@@ -159,7 +160,7 @@ export default handleActions({
     return StateUtils.reset(state, [newRoute], 0)
   },
 
-  NAV_CHANGE_TAB: (state, action) => {
+  [actionTypes.NAV_CHANGE_TAB]: (state, action) => {
     //Select tab and reset it's stack
     return {
       ...state,
@@ -179,28 +180,28 @@ export default handleActions({
     */
   },
 
-  NAV_SHOW_MENU: (state, action) => {
+  [actionTypes.NAV_SHOW_MENU]: (state, action) => {
     return {
       ...state,
       showMenu: true,
     }
   },
 
-  NAV_HIDE_MENU: (state, action) => {
+  [actionTypes.NAV_HIDE_MENU]: (state, action) => {
     return {
       ...state,
       showMenu: false,
     }
   },
 
-  USER_LOGGED_OUT: (state, action) => {
+  [actionTypes.USER_LOGGED_OUT]: (state, action) => {
     return {
       ...initialState,
       routes: [{scene: 'walkthrough', key: 'walkthrough'}],
     }
   },
 
-  SET_UI_MODE: (state, action) => {
+  [actionTypes.SET_UI_MODE]: (state, action) => {
     //Reset tabs nav state when the UI mode is changed
     return {
       ...state,
@@ -209,7 +210,7 @@ export default handleActions({
     }
   },
 
-  DEEP_LINK_TAB: (state, action) => {
+  [actionTypes.DEEP_LINK_TAB]: (state, action) => {
 
     let subNav = {
       ...initialState.tabs[action.tabKey]
@@ -240,7 +241,7 @@ export default handleActions({
     }
   },
 
-  NOTIFICATION_PUSH: (state, action) => {
+  [actionTypes.NOTIFICATION_PUSH]: (state, action) => {
     //Don't navigate unless the notification was opened from the tray
     if(!action.notification.opened_from_tray) {
       return state
@@ -287,7 +288,7 @@ export default handleActions({
     }
   },
 
-  EVENT_ADDED: (state, action) => {
+  [actionTypes.EVENT_ADDED]: (state, action) => {
     return {
       ...state,
       index: 0,

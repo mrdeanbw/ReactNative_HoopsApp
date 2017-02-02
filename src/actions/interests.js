@@ -1,4 +1,5 @@
 import interests from '../config/interests'
+import actionTypes from './'
 
 export const load = () => {
   return dispatch => {
@@ -10,7 +11,7 @@ export const load = () => {
     }
 
     dispatch({
-      type: 'INTERESTS_LOAD_ALL',
+      type: actionTypes.INTERESTS_LOAD_ALL,
       interests,
     })
   }

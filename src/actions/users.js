@@ -2,7 +2,7 @@ import {firebaseDb} from '../data/firebase'
 import DBHelper from '../data/database-helper'
 const database = DBHelper('users')
 
-import {eventActions, requestActions} from '../actions'
+import actionTypes, {eventActions, requestActions} from './'
 
 export const load = (id) => {
   return dispatch => {
@@ -17,7 +17,7 @@ export const load = (id) => {
           id: snapshot.key,
         }
 
-        dispatch({type: 'USERS_LOADED', users: {[id]: user}})
+        dispatch({type: actionTypes.USERS_LOADED, users: {[id]: user}})
 
         if(user.organizing) {
           for(let eventId in user.organizing) {
@@ -74,7 +74,7 @@ export const loadFriendRequest = (id) => {
     database.addListener(`friendRequests/${id}`, 'value', (snapshot) => {
       let friendRequest = snapshot.val()
       dispatch({
-        type: 'FRIEND_REQUESTS_LOADED',
+        type: actionTypes.FRIEND_REQUESTS_LOADED,
         friendRequests: {
           [id]: {
             ...friendRequest,
@@ -98,7 +98,7 @@ export const getAll = () => {
   return dispatch => {
     firebaseDb.child(`users`).on('value', snapshot => {
       dispatch({
-        type: 'USERS_LOAD_ALL',
+        type: actionTypes.USERS_LOAD_ALL,
         users: snapshot.val(),
       })
     })
