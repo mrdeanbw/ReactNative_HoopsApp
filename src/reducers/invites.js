@@ -1,5 +1,6 @@
-
 import {handleActions} from 'redux-actions'
+
+import actionTypes from '../actions'
 
 const initialState = {
   invitesById: {},
@@ -7,7 +8,7 @@ const initialState = {
 
 export default handleActions({
 
-  INVITES_LOADED: (state, action) => {
+  [actionTypes.INVITES_LOADED]: (state, action) => {
     return {
       ...state,
       invitesById: {
@@ -17,7 +18,7 @@ export default handleActions({
     }
   },
 
-  INVITES_LOAD_ALL: (state, action) => {
+  [actionTypes.INVITES_LOAD_ALL]: (state, action) => {
     return {
     invitesById: {
         ...state.invitesById,

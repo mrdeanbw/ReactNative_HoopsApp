@@ -1,5 +1,6 @@
-
 import {handleActions} from 'redux-actions'
+
+import actionTypes from '../actions'
 
 const initialState = {
   isUpdatingAccount: false,
@@ -36,7 +37,7 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_UPDATE_ACCOUNT_START: (state, action) => {
+  [actionTypes.PAYMENTS_UPDATE_ACCOUNT_START]: (state, action) => {
     return {
       ...state,
       isUpdatingAccount: true,
@@ -44,9 +45,9 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_UPDATE_ACCOUNT_SUCCESS: (state, action) => {
-    let account = action.response.external_accounts.data[0]
-    let address = action.response.legal_entity.address
+  [actionTypes.PAYMENTS_UPDATE_ACCOUNT_SUCCESS]: (state, action) => {
+    const account = action.response.external_accounts.data[0]
+    const address = action.response.legal_entity.address
     return {
       ...state,
       accountData: {
@@ -61,7 +62,7 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_UPDATE_ACCOUNT_ERROR: (state, action) => {
+  [actionTypes.PAYMENTS_UPDATE_ACCOUNT_ERROR]: (state, action) => {
     return {
       ...state,
       isUpdatingAccount: false,
@@ -69,7 +70,7 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_GET_ACCOUNT_START: (state, action) => {
+  [actionTypes.PAYMENTS_GET_ACCOUNT_START]: (state, action) => {
     return {
       ...state,
       isFetchingAccount: true,
@@ -77,9 +78,9 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_GET_ACCOUNT_SUCCESS: (state, action) => {
-    let account = action.response.external_accounts.data[0]
-    let address = action.response.legal_entity.address
+  [actionTypes.PAYMENTS_GET_ACCOUNT_SUCCESS]: (state, action) => {
+    const account = action.response.external_accounts.data[0]
+    const address = action.response.legal_entity.address
     return {
       ...state,
       accountData: {
@@ -94,7 +95,7 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_GET_ACCOUNT_ERROR: (state, action) => {
+  [actionTypes.PAYMENTS_GET_ACCOUNT_ERROR]: (state, action) => {
     return {
       ...state,
       isFetchingAccount: false,
@@ -102,7 +103,7 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_GET_CARDS_START: (state, action) => {
+  [actionTypes.PAYMENTS_GET_CARDS_START]: (state, action) => {
     return {
       ...state,
       isFetchingCards: true,
@@ -110,7 +111,7 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_GET_CARDS_SUCCESS: (state, action) => {
+  [actionTypes.PAYMENTS_GET_CARDS_SUCCESS]: (state, action) => {
     let cards = []
     if(action.response.sources.total_count > 0) {
       cards = action.response.sources.data
@@ -123,7 +124,7 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_GET_CARDS_ERROR: (state, action) => {
+  [actionTypes.PAYMENTS_GET_CARDS_ERROR]: (state, action) => {
     return {
       ...state,
       isFetchingCards: false,
@@ -131,7 +132,7 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_ADD_CARD_START: (state, action) => {
+  [actionTypes.PAYMENTS_ADD_CARD_START]: (state, action) => {
     return {
       ...state,
       isAddingCard: true,
@@ -139,7 +140,7 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_ADD_CARD_SUCCESS: (state, action) => {
+  [actionTypes.PAYMENTS_ADD_CARD_SUCCESS]: (state, action) => {
     let cards = state.cards.slice(0)
     let card = action.response
 
@@ -150,7 +151,7 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_ADD_CARD_ERROR: (state, action) => {
+  [actionTypes.PAYMENTS_ADD_CARD_ERROR]: (state, action) => {
     return {
       ...state,
       isAddingCard: false,
@@ -158,7 +159,7 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_DELETE_CARD_START: (state, action) => {
+  [actionTypes.PAYMENTS_DELETE_CARD_START]: (state, action) => {
     return {
       ...state,
       isDeletingCard: true,
@@ -166,9 +167,9 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_DELETE_CARD_SUCCESS: (state, action) => {
-    let cards = state.cards.slice(0)
-    let deletedId = action.response.id
+  [actionTypes.PAYMENTS_DELETE_CARD_SUCCESS]: (state, action) => {
+    const cards = state.cards.slice(0)
+    const deletedId = action.response.id
 
     return {
       ...state,
@@ -177,7 +178,7 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_DELETE_CARD_ERROR: (state, action) => {
+  [actionTypes.PAYMENTS_DELETE_CARD_ERROR]: (state, action) => {
     return {
       ...state,
       isDeletingCard: false,
@@ -185,7 +186,7 @@ export default handleActions({
     }
   },
 
-  PAYMENTS_ERROR_DISMISS: (state, action) => {
+  [actionTypes.PAYMENTS_ERROR_DISMISS]: (state, action) => {
     return {
       ...state,
       addCardError: false,

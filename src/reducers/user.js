@@ -1,5 +1,7 @@
 import {handleActions} from 'redux-actions'
 
+import actionTypes from '../actions'
+
 /**
  * Take a data object from the database and convert it to one that is
  * friendly to our views
@@ -106,28 +108,28 @@ export default handleActions({
     }
   },
 
-  FIREBASE_AUTH_INIT: (state, action) => {
+  [actionTypes.FIREBASE_AUTH_INIT]: (state, action) => {
     return {
       ...state,
       uid: action.uid,
     }
   },
 
-  USER_SIGN_IN_FORM_EDIT: (state, action) => {
+  [actionTypes.USER_SIGN_IN_FORM_EDIT]: (state, action) => {
     return {
       ...state,
       signInError: null,
     }
   },
 
-  USER_SIGN_IN: (state, action) => {
+  [actionTypes.USER_SIGN_IN]: (state, action) => {
     return {
       ...state,
       isSigningIn: true,
     }
   },
 
-  USER_DATA_FIRST_LOAD: (state, action) => {
+  [actionTypes.USER_DATA_FIRST_LOAD]: (state, action) => {
     return {
       ...state,
       isSigningUp: false,
@@ -135,7 +137,7 @@ export default handleActions({
     }
   },
 
-  USER_SIGN_IN_SUCCESS: (state, action) => {
+  [actionTypes.USER_SIGN_IN_SUCCESS]: (state, action) => {
     return {
       ...state,
       uid: action.uid,
@@ -144,7 +146,7 @@ export default handleActions({
     }
   },
 
-  USER_SIGN_IN_FAILURE: (state, action) => {
+  [actionTypes.USER_SIGN_IN_FAILURE]: (state, action) => {
     return {
       ...state,
       uid: null,
@@ -156,14 +158,14 @@ export default handleActions({
     }
   },
 
-  USER_SIGN_UP: (state, action) => {
+  [actionTypes.USER_SIGN_UP]: (state, action) => {
     return {
       ...state,
       isSigningUp: true,
     }
   },
 
-  USER_SIGN_UP_SUCCESS: (state, action) => {
+  [actionTypes.USER_SIGN_UP_SUCCESS]: (state, action) => {
     return {
       ...state,
       uid: action.uid,
@@ -172,14 +174,14 @@ export default handleActions({
     }
   },
 
-  FACEBOOK_USER_DATA_START: (state, action) => {
+  [actionTypes.FACEBOOK_USER_DATA_START]: (state, action) => {
     return {
       ...state,
       isFacebookUserLoading: true,
     }
   },
 
-  FACEBOOK_USER_DATA: (state, action) => {
+  [actionTypes.FACEBOOK_USER_DATA]: (state, action) => {
     return {
       ...state,
       facebookUser: action.facebookUser,
@@ -187,7 +189,7 @@ export default handleActions({
     }
   },
 
-  USER_SIGN_UP_FAILURE: (state, action) => {
+  [actionTypes.USER_SIGN_UP_FAILURE]: (state, action) => {
     return {
       ...state,
       uid: false,
@@ -196,25 +198,25 @@ export default handleActions({
     }
   },
 
-  USER_LOGGED_OUT: (state, action) => {
+  [actionTypes.USER_LOGGED_OUT]: (state, action) => {
     return initialState
   },
 
-  SET_UI_MODE: (state, action) => {
+  [actionTypes.SET_UI_MODE]: (state, action) => {
     return {
       ...state,
       mode: action.mode,
     }
   },
 
-  USER_CHANGE: (state, action) => {
+  [actionTypes.USER_CHANGE]: (state, action) => {
     return {
       ...state,
       ...convertStructure(action.user),
     }
   },
 
-  USER_SET_AVAILABILITY: (state, action) => {
+  [actionTypes.USER_SET_AVAILABILITY]: (state, action) => {
     return {
       ...state,
       availability: action.value,

@@ -1,9 +1,11 @@
 import {handleActions} from 'redux-actions'
 
+import actionTypes from '../actions'
+
 const initialState = {}
 
 export default handleActions({
-  INTERESTS_LOAD_ALL: (state, action) => {
+  [actionTypes.INTERESTS_LOAD_ALL]: (state, action) => {
     return {
       ...state,
       ...action.interests,

@@ -1,5 +1,7 @@
 import {handleActions} from 'redux-actions'
 
+import actionTypes from '../actions'
+
 const initialState = {
   isLoading: false,
 
@@ -12,7 +14,7 @@ export default handleActions({
   /*
    * when a user logs out, we need to reset all state except for `all`
    */
-  USER_LOGGED_OUT: (state, action) => {
+  [actionTypes.USER_LOGGED_OUT]: (state, action) => {
     return {
       ...state,
       ...initialState,
@@ -20,21 +22,21 @@ export default handleActions({
     }
   },
 
-  EVENTS_LOAD: (state, action) => {
+  [actionTypes.EVENTS_LOAD]: (state, action) => {
     return {
       ...state,
       isLoading: true,
     }
   },
 
-  EVENTS_LOAD_ALL: (state, action) => {
+  [actionTypes.EVENTS_LOAD_ALL]: (state, action) => {
     return {
       ...state,
       all: action.events || {},
     }
   },
 
-  EVENTS_LOADED: (state, action) => {
+  [actionTypes.EVENTS_LOADED]: (state, action) => {
     return {
       ...state,
       isLoading: false,
@@ -45,7 +47,7 @@ export default handleActions({
     }
   },
 
-  EVENT_REMOVED: (state, action) => {
+  [actionTypes.EVENT_REMOVED]: (state, action) => {
     let eventsById = state.eventsById
     delete eventsById[action.id]
 
@@ -55,7 +57,7 @@ export default handleActions({
     }
   },
 
-  EVENT_ADDED: (state, action) => {
+  [actionTypes.EVENT_ADDED]: (state, action) => {
     //When we add a new event, get it in the store before firebase can load
     return {
       ...state,
