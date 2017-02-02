@@ -14,6 +14,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
+import com.imagepicker.ImagePickerPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,6 +50,7 @@ public class MainApplication extends Application implements ReactApplication {
         new RNFetchBlobPackage(),
         BugsnagReactNative.getPackage(),
         new FBSDKPackage(mCallbackManager),
+        new ImagePickerPackage(),
         new FIRMessagingPackage()
       );
     }

@@ -1,21 +1,27 @@
 import React from 'react'
-import {TouchableHighlight, ImagePickerIOS, View, Image} from 'react-native'
-
+import {TouchableHighlight, View, Image, ImagePickerIOS, Platform} from 'react-native'
+import {showImagePicker} from '../utils/'
 import StyleSheet from '../styles'
 import {Icon} from './'
 
-class AvatarEdit extends React.Component {
+const imagePicker = (props) => {
 
+  if (Platform.OS === 'android') {
+    showImagePicker(props.onChange)
+    return
+  }
+  ImagePickerIOS.openSelectDialog({}, (image) => {
+    props.onChange(image)
+  }, (err) => {
+    console.warn(err) //eslint-disable-line no-console
+  })
+}
+
+class AvatarEdit extends React.Component {
   render() {
     return (
       <TouchableHighlight
-        onPress={() => {
-          ImagePickerIOS.openSelectDialog({}, (image) => {
-            this.props.onChange(image)
-          }, (err) => {
-            console.warn(err) //eslint-disable-line no-console
-          })
-        }}
+        onPress={() => imagePicker(this.props)}
         style={[StyleSheet.profile.imageContainer, this.props.style]}
       >
         <View style={StyleSheet.profile.imageContainer}>
