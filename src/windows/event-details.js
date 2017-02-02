@@ -60,13 +60,13 @@ export default class EventDetails extends React.Component {
 
   componentWillMount() {
     this._actionListener = this.props.actionButton.addListener('press', () => {
-      if(this.props.isExpired){
+      if (this.props.isExpired) {
         this.props.onBack()
-      } else if(this.props.isMember) {
-        this.setState({showQuitPopup: true})
-      } else if(this.props.isPendingRequest) {
-        this.setState({showCancelRequestPopup: true})
-      } else if(this.props.isOrganizer) {
+      } else if (this.props.isMember) {
+        this.setState({ showQuitPopup: true })
+      } else if (this.props.isPendingRequest) {
+        this.setState({ showCancelRequestPopup: true })
+      } else if (this.props.isOrganizer) {
         this.props.onEditEvent()
       } else {
         this.onPressJoinTabAction()
@@ -77,21 +77,21 @@ export default class EventDetails extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(
+    if (
       nextProps.isMember !== this.props.isMember ||
       nextProps.isPendingRequest !== this.props.isPendingRequest ||
       nextProps.isOrganizer !== this.props.isOrganizer ||
       (nextProps.navKey !== this.props.navKey && nextProps.navKey === 'eventDetails')
-    ){
+    ) {
       this.updateActionButton(nextProps)
     }
   }
 
   onPressJoinTabAction = () => {
     let event = this.props.event
-    if(event.entryFee > 0 && event.paymentMethod === 'unrestricted') {
+    if (event.entryFee > 0 && event.paymentMethod === 'unrestricted') {
       //If we are on an 'unrestricted' payment type, show payment types popup
-      this.setState({showPaymentTypePopup: true})
+      this.setState({ showPaymentTypePopup: true })
     } else {
       //If we are on an event with a specified payment type, show the join popup
       this.setState({
@@ -104,19 +104,19 @@ export default class EventDetails extends React.Component {
   updateActionButton(props) {
     let entryFee = props.event.entryFee || 0
 
-    if(this.props.isExpired) {
+    if (this.props.isExpired) {
       props.onChangeAction({
         text: _('back'),
         icon: "back",
         type: "action",
       })
-    } else if(props.isMember || props.isPendingRequest) {
+    } else if (props.isMember || props.isPendingRequest) {
       props.onChangeAction({
         text: _('quit'),
         icon: "actionRemove",
         type: "action",
       })
-    } else if(props.isOrganizer) {
+    } else if (props.isOrganizer) {
       props.onChangeAction({
         text: _('edit'),
         icon: "actionEdit",
@@ -168,7 +168,7 @@ export default class EventDetails extends React.Component {
       ],
       cancelButtonIndex: 1,
     }, (index) => {
-      if(index === 0) {
+      if (index === 0) {
         let url = `http://maps.apple.com/?daddr=${address}`
         Linking.openURL(url).catch(err => console.warn(err)) //eslint-disable-line no-console
       }
@@ -184,11 +184,11 @@ export default class EventDetails extends React.Component {
     let address = event.address
 
     let ageText
-    if(this.props.event.minAge && this.props.event.maxAge) {
+    if (this.props.event.minAge && this.props.event.maxAge) {
       ageText = <Text>{this.props.event.minAge} - {this.props.event.maxAge}</Text>
-    } else if(this.props.event.minAge) {
+    } else if (this.props.event.minAge) {
       ageText = <Text>Min Age {this.props.event.minAge}</Text>
-    } else if(this.props.event.maxAge) {
+    } else if (this.props.event.maxAge) {
       ageText = <Text>Max Age {this.props.event.maxAge}</Text>
     } else {
       ageText = _('unrestricted')
@@ -324,7 +324,7 @@ export default class EventDetails extends React.Component {
             </EventInfo>
           </EventInfo.Bar>
 
-          <HorizontalRule style={StyleSheet.eventDetails.horizontalRule}/>
+          <HorizontalRule style={StyleSheet.eventDetails.horizontalRule} />
 
           <EventInfo.Bar>
             <EventInfo icon={this.props.event.gender + 'Active'} label={_('gender')}>
@@ -345,15 +345,15 @@ export default class EventDetails extends React.Component {
             {this.props.event.privacy === 'private' && <EventInfo icon="globe" label={_('privacy')}>{_('_private')}</EventInfo>}
           </EventInfo.Bar>
 
-          <HorizontalRule style={StyleSheet.eventDetails.horizontalRule}/>
+          <HorizontalRule style={StyleSheet.eventDetails.horizontalRule} />
           <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionTitleTextStyle]}>{_('eventDescription')}</Text>
           <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionBodyTextStyle]}>{this.props.event.description}</Text>
 
-          <HorizontalRule style={StyleSheet.eventDetails.horizontalRule}/>
+          <HorizontalRule style={StyleSheet.eventDetails.horizontalRule} />
           <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionTitleTextStyle]}>{_('rules')}</Text>
           <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionBodyTextStyle]}>{this.props.event.rules}</Text>
 
-          <HorizontalRule style={StyleSheet.eventDetails.horizontalRule}/>
+          <HorizontalRule style={StyleSheet.eventDetails.horizontalRule} />
           <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionTitleTextStyle]}>{_('notes')}</Text>
           <Text style={[StyleSheet.text, StyleSheet.eventDetails.sectionBodyTextStyle, StyleSheet.doubleMarginBottom]}>{this.props.event.notes}</Text>
         </ScrollView>
@@ -418,7 +418,7 @@ class DateText extends React.Component {
       </Text>
     )
 
-    if(!end) {
+    if (!end) {
       return startComponent
     } else {
       return (
@@ -448,25 +448,27 @@ class EventJoinPopup extends React.Component {
 
     return (
       <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>
-        <View style={[StyleSheet.dialog.alertContentStyle]}>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, { textAlign: 'center' }]}>{_('youAreAboutToJoin').toUpperCase()}</Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, {textAlign: 'center', color: StyleSheet.colors.pink}]}>{event.title.toUpperCase()}</Text>
+        <View style={{ flexGrow: 0 }}>
+          <View style={[StyleSheet.dialog.alertContentStyle]}>
+            <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, { textAlign: 'center' }]}>{_('youAreAboutToJoin').toUpperCase()}</Text>
+            <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, {textAlign: 'center', color: StyleSheet.colors.pink}]}>{event.title.toUpperCase()}</Text>
 
-          <EventInfo.Bar style={[StyleSheet.doubleMarginTop]}>
-            <EventInfo.Summary icon="calendarBig" style={{width: 90}}>
-              <DateText event={event} />
-            </EventInfo.Summary>
-            <EventInfo.Summary icon="pin" style={{width: 90}}>
-              <Text style={StyleSheet.eventDetails.lightTextStyle}>{address}</Text>
-            </EventInfo.Summary>
-          </EventInfo.Bar>
-        </View>
+            <EventInfo.Bar style={[StyleSheet.doubleMarginTop]}>
+              <EventInfo.Summary icon="calendarBig" style={{width: 90}}>
+                <DateText event={event} />
+              </EventInfo.Summary>
+              <EventInfo.Summary icon="pin" style={{width: 90}}>
+                <Text style={StyleSheet.eventDetails.lightTextStyle}>{address}</Text>
+              </EventInfo.Summary>
+            </EventInfo.Bar>
+          </View>
 
-        <View style={StyleSheet.buttons.bar}>
-          <Button type="alert" text={_('cancel')} onPress={this.props.onPressCancel} />
-          <Button
-            type="alertDefault"
-            text={
+
+          <View style={StyleSheet.buttons.bar}>
+            <Button type="alert" text={_('cancel')} onPress={this.props.onPressCancel} />
+            <Button
+              type="alertDefault"
+              text={
               <Text>
                 <Text>{_('join').toUpperCase()} £{event.entryFee}</Text>
                 {this.props.charge > 0 && (
@@ -474,8 +476,9 @@ class EventJoinPopup extends React.Component {
                 )}
               </Text>
             }
-            onPress={this.props.onPressJoin}
-          />
+              onPress={this.props.onPressJoin}
+            />
+          </View>
         </View>
       </Popup>
     )
@@ -520,8 +523,8 @@ class EventJoinedConfirmation extends React.Component {
         <View style={StyleSheet.buttons.bar}>
           <Button type="alert" text={_('close')} onPress={this.props.onClose} />
           <Button type="alertDefault"
-              text={_('viewList')}
-              onPress={this.props.onPressViewList} />
+            text={_('viewList')}
+            onPress={this.props.onPressViewList} />
         </View>
       </Popup>
     )

@@ -52,7 +52,7 @@ export default StyleSheet => StyleSheet.extend({
 
   contentStyle: {
     flex: 1,
-    alignItems: 'stretch'
+    // alignItems: 'stretch'
   },
 
   scrollingContentStyle: {
@@ -67,7 +67,8 @@ export default StyleSheet => StyleSheet.extend({
   popupStyle: {
     flex: 1,
     backgroundColor: 'rgba(41,44,52,0.5)',
-    alignItems: 'center'
+    alignItems: 'center',
+    position: 'relative'
   },
 
   popupContainerStyle: {
@@ -78,10 +79,11 @@ export default StyleSheet => StyleSheet.extend({
     shadowColor: '#000',
     shadowOpacity: 0.2,
     borderRadius: 3,
-    overflow: 'visible',
+    overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 0
+    flex: 0,
+    paddingBottom: 15
   },
 
   popupBackgroundTouchable: {
@@ -99,7 +101,7 @@ export default StyleSheet => StyleSheet.extend({
 
   popupContentStyle: {
     borderRadius: 3,
-    overflow: 'hidden'
+    // overflow: 'hidden'
   },
 
   popupButtonBarStyle: {
