@@ -21,6 +21,7 @@ export default class SignUp extends React.Component {
 
     this.state = {
       showPassword: false,
+      showConfirmPassword: false,
       showDobInfo: false,
       cityText: '',
       city: {},
@@ -32,12 +33,13 @@ export default class SignUp extends React.Component {
   }
 
   validate() {
-    const {name, email, password, dob, gender, city} = this.state
+    const {name, email, password, confirmPassword, dob, gender, city} = this.state
 
     return !!(
       name &&
       email &&
       password && password.length >= 8 &&
+      confirmPassword && confirmPassword === password &&
       dob &&
       gender &&
       city.key
@@ -46,15 +48,15 @@ export default class SignUp extends React.Component {
 
   onSubmitEditing = (nextField) => {
     this.refs[nextField].focus()
-  };
+  }
 
   onPressMale = () => {
     this.setState({gender: 'male'})
-  };
+  }
 
   onPressFemale = () => {
     this.setState({gender: 'female'})
-  };
+  }
 
   onPressSignUp = () => {
     this.props.onSignUp(this.state.email, this.state.password, {
@@ -65,11 +67,11 @@ export default class SignUp extends React.Component {
       cityGooglePlaceId: this.state.city.key,
       image: this.state.image,
     })
-  };
+  }
 
   onPressFacebookConnect = () => {
     this.props.onFacebookSignUp()
-  };
+  }
 
   render() {
     const errorCode = this.props.signUpError && this.props.signUpError.code
@@ -170,6 +172,30 @@ export default class SignUp extends React.Component {
               active={this.state.showPassword}
               icon="eye"
               onPress={() => this.setState({showPassword: !this.state.showPassword})}
+            />}
+          />
+
+          <TextInput
+            value={this.state.confirmPassword}
+            onChangeText={(confirmPassword) => this.setState({confirmPassword})}
+            type="flat"
+            ref="confirmPassword"
+            error={passwordError}
+            placeholder={_('confirmPassword')}
+            style={StyleSheet.halfMarginBottom}
+            secureTextEntry={!this.state.showConfirmPassword}
+            returnKeyType="next"
+            selectTextOnFocus={false}
+            clearTextOnFocus={false}
+            enablesReturnKeyAutomatically={true}
+            icon="password"
+            multiline={false}
+            rightBar={<Button
+              style={StyleSheet.signup.eye}
+              type="disclosure"
+              active={this.state.showPassword}
+              icon="eye"
+              onPress={() => this.setState({showConfirmPassword: !this.state.showConfirmPassword})}
             />}
           />
 

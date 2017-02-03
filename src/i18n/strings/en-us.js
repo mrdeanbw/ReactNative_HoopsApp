@@ -14,6 +14,7 @@ export const loginBanner = 'Join ' + productName + ' and start organising\nyour 
 
 export const username = 'Username'
 export const password = 'Password'
+export const confirmPassword = 'Confirm Password'
 export const signin = 'Sign In'
 export const facebookLogin = 'Login with Facebook'
 export const or = 'or'
