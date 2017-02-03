@@ -52,7 +52,7 @@ export default StyleSheet => StyleSheet.extend({
 
   contentStyle: {
     flex: 1,
-    // alignItems: 'stretch'
+    alignItems: 'stretch'
   },
 
   scrollingContentStyle: {
@@ -68,7 +68,6 @@ export default StyleSheet => StyleSheet.extend({
     flex: 1,
     backgroundColor: 'rgba(41,44,52,0.5)',
     alignItems: 'center',
-    position: 'relative'
   },
 
   popupContainerStyle: {
@@ -83,7 +82,6 @@ export default StyleSheet => StyleSheet.extend({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 0,
-    paddingBottom: 15
   },
 
   popupBackgroundTouchable: {

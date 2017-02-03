@@ -11,7 +11,6 @@ export default StyleSheet => StyleSheet.extend({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    bottom: 0,
   },
 
   separator: {
