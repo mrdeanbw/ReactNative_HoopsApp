@@ -22,43 +22,42 @@ import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
-  private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
+    private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
 
-  protected static CallbackManager getCallbackManager() {
-    return mCallbackManager;
-  }
-
-  @Override
-  public void onCreate() {
-    super.onCreate();
-
-    FacebookSdk.sdkInitialize(getApplicationContext());
-    AppEventsLogger.activateApp(this);
-  }
-
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
+    protected static CallbackManager getCallbackManager() {
+        return mCallbackManager;
     }
 
     @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-          new MapsPackage(),
-          new ReactNativeI18n(),
-          new RNFetchBlobPackage(),
-          new FIRMessagingPackage(),
-          new FBSDKPackage(mCallbackManager),
-          new ImagePickerPackage(),
-          BugsnagReactNative.getPackage()
-      );
+    public void onCreate() {
+        super.onCreate();
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
     }
-  };
 
-  @Override
-  public ReactNativeHost getReactNativeHost() {
-    return mReactNativeHost;
-  }
+    private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+        @Override
+        public boolean getUseDeveloperSupport() {
+            return BuildConfig.DEBUG;
+        }
+
+        @Override
+        protected List<ReactPackage> getPackages() {
+            return Arrays.<ReactPackage>asList(
+                new MainReactPackage(),
+                new MapsPackage(),
+                new ReactNativeI18n(),
+                new RNFetchBlobPackage(),
+                new FIRMessagingPackage(),
+                new FBSDKPackage(mCallbackManager),
+                new ImagePickerPackage(),
+                BugsnagReactNative.getPackage()
+            );
+        }
+    };
+
+    @Override
+    public ReactNativeHost getReactNativeHost() {
+        return mReactNativeHost;
+    }
 }
