@@ -9,8 +9,8 @@
 
 #import "AppDelegate.h"
 
-#import "RCTBundleURLProvider.h"
-#import "RCTRootView.h"
+#import <React/RCTBundleURLProvider.h>
+#import <React/RCTRootView.h>
 
 #import "Firebase.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -19,23 +19,23 @@
 
 @import GoogleMaps;
 
-@implementation AppDelegate 
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   //initialise firebase
   [FIRApp configure];
-  
+
   //initialise Google Maps
   [GMSServices provideAPIKey:@"AIzaSyDq5CiPvq-HfgMbELWKPWfpHPyTKm8tWRs"];
-  
+
 #if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
   // For iOS 10 display notification (sent via APNS)
   [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
   // For iOS 10 data message (sent via FCM)
   [[FIRMessaging messaging] setRemoteMessageDelegate:self];
 #endif
-  
+
   [[UIApplication sharedApplication] registerForRemoteNotifications];
 
   [[FBSDKApplicationDelegate sharedInstance] application:application
