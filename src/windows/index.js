@@ -1,4 +1,3 @@
-
 import _Demo from './demo'
 export const Demo = _Demo
 
@@ -16,6 +15,7 @@ import _Home from './home'
 import _Interests from './interests'
 import _InterestsAll from './interests-all'
 import _Invitations from './invitations'
+import _Loading from './loading'
 import _Login from './login'
 import _Manage from './manage'
 import _MyEvents from './my-events'
@@ -49,6 +49,7 @@ export const Home = _Home
 export const Interests = _Interests
 export const InterestsAll = _InterestsAll
 export const Invitations = _Invitations
+export const Loading = _Loading
 export const Login = _Login
 export const Manage = _Manage
 export const MyEvents = _MyEvents

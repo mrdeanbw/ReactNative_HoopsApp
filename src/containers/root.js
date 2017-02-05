@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 import * as containers from './index'
 import {navigationActions, networkActions, startupActions} from '../actions'
-import LoadingWindow from '../windows/loading'
+import {Loading} from '../windows'
 import {DevIndicator, Navigator, NetworkAlert} from '../components'
 import config from '../config'
 
@@ -14,7 +14,7 @@ class Root extends React.Component {
     super()
     this.routeConfig = {
       loading: {
-        component: LoadingWindow,
+        component: Loading,
       },
 
       walkthrough: {
@@ -91,7 +91,7 @@ class Root extends React.Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     // if redux persist is disabled fire startup action
     if (!config.REDUCER_PERSIST) {
       this.props.startup()
@@ -103,7 +103,7 @@ class Root extends React.Component {
     let route = nextProps.navigation.routes[nextProps.navigation.index]
     let trackingKey = route.key
 
-    if(route.key === 'tabs') {
+    if (route.key === 'tabs') {
       //If we are on the tabs route, use the tab navigation's current view
       let tab = nextProps.navigation.tabs[nextProps.navigation.tabKey]
       let tabRoute = tab.routes[tab.index]
@@ -113,19 +113,19 @@ class Root extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <NetworkAlert
           visible={
             this.props.network.connection === 'none' && !this.props.network.dismissed
           }
           onDismiss={this.props.onDismissNetworkAlert}
-        />
+          />
         <Navigator
           onNavigateBack={this.props.onNavigateBack}
           onNavigate={this.props.onNavigate}
           navigationState={this.props.navigation}
           routeConfig={this.routeConfig}
-        />
+          />
         <DevIndicator />
       </View>
     )
@@ -139,7 +139,7 @@ export default connect(
   }),
   (dispatch) => ({
     onNavigateBack: () => dispatch(navigationActions.pop()),
-    onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
+    onNavigate: (key, props) => dispatch(navigationActions.push({ key, props })),
     onDismissNetworkAlert: () => dispatch(networkActions.dismissAlert()),
     startup: () => dispatch(startupActions.startup()),
   }),
