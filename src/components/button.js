@@ -15,7 +15,7 @@ export default class Button extends React.Component {
     const textTransform = button.textTransform || defaultButton.textTransform || (s => s)
 
     return (
-      <TouchableHighlight style={[
+      <TouchableHighlight style={[{flex: 0, overflow: 'visible'},
         defaultButton.style,
         button.style,
         style,

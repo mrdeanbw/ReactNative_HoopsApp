@@ -54,11 +54,11 @@ class Header extends React.Component {
         {!this.props.hideSwitcher && (
           <View>
             <View style={StyleSheet.window.logoBarStyle}>
-              <View style={StyleSheet.window.accessoryBarStyle}>
-                {this.renderLeftAction()}
-              </View>
               <Image source={StyleSheet.images.logo} style={StyleSheet.window.logoStyle} />
               <Button type="modeSwitch" hitSlop={{top: 10, bottom: 10, left: 10, right: 10}} icon="switch" onPress={this.props.onToggleMode} />
+              <View style={[StyleSheet.window.accessoryBarStyle, {width:50, height:50}]}>
+                {this.renderLeftAction()}
+              </View>
             </View>
 
             <View style={StyleSheet.window.modeBarStyle}>

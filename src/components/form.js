@@ -10,7 +10,7 @@ export default class Form extends React.Component {
     return (
       <ScrollView
         {...this.props}
-        keyboardShouldPersistTaps={true}
+        keyboardShouldPersistTaps="always"
         ref="scrollRef"
       >
         <TouchableWithoutFeedback onPress={() => dismissKeyboard()} >

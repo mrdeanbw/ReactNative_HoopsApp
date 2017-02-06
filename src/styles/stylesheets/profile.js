@@ -216,6 +216,7 @@ export default StyleSheet => StyleSheet.extend({
     bottom: 0,
     left: 0,
     right: 0,
+    borderRadius: 80,
   },
 
   editLabel: {

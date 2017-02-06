@@ -4,7 +4,7 @@ import _ from '../i18n'
 
 import StyleSheet from '../styles'
 
-import {View, Animated, Text} from 'react-native'
+import {View, Animated, Text, Platform} from 'react-native'
 import Button from './button'
 import Menu from './menu'
 
@@ -66,7 +66,7 @@ export default class TabBar extends React.Component {
           />
         )}
 
-        <View style={[{flex: 0}, StyleSheet.window.tabBarStyle]}>
+        <View style={[StyleSheet.window.tabBarStyle, {overflow: 'visible'}]} needsOffscreenAlphaCompositing>
           <Button type="tab" icon="home" text={_('home')}
             active={this.props.currentTab === "home"}
             onPress={() => this.props.onTabPress('home')}
@@ -83,7 +83,12 @@ export default class TabBar extends React.Component {
             />
           )}
 
-          <Button type={this.props.actionType} icon={actionIcon} text={this.props.actionText} onPress={this.props.onActionPress} />
+          <Button
+            type={this.props.actionType}
+            icon={actionIcon}
+            text={this.props.actionText}
+            onPress={this.props.onActionPress}
+            style={[{overflow: 'visible'}, (Platform.OS === 'android' && {borderRadius: 0})]} />
 
           <View>
             <Button
