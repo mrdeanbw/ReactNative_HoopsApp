@@ -99,7 +99,7 @@ ListInput.propTypes = {
 ListInput.Item = class ListInputItem extends React.Component {
   render() {
     return (
-      <Button type="alertVertical" text={this.props.text} onPress={this.props.onPress} />
+      <Button type="alertVertical" text={this.props.text} onPress={this.props.onPress} textStyle={{lineHeight: 24}} />
     )
   }
 }
