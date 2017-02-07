@@ -8,6 +8,8 @@ export default StyleSheet => StyleSheet.extend({
     width: 32,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 7.5,
+    borderWidth: 1
   },
 
   containerStyle: {
@@ -17,7 +19,7 @@ export default StyleSheet => StyleSheet.extend({
     height: 15,
     width: 30,
     overflow: 'hidden',
-    borderRadius: 7.5
+    borderRadius: 7.5,
   },
 
   activeStyle: {
@@ -25,7 +27,8 @@ export default StyleSheet => StyleSheet.extend({
     position: 'absolute',
     left: 0,
     top: 0,
-    bottom: 0
+    bottom: 0,
+    borderRadius: 7.5,
   },
 
   inactiveStyle: {
@@ -33,7 +36,8 @@ export default StyleSheet => StyleSheet.extend({
     right: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: colors.grey
+    backgroundColor: colors.grey,
+    borderRadius: 7.5,
   },
 
   thumbStyle: {
