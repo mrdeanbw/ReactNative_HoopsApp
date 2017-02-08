@@ -75,10 +75,7 @@ class Header extends React.Component {
 
               {this.props.title && (
                 <Svg width="25" height="50">
-                  <Polygon
-                    points="0,50, 25,0 25,50"
-                    fill={colors.pink}
-                  />
+                  <Polygon points="0,50, 25,0 25,50" fill={colors.pink} />
                 </Svg>
               )}
 
@@ -99,11 +96,13 @@ class Header extends React.Component {
             <View style={[StyleSheet.window.accessoryBarStyle, {width:50, height:50}]}>
               {this.renderLeftAction()}
             </View>
-            <View style={StyleSheet.window.crumbBar}>
-              <Text style={[StyleSheet.text, StyleSheet.window.crumbTextStyle]}>
-                {this.props.title.toUpperCase()}
-              </Text>
-            </View>
+            {(typeof this.props.title === 'object') ? this.props.title : (
+              <View style={StyleSheet.window.crumbBar}>
+                <Text style={[StyleSheet.text, StyleSheet.window.crumbTextStyle]}>
+                  {this.props.title.toUpperCase()}
+                </Text>
+              </View>
+            )}
           </View>
         )}
       </View>
