@@ -88,6 +88,10 @@ class Root extends React.Component {
       friendsInvite: {
         component: containers.FriendsInvite,
       },
+
+      chat: {
+        component: containers.Chat,
+      }
     }
   }
 

@@ -141,6 +141,7 @@ export const create = (eventData) => {
 
     preSave(eventData, newKey, uid).then((data) => {
       firebaseDb.update({
+        [`chat/${newKey}`]: [],
         [`events/${newKey}`]: data,
         [`users/${uid}/organizing/${newKey}`]: true,
       }, (err) => {

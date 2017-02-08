@@ -27,6 +27,7 @@
     "react-native-fbsdk": "^0.5.0",
     "react-native-fcm": "^3.0.0",
     "react-native-fetch-blob": "0.10.2",
+    "react-native-gifted-chat": "^0.1.1",
     "react-native-google-places-autocomplete": "^1.2.6",
     "react-native-i18n": "0.0.8",
     "react-native-image-picker": "^0.25.1",

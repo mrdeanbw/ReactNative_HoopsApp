@@ -39,6 +39,14 @@ class TabBar extends React.Component {
         action: createOrSearchAction,
       },
 
+      chat: {
+        component: containers.Chat,
+        action: {
+          pressEmitter: new EventEmitter(),
+          textLarge: '',
+        },
+      },
+
       eventDetails: {
         component: containers.EventDetails,
         action: {

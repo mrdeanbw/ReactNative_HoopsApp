@@ -70,6 +70,15 @@ class Header extends React.Component {
                 </View>
               )}
 
+              {(this.props.onBack && this.props.hideSwitcher) && (
+                <Button
+                  type="title"
+                  icon="back"
+                  style={StyleSheet.closeButton}
+                  onPress={this.props.onBack}
+                />
+              )}
+
               {this.props.title && (
                 <View style={StyleSheet.window.separator} />
               )}

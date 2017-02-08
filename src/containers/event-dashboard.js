@@ -20,7 +20,7 @@ class EventDashboard extends React.Component {
   }
 
   onPressMessages() {
-    //this.props.onNavigate('eventMessages', {id: this.props.id});
+    this.props.onNavigate('chat', {id: this.props.id})
   }
 
   onPressGallery() {
