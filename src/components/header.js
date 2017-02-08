@@ -65,7 +65,7 @@ class Header extends React.Component {
             </View>
 
             <View style={StyleSheet.window.mainBar}>
-              {(typeof this.props.title === 'object') ? this.props.title : (
+              {this.props.title && (
                 <View style={StyleSheet.window.crumbBar}>
                   <Text style={[StyleSheet.text, StyleSheet.window.crumbTextStyle]}>
                     {this.props.title.toUpperCase()}
@@ -96,7 +96,7 @@ class Header extends React.Component {
             <View style={[StyleSheet.window.accessoryBarStyle, {width:50, height:50}]}>
               {this.renderLeftAction()}
             </View>
-            {(typeof this.props.title === 'object') ? this.props.title : (
+            {this.props.title && (
               <View style={StyleSheet.window.crumbBar}>
                 <Text style={[StyleSheet.text, StyleSheet.window.crumbTextStyle]}>
                   {this.props.title.toUpperCase()}
@@ -108,7 +108,6 @@ class Header extends React.Component {
       </View>
     )
   }
-
 }
 
 export default connect(
