@@ -1,15 +1,18 @@
 import React from 'react'
 import {View, Image, Text} from 'react-native'
 import {connect} from 'react-redux'
+import Svg, {Polygon} from 'react-native-svg'
 
 import StyleSheet from '../styles'
 import SwitchButton from './switch-button'
 import _ from '../i18n'
+import {colors} from '../styles/resources'
 import {userActions} from '../actions'
 import Button from './button'
 import HighlightText from './highlight-text'
 
 class Header extends React.Component {
+
   renderLeftAction = () => {
     if(this.props.onClose) {
       return (
@@ -71,7 +74,12 @@ class Header extends React.Component {
               )}
 
               {this.props.title && (
-                <View style={StyleSheet.window.separator} />
+                <Svg width="25" height="50">
+                  <Polygon
+                    points="0,50, 25,0 25,50"
+                    fill={colors.pink}
+                  />
+                </Svg>
               )}
 
               <View style={StyleSheet.window.modeBarStyle}>
@@ -82,6 +90,19 @@ class Header extends React.Component {
                   highlight={modeTextHighlight}
                   text={modeText} />
               </View>
+            </View>
+          </View>
+        )}
+
+        {this.props.hideSwitcher && (
+          <View style={StyleSheet.window.mainBar}>
+            <View style={[StyleSheet.window.accessoryBarStyle, {width:50, height:50}]}>
+              {this.renderLeftAction()}
+            </View>
+            <View style={StyleSheet.window.crumbBar}>
+              <Text style={[StyleSheet.text, StyleSheet.window.crumbTextStyle]}>
+                {this.props.title.toUpperCase()}
+              </Text>
             </View>
           </View>
         )}

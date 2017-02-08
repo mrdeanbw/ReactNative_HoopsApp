@@ -43,20 +43,8 @@ export default StyleSheet => StyleSheet.extend({
     resizeMode: 'contain'
   },
 
-
-  separator: {
-    width: 0,
-    height: 0,
-    backgroundColor: 'transparent',
-    borderStyle: 'solid',
-    borderRightWidth: 36,
-    borderTopWidth: 36,
-    borderRightColor: colors.pink,
-    borderTopColor: colors.black,
-    rotate: '180deg',
-  },
   mainBar: {
-    height: 36,
+    height: 50,
     flexDirection: 'row',
   },
   crumbBar: {
@@ -67,7 +55,7 @@ export default StyleSheet => StyleSheet.extend({
   crumbTextStyle: {
     color: colors.white,
     lineHeight: 17,
-    fontSize: 13,
+    fontSize: 14,
   },
   modeBarStyle: {
     flex: 1,
@@ -79,7 +67,7 @@ export default StyleSheet => StyleSheet.extend({
   modeTextStyle: {
     color: colors.white,
     lineHeight: 17,
-    fontSize: 13
+    fontSize: 14
   },
 
   modeHighlightTextStyle: {
