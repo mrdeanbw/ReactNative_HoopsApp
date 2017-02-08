@@ -61,52 +61,30 @@ class Header extends React.Component {
               </View>
             </View>
 
-            <View style={StyleSheet.window.modeBarStyle}>
-              <View style={StyleSheet.window.modeChevronStyle} />
-              <HighlightText style={[StyleSheet.text, StyleSheet.window.modeTextStyle]}
-                       highlightStyle={StyleSheet.window.modeHighlightTextStyle}
-                       highlight={modeTextHighlight}
-                       text={modeText} />
+            <View style={StyleSheet.window.mainBar}>
+              {(typeof this.props.title === 'object') ? this.props.title : (
+                <View style={StyleSheet.window.crumbBar}>
+                  <Text style={[StyleSheet.text, StyleSheet.window.crumbTextStyle]}>
+                    {this.props.title.toUpperCase()}
+                  </Text>
+                </View>
+              )}
+
+              {this.props.title && (
+                <View style={StyleSheet.window.separator} />
+              )}
+
+              <View style={StyleSheet.window.modeBarStyle}>
+                <View style={StyleSheet.window.modeChevronStyle} />
+                <HighlightText
+                  style={[StyleSheet.text, StyleSheet.window.modeTextStyle]}
+                  highlightStyle={StyleSheet.window.modeHighlightTextStyle}
+                  highlight={modeTextHighlight}
+                  text={modeText} />
+              </View>
             </View>
           </View>
         )}
-
-        {this.props.title && (
-          <View style={StyleSheet.window.titleStyle}>
-            {(this.props.onClose && this.props.hideSwitcher) && (
-              <Button
-                type="title"
-                icon="close"
-                style={StyleSheet.closeButton}
-                onPress={this.props.onClose}
-              />
-            )}
-            {(this.props.onBack && this.props.hideSwitcher) && (
-              <Button
-                type="title"
-                icon="back"
-                style={StyleSheet.closeButton}
-                onPress={this.props.onBack}
-              />
-            )}
-
-            {(typeof this.props.title === 'object') ? this.props.title : (
-              <Text style={[StyleSheet.text, StyleSheet.window.titleTextStyle]}>
-                {this.props.title.toUpperCase()}
-              </Text>
-            )}
-            {this.props.actionButton && (
-              <View>
-                <Button
-                  type={this.props.actionButtonType || "headerActionCircle"}
-                  icon={this.props.actionButton}
-                  onPress={this.props.onActionPress}
-                />
-              </View>
-            )}
-          </View>
-        )}
-
       </View>
     )
   }

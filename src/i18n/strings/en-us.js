@@ -121,6 +121,7 @@ export const remove = 'Remove'
 
 export const manageYourEvents = 'Manage Your Events'
 export const dashboard = 'Dashboard'
+export const theDashboard = 'The Dashboard'
 export const details = 'Details'
 export const members = 'Members'
 export const messages = 'Messages'

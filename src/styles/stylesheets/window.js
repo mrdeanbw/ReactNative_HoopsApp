@@ -1,4 +1,3 @@
-
 import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
@@ -45,9 +44,33 @@ export default StyleSheet => StyleSheet.extend({
   },
 
 
-
+  separator: {
+    width: 0,
+    height: 0,
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderRightWidth: 36,
+    borderTopWidth: 36,
+    borderRightColor: colors.pink,
+    borderTopColor: colors.black,
+    rotate: '180deg',
+  },
+  mainBar: {
+    height: 36,
+    flexDirection: 'row',
+  },
+  crumbBar: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  crumbTextStyle: {
+    color: colors.white,
+    lineHeight: 17,
+    fontSize: 13,
+  },
   modeBarStyle: {
-    height: 35,
+    flex: 1,
     backgroundColor: colors.pink,
     alignItems: 'center',
     justifyContent: 'center'
@@ -56,7 +79,7 @@ export default StyleSheet => StyleSheet.extend({
   modeTextStyle: {
     color: colors.white,
     lineHeight: 17,
-    fontSize: 14
+    fontSize: 13
   },
 
   modeHighlightTextStyle: {

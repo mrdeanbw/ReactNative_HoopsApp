@@ -3,7 +3,7 @@ import {colors} from '../resources'
 export default StyleSheet => StyleSheet.extend({
 
   titleStyle: {
-    height: 180,
+    height: 140,
     alignItems: 'center',
     justifyContent: 'center',
     paddingLeft: 15,
