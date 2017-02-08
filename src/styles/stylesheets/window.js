@@ -56,6 +56,7 @@ export default StyleSheet => StyleSheet.extend({
     color: colors.white,
     lineHeight: 17,
     fontSize: 14,
+    fontWeight: 'bold',
   },
   modeBarStyle: {
     flex: 1,
