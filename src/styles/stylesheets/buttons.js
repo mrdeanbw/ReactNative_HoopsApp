@@ -1,9 +1,4 @@
-
 import {colors} from '../resources'
-import Color from 'color'
-
-const DashboardGradient = Object.keys(colors).filter(v => /^dashboard\d+$/.test(v)).map(v => colors[v])
-const DashboardGradientHighlight = DashboardGradient.map(c => Color(c).lighten(0.25).hexString())
 
 export default StyleSheet => StyleSheet.extend({
 
@@ -714,40 +709,6 @@ export default StyleSheet => StyleSheet.extend({
       alignItems: 'center',
       justifyContent: 'center'
     },
-  }),
-
-  dashboard: StyleSheet.extend({
-    gradient: StyleSheet.escape(DashboardGradient.map(c => StyleSheet.extend({ gradient: {backgroundColor: c} }).gradient)),
-    highlightGradient: StyleSheet.escape(DashboardGradientHighlight),
-
-    style: {
-      backgroundColor: colors.pink,
-      alignSelf: 'stretch',
-      marginTop: -1,
-      marginBottom: -1,
-    },
-
-    containerStyle: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'column',
-    },
-
-    iconStyle: {
-      height: 40,
-      width: 40,
-    },
-
-    textStyle: {
-      fontWeight: '500',
-      fontSize: 18,
-      lineHeight: 18,
-      marginTop: 15
-    },
-
-    textTransform: s => s
-
   }),
 
   alert: StyleSheet.extend({

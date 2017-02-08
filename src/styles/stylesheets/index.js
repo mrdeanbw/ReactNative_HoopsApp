@@ -5,7 +5,9 @@ import _buttons from './buttons'
 import _calendar from './calendar'
 import _dialog from './dialog'
 import _dateInput from './date-input'
+import _dashboardButton from './dashboard-buttons'
 import _devIndicator from './dev-indicator'
+import _eventDashboard from './event-dashboard'
 import _eventDetails from './event-details'
 import _eventListItem from './event-list-item'
 import _home from './home'
@@ -36,7 +38,9 @@ export default {
   calendar: _calendar,
   dialog: _dialog,
   dateInput: _dateInput,
+  dashboardButton: _dashboardButton,
   devIndicator: _devIndicator,
+  eventDashboard: _eventDashboard,
   eventDetails: _eventDetails,
   eventListItem: _eventListItem,
   home: _home,

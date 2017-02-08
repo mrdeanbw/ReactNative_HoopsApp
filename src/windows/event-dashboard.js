@@ -1,7 +1,9 @@
 import React from 'react'
-import {View, Text} from 'react-native'
+import {Image, View, Text} from 'react-native'
+import Color from 'color'
 
-import {Button, Header, Popup, TextInput} from '../components'
+import {Button, DashboardButton, Header, Popup, TextInput} from '../components'
+import {colors} from '../styles/resources'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 import MyEvents from './my-events'
@@ -39,60 +41,76 @@ export default class EventDashboard extends React.Component {
   };
 
   render() {
+    const event = this.props.event
+    const gradient = Object.keys(colors).filter(v => /^dashboard\d+$/.test(v)).map(v => colors[v])
+    const highlightGradient = gradient.map(c => Color(c).lighten(0.25).hexString())
+    const styles = StyleSheet.eventDashboard
+
     return (
       <View style={{flex: 1}}>
-        <Header
-          title={`'${this.props.event.title}' ${_('dashboard')}`}
-          onBack={this.props.onBack}
-        />
+        <Header onBack={this.props.onBack} />
         <CancelEventPopup
           visible={this.state.showCancelPopup}
           onClose={() => this.setState({showCancelPopup: false})}
           onSubmit={this.onCancelSubmit}
         />
-        <View style={[StyleSheet.buttons.bar, StyleSheet.flex]}>
-          <Button type="dashboard"
-              text={_('details')}
-              icon="dashboard-details"
-              style={StyleSheet.buttons.dashboard.gradient[0]}
-              underlayColor={StyleSheet.buttons.dashboard.highlightGradient[0]}
-              onPress={this.props.onPressDetails}/>
 
-          <Button type="dashboard"
-              text={_('members')}
-              icon="dashboard-members"
-              style={StyleSheet.buttons.dashboard.gradient[1]}
-              underlayColor={StyleSheet.buttons.dashboard.highlightGradient[1]}
-              onPress={this.props.onPressMembers}/>
+        <View style={styles.titleStyle}>
+          <Image source={{uri: event.imageSrc}} style={styles.coverImageStyle} />
+          <View style={styles.coverImageOverlayStyle} />
+          <Text style={[StyleSheet.text, styles.titleTextStyle]}>
+            {event.title}
+          </Text>
+          <Text style={[StyleSheet.text, styles.subtitleTextStyle]}>
+            {event.address}
+          </Text>
         </View>
-        <View style={[StyleSheet.buttons.bar, StyleSheet.flex]}>
-          <Button type="dashboard"
-              text={_('messages')}
-              icon="dashboard-messages"
-              style={StyleSheet.buttons.dashboard.gradient[2]}
-              underlayColor={StyleSheet.buttons.dashboard.highlightGradient[2]}
-              onPress={this.props.onPressMessages}/>
-          <Button type="dashboard"
-              text={_('gallery')}
-              icon="dashboard-gallery"
-              style={StyleSheet.buttons.dashboard.gradient[3]}
-              underlayColor={StyleSheet.buttons.dashboard.highlightGradient[3]}
-              onPress={this.props.onPressGallery}/>
-        </View>
-        <View style={[StyleSheet.buttons.bar, StyleSheet.flex]}>
-          <Button type="dashboard"
-              text={_('finances')}
-              icon="dashboard-finances"
-              style={StyleSheet.buttons.dashboard.gradient[4]}
-              underlayColor={StyleSheet.buttons.dashboard.highlightGradient[4]}
-              onPress={this.props.onPressFinances}/>
 
-          {this.props.event.privacy === 'private' && <Button type="dashboard"
+        <View style={[StyleSheet.flex]}>
+          <DashboardButton
+            type="dashboard"
+            text={_('details')}
+            icon="dashboard-details"
+            backgroundColor={gradient[0]}
+            underlayColor={highlightGradient[0]}
+            onPress={this.props.onPressDetails}/>
+          <DashboardButton
+            type="dashboard"
+            text={_('members')}
+            icon="dashboard-members"
+            backgroundColor={gradient[1]}
+            underlayColor={highlightGradient[1]}
+            onPress={this.props.onPressMembers}/>
+          <DashboardButton
+            type="dashboard"
+            text={_('messages')}
+            icon="dashboard-messages"
+            backgroundColor={gradient[2]}
+            underlayColor={highlightGradient[2]}
+            onPress={this.props.onPressMessages}/>
+          <DashboardButton
+            type="dashboard"
+            text={_('gallery')}
+            icon="dashboard-gallery"
+            backgroundColor={gradient[3]}
+            underlayColor={highlightGradient[3]}
+            onPress={this.props.onPressGallery}/>
+          <DashboardButton
+            type="dashboard"
+            text={_('finances')}
+            icon="dashboard-finances"
+            backgroundColor={gradient[4]}
+            underlayColor={highlightGradient[4]}
+            onPress={this.props.onPressFinances} />
+          {event.privacy === 'private' && (
+            <DashboardButton
+              type="dashboard"
               text={_('requests')}
               icon="dashboard-requests"
-              style={ StyleSheet.buttons.dashboard.gradient[5]}
-              underlayColor={StyleSheet.buttons.dashboard.highlightGradient[5]}
-              onPress={this.props.onPressRequests}/> || <View style={StyleSheet.flex}/>}
+              backgroundColor={gradient[5]}
+              underlayColor={highlightGradient[5]}
+              onPress={this.props.onPressRequests} />
+          )}
         </View>
       </View>
     )
