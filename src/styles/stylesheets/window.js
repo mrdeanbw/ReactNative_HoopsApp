@@ -50,7 +50,8 @@ export default StyleSheet => StyleSheet.extend({
   crumbBar: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingLeft: 4,
   },
   crumbTextStyle: {
     color: colors.white,
@@ -62,7 +63,8 @@ export default StyleSheet => StyleSheet.extend({
     flex: 1,
     backgroundColor: colors.pink,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingRight: 4,
   },
 
   modeTextStyle: {
