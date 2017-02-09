@@ -15,6 +15,7 @@ export default StyleSheet => StyleSheet.extend({
   iconContainer: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   iconStyle: {
       height: 36,
@@ -23,9 +24,8 @@ export default StyleSheet => StyleSheet.extend({
   separator: {
     width: 1,
     height: 20,
-    marginLeft: 20,
-    marginRight: 40,
     backgroundColor: '#ffffff',
+    marginRight: 20,
   },
   textContainer: {
     flex: 3,
