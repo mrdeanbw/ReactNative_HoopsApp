@@ -38,42 +38,37 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   logoStyle: {
-    height: 30,
+    height: 32,
     width: 200,
     resizeMode: 'contain'
   },
 
-
-  separator: {
-    width: 0,
-    height: 0,
-    backgroundColor: 'transparent',
-    borderStyle: 'solid',
-    borderRightWidth: 36,
-    borderTopWidth: 36,
-    borderRightColor: colors.pink,
-    borderTopColor: colors.black,
-    rotate: '180deg',
-  },
   mainBar: {
-    height: 36,
+    height: 32,
+    flexDirection: 'row',
+  },
+  mainPartialBar: {
+    height: 50,
     flexDirection: 'row',
   },
   crumbBar: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingLeft: 4,
   },
   crumbTextStyle: {
     color: colors.white,
     lineHeight: 17,
     fontSize: 13,
+    fontWeight: 'bold',
   },
   modeBarStyle: {
     flex: 1,
     backgroundColor: colors.pink,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingRight: 4,
   },
 
   modeTextStyle: {

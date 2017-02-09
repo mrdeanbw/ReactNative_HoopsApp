@@ -10,12 +10,21 @@ import _ from '../i18n'
  * A map of notification types to row component
  */
 export default class Notifications extends React.Component {
+
+  sortNotifications(notfications) {
+    return notfications.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date)
+    })
+  }
+
   constructor(props) {
     super(props)
+
     this._dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.state = {
       optionsPopupIndex: null,
-      dataSource: this._dataSource.cloneWithRows(props.notifications),
+      dataSource: this._dataSource.cloneWithRows(
+        this.sortNotifications(props.notifications)),
     }
 
     this.ComponentMap = {
@@ -26,6 +35,8 @@ export default class Notifications extends React.Component {
     }
 
   }
+
+
 
   /*
    * Mark any notifications that are seen as 'read'
@@ -38,7 +49,8 @@ export default class Notifications extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      dataSource: this._dataSource.cloneWithRows(nextProps.notifications),
+      dataSource: this._dataSource.cloneWithRows(
+        this.sortNotifications(nextProps.notifications)),
     })
   }
 
