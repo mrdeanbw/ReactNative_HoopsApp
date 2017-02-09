@@ -38,12 +38,16 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   logoStyle: {
-    height: 30,
+    height: 32,
     width: 200,
     resizeMode: 'contain'
   },
 
   mainBar: {
+    height: 32,
+    flexDirection: 'row',
+  },
+  mainPartialBar: {
     height: 50,
     flexDirection: 'row',
   },
@@ -56,7 +60,7 @@ export default StyleSheet => StyleSheet.extend({
   crumbTextStyle: {
     color: colors.white,
     lineHeight: 17,
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: 'bold',
   },
   modeBarStyle: {
@@ -70,7 +74,7 @@ export default StyleSheet => StyleSheet.extend({
   modeTextStyle: {
     color: colors.white,
     lineHeight: 17,
-    fontSize: 14
+    fontSize: 13
   },
 
   modeHighlightTextStyle: {
