@@ -1,11 +1,8 @@
 import React, {Component} from 'react'
-import {View} from 'react-native'
-import {GiftedChat} from 'react-native-gifted-chat'
+import {connect} from 'react-redux'
 
-import {Header} from '../components'
-import firebase,{firebaseDb} from '../data/firebase'
-import _ from '../i18n'
-
+import {Chat as _Chat} from '../windows'
+import {firebaseDb} from '../data/firebase'
 
 class Chat extends Component {
 
@@ -16,38 +13,32 @@ class Chat extends Component {
         messages: []
     }
 
-    this.user = this.props.user
     this.chatRef = firebaseDb.child('chat/' + this.generateChatId())
     this.chatRefData = this.chatRef.orderByChild('order')
     this.onSend = this.onSend.bind(this)
   }
 
   generateChatId() {
-    return '123'
+    return this.props.id
   }
 
   listenForItems(chatRef) {
     chatRef.on('value', (snap) => {
-      console.log("lelelelelelelele")
-      // // get children as an array
-      // let items = []
-      // snap.forEach((child) => {
-      //   let avatar
-      //   items.push({
-      //     _id: child.val().createdAt,
-      //     text: child.val().text,
-      //     createdAt: new Date(child.val().createdAt),
-      //     user: {
-      //       _id: child.val().uid,
-      //       avatar: avatar
-      //     }
-      //   })
-      // })
+      // get children as an array
+      let items = []
+      snap.forEach((child) => {
+        items.push({
+          _id: child.val().createdAt,
+          text: child.val().text,
+          createdAt: new Date(child.val().createdAt),
+          user: child.val().user,
+        })
+      })
 
-      // this.setState({
-      //   loading: false,
-      //   messages: items
-      // })
+      this.setState({
+        loading: false,
+        messages: items
+      })
     })
   }
 
@@ -60,36 +51,41 @@ class Chat extends Component {
   }
 
   onSend(messages = []) {
-    // this.setState({
-    //     messages: GiftedChat.append(this.state.messages, messages),
-    // })
     messages.forEach(message => {
       var now = new Date().getTime()
       this.chatRef.push({
         _id: now,
         text: message.text,
         createdAt: now,
-        uid: 1,
-        // uid: this.user.uid,
+        userId: message.user._id,
+        user: message.user,
         order: -1 * now
       })
     })
   }
 
   render() {
+    const user = this.props.user
+    const userData = {
+      _id: user.uid,
+      name: user.name,
+      avatar: null
+    }
+
     return (
-      <View style={{flex: 1}}>
-        <Header title={_('theDashboard')} onBack={this.props.onBack} />
-        <GiftedChat
-          messages={this.state.messages}
-          onSend={this.onSend.bind(this)}
-          user={{
-            uid: 1
-          }}
-        />
-      </View>
+      <_Chat
+        messages={this.state.messages}
+        onSend={this.onSend}
+        user={userData}
+      />
     )
   }
 }
 
-export default Chat
+export default connect(
+  (state) => ({
+    user: state.user,
+  }),
+  (dispatch) => ({
+  }),
+)(Chat)
