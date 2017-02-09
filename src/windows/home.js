@@ -3,12 +3,10 @@ import {View, ScrollView, Text} from 'react-native'
 
 import StyleSheet from '../styles'
 import EventListItem from '../components/event-list-item'
-import Header from '../components/header'
-import Button from '../components/button'
-import MapView from '../components/map-view'
+import {Header, Button, MapView} from '../components'
 import _ from '../i18n'
 
-export default class Home extends React.Component {
+class Home extends React.Component {
 
   constructor() {
     super()
@@ -18,14 +16,18 @@ export default class Home extends React.Component {
     }
   }
 
-  _renderEvents() {
-    let noEvents = this.props.events.length === 0
+  isOrganizing() {
+    return this.props.mode === 'ORGANIZE'
+  }
+
+  renderEvents() {
+    const noEvents = this.props.events.length === 0
     return (
       <View>
-        {noEvents && this.props.mode === 'ORGANIZE' && (
+        {noEvents && this.isOrganizing() && (
           <Text style={StyleSheet.noResults}>{_('noActiveEvents')}</Text>
         )}
-        {noEvents && this.props.mode === 'PARTICIPATE' && (
+        {noEvents && !this.isOrganizing() && (
           <Text style={StyleSheet.noResults}>{_('noUpcomingEvents')}</Text>
         )}
         {this.props.events.map(event =>
@@ -33,14 +35,14 @@ export default class Home extends React.Component {
             key={event.id}
             event={event}
             onPress={() => this.props.onPressEvent(event)}
-            showDistance={this.props.mode === 'PARTICIPATE'}
+            showDistance={!this.isOrganizing()}
           />
         )}
       </View>
     )
   }
 
-  _renderMap = () => {
+  renderMap() {
     return (
       <View style={StyleSheet.home.nearbyMapContainer}>
         <MapView
@@ -53,7 +55,7 @@ export default class Home extends React.Component {
     )
   }
 
-  _renderList() {
+  renderList() {
     return (
       this.props.nearby.map(item => (
         <EventListItem
@@ -67,43 +69,41 @@ export default class Home extends React.Component {
   }
 
   render() {
-
     return (
       <View style={{flex: 1}}>
         <Header
-          title={this.props.mode === 'ORGANIZE' ? _('activeEvents') : null}
+          title={this.isOrganizing() ? _('activeEvents') :  _('nearbyEvents')}
         />
         <ScrollView
           contentContainerStyle={StyleSheet.home.container}
           onLayout={(e) => this.setState({scrollHeight: e.nativeEvent.layout.height})}
         >
 
-          {this.props.mode === 'ORGANIZE' && (
+          {this.isOrganizing() && (
             <View style={{minHeight: (this.state.scrollHeight - 300)}}>
-              {this._renderEvents()}
+              {this.renderEvents()}
             </View>
           )}
 
-          {this.props.mode === 'PARTICIPATE' && (
+          {!this.isOrganizing() && (
             <View style={StyleSheet.home.nearbyContainer}>
-              <View style={StyleSheet.home.nearbyTitle}>
-                <Text style={[StyleSheet.text, StyleSheet.home.nearbyTitleText]}>
-                  {_('nearbyEvents').toUpperCase()}
-                </Text>
-                <Button
-                  style={StyleSheet.home.listIcon}
-                  icon={this.state.showMap ? 'list' : 'pinWhite'}
-                  onPress={() => {
-                    this.setState({showMap: !this.state.showMap})
-                  }}
-                />
-              </View>
-
-              {this.state.showMap ? this._renderMap() : this._renderList()}
+              {this.state.showMap ? this.renderMap() : this.renderList()}
             </View>
           )}
         </ScrollView>
+
+        {!this.isOrganizing() && (
+          <Button
+            style={StyleSheet.home.listIcon}
+            icon={this.state.showMap ? 'list' : 'pinWhite'}
+            onPress={() => {
+              this.setState({showMap: !this.state.showMap})
+            }}
+          />
+        )}
       </View>
     )
   }
 }
+
+export default Home

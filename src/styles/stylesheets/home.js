@@ -9,34 +9,18 @@ export default StyleSheet => StyleSheet.extend({
     flex: 1
   },
 
-  nearbyTitle: {
-    backgroundColor: colors.black,
-    height: 50,
-    alignItems: 'center',
-    flexDirection: 'row'
-  },
-
-  nearbyTitleText: {
-    fontSize: 13,
-    flex: 1,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    color: colors.white,
-    backgroundColor: colors.black,
-    lineHeight: 16,
-    letterSpacing: 1
-  },
-
   listIcon: {
+    backgroundColor: colors.pink,
     position: 'absolute',
-    right: 24,
-    top: 0,
-    bottom: 0,
-    width: 24,
+    right: 16,
+    bottom: 16,
+    width: 30,
+    height: 30,
+    borderRadius: 30 / 2,
     alignItems: 'center',
     justifyContent: 'center',
-    height: null
   },
+
   nearbyMapContainer: {
     flex: 1
   },
