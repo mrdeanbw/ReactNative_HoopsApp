@@ -6,6 +6,7 @@ import {navigationActions, searchActions} from '../actions'
 import inflateEvent from '../data/inflaters/event'
 
 class Search extends React.Component {
+
   constructor() {
     super()
     this.state = {

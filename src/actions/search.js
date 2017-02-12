@@ -88,10 +88,9 @@ export const searchEvents = (params) => {
 
 export const searchGeneral = (params) => {
   return (dispatch, getState) => {
-    let allEvents = getState().events.all
-    let allUsers = getState().users.all
-
-    let searchString = params.text ? params.text.toLowerCase() : ''
+    const allEvents = getState().events.all
+    const allUsers = getState().users.all
+    const searchString = params.text ? params.text.toLowerCase() : ''
 
     let events = Object.keys(allEvents).map(eventId => {
       return {
@@ -99,7 +98,7 @@ export const searchGeneral = (params) => {
         id: eventId,
       }
     }).filter(event => {
-      return event.title.toLowerCase().search(searchString) !== -1
+      return event.title.toLowerCase().startsWith(searchString)
     }).filter(event => {
       return moment(event.date).isAfter()
     })
@@ -111,7 +110,7 @@ export const searchGeneral = (params) => {
       }
     }).filter(user => {
       if(user.publicProfile && user.publicProfile.name) {
-        return user.publicProfile.name.toLowerCase().search(searchString) !== -1
+        return user.publicProfile.name.toLowerCase().startsWith(searchString.toLowerCase())
       }else{
         return false
       }
