@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 
 import {Chat as _Chat} from '../windows'
 import {firebaseDb} from '../data/firebase'
+import {navigationActions} from '../actions'
 
 class Chat extends Component {
 
@@ -76,6 +77,7 @@ class Chat extends Component {
       <_Chat
         messages={this.state.messages}
         onSend={this.onSend}
+        onBack={this.props.onNavigateBack}
         user={userData}
       />
     )
@@ -87,5 +89,6 @@ export default connect(
     user: state.user,
   }),
   (dispatch) => ({
+    onNavigateBack: () => dispatch(navigationActions.pop()),
   }),
 )(Chat)

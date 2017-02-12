@@ -3,7 +3,7 @@ import { autoRehydrate, persistStore } from 'redux-persist'
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 import { AsyncStorage } from 'react-native'
-// import { composeWithDevTools } from 'remote-redux-devtools'
+import { composeWithDevTools } from 'remote-redux-devtools'
 
 import {startupActions} from './actions'
 import config from './config'
@@ -23,9 +23,9 @@ export default (rootReducer) => {
   // Enhancers
   enhancers.push(applyMiddleware(...middleware))
 
-  // const composeEnhancers = composeWithDevTools({ realtime: true })
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({/* options */}) : compose
+  const composeEnhancers = composeWithDevTools({ realtime: true })
+  // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+    // window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__w({/* options */}) : compose
 
   if (config.REDUCER_PERSIST) {
     enhancers.push(autoRehydrate())

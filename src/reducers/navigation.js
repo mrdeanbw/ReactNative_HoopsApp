@@ -93,7 +93,7 @@ const initialState = {
 
 const getCurrentScene = (state) => {
   let currentRoute = state.routes[state.index]
-
+  console.log(currentRoute, '##### HMMM')
   //If we are on a tab, find out which route is active on _that_ tab.
   if(currentRoute.key === 'tabs') {
     let tabState = state.tabs[state.tabKey]
@@ -107,6 +107,7 @@ export default handleActions({
   [actionTypes.NAV_PUSH]: (state, action) => {
     //if the current route is 'tabs' and we want to stay in tabs, alter the tab's state
     let currentRoute = state.routes[state.index]
+
     let newRoute = {
       ...action.route,
       scene: action.route.key,
@@ -119,9 +120,11 @@ export default handleActions({
       return {...state}
     }
 
-    //If we are navigating away from tab view into a full-page view; vertical animation
-    if(currentRoute.key === 'tabs' && !action.subTab) {
+    //If we are navigating away from tab view into a full-page view; vertical animation unless overriden
+    if(currentRoute.key === 'tabs' && !action.subTab && !action.direction) {
       newRoute.direction = 'vertical'
+    } else {
+      newRoute.direction = action.direction
     }
 
     if(currentRoute.key === 'tabs' && action.subTab){
@@ -138,6 +141,7 @@ export default handleActions({
   },
 
   [actionTypes.NAV_POP]: (state, action) => {
+    console.log(currentRoute, '##### HMMM')
     let currentRoute = state.routes[state.index]
     if(currentRoute.key === 'tabs'){
       return {
@@ -250,6 +254,7 @@ export default handleActions({
     let deeplink = action.notification.deeplink
 
     //Match the hoops://events/<eventId> scheme
+
     let matches = deeplink.match(/hoops:\/\/events\/(.*)/)
     if(matches.length === 2) {
       return {

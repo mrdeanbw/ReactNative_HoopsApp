@@ -8,17 +8,17 @@ import _ from '../i18n'
 
 class Chat extends Component {
 
-renderBubble(props) {
-  const styles = StyleSheet.chat.bubble
+  renderBubble(props) {
+    const styles = StyleSheet.chat.bubble
 
-  return (
-    <Bubble
-      {...props}
-      textStyle={styles.textStyle}
-      wrapperStyle={styles.wrapperStyle}
-    />
-  )
-}
+    return (
+      <Bubble
+        {...props}
+        textStyle={styles.textStyle}
+        wrapperStyle={styles.wrapperStyle}
+      />
+    )
+  }
 
   render() {
     return (
