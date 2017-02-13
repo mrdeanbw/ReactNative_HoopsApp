@@ -36,8 +36,6 @@ export default class Notifications extends React.Component {
 
   }
 
-
-
   /*
    * Mark any notifications that are seen as 'read'
    */

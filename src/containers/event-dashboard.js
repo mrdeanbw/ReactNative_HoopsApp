@@ -20,7 +20,7 @@ class EventDashboard extends React.Component {
   }
 
   onPressMessages() {
-    //this.props.onNavigate('eventMessages', {id: this.props.id});
+    this.props.onNavigate('chat', {id: this.props.id}, false, 'horizontal')
   }
 
   onPressGallery() {
@@ -64,7 +64,8 @@ export default connect(
     events: state.events,
   }),
   (dispatch) => ({
-    onNavigate: (key, props, subTab) => dispatch(navigationActions.push({key, props}, subTab)),
+    onNavigate: (key, props, subTab, direction) =>
+      dispatch(navigationActions.push({key, props}, subTab, direction)),
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onCancel: (eventId, message) => dispatch(eventActions.cancel(eventId, message)),
   }),

@@ -1,6 +1,4 @@
-
 import React from 'react'
-
 import {View, NavigationExperimental, StatusBar} from 'react-native'
 const {CardStack} = NavigationExperimental
 
@@ -17,16 +15,17 @@ export default class Navigator extends React.Component {
   }
 
   renderScene = (props) => {
-    let route = props.scene.route
-    let config = this.props.routeConfig[route.scene]
-    if(!config){
+    const route = props.scene.route
+    const config = this.props.routeConfig[route.scene]
+
+    if (!config){
       throw new Error(`route config not defined for ${route.scene}`)
     }
 
     let onBack, onClose
     //set onBack or onClose if we are not at the root scene
-    if(props.scene.index !== 0) {
-      if(props.scene.route.direction === 'vertical') {
+    if (props.scene.index !== 0) {
+      if (props.scene.route.direction === 'vertical') {
         //vertically animated routes have a close button (x)
         onClose = this.props.onNavigateBack
       } else {
@@ -37,9 +36,7 @@ export default class Navigator extends React.Component {
 
     return (
       <View style={StyleSheet.window.contentStyle}>
-        <StatusBar
-          barStyle="light-content"
-        />
+        <StatusBar barStyle="light-content" />
         <config.component
           actionButton={config.action && config.action.pressEmitter}
           onChangeAction={this.props.onChangeAction}
@@ -49,17 +46,17 @@ export default class Navigator extends React.Component {
         />
       </View>
     )
-  };
+  }
 
   /*
    * Change the animation direction depending on route properties
    */
   componentWillReceiveProps(nextProps) {
-    let navState = this.props.navigationState
-    let nextState = nextProps.navigationState
+    const navState = this.props.navigationState
+    const nextState = nextProps.navigationState
 
     let route
-    if(nextState.routes.length > navState.routes.length) {
+    if (nextState.routes.length > navState.routes.length) {
       //If we are going forwards, use next route direction
       route = nextState.routes[nextState.routes.length - 1]
     } else {
@@ -67,7 +64,7 @@ export default class Navigator extends React.Component {
       route = navState.routes[navState.routes.length - 1]
     }
 
-    let direction = route.direction || 'horizontal'
+    const direction = route.direction || 'horizontal'
     this.setState({direction})
   }
 

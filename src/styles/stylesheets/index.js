@@ -3,6 +3,7 @@ export const base = _base
 
 import _buttons from './buttons'
 import _calendar from './calendar'
+import _chat from './chat'
 import _dialog from './dialog'
 import _dateInput from './date-input'
 import _dashboardButton from './dashboard-buttons'
@@ -36,6 +37,7 @@ import _window from './window'
 export default {
   buttons: _buttons,
   calendar: _calendar,
+  chat: _chat,
   dialog: _dialog,
   dateInput: _dateInput,
   dashboardButton: _dashboardButton,

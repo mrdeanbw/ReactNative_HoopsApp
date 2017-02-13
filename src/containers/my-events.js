@@ -9,7 +9,7 @@ import inflateEvent from '../data/inflaters/event'
 class MyEvents extends React.Component {
 
   onPressEvent(event) {
-    this.props.onNavigate('eventDetails', {id: event.id})
+    this.props.onNavigate('eventDashboard', {id: event.id})
   }
 
   render() {
