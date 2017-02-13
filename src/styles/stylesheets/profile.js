@@ -190,7 +190,6 @@ export default StyleSheet => StyleSheet.extend({
   imageContainer: {
     alignSelf: 'center',
     overflow: 'hidden',
-    flex: 0,
     height: 80,
     width: 80,
     borderRadius: 80,
@@ -199,6 +198,7 @@ export default StyleSheet => StyleSheet.extend({
   image: {
     height: 80,
     width: 80,
+    borderRadius: 80,
   },
 
   imageIconOverlay: {

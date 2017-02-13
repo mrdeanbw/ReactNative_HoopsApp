@@ -1,10 +1,12 @@
 import React from 'react'
-import {TouchableHighlight, View, Image, ImagePickerIOS, Platform} from 'react-native'
+import {TouchableHighlight, View, Image} from 'react-native'
+
 import {showImagePicker} from '../utils/'
 import StyleSheet from '../styles'
 import {Icon} from './'
 
 class AvatarEdit extends React.Component {
+
   render() {
     return (
       <TouchableHighlight
