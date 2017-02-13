@@ -349,7 +349,7 @@ export default class CreateEvent extends React.Component {
                 />
               </View>
 
-
+              <KeyboardSpacer/>
             </Form>
           </Wizard.Step>
 
@@ -504,8 +504,9 @@ export default class CreateEvent extends React.Component {
                   initialValue={new Date()}
                   onChange={(deadline) => this.setEventData({deadline})}
                 />
-
               </View>
+
+              <KeyboardSpacer/>
             </Form>
           </Wizard.Step>
 
@@ -577,11 +578,10 @@ export default class CreateEvent extends React.Component {
                 source={{uri: imageSrc}}
                 style={{ resizeMode: 'cover', height: 180, width: null }}
               />
-
+              <KeyboardSpacer/>
             </Form>
           </Wizard.Step>
         </Wizard>
-        <KeyboardSpacer/>
       </View>
     )
   }
