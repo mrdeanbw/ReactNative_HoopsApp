@@ -24,16 +24,15 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   imageContainer: {
-    borderRadius: 55,
     width: 55,
     height: 55,
     overflow: 'hidden',
     marginRight: 15
   },
   image: {
-    flex: 1,
-    width: null,
-    height: null,
+    borderRadius: 55,
+    width: 55,
+    height: 55,
     resizeMode: 'cover'
   },
 
@@ -45,6 +44,7 @@ export default StyleSheet => StyleSheet.extend({
     right: 0,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 55,
   },
 
   endedImageOverlay: {

@@ -44,9 +44,9 @@ export default StyleSheet => StyleSheet.extend({
     marginRight: 15
   },
   avatar: {
-    flex: 1,
-    width: null,
-    height: null,
+    borderRadius: 55,
+    width: 55,
+    height: 55,
     resizeMode: 'cover'
   },
   textContainer: {
