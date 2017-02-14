@@ -7,6 +7,7 @@ import Icon from './icon'
 class ActionButton extends Component {
 
   renderIcon() {
+    // Icon or LargeText
     const {icon} = this.props
     const styles = StyleSheet.actionButton
 

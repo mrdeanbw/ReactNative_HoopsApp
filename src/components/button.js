@@ -25,19 +25,20 @@ export default class Button extends React.Component {
         active ? button.activeStyle : null,
         active ? activeStyle : null
       ]}
-                activeOpacity={'activeOpacity' in button ? button.activeOpacity : defaultButton.activeOpacity}
-                underlayColor={'underlayColor' in button ? button.underlayColor : defaultButton.underlayColor}
-                {...props}>
+        activeOpacity={'activeOpacity' in button ? button.activeOpacity : defaultButton.activeOpacity}
+        underlayColor={'underlayColor' in button ? button.underlayColor : defaultButton.underlayColor}
+        {...props}>
+
         <View style={[defaultButton.containerStyle, button.containerStyle, containerStyle]}>
-          {(icon && typeof icon === 'string') && <Icon name={icon} active={active} style={[
+          {icon && <Icon name={icon} active={active} style={[
             defaultButton.iconStyle,
             button.iconStyle,
             iconStyle,
             active ? defaultButton.activeIconStyle : null,
             active ? button.activeIconStyle : null,
             active ? activeIconStyle : null
-          ]}/>}
-          {(icon && typeof icon !== 'string') && icon}
+          ]} />}
+
           {text && <Text style={[
             StyleSheet.text,
             defaultButton.textStyle,
