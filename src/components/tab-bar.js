@@ -38,13 +38,6 @@ export default class TabBar extends React.Component {
 
   render() {
     let actionIcon = this.props.actionIcon
-    if(this.props.actionTextLarge){
-      actionIcon = (
-        <Text style={[StyleSheet.text, StyleSheet.eventDetails.actionButtonTextStyle]}>
-          {this.props.actionTextLarge}
-        </Text>
-      )
-    }
 
     return (
       <View style={{flex: 1}}>
@@ -69,6 +62,7 @@ export default class TabBar extends React.Component {
           type={this.props.actionType}
           icon={actionIcon}
           text={this.props.actionText}
+          textLarge={this.props.actionTextLarge}
           onPress={this.props.onActionPress}
         />
 

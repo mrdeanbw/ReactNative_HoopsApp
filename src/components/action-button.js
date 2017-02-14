@@ -6,9 +6,25 @@ import Icon from './icon'
 
 class ActionButton extends Component {
 
-  render() {
-    const {type, icon, text} = this.props
+  renderIcon() {
+    const {icon} = this.props
+    const styles = StyleSheet.actionButton
 
+    if (this.props.textLarge) {
+      return (
+        <Text style={[StyleSheet.text, styles.textLargeStyle]}>
+          {this.props.textLarge}
+        </Text>
+      )
+    } else {
+      return (
+        <Icon name={icon} style={styles.iconStyle} />
+      )
+    }
+  }
+
+  render() {
+    const {type, text} = this.props
     const styles = StyleSheet.actionButton
     const buttonTypeStyle = styles[type]
 
@@ -22,7 +38,7 @@ class ActionButton extends Component {
         ]}>
 
         <View style={styles.containerStyle}>
-          <Icon name={icon} style={styles.iconStyle} />
+          {this.renderIcon()}
           <Text style={[
             StyleSheet.text,
             styles.textStyle,

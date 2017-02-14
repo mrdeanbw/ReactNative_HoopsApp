@@ -179,16 +179,4 @@ export default StyleSheet => StyleSheet.extend({
     marginTop: 30
   },
 
-  actionButtonTextStyle: {
-    letterSpacing: 1,
-    fontSize: 24,
-    fontWeight: '400',
-    lineHeight: 24,
-    marginTop: -2,
-    marginBottom: -2,
-    color: colors.white
-  }
-
-
-
 })

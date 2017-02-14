@@ -72,5 +72,15 @@ export default StyleSheet => StyleSheet.extend({
     paddingLeft: 0
   },
 
+  textLargeStyle: {
+    letterSpacing: 1,
+    fontSize: 24,
+    fontWeight: '400',
+    lineHeight: 24,
+    marginTop: -2,
+    marginBottom: -2,
+    color: colors.white
+  },
+
   textTransform: s => s
 })
