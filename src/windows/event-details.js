@@ -3,7 +3,7 @@ import {ScrollView,View,Text, Image, ActionSheetIOS, TouchableHighlight, Linking
 import moment from 'moment'
 
 import StyleSheet from '../styles'
-import {Icon, HorizontalRule, Button, Popup, Header} from '../components'
+import {Avatar, Icon, HorizontalRule, Button, Popup, Header} from '../components'
 import _ from '../i18n'
 import EventDashboard from './event-dashboard'
 
@@ -290,7 +290,7 @@ export default class EventDetails extends React.Component {
             >
               <View style={StyleSheet.eventDetails.avatarStyle}>
                 <View style={StyleSheet.eventDetails.avatarContainerStyle}>
-                  <Image source={{uri: this.props.organizer.imageSrc}} style={StyleSheet.eventDetails.avatarImageStyle} />
+                  <Avatar user={this.props.organizer} avatarStyle={StyleSheet.eventDetails.avatarImageStyle} />
                 </View>
                 <Text style={[StyleSheet.text, StyleSheet.eventDetails.avatarNameStyle]}>
                   {this.props.organizer.name}

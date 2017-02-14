@@ -2,7 +2,7 @@ import React from 'react'
 import {View, Text, ListView, Image, TouchableHighlight} from 'react-native'
 import moment from 'moment'
 
-import {Header, Button, Popup} from '../components'
+import {Avatar, Header, Button, Popup} from '../components'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 

@@ -3,7 +3,7 @@ import moment from 'moment'
 import {View, Image, Text, TouchableHighlight, Animated} from 'react-native'
 
 import StyleSheet from '../styles'
-import {Button, Icon} from './index'
+import {Avatar, Button, Icon} from './'
 import _ from '../i18n'
 
 export default class UserListItem extends React.Component {
@@ -60,9 +60,7 @@ export default class UserListItem extends React.Component {
 
           <View style={StyleSheet.userListItem.detail}>
             <View style={StyleSheet.userListItem.imageContainer}>
-              {user.imageSrc && (
-                <Image source={{uri: user.imageSrc}} style={StyleSheet.userListItem.avatar} />
-              )}
+              <Avatar user={user} avatarStyle={StyleSheet.userListItem.avatar} />
             </View>
 
             <View style={StyleSheet.userListItem.textContainer}>

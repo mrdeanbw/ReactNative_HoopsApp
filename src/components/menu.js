@@ -1,5 +1,3 @@
-
-
 import React from 'react'
 
 import {
@@ -11,7 +9,7 @@ import {
   TouchableHighlight
 } from 'react-native'
 
-import {Icon} from './'
+import {Avatar, Icon} from './'
 import _ from '../i18n'
 
 import StyleSheet from '../styles'
@@ -35,9 +33,9 @@ export default class Menu extends React.Component {
             >
               <View>
                 <View style={[StyleSheet.menu.avatarContainer]}>
-                  <Image
-                    source={{uri: this.props.user.imageUrl}}
-                    style={[StyleSheet.menu.avatarImage]}
+                  <Avatar
+                    user={this.props.user}
+                    avatarStyle={[StyleSheet.menu.avatarImage]}
                   />
                 </View>
                 <Text style={[StyleSheet.text, StyleSheet.menu.avatarText]}>

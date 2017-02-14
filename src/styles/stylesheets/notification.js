@@ -35,7 +35,7 @@ export default StyleSheet => StyleSheet.extend({
     marginRight: 15
   },
   image: {
-    borderRadius: 55,
+    borderRadius: 27.5,
     width: 55,
     height: 55,
     resizeMode: 'cover'

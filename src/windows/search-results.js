@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, ScrollView} from 'react-native'
 
-import {EventListItem,UserListItem,Header,MapView} from '../components'
+import {EventListItem, UserListItem, Header, MapView} from '../components'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 

@@ -2,7 +2,7 @@ import React from 'react'
 import {View, Text, Image, ScrollView, Linking} from 'react-native'
 import moment from 'moment'
 
-import {Header, Popup, Button, EventListItem} from '../components'
+import {Avatar, Header, Popup, Button, EventListItem} from '../components'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
@@ -65,12 +65,7 @@ export default class Profile extends React.Component {
         </Popup>
         <ScrollView>
           <View style={StyleSheet.profile.headlineBarStyle}>
-            {profile.imageSrc && (
-              <Image source={{uri: profile.imageSrc}} style={StyleSheet.profile.avatarImageStyle} />
-            )}
-            {!profile.imageSrc && (
-              <View style={StyleSheet.profile.avatarImageStyle} />
-            )}
+            <Avatar user={profile} avatarStyle={StyleSheet.profile.avatarImageStyle} enableProfileLink={false} />
 
             <View style={StyleSheet.profile.headlineDetailStyle}>
               <View style={StyleSheet.profile.nameTextContainerStyle}>

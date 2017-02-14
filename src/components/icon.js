@@ -1,7 +1,6 @@
-
 import React from 'react'
-
 import {Image} from 'react-native'
+
 import StyleSheet from '../styles'
 
 export default class Icon extends React.Component {

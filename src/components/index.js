@@ -1,4 +1,5 @@
 import _ActionButton from './action-button'
+import _Avatar from './avatar'
 import _AvatarEdit from './avatar-edit'
 import _Button from './button'
 import _CheckButton from './check-button'
@@ -31,8 +32,8 @@ import _UserListItem from './user-list-item'
 import _Window from './window'
 import _Wizard from './wizard'
 
-
 export const ActionButton = _ActionButton
+export const Avatar = _Avatar
 export const AvatarEdit = _AvatarEdit
 export const Button = _Button
 export const CheckButton = _CheckButton

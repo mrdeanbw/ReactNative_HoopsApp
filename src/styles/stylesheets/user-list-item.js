@@ -37,17 +37,13 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   imageContainer: {
-    borderRadius: 55,
-    width: 55,
-    height: 55,
     overflow: 'hidden',
     marginRight: 15
   },
   avatar: {
-    borderRadius: 55,
+    borderRadius: 27.5,
     width: 55,
     height: 55,
-    resizeMode: 'cover'
   },
   textContainer: {
     flex: 1,
