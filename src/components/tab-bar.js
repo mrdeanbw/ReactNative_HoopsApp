@@ -4,9 +4,8 @@ import _ from '../i18n'
 
 import StyleSheet from '../styles'
 
-import {View, Animated, Text, Platform} from 'react-native'
-import Button from './button'
-import Menu from './menu'
+import {View, Animated, Text} from 'react-native'
+import {ActionButton, Button, Menu} from './'
 
 export default class TabBar extends React.Component {
 
@@ -66,7 +65,14 @@ export default class TabBar extends React.Component {
           />
         )}
 
-        <View style={[StyleSheet.window.tabBarStyle, {overflow: 'visible'}]} needsOffscreenAlphaCompositing>
+        <ActionButton
+          type={this.props.actionType}
+          icon={actionIcon}
+          text={this.props.actionText}
+          onPress={this.props.onActionPress}
+        />
+
+        <View style={StyleSheet.window.tabBarStyle} needsOffscreenAlphaCompositing>
           <Button type="tab" icon="home" text={_('home')}
             active={this.props.currentTab === "home"}
             onPress={() => this.props.onTabPress('home')}
@@ -83,13 +89,8 @@ export default class TabBar extends React.Component {
             />
           )}
 
-          <Button
-            type={this.props.actionType}
-            icon={actionIcon}
-            text={this.props.actionText}
-            onPress={this.props.onActionPress}
-            style={[{overflow: 'visible'}, (Platform.OS === 'android' && {borderRadius: 0})]} />
-
+          {/* Spacer for the abs pos Action button */}
+          <View style={{flex: 1}} />
           <View>
             <Button
               type="tab"
@@ -97,6 +98,7 @@ export default class TabBar extends React.Component {
               text={_('notifications')}
               active={this.props.currentTab === "notifications"}
               onPress={() => this.props.onTabPress('notifications')}
+              style={{paddingLeft: 14}}
             />
             {!!this.props.notificationBadge && (
               <View style={StyleSheet.menu.badgeContainer}>

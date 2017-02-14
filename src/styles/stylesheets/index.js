@@ -1,6 +1,7 @@
 import _base from './base'
 export const base = _base
 
+import _actionButton from './action-button'
 import _buttons from './buttons'
 import _calendar from './calendar'
 import _chat from './chat'
@@ -35,6 +36,7 @@ import _walkthrough from './walkthrough'
 import _window from './window'
 
 export default {
+  actionButton: _actionButton,
   buttons: _buttons,
   calendar: _calendar,
   chat: _chat,
