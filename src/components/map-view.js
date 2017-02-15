@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, TouchableHighlight, Text, ActivityIndicator, InteractionManager} from 'react-native'
 import _MapView from 'react-native-maps'
 
@@ -41,54 +41,61 @@ const iconsMap = {
   YOGA: 'pinYoga',
 }
 
+class MapView extends Component {
 
-export default class MapView extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       renderPlaceholderOnly: true
-    };
+    }
   }
 
-  componentDidMount = () => InteractionManager.runAfterInteractions(() => this.setState({ renderPlaceholderOnly: false }))
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => this.setState({
+      renderPlaceholderOnly: false
+    }))
+  }
 
-  renderLoader = () => (
-    <ActivityIndicator
-      style={{ marginTop: 20, alignSelf: 'center' }}
-      animating={this.state.renderPlaceholderOnly}
-    />
-  )
+  renderLoader() {
+    return (
+      <ActivityIndicator
+        style={{ marginTop: 20, alignSelf: 'center' }}
+        animating={this.state.renderPlaceholderOnly}
+      />
+    )
+  }
 
-  renderMap = (region, annotations) => (
-    <_MapView
-      style={[{flex: 1}, this.props.style]}
-      showsPointsOfInterest={true}
-      region={region}
-      {...this.props}
-    >
-      {annotations.map((marker, ind) => (
-        <_MapView.Marker
-          key={ind}
-          image={marker.image}
-          coordinate={marker.latlng}
-        >
-          <_MapView.Callout style={StyleSheet.mapView.callOut}>
-            <TouchableHighlight
-              onPress={marker.rightCalloutView}
-              underlayColor="transparent"
-            >
-              <View style={StyleSheet.mapView.toolTip}>
-                <Text>{marker.title}</Text>
-                <View>
-                  <Icon name="chevronRight" />
+  renderMap(region, annotations) {
+    return (
+      <_MapView
+        style={[{flex: 1}, this.props.style]}
+        showsPointsOfInterest={true}
+        region={region}
+        {...this.props}
+      >
+        {annotations.map((marker, ind) => (
+          <_MapView.Marker
+            key={ind}
+            image={marker.image}
+            coordinate={marker.latlng}
+          >
+            <_MapView.Callout style={StyleSheet.mapView.callOut} onPress={marker.rightCalloutView}>
+              <TouchableHighlight
+                underlayColor="transparent"
+              >
+                <View style={StyleSheet.mapView.toolTip}>
+                  <Text>{marker.title}</Text>
+                  <View>
+                    <Icon name="chevronRight" />
+                  </View>
                 </View>
-              </View>
-            </TouchableHighlight>
-          </_MapView.Callout>
-        </_MapView.Marker>
-      ))}
-    </_MapView>
-  )
+              </TouchableHighlight>
+            </_MapView.Callout>
+          </_MapView.Marker>
+        ))}
+      </_MapView>
+    )
+  }
 
   render() {
     let annotations = this.props.events.filter(event => {
@@ -159,3 +166,5 @@ export default class MapView extends React.Component {
 MapView.defaultProps = {
   events: [],
 }
+
+export default MapView
