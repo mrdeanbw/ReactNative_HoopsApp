@@ -33,7 +33,7 @@ export default StyleSheet => StyleSheet.extend({
     width: 70,
     height: 70,
     borderRadius: 70,
-    activeOpacity: 1.0,
+
     position: 'absolute',
     bottom: -10.00,
     left: (Dimensions.get('window').width / 2) - 42,
