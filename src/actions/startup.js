@@ -3,7 +3,7 @@ import actionTypes, {
   eventActions, networkActions, inviteActions
 } from './'
 
-export const startup = (email, password) => {
+export const startup = () => {
   return (dispatch) => {
     dispatch({
       type: actionTypes.STARTUP_BEGIN
