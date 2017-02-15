@@ -5,19 +5,28 @@ import actionTypes, {
 
 export const startup = (email, password) => {
   return (dispatch) => {
-    dispatch({type: actionTypes.STARTUP})
+    dispatch({
+      type: actionTypes.STARTUP_BEGIN
+    })
 
-    dispatch(userActions.registerWithStore())
-    dispatch(interestActions.load())
-    dispatch(networkActions.registerWithStore())
+    Promise.all([
+      dispatch(userActions.registerWithStore()),
+      dispatch(interestActions.load()),
+      dispatch(networkActions.registerWithStore()),
 
-    /**
-     * For now, we download all user and event data.
-     * This is a short term solution, eventually some kind of search engine will
-     * be connected to for looking up this data.
-     */
-    dispatch(usersActions.getAll())
-    dispatch(eventActions.getAll())
-    dispatch(inviteActions.getAll())
+      /**
+       * For now, we download all user and event data.
+       * This is a short term solution, eventually some kind of search engine will
+       * be connected to for looking up this data.
+       */
+      dispatch(usersActions.getAll()),
+      dispatch(eventActions.getAll()),
+      dispatch(inviteActions.getAll()),
+
+    ]).then(() => {
+      dispatch({
+        type: actionTypes.STARTUP_COMPLETE
+      })
+    })
   }
 }

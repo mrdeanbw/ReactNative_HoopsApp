@@ -363,10 +363,14 @@ export const cancel = (eventId, message) => {
 
 export const getAll = () => {
   return dispatch => {
-    firebaseDb.child(`events`).on('value', snapshot => {
-      dispatch({
-        type: actionTypes.EVENTS_LOAD_ALL,
-        events: snapshot.val(),
+    return new Promise((resolve, reject) => {
+      firebaseDb.child(`events`).once('value', snapshot => {
+        dispatch({
+          type: actionTypes.EVENTS_LOAD_ALL,
+          events: snapshot.val(),
+        })
+
+        resolve()
       })
     })
   }

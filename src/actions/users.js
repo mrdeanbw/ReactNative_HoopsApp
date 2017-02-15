@@ -96,10 +96,14 @@ export const loadFriendRequest = (id) => {
 
 export const getAll = () => {
   return dispatch => {
-    firebaseDb.child(`users`).on('value', snapshot => {
-      dispatch({
-        type: actionTypes.USERS_LOAD_ALL,
-        users: snapshot.val(),
+    return new Promise((resolve, reject) => {
+      firebaseDb.child(`users`).once('value', snapshot => {
+        dispatch({
+          type: actionTypes.USERS_LOAD_ALL,
+          users: snapshot.val(),
+        })
+
+        resolve()
       })
     })
   }

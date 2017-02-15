@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux'
 
 import configureStore from '../configureStore'
+import app from './app'
 import user from './user'
 import users from './users'
 import events from './events'
@@ -15,6 +16,7 @@ import network from './network'
 
 export default () => {
   const rootReducer = combineReducers({
+    app,
     user,
     users,
     events,

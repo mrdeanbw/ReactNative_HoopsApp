@@ -82,15 +82,18 @@ export const load = (id) => {
 
 export const getAll = () => {
   return dispatch => {
-    database.addListener(`invites`, 'value', (snapshot) => {
-      dispatch({
-        type: actionTypes.INVITES_LOAD_ALL,
-        invites: snapshot.val(),
+    return new Promise((resolve, reject) => {
+      database.addListener(`invites`, 'value', (snapshot) => {
+        dispatch({
+          type: actionTypes.INVITES_LOAD_ALL,
+          invites: snapshot.val(),
+        })
+
+        resolve()
       })
     })
   }
 }
-
 
 export const accept = (invite) => {
   return (dispatch, getState) => {

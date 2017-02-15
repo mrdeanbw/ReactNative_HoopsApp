@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View} from 'react-native'
 import {connect} from 'react-redux'
 
@@ -8,7 +8,7 @@ import {Loading} from '../windows'
 import {DevIndicator, Navigator, NetworkAlert} from '../components'
 import config from '../config'
 
-class Root extends React.Component {
+class Root extends Component {
 
   constructor() {
     super()
@@ -102,21 +102,25 @@ class Root extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.app.startupComplete
+  }
+
   render() {
+    const visible = this.props.network.connection === 'none' && !this.props.network.dismissed
+
     return (
       <View style={{ flex: 1 }}>
         <NetworkAlert
-          visible={
-            this.props.network.connection === 'none' && !this.props.network.dismissed
-          }
+          visible={visible}
           onDismiss={this.props.onDismissNetworkAlert}
-          />
+        />
         <Navigator
           onNavigateBack={this.props.onNavigateBack}
           onNavigate={this.props.onNavigate}
           navigationState={this.props.navigation}
           routeConfig={this.routeConfig}
-          />
+        />
         <DevIndicator />
       </View>
     )
@@ -125,6 +129,7 @@ class Root extends React.Component {
 
 export default connect(
   (state) => ({
+    app: state.app,
     navigation: state.navigation,
     network: state.network,
   }),
