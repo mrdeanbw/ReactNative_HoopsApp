@@ -3,13 +3,14 @@ import {AsyncStorage} from 'react-native'
 const common = {
   GOOGLE_PLACES_API_KEY: 'AIzaSyBopRDu051G9W6fqJCwGgzxGICzhzuUxIg',
 
-  REDUCER_VERSION: '112',
+  REDUCER_VERSION: '111',
   REDUCER_PERSIST: true,
   REDUCER_CONFIG: {
     storage: AsyncStorage,
     blacklist: [
+      'app',
       'network',
-        // 'navigation',
+      'navigation',
       'search',
     ],
   },
@@ -48,4 +49,4 @@ const prod = Object.assign({}, common, {
   BUGSNAG_API_KEY: '25983a784e900e85ae661a2e5685d61a',
 })
 
-export default __DEV__ ? prod : prod
+export default __DEV__ ? dev : prod
