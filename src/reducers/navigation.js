@@ -93,7 +93,6 @@ const initialState = {
 
 const getCurrentScene = (state) => {
   let currentRoute = state.routes[state.index]
-  console.log(currentRoute, '##### HMMM')
   //If we are on a tab, find out which route is active on _that_ tab.
   if(currentRoute.key === 'tabs') {
     let tabState = state.tabs[state.tabKey]
@@ -141,7 +140,6 @@ export default handleActions({
   },
 
   [actionTypes.NAV_POP]: (state, action) => {
-    console.log(currentRoute, '##### HMMM')
     let currentRoute = state.routes[state.index]
     if(currentRoute.key === 'tabs'){
       return {
