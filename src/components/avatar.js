@@ -43,13 +43,17 @@ class Avatar extends Component {
   }
 
   renderAvatar() {
+    // imageSrc = Facebook OR uploaded Avatar
+    const uri = this.props.user.imageSrc
+
     return (
       <Image
-        source={{uri: this.props.user.imageUrl}}
+        source={{uri}}
         style={[
           defaultStyles.avatarStyle,
           this.props.avatarStyle
-        ]} />
+        ]}
+      />
     )
   }
 
@@ -68,7 +72,7 @@ class Avatar extends Component {
   }
 
   render() {
-    const avatarContent = this.props.user.imageUrl ? this.renderAvatar() : this.renderInitials()
+    const avatarContent = this.props.user.imageSrc ? this.renderAvatar() : this.renderInitials()
 
     if (this.props.enableProfileLink) {
       return (
