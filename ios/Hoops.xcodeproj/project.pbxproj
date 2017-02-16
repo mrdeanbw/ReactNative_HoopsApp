@@ -7,24 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00C302E51ABCBA2D00DB3ED1 /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
-		00C302E71ABCBA2D00DB3ED1 /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
-		00C302E81ABCBA2D00DB3ED1 /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
-		00C302E91ABCBA2D00DB3ED1 /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
-		00C302EA1ABCBA2D00DB3ED1 /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
+		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
+		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
+		00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
+		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
+		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* HoopsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* HoopsTests.m */; };
 		0B34984399DE4E409320B5C2 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CBB4E4847D4791900A4C33 /* libRCTFBSDK.a */; };
-		133E29F31AD74F7200F7D852 /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
-		139105C61AF99C1200B5F7CC /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
-		139FDEF61B0652A700C62182 /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
+		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
+		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
+		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		140ED2AC1D01E1AD002B40FF /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		146834051AC3E58100842450 /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		2783E30F1DBE45EA00A672F0 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2783E30E1DBE45EA00A672F0 /* UserNotifications.framework */; };
-		27A15B471DB630E2008C2A16 /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A15B3A1DB63070008C2A16 /* libRCTCameraRoll.a */; };
+		27A15B471DB630E2008C2A16 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A15B3A1DB63070008C2A16 /* libRCTCameraRoll.a */; };
 		27A15B491DB638C5008C2A16 /* RCTImageRead.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A15B481DB638C5008C2A16 /* RCTImageRead.m */; };
 		27A98DB71D81779C00AD839C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A98DB61D81779C00AD839C /* FBSDKCoreKit.framework */; };
 		27A98DC51D8177A700AD839C /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A98DC41D8177A700AD839C /* FBSDKLoginKit.framework */; };
@@ -50,11 +50,11 @@
 		46B6BF661E3233FE00A1FE9D /* AIRGoogleMapURLTileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B6BF531E3233FE00A1FE9D /* AIRGoogleMapURLTileManager.m */; };
 		46B6BF671E3233FE00A1FE9D /* DummyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B6BF551E3233FE00A1FE9D /* DummyView.m */; };
 		46B6BF681E3233FE00A1FE9D /* RCTConvert+GMSMapViewType.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B6BF571E3233FE00A1FE9D /* RCTConvert+GMSMapViewType.m */; };
-		46D8AAEB1E437E9B00815ADA /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D8AAE41E437E0500815ADA /* libRNImagePicker.a */; };
+		46D8AAEB1E437E9B00815ADA /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D8AAE41E437E0500815ADA /* libRNImagePicker.a */; };
 		5C40A4044FCA44519C8AE820 /* SourceSansPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1E3578B3B2243B3872707AB /* SourceSansPro-Bold.ttf */; };
 		7925FE4CB3E555A337891DD0 /* Pods_Hoops.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D60E6630B31368B588BEBC2 /* Pods_Hoops.framework */; };
 		7E546B389165EE39C2223E49 /* Pods_HoopsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AAF19993A3ECFBF6A2DB077 /* Pods_HoopsTests.framework */; };
-		832341BD1AAA6AB300B99B32 /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		A6A8226E31B248E19A4EFFA9 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 933F1308FE4D49F7A1C2B222 /* libRNFetchBlob.a */; };
 		C0BC335571624ED0B3F4A415 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F23B1E0DB56D41199F67F4FA /* libAirMaps.a */; };
 		C6EDD0399F6244A98794587E /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 354872BBCA0E4B78AFFCF849 /* libRNFIRMessaging.a */; };
@@ -421,7 +421,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				140ED2AC1D01E1AD002B40FF /* ReferenceProxy in Frameworks */,
+				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
 				7E546B389165EE39C2223E49 /* Pods_HoopsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,18 +435,18 @@
 				27A98DC51D8177A700AD839C /* FBSDKLoginKit.framework in Frameworks */,
 				27A98DB71D81779C00AD839C /* FBSDKCoreKit.framework in Frameworks */,
 				27A98DC91D8178CF00AD839C /* Bolts.framework in Frameworks */,
-				46D8AAEB1E437E9B00815ADA /* ReferenceProxy in Frameworks */,
-				27A15B471DB630E2008C2A16 /* ReferenceProxy in Frameworks */,
-				146834051AC3E58100842450 /* ReferenceProxy in Frameworks */,
-				00C302E51ABCBA2D00DB3ED1 /* ReferenceProxy in Frameworks */,
-				00C302E71ABCBA2D00DB3ED1 /* ReferenceProxy in Frameworks */,
-				00C302E81ABCBA2D00DB3ED1 /* ReferenceProxy in Frameworks */,
-				133E29F31AD74F7200F7D852 /* ReferenceProxy in Frameworks */,
-				00C302E91ABCBA2D00DB3ED1 /* ReferenceProxy in Frameworks */,
-				139105C61AF99C1200B5F7CC /* ReferenceProxy in Frameworks */,
-				832341BD1AAA6AB300B99B32 /* ReferenceProxy in Frameworks */,
-				00C302EA1ABCBA2D00DB3ED1 /* ReferenceProxy in Frameworks */,
-				139FDEF61B0652A700C62182 /* ReferenceProxy in Frameworks */,
+				46D8AAEB1E437E9B00815ADA /* libRNImagePicker.a in Frameworks */,
+				27A15B471DB630E2008C2A16 /* libRCTCameraRoll.a in Frameworks */,
+				146834051AC3E58100842450 /* libReact.a in Frameworks */,
+				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
+				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
+				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
+				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
+				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
+				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
+				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
+				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
+				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				3D78388CA20B4D9EBC1E100A /* libRNI18n.a in Frameworks */,
 				0B34984399DE4E409320B5C2 /* libRCTFBSDK.a in Frameworks */,
 				A6A8226E31B248E19A4EFFA9 /* libRNFetchBlob.a in Frameworks */,
@@ -1314,7 +1314,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run \'pod install\' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		27EDFB0E1DD3734C00B06E0A /* ShellScript */ = {
@@ -1402,7 +1402,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run \'pod install\' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
