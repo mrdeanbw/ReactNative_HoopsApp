@@ -13,7 +13,7 @@
     "clean:app": "npm cache clean && watchman watch-del-all && rm -fr $TMPDIR/react-*",
     "clean:gradle": "rm -rf $HOME/.gradle/caches/",
     "lint": "eslint src || :",
-    "lint:fix": "eslint -c .eslintrc src --fix"
+    "lint:fix": "eslint -c .eslintrc src --fix",
   },
   "dependencies": {
     "bugsnag-react-native": "^1.2.4",
@@ -54,7 +54,6 @@
     "eslint": "^3.4.0",
     "eslint-plugin-react": "^6.2.0",
     "react-native-debugger-open": "^0.3.2",
-    "remote-redux-devtools": "^0.5.7",
-    "remote-redux-devtools-on-debugger": "^0.7.0"
+    "remote-redux-devtools": "^0.5.7"
   }
 }
