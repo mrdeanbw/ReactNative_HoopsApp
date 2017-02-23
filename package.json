@@ -13,7 +13,7 @@
     "clean:app": "npm cache clean && watchman watch-del-all && rm -fr $TMPDIR/react-*",
     "clean:gradle": "rm -rf $HOME/.gradle/caches/",
     "lint": "eslint src || :",
-    "lint:fix": "eslint -c .eslintrc src --fix",
+    "lint:fix": "eslint -c .eslintrc src --fix"
   },
   "dependencies": {
     "bugsnag-react-native": "^1.2.4",
