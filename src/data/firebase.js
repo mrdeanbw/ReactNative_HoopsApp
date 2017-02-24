@@ -1,6 +1,6 @@
 import * as firebase from 'firebase'
 
-import ReactNative from 'react-native'
+import {Platform} from 'react-native'
 import RNFetchBlob from 'react-native-fetch-blob'
 
 import Config from '../config'
@@ -19,7 +19,7 @@ export const firebaseDb = firebaseApp.database().ref()
 
 export const firebaseStorage = firebaseApp.storage()
 
-const ReadImageData = ReactNative.NativeModules.ReadImageData
+const fs = RNFetchBlob.fs
 /* global Blob */
 window.Blob = RNFetchBlob.polyfill.Blob
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
@@ -46,26 +46,29 @@ window.fetch = new RNFetchBlob.polyfill.Fetch({
     ]
 }).build()
 
+
 export const uploadImage = (uri, location) => {
   return new Promise((resolve, reject) => {
-    if(!uri) {
-      resolve()
-      return
-    }
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+    const mime = 'application/octet-stream'
 
-    let storageRef = firebaseStorage.ref(location)
+    let uploadBlob = null
+    let imageRef = firebaseStorage.ref(location)
 
-    ReadImageData.readImage(uri, (image) => {
-      Blob.build(image, {type : 'image/jpeg;base64'}).then((blob) => {
-        storageRef.put(blob, {contentType: 'image/jpeg'}).then(function(snapshot) {
-          blob.close()
-          resolve({ref: location})
-        }).catch(err => {
-          //Image upload has failed
-          console.warn(err) //eslint-disable-line no-console
-          reject(err)
-        })
+    fs.readFile(uploadUri, 'base64')
+      .then((data) => {
+        return Blob.build(data, { type: `${mime};BASE64` })
       })
+      .then((blob) => {
+        uploadBlob = blob
+        return imageRef.put(blob, { contentType: mime })
+      })
+      .then(() => {
+        uploadBlob.close()
+        resolve({ref: location})
+      })
+      .catch((error) => {
+        reject(error)
     })
   })
 }
