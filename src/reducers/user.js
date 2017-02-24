@@ -38,40 +38,14 @@ export const convertStructure = (data) => {
     ...data,
   }
 
-  //flatten scoped data
-  if(data.publicProfile) {
-    data.name = data.publicProfile.name
-    data.image = data.publicProfile.image
-    data.imageUrl = data.publicProfile.imageUrl
-
-    let imageSrc = null
-    if (data.publicProfile.imageUrl) {
-      imageSrc = data.publicProfile.imageUrl
-    } else if (data.publicProfile.facebookImageSrc) {
-      imageSrc = data.publicProfile.facebookImageSrc
-    }
-
-    data.imageSrc = imageSrc
-    data.username = data.publicProfile.username
-    data.gender = data.publicProfile.gender
-    data.city = data.publicProfile.city
-    data.interests = data.publicProfile.interests
-    data.availability = data.publicProfile.availability
-    delete data.publicProfile
+  // Set Avatar URL from either FBOOK or Firebase
+  let imageSrc = null
+  if (data.imageUrl) {
+    imageSrc = data.imageUrl
+  } else if (data.facebookImageSrc) {
+    imageSrc = data.facebookImageSrc
   }
-
-  //flatten scoped data
-  if(data.contactInfo) {
-    data.email = data.contactInfo.email
-    data.phone = data.contactInfo.phone
-    delete data.contactInfo
-  }
-
-  //flatten scoped data
-  if(data.restrictedProfile) {
-    data.dob = data.restrictedProfile.dob
-    delete data.restrictedProfile
-  }
+  data.imageSrc = imageSrc
 
   return data
 }

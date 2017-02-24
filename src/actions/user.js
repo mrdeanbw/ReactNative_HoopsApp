@@ -36,7 +36,7 @@ export const signInFormEdit = () => ({
  * @param method {String} 'facebook' or 'email'
  */
 export const signInSuccess = (method) => {
-  let uid = firebase.auth().currentUser.uid
+  const uid = firebase.auth().currentUser.uid
   return dispatch => {
     dispatch({
       type: actionTypes.USER_SIGN_IN_SUCCESS,
@@ -100,60 +100,55 @@ const savePersonalData = (data, callback) => {
       ...formData,
     }
 
-    uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`).then((response) => {
-      const imageRef = response ? response.ref : null
+    const profilePath = `users/${uid}`
+    const profileData = {
+      facebookImageSrc: data.facebookImageSrc,
+      name: data.name,
+      username: data.username,
+      gender: data.gender,
+      city: data.city,
+      cityGooglePlaceId: data.cityGooglePlaceId,
+      cityCoords: data.cityCoords,
+      dob: data.dob,
+      email: data.email,
+      phone: data.phone,
+    }
 
-      const publicProfileKey = `users/${uid}/publicProfile`
-      const restrictedProfileKey = `users/${uid}/restrictedProfile`
-      const contactInfoKey = `users/${uid}/contactInfo`
+    const userRef = firebaseDb.child(profilePath)
+    userRef.set(profileData)
 
-      const profileData = {
-        [`${publicProfileKey}`]: {
-          facebookImageSrc: data.facebookImageSrc,
-          name: data.name,
-          username: data.username,
-          gender: data.gender,
-          city: data.city,
-          cityGooglePlaceId: data.cityGooglePlaceId,
-          cityCoords: data.cityCoords,
-        },
-        [`${restrictedProfileKey}`]: {
-          dob: data.dob,
-        },
-        [`${contactInfoKey}`]: {
-          email: data.email,
-          phone: data.phone,
-        },
-      }
+    console.log("WHHHY?", profileData)
+    return
+    // uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`).then((response) => {
+    //   const imageRef = response ? response.ref : null
+    //   console.log(profileData)
 
-      if (imageRef) {
-        firebaseStorage.ref(imageRef).getDownloadURL().then(imageUrl => {
-          profileData[publicProfileKey]['image'] = imageRef
-          profileData[publicProfileKey]['imageUrl'] = imageUrl
+    //   if (imageRef) {
+    //     firebaseStorage.ref(imageRef).getDownloadURL().then(imageUrl => {
+    //       profileData['image'] = imageRef
+    //       profileData['imageUrl'] = imageUrl
 
-          firebaseDb.update(profileData, callback)
-        })
-      } else {
-        firebaseDb.update(profileData, callback)
-      }
-    })
+    //       firebaseDb.update(profileData, callback)
+    //     })
+    //   } else {
+    //     firebaseDb.update(profileData, callback)
+    //   }
+    // })
   }
 
-  //Add city coordinates by looking up data.cityGooglePlaceId
+  // Add city coordinates by looking up data.cityGooglePlaceId
   getPlace(data.cityGooglePlaceId).then(result => {
     if(result.result && result.result.geometry) {
       data.cityCoords = result.result.geometry.location
     }
 
-    //Now save to firebase
+    // Now save to firebase
     firebaseSave(data)
   }).catch(err => {
-    //something went wrong getting the coordinates, still save the user.
+    // something went wrong getting the coordinates, still save the user.
     console.warn(err) //eslint-disable-line no-console
     firebaseSave(data)
   })
-
-
 }
 
 export const signUpSuccess = (method) => {
@@ -266,7 +261,7 @@ export const toggleMode = () => {
 export const setInterests = (interests) => {
   return dispatch => {
     let uid = firebase.auth().currentUser.uid
-    firebaseDb.child(`users/${uid}/publicProfile/interests`).set(interests)
+    firebaseDb.child(`users/${uid}/interests`).set(interests)
   }
 }
 
@@ -281,28 +276,28 @@ export const updateProfile = (data) => {
       firebaseStorage.ref(imageRef).getDownloadURL().then(imageUrl => {
         const update = {}
         if(data.name) {
-          update[`users/${uid}/publicProfile/name`] = data.name
+          update[`users/${uid}/name`] = data.name
         }
         if(imageRef) {
-          update[`users/${uid}/publicProfile/image`] = imageRef
+          update[`users/${uid}/image`] = imageRef
         }
         if(imageUrl) {
-          update[`users/${uid}/publicProfile/imageUrl`] = imageUrl
+          update[`users/${uid}/imageUrl`] = imageUrl
         }
         if(data.gender) {
-          update[`users/${uid}/publicProfile/gender`] = data.gender
+          update[`users/${uid}/gender`] = data.gender
         }
         if(data.city) {
-          update[`users/${uid}/publicProfile/city`] = data.city
+          update[`users/${uid}/city`] = data.city
         }
         if(data.cityGooglePlaceId) {
-          update[`users/${uid}/publicProfile/cityGooglePlaceId`] = data.cityGooglePlaceId
+          update[`users/${uid}/cityGooglePlaceId`] = data.cityGooglePlaceId
         }
         if(data.interests) {
-          update[`users/${uid}/publicProfile/interests`] = data.interests
+          update[`users/${uid}/interests`] = data.interests
         }
         if(data.dob) {
-          update[`users/${uid}/restrictedProfile/dob`] = new Date(data.dob).valueOf()
+          update[`users/${uid}/dob`] = new Date(data.dob).valueOf()
         }
 
         firebaseDb.update(update)
@@ -326,7 +321,7 @@ export const toggleAvailability = () => {
 
     //Update the database
     let uid = getState().user.uid
-    firebaseDb.child(`users/${uid}/publicProfile/availability`).set(value)
+    firebaseDb.child(`users/${uid}/availability`).set(value)
   }
 }
 
@@ -347,15 +342,15 @@ const listenToUser = () => {
         firstLoad = false
       }
 
-      var previousName = previousUser.publicProfile ? previousUser.publicProfile.name : null
-      var name = user.publicProfile ? user.publicProfile.name : null
+      var previousName = previousUser.name ? previousUser.name : null
+      var name = user.name ? user.name : null
       if(!previousName) {
         //Only do routing when the name wasn't previously set
         //It may now be, or not.
         if(!name) {
           //Name isn't defined. We need to ask for extra data
           dispatch(navigationActions.reset({key: 'signupFacebookExtra'}))
-        } else if(Object.keys(user.publicProfile.interests || {}).length === 0) {
+        } else if(Object.keys(user.interests || {}).length === 0) {
           //Go to interests selection
           dispatch(navigationActions.reset({key: 'selectInterests'}))
         } else if(!state.user.mode) {

@@ -109,8 +109,8 @@ export const searchGeneral = (params) => {
         id: userId,
       }
     }).filter(user => {
-      if(user.publicProfile && user.publicProfile.name) {
-        return user.publicProfile.name.toLowerCase().startsWith(searchString.toLowerCase())
+      if(user.name) {
+        return user.name.toLowerCase().startsWith(searchString.toLowerCase())
       }else{
         return false
       }
@@ -348,7 +348,7 @@ export const searchUsers = (params) => {
       }
     }).filter(user => {
       if(params.name){
-        let name = user.publicProfile.name.toLowerCase()
+        let name = user.name.toLowerCase()
         if(name.search(params.name.toLowerCase()) === -1){
           return false
         }
@@ -389,7 +389,7 @@ export const searchUsers = (params) => {
     };
 
     if(params.name) {
-      query.match['publicProfile.name'] = params.name;
+      query.match['name'] = params.name;
     }
 
     client.search('test/users', {query}).then((results) => {
