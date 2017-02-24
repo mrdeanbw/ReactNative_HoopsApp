@@ -1,11 +1,12 @@
 import React from 'react'
-import ReactNative, {View, Text, Image, ImagePickerIOS, TouchableHighlight} from 'react-native'
+import ReactNative, {View, Text, Image, TouchableHighlight} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 import {Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components'
 import StyleSheet from '../styles'
 import {autocomplete} from '../data/google-places'
 import _ from '../i18n'
+import {showImagePicker} from '../utils/'
 
 export default class CreateEvent extends React.Component {
 
@@ -564,14 +565,7 @@ export default class CreateEvent extends React.Component {
                 checked={!!imageSrc}
                 onChange={(value) => {
                   if(value) {
-                    ImagePickerIOS.openSelectDialog({}, (result) => {
-                      this.setState({image: result})
-                    }, (err) => {
-                      console.warn(err) //eslint-disable-line no-console
-                    })
-                  } else {
-                    this.setState({image: null})
-                  }
+                    showImagePicker((image) => this.setState({image}))}
                 }}
               />
               <Image
