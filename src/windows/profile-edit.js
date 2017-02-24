@@ -26,7 +26,7 @@ export default class ProfileEdit extends React.Component {
 
   onSavePress = () => {
     this.props.onSavePress({
-      image: this.state.image,
+      image: this.state.image || null,
       name: this.state.name,
       city: this.state.city,
       gender: this.state.gender,

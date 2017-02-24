@@ -66,7 +66,9 @@ export const signUp = (email, password, extraData) => {
           ...extraData,
           dob: new Date(extraData.dob).valueOf(), //convert date to epoch timestamp
           email,
-        }, (err) => {
+        },
+        false,
+        (err) => {
           if(err) {
             dispatch(signUpFailure(err))
           }else {
@@ -79,11 +81,14 @@ export const signUp = (email, password, extraData) => {
   }
 }
 
-const savePersonalData = (data, callback) => {
+const savePersonalData = async function(data, update = false, callback) {
   const uid = firebase.auth().currentUser.uid
-  const firebaseSave = (formData) => {
-    //nullify undefined keys
-    data = {
+  const profilePath = `users/${uid}`
+
+  let profileData
+  if (update === false) {
+    // Setup default values on create
+    profileData = {
       name: null,
       username: null,
       gender: null,
@@ -96,59 +101,31 @@ const savePersonalData = (data, callback) => {
       image: null,
       imageUrl: null,
       facebookImageSrc: null,
+      interests: {},
 
-      ...formData,
+      ...data,
     }
-
-    const profilePath = `users/${uid}`
-    const profileData = {
-      facebookImageSrc: data.facebookImageSrc,
-      name: data.name,
-      username: data.username,
-      gender: data.gender,
-      city: data.city,
-      cityGooglePlaceId: data.cityGooglePlaceId,
-      cityCoords: data.cityCoords,
-      dob: data.dob,
-      email: data.email,
-      phone: data.phone,
-    }
-
-    const userRef = firebaseDb.child(profilePath)
-    userRef.set(profileData)
-
-    console.log("WHHHY?", profileData)
-    return
-    // uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`).then((response) => {
-    //   const imageRef = response ? response.ref : null
-    //   console.log(profileData)
-
-    //   if (imageRef) {
-    //     firebaseStorage.ref(imageRef).getDownloadURL().then(imageUrl => {
-    //       profileData['image'] = imageRef
-    //       profileData['imageUrl'] = imageUrl
-
-    //       firebaseDb.update(profileData, callback)
-    //     })
-    //   } else {
-    //     firebaseDb.update(profileData, callback)
-    //   }
-    // })
+  } else {
+    profileData = data
   }
 
-  // Add city coordinates by looking up data.cityGooglePlaceId
-  getPlace(data.cityGooglePlaceId).then(result => {
-    if(result.result && result.result.geometry) {
-      data.cityCoords = result.result.geometry.location
-    }
+  // Location
+  const cityResult = await getPlace(data.cityGooglePlaceId)
+  if (cityResult.result && cityResult.result.geometry) {
+    profileData['cityCoords'] = cityResult.result.geometry.location
+  }
 
-    // Now save to firebase
-    firebaseSave(data)
-  }).catch(err => {
-    // something went wrong getting the coordinates, still save the user.
-    console.warn(err) //eslint-disable-line no-console
-    firebaseSave(data)
-  })
+  // Image
+  const response = await uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`)
+  const imageRef = response ? response.ref : null
+
+  if (imageRef) {
+    profileData['imageUrl'] = await firebaseStorage.ref(imageRef).getDownloadURL()
+  }
+
+  // Update Firebase
+  const userRef = firebaseDb.child(profilePath)
+  await userRef.update(profileData, callback)
 }
 
 export const signUpSuccess = (method) => {
@@ -213,7 +190,7 @@ export const facebookSaveExtra = (extraData) => {
     savePersonalData({
       ...extraData,
       dob: new Date(extraData.dob).valueOf(),
-    }, (err) => {
+    }, false, (err) => {
       if(err) {
         dispatch({
           type: actionTypes.FACEBOOK_EXTRA_DATA_ERROR,
@@ -267,42 +244,7 @@ export const setInterests = (interests) => {
 
 export const updateProfile = (data) => {
   return (dispatch, getState) => {
-    let uid = firebase.auth().currentUser.uid
-
-    uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`).then((response) => {
-      const imageRef = response ? response.ref : null
-
-      // Cache the full image URL in firebase
-      firebaseStorage.ref(imageRef).getDownloadURL().then(imageUrl => {
-        const update = {}
-        if(data.name) {
-          update[`users/${uid}/name`] = data.name
-        }
-        if(imageRef) {
-          update[`users/${uid}/image`] = imageRef
-        }
-        if(imageUrl) {
-          update[`users/${uid}/imageUrl`] = imageUrl
-        }
-        if(data.gender) {
-          update[`users/${uid}/gender`] = data.gender
-        }
-        if(data.city) {
-          update[`users/${uid}/city`] = data.city
-        }
-        if(data.cityGooglePlaceId) {
-          update[`users/${uid}/cityGooglePlaceId`] = data.cityGooglePlaceId
-        }
-        if(data.interests) {
-          update[`users/${uid}/interests`] = data.interests
-        }
-        if(data.dob) {
-          update[`users/${uid}/dob`] = new Date(data.dob).valueOf()
-        }
-
-        firebaseDb.update(update)
-      })
-    })
+    savePersonalData(data, true)
   }
 }
 
