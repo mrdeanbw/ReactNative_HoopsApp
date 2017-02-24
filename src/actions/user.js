@@ -81,33 +81,10 @@ export const signUp = (email, password, extraData) => {
   }
 }
 
-const savePersonalData = async function(data, update = false, callback) {
+const savePersonalData = async function(data, callback) {
   const uid = firebase.auth().currentUser.uid
   const profilePath = `users/${uid}`
-
-  let profileData
-  if (update === false) {
-    // Setup default values on create
-    profileData = {
-      name: null,
-      username: null,
-      gender: null,
-      dob: null,
-      email: null,
-      phone: null,
-      city: null,
-      cityGooglePlaceId: null,
-      cityCoords: null,
-      image: null,
-      imageUrl: null,
-      facebookImageSrc: null,
-      interests: {},
-
-      ...data,
-    }
-  } else {
-    profileData = data
-  }
+  const profileData = {...data}
 
   // Location
   const cityResult = await getPlace(data.cityGooglePlaceId)
@@ -116,11 +93,16 @@ const savePersonalData = async function(data, update = false, callback) {
   }
 
   // Image
-  const response = await uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`)
-  const imageRef = response ? response.ref : null
+  if (data.image) {
+    const response = await uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`)
+    const imageRef = response ? response.ref : null
 
-  if (imageRef) {
-    profileData['imageUrl'] = await firebaseStorage.ref(imageRef).getDownloadURL()
+    if (imageRef) {
+      profileData['imageUrl'] = await firebaseStorage.ref(imageRef).getDownloadURL()
+    }
+  } else {
+    profileData['imageUrl'] = null
+    profileData['image'] = null
   }
 
   // Update Firebase
@@ -190,7 +172,7 @@ export const facebookSaveExtra = (extraData) => {
     savePersonalData({
       ...extraData,
       dob: new Date(extraData.dob).valueOf(),
-    }, false, (err) => {
+    }, (err) => {
       if(err) {
         dispatch({
           type: actionTypes.FACEBOOK_EXTRA_DATA_ERROR,
@@ -244,7 +226,7 @@ export const setInterests = (interests) => {
 
 export const updateProfile = (data) => {
   return (dispatch, getState) => {
-    savePersonalData(data, true)
+    savePersonalData(data)
   }
 }
 
