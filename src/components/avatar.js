@@ -41,7 +41,9 @@ class Avatar extends Component {
   onPress() {
     const user = this.props.user
     const id = user.id ? user.id : user.uid
+
     this.props.onNavigate('profile', {id})
+    this.props.hideMenu()
   }
 
   renderAvatar() {
@@ -118,5 +120,6 @@ export default connect(
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
+    hideMenu: () => dispatch(navigationActions.hideMenu()),
   }),
 )(Avatar)
