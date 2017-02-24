@@ -3,6 +3,7 @@ export const productName = 'Hoops'
 
 export const login = 'Login'
 export const signup = 'Sign Up'
+export const signupFacebook = 'Facebook Sign Up'
 
 export const walkthrough1 = 'Find your favorite activities\nnear you and join the fun!'
 export const walkthrough2 = 'Easily create various sports events\nand find relevant people to join.'

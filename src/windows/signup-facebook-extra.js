@@ -99,7 +99,7 @@ export default class SignUpFacebookExtra extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Header
-          title={_('signup')}
+          title={_('signupFacebook')}
           hideSwitcher={true}
         />
 
