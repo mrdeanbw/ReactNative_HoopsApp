@@ -39,7 +39,9 @@ class Avatar extends Component {
   }
 
   onPress() {
-    this.props.onNavigate('profile', {id: this.props.user.id})
+    const user = this.props.user
+    const id = user.id ? user.id : user.uid
+    this.props.onNavigate('profile', {id})
   }
 
   renderAvatar() {
