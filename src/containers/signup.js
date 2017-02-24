@@ -8,7 +8,7 @@ class SignUp extends React.Component {
 
   render() {
     const user = this.props.user
-    const imageUrl = (user.imageUrl || user.facebookImageSrc || null)
+    const imageUrl = (user.image || user.facebookImageSrc || null)
 
     return (
       <_SignUp

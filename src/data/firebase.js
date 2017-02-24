@@ -65,7 +65,10 @@ export const uploadImage = (uri, location) => {
       })
       .then(() => {
         uploadBlob.close()
-        resolve({ref: location})
+        return imageRef.getDownloadURL()
+      })
+      .then((url) => {
+        resolve(url)
       })
       .catch((error) => {
         reject(error)

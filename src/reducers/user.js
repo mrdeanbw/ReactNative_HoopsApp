@@ -40,8 +40,8 @@ export const convertStructure = (data) => {
 
   // Set Avatar URL from either FBOOK or Firebase
   let imageSrc = null
-  if (data.imageUrl) {
-    imageSrc = data.imageUrl
+  if (data.image) {
+    imageSrc = data.image
   } else if (data.facebookImageSrc) {
     imageSrc = data.facebookImageSrc
   }

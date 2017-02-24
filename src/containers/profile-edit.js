@@ -50,7 +50,7 @@ class ProfileEdit extends React.Component {
 
   render() {
     const user = this.props.user
-    const imageUrl = (user.imageUrl || user.facebookImageSrc || null)
+    const imageUrl = (user.image || user.facebookImageSrc || null)
     const selected = this.interestsToMap(this.state.interests)
 
     return (

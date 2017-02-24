@@ -94,14 +94,9 @@ const savePersonalData = async function(data, callback) {
 
   // Image
   if (data.image) {
-    const response = await uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`)
-    const imageRef = response ? response.ref : null
-
-    if (imageRef) {
-      profileData['imageUrl'] = await firebaseStorage.ref(imageRef).getDownloadURL()
-    }
+    const imageUrl = await uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`)
+    profileData['image'] = imageUrl
   } else {
-    profileData['imageUrl'] = null
     profileData['image'] = null
   }
 
