@@ -167,7 +167,7 @@ export default class CreateEvent extends React.Component {
   render() {
     let imageSrc
     if(this.props.event) {
-      imageSrc = this.props.event.imageSrc
+      imageSrc = this.props.event.image
     }
     if(typeof this.state.image !== 'undefined') {
       imageSrc = this.state.image || undefined //Make sure imageSrc is never null

@@ -36,7 +36,7 @@ export default class EventListItem extends React.Component {
         <View style={StyleSheet.eventListItem.wrapper}>
           <View style={StyleSheet.eventListItem.imageContainer}>
             <Image
-              source={{uri: event.imageSrc}}
+              source={{uri: event.image}}
               style={[StyleSheet.eventListItem.image]}
             />
             {!this.props.ignoreDisabled && (isEnded || isCancelled) && (

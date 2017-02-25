@@ -52,19 +52,7 @@ export const load = (id) => {
         dispatch({type: actionTypes.EVENTS_LOADED, events: {[id] : eventObj}})
       }
 
-      /*
-       * Other images can be added to this `promises` object. Then the allPromises
-       * utility will fetch all of them.
-       */
-      let promises = {}
-      if(event.image) {
-        promises.image = firebaseStorage.ref(event.image).getDownloadURL()
-      }
-
-      allPromises(promises).then((values) => {
-        event.imageSrc = values.image || undefined
-        onLoaded(event)
-      })
+      onLoaded(event)
 
       // todo: Invites loaded as part of the startup routine
       // if(event.invites) {
@@ -93,6 +81,7 @@ export const remove = (id) => {
 
 const preSave = (eventData, eventKey, uid) => {
   let chain = []
+  console.log("preSave", eventData)
   if(eventData.image) {
     //upload images first:
     chain.push(uploadImage(eventData.image, `events/${eventKey}/main.jpeg`))
@@ -111,13 +100,13 @@ const preSave = (eventData, eventKey, uid) => {
   }
 
   return Promise.all(chain).then(result => {
-    let imageRef = result[0] ? result[0].ref : null
+    let image = result[0] ? result[0] : null
     let coords = result[1] ? result[1].location : null
 
     eventData = {
       ...eventData,
       //Replace the original eventData.image with our firebase reference
-      image: imageRef,
+      image: image,
       organizer: uid,
       id: eventKey,
     }

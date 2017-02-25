@@ -56,7 +56,7 @@ export default class EventDashboard extends React.Component {
         />
 
         <View style={styles.titleStyle}>
-          <Image source={{uri: event.imageSrc}} style={styles.coverImageStyle} />
+          <Image source={{uri: event.image}} style={styles.coverImageStyle} />
           <View style={styles.coverImageOverlayStyle} />
           <Text style={[StyleSheet.text, styles.titleTextStyle]}>
             {event.title}
