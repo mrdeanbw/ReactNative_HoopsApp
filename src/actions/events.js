@@ -1,4 +1,4 @@
-import {firebaseDb, firebaseStorage, uploadImage} from '../data/firebase'
+import {firebaseDb, uploadImage} from '../data/firebase'
 import DBHelper from '../data/database-helper'
 const database = DBHelper('events')
 
