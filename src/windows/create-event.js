@@ -15,23 +15,23 @@ export default class CreateEvent extends React.Component {
     let event = props.event || {}
     let blankEvent = {
       title: '',
-      gender: '',
+      gender: 'mixed',
       minAge: 0,
       maxAge: 0,
-      privacy: '',
-      level: '',
+      privacy: 'public',
+      level: 'casual',
       maxPlayers: 0,
       minPlayers: 0,
 
       date: null,
       endDate: null,
-      courtType: '',
+      courtType: 'indoor',
       recurring: false,
       recurringType: 'd',
       recurringValue: 1,
       address: {},
       entryFee: 0,
-      paymentMethod: '',
+      paymentMethod: 'unrestricted',
       deadline: null,
 
       description: '',
@@ -154,8 +154,7 @@ export default class CreateEvent extends React.Component {
           typeof recurring !== 'undefined' && //`recurring` is boolean
           address && address.key &&
           Number.isFinite(entryFee) && //`entryFee` could be 0
-          paymentMethod &&
-          deadline
+          paymentMethod
         )
 
       case 3:
@@ -484,7 +483,7 @@ export default class CreateEvent extends React.Component {
                   disabled={this.props.editMode}
                   value={this.state.eventDetails.paymentMethod}
                   onChange={(paymentMethod) => {
-                    if(paymentMethod === 'app' || paymentMethod === 'unrestricted') {
+                    if(paymentMethod === 'app') {
                       this.props.onSelectAppPayments()
                     }
                     this.setEventData({paymentMethod})
