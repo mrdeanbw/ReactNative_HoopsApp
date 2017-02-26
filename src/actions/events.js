@@ -44,15 +44,11 @@ export const load = (id) => {
   return (dispatch, getState) => {
     database.addListener(`events/${id}`, 'value', (snapshot) => {
       let event = snapshot.val()
-      if(!event) {
+      if (!event) {
         return
       }
 
-      let onLoaded = (eventObj) => {
-        dispatch({type: actionTypes.EVENTS_LOADED, events: {[id] : eventObj}})
-      }
-
-      onLoaded(event)
+      dispatch({type: actionTypes.EVENTS_LOADED, events: {[id] : event}})
 
       // todo: Invites loaded as part of the startup routine
       // if(event.invites) {
