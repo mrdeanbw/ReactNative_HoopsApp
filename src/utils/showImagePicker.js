@@ -7,7 +7,11 @@ export default (cb) => {
     maxHeight: 500,
     storageOptions: {
       skipBackup: true
-    }
+    },
+    takePhotoButtonTitle: null,
+    mediaType: 'photo',
+    noData: true,
+
   }
 
   ImagePicker.showImagePicker(options, (response) => {
