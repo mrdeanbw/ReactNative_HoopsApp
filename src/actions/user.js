@@ -244,6 +244,7 @@ const listenToUser = () => {
   return (dispatch, getState) => {
     const currentUser = firebase.auth().currentUser
     const uid = currentUser.uid
+    const providerId = currentUser.providerData[0].providerId
 
     let previousUser = {}
     let firstLoad = true
@@ -264,7 +265,7 @@ const listenToUser = () => {
       if(!previousName) {
         //Only do routing when the name wasn't previously set
         //It may now be, or not.
-        if(!name) {
+        if(!name && providerId !== 'password') {
           //Name isn't defined. We need to ask for extra data
           dispatch(navigationActions.reset({key: 'signupFacebookExtra'}))
         } else if(Object.keys(user.interests || {}).length === 0) {
