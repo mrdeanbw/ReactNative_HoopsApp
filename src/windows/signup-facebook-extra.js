@@ -103,7 +103,7 @@ export default class SignUpFacebookExtra extends React.Component {
           hideSwitcher={true}
         />
 
-        <LoadingAlert visible={this.props.isLoading} />
+        {/*<LoadingAlert visible={this.props.isLoading} />*/}
 
         <Form style={StyleSheet.signup.style}>
           <TextInput

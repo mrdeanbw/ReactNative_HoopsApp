@@ -143,13 +143,6 @@
 			remoteGlobalIDString = CDD7BF831B2D5126006FDA75;
 			remoteInfo = RNI18nTests;
 		};
-		2754E98F1DD4CAFE0080FF9F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A9166BFAC8004E3486F7CDA9 /* RNFIRAnalytics.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNFIRAnalytics;
-		};
 		2754EA081DD5FC0F0080FF9F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8B2DD186C9D54712B624A169 /* BugsnagReactNative.xcodeproj */;
@@ -405,7 +398,6 @@
 		975CBB328FA04AEAAC16E182 /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSVG.a; sourceTree = "<group>"; };
 		9985DE9911FB490F95B7CC74 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		9D60E6630B31368B588BEBC2 /* Pods_Hoops.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hoops.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A9166BFAC8004E3486F7CDA9 /* RNFIRAnalytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFIRAnalytics.xcodeproj; path = "../node_modules/react-native-firebase-analytics/ios/RNFIRAnalytics.xcodeproj"; sourceTree = "<group>"; };
 		B385DE1C4D954F2D964BFFE6 /* libBugsnagReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBugsnagReactNative.a; sourceTree = "<group>"; };
 		C1E3578B3B2243B3872707AB /* SourceSansPro-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SourceSansPro-Bold.ttf"; path = "../src/styles/resources/fonts/SourceSansPro-Bold.ttf"; sourceTree = "<group>"; };
 		C2298F14567D0D8463DAF8ED /* Pods-HoopsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoopsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HoopsTests/Pods-HoopsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -590,14 +582,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2754E97F1DD4CAFE0080FF9F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2754E9901DD4CAFE0080FF9F /* libRNFIRAnalytics.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		2754EA051DD5FC0F0080FF9F /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -758,7 +742,6 @@
 				D63AA81A6A484AD29657DCC3 /* RCTFBSDK.xcodeproj */,
 				385BBA2870144C5A8528D869 /* RNFetchBlob.xcodeproj */,
 				DA3DB39272894699A885FA29 /* RNFIRMessaging.xcodeproj */,
-				A9166BFAC8004E3486F7CDA9 /* RNFIRAnalytics.xcodeproj */,
 				8B2DD186C9D54712B624A169 /* BugsnagReactNative.xcodeproj */,
 				271544ECB6024C4B9AADFC57 /* AirMaps.xcodeproj */,
 				9985DE9911FB490F95B7CC74 /* RNImagePicker.xcodeproj */,
@@ -984,10 +967,6 @@
 					ProjectRef = 385BBA2870144C5A8528D869 /* RNFetchBlob.xcodeproj */;
 				},
 				{
-					ProductGroup = 2754E97F1DD4CAFE0080FF9F /* Products */;
-					ProjectRef = A9166BFAC8004E3486F7CDA9 /* RNFIRAnalytics.xcodeproj */;
-				},
-				{
 					ProductGroup = 2783E31E1DBE5D9200A672F0 /* Products */;
 					ProjectRef = DA3DB39272894699A885FA29 /* RNFIRMessaging.xcodeproj */;
 				},
@@ -1085,13 +1064,6 @@
 			fileType = wrapper.cfbundle;
 			path = RNI18nTests.xctest;
 			remoteRef = 22A666801D51C12F0051D233 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2754E9901DD4CAFE0080FF9F /* libRNFIRAnalytics.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNFIRAnalytics.a;
-			remoteRef = 2754E98F1DD4CAFE0080FF9F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2754EA091DD5FC0F0080FF9F /* libBugsnagReactNative.a */ = {

@@ -142,19 +142,20 @@ export const facebookSignIn = () => {
 }
 
 export const loadFacebookData = () => {
-  return dispatch => {
-    dispatch({
-      type: actionTypes.FACEBOOK_USER_DATA_START,
-    })
-    facebookAuth.getUserData().then(facebookUser => {
+  return async(dispatch) => {
+    dispatch({type: actionTypes.FACEBOOK_USER_DATA_START})
+
+    try {
+      const facebookUser = await facebookAuth.getUserData()
+
       dispatch({
         type: actionTypes.FACEBOOK_USER_DATA,
         facebookUser,
       })
-    }).catch(err => {
+    } catch(err) {
       dispatch({type: actionTypes.FACEBOOK_USER_ERROR})
       console.warn(err) //eslint-disable-line no-console
-    })
+    }
   }
 }
 
