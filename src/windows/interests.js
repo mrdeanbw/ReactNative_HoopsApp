@@ -3,11 +3,7 @@ import React from 'react'
 import {ScrollView, View} from 'react-native'
 
 import StyleSheet from '../styles'
-import Dialog from '../components/dialog'
-import Button from '../components/button'
-import CheckButton from '../components/check-button'
-import HighlightText from '../components/highlight-text'
-import Popup from '../components/popup'
+import {Button, CheckButton, Header, HighlightText, Popup} from '../components'
 import _ from '../i18n'
 
 export default class Interests extends React.Component {
@@ -57,8 +53,7 @@ export default class Interests extends React.Component {
 
   render() {
     return (
-      <Dialog title={_('interests')} onClose={this.props.onClose}>
-
+      <View style={{flex:1}}>
         <InterestLevelPopup
           visible={!!this.state.levelPopupInterest}
           onClose={() => this.setState({levelPopupInterest: null})}
@@ -68,6 +63,7 @@ export default class Interests extends React.Component {
           }}
         />
 
+        <Header title={_('interests')} hideSwitcher={true} />
         <ScrollView>
           <HighlightText highlight={_('sports')} text={_('interestsBanner')}
                    style={[StyleSheet.text, StyleSheet.interests.bannerText]}
@@ -96,8 +92,7 @@ export default class Interests extends React.Component {
             />
           </View>
         </ScrollView>
-
-      </Dialog>
+      </View>
     )
   }
 }
