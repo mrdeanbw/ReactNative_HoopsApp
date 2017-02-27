@@ -16,15 +16,15 @@ import actionTypes, {
 
 
 export const signIn = (email, password) => {
-  return (dispatch) => {
+  return async(dispatch) => {
     dispatch({type: actionTypes.USER_SIGN_IN})
 
-    emailAuth.signIn(email, password)
-      .then((user) => {
-        dispatch(signInSuccess('email'))
-      }).catch((err) => {
-        dispatch(signInFailure(err))
-      })
+    try {
+      await emailAuth.signIn(email, password)
+      dispatch(signInSuccess('email'))
+    } catch(err) {
+      dispatch(signInFailure(err))
+    }
   }
 }
 
@@ -57,27 +57,22 @@ export const signInFailure = (err) => ({
  * @param extraData {Object} - Object of extra data to store against the new user
  */
 export const signUp = (email, password, extraData) => {
-  return (dispatch) => {
-    dispatch({type: actionTypes.USER_SIGN_UP})
+  return async(dispatch) => {
+    dispatch({
+      type: actionTypes.USER_SIGN_UP
+    })
 
-    emailAuth.signUp(email, password)
-      .then((user) => {
-        savePersonalData({
-          ...extraData,
-          dob: new Date(extraData.dob).valueOf(), //convert date to epoch timestamp
-          email,
-        },
-        false,
-        (err) => {
-          if(err) {
-            dispatch(signUpFailure(err))
-          }else {
-            dispatch(signUpSuccess('email'))
-          }
-        })
-      }).catch(err => {
-        dispatch(signUpFailure(err))
+    try {
+      await emailAuth.signUp(email, password)
+      await savePersonalData({
+        ...extraData,
+        dob: new Date(extraData.dob).valueOf(), //convert date to epoch timestamp
+        email,
       })
+      dispatch(signUpSuccess('email'))
+    } catch(err) {
+      dispatch(signUpFailure(err))
+    }
   }
 }
 
@@ -263,12 +258,8 @@ const listenToUser = () => {
         firstLoad = false
       }
 
-      console.log("listenToUser")
-
       var previousName = previousUser.name ? previousUser.name : null
       var name = user.name ? user.name : null
-
-      console.log("listenToUser", previousName, name)
 
       if(!previousName) {
         //Only do routing when the name wasn't previously set
