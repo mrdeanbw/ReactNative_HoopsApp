@@ -163,6 +163,13 @@ export default handleActions({
     }
   },
 
+  [actionTypes.FACEBOOK_USER_ERROR]: (state, action) => {
+    return {
+      ...state,
+      isFacebookUserLoading: false,
+    }
+  },
+
   [actionTypes.USER_SIGN_UP_FAILURE]: (state, action) => {
     return {
       ...state,

@@ -157,6 +157,7 @@ export const loadFacebookData = () => {
         facebookUser,
       })
     }).catch(err => {
+      dispatch({type: actionTypes.FACEBOOK_USER_ERROR})
       console.warn(err) //eslint-disable-line no-console
     })
   }
@@ -250,9 +251,9 @@ const listenToUser = () => {
 
     let previousUser = {}
     let firstLoad = true
+
     database.addListener(`users/${uid}`, 'value', (snapshot) => {
       let user = snapshot.val() || {}
-
       let state = getState()
 
       //On first load, the store needs to stop showing the sign in loading icon
@@ -261,8 +262,13 @@ const listenToUser = () => {
         firstLoad = false
       }
 
+      console.log("listenToUser")
+
       var previousName = previousUser.name ? previousUser.name : null
       var name = user.name ? user.name : null
+
+      console.log("listenToUser", previousName, name)
+
       if(!previousName) {
         //Only do routing when the name wasn't previously set
         //It may now be, or not.
