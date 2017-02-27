@@ -1,6 +1,6 @@
 import FCM from 'react-native-fcm'
 
-import firebase, {firebaseDb, firebaseStorage, uploadImage} from '../data/firebase'
+import firebase, {firebaseDb, uploadImage} from '../data/firebase'
 import DBHelper, {clearAllListeners} from '../data/database-helper'
 const database = DBHelper('user')
 
@@ -247,7 +247,8 @@ export const toggleAvailability = () => {
 
 const listenToUser = () => {
   return (dispatch, getState) => {
-    let uid = firebase.auth().currentUser.uid
+    const currentUser = firebase.auth().currentUser
+    const uid = currentUser.uid
 
     let previousUser = {}
     let firstLoad = true
