@@ -1,4 +1,4 @@
-import {Platform} from 'react-native'
+import {Dimensions, Platform} from 'react-native'
 
 import {colors} from '../resources'
 
@@ -13,6 +13,7 @@ export default StyleSheet => StyleSheet.extend({
 
   logoContainer: {
     marginTop: (Platform.OS === 'ios') ? 64 : 54,
+    marginBottom: 10,
     alignItems: 'center',
   },
 
@@ -60,13 +61,13 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   swiper: {
-    marginTop: 10
   },
 
   page: {
     flex: 1,
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    //justifyContent: 'center',
     marginLeft: 10,
     marginRight: 10,
   },
@@ -74,15 +75,16 @@ export default StyleSheet => StyleSheet.extend({
   pageText: {
     textAlign: 'center',
     color: colors.white,
-    marginBottom: 50,
   },
 
   pageTextHighlight: {
-    // color: colors.pink
+    color: colors.pink
   },
 
   pageImage: {
-    // flex: 1,
+    width: Dimensions.get('window').width - 20,
     resizeMode: 'contain',
+    position: 'absolute',
+    top: 125,
   }
 })

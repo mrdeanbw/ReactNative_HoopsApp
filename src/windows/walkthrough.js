@@ -3,8 +3,7 @@ import {View, Image} from 'react-native'
 import Swiper from 'react-native-swiper'
 
 import StyleSheet from '../styles'
-import {Button} from '../components'
-import HighlightText from '../components/highlight-text'
+import {Button, HighlightText} from '../components'
 import _ from '../i18n'
 
 export default class Walkthrough extends React.Component {
@@ -23,10 +22,13 @@ export default class Walkthrough extends React.Component {
         <View style={StyleSheet.walkthrough.logoContainer}>
           <Image source={StyleSheet.images.logo} style={StyleSheet.walkthrough.logo} />
         </View>
-        <Swiper autoplay={false} style={StyleSheet.walkthrough.swiper}
-            paginationStyle={StyleSheet.walkthrough.paginator}
-            dot={<View style={StyleSheet.walkthrough.dot}/>}
-            activeDot={<View style={StyleSheet.walkthrough.activeDot}/>}>
+        <Swiper
+          autoplay={false}
+          style={StyleSheet.walkthrough.swiper}
+          paginationStyle={StyleSheet.walkthrough.paginator}
+          dot={<View style={StyleSheet.walkthrough.dot}/>}
+          activeDot={<View style={StyleSheet.walkthrough.activeDot}/>}
+        >
           <WalkthroughPage image={StyleSheet.images.screengrab1} text={_('walkthrough1')} />
           <WalkthroughPage image={StyleSheet.images.screengrab2} text={_('walkthrough2')} />
           <WalkthroughPage image={StyleSheet.images.screengrab3} text={_('walkthrough3')} />
@@ -62,9 +64,11 @@ class WalkthroughPage extends React.Component {
   render() {
     return (
       <View style={StyleSheet.walkthrough.page}>
-        <HighlightText highlight={_('productName')} text={this.props.text}
-                 style={[StyleSheet.text, StyleSheet.walkthrough.pageText]}
-                 highlightStyle={StyleSheet.walkthrough.pageTextHighlight} />
+        <HighlightText
+          highlight={_('productName')}
+          text={this.props.text}
+          style={[StyleSheet.text, StyleSheet.walkthrough.pageText]}
+          highlightStyle={StyleSheet.walkthrough.pageTextHighlight} />
         <Image style={StyleSheet.walkthrough.pageImage} source={this.props.image} />
       </View>
     )
