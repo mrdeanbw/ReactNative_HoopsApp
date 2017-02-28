@@ -31,7 +31,7 @@ export default class CreateEvent extends React.Component {
       recurringValue: 1,
       address: {},
       entryFee: 0,
-      paymentMethod: 'unrestricted',
+      paymentMethod: '',
       deadline: null,
 
       description: '',
@@ -148,13 +148,20 @@ export default class CreateEvent extends React.Component {
         )
 
       case 2:
+        let isPaymentValid = true
+        if (parseInt(entryFee) > 0) {
+          isPaymentValid = !!(
+            paymentMethod
+          )
+        }
+
         return !!(
           date &&
           courtType &&
           typeof recurring !== 'undefined' && //`recurring` is boolean
           address && address.key &&
           Number.isFinite(entryFee) && //`entryFee` could be 0
-          paymentMethod
+          isPaymentValid
         )
 
       case 3:
@@ -476,34 +483,38 @@ export default class CreateEvent extends React.Component {
                   />
                 </View>
 
-                <ListInput
-                  type="flat"
-                  style={StyleSheet.halfMarginTop}
-                  placeholder={_('paymentMethod')}
-                  disabled={this.props.editMode}
-                  value={this.state.eventDetails.paymentMethod}
-                  onChange={(paymentMethod) => {
-                    if(paymentMethod === 'app') {
-                      this.props.onSelectAppPayments()
-                    }
-                    this.setEventData({paymentMethod})
-                  }}
-                >
-                  <ListInput.Item text={_('inAppPayment')} value="app" />
-                  <ListInput.Item text={_('cashOnSite')} value="cash" />
-                  <ListInput.Item text={_('unrestricted')} value={"unrestricted"} />
-                </ListInput>
+                {parseInt(this.getEntryFeeLabel()) > 0 ? (
+                  <ListInput
+                    type="flat"
+                    style={StyleSheet.halfMarginTop}
+                    placeholder={_('paymentMethod')}
+                    disabled={this.props.editMode}
+                    value={this.state.eventDetails.paymentMethod}
+                    onChange={(paymentMethod) => {
+                      if(paymentMethod === 'app') {
+                        this.props.onSelectAppPayments()
+                      }
+                      this.setEventData({paymentMethod})
+                    }}
+                  >
+                    <ListInput.Item text={_('inAppPayment')} value="app" />
+                    <ListInput.Item text={_('cashOnSite')} value="cash" />
+                    <ListInput.Item text={_('unrestricted')} value={"unrestricted"} />
+                  </ListInput>
+                ) : null}
 
-                <DateInput
-                  type="flat"
-                  placeholder={_('deadline')}
-                  value={this.state.eventDetails.deadline}
-                  style={StyleSheet.halfMarginTop}
-                  rightBar={<Icon name="listIndicator" />}
-                  date={true} time={true}
-                  initialValue={new Date()}
-                  onChange={(deadline) => this.setEventData({deadline})}
-                />
+                {parseInt(this.getEntryFeeLabel()) > 0 ? (
+                  <DateInput
+                    type="flat"
+                    placeholder={_('deadline')}
+                    value={this.state.eventDetails.deadline}
+                    style={StyleSheet.halfMarginTop}
+                    rightBar={<Icon name="listIndicator" />}
+                    date={true} time={true}
+                    initialValue={new Date()}
+                    onChange={(deadline) => this.setEventData({deadline})}
+                  />
+                ) : null}
               </View>
 
               <KeyboardSpacer/>
