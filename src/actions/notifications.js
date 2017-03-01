@@ -136,21 +136,23 @@ export const receivePush = (notification) => {
 }
 
 export const scheduleDeadlineAlert = (event) => {
-  if(!event.deadline) {
-    return
-  }
-  let id = `DEADLINE_${event.id}`
+  return (dispatch) => {
+    if(!event.deadline) {
+      return
+    }
+    let id = `DEADLINE_${event.id}`
 
-  FCM.scheduleLocalNotification({
-    fire_date: new Date(event.deadline).getTime(),
-    id: id,
-    body: 'Your event deadline has passed',
-    title: `${event.title} deadline`,
-    deeplink: `hoops://events/${event.id}`,
-  })
+    FCM.scheduleLocalNotification({
+      fire_date: new Date(event.deadline).getTime(),
+      id: id,
+      body: 'Your event deadline has passed',
+      title: `${event.title} deadline`,
+      deeplink: `hoops://events/${event.id}`,
+    })
 
-  return {
-    type: actionTypes.NOTIFICATION_SCHEDULED,
-    id: id,
+    return {
+      type: actionTypes.NOTIFICATION_SCHEDULED,
+      id: id,
+    }
   }
 }
