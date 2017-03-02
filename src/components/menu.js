@@ -5,6 +5,7 @@ import {
   View,
   Text,
   Image,
+  ScrollView,
   TouchableWithoutFeedback,
   TouchableHighlight
 } from 'react-native'
@@ -45,7 +46,7 @@ export default class Menu extends React.Component {
             </TouchableHighlight>
           </View>
 
-          <View style={StyleSheet.menu.items}>
+          <ScrollView style={StyleSheet.menu.items}>
             <MenuItem
               active={this.props.currentTab === 'settings'}
               icon="settings"
@@ -91,7 +92,7 @@ export default class Menu extends React.Component {
               text={_('friends')}
               onPress={() => this.props.onTabPress('friends')}
             />
-          </View>
+          </ScrollView>
         </Animated.View>
 
       </View>
