@@ -84,7 +84,7 @@ export default class TabBar extends React.Component {
           )}
 
           {/* Spacer for the abs pos Action button */}
-          <View style={{flex: 1}} />
+          <View style={{width: 72}} />
           <View>
             <Button
               type="tab"
