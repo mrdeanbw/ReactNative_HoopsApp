@@ -77,7 +77,6 @@ export const remove = (id) => {
 
 const preSave = (eventData, eventKey, uid) => {
   let chain = []
-  console.log("preSave", eventData)
   if(eventData.image) {
     //upload images first:
     chain.push(uploadImage(eventData.image, `events/${eventKey}/main.jpeg`))
