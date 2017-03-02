@@ -20,7 +20,6 @@ export default StyleSheet => StyleSheet.extend({
     zIndex: -1,
     width: null,
     height: null,
-    resizeMode: 'cover',
     margin: 0
   },
 
