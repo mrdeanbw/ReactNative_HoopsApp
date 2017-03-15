@@ -2,7 +2,23 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        <!--   your app branding color for the app bar -->
+        <item name="android:colorPrimary">@color/black</item>
+
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="android:colorPrimaryDark">@color/pink</item>
+
+        <!-- Active thumb color & Active track color(30% transparency) -->
+        <item name="colorControlActivated">@color/black</item>
+
+        <item name="android:datePickerDialogTheme">@style/HoopsDatePickerDialogTheme</item>
+        <item name="android:timePickerDialogTheme">@style/HoopsDatePickerDialogTheme</item>
     </style>
 
+    <style name="HoopsDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+      <item name="colorPrimary">@color/pink</item>
+      <item name="colorPrimaryDark">@color/black</item>
+      <item name="colorAccent">@color/pink</item>
+      <item name="android:headerBackground">@color/black</item>
+    </style>
 </resources>
