@@ -8,7 +8,7 @@ export const signupFacebook = 'Facebook Sign Up'
 export const walkthrough1 = 'Find your favorite activities\nnear you and join the fun!'
 export const walkthrough2 = 'Easily create various sports events\nand find relevant people to join.'
 export const walkthrough3 = 'Manage attendance and let ' + productName + '\nautomatically replace drop outs.'
-export const walkthrough4 = walkthrough3
+export const walkthrough4 = 'Keep track of all your organised and upcoming sporting events.'
 
 export const loginBanner = 'Join ' + productName + ' and start organising\nyour sports events, or just easily\nsearch and join others.'
 
