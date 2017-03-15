@@ -6,7 +6,7 @@ import _buttons from './buttons'
 import _calendar from './calendar'
 import _chat from './chat'
 import _dialog from './dialog'
-import _dateInput from './date-input'
+
 import _dashboardButton from './dashboard-buttons'
 import _devIndicator from './dev-indicator'
 import _eventDashboard from './event-dashboard'
@@ -41,7 +41,6 @@ export default {
   calendar: _calendar,
   chat: _chat,
   dialog: _dialog,
-  dateInput: _dateInput,
   dashboardButton: _dashboardButton,
   devIndicator: _devIndicator,
   eventDashboard: _eventDashboard,
