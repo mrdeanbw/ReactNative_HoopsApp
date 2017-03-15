@@ -83,10 +83,20 @@ export const load = (id) => {
 export const getAll = () => {
   return dispatch => {
     return new Promise((resolve, reject) => {
-      database.addListener(`invites`, 'value', (snapshot) => {
+      firebaseDb.child(`invites`).once('value', snapshot => {
+
+        const invites = snapshot.val()
+
+        // Add id to the object
+        if (invites) {
+          Object.entries(invites).map(([key, value]) => {
+            invites[key]['id'] = key
+          })
+        }
+
         dispatch({
           type: actionTypes.INVITES_LOAD_ALL,
-          invites: snapshot.val(),
+          invites: invites,
         })
 
         resolve()
