@@ -20,11 +20,11 @@ export default handleActions({
 
   [actionTypes.INVITES_LOAD_ALL]: (state, action) => {
     return {
-    invitesById: {
-        ...state.invitesById,
-        ...action.invites,
-      },
-    }
+      invitesById: {
+          ...state.invitesById,
+          ...action.invites,
+        },
+      }
   },
 
 }, initialState)
