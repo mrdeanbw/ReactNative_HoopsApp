@@ -92,9 +92,6 @@ class ProfileEdit extends React.Component {
 export default connect(
   (state) => ({
     user: state.user,
-    users: state.users,
-    events: state.events,
-    notifications: state.notifications,
     interests: state.interests,
   }),
   (dispatch) => ({
