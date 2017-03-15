@@ -363,22 +363,18 @@ export default class CreateEvent extends React.Component {
           <Wizard.Step disabled={!this.validate(2)}>
             <Form extraKeyboardPadding={25} focusNode={this.state.focus['scrollView2']} contentContainerStyle={StyleSheet.padding}>
               <DateInput
-                type="flat"
                 placeholder={_('startDateTime')}
                 value={this.state.eventDetails.date}
-                rightBar={<Icon name="listIndicator" />}
                 date={true} time={true}
-                initialValue={new Date()}
+                minDate={new Date()}
                 onChange={(date) => this.setEventData({date})}
               />
 
               <DateInput
-                type="flat"
                 placeholder={_('endDateTime')}
                 value={this.state.eventDetails.endDate}
-                rightBar={<Icon name="listIndicator" />}
                 date={true} time={true}
-                initialValue={this.state.date || new Date()}
+                minDate={new Date()}
                 onChange={(endDate) => this.setEventData({endDate})}
               />
 

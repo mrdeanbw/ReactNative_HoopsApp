@@ -4,7 +4,6 @@ import _AvatarEdit from './avatar-edit'
 import _Button from './button'
 import _CheckButton from './check-button'
 import _DateInput from './date-input'
-import _DatePicker from './date-picker'
 import _DevIndicator from './dev-indicator'
 import _Dialog from './dialog'
 import _EventListItem from './event-list-item'
@@ -39,7 +38,6 @@ export const Button = _Button
 export const CheckButton = _CheckButton
 export const DashboardButton = _DashboardButton
 export const DateInput = _DateInput
-export const DatePicker = _DatePicker
 export const DevIndicator = _DevIndicator
 export const Dialog = _Dialog
 export const EventListItem = _EventListItem

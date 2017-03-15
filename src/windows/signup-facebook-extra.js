@@ -140,15 +140,12 @@ export default class SignUpFacebookExtra extends React.Component {
           />
 
           <DateInput
-            type="flat"
             ref="dob"
             placeholder={_('dob')}
             icon="nappy"
             date={true}
             time={false}
-            hideDay={true}
-            minValue={new Date("1900-01-01")}
-            initialValue={new Date()}
+            minDate={new Date("1900-01-01")}
             value={this.state.dob}
             onChange={(dob) => this.setState({dob})}
           />

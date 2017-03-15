@@ -212,14 +212,11 @@ export default class Search extends React.Component {
 
               <Text style={[StyleSheet.text, StyleSheet.search.titleTextStyle]}>{_('searchWhen')}</Text>
               <DateInput
-                type="flat"
                 placeholder={_('dateTime')}
                 value={this.state.date}
-                initialValue={Date.now()}
-                rightBar={<Icon name="listIndicator" />}
                 date={true} time={true}
                 onChange={this.onChangeDate}
-                maxValue={new Date().setFullYear(new Date().getFullYear() + 4)}
+                maxDate={new Date().setFullYear(new Date().getFullYear() + 4)}
               />
 
               <Text style={[StyleSheet.text, StyleSheet.search.titleTextStyle]}>{_('searchGender')}</Text>

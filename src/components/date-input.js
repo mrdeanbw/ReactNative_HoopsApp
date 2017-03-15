@@ -1,93 +1,102 @@
+import React, {Component} from 'react'
+import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
-import React from 'react'
-import StyleSheet from '../styles'
-import { View, Text, TouchableHighlight } from 'react-native'
 
 import _ from '../i18n'
-import Button from './button'
-import TextInput from './text-input'
-import Popup from './popup'
-import DatePicker from './date-picker'
+import StyleSheet from '../styles'
 
-export default class DateInput extends React.Component {
+// Hack
+import {dateInput, dateInputIcon} from '../styles/stylesheets/date-input'
 
-  constructor(props) {
-    super(props)
+const FORMATS = {
+  'date': 'Do MMMM YYYY',
+  'dateTime': 'HH:mm dddd Do MMMM YYYY',
+  'time': 'HH:mm'
+}
 
-    this.state = {
-      showPopup: false,
-      value: props.value || props.initialValue,
+class DateInput extends Component {
+
+  getFormat() {
+    const mode = this.getMode()
+
+    if (mode === 'datetime') {
+      return FORMATS.dateTime
+    }
+    else if (mode === 'date') {
+      return FORMATS.date
+    }
+    else if (mode === 'time') {
+      return FORMATS.time
     }
   }
 
-  onPress = () => {
-    this.setState({ showPopup: true })
-  };
+  getMode() {
+    const {date, time} = this.props
 
-  onPressSave = () => {
-    this.props.onChange && this.props.onChange(this.state.value)
-    this.setState({ showPopup: false })
-  };
+    if (date && time) {
+      return 'datetime'
+    }
+    else if (date) {
+      return 'date'
+    }
+    else if (time) {
+      return 'time'
+    }
+  }
+
+  getCustomStyleSheet() {
+    if (this.props.icon) {
+      return dateInputIcon
+    }
+
+    return dateInput
+  }
 
   render() {
-    const {rightBar, placeholder, style, ...props} = this.props
+    const dateStyleSheet = this.getCustomStyleSheet()
 
-    const defaultTextInput = StyleSheet.textInputs.default || {}
-    const textInput = this.props.type ? StyleSheet.textInputs[this.props.type] || defaultTextInput : defaultTextInput
+    const mode = this.getMode()
+    const format = this.getFormat()
+    const {icon, value, initialValue} = this.props
+    const iconSrc = StyleSheet.icons[icon]
 
-    const _value = moment(this.props.value)
-
-    let format = 'Do MMMM YYYY'
-    if (!this.props.hideDay) {
-      format = 'dddd ' + format
-    }
-    if (this.props.time) {
-      format = 'HH:mm ' + format
+    let date
+    if (value || initialValue) {
+      date = new Date(this.props.value || this.props.initialValue)
     }
 
     return (
-      <View>
-        <TouchableHighlight onPress={this.onPress} style={{overflow: 'visible'}}
-          activeOpacity={'activeOpacity' in textInput ? textInput.activeOpacity : defaultTextInput.activeOpacity}
-          underlayColor={'underlayColor' in textInput ? textInput.underlayColor : defaultTextInput.underlayColor}>
-          <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-            <TextInput style={[{flex:1}, style]} view={
-              <Text style={[
-                StyleSheet.text,
-                defaultTextInput.textStyle,
-                textInput.textStyle,
-                defaultTextInput.staticTextStyle,
-                textInput.staticTextStyle,
-                this.props.textStyle,
-                !this.props.value && { color: this.props.placeholderTextColor || textInput.placeholderTextColor || defaultTextInput.placeholderTextColor }
-              ]}>
-                {this.props.value ? _value.format(format) : placeholder}
-              </Text>
-            } {...props} />
-            <View style={[defaultTextInput.barStyle, textInput.barStyle]}>{rightBar}</View>
-          </View>
-        </TouchableHighlight>
-        <Popup
-          visible={this.state.showPopup}
-          onClose={() => this.setState({showPopup: false})}
-          closeText={_('back')}
-          buttons={
-            <Button type="dialogDefault" text={_('save')} onPress={this.onPressSave}/>
-          }
-        >
-          <DatePicker
-            value={this.state.value && new Date(this.state.value)}
-            minValue={this.props.minValue}
-            maxValue={this.props.maxValue}
-            date={'date' in this.props ? this.props.date : true}
-            time={!!this.props.time}
-            onClose={() => this.setState({showPopup: false})}
-            onChange={value => {
-              this.setState({value})
-            }}
-          />
-        </Popup>
-      </View>
+      <DatePicker
+        mode={mode}
+        format={format}
+        placeholder={this.props.placeholder}
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        date={date}
+        minDate={this.props.minDate}
+        maxDate={this.props.maxDate}
+        onDateChange={(newDate) => {
+          const dttm = parseInt(moment(newDate, format).format('x'))
+          this.props.onChange(dttm)
+        }}
+        style={{
+          width: null,
+          borderStyle: 'solid',
+          borderBottomWidth: StyleSheet.hairlineWidth,
+          borderBottomColor: StyleSheet.colors.grey,
+        }}
+        customStyles={dateStyleSheet}
+        iconSource={iconSrc}
+        showIcon={!!icon}
+      />
     )
   }
 }
+
+DateInput.propTypes = {
+  date: React.PropTypes.bool.isRequired,
+  time: React.PropTypes.bool.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+}
+
+export default DateInput
