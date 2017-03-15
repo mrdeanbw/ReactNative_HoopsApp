@@ -6,5 +6,6 @@ export default {
   "screengrab1": require('./images/screengrab-1.png'),
   "screengrab2": require('./images/screengrab-2.png'),
   "screengrab3": require('./images/screengrab-3.png'),
+  "screengrab4": require('./images/screengrab-4.png'),
   "walkthrough": require('./images/walkthrough.png'),
 }

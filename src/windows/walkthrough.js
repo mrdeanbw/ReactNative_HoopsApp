@@ -32,7 +32,7 @@ export default class Walkthrough extends React.Component {
           <WalkthroughPage image={StyleSheet.images.screengrab1} text={_('walkthrough1')} />
           <WalkthroughPage image={StyleSheet.images.screengrab2} text={_('walkthrough2')} />
           <WalkthroughPage image={StyleSheet.images.screengrab3} text={_('walkthrough3')} />
-          <WalkthroughPage image={StyleSheet.images.screengrab3} text={_('walkthrough4')} />
+          <WalkthroughPage image={StyleSheet.images.screengrab4} text={_('walkthrough4')} />
         </Swiper>
         <View style={StyleSheet.walkthrough.buttonBar}>
           <Button
