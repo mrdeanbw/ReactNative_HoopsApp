@@ -501,13 +501,11 @@ export default class CreateEvent extends React.Component {
 
                 {parseInt(this.getEntryFeeLabel()) > 0 ? (
                   <DateInput
-                    type="flat"
                     placeholder={_('deadline')}
                     value={this.state.eventDetails.deadline}
                     style={StyleSheet.halfMarginTop}
-                    rightBar={<Icon name="listIndicator" />}
                     date={true} time={true}
-                    initialValue={new Date()}
+                    minDate={new Date()}
                     onChange={(deadline) => this.setEventData({deadline})}
                   />
                 ) : null}
