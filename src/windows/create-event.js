@@ -378,16 +378,20 @@ export default class CreateEvent extends React.Component {
                 onChange={(endDate) => this.setEventData({endDate})}
               />
 
-              <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop, {alignSelf: 'center'}]}>
-                <Button type="roundedGrey" active={this.state.eventDetails.courtType === 'indoor'} text={_('indoor')} onPress={() => this.setEventData({courtType: 'indoor'})} style={{width: 110}}/>
-                <Text style={[StyleSheet.text, StyleSheet.horizontalRule.textStyle, {flex: 1}]}>{_('or').toUpperCase()}</Text>
-                <Button type="roundedGrey" active={this.state.eventDetails.courtType === 'outdoor'} text={_('outdoor')} onPress={() => this.setEventData({courtType: 'outdoor'})} style={{width: 110}}/>
+              <View>
+                <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop, {alignSelf: 'center'}]}>
+                  <Button type="roundedGrey" active={this.state.eventDetails.courtType === 'indoor'} text={_('indoor')} onPress={() => this.setEventData({courtType: 'indoor'})} style={{width: 110}}/>
+                  <Text style={[StyleSheet.text, StyleSheet.horizontalRule.textStyle, {flex: 1}]}>{_('or').toUpperCase()}</Text>
+                  <Button type="roundedGrey" active={this.state.eventDetails.courtType === 'outdoor'} text={_('outdoor')} onPress={() => this.setEventData({courtType: 'outdoor'})} style={{width: 110}}/>
+                </View>
               </View>
 
-              <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop, {alignSelf: 'center'}]}>
-                <Button type="roundedGrey" active={this.state.eventDetails.recurring === true} text={_('recurring')} onPress={() => this.setEventData({recurring: true})} style={{width: 110}}/>
-                <Text style={[StyleSheet.text, StyleSheet.horizontalRule.textStyle, {flex: 1}]}>{_('or').toUpperCase()}</Text>
-                <Button type="roundedGrey" active={this.state.eventDetails.recurring === false} text={_('oneTime')} onPress={() => this.setEventData({recurring: false})} style={{width: 110}}/>
+              <View>
+                <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop, {alignSelf: 'center'}]}>
+                  <Button type="roundedGrey" active={this.state.eventDetails.recurring === false} text={_('oneTime')} onPress={() => this.setEventData({recurring: false})} style={{width: 110}}/>
+                  <Text style={[StyleSheet.text, StyleSheet.horizontalRule.textStyle, {flex: 1}]}>{_('or').toUpperCase()}</Text>
+                  <Button type="roundedGrey" active={this.state.eventDetails.recurring === true} text={_('recurring')} onPress={() => this.setEventData({recurring: true})} style={{width: 110}}/>
+                </View>
               </View>
 
               {this.state.eventDetails.recurring && (
@@ -453,7 +457,7 @@ export default class CreateEvent extends React.Component {
                   }}
                 />
 
-                <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
+                <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop]}>
                   <TextInput
                     ref="costInput"
                     disabled={this.props.editMode}
@@ -472,13 +476,15 @@ export default class CreateEvent extends React.Component {
                       this.scrollToInput('scrollView2', this.refs.costInput)
                     }}
                   />
-                  <Button
-                    type="roundedGrey"
-                    active={!this.props.editMode && this.state.eventDetails.entryFee === 0}
-                    text={_('free')}
-                    onPress={this.props.editMode ? undefined : () => this.setEventData({entryFee: 0})}
-                    style={{width: 110}}
-                  />
+                  <View>
+                    <Button
+                      type="roundedGrey"
+                      active={!this.props.editMode && this.state.eventDetails.entryFee === 0}
+                      text={_('free')}
+                      onPress={this.props.editMode ? undefined : () => this.setEventData({entryFee: 0})}
+                      style={{width: 110}}
+                    />
+                  </View>
                 </View>
 
                 {parseInt(this.getEntryFeeLabel()) > 0 && (
