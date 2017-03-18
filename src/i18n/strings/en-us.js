@@ -202,6 +202,7 @@ export const viewList = 'View List'
 export const twitter = 'Twitter'
 
 export const createEvent = 'Create an Event'
+export const editEvent = 'Edit Event'
 export const next = 'Next'
 
 export const eventName = 'Event Name'
