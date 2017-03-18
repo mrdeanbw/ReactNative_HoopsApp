@@ -594,7 +594,6 @@ export default StyleSheet => StyleSheet.extend({
       fontSize: 13,
       fontWeight: 'bold',
       color: colors.black,
-      lineHeight: 0
     }
   }),
 
@@ -613,7 +612,6 @@ export default StyleSheet => StyleSheet.extend({
       fontSize: 13,
       fontWeight: 'bold',
       color: colors.pink,
-      lineHeight: 0
     }
   }),
 
@@ -634,7 +632,6 @@ export default StyleSheet => StyleSheet.extend({
       fontSize: 13,
       fontWeight: 'bold',
       color: colors.black,
-      lineHeight: 0
     }
   }),
 
@@ -655,7 +652,6 @@ export default StyleSheet => StyleSheet.extend({
       fontSize: 13,
       fontWeight: 'bold',
       color: colors.pink,
-      lineHeight: 0
     }
   }),
 
@@ -676,7 +672,6 @@ export default StyleSheet => StyleSheet.extend({
       fontSize: 13,
       fontWeight: 'bold',
       color: colors.green,
-      lineHeight: 0
     }
   }),
 
