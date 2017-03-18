@@ -523,8 +523,6 @@ export default class CreateEvent extends React.Component {
             </Form>
           </Wizard.Step>
 
-
-
           <Wizard.Step disabled={!this.validate(3)}>
             <Form extraKeyboardPadding={25}>
               <View style={StyleSheet.padding}>
