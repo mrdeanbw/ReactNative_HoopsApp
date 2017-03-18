@@ -89,7 +89,7 @@ export default StyleSheet => StyleSheet.extend({
   badge: {
     color: colors.white,
     backgroundColor: 'transparent',
-    lineHeight: 11.5,
+    lineHeight: 11,
     fontSize: 11
   },
 
