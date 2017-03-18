@@ -437,7 +437,6 @@ export default StyleSheet => StyleSheet.extend({
     textStyle: {
       color: colors.black,
       fontSize: 16,
-      lineHeight: 0,
       fontWeight: '400',
       flex: 1
     },
