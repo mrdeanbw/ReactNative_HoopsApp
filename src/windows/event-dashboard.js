@@ -155,7 +155,7 @@ class CancelEventPopup extends React.Component {
 
   render() {
     return (
-      <Popup visible={this.props.visible} keyboardSpacer onClose={this.onBack}>
+      <Popup visible={this.props.visible} onClose={this.onBack}>
         <View style={[StyleSheet.dialog.alertContentStyle]}>
           <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
             {_('cancelEventQuestion').toUpperCase()}
