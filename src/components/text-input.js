@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TextInput as _TextInput, Text, TouchableHighlight} from 'react-native'
+import {View, TextInput as _TextInput, Text, TouchableHighlight, Platform} from 'react-native'
 
 import _ from '../i18n'
 import StyleSheet from '../styles'
@@ -160,7 +160,7 @@ class MultilineTextInputDialog extends React.Component {
     const { modalTitle, modalPlaceholder } = this.props
 
     return (
-      <Popup visible={this.props.visible} keyboardSpacer contentStyle={{flex: 1, marginTop: 30, marginBottom: 15}} popupContentStyle={{flex: 1}}>
+      <Popup visible={this.props.visible} keyboardSpacer={Platform.OS === 'ios'} contentStyle={{flex: 1, marginTop: 30, marginBottom: 15}} popupContentStyle={{flex: 1}}>
         <View style={{flex: 1, width: StyleSheet.dimensions.width - 30}}>
           {modalTitle && <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, StyleSheet.singleMargin]}>{StyleSheet.dialog.alertTitleTextTransform(modalTitle)}</Text>}
           <HorizontalRule style={{width: null, alignSelf: 'stretch'}} />

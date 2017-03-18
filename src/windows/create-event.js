@@ -585,7 +585,7 @@ export default class CreateEvent extends React.Component {
                 source={{uri: imageSrc}}
                 style={{ resizeMode: 'cover', height: 180, width: null }}
               />
-              <KeyboardSpacer/>
+
             </Form>
           </Wizard.Step>
         </Wizard>
