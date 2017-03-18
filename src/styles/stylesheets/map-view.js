@@ -20,7 +20,6 @@ export default StyleSheet => StyleSheet.extend({
     fontWeight: 'bold',
     letterSpacing: 1,
     fontSize: 13,
-    lineHeight: 0,
     color: colors.white
   },
 
