@@ -10,9 +10,9 @@ const common = {
     blacklist: [
       'app',
       'network',
-      'navigation',
+      // 'navigation',
       'search',
-      'user',
+      // 'user',
     ],
   },
 

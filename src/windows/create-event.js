@@ -481,7 +481,7 @@ export default class CreateEvent extends React.Component {
                   />
                 </View>
 
-                {parseInt(this.getEntryFeeLabel()) > 0 ? (
+                {parseInt(this.getEntryFeeLabel()) > 0 && (
                   <ListInput
                     type="flat"
                     style={StyleSheet.halfMarginTop}
@@ -499,9 +499,9 @@ export default class CreateEvent extends React.Component {
                     <ListInput.Item text={_('cashOnSite')} value="cash" />
                     <ListInput.Item text={_('unrestricted')} value={"unrestricted"} />
                   </ListInput>
-                ) : null}
+                )}
 
-                {parseInt(this.getEntryFeeLabel()) > 0 ? (
+                {parseInt(this.getEntryFeeLabel()) > 0 && (
                   <DateInput
                     placeholder={_('deadline')}
                     value={this.state.eventDetails.deadline}
@@ -510,7 +510,7 @@ export default class CreateEvent extends React.Component {
                     minDate={new Date()}
                     onChange={(deadline) => this.setEventData({deadline})}
                   />
-                ) : null}
+                )}
               </View>
 
               <KeyboardSpacer/>
@@ -522,34 +522,37 @@ export default class CreateEvent extends React.Component {
           <Wizard.Step disabled={!this.validate(3)}>
             <Form extraKeyboardPadding={25}>
               <View style={StyleSheet.padding}>
-                <TextInput type="flat"
-                       multiline="popup"
-                       value={this.state.eventDetails.description}
-                       placeholder={_('eventDescription')}
-                       rightBar={<Icon name="listIndicator" />}
-                       onChangeText={(description) => this.setEventData({description})}
-                       modalTitle={_('describeThisEvent')}
-                       modalPlaceholder={_('enterYourDescription')} />
+                <TextInput
+                  type="flat"
+                  multiline="popup"
+                  value={this.state.eventDetails.description}
+                  placeholder={_('eventDescription')}
+                  rightBar={<Icon name="listIndicator" />}
+                  onChangeText={(description) => this.setEventData({description})}
+                  modalTitle={_('describeThisEvent')}
+                  modalPlaceholder={_('enterYourDescription')} />
 
-                <TextInput type="flat"
-                       multiline="popup"
-                       value={this.state.eventDetails.notes}
-                       placeholder={_('notes')}
-                       rightBar={<Icon name="listIndicator" />}
-                       onChangeText={(notes) => this.setEventData({notes})}
-                       modalTitle={_('eventNotes')}
-                       modalPlaceholder={_('enterYourNotesForThisEvent')}
-                       style={StyleSheet.halfMarginTop}/>
+                <TextInput
+                  type="flat"
+                  multiline="popup"
+                  value={this.state.eventDetails.notes}
+                  placeholder={_('notes')}
+                  rightBar={<Icon name="listIndicator" />}
+                  onChangeText={(notes) => this.setEventData({notes})}
+                  modalTitle={_('eventNotes')}
+                  modalPlaceholder={_('enterYourNotesForThisEvent')}
+                  style={StyleSheet.halfMarginTop} />
 
-                <TextInput type="flat"
-                       multiline="popup"
-                       value={this.state.eventDetails.rules}
-                       placeholder={_('rules')}
-                       rightBar={<Icon name="listIndicator" />}
-                       onChangeText={(rules) => this.setEventData({rules})}
-                       modalTitle={_('eventRules')}
-                       modalPlaceholder={_('enterYourRules')}
-                       style={StyleSheet.halfMarginTop}/>
+                <TextInput
+                  type="flat"
+                  multiline="popup"
+                  value={this.state.eventDetails.rules}
+                  placeholder={_('rules')}
+                  rightBar={<Icon name="listIndicator" />}
+                  onChangeText={(rules) => this.setEventData({rules})}
+                  modalTitle={_('eventRules')}
+                  modalPlaceholder={_('enterYourRules')}
+                  style={StyleSheet.halfMarginTop} />
               </View>
 
               <CheckButton
