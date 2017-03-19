@@ -122,7 +122,7 @@ class MemberInviteOptions extends React.Component {
       <Popup visible={this.props.visible} style={StyleSheet.dialog.optionsMenu} onClose={this.props.onClose}>
         {!!this.props.selected && <Button type="alertVertical" text={_('remove')} onPress={this.props.onPressRemove} />}
         {!this.props.selected && <Button type="alertVerticalDefault" text={_('invite')} onPress={this.props.onPressInvite} />}
-        <Button type="alertVertical" text={_('message')} onPress={this.props.onPressMessage} />
+        {/*<Button type="alertVertical" text={_('message')} onPress={this.props.onPressMessage} />*/}
         <Button type="alertVertical" text={_('viewProfile')} onPress={this.props.onPressViewProfile} />
       </Popup>
     )
