@@ -85,7 +85,6 @@ export default StyleSheet => StyleSheet.extend({
   avatarImageStyle: {
     width: 70,
     height: 70,
-    resizeMode: 'cover',
     borderRadius: 35,
     overflow: 'hidden'
   },
