@@ -19,9 +19,7 @@ const emptyUserObject = {
 
 const initialState = {
   isLoading: false,
-
   usersById: {},
-  all: {},
 }
 
 export default handleActions({
@@ -33,14 +31,13 @@ export default handleActions({
     return {
       ...state,
       ...initialState,
-      all: state.all,
     }
   },
 
   [actionTypes.USERS_LOAD_ALL]: (state, action) => {
     return {
       ...state,
-      all: action.users || {},
+      usersById: action.users || {},
     }
   },
 
