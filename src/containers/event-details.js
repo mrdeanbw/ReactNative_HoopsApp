@@ -118,7 +118,7 @@ class EventDetails extends React.Component {
           this.props.onDeepLinkTab('myEvents', 'myEvents')
         }}
         onPressInvite={() => {
-          this.props.onNavigate('eventInvites', {id: event.id, friendsOnly: true})
+          this.props.onNavigate('eventInvites', {id: event.id})
         }}
         onEditEvent={() => {
           this.props.onNavigate('createEvent', {id: event.id}, false)
