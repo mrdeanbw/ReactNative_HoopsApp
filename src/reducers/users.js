@@ -34,13 +34,6 @@ export default handleActions({
     }
   },
 
-  [actionTypes.USERS_LOAD_ALL]: (state, action) => {
-    return {
-      ...state,
-      usersById: action.users || {},
-    }
-  },
-
   [actionTypes.USERS_LOAD]: (state, action) => {
     return {
       ...state,
@@ -52,6 +45,7 @@ export default handleActions({
     let newUsers = {...action.users}
     for(let id in newUsers) {
       newUsers[id] = {
+        id,
         ...convertStructure({
           ...emptyUserObject,
           ...newUsers[id],

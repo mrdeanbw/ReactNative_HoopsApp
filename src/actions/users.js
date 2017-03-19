@@ -98,11 +98,7 @@ export const getAll = () => {
   return dispatch => {
     return new Promise((resolve, reject) => {
       firebaseDb.child(`users`).once('value', snapshot => {
-        dispatch({
-          type: actionTypes.USERS_LOAD_ALL,
-          users: snapshot.val(),
-        })
-
+        dispatch({type: actionTypes.USERS_LOADED, users: snapshot.val()})
         resolve()
       })
     })
