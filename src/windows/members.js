@@ -127,7 +127,7 @@ class MemberOptions extends React.Component {
     return (
       <Popup visible={this.props.visible} style={StyleSheet.dialog.optionsMenu} onClose={this.props.onClose}>
         <Button type="alertVertical" text={_('viewProfile')} onPress={this.props.onPressViewProfile} />
-        <Button type="alertVertical" text={_('message')} onPress={this.props.onPressMessage} />
+        {/*<Button type="alertVertical" text={_('message')} onPress={this.props.onPressMessage} />*/}
         <Button type="alertVertical" text={_('remove')} onPress={this.props.onPressRemove} />
       </Popup>
     )

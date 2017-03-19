@@ -92,7 +92,7 @@ export default class EventDashboard extends React.Component {
             backgroundColor={gradient[2]}
             underlayColor={highlightGradient[2]}
             onPress={this.props.onPressMessages}/>
-          <DashboardButton
+          {/*<DashboardButton
             type="dashboard"
             text={_('gallery')}
             icon="dashboard-gallery"
@@ -105,7 +105,7 @@ export default class EventDashboard extends React.Component {
             icon="dashboard-finances"
             backgroundColor={gradient[4]}
             underlayColor={highlightGradient[4]}
-            onPress={this.props.onPressFinances} />
+            onPress={this.props.onPressFinances} />*/}
           {event.privacy === 'private' && (
             <DashboardButton
               type="dashboard"
