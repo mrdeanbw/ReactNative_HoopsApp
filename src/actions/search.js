@@ -89,7 +89,7 @@ export const searchEvents = (params) => {
 export const searchGeneral = (params) => {
   return (dispatch, getState) => {
     const allEvents = getState().events.all
-    const allUsers = getState().users.all
+    const allUsers = getState().users.usersById
     const searchString = params.text ? params.text.toLowerCase() : ''
 
     let events = Object.keys(allEvents).map(eventId => {
@@ -339,7 +339,7 @@ export const nearby = (params) => {
 
 export const searchUsers = (params) => {
   return (dispatch, getState) => {
-    let allUsers = getState().users.all
+    let allUsers = getState().users.usersById
 
     let matches = Object.keys(allUsers).map(id => {
       return {

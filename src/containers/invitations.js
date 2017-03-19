@@ -31,7 +31,7 @@ class Invitations extends React.Component {
     this.props.onMarkInvitesSeen(this.getReceived())
   }
 
-  getReceived = () => {
+  getReceived() {
     return Object.keys(this.props.user.invites).map(id => {
       return inflateInvite(
         this.props.invites.invitesById[id],
@@ -57,9 +57,7 @@ class Invitations extends React.Component {
     }).filter(invite => {
       return invite.status === 'pending'
     })
-
-
-  };
+  }
 
   render() {
     let received = this.getReceived()
