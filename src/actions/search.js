@@ -237,7 +237,7 @@ export const search = (params) => {
  */
 export const nearby = (params) => {
   return (dispatch, getState) => {
-    let allEvents = getState().events.all
+    let allEvents = getState().events.eventsById
     let size = 10
 
     let matches = Object.keys(allEvents).map(eventId => {

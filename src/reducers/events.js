@@ -4,9 +4,7 @@ import actionTypes from '../actions'
 
 const initialState = {
   isLoading: false,
-
   eventsById: {},
-  all: {},
 }
 
 export default handleActions({
@@ -18,7 +16,6 @@ export default handleActions({
     return {
       ...state,
       ...initialState,
-      all: state.all,
     }
   },
 
@@ -32,7 +29,7 @@ export default handleActions({
   [actionTypes.EVENTS_LOAD_ALL]: (state, action) => {
     return {
       ...state,
-      all: action.events || {},
+      eventsById: action.events || {},
     }
   },
 
