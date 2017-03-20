@@ -1,9 +1,10 @@
 import React from 'react'
-import ReactNative, {View, Text, Image, TouchableHighlight} from 'react-native'
+import ReactNative, {View, Text, Image, TouchableHighlight, TextInput as TextInputRN} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 import {Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components'
 import StyleSheet from '../styles'
+import {colors} from '../styles/resources'
 import {autocomplete} from '../data/google-places'
 import _ from '../i18n'
 import {showImagePicker} from '../utils/'
@@ -526,37 +527,45 @@ export default class CreateEvent extends React.Component {
           <Wizard.Step disabled={!this.validate(3)}>
             <Form extraKeyboardPadding={25}>
               <View style={StyleSheet.padding}>
-                <TextInput
-                  type="flat"
-                  multiline="popup"
-                  value={this.state.eventDetails.description}
-                  placeholder={_('eventDescription')}
-                  rightBar={<Icon name="listIndicator" />}
-                  onChangeText={(description) => this.setEventData({description})}
-                  modalTitle={_('describeThisEvent')}
-                  modalPlaceholder={_('enterYourDescription')} />
 
-                <TextInput
-                  type="flat"
-                  multiline="popup"
-                  value={this.state.eventDetails.notes}
-                  placeholder={_('notes')}
-                  rightBar={<Icon name="listIndicator" />}
-                  onChangeText={(notes) => this.setEventData({notes})}
-                  modalTitle={_('eventNotes')}
-                  modalPlaceholder={_('enterYourNotesForThisEvent')}
-                  style={StyleSheet.halfMarginTop} />
+                <View style={{borderBottomWidth: StyleSheet.hairlineWidth, borderColor: colors.grey}}>
+                  <TextInputRN
+                    value={this.state.eventDetails.description}
+                    placeholder={_('eventDescription')}
+                    onChangeText={(description) => this.setEventData({description})}
+                    multiline
+                    style={[
+                      StyleSheet.text,
+                      {color: '#7B7B7B', flex: 1, height: 60}
+                    ]}
+                  />
+                </View>
 
-                <TextInput
-                  type="flat"
-                  multiline="popup"
-                  value={this.state.eventDetails.rules}
-                  placeholder={_('rules')}
-                  rightBar={<Icon name="listIndicator" />}
-                  onChangeText={(rules) => this.setEventData({rules})}
-                  modalTitle={_('eventRules')}
-                  modalPlaceholder={_('enterYourRules')}
-                  style={StyleSheet.halfMarginTop} />
+                <View style={{borderBottomWidth: StyleSheet.hairlineWidth, borderColor: colors.grey}}>
+                  <TextInputRN
+                    value={this.state.eventDetails.notes}
+                    placeholder={_('notes')}
+                    onChangeText={(notes) => this.setEventData({notes})}
+                    multiline
+                    style={[
+                      StyleSheet.text,
+                      {color: '#7B7B7B', flex: 1, height: 60}
+                    ]}
+                  />
+                </View>
+
+                <View style={{borderBottomWidth: StyleSheet.hairlineWidth, borderColor: colors.grey}}>
+                  <TextInputRN
+                    value={this.state.eventDetails.rules}
+                    placeholder={_('rules')}
+                    onChangeText={(rules) => this.setEventData({rules})}
+                    multiline
+                    style={[
+                      StyleSheet.text,
+                      {color: '#7B7B7B', flex: 1, height: 60}
+                    ]}
+                  />
+                </View>
               </View>
 
               <CheckButton

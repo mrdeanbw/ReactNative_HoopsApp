@@ -59,7 +59,6 @@ export default StyleSheet => StyleSheet.escape({
     }
   }),
 
-
   flat: StyleSheet.extend({
     keyboardAppearance: "dark",
     placeholderTextColor: colors.placeholderText,
@@ -73,7 +72,6 @@ export default StyleSheet => StyleSheet.escape({
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.grey,
       height: 44,
-      alignItems: 'center'
     },
 
     iconStyle: {
