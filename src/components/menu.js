@@ -1,21 +1,11 @@
-import React from 'react'
-
-import {
-  Animated,
-  View,
-  Text,
-  Image,
-  ScrollView,
-  TouchableWithoutFeedback,
-  TouchableHighlight
-} from 'react-native'
+import React, {Component} from 'react'
+import {Animated, View, Text, ScrollView, TouchableWithoutFeedback, TouchableHighlight} from 'react-native'
 
 import {Avatar, Icon} from './'
 import _ from '../i18n'
-
 import StyleSheet from '../styles'
 
-export default class Menu extends React.Component {
+export default class Menu extends Component {
 
   render() {
     return (
@@ -101,7 +91,7 @@ export default class Menu extends React.Component {
 
 }
 
-class MenuItem extends React.Component {
+class MenuItem extends Component {
   render() {
     return (
       <TouchableHighlight onPress={this.props.onPress}>

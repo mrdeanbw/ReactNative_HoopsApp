@@ -193,21 +193,7 @@ export const logOut = () => {
   }
 }
 
-/*
- * Set the UI mode to ORGANIZE or PARTICIPATE
- */
-export const setMode = (mode) => ({
-  type: actionTypes.SET_UI_MODE,
-  mode,
-})
 
-export const toggleMode = () => {
-  return (dispatch, getState) => {
-    let currentMode = getState().user.mode
-    let nextMode = currentMode === 'ORGANIZE' ? 'PARTICIPATE' : 'ORGANIZE'
-    dispatch(setMode(nextMode))
-  }
-}
 
 export const setInterests = (interests) => {
   return dispatch => {
@@ -272,7 +258,7 @@ const listenToUser = () => {
         } else if(Object.keys(user.interests || {}).length === 0) {
           //Go to interests selection
           dispatch(navigationActions.reset({key: 'selectInterests'}))
-        } else if(!state.user.mode) {
+        } else if(!state.app.mode) {
           //Go to select-mode page
           dispatch(navigationActions.reset({key: 'selectMode'}))
         } else {

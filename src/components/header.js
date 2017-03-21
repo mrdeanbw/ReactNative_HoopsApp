@@ -7,7 +7,7 @@ import StyleSheet from '../styles'
 import SwitchButton from './switch-button'
 import _ from '../i18n'
 import {colors} from '../styles/resources'
-import {userActions} from '../actions'
+import {appActions, userActions} from '../actions'
 import Button from './button'
 import HighlightText from './highlight-text'
 
@@ -32,7 +32,7 @@ class Header extends React.Component {
         />
       )
     }
-    else if (this.props.user.mode === 'PARTICIPATE') {
+    else if (this.props.mode === 'PARTICIPATE') {
       return (
         <SwitchButton
           value={this.props.user.availability}
@@ -44,7 +44,7 @@ class Header extends React.Component {
 
   renderFullHeader() {
     let modeText, modeTextHighlight
-    if (this.props.user.mode === 'ORGANIZE') {
+    if (this.props.mode === 'ORGANIZE') {
       modeText = _('organizerMode')
       modeTextHighlight = _('organizer')
     } else {
@@ -125,10 +125,11 @@ class Header extends React.Component {
 
 export default connect(
   (state) => ({
+    mode: state.app.mode,
     user: state.user,
   }),
   (dispatch) => ({
-    onToggleMode: () => dispatch(userActions.toggleMode()),
+    onToggleMode: () => dispatch(appActions.toggleMode()),
     onToggleAvailability: () => dispatch(userActions.toggleAvailability()),
   }),
 )(Header)

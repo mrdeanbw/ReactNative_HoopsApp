@@ -1,3 +1,4 @@
+import * as app from './app'
 import * as user from './user'
 import * as users from './users'
 import * as events from './events'
@@ -11,6 +12,7 @@ import * as payments from './payments'
 import * as network from './network'
 import * as startup from './startup'
 
+export const appActions = app
 export const userActions = user
 export const usersActions = users
 export const eventActions = events

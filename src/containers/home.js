@@ -52,7 +52,7 @@ class Home extends React.Component {
   }
 
   onPressEvent(event) {
-    if(this.props.user.mode === 'ORGANIZE') {
+    if(this.props.mode === 'ORGANIZE') {
       this.props.onNavigate('eventDashboard', {id: event.id})
     }else{
       this.props.onNavigate('eventDetails', {id: event.id})
@@ -61,7 +61,7 @@ class Home extends React.Component {
 
   render() {
     let eventIds = []
-    if(this.props.user.mode === 'ORGANIZE') {
+    if(this.props.mode === 'ORGANIZE') {
       eventIds = Object.keys(this.props.user.organizing)
     } else {
       let requests = Object.keys(this.props.user.requests).map(requestId => {
@@ -76,6 +76,7 @@ class Home extends React.Component {
         return connection.eventId
       })
     }
+
 
     let events = eventIds.map((id) => {
       return this.props.events.eventsById[id]
@@ -106,7 +107,7 @@ class Home extends React.Component {
     return (
       <_Home
         onPressEvent={this.onPressEvent.bind(this)}
-        mode={this.props.user.mode}
+        mode={this.props.mode}
         events={events}
         onPressAdd={() => this.props.onNavigate('createEvent')}
         location={this.state.location}
@@ -118,6 +119,7 @@ class Home extends React.Component {
 
 export default connect(
   (state) => ({
+    mode: state.app.mode,
     user: state.user,
     users: state.users,
     events: state.events,

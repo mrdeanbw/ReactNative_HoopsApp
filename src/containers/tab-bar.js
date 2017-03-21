@@ -188,7 +188,7 @@ class TabBar extends React.Component {
         onChangeAction={(action) => {
           this.setState({action})
         }}
-        mode={this.props.user.mode}
+        mode={this.props.mode}
       />
     )
   }
@@ -212,9 +212,9 @@ class TabBar extends React.Component {
      */
     let actionConfig
     if(config.action) {
-      if(this.props.user.mode === 'ORGANIZE' && config.action.organizer){
+      if(this.props.mode === 'ORGANIZE' && config.action.organizer){
         actionConfig = config.action.organizer
-      } else if(this.props.user.mode === 'PARTICIPATE' && config.action.participant) {
+      } else if(this.props.mode === 'PARTICIPATE' && config.action.participant) {
         actionConfig = config.action.participant
       } else {
         actionConfig = config.action
@@ -265,7 +265,7 @@ class TabBar extends React.Component {
             this.props.onShowMenu()
           }
         }}
-        mode={this.props.user.mode}
+        mode={this.props.mode}
         user={this.props.user}
         notificationBadge={unseenNotifications.length}
         invitationsBadge={unseenInvitations.length}
@@ -282,6 +282,7 @@ class TabBar extends React.Component {
 
 export default connect(
   (state) => ({
+    mode: state.app.mode,
     navigation: state.navigation,
     user: state.user,
     notifications: state.notifications,

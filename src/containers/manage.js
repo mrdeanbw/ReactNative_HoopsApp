@@ -8,7 +8,7 @@ import inflateEvent from '../data/inflaters/event'
 class Manage extends React.Component {
 
   onPressEvent(event) {
-    if(this.props.user.mode === 'ORGANIZE') {
+    if(this.props.mode === 'ORGANIZE') {
       this.props.onNavigate('eventDashboard', {id: event.id})
     }else{
       this.props.onNavigate('eventDetails', {id: event.id})
@@ -38,6 +38,7 @@ class Manage extends React.Component {
 
 export default connect(
   (state) => ({
+    mode: state.app.mode,
     user: state.user,
     users: state.users,
     events: state.events,

@@ -66,8 +66,6 @@ const initialState = {
   //Signing up
   isSigningUp: false,
   signUpError: null,
-
-  mode: null,
 }
 
 export default handleActions({
@@ -181,13 +179,6 @@ export default handleActions({
 
   [actionTypes.USER_LOGGED_OUT]: (state, action) => {
     return initialState
-  },
-
-  [actionTypes.SET_UI_MODE]: (state, action) => {
-    return {
-      ...state,
-      mode: action.mode,
-    }
   },
 
   [actionTypes.USER_CHANGE]: (state, action) => {

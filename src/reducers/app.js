@@ -4,6 +4,7 @@ import actionTypes from '../actions'
 
 const initialState = {
   startupComplete: false,
+  mode: null,
 }
 
 export default handleActions({
@@ -21,5 +22,13 @@ export default handleActions({
       startupComplete: true,
     }
   },
+
+  [actionTypes.SET_UI_MODE]: (state, action) => {
+    return {
+      ...state,
+      mode: action.mode,
+    }
+  },
+
 
 }, initialState)
