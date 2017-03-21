@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import * as containers from './index'
 import {navigationActions, networkActions, startupActions} from '../actions'
 import {Loading} from '../windows'
-import {DevIndicator, Navigator, NetworkAlert} from '../components'
+import {Navigator, NetworkAlert} from '../components'
 import config from '../config'
 
 class Root extends Component {
@@ -121,7 +121,6 @@ class Root extends Component {
           navigationState={this.props.navigation}
           routeConfig={this.routeConfig}
         />
-        <DevIndicator />
       </View>
     )
   }
