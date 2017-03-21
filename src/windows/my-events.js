@@ -61,7 +61,7 @@ export default class MyEvents extends React.Component {
 
     return (
       <View>
-        <Header />
+        <Header title={_('myEvents')} />
         <DisclosurePopup
           type={this.state.tab}
           visible={!!this.state.disclosureEvent}
