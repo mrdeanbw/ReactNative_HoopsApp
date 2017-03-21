@@ -433,7 +433,7 @@ class EventInviteNotification extends React.Component {
 
     return (
       <NotificationRow
-        image={{uri: event.imageSrc}}
+        image={{uri: event.image}}
         highlight={status === 'pending'}
         title={_('eventInvite')}
         description={description}
