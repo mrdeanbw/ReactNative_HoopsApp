@@ -3,7 +3,7 @@ import {View} from 'react-native'
 import {connect} from 'react-redux'
 
 import * as containers from './index'
-import {navigationActions, networkActions, startupActions} from '../actions'
+import {navigationActions, appActions} from '../actions'
 import {Loading} from '../windows'
 import {Navigator, NetworkAlert} from '../components'
 import config from '../config'
@@ -107,7 +107,7 @@ class Root extends Component {
   }
 
   render() {
-    const visible = this.props.network.connection === 'none' && !this.props.network.dismissed
+    const visible = this.props.app.networkConnection === 'none' && !this.props.app.networkDismissed
 
     return (
       <View style={{ flex: 1 }}>
@@ -130,12 +130,11 @@ export default connect(
   (state) => ({
     app: state.app,
     navigation: state.navigation,
-    network: state.network,
   }),
   (dispatch) => ({
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onNavigate: (key, props) => dispatch(navigationActions.push({ key, props })),
-    onDismissNetworkAlert: () => dispatch(networkActions.dismissAlert()),
-    startup: () => dispatch(startupActions.startup()),
+    onDismissNetworkAlert: () => dispatch(appActions.dismissAlert()),
+    startup: () => dispatch(appActions.startup()),
   }),
 )(Root)

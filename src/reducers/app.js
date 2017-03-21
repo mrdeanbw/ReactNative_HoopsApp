@@ -4,7 +4,9 @@ import actionTypes from '../actions'
 
 const initialState = {
   startupComplete: false,
-  mode: null,
+  UImode: null,
+  networkConnection: 'unknown',
+  networkDismissed: false,
 }
 
 export default handleActions({
@@ -30,5 +32,19 @@ export default handleActions({
     }
   },
 
+  [actionTypes.NETWORK_CHANGE]: (state, action) => {
+    return {
+      ...state,
+      networkConnection: action.connection,
+      networkDismissed: action.connection === 'none' ? false : state.dismissed,
+    }
+  },
+
+  [actionTypes.NETWORK_DISMISS_ALERT]: (state, action) => {
+    return {
+      ...state,
+      networkDismissed: true,
+    }
+  },
 
 }, initialState)

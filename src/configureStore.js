@@ -4,7 +4,7 @@ import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 import { AsyncStorage } from 'react-native'
 
-import {startupActions} from './actions'
+import {appActions} from './actions'
 import config from './config'
 
 export default (rootReducer) => {
@@ -42,7 +42,7 @@ export default (rootReducer) => {
 const updateReducers = (store) => {
   const reducerVersion = config.REDUCER_VERSION
   const storeConfig = config.REDUCER_CONFIG
-  const startup = () => store.dispatch(startupActions.startup())
+  const startup = () => store.dispatch(appActions.startup())
 
   // Check to ensure latest reducer version
   AsyncStorage.getItem('reducerVersion').then((localVersion) => {

@@ -9,8 +9,6 @@ import * as requests from './requests'
 import * as search from './search'
 import * as notifications from './notifications'
 import * as payments from './payments'
-import * as network from './network'
-import * as startup from './startup'
 
 export const appActions = app
 export const userActions = user
@@ -23,8 +21,6 @@ export const requestActions = requests
 export const searchActions = search
 export const notificationActions = notifications
 export const paymentActions = payments
-export const networkActions = network
-export const startupActions = startup
 
 const types = {
   DEEP_LINK_TAB: 'DEEP_LINK_TAB',
