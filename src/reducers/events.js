@@ -10,12 +10,13 @@ const initialState = {
 export default handleActions({
 
   /*
-   * when a user logs out, we need to reset all state except for `all`
+   * when a user logs out, we need to reset all state except for `eventsById`
    */
   [actionTypes.USER_LOGGED_OUT]: (state, action) => {
     return {
       ...state,
       ...initialState,
+      eventsById: state.eventsById,
     }
   },
 
