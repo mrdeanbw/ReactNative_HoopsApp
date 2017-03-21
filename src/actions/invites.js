@@ -105,6 +105,24 @@ export const getAll = () => {
   }
 }
 
+export const registerWithStore = () => {
+  return (dispatch, getState) => {
+    firebaseDb.child(`invites`).on('child_changed', snapshot => {
+      const id = snapshot.key
+      dispatch({
+        type: actionTypes.INVITES_LOADED,
+        invites: {
+          [id]: {
+            ...snapshot.val(),
+            id,
+          },
+        },
+      })
+    })
+  }
+}
+
+
 export const accept = (invite) => {
   return (dispatch, getState) => {
     if(invite.event.entryFee === 0 || invite.event.paymentMethod !== 'app') {

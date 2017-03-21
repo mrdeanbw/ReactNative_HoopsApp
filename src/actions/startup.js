@@ -13,6 +13,7 @@ export const startup = () => {
       dispatch(userActions.registerWithStore()),
       dispatch(interestActions.load()),
       dispatch(networkActions.registerWithStore()),
+      dispatch(inviteActions.registerWithStore()),
 
       /**
        * For now, we download all user and event data.
