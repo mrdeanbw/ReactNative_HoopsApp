@@ -16,8 +16,6 @@ class CreateEvent extends React.Component {
 
     this.state = {
       activityKey: (event && event.activity) ? event.activity : null,
-      address: (event && event.address) ? event.address : null,
-      addressGooglePlaceId: (event && event.addressGooglePlaceId) ? event.addressGooglePlaceId : null,
       event: event,
     }
   }
@@ -27,18 +25,6 @@ class CreateEvent extends React.Component {
       activities: this.props.interests,
       onSelect: (activityKey) => {
         this.setState({activityKey})
-        this.props.onNavigateBack()
-      }
-    }, false)
-  }
-
-  onPressVenueAddress() {
-    this.props.onNavigate('venueAddress', {
-      onSelect: (venueAddress) => {
-        this.setState({
-          address: venueAddress.description,
-          addressGooglePlaceId: venueAddress.place_id,
-        })
         this.props.onNavigateBack()
       }
     }, false)
@@ -56,18 +42,12 @@ class CreateEvent extends React.Component {
         event={this.state.event}
         editMode={!!this.state.event}
         onPressActivity={this.onPressActivity.bind(this)}
-        onPressVenueAddress={this.onPressVenueAddress.bind(this)}
         activity={this.props.interests[this.state.activityKey]}
-        address={this.state.address}
-        addressGooglePlaceId={this.state.addressGooglePlaceId}
         onComplete={(eventData) => {
           eventData = {
             ...eventData,
             //Replace activity text with it's key (i.e 'BASKETBALL')
             activity: this.state.activityKey,
-
-            address: this.state.address,
-            addressGooglePlaceId: this.state.addressGooglePlaceId,
           }
           if(this.props.id) {
             this.props.onEditEvent(this.props.id, eventData)

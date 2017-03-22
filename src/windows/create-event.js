@@ -2,7 +2,7 @@ import React from 'react'
 import ReactNative, {View, Text, Image, TouchableHighlight, TextInput as TextInputRN} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import {Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components'
+import {AddressInput, Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components'
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
 import _ from '../i18n'
@@ -28,6 +28,8 @@ export default class CreateEvent extends React.Component {
       recurring: false,
       recurringType: 'd',
       recurringValue: 1,
+      address: '',
+      addressGooglePlaceId: null,
       entryFee: 0,
       paymentMethod: '',
       deadline: null,
@@ -118,6 +120,8 @@ export default class CreateEvent extends React.Component {
       recurring,
       recurringType,
       recurringValue,
+      address,
+      addressGooglePlaceId,
       entryFee,
       paymentMethod,
       deadline,
@@ -149,7 +153,7 @@ export default class CreateEvent extends React.Component {
           date &&
           courtType &&
           typeof recurring !== 'undefined' && //`recurring` is boolean
-          this.props.address &&
+          address && addressGooglePlaceId &&
           Number.isFinite(entryFee) && //`entryFee` could be 0
           isPaymentValid
         )
@@ -415,19 +419,15 @@ export default class CreateEvent extends React.Component {
               )}
 
               <View style={StyleSheet.halfMarginTop}>
-                <TouchableHighlight onPress={this.props.onPressVenueAddress} underlayColor="transparent">
-                  <View style={StyleSheet.textInputs.flat.style}>
-                    <Text
-                      style={[
-                        StyleSheet.textInputs.flat.textStyle,
-                        {color: this.props.activity ? undefined : StyleSheet.textInputs.flat.placeholderTextColor},
-                      ]}
-                    >
-                      {this.props.address ? this.props.address : _('venueAddress')}
-                    </Text>
-                    <Icon name="chevronRightPink"/>
-                  </View>
-                </TouchableHighlight>
+                <AddressInput
+                  value={this.state.eventDetails.address}
+                  placeholder={_('venueAddress')}
+                  onSelect={(venueAddress) => {
+                    this.setEventData({
+                      address: venueAddress.description,
+                      addressGooglePlaceId: venueAddress.place_id,
+                    })
+                  }} />
 
                 <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop]}>
                   <TextInput
