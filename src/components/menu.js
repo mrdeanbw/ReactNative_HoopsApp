@@ -17,24 +17,14 @@ export default class Menu extends Component {
 
         <Animated.View style={[StyleSheet.menu.style, {right: this.props.animation.interpolate({ inputRange: [0, 1], outputRange: [-115, 0] }) }]}>
 
-          <View style={[StyleSheet.menu.header]}>
-            <TouchableHighlight
-              underlayColor="transparent"
-              onPress={this.props.onPressProfile}
-            >
-              <View>
-                <View style={[StyleSheet.menu.avatarContainer]}>
-                  <Avatar
-                    user={this.props.user}
-                    avatarStyle={[StyleSheet.menu.avatarImage]}
-                  />
-                </View>
-                <Text style={[StyleSheet.text, StyleSheet.menu.avatarText]}>
-                  <Text>{this.props.user.name.toUpperCase()}</Text>
-                </Text>
-              </View>
-            </TouchableHighlight>
-          </View>
+          <TouchableHighlight underlayColor="transparent" onPress={this.props.onPressProfile}>
+            <View style={StyleSheet.menu.header}>
+              <Avatar user={this.props.user} avatarStyle={StyleSheet.menu.avatarImage} />
+              <Text style={[StyleSheet.text, StyleSheet.menu.avatarText]}>
+                <Text>{this.props.user.name.toUpperCase()}</Text>
+              </Text>
+            </View>
+          </TouchableHighlight>
 
           <ScrollView style={StyleSheet.menu.items}>
             <MenuItem
