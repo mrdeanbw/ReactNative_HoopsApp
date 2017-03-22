@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import {View, Text, ListView, TouchableHighlight} from 'react-native'
-import StyleSheet from '../styles'
 
 import _ from '../i18n'
 import {Header, TextInput} from '../components'
-
+import StyleSheet from '../styles'
 
 class VenueAddress extends Component {
 
@@ -39,6 +38,7 @@ class VenueAddress extends Component {
           <TextInput
             type="search"
             icon="searchGrey"
+            autoFocus
             placeholder={_('searchVenueAddress')}
             onChangeText={(search) => {
               if (this.props.onChangeText) {
@@ -48,12 +48,11 @@ class VenueAddress extends Component {
           />
         </View>
 
-        {this.props.rows.length === 0 ? (
-          <Text style={StyleSheet.noResults}>{_('noAddressFound')}</Text>
-        ) : (
+        <View style={{flex: 1}}>
           <ListView
             style={StyleSheet.list.container}
             dataSource={this.state.dataSource}
+            enableEmptySections
             renderRow={(rowData) => {
               return (
                 <TouchableHighlight
@@ -66,7 +65,7 @@ class VenueAddress extends Component {
                 </TouchableHighlight>
               )
             }} />
-          )}
+        </View>
       </View>
     )
   }
