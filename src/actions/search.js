@@ -88,7 +88,7 @@ export const searchEvents = (params) => {
 
 export const searchGeneral = (params) => {
   return (dispatch, getState) => {
-    const allEvents = getState().events.all
+    const allEvents = getState().events.eventsById
     const allUsers = getState().users.usersById
     const searchString = params.text ? params.text.toLowerCase() : ''
 
