@@ -206,7 +206,6 @@ export default class SignUp extends React.Component {
             date={true}
             time={false}
             minDate={new Date("1900-01-01")}
-            maxDate={new Date()}
             value={this.state.dob}
             onChange={(dob) => this.setState({dob})}
           />
