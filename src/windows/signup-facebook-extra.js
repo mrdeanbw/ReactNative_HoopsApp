@@ -2,18 +2,12 @@ import React from 'react'
 import {View} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import Button from '../components/button'
-import TextInput from '../components/text-input'
-import DateInput from '../components/date-input'
-import Header from '../components/header'
-import LoadingAlert from '../components/loading-alert'
-import Form from '../components/form'
-import AvatarEdit from '../components/avatar-edit'
+import {AddressInput, Button, TextInput, DateInput, Header, Form, AvatarEdit} from '../components'
+
 import StyleSheet from '../styles'
-import {autocomplete} from '../data/google-places'
 import _ from '../i18n'
 
-export default class SignUpFacebookExtra extends React.Component {
+class SignUpFacebookExtra extends React.Component {
 
   constructor(props) {
     super(props)
@@ -26,7 +20,6 @@ export default class SignUpFacebookExtra extends React.Component {
       gender: props.gender,
       cityText: '',
       city: {},
-      citiesAutocomplete: [],
       phone: props.phone,
       image: undefined,
       facebookImageSrc: props.facebookImageSrc,
@@ -53,6 +46,7 @@ export default class SignUpFacebookExtra extends React.Component {
       dob,
       gender,
       city,
+      cityText,
     } = this.state
 
     return !!(
@@ -60,7 +54,7 @@ export default class SignUpFacebookExtra extends React.Component {
       email &&
       dob &&
       gender &&
-      city.key
+      city && cityText
     )
   }
 
@@ -82,8 +76,8 @@ export default class SignUpFacebookExtra extends React.Component {
       dob: this.state.dob,
       gender: this.state.gender,
       email: this.state.email,
-      city: this.state.city.text,
-      cityGooglePlaceId: this.state.city.key,
+      city: this.state.city.description,
+      cityGooglePlaceId: this.state.city.place_id,
       image: this.state.image,
     }
 
@@ -156,43 +150,16 @@ export default class SignUpFacebookExtra extends React.Component {
             <Button type="image" icon="female" active={this.state.gender === 'female'} onPress={this.onPressFemale}/>
           </View>
 
-          <TextInput
+          <AddressInput
+            icon
             value={this.state.cityText}
-            onChangeText={(cityText) => {
-              this.setState({
-                cityText,
-                city: {},
-              })
-              autocomplete(cityText, '(cities)').then(result => {
-                this.setState({
-                  citiesAutocomplete: result.predictions,
-                })
-              })
-            }}
-            autocomplete={this.state.citiesAutocomplete.map(suggestion => {
-              return {
-                key: suggestion.place_id,
-                text: suggestion.description,
-              }
-            })}
-            onAutocompletePress={(item) => {
-              this.setState({
-                cityText: item.text,
-                city: item,
-                citiesAutocomplete: [],
-              })
-            }}
-            type="flat"
-            ref="city"
             placeholder={_('city')}
-            style={StyleSheet.halfMarginBottom}
-            autoCapitalize="none"
-            autoCorrect={false}
-            returnKeyType="next"
-            selectTextOnFocus={true}
-            enablesReturnKeyAutomatically={true}
-            icon="city"
-          />
+            onSelect={(venueAddress) => {
+              this.setState({
+                cityText: venueAddress.description,
+                city: venueAddress,
+              })
+            }} />
 
           <View>
             <TextInput
@@ -232,3 +199,5 @@ export default class SignUpFacebookExtra extends React.Component {
 
 SignUpFacebookExtra.propTypes = {
 }
+
+export default SignUpFacebookExtra

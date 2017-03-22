@@ -53,7 +53,7 @@ class SignUp extends Component {
       name: this.state.name,
       dob: this.state.dob,
       gender: this.state.gender,
-      city: this.state.city.text,
+      city: this.state.city.description,
       cityGooglePlaceId: this.state.city.place_id,
       image: this.state.image,
     })
@@ -207,10 +207,10 @@ class SignUp extends Component {
           </View>
 
           <AddressInput
+            icon
             value={this.state.cityText}
             placeholder={_('city')}
             onSelect={(venueAddress) => {
-              console.log("address callback", venueAddress)
               this.setState({
                 cityText: venueAddress.description,
                 city: venueAddress,

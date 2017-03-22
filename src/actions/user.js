@@ -81,10 +81,13 @@ const savePersonalData = async function(data, callback) {
   const profilePath = `users/${uid}`
   const profileData = {...data}
 
+  console.log("ok save Personal Data", data)
+
   // Location
   const cityResult = await getPlace(data.cityGooglePlaceId)
   if (cityResult.result && cityResult.result.geometry) {
     profileData['cityCoords'] = cityResult.result.geometry.location
+    console.log("ok  have co-ords", cityResult.result.geometry.location)
   }
 
   // Image
@@ -96,8 +99,11 @@ const savePersonalData = async function(data, callback) {
   }
 
   // Update Firebase
+  console.log("this is the path", profilePath, profileData)
   const userRef = firebaseDb.child(profilePath)
   await userRef.update(profileData, callback)
+
+  console.log("done")
 }
 
 export const signUpSuccess = (method) => {
