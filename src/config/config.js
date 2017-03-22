@@ -3,16 +3,15 @@ import {AsyncStorage} from 'react-native'
 const common = {
   GOOGLE_PLACES_API_KEY: 'AIzaSyBopRDu051G9W6fqJCwGgzxGICzhzuUxIg',
 
-  REDUCER_VERSION: '115',
-  REDUCER_PERSIST: true,
+  REDUCER_VERSION: '123',
+  REDUCER_PERSIST: false,
   REDUCER_CONFIG: {
     storage: AsyncStorage,
     blacklist: [
       'app',
-      'network',
-      // 'navigation',
+      'navigation',
       'search',
-      // 'user',
+      'user',
     ],
   },
 
@@ -48,6 +47,8 @@ const prod = Object.assign({}, common, {
 
   //Bugsnag is only enabled when the API key is given
   BUGSNAG_API_KEY: '25983a784e900e85ae661a2e5685d61a',
+
+  LOGGER_ACTIVE: false,
 })
 
 export default __DEV__ ? dev : prod
