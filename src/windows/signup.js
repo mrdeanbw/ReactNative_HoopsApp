@@ -1,20 +1,12 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import Button from '../components/button'
-import HorizontalRule from '../components/horizontal-rule'
-import TextInput from '../components/text-input'
-import DateInput from '../components/date-input'
-import Form from '../components/form'
-import Header from '../components/header'
-import LoadingAlert from '../components/loading-alert'
-import AvatarEdit from '../components/avatar-edit'
+import {AddressInput, Button, HorizontalRule, TextInput, DateInput, Form, Header, LoadingAlert, AvatarEdit} from '../components'
 import StyleSheet from '../styles'
-import {autocomplete} from '../data/google-places'
 import _ from '../i18n'
 
-export default class SignUp extends React.Component {
+class SignUp extends Component {
 
   constructor(props) {
     super(props)
@@ -25,7 +17,6 @@ export default class SignUp extends React.Component {
       showDobInfo: false,
       cityText: '',
       city: {},
-      citiesAutocomplete: [],
       phone: '',
       image: undefined,
       imageUrl: this.props.imageUrl,
@@ -33,8 +24,7 @@ export default class SignUp extends React.Component {
   }
 
   validate() {
-    const {name, email, password, confirmPassword, dob, gender, city} = this.state
-
+    const {name, email, password, confirmPassword, dob, gender, city, cityText} = this.state
     return !!(
       name &&
       email &&
@@ -42,7 +32,7 @@ export default class SignUp extends React.Component {
       confirmPassword && confirmPassword === password &&
       dob &&
       gender &&
-      city.key
+      city && cityText
     )
   }
 
@@ -64,7 +54,7 @@ export default class SignUp extends React.Component {
       dob: this.state.dob,
       gender: this.state.gender,
       city: this.state.city.text,
-      cityGooglePlaceId: this.state.city.key,
+      cityGooglePlaceId: this.state.city.place_id,
       image: this.state.image,
     })
   }
@@ -216,44 +206,16 @@ export default class SignUp extends React.Component {
             <Button type="image" icon="female" active={this.state.gender === 'female'} onPress={this.onPressFemale}/>
           </View>
 
-          <TextInput
+          <AddressInput
             value={this.state.cityText}
-            onChangeText={(cityText) => {
-              this.setState({
-                cityText,
-                city: {},
-              })
-              autocomplete(cityText, '(cities)').then(result => {
-                this.setState({
-                  citiesAutocomplete: result.predictions,
-                })
-              })
-            }}
-            type="flat"
-            ref="city"
             placeholder={_('city')}
-            autocomplete={this.state.citiesAutocomplete.map(suggestion => {
-              return {
-                key: suggestion.place_id,
-                text: suggestion.description,
-              }
-            })}
-            onAutocompletePress={(item) => {
+            onSelect={(venueAddress) => {
+              console.log("address callback", venueAddress)
               this.setState({
-                cityText: item.text,
-                city: item,
-                citiesAutocomplete: [],
+                cityText: venueAddress.description,
+                city: venueAddress,
               })
-            }}
-            style={StyleSheet.halfMarginBottom}
-            autoCapitalize="none"
-            autoCorrect={false}
-            returnKeyType="next"
-            selectTextOnFocus={true}
-            enablesReturnKeyAutomatically={true}
-            icon="city"
-            onSubmitEditing={() => this.onSubmitEditing("phone")}
-          />
+            }} />
 
           <TextInput
             value={this.state.phone}
@@ -293,3 +255,5 @@ export default class SignUp extends React.Component {
 SignUp.propTypes = {
   onSignUp: React.PropTypes.func.isRequired,
 }
+
+export default SignUp
