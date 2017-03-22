@@ -66,7 +66,7 @@ export default StyleSheet => StyleSheet.escape({
 
     style: {
       flexDirection: 'row',
-      alignItems: 'flex-start',
+      alignItems: 'center',
       backgroundColor: colors.transparent,
       borderStyle: 'solid',
       borderBottomWidth: StyleSheet.hairlineWidth,
@@ -90,13 +90,12 @@ export default StyleSheet => StyleSheet.escape({
 
     style: {
       flexDirection: 'row',
-      alignItems: 'flex-start',
+      alignItems: 'center',
       backgroundColor: colors.transparent,
       borderStyle: 'solid',
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.grey,
       height: 32,
-      alignItems: 'center'
     },
 
     iconStyle: {
