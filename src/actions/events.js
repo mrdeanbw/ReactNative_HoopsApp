@@ -42,6 +42,12 @@ const allPromises = (promises) => {
 
 export const load = (id) => {
   return (dispatch, getState) => {
+    // Is the event already in the store?
+    const {events} = getState()
+    if (events.eventsById[id]) {
+      return
+    }
+
     database.addListener(`events/${id}`, 'value', (snapshot) => {
       let event = snapshot.val()
       if (!event) {

@@ -7,7 +7,13 @@ import {usersActions} from '../actions'
 import actionTypes from './'
 
 export const load = (id) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    // Is the notification already in the store?
+    const {notifications} = getState()
+    if (notifications.notificationsById[id]) {
+      return
+    }
+
     database.addListener(`notifications/${id}`, 'value', (snapshot) => {
       let notification = snapshot.val()
       dispatch({

@@ -39,6 +39,12 @@ export const create = (eventId) => {
 
 export const load = (id) => {
   return (dispatch, getState) => {
+    // Is the request already in the store?
+    const {requests} = getState()
+    if (requests.requestsById[id]) {
+      return
+    }
+
     database.addListener(`requests/${id}`, 'value', (snapshot) => {
       let request = snapshot.val()
 

@@ -53,7 +53,13 @@ export const removeInvite = (invite) => {
 }
 
 export const load = (id) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    // Is the invite already in the store?
+    const {invites} = getState()
+    if (invites.invitesById[id]) {
+      return
+    }
+
     database.addListener(`invites/${id}`, 'value', (snapshot) => {
       let invite = snapshot.val()
       /**

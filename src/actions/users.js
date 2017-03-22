@@ -5,7 +5,13 @@ const database = DBHelper('users')
 import actionTypes, {eventActions, requestActions} from './'
 
 export const load = (id) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    // Is the user already in the store?
+    const {users} = getState()
+    if (users.usersById[id]) {
+      return
+    }
+
     database.addListener(`users/${id}`, 'value', (snapshot) => {
       let value = snapshot.val()
 
