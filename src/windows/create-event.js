@@ -5,7 +5,6 @@ import KeyboardSpacer from 'react-native-keyboard-spacer'
 import {Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components'
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
-import {autocomplete} from '../data/google-places'
 import _ from '../i18n'
 import {showImagePicker} from '../utils/'
 
@@ -13,7 +12,6 @@ export default class CreateEvent extends React.Component {
 
   constructor(props) {
     super(props)
-    let event = props.event || {}
     let blankEvent = {
       title: '',
       gender: 'mixed',
@@ -30,7 +28,6 @@ export default class CreateEvent extends React.Component {
       recurring: false,
       recurringType: 'd',
       recurringValue: 1,
-      address: {},
       entryFee: 0,
       paymentMethod: '',
       deadline: null,
@@ -50,18 +47,11 @@ export default class CreateEvent extends React.Component {
           eventDetails[key] = props.event[key]
         }
       }
-
-      eventDetails.address = {
-        key: props.event.addressGooglePlaceId,
-        text: props.event.address,
-      }
     } else {
       eventDetails = blankEvent
     }
 
     this.state = {
-      addressText: event.address,
-      addressAutocomplete: [],
       image: undefined,
       eventDetails: eventDetails,
       focus: {},
@@ -128,7 +118,6 @@ export default class CreateEvent extends React.Component {
       recurring,
       recurringType,
       recurringValue,
-      address,
       entryFee,
       paymentMethod,
       deadline,
@@ -160,7 +149,7 @@ export default class CreateEvent extends React.Component {
           date &&
           courtType &&
           typeof recurring !== 'undefined' && //`recurring` is boolean
-          address && address.key &&
+          this.props.address &&
           Number.isFinite(entryFee) && //`entryFee` could be 0
           isPaymentValid
         )
@@ -426,37 +415,19 @@ export default class CreateEvent extends React.Component {
               )}
 
               <View style={StyleSheet.halfMarginTop}>
-                <TextInput
-                  value={this.state.addressText}
-                  onChangeText={(addressText) => {
-                    this.setState({addressText})
-                    autocomplete(addressText, '').then(result => {
-                      this.setState({addressAutocomplete: result.predictions})
-                    })
-                  }}
-                  ref="venueAddressInput"
-                  type="flat"
-                  style={StyleSheet.halfMarginTop}
-                  placeholder={_('venueAddress')}
-                  blurOnSubmit={false}
-                  onSubmitEditing={() => {
-                    this.refs.costInput.focus()
-                  }}
-                  onFocus={() => {
-                    this.scrollToInput('scrollView2', this.refs.venueAddressInput)
-                  }}
-                  autocomplete={this.state.addressAutocomplete.map(prediction => ({
-                    key: prediction.place_id,
-                    text: prediction.description,
-                  }))}
-                  onAutocompletePress={(prediction) => {
-                    this.setState({
-                      addressText: prediction.text,
-                      addressAutocomplete: [],
-                    })
-                    this.setEventData({address: prediction})
-                  }}
-                />
+                <TouchableHighlight onPress={this.props.onPressVenueAddress} underlayColor="transparent">
+                  <View style={StyleSheet.textInputs.flat.style}>
+                    <Text
+                      style={[
+                        StyleSheet.textInputs.flat.textStyle,
+                        {color: this.props.activity ? undefined : StyleSheet.textInputs.flat.placeholderTextColor},
+                      ]}
+                    >
+                      {this.props.address ? this.props.address : _('venueAddress')}
+                    </Text>
+                    <Icon name="chevronRightPink"/>
+                  </View>
+                </TouchableHighlight>
 
                 <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop]}>
                   <TextInput

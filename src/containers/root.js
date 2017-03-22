@@ -91,6 +91,10 @@ class Root extends Component {
 
       chat: {
         component: containers.Chat,
+      },
+
+      venueAddress: {
+        component: containers.VenueAddress,
       }
     }
   }

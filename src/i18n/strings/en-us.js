@@ -233,6 +233,8 @@ export const oneTime = 'One-Time'
 
 export const venueName = 'Venue Name'
 export const venueAddress = 'Venue Address'
+export const searchVenueAddress = 'Search for an Address'
+export const noAddressFound = 'No Address Found'
 export const costPP = 'Cost p/p'
 export const free = 'Free'
 export const paymentMethod = 'Payment Method'
