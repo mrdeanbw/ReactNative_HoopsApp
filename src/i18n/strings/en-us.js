@@ -136,7 +136,6 @@ export const edit = 'Edit'
 
 export const cancelEventQuestion = 'Why is this event being cancelled?'
 export const cancelEventPrompt = 'Enter your reason for cancelling...'
-export const inviteMore = 'Invite More'
 
 export const viewProfile = 'View Profile'
 export const message = 'Message'
