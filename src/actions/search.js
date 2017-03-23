@@ -10,7 +10,7 @@ import actionTypes, {eventActions, navigationActions, usersActions} from './'
 export const searchEvents = (params) => {
 
   return (dispatch, getState) => {
-    let allEvents = getState().events.all
+    let allEvents = getState().events.eventsById
 
     let matches = Object.keys(allEvents).map(id => {
       return {
