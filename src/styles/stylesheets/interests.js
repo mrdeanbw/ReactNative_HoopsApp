@@ -86,6 +86,6 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   organizeImage: {
-    paddingTop: 20
+    // paddingTop: 20
   }
 })
