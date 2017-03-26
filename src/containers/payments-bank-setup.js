@@ -1,17 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import _PaymentsBankSetup from '../windows/payments-bank-setup'
 import {navigationActions, paymentActions} from '../actions'
 
-class PaymentsBankSetup extends React.Component {
-
-  constructor() {
-    super()
-    this.state = {
-
-    }
-  }
+class PaymentsBankSetup extends Component {
 
   componentWillUnmount() {
     this.props.onDismissError()

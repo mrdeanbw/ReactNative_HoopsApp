@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
@@ -6,7 +6,8 @@ import {Header, TextInput, Button, LoadingAlert, Form} from '../components'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
-export default class PaymentsBankSetup extends React.Component {
+class PaymentsBankSetup extends Component {
+
   constructor(props) {
     super(props)
 
@@ -21,11 +22,7 @@ export default class PaymentsBankSetup extends React.Component {
     }
   }
 
-  onDonePress = () => {
-    if(!this.validate()) {
-      return
-    }
-
+  onDonePress() {
     //Remove any dashes or other non-numerics from sort code
     let sortCode = (this.state.sortCode || '').replace(/[^0-9]/g, '')
 
@@ -39,17 +36,19 @@ export default class PaymentsBankSetup extends React.Component {
     })
   };
 
-  validate = () => {
+  validate() {
     return (
       this.state.accountNumber && this.state.accountNumber.search(/[^0-9]/) === -1 &&
-      this.state.sortCode &&
-      this.state.addressLine1 &&
-      this.state.city &&
-      this.state.postcode
+      this.state.sortCode !== undefined &&
+      this.state.addressLine1 !== undefined &&
+      this.state.city !== undefined &&
+      this.state.postcode !== undefined
     )
   }
 
   render() {
+    const disabled = !this.validate()
+
     return (
       <View style={{flex: 1}}>
         <Header
@@ -61,7 +60,6 @@ export default class PaymentsBankSetup extends React.Component {
         />
 
         <Form style={[{flex: 1}, StyleSheet.padding]}>
-
           <LoadingAlert visible={this.props.isLoading}/>
 
           {this.props.error && (
@@ -121,11 +119,13 @@ export default class PaymentsBankSetup extends React.Component {
 
         </Form>
 
-        <View style={StyleSheet.interests.footer}>
+        <View style={StyleSheet.buttons.bar}>
           <Button
-            type={this.validate() ? "dialogDefault" : "dialog"}
+            type={disabled ? "dialog" : "dialogDefault"}
+            disabled={!!disabled}
             text={_('done')}
-            onPress={this.onDonePress}
+            onPress={this.onDonePress.bind(this)}
+
           />
         </View>
         <KeyboardSpacer/>
@@ -134,3 +134,5 @@ export default class PaymentsBankSetup extends React.Component {
   }
 
 }
+
+export default PaymentsBankSetup
