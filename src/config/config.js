@@ -27,7 +27,7 @@ const common = {
 }
 
 const dev = Object.assign({}, common, {
-  PAYMENTS_SERVER: 'https://arcane-ridge-17730.herokuapp.com/',
+  PAYMENTS_SERVER: 'https://us-central1-hoops-us-149010.cloudfunctions.net/',
   STRIPE_PUBLIC_KEY: 'pk_test_3mN7EmjOlXkVjjZISQG4xq3J',
 
   FIREBASE_API_KEY: 'AIzaSyA-4UQyJ2wfj9OfgX4zkTQeFscFxGQ_agE',
@@ -38,7 +38,7 @@ const dev = Object.assign({}, common, {
 })
 
 const prod = Object.assign({}, common, {
-  PAYMENTS_SERVER: 'https://hoops-us-149010.appspot.com/',
+  PAYMENTS_SERVER: 'https://us-central1-hoops-us-149010.cloudfunctions.net/',
   STRIPE_PUBLIC_KEY: 'pk_test_QkhKNXx4BFg7TmyOl7fEyR0E',
 
   FIREBASE_API_KEY: 'AIzaSyBLk4Cz8aQU3XaQWJJtvMtqkVcMm2UUBc8',
@@ -47,8 +47,6 @@ const prod = Object.assign({}, common, {
 
   //Bugsnag is only enabled when the API key is given
   BUGSNAG_API_KEY: '25983a784e900e85ae661a2e5685d61a',
-
-  LOGGER_ACTIVE: false,
 })
 
-export default __DEV__ ? dev : prod
+export default __DEV__ ? prod : prod

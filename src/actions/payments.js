@@ -1,3 +1,4 @@
+import axios from 'axios'
 import url from 'url'
 import qs from 'qs'
 
@@ -7,6 +8,13 @@ import actionTypes, {navigationActions} from './'
 
 const server = Config.PAYMENTS_SERVER
 const stripePublicKey = Config.STRIPE_PUBLIC_KEY
+
+const paymentApi = axios.create({
+  baseURL: Config.PAYMENTS_SERVER,
+  timeout: 1000,
+})
+
+
 
 const get = (path, params) => {
   params = url.format({
@@ -63,45 +71,39 @@ const post = (path, body) => {
 }
 
 export const getAccount = () => {
-  return (dispatch, getState) => {
-    let stripeAccountId = getState().user.stripeAccount
-    if(!stripeAccountId) {
-      //If there is no stripe account associated. Don't attempt to fetch
-      return
-    }
-
+  return async (dispatch, getState) => {
     dispatch({
-      type: actionTypes.PAYMENTS_GET_ACCOUNT_START,
+      type: actionTypes.PAYMENTS_GET_ACCOUNT_START
     })
 
-    get('accounts', {
-      stripeAccountId,
-    }).then(response => {
+    try {
+      const response = await paymentApi.get('/stripeGetAccount', {
+        params: {userId: getState().user.uid}})
+
       dispatch({
         type: actionTypes.PAYMENTS_GET_ACCOUNT_SUCCESS,
-        response,
+        response: response.data,
       })
-    }).catch(err => {
+    } catch(err) {
       dispatch({
         type: actionTypes.PAYMENTS_GET_ACCOUNT_ERROR,
         err,
       })
-    })
+    }
   }
 }
 
 export const updateAccount = (data) => {
-  return dispatch => {
-
+  return async dispatch => {
     dispatch({
       type: actionTypes.PAYMENTS_UPDATE_ACCOUNT_START,
     })
 
-    post('accounts', {
+    const postData = {
       accountNumber: data.accountNumber,
       sortCode: data.sortCode,
 
-      uid: data.uid,
+      userId: data.uid,
       name: data.name,
       email: data.email,
       dob: new Date(data.dob).valueOf(),
@@ -110,19 +112,24 @@ export const updateAccount = (data) => {
 
       addressLine1: data.addressLine1,
       postcode: data.postcode,
-      city: data.city,
-    }).then(response => {
+      city: data.city
+    }
+
+    try {
+      const response = await paymentApi.post('/stripeCreateAccount', postData)
+
       dispatch({
         type: actionTypes.PAYMENTS_UPDATE_ACCOUNT_SUCCESS,
-        response,
+        response: response.data,
       })
+
       dispatch(navigationActions.pop())
-    }).catch(err => {
+    } catch(err) {
       dispatch({
         type: actionTypes.PAYMENTS_UPDATE_ACCOUNT_ERROR,
         err,
       })
-    })
+    }
   }
 }
 
@@ -145,6 +152,7 @@ export const createCard = (data) => {
         cvc: data.cvc,
       },
     })
+
 
     fetch('https://api.stripe.com/v1/tokens', {
       method: 'POST',
