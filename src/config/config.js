@@ -28,7 +28,7 @@ const common = {
 
 const dev = Object.assign({}, common, {
   PAYMENTS_SERVER: 'https://us-central1-hoops-us-149010.cloudfunctions.net/',
-  STRIPE_PUBLIC_KEY: 'pk_test_3mN7EmjOlXkVjjZISQG4xq3J',
+  STRIPE_PUBLIC_KEY: 'pk_test_QkhKNXx4BFg7TmyOl7fEyR0E',
 
   FIREBASE_API_KEY: 'AIzaSyA-4UQyJ2wfj9OfgX4zkTQeFscFxGQ_agE',
   FIREBASE_DATABASE_URL: 'https://hoops-21a72.firebaseio.com',

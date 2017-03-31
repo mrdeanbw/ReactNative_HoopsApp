@@ -1,74 +1,23 @@
 import axios from 'axios'
-import url from 'url'
 import qs from 'qs'
 
 import Config from '../config'
 import inflateEvent from '../data/inflaters/event'
 import actionTypes, {navigationActions} from './'
 
-const server = Config.PAYMENTS_SERVER
-const stripePublicKey = Config.STRIPE_PUBLIC_KEY
-
 const paymentApi = axios.create({
   baseURL: Config.PAYMENTS_SERVER,
   timeout: 1000,
 })
 
-
-
-const get = (path, params) => {
-  params = url.format({
-    query: params,
-  })
-
-  return fetch(server + path + params, {
-    method: 'GET',
-  }).then(response => {
-    if(!response.ok) {
-      return response.json().then(obj => {
-        throw obj
-      })
-    }else{
-      return response.json()
-    }
-  })
-}
-
-const del = (path, params) => {
-  params = url.format({
-    query: params,
-  })
-
-  return fetch(server + path + params, {
-    method: 'DELETE',
-  }).then(response => {
-    if(!response.ok) {
-      return response.json().then(obj => {
-        throw obj
-      })
-    }else{
-      return response.json()
-    }
-  })
-}
-
-const post = (path, body) => {
-  return fetch(server + path, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  }).then(response => {
-    if(!response.ok) {
-      return response.json().then(obj => {
-        throw obj
-      })
-    }else{
-      return response.json()
-    }
-  })
-}
+const stripeApi = axios.create({
+  baseURL: 'https://api.stripe.com/v1/',
+  timeout: 1000,
+  headers: {
+    'Authorization': 'Bearer ' + Config.STRIPE_PUBLIC_KEY,
+    'Content-Type': 'application/x-www-form-urlencoded',
+  }
+})
 
 export const getAccount = () => {
   return async (dispatch, getState) => {
@@ -77,8 +26,7 @@ export const getAccount = () => {
     })
 
     try {
-      const response = await paymentApi.get('/stripeGetAccount', {
-        params: {userId: getState().user.uid}})
+      const response = await paymentApi.get('stripeGetAccount', {params: {userId: getState().user.uid}})
 
       dispatch({
         type: actionTypes.PAYMENTS_GET_ACCOUNT_SUCCESS,
@@ -116,7 +64,7 @@ export const updateAccount = (data) => {
     }
 
     try {
-      const response = await paymentApi.post('/stripeCreateAccount', postData)
+      const response = await paymentApi.post('stripeCreateAccount', qs.stringify(postData))
 
       dispatch({
         type: actionTypes.PAYMENTS_UPDATE_ACCOUNT_SUCCESS,
@@ -139,114 +87,95 @@ export const updateAccount = (data) => {
 export const createAccount = updateAccount
 
 export const createCard = (data) => {
-  return dispatch => {
+  return async (dispatch, getState) => {
     dispatch({
       type: actionTypes.PAYMENTS_ADD_CARD_START,
     })
 
-    let query = qs.stringify({
-      card: {
-        number: data.cardNumber,
-        exp_month: data.expiryMonth,
-        exp_year: data.expiryYear,
-        cvc: data.cvc,
-      },
-    })
+    const user = getState().user
+    const cardData = {
+      'card[number]': data.cardNumber,
+      'card[exp_month]': data.expiryMonth,
+      'card[exp_year]': data.expiryYear,
+      'card[cvc]': data.cvc,
+    }
 
+    const response = await stripeApi.post('tokens', qs.stringify(cardData))
+    const cardToken = response.data.id
 
-    fetch('https://api.stripe.com/v1/tokens', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + stripePublicKey,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      /*
-       * We wrap body in an array to get around react-native-fetch-blob interference
-       * We should look into alternatives to using react-native-fetch-blob as it
-       * is breaking the expected functionality of fetch()
-       */
-      body: [query],
-    }).then(response => {
-      if(!response.ok) {
-        return response.json().then(obj => {
-          throw obj.error
-        })
-      } else {
-        return response.json()
-      }
-    }).then(response => {
-      let cardToken = response.id
-
-      return post('cards', {
-        uid: data.uid,
-        cardToken: cardToken,
+    try {
+      paymentApi.post('stripeCreateCard', {
+        userId: user.uid,
+        cardToken,
       })
-    }).then(response => {
+
       dispatch({
         type: actionTypes.PAYMENTS_ADD_CARD_SUCCESS,
-        response,
+        response: response.data,
       })
+
       dispatch(navigationActions.pop())
-    }).catch(err => {
+    } catch(err) {
       dispatch({
         type: actionTypes.PAYMENTS_ADD_CARD_ERROR,
         err,
       })
-    })
+    }
   }
 }
 
 export const getCards = () => {
-  return (dispatch, getState) => {
-    let stripeAccountId = getState().user.stripeAccount
-    if(!stripeAccountId) {
-      //If there is no stripe account associated. Don't attempt to fetch
+  return async (dispatch, getState) => {
+    const user = getState().user
+    if (!user.stripeAccount) {
       return
     }
-
-    let uid = getState().user.uid
 
     dispatch({
       type: actionTypes.PAYMENTS_GET_CARDS_START,
     })
 
-    get('cards', {
-      uid: uid,
-    }).then(response => {
+    try {
+      const response = await paymentApi.get('stripeGetCards', {params: {userId: user.uid}})
       dispatch({
         type: actionTypes.PAYMENTS_GET_CARDS_SUCCESS,
-        response,
+        response: response.data,
       })
-    }).catch(err => {
+    } catch(err) {
       dispatch({
         type: actionTypes.PAYMENTS_GET_CARDS_ERROR,
         err,
       })
-    })
+    }
   }
 }
 
-export const deleteCard = (id) => {
-  return (dispatch, getState) => {
-    let uid = getState().user.uid
+export const deleteCard = (cardToken) => {
+  return async (dispatch, getState) => {
+    const user = getState().user
+
     dispatch({
       type: actionTypes.PAYMENTS_DELETE_CARD_START,
     })
 
-    del('cards', {
-      cardId: id,
-      uid: uid,
-    }).then(response => {
+    try {
+      const response = await paymentApi.post('stripeDeleteCard', {
+        userId: user.uid,
+        cardToken,
+      })
+
       dispatch({
         type: actionTypes.PAYMENTS_DELETE_CARD_SUCCESS,
-        response,
+        response: response.data,
       })
-    }).catch(err => {
+
+      dispatch(navigationActions.pop())
+    } catch(err) {
       dispatch({
-        type: actionTypes.PAYMENTS_DELETE_CARD_ERROR,
+        type: actionTypes.PAYMENTS_DELETE_CARD_SUCCESS,
         err,
       })
-    })
+    }
   }
 }
 
@@ -258,19 +187,19 @@ export const getTransactions = () => {
       type: actionTypes.PAYMENTS_GET_TRANSACTIONS_START,
     })
 
-    get('transactions', {
-      accountKey,
-    }).then(response => {
-      dispatch({
-        type: actionTypes.PAYMENTS_GET_TRANSACTIONS_SUCCESS,
-        response,
-      })
-    }).catch(err => {
-      dispatch({
-        type: actionTypes.PAYMENTS_GET_TRANSACTIONS_ERROR,
-        err,
-      })
-    })
+    // get('transactions', {
+    //   accountKey,
+    // }).then(response => {
+    //   dispatch({
+    //     type: actionTypes.PAYMENTS_GET_TRANSACTIONS_SUCCESS,
+    //     response,
+    //   })
+    // }).catch(err => {
+    //   dispatch({
+    //     type: actionTypes.PAYMENTS_GET_TRANSACTIONS_ERROR,
+    //     err,
+    //   })
+    // })
   }
 }
 
@@ -299,23 +228,23 @@ export const pay = (event, invite = null) => {
       type: actionTypes.PAYMENTS_PAY_START,
     })
 
-    post('charge', {
-      inviteId: invite ? invite.id : null,
-      eventId: event.id,
-      customerId: state.user.stripeCustomer,
-      cardId: cardId,
-      uid: uid,
-    }).then(response => {
-      dispatch({
-        type: actionTypes.PAYMENTS_PAY_SUCCESS,
-        response,
-      })
-    }).catch(err => {
-      dispatch({
-        type: actionTypes.PAYMENTS_PAY_ERROR,
-        err,
-      })
-    })
+    // post('charge', {
+    //   inviteId: invite ? invite.id : null,
+    //   eventId: event.id,
+    //   customerId: state.user.stripeCustomer,
+    //   cardId: cardId,
+    //   uid: uid,
+    // }).then(response => {
+    //   dispatch({
+    //     type: actionTypes.PAYMENTS_PAY_SUCCESS,
+    //     response,
+    //   })
+    // }).catch(err => {
+    //   dispatch({
+    //     type: actionTypes.PAYMENTS_PAY_ERROR,
+    //     err,
+    //   })
+    // })
   }
 }
 
