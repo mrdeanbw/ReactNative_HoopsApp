@@ -1,37 +1,30 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import _Wallet from '../windows/wallet'
 import {navigationActions, paymentActions} from '../actions'
 
-class Wallet extends React.Component {
-  constructor() {
-    super()
-    this.state = {}
-  }
+class Wallet extends Component {
 
   componentWillMount() {
-    //when this component mounts, fetch account information from Stripe
+    // when this component mounts, fetch account information from Stripe
     this.props.onLoadAccount()
   }
 
   render() {
+    const payments = this.props.payments
+
     return (
       <_Wallet
         isLoading={(
-          this.props.payments.isFetchingAccount ||
-          this.props.payments.isUpdatingAccount
+          payments.isFetchingAccount ||
+          payments.isUpdatingAccount
         )}
-        account={this.props.payments.accountData}
+        account={payments.accountData}
         onChangeAction={this.props.onChangeAction}
-        hasAccount={this.hasAccount.bind(this)}
+        hasAccount={!!payments.accountData}
       />
     )
-  }
-
-  hasAccount() {
-    const account = this.props.payments.accountData
-    return account && account.accountNumber || false
   }
 }
 

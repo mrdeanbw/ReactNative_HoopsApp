@@ -1,32 +1,21 @@
 
-import React from 'react'
+import React, {Component} from 'react'
 import {View, Text} from 'react-native'
 
 import _ from '../i18n'
 import {Header, LoadingAlert} from '../components'
 import StyleSheet from '../styles'
 
-export default class Wallet extends React.Component {
-  componentWillMount() {
-    if (!this.props.hasAccount()) {
-        this.props.onChangeAction({
-          text: _('add'),
-          icon: "actionAdd",
-        })
-    }
-  }
+class Wallet extends Component {
 
   render() {
-    let account = this.props.account
-
-    let titleStyle = StyleSheet.profile.editLabel
-    let detailStyle = StyleSheet.payments.accountDataText
+    const account = this.props.account
+    const titleStyle = StyleSheet.profile.editLabel
+    const detailStyle = StyleSheet.payments.accountDataText
 
     return (
       <View style={{flex: 1}}>
-        <Header
-          title={_('myWallet')}
-        />
+        <Header title={_('myWallet')} />
 
         <View style={StyleSheet.padding}>
           <LoadingAlert visible={this.props.isLoading} />
@@ -61,5 +50,6 @@ export default class Wallet extends React.Component {
       </View>
     )
   }
-
 }
+
+export default Wallet
