@@ -35,10 +35,6 @@ class PaymentsBankSetup extends Component {
   }
 
   onDonePress() {
-    if (!this.validate()) {
-      return
-    }
-
     this.props.onDonePress({
       cardNumber: this.state.cardNumber,
       expiryMonth: this.state.expiryMonth,
@@ -164,8 +160,9 @@ class PaymentsBankSetup extends Component {
         <View style={StyleSheet.buttons.bar}>
           <Button
             type={this.validate() ? "dialogDefault" : "dialog"}
+            disabled={!this.validate()}
             text={_('done')}
-            onPress={this.onDonePress}
+            onPress={this.onDonePress.bind(this)}
           />
         </View>
         <KeyboardSpacer/>
