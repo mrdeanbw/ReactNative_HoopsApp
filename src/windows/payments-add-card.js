@@ -6,12 +6,11 @@ import {Header, TextInput, Button, LoadingAlert, Form} from '../components'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
-const zeroPad = (number) => {
-  if(number) {
-    return ("00" + number).slice(-2)
-  } else {
-    return ""
+const zeroPad = number => {
+  if (number) {
+    return ('00' + number).slice(-2)
   }
+  return ''
 }
 
 class PaymentsBankSetup extends Component {
@@ -46,7 +45,7 @@ class PaymentsBankSetup extends Component {
       expiryYear: this.state.expiryYear,
       cvc: this.state.cvc,
     })
-  };
+  }
 
   validate() {
     return (
@@ -55,7 +54,7 @@ class PaymentsBankSetup extends Component {
       this.state.expiryYear &&
       this.state.cvc
     )
-  };
+  }
 
   render() {
     let numberError, monthError, yearError, cvcError
