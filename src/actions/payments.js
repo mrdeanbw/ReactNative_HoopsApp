@@ -102,8 +102,8 @@ export const createCard = (data) => {
 
     let tokenResponseData
     try {
-      const response = await stripeApi.post('tokens', qs.stringify(cardData))
-      tokenResponseData = response.data
+      const tokenResponse = await stripeApi.post('tokens', qs.stringify(cardData))
+      tokenResponseData = tokenResponse.data
     } catch(err) {
       dispatch({
         type: actionTypes.PAYMENTS_ADD_CARD_ERROR,
@@ -115,14 +115,14 @@ export const createCard = (data) => {
     }
 
     try {
-      paymentApi.post('stripeCreateCard', {
+      const cardResponse = await paymentApi.post('stripeCreateCard', {
         userId: user.uid,
         cardToken: tokenResponseData.id,
       })
 
       dispatch({
         type: actionTypes.PAYMENTS_ADD_CARD_SUCCESS,
-        response: tokenResponseData,
+        response: cardResponse.data,
       })
 
       dispatch(navigationActions.pop())
@@ -138,9 +138,6 @@ export const createCard = (data) => {
 export const getCards = () => {
   return async (dispatch, getState) => {
     const user = getState().user
-    if (!user.stripeAccount) {
-      return
-    }
 
     dispatch({
       type: actionTypes.PAYMENTS_GET_CARDS_START,

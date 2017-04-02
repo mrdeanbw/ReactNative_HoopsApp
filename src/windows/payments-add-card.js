@@ -19,12 +19,14 @@ class PaymentsBankSetup extends Component {
   constructor(props) {
     super(props)
 
-    /* Stripe test details:
-      cardNumber: '4242424242424242',
-      expiryMonth: '12',
-      expiryYear: '17',
-      cvc: '123',
-    */
+    // Stripe test details
+    // this.state = {
+    //   cardNumber: '4242424242424242',
+    //   expiryMonth: '12',
+    //   expiryYear: '17',
+    //   cvc: '123',
+    // }
+
     this.state = {
       cardNumber: '',
       expiryMonth: undefined,
@@ -33,8 +35,8 @@ class PaymentsBankSetup extends Component {
     }
   }
 
-  onDonePress = () => {
-    if(!this.validate()) {
+  onDonePress() {
+    if (!this.validate()) {
       return
     }
 
@@ -46,7 +48,7 @@ class PaymentsBankSetup extends Component {
     })
   };
 
-  validate = () => {
+  validate() {
     return (
       this.state.cardNumber &&
       this.state.expiryMonth &&
@@ -79,7 +81,6 @@ class PaymentsBankSetup extends Component {
           cvcError = errorComponent
           break
       }
-
     }
 
     return (
