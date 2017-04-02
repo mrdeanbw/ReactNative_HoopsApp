@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
@@ -14,7 +14,8 @@ const zeroPad = (number) => {
   }
 }
 
-export default class PaymentsBankSetup extends React.Component {
+class PaymentsBankSetup extends Component {
+
   constructor(props) {
     super(props)
 
@@ -55,10 +56,10 @@ export default class PaymentsBankSetup extends React.Component {
   };
 
   render() {
-
     let numberError, monthError, yearError, cvcError
-    if(this.props.error) {
-      let errorComponent = (
+
+    if (this.props.error) {
+      const errorComponent = (
         <Text style={StyleSheet.login.errorText}>
           {this.props.error.message}
         </Text>
@@ -92,7 +93,6 @@ export default class PaymentsBankSetup extends React.Component {
         />
 
         <Form style={{flex: 1}}>
-
           <LoadingAlert visible={this.props.isLoading}/>
 
           <View style={StyleSheet.padding}>
@@ -173,5 +173,6 @@ export default class PaymentsBankSetup extends React.Component {
       </View>
     )
   }
-
 }
+
+export default PaymentsBankSetup

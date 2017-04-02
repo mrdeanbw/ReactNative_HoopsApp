@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react'
 import {View, Text} from 'react-native'
 
@@ -40,7 +39,6 @@ class Wallet extends Component {
 
               <Text style={titleStyle}>{_('postcode')}</Text>
               <Text style={detailStyle}>{account.postcode}</Text>
-
             </View>
           ) : (
             <Text style={StyleSheet.payments.noCardsText}>{_('noAccount')}</Text>
