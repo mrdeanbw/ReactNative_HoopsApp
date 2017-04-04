@@ -11,7 +11,7 @@ import {getPlace} from '../data/google-places'
 import actionTypes, {
   eventActions, usersActions,
   requestActions, notificationActions,
-  navigationActions
+  navigationActions, paymentActions,
 } from './'
 
 
@@ -244,6 +244,9 @@ const listenToUser = () => {
       if(firstLoad) {
         dispatch({type: actionTypes.USER_DATA_FIRST_LOAD})
         firstLoad = false
+
+        // Load the users bank cards
+        dispatch(paymentActions.getCards())
       }
 
       var previousName = previousUser.name ? previousUser.name : null
