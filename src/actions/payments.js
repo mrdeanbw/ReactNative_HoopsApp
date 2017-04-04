@@ -218,41 +218,43 @@ export const getTransactions = () => {
  * If the payment is in response to an invitation from an organizer, use invite param
  */
 export const pay = (event, invite = null) => {
-  return (dispatch, getState) => {
-    let state = getState()
-    let uid = state.user.uid
+  return async (dispatch, getState) => {
+    const state = getState()
+    const userId = state.user.uid
 
     event = inflateEvent(event, {
       users: state.users.usersById,
     })
 
-    if(state.payments.cards.length === 0) {
+    if (state.payments.cards.length === 0) {
       throw new Error('No cards found to make payment with')
     }
-    //TODO we are always using the first card. What if the user wants to use another?
+
+    // TODO we are always using the first card. What if the user wants to use another?
     var cardId = state.payments.cards[0].id
 
     dispatch({
       type: actionTypes.PAYMENTS_PAY_START,
     })
 
-    // post('charge', {
-    //   inviteId: invite ? invite.id : null,
-    //   eventId: event.id,
-    //   customerId: state.user.stripeCustomer,
-    //   cardId: cardId,
-    //   uid: uid,
-    // }).then(response => {
-    //   dispatch({
-    //     type: actionTypes.PAYMENTS_PAY_SUCCESS,
-    //     response,
-    //   })
-    // }).catch(err => {
-    //   dispatch({
-    //     type: actionTypes.PAYMENTS_PAY_ERROR,
-    //     err,
-    //   })
-    // })
+    try {
+      const response = await paymentApi.post('stripeChargeCard', {
+        inviteId: invite ? invite.id : null,
+        eventId: event.id,
+        cardId,
+        userId,
+      })
+
+      dispatch({
+        type: actionTypes.PAYMENTS_PAY_SUCCESS,
+        response: response.data,
+      })
+    } catch(err) {
+      dispatch({
+        type: actionTypes.PAYMENTS_PAY_ERROR,
+        err,
+      })
+    }
   }
 }
 
