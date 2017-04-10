@@ -301,31 +301,6 @@ export default class CreateEvent extends React.Component {
 
               <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
                 <TextInput
-                  ref="maxPlayersInput"
-                  type="flat"
-                  keyboardType="numeric"
-                  placeholder={_('maxPlayers')}
-                  value={this.getNumericLabel(this.state.eventDetails.maxPlayers)}
-                  onChangeText={maxPlayers => {
-                    this.setEventData({
-                      maxPlayers: maxPlayers === '' ? '' : parseInt(maxPlayers, 10)
-                    })
-                  }}
-                  style={{flex: 1, marginRight: 25}}
-                  onFocus={() => {
-                    this.scrollToInput('scrollView1', this.refs.maxPlayersInput)
-                  }}
-                />
-                <Button
-                  type="roundedGrey"
-                  active={!this.state.eventDetails.maxPlayers}
-                  text={_('unlimited')}
-                  onPress={() => this.setEventData({maxPlayers: 0})}
-                  style={{width: 110}}
-                />
-              </View>
-              <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
-                <TextInput
                   ref="minPlayersInput"
                   type="flat"
                   keyboardType="numeric"
@@ -346,6 +321,31 @@ export default class CreateEvent extends React.Component {
                   active={!this.state.eventDetails.minPlayers}
                   text={_('unlimited')}
                   onPress={() => this.setEventData({minPlayers: 0})}
+                  style={{width: 110}}
+                />
+              </View>
+              <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
+                <TextInput
+                  ref="maxPlayersInput"
+                  type="flat"
+                  keyboardType="numeric"
+                  placeholder={_('maxPlayers')}
+                  value={this.getNumericLabel(this.state.eventDetails.maxPlayers)}
+                  onChangeText={maxPlayers => {
+                    this.setEventData({
+                      maxPlayers: maxPlayers === '' ? '' : parseInt(maxPlayers, 10)
+                    })
+                  }}
+                  style={{flex: 1, marginRight: 25}}
+                  onFocus={() => {
+                    this.scrollToInput('scrollView1', this.refs.maxPlayersInput)
+                  }}
+                />
+                <Button
+                  type="roundedGrey"
+                  active={!this.state.eventDetails.maxPlayers}
+                  text={_('unlimited')}
+                  onPress={() => this.setEventData({maxPlayers: 0})}
                   style={{width: 110}}
                 />
               </View>
