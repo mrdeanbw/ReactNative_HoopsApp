@@ -388,7 +388,7 @@ export default class CreateEvent extends React.Component {
                 </View>
               </View>
 
-              {this.state.eventDetails.recurring && (
+              {/*{this.state.eventDetails.recurring && (
                 <View style={[StyleSheet.doubleMarginTop, {flex:1, flexDirection: 'row'}]}>
                   <Text style={[{flex: 1, marginTop: 14, marginRight: 25, color: StyleSheet.colors.pink, fontSize: 13}]}>
                     {_('recurEvery').toUpperCase()}
@@ -416,7 +416,7 @@ export default class CreateEvent extends React.Component {
                     <ListInput.Item text={_('weeks')} value="w" />
                   </ListInput>
                 </View>
-              )}
+              )}*/}
 
               <View style={StyleSheet.halfMarginTop}>
                 <AddressInput
