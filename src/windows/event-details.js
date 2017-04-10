@@ -87,20 +87,19 @@ export default class EventDetails extends React.Component {
     }
   }
 
-  onPressJoinTabAction() {
+  onPressJoinTabAction = () => {
     let event = this.props.event
-    this.setState({
-      showJoinPopup: true,
-      paymentMethod: event.entryFee === 0 ? 'cash' : event.paymentMethod
-    })
-  }
-    // if (event.entryFee > 0 && event.paymentMethod === 'unrestricted') {
+    if (event.entryFee > 0 && event.paymentMethod === 'unrestricted') {
       //If we are on an 'unrestricted' payment type, show payment types popup
-      // this.setState({ showPaymentTypePopup: true })
-    // } else {
+      this.setState({ showPaymentTypePopup: true })
+    } else {
       //If we are on an event with a specified payment type, show the join popup
-    // }
-
+      this.setState({
+        showJoinPopup: true,
+        paymentMethod: event.entryFee === 0 ? 'cash' : event.paymentMethod
+      })
+    }
+  };
 
   updateActionButton(props) {
     let entryFee = props.event.entryFee || 0

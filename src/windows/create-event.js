@@ -475,7 +475,7 @@ export default class CreateEvent extends React.Component {
                   >
                     <ListInput.Item text={_('inAppPayment')} value="app" />
                     <ListInput.Item text={_('cashOnSite')} value="cash" />
-                    {/*<ListInput.Item text={_('unrestricted')} value={"unrestricted"} />*/}
+                    <ListInput.Item text={_('unrestricted')} value={"unrestricted"} />
                   </ListInput>
                 )}
 
