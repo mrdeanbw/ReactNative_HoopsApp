@@ -90,8 +90,8 @@ android {
         applicationId "com.hoops.connect"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 26
-        versionName "0.2.56"
+        versionCode 27
+        versionName "0.2.57"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
