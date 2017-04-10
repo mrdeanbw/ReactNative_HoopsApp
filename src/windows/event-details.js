@@ -372,13 +372,11 @@ class EventInfo extends React.Component {
     return (
       <View style={[StyleSheet.eventDetails.eventInfoStyle, this.props.style]}>
         <Icon name={this.props.icon} style={StyleSheet.eventDetails.eventInfoIcon} />
-
-        <Text style={[StyleSheet.text, StyleSheet.eventDetails.eventInfoText]}>
-          {this.props.children}
-        </Text>
-
         <Text style={[StyleSheet.text, StyleSheet.eventDetails.eventInfoKey]}>
           {this.props.label}
+        </Text>
+        <Text style={[StyleSheet.text, StyleSheet.eventDetails.eventInfoText]}>
+          {this.props.children}
         </Text>
       </View>
     )

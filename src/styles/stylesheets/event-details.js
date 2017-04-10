@@ -113,9 +113,9 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   eventInfoStyle: {
+    flex: 1,
     alignItems: 'center',
-    marginLeft: 5,
-    marginRight: 5
+    marginHorizonal: 5,
   },
 
   eventInfoIcon: {
@@ -127,8 +127,6 @@ export default StyleSheet => StyleSheet.extend({
     color: colors.black,
     fontSize: 14,
     lineHeight: 14,
-    marginTop: 10,
-    marginBottom: 8,
     fontWeight: 'bold',
     textAlign: 'center'
   },
@@ -146,7 +144,9 @@ export default StyleSheet => StyleSheet.extend({
     lineHeight: 12,
     fontWeight: '400',
     color: colors.grey,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: 10,
+    marginBottom: 8,
   },
 
   horizontalRule: {
