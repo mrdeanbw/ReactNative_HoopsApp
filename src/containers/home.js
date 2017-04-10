@@ -98,8 +98,14 @@ class Home extends React.Component {
     })
 
     let nearby = this.props.search.nearby.map(item => {
+      let event = inflateEvent(this.props.events.eventsById[item.id], {
+        requests: this.props.requests.requestsById,
+        invites: this.props.invites.invitesById,
+        users: this.props.users.usersById,
+      })
+
       return {
-        event: this.props.events.eventsById[item.id],
+        event,
         distance: item.sort,
       }
     }).filter(item => !!item.event)
