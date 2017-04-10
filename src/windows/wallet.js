@@ -21,12 +21,17 @@ class Wallet extends Component {
 
           {account && account.accountNumber ? (
             <View>
+              <Text style={titleStyle}>{_('firstName')}</Text>
+              <Text style={detailStyle}>{account.firstName}</Text>
+
+              <Text style={titleStyle}>{_('lastName')}</Text>
+              <Text style={detailStyle}>{account.lastName}</Text>
+
               <Text style={titleStyle}>{_('accountNumber')}</Text>
               <Text style={detailStyle}>{account.accountNumber}</Text>
 
               <Text style={titleStyle}>{_('sortCode')}</Text>
               <Text style={detailStyle}>{account.sortCode}</Text>
-
 
               <Text style={titleStyle}>{_('addressLine1')}</Text>
               <Text style={detailStyle}>{account.addressLine1}</Text>

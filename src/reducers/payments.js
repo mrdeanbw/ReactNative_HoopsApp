@@ -47,16 +47,19 @@ export default handleActions({
 
   [actionTypes.PAYMENTS_UPDATE_ACCOUNT_SUCCESS]: (state, action) => {
     const account = action.response.external_accounts.data[0]
-    const address = action.response.legal_entity.address
+    const legal = action.response.legal_entity
+
     return {
       ...state,
       accountData: {
+        firstName: legal.first_name,
+        lastName: legal.last_name,
         accountNumber: 'xxxx' + account.last4,
         sortCode: account.routing_number,
-        addressLine1: address.line1,
-        addressLine2: address.line2,
-        city: address.city,
-        postcode: address.postal_code,
+        addressLine1: legal.address.line1,
+        addressLine2: legal.address.line2,
+        city: legal.address.city,
+        postcode: legal.address.postal_code,
       },
       isUpdatingAccount: false,
     }
@@ -80,16 +83,19 @@ export default handleActions({
 
   [actionTypes.PAYMENTS_GET_ACCOUNT_SUCCESS]: (state, action) => {
     const account = action.response.external_accounts.data[0]
-    const address = action.response.legal_entity.address
+    const legal = action.response.legal_entity
+
     return {
       ...state,
       accountData: {
+        firstName: legal.first_name,
+        lastName: legal.last_name,
         accountNumber: 'xxxx' + account.last4,
         sortCode: account.routing_number,
-        addressLine1: address.line1,
-        addressLine2: address.line2,
-        city: address.city,
-        postcode: address.postal_code,
+        addressLine1: legal.address.line1,
+        addressLine2: legal.address.line2,
+        city: legal.address.city,
+        postcode: legal.address.postal_code,
       },
       isFetchingAccount: false,
     }

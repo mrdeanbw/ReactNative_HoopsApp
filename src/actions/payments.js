@@ -55,9 +55,8 @@ export const updateAccount = (data) => {
       name: data.name,
       email: data.email,
       dob: new Date(data.dob).valueOf(),
-      //first_name?
-      //last_name?
-
+      firstName: data.firstName,
+      lastName: data.lastName,
       addressLine1: data.addressLine1,
       postcode: data.postcode,
       city: data.city

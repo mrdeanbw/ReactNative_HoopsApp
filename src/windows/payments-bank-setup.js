@@ -12,6 +12,9 @@ class PaymentsBankSetup extends Component {
     super(props)
 
     this.state = {
+
+      firstName: this.props.account.firstName,
+      lastName: this.props.account.lastName,
       accountNumberPlaceholder: this.props.account.accountNumber,
       accountNumber: '',
       sortCode: this.props.account.sortCode,
@@ -27,17 +30,21 @@ class PaymentsBankSetup extends Component {
     let sortCode = (this.state.sortCode || '').replace(/[^0-9]/g, '')
 
     this.props.onDonePress({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
       accountNumber: this.state.accountNumber,
       sortCode: sortCode,
-      addressLine1: this.state.addressLine1,
+      addressLine1: this.state.addressLin1,
       addressLine2: this.state.addressLine2,
       city: this.state.city,
       postcode: this.state.postcode,
     })
-  };
+  }
 
   validate() {
     return (
+      !!this.state.firstName,
+      !!this.state.lastName,
       this.state.accountNumber && this.state.accountNumber.search(/[^0-9]/) === -1 &&
       this.state.sortCode !== undefined &&
       this.state.addressLine1 !== undefined &&
@@ -67,6 +74,20 @@ class PaymentsBankSetup extends Component {
               {this.props.error.message}
             </Text>
           )}
+
+          <TextInput
+            type="flat"
+            value={this.state.firstName}
+            placeholder={this.state.firstNamePlaceholder || _('firstName')}
+            onChangeText={(firstName) => this.setState({firstName})}
+          />
+
+          <TextInput
+            type="flat"
+            value={this.state.lastName}
+            placeholder={this.state.lastNamePlaceholder || _('lastName')}
+            onChangeText={(lastName) => this.setState({lastName})}
+          />
 
           <TextInput
             type="flat"
