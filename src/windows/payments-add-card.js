@@ -155,6 +155,7 @@ class PaymentsBankSetup extends Component {
               onChangeText={(cvc) => this.setState({cvc})}
             />
           </View>
+          <KeyboardSpacer/>
         </Form>
 
         <View style={StyleSheet.buttons.bar}>
@@ -165,8 +166,6 @@ class PaymentsBankSetup extends Component {
             onPress={this.onDonePress.bind(this)}
           />
         </View>
-        <KeyboardSpacer/>
-
       </View>
     )
   }
