@@ -39,7 +39,7 @@ const dev = Object.assign({}, common, {
 
 const prod = Object.assign({}, common, {
   PAYMENTS_SERVER: 'https://us-central1-hoops-us-149010.cloudfunctions.net/',
-  STRIPE_PUBLIC_KEY: 'pk_test_QkhKNXx4BFg7TmyOl7fEyR0E',
+  STRIPE_PUBLIC_KEY: 'pk_live_rziAIKqdQQCkGG7NW5HGGSoL',
 
   FIREBASE_API_KEY: 'AIzaSyBLk4Cz8aQU3XaQWJJtvMtqkVcMm2UUBc8',
   FIREBASE_DATABASE_URL: 'https://hoops-us-149010.firebaseio.com',
