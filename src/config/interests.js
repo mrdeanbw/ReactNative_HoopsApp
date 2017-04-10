@@ -1,439 +1,466 @@
 export default {
-  "AMERICAN_FOOTBALL" : {
-    "name" : "American Football"
+  "AMERICAN_FOOTBALL": {
+    "name": "American Football"
   },
-  "AQUATICS" : {
-    "name" : "Aquatics"
+  "AQUATICS": {
+    "name": "Aquatics"
   },
-  "ARCHERY" : {
-    "name" : "Archery"
+  "ARCHERY": {
+    "name": "Archery"
   },
-  "ATHLETICS" : {
-    "name" : "Athletics"
+  "ATHLETICS": {
+    "name": "Athletics"
   },
-  "AUSTRALIAN_RULES_FOOTBALL" : {
-    "name" : "Australian Rules Football"
+  "AUSTRALIAN_RULES_FOOTBALL": {
+    "name": "Australian Rules Football"
   },
-  "AUTOMOBILE_RACING" : {
-    "name" : "Automobile Racing"
+  "AUTOMOBILE_RACING": {
+    "name": "Automobile Racing"
   },
-  "BASEBALL" : {
-    "name" : "Baseball"
+  "BADMINTON": {
+    "name": "Badminton",
   },
-  "BASE_JUMPING" : {
-    "name" : "Base Jumping"
+  "BASEBALL": {
+    "name": "Baseball"
   },
-  "BASKETBALL" : {
-    "important" : true,
-    "name" : "Basketball"
+  "BASE_JUMPING": {
+    "name": "Base Jumping"
   },
-  "BEACH_VOLLEYBALL" : {
-    "name" : "Beach Volleyball"
+  "BASKETBALL": {
+    "important": true,
+    "name": "Basketball"
   },
-  "BIATHLON" : {
-    "name" : "Biathlon"
+  "BEACH_VOLLEYBALL": {
+    "name": "Beach Volleyball"
   },
-  "BMX" : {
-    "name" : "BMX"
+  "BIATHLON": {
+    "name": "Biathlon"
   },
-  "BOBSLEIGH" : {
-    "name" : "Bobsleigh"
+  "BMX": {
+    "name": "BMX"
   },
-  "BOCCE_BALL" : {
-    "name" : "Bocce Ball"
+  "BOBSLEIGH": {
+    "name": "Bobsleigh"
   },
-  "BOCCIA" : {
-    "name" : "Boccia"
+  "BOCCE_BALL": {
+    "name": "Bocce Ball"
   },
-  "BODY_BUILDING" : {
-    "name" : "Body Building"
+  "BOCCIA": {
+    "name": "Boccia"
   },
-  "BOWLING_OTHER" : {
-    "name" : "Bowling (other)"
+  "BODY_BUILDING": {
+    "name": "Body Building"
   },
-  "BOWLING_TEN_PIN" : {
-    "name" : "Bowling (ten pin)"
+  "BOWLING_OTHER": {
+    "name": "Bowling (other)"
   },
-  "BOWLS_LAWN" : {
-    "name" : "Bowls (lawn)"
+  "BOWLING_TEN_PIN": {
+    "name": "Bowling (ten pin)"
   },
-  "BOXING" : {
-    "name" : "Boxing"
+  "BOWLS_LAWN": {
+    "name": "Bowls (lawn)"
   },
-  "CANOEING" : {
-    "name" : "Canoeing"
+  "BOXING": {
+    "name": "Boxing"
   },
-  "CARDS" : {
-    "name" : "Cards"
+  "BIKRAM_YOGA": {
+    "name": "Bikram Yoga"
   },
-  "CAVING" : {
-    "name" : "Caving"
+  "CANOEING": {
+    "name": "Canoeing"
   },
-  "CHEERLEADING" : {
-    "name" : "Cheerleading"
+  "CARDS": {
+    "name": "Cards"
   },
-  "CHESS" : {
-    "name" : "Chess"
+  "CAVING": {
+    "name": "Caving"
   },
-  "CROSSFIT" : {
-    "name" : "Crossfit"
+  "CHEERLEADING": {
+    "name": "Cheerleading"
   },
-  "CROSS_COUNTRY_RUNNING" : {
-    "name" : "Cross Country Running"
+  "CHESS": {
+    "name": "Chess"
   },
-  "CROSS_COUNTRY_SKIING" : {
-    "name" : "Cross Country Skiing"
+  "CROSSFIT": {
+    "name": "Crossfit"
   },
-  "CURLING" : {
-    "name" : "Curling"
+  "CROSS_COUNTRY_RUNNING": {
+    "name": "Cross Country Running"
   },
-  "CYCLING" : {
-    "important" : true,
-    "name" : "Cycling"
+  "CROSS_COUNTRY_SKIING": {
+    "name": "Cross Country Skiing"
   },
-  "DANCE" : {
-    "name" : "Dance"
+  "CURLING": {
+    "name": "Curling"
   },
-  "DARTS" : {
-    "name" : "Darts"
+  "CYCLING": {
+    "important": true,
+    "name": "Cycling"
   },
-  "DECATHLON" : {
-    "name" : "Decathlon"
+  "DANCE": {
+    "name": "Dance"
   },
-  "DIVING" : {
-    "name" : "Diving"
+  "DARTS": {
+    "name": "Darts"
   },
-  "DODGEBALL" : {
-    "name" : "Dodgeball"
+  "DECATHLON": {
+    "name": "Decathlon"
   },
-  "DOG_SLEDDING" : {
-    "name" : "Dog Sledding"
+  "DIVING": {
+    "name": "Diving"
   },
-  "DOG_TRAINING" : {
-    "name" : "Dog Training"
+  "DODGEBALL": {
+    "name": "Dodgeball"
   },
-  "EQUESTRIANISM" : {
-    "name" : "Equestrianism"
+  "DOG_SLEDDING": {
+    "name": "Dog Sledding"
   },
-  "FALCONRY" : {
-    "name" : "Falconry"
+  "DOG_TRAINING": {
+    "name": "Dog Training"
   },
-  "FENCING" : {
-    "name" : "Fencing"
+  "EQUESTRIANISM": {
+    "name": "Equestrianism"
   },
-  "FIGURE_SKATING" : {
-    "name" : "Figure Skating"
+  "FALCONRY": {
+    "name": "Falconry"
   },
-  "FLAG_FOOTBALL" : {
-    "name" : "Flag Football"
+  "FENCING": {
+    "name": "Fencing"
   },
-  "FOOSBALL" : {
-    "name" : "Foosball"
+  "FIGURE_SKATING": {
+    "name": "Figure Skating"
   },
-  "FOOTBALL" : {
-    "important" : true,
-    "name" : "Football"
+  "FLAG_FOOTBALL": {
+    "name": "Flag Football"
   },
-  "GAELIC_FOOTBALL" : {
-    "name" : "Gaelic Football"
+  "FOOTBAG": {
+    "name": "Footbag Net"
   },
-  "GOALBALL" : {
-    "name" : "Goalball"
+  "FOOSBALL": {
+    "name": "Foosball"
   },
-  "GYMNASTICS" : {
-    "name" : "Gymnastics"
+  "FOOTBALL": {
+    "important": true,
+    "name": "Football"
   },
-  "GYM_SESSION" : {
-    "important" : true,
-    "name" : "Gym Session"
+  "FUTSAL": {
+    "name": "Futsal"
   },
-  "HANDBALL" : {
-    "name" : "Handball"
+  "GAELIC_FOOTBALL": {
+    "name": "Gaelic Football"
   },
-  "HANG_GLIDING" : {
-    "name" : "Hang Gliding"
+  "GOALBALL": {
+    "name": "Goalball"
   },
-  "HIGH_JUMP" : {
-    "name" : "High Jump"
+  "GYMNASTICS": {
+    "name": "Gymnastics"
   },
-  "HIKING" : {
-    "name" : "Hiking"
+  "GYM_SESSION": {
+    "important": true,
+    "name": "Gym Session"
   },
-  "HILL_WALKING" : {
-    "name" : "Hill Walking"
+  "HANDBALL": {
+    "name": "Handball"
   },
-  "HOCKEY" : {
-    "important" : true,
-    "name" : "Hockey"
+  "HANG_GLIDING": {
+    "name": "Hang Gliding"
   },
-  "HORSE_RIDING" : {
-    "name" : "Horse Riding"
+  "HIGH_JUMP": {
+    "name": "High Jump"
   },
-  "HOT_AIR_BALLOONING" : {
-    "name" : "Hot Air Ballooning"
+  "HIKING": {
+    "name": "Hiking"
   },
-  "ICE_HOCKEY" : {
-    "name" : "Ice Hockey"
+  "HILL_WALKING": {
+    "name": "Hill Walking"
   },
-  "ICE_SKATING" : {
-    "name" : "Ice Skating"
+  "HOCKEY": {
+    "important": true,
+    "name": "Hockey"
   },
-  "INLINE_SKATING" : {
-    "name" : "Inline Skating"
+  "HORSE_RIDING": {
+    "name": "Horse Riding"
   },
-  "JAI_ALAI" : {
-    "name" : "Jai Alai"
+  "HOT_AIR_BALLOONING": {
+    "name": "Hot Air Ballooning"
   },
-  "JEET_KUNE_DO_JKD" : {
-    "name" : "Jeet Kune Do (JKD)"
+  "ICE_HOCKEY": {
+    "name": "Ice Hockey"
   },
-  "JUDO" : {
-    "name" : "Judo"
+  "ICE_SKATING": {
+    "name": "Ice Skating"
   },
-  "KARATE" : {
-    "name" : "Karate"
+  "INLINE_SKATING": {
+    "name": "Inline Skating"
   },
-  "KAYAKING" : {
-    "name" : "Kayaking"
+  "JAI_ALAI": {
+    "name": "Jai Alai"
   },
-  "KICKBOXING" : {
-    "name" : "Kickboxing"
+  "JEET_KUNE_DO_JKD": {
+    "name": "Jeet Kune Do (JKD)"
   },
-  "KITESURFING" : {
-    "name" : "Kitesurfing"
+  "JUDO": {
+    "name": "Judo"
   },
-  "KNEE_BOARDING" : {
-    "name" : "Knee Boarding"
+  "KARATE": {
+    "name": "Karate"
   },
-  "LACROSSE" : {
-    "name" : "Lacrosse"
+  "KAYAKING": {
+    "name": "Kayaking"
   },
-  "LAND_SAILING" : {
-    "name" : "Land Sailing"
+  "KICKBOXING": {
+    "name": "Kickboxing"
   },
-  "LOG_ROLLING" : {
-    "name" : "Log Rolling"
+  "KITESURFING": {
+    "name": "Kitesurfing"
   },
-  "LONGBOARDING" : {
-    "name" : "Longboarding"
+  "KNEE_BOARDING": {
+    "name": "Knee Boarding"
   },
-  "LONG_JUMP" : {
-    "name" : "Long Jump"
+  "LACROSSE": {
+    "name": "Lacrosse"
   },
-  "LUGE" : {
-    "name" : "Luge"
+  "LAND_SAILING": {
+    "name": "Land Sailing"
   },
-  "MARTIAL_ARTS" : {
-    "name" : "Martial Arts"
+  "LOG_ROLLING": {
+    "name": "Log Rolling"
   },
-  "MMA" : {
-    "name" : "MMA"
+  "LONGBOARDING": {
+    "name": "Longboarding"
   },
-  "MODERN_PENTATHLON" : {
-    "name" : "Modern Pentathlon"
+  "LONG_JUMP": {
+    "name": "Long Jump"
   },
-  "MOTORCYCLE_RACING" : {
-    "name" : "Motorcycle Racing"
+  "LUGE": {
+    "name": "Luge"
   },
-  "MOUNTAINEERING" : {
-    "name" : "Mountaineering"
+  "MARTIAL_ARTS": {
+    "name": "Martial Arts"
   },
-  "MOUNTAIN_BIKING" : {
-    "name" : "Mountain Biking"
+  "MMA": {
+    "name": "MMA"
   },
-  "OTHER" : {
-    "name" : "Other"
+  "MODERN_PENTATHLON": {
+    "name": "Modern Pentathlon"
   },
-  "PADDLE_TENNIS" : {
-    "name" : "Paddle Tennis"
+  "MOTORCYCLE_RACING": {
+    "name": "Motorcycle Racing"
   },
-  "PAINTBALL" : {
-    "name" : "Paintball"
+  "MOUNTAINEERING": {
+    "name": "Mountaineering"
   },
-  "PARACHUTING" : {
-    "name" : "Parachuting"
+  "MOUNTAIN_BIKING": {
+    "name": "Mountain Biking"
   },
-  "PARA_GLIDING" : {
-    "name" : "Para Gliding"
+  "OTHER": {
+    "name": "Other"
   },
-  "PETANQUE" : {
-    "name" : "Petanque"
+  "PADDLE_TENNIS": {
+    "name": "Paddle Tennis"
   },
-  "POOL" : {
-    "name" : "Pool"
+  "PAINTBALL": {
+    "name": "Paintball"
   },
-  "POWER_WALKING" : {
-    "name" : "Power Walking"
+  "PARACHUTING": {
+    "name": "Parachuting"
   },
-  "QUAD_BIKING" : {
-    "name" : "Quad Biking"
+  "PARA_GLIDING": {
+    "name": "Para Gliding"
   },
-  "QUIDDITCH" : {
-    "name" : "Quidditch"
+  "PETANQUE": {
+    "name": "Petanque"
   },
-  "RACKETBALL" : {
-    "name" : "Racketball"
+  "POOL": {
+    "name": "Pool"
   },
-  "RIVER_RAFTING" : {
-    "name" : "River Rafting"
+  "PILATES": {
+    "name": "Pilates"
   },
-  "ROCK_CLIMBING" : {
-    "name" : "Rock Climbing"
+  "POSING": {
+    "name": "Posing"
   },
-  "RODEO_RIDING" : {
-    "name" : "Rodeo Riding"
+  "POWER_WALKING": {
+    "name": "Power Walking"
   },
-  "ROLLER_SKATING" : {
-    "name" : "Roller Skating"
+  "QUAD_BIKING": {
+    "name": "Quad Biking"
   },
-  "ROUNDERS" : {
-    "name" : "Rounders"
+  "QUIDDITCH": {
+    "name": "Quidditch"
   },
-  "ROWING" : {
-    "name" : "Rowing"
+  "RACKETBALL": {
+    "name": "Racketball"
   },
-  "RUGBY" : {
-    "important" : true,
-    "name" : "Rugby"
+  "RIVER_RAFTING": {
+    "name": "River Rafting"
   },
-  "SAILING" : {
-    "name" : "Sailing"
+  "ROCK_CLIMBING": {
+    "name": "Rock Climbing"
   },
-  "SCUBA_DIVING" : {
-    "name" : "Scuba Diving"
+  "RODEO_RIDING": {
+    "name": "Rodeo Riding"
   },
-  "SHINTY" : {
-    "name" : "Shinty"
+  "ROLLER_SKATING": {
+    "name": "Roller Skating"
   },
-  "SHOOTING" : {
-    "name" : "Shooting"
+  "ROUNDERS": {
+    "name": "Rounders"
   },
-  "SHOT_PUT" : {
-    "name" : "Shot Put"
+  "ROWING": {
+    "name": "Rowing"
   },
-  "SHUFFLEBOARD" : {
-    "name" : "Shuffleboard"
+  "RUGBY": {
+    "important": true,
+    "name": "Rugby"
   },
-  "SKATEBOARDING" : {
-    "name" : "Skateboarding"
+  "SAILING": {
+    "name": "Sailing"
   },
-  "SKEET_SHOOTING" : {
-    "name" : "Skeet Shooting"
+  "SCUBA_DIVING": {
+    "name": "Scuba Diving"
   },
-  "SNOW_BIKING" : {
-    "name" : "Snow Biking"
+  "SHINTY": {
+    "name": "Shinty"
   },
-  "SNOW_SLEDDING" : {
-    "name" : "Snow Sledding"
+  "SHOOTING": {
+    "name": "Shooting"
   },
-  "SOCCER" : {
-    "name" : "Soccer"
+  "SHOT_PUT": {
+    "name": "Shot Put"
   },
-  "SOCIAL" : {
-    "important" : true,
-    "name" : "Social"
+  "SHUFFLEBOARD": {
+    "name": "Shuffleboard"
   },
-  "SOFTBALL" : {
-    "name" : "Softball"
+  "SKATEBOARDING": {
+    "name": "Skateboarding"
   },
-  "SOMBO" : {
-    "name" : "Sombo"
+  "SKEET_SHOOTING": {
+    "name": "Skeet Shooting"
   },
-  "SPEED_SKATING" : {
-    "name" : "Speed Skating"
+  "SNOW_BIKING": {
+    "name": "Snow Biking"
   },
-  "SPORT_FISHING" : {
-    "name" : "Sport Fishing"
+  "SNOW_SLEDDING": {
+    "name": "Snow Sledding"
   },
-  "SPRINT_RUNNING" : {
-    "name" : "Sprint Running"
+  "SOCCER": {
+    "name": "Soccer"
   },
-  "SQUASH" : {
-    "name" : "Squash"
+  "SOCIAL": {
+    "important": true,
+    "name": "Social"
   },
-  "STUNG_PLANE_FLYING" : {
-    "name" : "Stung Plane Flying"
+  "SOFTBALL": {
+    "name": "Softball"
   },
-  "SUMO_WRESTLING" : {
-    "name" : "Sumo Wrestling"
+  "SOMBO": {
+    "name": "Sombo"
   },
-  "SURFING" : {
-    "name" : "Surfing"
+  "SPEED_SKATING": {
+    "name": "Speed Skating"
   },
-  "SYNCHRONISED_SWIMMING" : {
-    "name" : "Synchronised Swimming"
+  "SPORT_FISHING": {
+    "name": "Sport Fishing"
   },
-  "TAEKWONDO" : {
-    "name" : "Taekwondo"
+  "SPRINT_RUNNING": {
+    "name": "Sprint Running"
   },
-  "TCHOUKBALL" : {
-    "name" : "Tchoukball"
+  "SQUASH": {
+    "name": "Squash"
   },
-  "TENNIS" : {
-    "important" : true,
-    "name" : "Tennis"
+  "STUNG_PLANE_FLYING": {
+    "name": "Stung Plane Flying"
   },
-  "TRACK_AND_FIELD" : {
-    "name" : "Track and Field"
+  "SUMO_WRESTLING": {
+    "name": "Sumo Wrestling"
   },
-  "TRAINING" : {
-    "name" : "Training"
+  "SURFING": {
+    "name": "Surfing"
   },
-  "TRAMPOLINING" : {
-    "name" : "Trampolining"
+  "SWITCH": {
+    "name": "Switch"
   },
-  "TRIATHLON" : {
-    "name" : "Triathlon"
+  "SWIMMING": {
+    "name": "Swimming"
   },
-  "TUG_OF_WAR" : {
-    "name" : "Tug of War"
+  "TAEKWONDO": {
+    "name": "Taekwondo"
   },
-  "ULTIMATE_FRISBEE" : {
-    "name" : "Ultimate Frisbee"
+  "TCHOUKBALL": {
+    "name": "Tchoukball"
   },
-  "WAKEBOARDING" : {
-    "name" : "Wakeboarding"
+  "TENNIS": {
+    "important": true,
+    "name": "Tennis"
   },
-  "WALKING" : {
-    "name" : "Walking"
+  "TRACK_AND_FIELD": {
+    "name": "Track and Field"
   },
-  "WATER_POLO" : {
-    "name" : "Water Polo"
+  "TRAINING": {
+    "name": "Training"
   },
-  "WATER_SKIING" : {
-    "name" : "Water Skiing"
+  "TRAMPOLINING": {
+    "name": "Trampolining"
   },
-  "WEIGHTLIFTING" : {
-    "name" : "Weightlifting"
+  "TRIATHLON": {
+    "name": "Triathlon"
   },
-  "WHEELCHAIR_BASKETBALL" : {
-    "name" : "Wheelchair Basketball"
+  "TUG_OF_WAR": {
+    "name": "Tug of War"
   },
-  "WHEELCHAIR_FENCING" : {
-    "name" : "Wheelchair Fencing"
+  "ULTIMATE_FRISBEE": {
+    "name": "Ultimate Frisbee"
   },
-  "WHEELCHAIR_RUGBY" : {
-    "name" : "Wheelchair Rugby"
+  "VOLLEYBALL": {
+    "name": "Volleyball"
   },
-  "WHEELCHAIR_TENNIS" : {
-    "name" : "Wheelchair Tennis"
+  "WAKEBOARDING": {
+    "name": "Wakeboarding"
   },
-  "WHITE_WATER_RAFTING" : {
-    "name" : "White Water Rafting"
+  "WALKING": {
+    "name": "Walking"
   },
-  "WIND_SURFING" : {
-    "name" : "Wind Surfing"
+  "WATER_POLO": {
+    "name": "Water Polo"
   },
-  "WRESTLING" : {
-    "name" : "Wrestling"
+  "WATER_SKIING": {
+    "name": "Water Skiing"
   },
-  "WUSHU" : {
-    "name" : "Wushu"
+  "WEIGHTLIFTING": {
+    "name": "Weightlifting"
   },
-  "YACHTING" : {
-    "name" : "Yachting"
+  "WHEELCHAIR_BASKETBALL": {
+    "name": "Wheelchair Basketball"
   },
-  "YOGA" : {
-    "name" : "Yoga"
+  "WHEELCHAIR_FENCING": {
+    "name": "Wheelchair Fencing"
+  },
+  "WHEELCHAIR_RUGBY": {
+    "name": "Wheelchair Rugby"
+  },
+  "WHEELCHAIR_TENNIS": {
+    "name": "Wheelchair Tennis"
+  },
+  "WHITE_WATER_RAFTING": {
+    "name": "White Water Rafting"
+  },
+  "WIND_SURFING": {
+    "name": "Wind Surfing"
+  },
+  "WRESTLING": {
+    "name": "Wrestling"
+  },
+  "WUSHU": {
+    "name": "Wushu"
+  },
+  "YACHTING": {
+    "name": "Yachting"
+  },
+  "YOGA": {
+    "name": "Yoga"
+  },
+  "ZUMBA": {
+    "name": "Zumba"
   }
 }
