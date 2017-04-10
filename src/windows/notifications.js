@@ -2,7 +2,7 @@ import React from 'react'
 import {View, Text, ListView, Image, TouchableHighlight} from 'react-native'
 import moment from 'moment'
 
-import {Avatar, Header, Button, Popup} from '../components'
+import {Header, Button, Popup} from '../components'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
@@ -70,12 +70,8 @@ export default class Notifications extends React.Component {
               <Component
                 key={rowData.id}
                 notification={rowData}
-                onHideOptions={() => {
-                  this.setState({optionsPopupIndex: null})
-                }}
-                onPress={() => {
-                  this.setState({optionsPopupIndex: rowId})
-                }}
+                onHideOptions={() => this.setState({optionsPopupIndex: null})}
+                onPress={() => this.setState({optionsPopupIndex: rowId})}
                 onRead={() => this.props.onRead(rowData)}
                 showOptions={this.state.optionsPopupIndex === rowId}
                 onAcceptFriendRequest={this.props.onAcceptFriendRequest}
@@ -376,10 +372,21 @@ class EventCancelledNotification extends React.Component {
 }
 
 class EventInviteNotification extends React.Component {
+
+  onPress() {
+    const event = this.props.notification.invite.event
+
+    if (this.props.showOptions) {
+      return this.props.onPress
+    }
+
+    return this.props.onPressEvent(event)
+  }
+
   render() {
-    let user = this.props.notification.invite.from
-    let event = this.props.notification.invite.event
-    let status = this.props.notification.invite.status
+    const user = this.props.notification.invite.from
+    const event = this.props.notification.invite.event
+    const status = this.props.notification.invite.status
 
     if(!user || !event || !status) {
       return null
@@ -438,7 +445,7 @@ class EventInviteNotification extends React.Component {
         title={_('eventInvite')}
         description={description}
         date={new Date(this.props.notification.date)}
-        onPress={this.props.onPress}
+        onPress={() => this.onPress()}
         showOptions={this.props.showOptions}
         onHideOptions={this.props.onHideOptions}
         options={options}
