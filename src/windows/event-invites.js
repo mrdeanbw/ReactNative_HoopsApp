@@ -51,14 +51,8 @@ export default class EventInvites extends React.Component {
     const users = this.getFilteredUsers()
 
     return (
-      <View
-        style={{flex: 1}}
-        currentTab="manage"
-      >
-        <Header
-          onBack={this.props.onBack}
-          onClose={this.props.onClose}
-        />
+      <View style={{flex: 1}} currentTab="manage">
+        <Header onBack={this.props.onBack} onClose={this.props.onClose} />
         <View style={{flex: 0, height: 50}}>
           <TextInput
             type="search"
@@ -75,12 +69,12 @@ export default class EventInvites extends React.Component {
             this.getSelectedIds().indexOf(this.state.inviteOptionsUser.id) >= 0
           }
           onPressInvite={() => {
-            this.setSelectedUser(this.state.inviteOptionsUser.id, true)
+            this.onPressCheck(this.state.inviteOptionsUser)
             this.setState({inviteOptionsUser: null})
           }}
           onPressRemove={() => {
-            this.setSelectedUser(this.state.inviteOptionsUser.id, false)
-            this.setState({inviteOptionsUser: null})
+            {/*this.onPressCheck(this.state.inviteOptionsUser)
+            this.setState({inviteOptionsUser: null})*/}
           }}
           onPressMessage={() => {}}
           onPressViewProfile={() => {
@@ -88,13 +82,7 @@ export default class EventInvites extends React.Component {
             this.setState({inviteOptionsUser: null})
           }}
         />
-        <ImportContacts
-          visible={this.state.showImportContacts}
-          onClose={() => this.setState({showImportContacts: false})}
-          onPressImportContacts={() => {}}
-          onPressImportFacebook={() => {}}
-          onPressImportGoogle={() => {}}
-        />
+
         <ScrollView contentContainerStyle={StyleSheet.container}>
           {users.map((user) => (
             <UserListItem
@@ -128,6 +116,14 @@ class MemberInviteOptions extends React.Component {
     )
   }
 }
+
+{/*<ImportContacts
+  visible={this.state.showImportContacts}
+  onClose={() => this.setState({showImportContacts: false})}
+  onPressImportContacts={() => {}}
+  onPressImportFacebook={() => {}}
+  onPressImportGoogle={() => {}}
+/>*/}
 
 class ImportContacts extends React.Component {
   render() {
