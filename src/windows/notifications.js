@@ -74,10 +74,15 @@ export default class Notifications extends React.Component {
                   this.setState({optionsPopupIndex: null})
                 }}
                 onPress={() => {
-                  this.setState({optionsPopupIndex: rowId})
-                }}
+                  this.setState({
+                    dataSource: this._dataSource.cloneWithRows(
+                      this.sortNotifications(this.props.notifications)),
+                  })
+
+                  return this.setState({optionsPopupIndex: parseInt(rowId)})}
+                }
                 onRead={() => this.props.onRead(rowData)}
-                showOptions={this.state.optionsPopupIndex === rowId}
+                showOptions={Number.isFinite(this.state.optionsPopupIndex)}
                 onAcceptFriendRequest={this.props.onAcceptFriendRequest}
                 onDeclineFriendRequest={this.props.onDeclineFriendRequest}
                 onPressUserProfile={this.props.onPressUserProfile}
