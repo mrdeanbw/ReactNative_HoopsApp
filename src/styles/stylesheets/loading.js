@@ -1,19 +1,25 @@
-
 import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
   page: {
     flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'flex-end',
     flexDirection: 'column',
-
     backgroundColor: colors.black,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-
-  popup: {
-    paddingVertical: 25,
-    paddingHorizontal: 50,
+  animationWrapper: {
   },
-
+  animation: {
+    width: 200,
+    height: 200,
+  },
+  text: {
+    color: colors.pink,
+    fontSize: 27.48,
+    fontWeight: '500',
+    textAlign: 'center',
+    lineHeight: 31,
+    backgroundColor: 'transparent'
+  },
 })
