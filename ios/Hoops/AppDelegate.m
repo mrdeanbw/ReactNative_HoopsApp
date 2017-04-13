@@ -45,11 +45,13 @@
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 
+
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"Hoops"
-                                               initialProperties:nil
-                                                   launchOptions:launchOptions];
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+                                                    moduleName:@"Hoops"
+                                             initialProperties:nil
+                                                 launchOptions:launchOptions];
+
+  rootView.backgroundColor = [[UIColor alloc] initWithRed:(44.0f/255.0f) green:(41.0f/255.0f) blue:(52.0f/255.0f) alpha:1];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
