@@ -153,7 +153,6 @@ export default class CreateEvent extends React.Component {
           date &&
           courtType &&
           typeof recurring !== 'undefined' && //`recurring` is boolean
-          address && addressGooglePlaceId &&
           Number.isFinite(entryFee) && //`entryFee` could be 0
           isPaymentValid
         )
