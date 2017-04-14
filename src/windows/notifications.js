@@ -60,6 +60,11 @@ export default class Notifications extends React.Component {
           onBack={this.props.onBack}
           onClose={this.props.onClose}
         />
+
+        {this.props.notifications.length === 0 && (
+          <Text style={StyleSheet.noResults}>{_('noNotifications')}</Text>
+        )}
+
         <ListView
           contentContainerStyle={StyleSheet.container}
           dataSource={this.state.dataSource}
