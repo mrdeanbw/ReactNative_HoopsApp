@@ -7,7 +7,9 @@ export default class Loading extends React.Component {
 
   render() {
     return (
-      <View style={StyleSheet.loading.page} ><Text style={{ color: 'white' }}>LOADING</Text></View>
+      <View style={StyleSheet.loading.page}>
+        <Text style={StyleSheet.loading.text}>LOADING</Text>
+      </View>
     )
   }
 }
