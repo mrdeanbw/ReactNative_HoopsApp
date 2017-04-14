@@ -6,7 +6,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.react.ReactApplication;
-import com.airbnb.android.react.lottie.LottiePackage;
 import com.horcrux.svg.SvgPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
@@ -47,8 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                 new MainReactPackage(),
-            new LottiePackage(),
-            new SvgPackage(),
+                new SvgPackage(),
                 new MapsPackage(),
                 new ReactNativeI18n(),
                 new RNFetchBlobPackage(),
