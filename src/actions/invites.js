@@ -113,7 +113,8 @@ export const getAll = () => {
 
 export const registerWithStore = () => {
   return (dispatch, getState) => {
-    firebaseDb.child(`invites`).on('child_changed', snapshot => {
+    // Altered to listen for changes --> e.g live events
+    firebaseDb.child(`invites`).on('child_added', snapshot => {
       const id = snapshot.key
       dispatch({
         type: actionTypes.INVITES_LOADED,
