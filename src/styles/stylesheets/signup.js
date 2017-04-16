@@ -3,10 +3,9 @@ import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
   style: {
-    paddingTop: 30,
-    paddingBottom: 30,
-    paddingLeft: 25,
-    paddingRight: 25
+    paddingVertical: 30,
+    paddingHorizontal: 25,
+    marginBottom: 20
   },
 
   inputIcon: {
