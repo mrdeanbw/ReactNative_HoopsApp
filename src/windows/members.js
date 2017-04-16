@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView, View} from 'react-native'
+import {Text, ScrollView, View} from 'react-native'
 
 import {Window, Button, Popup, UserListItem, Header} from '../components'
 import StyleSheet from '../styles'
@@ -87,6 +87,10 @@ export default class Members extends React.Component {
           onPressRemove={this.onPressRemove.bind(this)}
         />
         <ScrollView contentContainerStyle={StyleSheet.container}>
+          {this.props.requests.length === 0 && this.props.invites.length === 0 && (
+            <Text style={StyleSheet.noResults}>{_('noMembers')}</Text>
+          )}
+
           {this.props.requests.map((request) => {
             let user = request.user
             if(request.status !== 'confirmed'){
