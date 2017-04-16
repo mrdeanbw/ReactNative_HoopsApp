@@ -63,14 +63,36 @@ class SignUp extends Component {
     this.props.onFacebookSignUp()
   }
 
+  getPasswordValidationError() {
+    const {password, confirmPassword} = this.state
+    const errorCode = this.props.signUpError && this.props.signUpError.code
+
+    // No password, do not validate
+    if (!password || !confirmPassword) {
+      return undefined
+    }
+
+    if (password.length < 8) {
+      return 'Password is less than 8 characters'
+    }
+
+    if (password !== confirmPassword) {
+      return 'Passwords do not match'
+    }
+
+    const passwordError = [
+      'auth/weak-password',
+    ].indexOf(errorCode) !== -1
+
+    return passwordError
+  }
+
+
   render() {
     const errorCode = this.props.signUpError && this.props.signUpError.code
     const emailError = [
       'auth/email-already-in-use',
       'auth/invalid-email',
-    ].indexOf(errorCode) !== -1
-    const passwordError = [
-      'auth/weak-password',
     ].indexOf(errorCode) !== -1
 
     return (
@@ -146,7 +168,7 @@ class SignUp extends Component {
             onChangeText={(password) => this.setState({password})}
             type="flat"
             ref="password"
-            error={passwordError}
+            error={this.getPasswordValidationError()}
             placeholder={_('password')}
             style={StyleSheet.halfMarginBottom}
             secureTextEntry={!this.state.showPassword}
@@ -170,7 +192,7 @@ class SignUp extends Component {
             onChangeText={(confirmPassword) => this.setState({confirmPassword})}
             type="flat"
             ref="confirmPassword"
-            error={passwordError}
+            error={this.getPasswordValidationError()}
             placeholder={_('confirmPassword')}
             style={StyleSheet.halfMarginBottom}
             secureTextEntry={!this.state.showConfirmPassword}
