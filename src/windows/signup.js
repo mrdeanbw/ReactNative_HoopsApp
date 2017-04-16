@@ -242,10 +242,10 @@ class SignUp extends Component {
             type={this.validate() ? "roundedDefault" : "roundedGrey"}
             text={_('signup')}
             onPress={this.validate() ? this.onPressSignUp : undefined}
-            style={[StyleSheet.doubleMarginTop, StyleSheet.singleMarginBottom]}
+            style={[StyleSheet.doubleMargin]}
           />
 
-          <KeyboardSpacer/>
+          <KeyboardSpacer />
         </Form>
       </View>
     )
