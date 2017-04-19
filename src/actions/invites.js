@@ -113,8 +113,7 @@ export const getAll = () => {
 
 export const registerWithStore = () => {
   return (dispatch, getState) => {
-    // Altered to listen for changes --> e.g live events
-    firebaseDb.child(`invites`).on('child_added', snapshot => {
+    const cb = snapshot => {
       const id = snapshot.key
       dispatch({
         type: actionTypes.INVITES_LOADED,
@@ -125,7 +124,11 @@ export const registerWithStore = () => {
           },
         },
       })
-    })
+    }
+
+    // limitToLast to load only new children
+    firebaseDb.child(`invites`).limitToLast(1).on('child_added', cb)
+    firebaseDb.child(`invites`).on('child_changed', cb)
   }
 }
 
