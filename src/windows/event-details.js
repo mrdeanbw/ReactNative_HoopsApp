@@ -55,6 +55,8 @@ export default class EventDetails extends React.Component {
       showCancelRequestPopup: false,
       showPaymentTypePopup: false,
       paymentMethod: undefined,
+
+      joinRequest: false,
     }
   }
 
@@ -77,6 +79,14 @@ export default class EventDetails extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // Display the joined popup
+    if (this.state.joinRequest && this.props.isMember) {
+      this.setState({
+        joinRequest: false,
+        showJoinedConfirmation: true,
+      })
+    }
+
     if (
       nextProps.isMember !== this.props.isMember ||
       nextProps.isPendingRequest !== this.props.isPendingRequest ||
@@ -139,6 +149,7 @@ export default class EventDetails extends React.Component {
   onPressJoin = () => {
     this.setState({
       showJoinPopup: false,
+      joinRequest: true,
     })
 
     this.props.onPressJoin(this.state.paymentMethod)
