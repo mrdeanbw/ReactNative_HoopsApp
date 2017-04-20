@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
+import inflateUser from '../data/inflaters/user'
 import _EventDashboard from '../windows/event-dashboard'
 import {eventActions, navigationActions} from '../actions'
 
@@ -36,9 +37,20 @@ class EventDashboard extends React.Component {
   }
 
   render() {
+    const event = this.props.events.eventsById[this.props.id]
+
+    const user = inflateUser(this.props.user, {
+      invites: this.props.invites.invitesById,
+      requests: this.props.requests.requestsById,
+    })
+
+    const isMember = !!user.requests.concat(user.invites).find(connection => {
+      return connection.eventId === event.id && connection.status === 'confirmed'
+    })
+
     return (
       <_EventDashboard
-        event={this.props.events.eventsById[this.props.id]}
+        event={event}
         onCancel={this.onCancel.bind(this)}
         onPressDetails={this.onPressDetails.bind(this)}
         onPressMembers={this.onPressMembers.bind(this)}
@@ -48,6 +60,9 @@ class EventDashboard extends React.Component {
         onPressRequests={this.onPressRequests.bind(this)}
         actionButton={this.props.actionButton}
         onBack={this.props.onNavigateBack}
+        isMember={isMember}
+        onChangeAction={this.props.onChangeAction}
+        onPressQuit={this.props.onPressQuit}
       />
     )
   }
@@ -59,14 +74,19 @@ EventDashboard.propTypes = {
 
 export default connect(
   (state) => ({
-    user: state.user,
-    router: state.router,
     events: state.events,
+    invites: state.invites,
+    requests: state.requests,
+    router: state.router,
+    user: state.user,
   }),
   (dispatch) => ({
-    onNavigate: (key, props, subTab, direction) =>
-      dispatch(navigationActions.push({key, props}, subTab, direction)),
+    onNavigate: (key, props, subTab, direction) => dispatch(navigationActions.push({key, props}, subTab, direction)),
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onCancel: (eventId, message) => dispatch(eventActions.cancel(eventId, message)),
+    onPressQuit: (eventId) => {
+      dispatch(eventActions.quit(eventId))
+      dispatch(navigationActions.changeTab('home'))
+    }
   }),
 )(EventDashboard)

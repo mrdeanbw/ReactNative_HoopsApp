@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Image, View, Text} from 'react-native'
 import Color from 'color'
 
@@ -8,19 +8,32 @@ import StyleSheet from '../styles'
 import _ from '../i18n'
 import MyEvents from './my-events'
 
-export default class EventDashboard extends React.Component {
+class EventDashboard extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
       showCancelPopup: false,
+      showQuitPopup: false,
     }
   }
 
   componentWillMount() {
-    this._actionListener = this.props.actionButton.addListener('press', () => {
-      this.onCancel()
-    })
+    if (!this.props.isMember) {
+      this._actionListener = this.props.actionButton.addListener('press', () => {
+        this.onCancel()
+      })
+    } else {
+      this._actionListener = this.props.actionButton.addListener('press', () => {
+        this.setState({showQuitPopup: true})
+      })
+
+      this.props.onChangeAction({
+        text: _('quit'),
+        icon: "actionRemove",
+        type: "action",
+      })
+    }
   }
 
   componentWillUnmount() {
@@ -53,6 +66,17 @@ export default class EventDashboard extends React.Component {
           visible={this.state.showCancelPopup}
           onClose={() => this.setState({showCancelPopup: false})}
           onSubmit={this.onCancelSubmit}
+        />
+        <EventQuitPopup
+          visible={this.state.showQuitPopup}
+          event={event}
+          onPressCancel={() => this.setState({
+            showQuitPopup: false
+          })}
+          onPressQuit={() => {
+            this.setState({showQuitPopup: false})
+            this.props.onPressQuit(event.id)
+          }}
         />
 
         <View style={styles.titleStyle}>
@@ -132,8 +156,7 @@ EventDashboard.propTypes = {
   onPressRequests: React.PropTypes.func.isRequired,
 }
 
-
-class CancelEventPopup extends React.Component {
+class CancelEventPopup extends Component {
 
   constructor() {
     super()
@@ -192,3 +215,32 @@ CancelEventPopup.propTypes = {
 }
 
 EventDashboard.CancelEventPopup = CancelEventPopup
+
+class EventQuitPopup extends React.Component {
+  render() {
+    return (
+      <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>
+        <View style={[StyleSheet.dialog.alertContentStyle]}>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
+            {_('quitConfirmationTitle')}
+          </Text>
+
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop]}>
+            {_('quitConfirmation')}
+          </Text>
+        </View>
+
+        <View style={StyleSheet.buttons.bar}>
+          <Button type="alert" text={_('cancel')} onPress={this.props.onPressCancel} />
+          <Button
+            type="alertDefault"
+            text={_('quit')}
+            onPress={this.props.onPressQuit}
+          />
+        </View>
+      </Popup>
+    )
+  }
+}
+
+export default EventDashboard
