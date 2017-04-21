@@ -13,7 +13,6 @@ class SignUp extends Component {
 
     this.state = {
       showPassword: false,
-      showConfirmPassword: false,
       showDobInfo: false,
       cityText: '',
       city: {},
@@ -24,12 +23,11 @@ class SignUp extends Component {
   }
 
   validate() {
-    const {name, email, password, confirmPassword, dob, gender, city, cityText} = this.state
+    const {name, email, password, dob, gender, city, cityText} = this.state
     return !!(
       name &&
       email &&
       password && password.length >= 8 &&
-      confirmPassword && confirmPassword === password &&
       dob &&
       gender &&
       city && cityText
@@ -64,20 +62,16 @@ class SignUp extends Component {
   }
 
   getPasswordValidationError() {
-    const {password, confirmPassword} = this.state
+    const {password} = this.state
     const errorCode = this.props.signUpError && this.props.signUpError.code
 
     // No password, do not validate
-    if (!password || !confirmPassword) {
-      return undefined
+    if (!password) {
+      return
     }
 
     if (password.length < 8) {
       return 'Password is less than 8 characters'
-    }
-
-    if (password !== confirmPassword) {
-      return 'Passwords do not match'
     }
 
     const passwordError = [
@@ -184,30 +178,6 @@ class SignUp extends Component {
               active={this.state.showPassword}
               icon="eye"
               onPress={() => this.setState({showPassword: !this.state.showPassword})}
-            />}
-          />
-
-          <TextInput
-            value={this.state.confirmPassword}
-            onChangeText={(confirmPassword) => this.setState({confirmPassword})}
-            type="flat"
-            ref="confirmPassword"
-            error={this.getPasswordValidationError()}
-            placeholder={_('confirmPassword')}
-            style={StyleSheet.halfMarginBottom}
-            secureTextEntry={!this.state.showConfirmPassword}
-            returnKeyType="next"
-            selectTextOnFocus={false}
-            clearTextOnFocus={false}
-            enablesReturnKeyAutomatically={true}
-            icon="password"
-            multiline={false}
-            rightBar={<Button
-              style={StyleSheet.signup.eye}
-              type="disclosure"
-              active={this.state.showPassword}
-              icon="eye"
-              onPress={() => this.setState({showConfirmPassword: !this.state.showConfirmPassword})}
             />}
           />
 
