@@ -6,6 +6,9 @@ export default StyleSheet => StyleSheet.extend({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+
+
+
   },
 
   separator: {

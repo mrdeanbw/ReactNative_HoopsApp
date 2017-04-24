@@ -2,6 +2,7 @@ import React from 'react'
 import {ScrollView,View,Text, Image, ActionSheetIOS, TouchableHighlight, Linking} from 'react-native'
 import moment from 'moment'
 
+
 import StyleSheet from '../styles'
 import {Avatar, Icon, HorizontalRule, Button, Popup, Header} from '../components'
 import _ from '../i18n'
@@ -467,18 +468,18 @@ class EventJoinPopup extends React.Component {
             <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, { textAlign: 'center' }]}>{_('youAreAboutToJoin').toUpperCase()}</Text>
             <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, {textAlign: 'center', color: StyleSheet.colors.pink}]}>{event.title.toUpperCase()}</Text>
 
-            <EventInfo.Bar style={[StyleSheet.doubleMarginTop]}>
-              <EventInfo.Summary icon="calendarBig" style={{width: 90}}>
+            <EventInfo.Bar style={[StyleSheet.doubleMarginTop, { height: 120, flexDirection: 'column'} ]}>
+              <EventInfo.Summary icon="calendarBig" style={[StyleSheet.singlePaddingBottom]}>
                 <DateText event={event} />
               </EventInfo.Summary>
-              <EventInfo.Summary icon="pin" style={{width: 90}}>
+              <EventInfo.Summary icon="pin">
                 <Text style={StyleSheet.eventDetails.lightTextStyle}>{address}</Text>
               </EventInfo.Summary>
             </EventInfo.Bar>
           </View>
 
 
-          <View style={StyleSheet.buttons.bar}>
+          <View style={[StyleSheet.buttons.bar] }>
             <Button type="alert" text={_('cancel')} onPress={this.props.onPressCancel} />
             <Button
               type="alertDefault"
