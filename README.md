@@ -12,6 +12,10 @@ Make sure you have CocoaPods installed https://cocoapods.org/
 
 Make sure you have the Facebook SDK in your ~/Documents as per facebook instructions https://developers.facebook.com/docs/ios/getting-started/#download
 
+## Xcode
+After the previous POD install step, open the project using `ios/Hoops.xcworkspace`
+Otherwise you'll experience errors with GoogleToolbox dependencies.
+
 `npm run ios`
 
 # Google Play Service Android
