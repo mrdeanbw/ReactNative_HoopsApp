@@ -118,6 +118,12 @@ export default StyleSheet => StyleSheet.extend({
     marginHorizonal: 5,
   },
 
+  eventInfoStyle2: {
+    height: 120,
+    flexDirection: 'column'
+  },
+
+
   eventInfoIcon: {
     width: 32,
     height: 32,

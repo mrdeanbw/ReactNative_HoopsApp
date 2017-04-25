@@ -13,7 +13,9 @@ class Wallet extends Component {
     const detailStyle = StyleSheet.payments.accountDataText
 
     return (
-      <View style={{flex: 1}}>
+
+      <View style={{flex: 1,}}>
+
         <Header title={_('myWallet')} />
 
         <View style={StyleSheet.padding}>
@@ -51,6 +53,8 @@ class Wallet extends Component {
         </View>
 
       </View>
+
+
     )
   }
 }

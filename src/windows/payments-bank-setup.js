@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text} from 'react-native'
+import {View, Text, Platform} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 import {Header, TextInput, Button, LoadingAlert, Form} from '../components'
@@ -76,6 +76,7 @@ class PaymentsBankSetup extends Component {
           )}
 
           <TextInput
+            autoFocus="true"
             type="flat"
             value={this.state.firstName}
             placeholder={this.state.firstNamePlaceholder || _('firstName')}
@@ -138,9 +139,15 @@ class PaymentsBankSetup extends Component {
             onChangeText={(postcode) => this.setState({postcode})}
           />
 
+
+
+          <KeyboardSpacer />
+
         </Form>
 
+
         <View style={StyleSheet.buttons.bar}>
+
           <Button
             type={disabled ? "dialog" : "dialogDefault"}
             disabled={!!disabled}
@@ -149,7 +156,7 @@ class PaymentsBankSetup extends Component {
 
           />
         </View>
-        <KeyboardSpacer/>
+
       </View>
     )
   }
