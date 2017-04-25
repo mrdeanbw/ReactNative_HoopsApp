@@ -320,6 +320,15 @@ export default StyleSheet => StyleSheet.extend({
     checkedIconStyle: {
       backgroundColor: colors.pink
     },
+    checkButtonsContainer: {
+      width: 30,
+      height: 30,
+      backgroundColor: '#fff',
+      borderRadius: 50,
+      overflow: 'hidden',
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: colors.pink,
+    },
   }),
 
   addActivity:  StyleSheet.extend({
