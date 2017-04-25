@@ -502,12 +502,11 @@ export default class CreateEvent extends React.Component {
                   <TextInputRN
                     value={this.state.eventDetails.description}
                     placeholder={_('eventDescription')}
-                    underlineColorAndroid="transparent"
                     onChangeText={(description) => this.setEventData({description})}
                     multiline
                     style={[
                       StyleSheet.text,
-                      {color: '#7B7B7B', flex: 1, height: 60 }
+                      {color: '#7B7B7B', flex: 1, height: 60}
                     ]}
                   />
                 </View>
@@ -517,7 +516,6 @@ export default class CreateEvent extends React.Component {
                     value={this.state.eventDetails.notes}
                     placeholder={_('notes')}
                     onChangeText={(notes) => this.setEventData({notes})}
-                    underlineColorAndroid="transparent"
                     multiline
                     style={[
                       StyleSheet.text,
@@ -530,7 +528,6 @@ export default class CreateEvent extends React.Component {
                   <TextInputRN
                     value={this.state.eventDetails.rules}
                     placeholder={_('rules')}
-                    underlineColorAndroid="transparent"
                     onChangeText={(rules) => this.setEventData({rules})}
                     multiline
                     style={[
@@ -542,10 +539,9 @@ export default class CreateEvent extends React.Component {
               </View>
 
               <CheckButton
-                style={{color: "white"}}
                 type="wizardCheck"
                 text={_('allowToSeeYourContactInfo')}
-                icon="none" checkIcon="checkActive"
+                icon="none" checkIcon="check"
                 checked={this.state.eventDetails.allowContactInfo}
                 onChange={() => {
                   this.setEventData({
@@ -557,7 +553,7 @@ export default class CreateEvent extends React.Component {
               <CheckButton
                 type="wizardCheck"
                 text={_('eventPicture')}
-                icon="none"
+                icon="none" checkIcon="minus"
                 checked={!!imageSrc}
                 onChange={(value) => {
                   if(value) {
