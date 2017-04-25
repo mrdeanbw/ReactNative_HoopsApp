@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, Platform} from 'react-native'
+import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 import {Header, TextInput, Button, LoadingAlert, Form} from '../components'
@@ -65,7 +65,6 @@ class PaymentsBankSetup extends Component {
           hideSwitcher={true}
           onClose={this.props.onClose}
         />
-
         <Form style={[{flex: 1}, StyleSheet.padding]}>
           <LoadingAlert visible={this.props.isLoading}/>
 
@@ -74,7 +73,6 @@ class PaymentsBankSetup extends Component {
               {this.props.error.message}
             </Text>
           )}
-
           <TextInput
             autoFocus="true"
             type="flat"
@@ -82,14 +80,12 @@ class PaymentsBankSetup extends Component {
             placeholder={this.state.firstNamePlaceholder || _('firstName')}
             onChangeText={(firstName) => this.setState({firstName})}
           />
-
           <TextInput
             type="flat"
             value={this.state.lastName}
             placeholder={this.state.lastNamePlaceholder || _('lastName')}
             onChangeText={(lastName) => this.setState({lastName})}
           />
-
           <TextInput
             type="flat"
             keyboardType="numeric"
@@ -97,7 +93,6 @@ class PaymentsBankSetup extends Component {
             placeholder={this.state.accountNumberPlaceholder || _('accountNumber')}
             onChangeText={(accountNumber) => this.setState({accountNumber})}
           />
-
           <TextInput
             type="flat"
             keyboardType="numeric"
@@ -138,11 +133,7 @@ class PaymentsBankSetup extends Component {
             placeholder={_('postcode')}
             onChangeText={(postcode) => this.setState({postcode})}
           />
-
-
-
           <KeyboardSpacer />
-
         </Form>
 
 
@@ -153,14 +144,11 @@ class PaymentsBankSetup extends Component {
             disabled={!!disabled}
             text={_('done')}
             onPress={this.onDonePress.bind(this)}
-
           />
         </View>
-
       </View>
     )
   }
-
 }
 
 export default PaymentsBankSetup
