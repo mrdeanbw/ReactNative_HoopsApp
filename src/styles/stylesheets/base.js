@@ -1,6 +1,7 @@
 
 import {fonts, colors} from '../resources'
-
+const singlePadding = 15
+const doublePadding = singlePadding * 2
 const halfMargin = 5
 const singleMargin = 15
 const doubleMargin = singleMargin * 2
@@ -101,4 +102,12 @@ export default StyleSheet => StyleSheet.extend({
     color: colors.grey,
     textAlign: 'center',
   },
+
+  singlePaddingBottom: {
+    paddingBottom: singlePadding,
+  },
+
+  doublePaddingBottom: {
+    paddingBottom: doublePadding,
+  }
 })
