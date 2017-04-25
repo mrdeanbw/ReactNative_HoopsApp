@@ -503,6 +503,7 @@ export default class CreateEvent extends React.Component {
                     value={this.state.eventDetails.description}
                     placeholder={_('eventDescription')}
                     onChangeText={(description) => this.setEventData({description})}
+                    underlineColorAndroid="transparent"
                     multiline
                     style={[
                       StyleSheet.text,
@@ -516,6 +517,7 @@ export default class CreateEvent extends React.Component {
                     value={this.state.eventDetails.notes}
                     placeholder={_('notes')}
                     onChangeText={(notes) => this.setEventData({notes})}
+                    underlineColorAndroid="transparent"
                     multiline
                     style={[
                       StyleSheet.text,
@@ -529,6 +531,7 @@ export default class CreateEvent extends React.Component {
                     value={this.state.eventDetails.rules}
                     placeholder={_('rules')}
                     onChangeText={(rules) => this.setEventData({rules})}
+                    underlineColorAndroid="transparent"
                     multiline
                     style={[
                       StyleSheet.text,
@@ -541,7 +544,8 @@ export default class CreateEvent extends React.Component {
               <CheckButton
                 type="wizardCheck"
                 text={_('allowToSeeYourContactInfo')}
-                icon="none" checkIcon="check"
+                icon="none" checkIcon="checkActive"
+                checkedIconStyle={{backgroundColor: "transparent"}}
                 checked={this.state.eventDetails.allowContactInfo}
                 onChange={() => {
                   this.setEventData({
@@ -554,6 +558,7 @@ export default class CreateEvent extends React.Component {
                 type="wizardCheck"
                 text={_('eventPicture')}
                 icon="none" checkIcon="minus"
+                checkedIconStyle={{backgroundColor: "transparent"}}
                 checked={!!imageSrc}
                 onChange={(value) => {
                   if(value) {
