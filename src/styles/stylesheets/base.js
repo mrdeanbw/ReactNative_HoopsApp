@@ -104,10 +104,20 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   singlePaddingBottom: {
-    paddingBottom: singlePadding,
+    paddingBottom: singlePadding ,
   },
 
   doublePaddingBottom: {
     paddingBottom: doublePadding,
-  }
+  },
+  androidJustifyToLeftTextInput: {
+    paddingLeft: 0,
+    marginLeft: -4,
+  },
+  androidMatchFontSize: {
+    fontSize: 16,
+  },
+  singlePlusPaddingBottom: {
+    paddingBottom: singlePadding + 10,
+  },
 })
