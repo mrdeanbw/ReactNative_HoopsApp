@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactNative, {View, Text, Image, TouchableHighlight, TextInput as TextInputRN} from 'react-native'
+import ReactNative, {View, Text, Image, TouchableHighlight, TextInput as TextInputRN, Platform} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 import {AddressInput, Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components'
@@ -164,6 +164,10 @@ export default class CreateEvent extends React.Component {
   }
 
   render() {
+    const androidJustifyToleft =  Platform.OS === 'ios' ? null : StyleSheet.androidJustifyToLeftTextInput
+    const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSize
+    const androidSinglePlusPaddingBottom = Platform.OS === 'ios' ? null : StyleSheet.singlePlusPaddingBottom
+
     let imageSrc
     if(this.props.event) {
       imageSrc = this.props.event.image
@@ -191,7 +195,7 @@ export default class CreateEvent extends React.Component {
                 value={this.state.eventDetails.title}
                 onChangeText={(title) => this.setEventData({title})}
                 type="flat"
-                style={StyleSheet.halfMarginTop}
+                style={[StyleSheet.halfMarginTop, androidJustifyToleft]}
                 placeholder={_('eventName')}
                 blurOnSubmit={true}
               />
@@ -204,7 +208,7 @@ export default class CreateEvent extends React.Component {
                 <View style={StyleSheet.textInputs.flat.style}>
                   <Text
                     style={[
-                      StyleSheet.textInputs.flat.textStyle,
+                      StyleSheet.textInputs.flat.textStyle, androidMatchFontSize,
                       {color: this.props.activity ? undefined : StyleSheet.textInputs.flat.placeholderTextColor},
                     ]}
                   >
@@ -235,7 +239,7 @@ export default class CreateEvent extends React.Component {
                       minAge: minAge === '' ? '' : parseInt(minAge, 10)
                     })
                   }}
-                  style={{flex: 1, marginRight: 25}}
+                  style={[androidJustifyToleft , {flex: 1, marginRight: 25}]}
                   onFocus={() => {
                     this.scrollToInput('scrollView1', this.refs.minAgeInput)
                   }}
@@ -260,7 +264,7 @@ export default class CreateEvent extends React.Component {
                       maxAge: maxAge === '' ? '' : parseInt(maxAge, 10)
                     })
                   }}
-                  style={{flex: 1, marginRight: 25}}
+                  style={[androidJustifyToleft ,  {flex: 1, marginRight: 25}]}
                   onFocus={() => {
                     this.scrollToInput('scrollView1', this.refs.maxAgeInput)
                   }}
@@ -276,7 +280,7 @@ export default class CreateEvent extends React.Component {
 
               <ListInput
                 type="flat"
-                style={StyleSheet.halfMarginTop}
+                style={[StyleSheet.halfMarginTop , androidSinglePlusPaddingBottom]}
                 disabled={this.props.editMode}
                 placeholder={_('privacy')}
                 value={this.state.eventDetails.privacy}
@@ -288,7 +292,7 @@ export default class CreateEvent extends React.Component {
 
               <ListInput
                 type="flat"
-                style={StyleSheet.halfMarginTop}
+                style={[StyleSheet.halfMarginTop,  androidSinglePlusPaddingBottom]}
                 placeholder={_('level')}
                 value={this.state.eventDetails.level}
                 onChange={(level) => this.setEventData({level})}
@@ -298,7 +302,7 @@ export default class CreateEvent extends React.Component {
                 <ListInput.Item text={_('open')} value="open" />
               </ListInput>
 
-              <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
+              <View style={[StyleSheet.buttons.bar, StyleSheet.singleMarginTop]}>
                 <TextInput
                   ref="minPlayersInput"
                   type="flat"
@@ -310,7 +314,7 @@ export default class CreateEvent extends React.Component {
                       minPlayers: minPlayers === '' ? '' : parseInt(minPlayers, 10)
                     })
                   }}
-                  style={{flex: 1, marginRight: 25}}
+                  style={[androidJustifyToleft , {flex: 1, marginRight: 25}]}
                   onFocus={() => {
                     this.scrollToInput('scrollView1', this.refs.minPlayersInput)
                   }}
@@ -323,7 +327,7 @@ export default class CreateEvent extends React.Component {
                   style={{width: 110}}
                 />
               </View>
-              <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
+              <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop ]}>
                 <TextInput
                   ref="maxPlayersInput"
                   type="flat"
@@ -335,7 +339,7 @@ export default class CreateEvent extends React.Component {
                       maxPlayers: maxPlayers === '' ? '' : parseInt(maxPlayers, 10)
                     })
                   }}
-                  style={{flex: 1, marginRight: 25}}
+                  style={[androidJustifyToleft ,  {flex: 1, marginRight: 25}]}
                   onFocus={() => {
                     this.scrollToInput('scrollView1', this.refs.maxPlayersInput)
                   }}
@@ -503,6 +507,7 @@ export default class CreateEvent extends React.Component {
                     value={this.state.eventDetails.description}
                     placeholder={_('eventDescription')}
                     onChangeText={(description) => this.setEventData({description})}
+                    underlineColorAndroid="transparent"
                     multiline
                     style={[
                       StyleSheet.text,
@@ -516,6 +521,7 @@ export default class CreateEvent extends React.Component {
                     value={this.state.eventDetails.notes}
                     placeholder={_('notes')}
                     onChangeText={(notes) => this.setEventData({notes})}
+                    underlineColorAndroid="transparent"
                     multiline
                     style={[
                       StyleSheet.text,
@@ -529,6 +535,7 @@ export default class CreateEvent extends React.Component {
                     value={this.state.eventDetails.rules}
                     placeholder={_('rules')}
                     onChangeText={(rules) => this.setEventData({rules})}
+                    underlineColorAndroid="transparent"
                     multiline
                     style={[
                       StyleSheet.text,
@@ -541,7 +548,8 @@ export default class CreateEvent extends React.Component {
               <CheckButton
                 type="wizardCheck"
                 text={_('allowToSeeYourContactInfo')}
-                icon="none" checkIcon="check"
+                icon="none" checkIcon="checkActive"
+                checkedIconStyle={{backgroundColor: "transparent"}}
                 checked={this.state.eventDetails.allowContactInfo}
                 onChange={() => {
                   this.setEventData({
@@ -554,6 +562,7 @@ export default class CreateEvent extends React.Component {
                 type="wizardCheck"
                 text={_('eventPicture')}
                 icon="none" checkIcon="minus"
+                checkedIconStyle={{backgroundColor: "transparent"}}
                 checked={!!imageSrc}
                 onChange={(value) => {
                   if(value) {

@@ -316,6 +316,16 @@ export default StyleSheet => StyleSheet.extend({
       borderColor: colors.pink,
       backgroundColor: colors.transparent
     },
+    checkedIconContainerStyle: {
+      width: 30,
+      height: 30,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 15,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: colors.pink,
+      backgroundColor: colors.transparent
+    },
 
     checkedIconStyle: {
       backgroundColor: colors.pink
