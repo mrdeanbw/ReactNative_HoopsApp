@@ -73,8 +73,6 @@ class MapView extends Component {
   }
 
   renderMap(region, annotations) {
-    const markers = []
-
     return (
       <_MapView
         style={[{flex: 1}, this.props.style]}
