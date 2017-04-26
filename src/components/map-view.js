@@ -45,15 +45,22 @@ class MapView extends Component {
 
   constructor(props) {
     super(props)
+
+    // Marker record of refs
+    this.markers = []
+    this.activeMarker
+
     this.state = {
-      renderPlaceholderOnly: true
+      renderPlaceholderOnly: true,
     }
   }
 
   componentDidMount() {
-    InteractionManager.runAfterInteractions(() => this.setState({
-      renderPlaceholderOnly: false
-    }))
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({
+        renderPlaceholderOnly: false
+      })
+    })
   }
 
   renderLoader() {
@@ -66,6 +73,8 @@ class MapView extends Component {
   }
 
   renderMap(region, annotations) {
+    const markers = []
+
     return (
       <_MapView
         style={[{flex: 1}, this.props.style]}
@@ -78,6 +87,13 @@ class MapView extends Component {
             key={ind}
             image={marker.image}
             coordinate={marker.latlng}
+            ref={ref => { this.markers[ind] = ref }}
+            onPress={() => {
+              if (this.activeMarker) {
+                this.activeMarker.closeCallout()
+              }
+              this.markers[ind].showCallout()
+            }}
           >
             <_MapView.Callout style={StyleSheet.mapView.callOut} onPress={marker.rightCalloutView}>
               <TouchableHighlight
