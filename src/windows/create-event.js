@@ -2,11 +2,14 @@ import React from 'react'
 import ReactNative, {View, Text, Image, TouchableHighlight, TextInput as TextInputRN, Platform} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import {AddressInput, Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components'
+import {AddressInput, Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton } from '../components'
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
 import _ from '../i18n'
 import {showImagePicker} from '../utils/'
+
+
+import KeyboardHandler from '../components/KeyboardHandler'
 
 export default class CreateEvent extends React.Component {
 
@@ -183,21 +186,25 @@ export default class CreateEvent extends React.Component {
           onClose={this.props.onClose}
           hideSwitcher={true}
         />
-
         <Wizard
           completeText={this.props.editMode ? _('save') : _('create')}
           onComplete={this.onComplete}
         >
-
           <Wizard.Step disabled={!this.validate(1)}>
             <Form extraKeyboardPadding={25} focusNode={this.state.focus['scrollView1']} contentContainerStyle={StyleSheet.padding}>
+
+            <KeyboardHandler ref='kh' offset={50} keyboardShouldPersistTaps={false}>
+            <View>
+
               <TextInput
+                ref="eventName"
                 value={this.state.eventDetails.title}
                 onChangeText={(title) => this.setEventData({title})}
                 type="flat"
                 style={[StyleSheet.halfMarginTop, androidJustifyToleft]}
                 placeholder={_('eventName')}
                 blurOnSubmit={true}
+                onFocus={()=>this.refs.kh.inputFocused(this,'eventName')}
               />
 
               {/* TODO: refactor into it's own component */}
@@ -240,9 +247,7 @@ export default class CreateEvent extends React.Component {
                     })
                   }}
                   style={[androidJustifyToleft , {flex: 1, marginRight: 25}]}
-                  onFocus={() => {
-                    this.scrollToInput('scrollView1', this.refs.minAgeInput)
-                  }}
+                  onFocus={()=>this.refs.kh.inputFocused(this,'minAgeInput')}
                 />
                 <Button
                   type="roundedGrey"
@@ -267,9 +272,7 @@ export default class CreateEvent extends React.Component {
                     })
                   }}
                   style={[androidJustifyToleft ,  {flex: 1, marginRight: 25}]}
-                  onFocus={() => {
-                    this.scrollToInput('scrollView1', this.refs.maxAgeInput)
-                  }}
+                  onFocus={()=>this.refs.kh.inputFocused(this,'maxAgeInput')}
                 />
 
 
@@ -319,9 +322,7 @@ export default class CreateEvent extends React.Component {
                     })
                   }}
                   style={[androidJustifyToleft , {flex: 1, marginRight: 25}]}
-                  onFocus={() => {
-                    this.scrollToInput('scrollView1', this.refs.minPlayersInput)
-                  }}
+                  onFocus={()=>this.refs.kh.inputFocused(this,'minPlayersInput')}
                 />
                 <Button
                   type="roundedGrey"
@@ -343,22 +344,24 @@ export default class CreateEvent extends React.Component {
                       maxPlayers: maxPlayers === '' ? '' : parseInt(maxPlayers, 10)
                     })
                   }}
+                  onClick={this.refs.kh.scrollToFocusedInput(this).bind(this)}
                   style={[androidJustifyToleft ,  {flex: 1, marginRight: 25}]}
-                  onFocus={() => {
-                    this.scrollToInput('scrollView1', this.refs.maxPlayersInput)
-                  }}
+                  onFocus={()=>this.refs.kh.inputFocused(this,'maxPlayersInput')}
                 />
+
+
                 <Button
                   type="roundedGrey"
                   active={!this.state.eventDetails.maxPlayers}
                   text={_('unlimited')}
+                  onClick={this.refs.kh.scrollToFocusedInput(this).bind(this)}
                   onPress={() => this.setEventData({maxPlayers: 0})}
                   style={{width: 110}}
                 />
               </View>
-                  <KeyboardSpacer/>
+                </View>
+              </KeyboardHandler>
             </Form>
-
           </Wizard.Step>
 
           <Wizard.Step disabled={!this.validate(2)}>
@@ -463,6 +466,7 @@ export default class CreateEvent extends React.Component {
                       onPress={this.props.editMode ? undefined : () => this.setEventData({entryFee: 0})}
                       style={{width: 110}}
                     />
+
                   </View>
                 </View>
 
