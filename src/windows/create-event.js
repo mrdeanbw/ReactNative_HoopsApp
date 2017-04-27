@@ -356,9 +356,9 @@ export default class CreateEvent extends React.Component {
                   style={{width: 110}}
                 />
               </View>
-
-              <KeyboardSpacer/>
+                  <KeyboardSpacer/>
             </Form>
+
           </Wizard.Step>
 
           <Wizard.Step disabled={!this.validate(2)}>
