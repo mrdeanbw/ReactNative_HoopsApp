@@ -253,6 +253,8 @@ export default class CreateEvent extends React.Component {
                 />
               </View>
               <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
+
+
                 <TextInput
                   ref="maxAgeInput"
                   type="flat"
@@ -269,6 +271,8 @@ export default class CreateEvent extends React.Component {
                     this.scrollToInput('scrollView1', this.refs.maxAgeInput)
                   }}
                 />
+
+
                 <Button
                   type="roundedGrey"
                   active={!this.state.eventDetails.maxAge}
@@ -432,7 +436,7 @@ export default class CreateEvent extends React.Component {
                     })
                   }} />
 
-                <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop]}>
+                <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop, StyleSheet.textInputs.flat.style, {borderBottomColor: "transparent"}]}>
                   <TextInput
                     ref="costInput"
                     disabled={this.props.editMode}

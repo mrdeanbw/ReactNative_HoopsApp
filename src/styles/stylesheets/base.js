@@ -102,7 +102,6 @@ export default StyleSheet => StyleSheet.extend({
     color: colors.grey,
     textAlign: 'center',
   },
-
   singlePaddingBottom: {
     paddingBottom: singlePadding ,
   },
