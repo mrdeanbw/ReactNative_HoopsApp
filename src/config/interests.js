@@ -81,6 +81,10 @@ export default {
   "CHESS": {
     "name": "Chess"
   },
+  "CRICKET": {
+    "important": true,
+    "name": "Cricket"
+  },
   "CROSSFIT": {
     "name": "Crossfit"
   },
@@ -118,8 +122,8 @@ export default {
   "DOG_TRAINING": {
     "name": "Dog Training"
   },
-  "EQUESTRIANISM": {
-    "name": "Equestrianism"
+  "EQUESTRIAN": {
+    "name": "Equestrian"
   },
   "FALCONRY": {
     "name": "Falconry"
@@ -152,11 +156,13 @@ export default {
   "GOALBALL": {
     "name": "Goalball"
   },
+  "GOLF": {
+    "name": "Golf"
+  },
   "GYMNASTICS": {
     "name": "Gymnastics"
   },
   "GYM_SESSION": {
-    "important": true,
     "name": "Gym Session"
   },
   "HANDBALL": {
@@ -175,7 +181,6 @@ export default {
     "name": "Hill Walking"
   },
   "HOCKEY": {
-    "important": true,
     "name": "Hockey"
   },
   "HORSE_RIDING": {
@@ -314,6 +319,10 @@ export default {
     "important": true,
     "name": "Rugby"
   },
+  "RUNNING": {
+    "important": true,
+    "name": "Running"
+  },
   "SAILING": {
     "name": "Sailing"
   },
@@ -344,11 +353,7 @@ export default {
   "SNOW_SLEDDING": {
     "name": "Snow Sledding"
   },
-  "SOCCER": {
-    "name": "Soccer"
-  },
   "SOCIAL": {
-    "important": true,
     "name": "Social"
   },
   "SOFTBALL": {
@@ -391,7 +396,6 @@ export default {
     "name": "Tchoukball"
   },
   "TENNIS": {
-    "important": true,
     "name": "Tennis"
   },
   "TRACK_AND_FIELD": {
@@ -458,9 +462,11 @@ export default {
     "name": "Yachting"
   },
   "YOGA": {
+    "important": true,
     "name": "Yoga"
   },
   "ZUMBA": {
+    "important": true,
     "name": "Zumba"
   }
 }
