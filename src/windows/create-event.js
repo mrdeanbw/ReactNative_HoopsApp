@@ -504,7 +504,9 @@ export default class CreateEvent extends React.Component {
                     placeholder={_('eventDescription')}
                     onChangeText={(description) => this.setEventData({description})}
                     underlineColorAndroid="transparent"
+                    autoFocus="true"
                     multiline
+                    blurOnSubmit="true"
                     style={[
                       StyleSheet.text,
                       {color: '#7B7B7B', flex: 1, height: 60}
@@ -519,6 +521,7 @@ export default class CreateEvent extends React.Component {
                     onChangeText={(notes) => this.setEventData({notes})}
                     underlineColorAndroid="transparent"
                     multiline
+                    blurOnSubmit="true"
                     style={[
                       StyleSheet.text,
                       {color: '#7B7B7B', flex: 1, height: 60}
@@ -533,6 +536,7 @@ export default class CreateEvent extends React.Component {
                     onChangeText={(rules) => this.setEventData({rules})}
                     underlineColorAndroid="transparent"
                     multiline
+                    blurOnSubmit="true"
                     style={[
                       StyleSheet.text,
                       {color: '#7B7B7B', flex: 1, height: 60}
