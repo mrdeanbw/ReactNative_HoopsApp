@@ -81,6 +81,10 @@ export default {
   "CHESS": {
     "name": "Chess"
   },
+  "CRICKET": {
+    "important": true,
+    "name": "Cricket"
+  },
   "CROSSFIT": {
     "name": "Crossfit"
   },
@@ -118,8 +122,8 @@ export default {
   "DOG_TRAINING": {
     "name": "Dog Training"
   },
-  "EQUESTRIANISM": {
-    "name": "Equestrianism"
+  "EQUESTRIAN": {
+    "name": "Equestrian"
   },
   "FALCONRY": {
     "name": "Falconry"
@@ -151,6 +155,9 @@ export default {
   },
   "GOALBALL": {
     "name": "Goalball"
+  },
+  "GOLF": {
+    "name": "Golf"
   },
   "GYMNASTICS": {
     "name": "Gymnastics"
@@ -313,6 +320,10 @@ export default {
   "RUGBY": {
     "important": true,
     "name": "Rugby"
+  },
+  "RUNNING": {
+    "important": true,
+    "name": "Running"
   },
   "SAILING": {
     "name": "Sailing"
