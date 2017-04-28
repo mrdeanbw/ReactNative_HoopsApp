@@ -38,8 +38,8 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   logoStyle: {
-    height: 26,
-    // width: 200,
+    height: 32,
+    width: 200,
     resizeMode: 'contain'
   },
 
