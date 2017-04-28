@@ -60,6 +60,15 @@ export default StyleSheet => StyleSheet.extend({
 
   },
 
+  genderContainer: {
+    flexDirection: "column",
+    alignItems: "center"
+  },
+
+  genderLabel: {
+    color: "grey",
+  },
+
   singleMargin: {
     marginTop: 15
   },

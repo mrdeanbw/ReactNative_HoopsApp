@@ -108,7 +108,13 @@ class SignUp extends Component {
 
           <HorizontalRule
             text={_('or')}
-            style={StyleSheet.doubleMargin}
+            style={StyleSheet.doubleMarginTop}
+          />
+
+          <AvatarEdit
+            onChange={(image) => this.setState({image})}
+            imageUrl={this.state.image || this.state.imageUrl}
+            style={StyleSheet.singleMargin}
           />
 
           <TextInput
@@ -184,19 +190,24 @@ class SignUp extends Component {
           <DateInput
             ref="dob"
             placeholder={_('dob')}
+            type="flat"
             icon="nappy"
             date={true}
             time={false}
             minDate={new Date("1900-01-01")}
             value={this.state.dob}
             onChange={(dob) => this.setState({dob})}
+            barStyle={{
+              padding: 3,
+            }}
+            rightBar={<Button
+              style={StyleSheet.signup.eye}
+              type="disclosure"
+              active={this.state.showPassword}
+              icon="info"
+              onPress={() => alert('Minimum Age is 16')}
+            />}
           />
-
-          <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMargin]}>
-            <Button type="image" icon="male" active={this.state.gender === 'male'} onPress={this.onPressMale}/>
-            <View style={StyleSheet.buttons.separator} />
-            <Button type="image" icon="female" active={this.state.gender === 'female'} onPress={this.onPressFemale}/>
-          </View>
 
           <AddressInput
             icon
@@ -224,17 +235,22 @@ class SignUp extends Component {
             icon="phone"
           />
 
-          <AvatarEdit
-            onChange={(image) => this.setState({image})}
-            imageUrl={this.state.image || this.state.imageUrl}
-            style={StyleSheet.singleMarginTop}
-          />
+          <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
+            <View>
+              <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
+            </View>
+            <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
+             <Button type="image" icon="male" active={this.state.gender === 'male'} onPress={this.onPressMale}/>
+               <View style={StyleSheet.buttons.separator} />
+              <Button type="image" icon="female" active={this.state.gender === 'female'} onPress={this.onPressFemale}/>
+            </View>
+          </View>
 
           <Button
             type={this.validate() ? "roundedDefault" : "roundedGrey"}
             text={_('signup')}
             onPress={this.validate() ? this.onPressSignUp : undefined}
-            style={[StyleSheet.doubleMargin]}
+            style={[StyleSheet.singleMargin]}
           />
 
           <KeyboardSpacer />

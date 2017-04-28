@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
+import { View } from 'react-native'
 
 import _ from '../i18n'
 import StyleSheet from '../styles'
+
 
 // Hack
 import {dateInput, dateInputIcon} from '../styles/stylesheets/date-input'
@@ -57,8 +59,10 @@ class DateInput extends Component {
 
     const mode = this.getMode()
     const format = this.getFormat()
-    const {icon, value, initialValue} = this.props
+    const {icon, value, initialValue, rightBar, type, barStyle} = this.props
     const iconSrc = StyleSheet.icons[icon]
+    const defaultTextInput = StyleSheet.textInputs.default || {}
+    const textInput = type ? StyleSheet.textInputs[type] || defaultTextInput : defaultTextInput
 
     let date
     if (value || initialValue) {
@@ -66,6 +70,7 @@ class DateInput extends Component {
     }
 
     return (
+    <View>
       <DatePicker
         mode={mode}
         format={format}
@@ -89,6 +94,8 @@ class DateInput extends Component {
         iconSource={iconSrc}
         showIcon={!!icon}
       />
+      {<View style={[defaultTextInput.barStyle, textInput.barStyle, barStyle ]}>{rightBar}</View>}
+    </View>
     )
   }
 }
