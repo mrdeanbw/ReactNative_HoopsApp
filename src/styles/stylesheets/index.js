@@ -6,9 +6,8 @@ import _buttons from './buttons'
 import _calendar from './calendar'
 import _chat from './chat'
 import _dialog from './dialog'
-
 import _dashboardButton from './dashboard-buttons'
-import _devIndicator from './dev-indicator'
+import _deviceInfo from './device-info'
 import _eventDashboard from './event-dashboard'
 import _eventDetails from './event-details'
 import _eventListItem from './event-list-item'
@@ -40,9 +39,9 @@ export default {
   buttons: _buttons,
   calendar: _calendar,
   chat: _chat,
+  deviceInfo: _deviceInfo,
   dialog: _dialog,
   dashboardButton: _dashboardButton,
-  devIndicator: _devIndicator,
   eventDashboard: _eventDashboard,
   eventDetails: _eventDetails,
   eventListItem: _eventListItem,

@@ -67,6 +67,7 @@ export default class Preferences extends React.Component {
           <View style={[StyleSheet.flex, StyleSheet.doubleMarginBottom]}>
             <Button type="preference" text={_('notifications')} icon="chevronRight" onPress={this.props.onPressNotifications} />
             <Button type="preference" text={_('editAccount')} icon="chevronRight" onPress={this.props.onPressEditAccount} />
+            <Button type="preference" text={_('deviceInfo')} icon="chevronRight" onPress={this.props.onPressDeviceInfo} />
             {/* TODO: enable currency switching
             <Button
               type="preference"
