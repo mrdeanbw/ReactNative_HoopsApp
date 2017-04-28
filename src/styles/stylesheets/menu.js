@@ -64,7 +64,7 @@ export default StyleSheet => StyleSheet.extend({
   itemContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 15,
+    paddingVertical: 10,
   },
 
   icon: {
