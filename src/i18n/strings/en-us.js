@@ -340,6 +340,7 @@ export const searchFriends = 'Search Friends...'
 
 export const preferences = 'Preferences'
 export const editAccount = 'Edit Account'
+export const deviceInfo = 'Device Information'
 export const currency = 'Currency'
 export const sendFeedback = 'Send Feedback'
 export const deactivateAccount = 'Deactivate Account'

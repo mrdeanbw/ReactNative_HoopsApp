@@ -2,6 +2,7 @@ import _ActivitiesSelect from './activities-select'
 import _Calendar from './calendar'
 import _Chat from './chat'
 import _CreateEvent from './create-event'
+import _DeviceInfo from './device-info'
 import _EventDashboard from './event-dashboard'
 import _EventDetails from './event-details'
 import _EventInvites from './event-invites'
@@ -41,6 +42,7 @@ export const ActivitiesSelect = _ActivitiesSelect
 export const Calendar = _Calendar
 export const Chat = _Chat
 export const CreateEvent = _CreateEvent
+export const DeviceInfo = _DeviceInfo
 export const EventDashboard = _EventDashboard
 export const EventDetails = _EventDetails
 export const EventInvites = _EventInvites

@@ -12,6 +12,7 @@ class Preferences extends React.Component {
         onPressLogOut={this.props.onLogOut}
         onPressNotifications={() => this.props.onNavigate('notifications')}
         onPressEditAccount={() => this.props.onNavigate('profileEdit', {}, false)}
+        onPressDeviceInfo={() => this.props.onNavigate('deviceInfo', {}, false)}
       />
     )
   }

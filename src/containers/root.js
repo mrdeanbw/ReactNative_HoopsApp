@@ -95,7 +95,11 @@ class Root extends Component {
 
       venueAddress: {
         component: containers.VenueAddress,
-      }
+      },
+
+      deviceInfo: {
+        component: containers.DeviceInfo,
+      },
     }
   }
 

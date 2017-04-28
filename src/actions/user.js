@@ -263,7 +263,9 @@ const listenToUser = () => {
           dispatch(navigationActions.reset({key: 'selectInterests'}))
         } else if(!state.app.mode) {
           //Go to select-mode page
-          dispatch(navigationActions.reset({key: 'selectMode'}))
+          // dispatch(navigationActions.reset({key: 'selectMode'}))
+          dispatch(navigationActions.push({key: 'deviceInfo', props: {}}, false))
+
         } else {
           //Go to home page
           dispatch(navigationActions.reset({key: 'tabs'}))
