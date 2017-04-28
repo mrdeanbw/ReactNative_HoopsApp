@@ -204,7 +204,7 @@ export default class EventDetails extends React.Component {
     } else if (this.props.event.maxAge) {
       ageText = <Text>Max Age {this.props.event.maxAge}</Text>
     } else {
-      ageText = _('unrestricted')
+      ageText = _('noLimit')
     }
 
     return (
@@ -387,7 +387,7 @@ class EventInfo extends React.Component {
         <Text style={[StyleSheet.text, StyleSheet.eventDetails.eventInfoKey]}>
           {this.props.label}
         </Text>
-        <Text style={[StyleSheet.text, StyleSheet.eventDetails.eventInfoText]}>
+        <Text numberOfLines={1} style={[StyleSheet.text, StyleSheet.eventDetails.eventInfoText]}>
           {this.props.children}
         </Text>
       </View>

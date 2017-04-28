@@ -2,7 +2,7 @@ import React from 'react'
 import ReactNative, {View, Text, Image, TouchableHighlight, TextInput as TextInputRN, Platform} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import {AddressInput, Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton } from '../components'
+import {AddressInput, Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components'
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
 import _ from '../i18n'
@@ -506,7 +506,7 @@ export default class CreateEvent extends React.Component {
                     underlineColorAndroid="transparent"
                     autoFocus="true"
                     multiline
-                    blurOnSubmit="true"
+                    blurOnSubmit = {Platform.OS === 'ios' ? "true" : "false"}
                     style={[
                       StyleSheet.text,
                       {color: '#7B7B7B', flex: 1, height: 60}
