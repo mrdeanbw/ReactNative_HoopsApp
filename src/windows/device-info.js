@@ -35,7 +35,7 @@ class DeviceInfo extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Header title={_('deviceInfo')} onBack={this.props.onNavigateBack} hideSwitcher={true} />
+        <Header title={_('deviceInfo')} onClose={this.props.onNavigateBack} hideSwitcher={true} />
         <ScrollView style={StyleSheet.padding}>
           {this.renderCard('Device Hardware', this.props.hardwareData)}
           {this.renderCard('Device OS', this.props.osData)}
