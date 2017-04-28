@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
-import { View } from 'react-native'
+import {View} from 'react-native'
 
 import _ from '../i18n'
 import StyleSheet from '../styles'
-
 
 // Hack
 import {dateInput, dateInputIcon} from '../styles/stylesheets/date-input'
@@ -94,7 +93,7 @@ class DateInput extends Component {
           iconSource={iconSrc}
           showIcon={!!icon}
         />
-        {<View style={[defaultTextInput.barStyle, textInput.barStyle, barStyle ]}>{rightBar}</View>}
+        <View style={[defaultTextInput.barStyle, textInput.barStyle, barStyle]}>{rightBar}</View>
       </View>
     )
   }
