@@ -60,6 +60,28 @@ export default StyleSheet => StyleSheet.extend({
 
   },
 
+  genderContainer: {
+    flexDirection: "column",
+    alignItems: "center"
+  },
+
+  genderLabelContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    position: "relative",
+  },
+
+  genderInfoIcon: {
+    position: "absolute",
+    left: 50,
+    top: 0,
+  },
+
+  genderLabel: {
+    color: "grey",
+    marginTop: 3,
+  },
+
   singleMargin: {
     marginTop: 15
   },

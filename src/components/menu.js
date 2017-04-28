@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Animated, View, Text, ScrollView, TouchableWithoutFeedback, TouchableHighlight} from 'react-native'
+import {Animated, View, Text, ScrollView, TouchableWithoutFeedback, TouchableHighlight, TouchableOpacity} from 'react-native'
 
 import {Avatar, Icon} from './'
 import _ from '../i18n'
@@ -78,13 +78,14 @@ export default class Menu extends Component {
       </View>
     )
   }
-
 }
 
 class MenuItem extends Component {
   render() {
     return (
-      <TouchableHighlight onPress={this.props.onPress}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={this.props.onPress}>
         <View style={StyleSheet.menu.itemContainer}>
           <View>
             <Icon
@@ -108,7 +109,7 @@ class MenuItem extends Component {
             {this.props.text}
           </Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     )
   }
 }
