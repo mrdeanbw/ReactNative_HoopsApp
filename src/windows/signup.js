@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import {AddressInput, Button, HorizontalRule, TextInput, DateInput, Form, Header, LoadingAlert, AvatarEdit} from '../components'
+import {AddressInput, Button, HorizontalRule, TextInput, DateInput, Form, Header, LoadingAlert, AvatarEdit, Popup} from '../components'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
@@ -14,6 +14,8 @@ class SignUp extends Component {
     this.state = {
       showPassword: false,
       showDobInfo: false,
+      showDobInfoPopup: false,
+      showGenderInfoPopup: false,
       cityText: '',
       city: {},
       phone: '',
@@ -203,10 +205,14 @@ class SignUp extends Component {
             rightBar={<Button
               style={StyleSheet.signup.eye}
               type="disclosure"
-              active={this.state.showPassword}
               icon="info"
-              onPress={() => alert('Minimum Age is 16')}
+              onPress={() => this.setState({showDobInfoPopup: true})}
             />}
+          />
+
+          <DobInfoPopup
+            visible={this.state.showDobInfoPopup}
+            onPressOk={() => this.setState({showDobInfoPopup: false})}
           />
 
           <AddressInput
@@ -235,9 +241,19 @@ class SignUp extends Component {
             icon="phone"
           />
 
+          <GenderInfoPopup
+            visible={this.state.showGenderInfoPopup}
+            onPressOk={() => this.setState({showGenderInfoPopup: false})}
+          />
+
           <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
-            <View>
+            <View style={StyleSheet.signup.genderLabelContainer}>
               <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
+              <Button
+                style={StyleSheet.signup.genderInfoIcon}
+                type="disclosure"
+                icon="info"
+                onPress={() => this.setState({showGenderInfoPopup: true})}/>
             </View>
             <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
              <Button type="image" icon="male" active={this.state.gender === 'male'} onPress={this.onPressMale}/>
@@ -265,3 +281,67 @@ SignUp.propTypes = {
 }
 
 export default SignUp
+
+
+class DobInfoPopup extends React.Component {
+  render() {
+    return (
+      <Popup visible={this.props.visible}>
+        <View style={[StyleSheet.dialog.alertContentStyle]}>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
+            {_('dobPopupTitle')}
+          </Text>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
+            {_('dobPopupContent1')}
+          </Text>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
+            {_('dobPopupContent2')}
+          </Text>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
+            {_('dobPopupContent3')}
+          </Text>
+        </View>
+
+        <View style={StyleSheet.buttons.bar}>
+          <Button
+            style={[StyleSheet.buttons.okPopup]}
+            textStyle={StyleSheet.whiteText}
+            type="alertDefault"
+            text={_('ok')}
+            onPress={this.props.onPressOk}
+          />
+        </View>
+      </Popup>
+    )
+  }
+}
+
+class GenderInfoPopup extends React.Component {
+  render() {
+    return (
+      <Popup visible={this.props.visible}>
+        <View style={[StyleSheet.dialog.alertContentStyle]}>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
+            {_('genderPopupTitle')}
+          </Text>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
+            {_('genderPopupContent1')}
+          </Text>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
+            {_('genderPopupContent2')}
+          </Text>
+        </View>
+
+        <View style={StyleSheet.buttons.bar}>
+          <Button
+            style={[StyleSheet.buttons.okPopup]}
+            textStyle={StyleSheet.whiteText}
+            type="alertDefault"
+            text={_('ok')}
+            onPress={this.props.onPressOk}
+          />
+        </View>
+      </Popup>
+    )
+  }
+}

@@ -6,9 +6,11 @@ export default StyleSheet => StyleSheet.extend({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
 
-
-
+  okPopup: {
+    backgroundColor: colors.pink,
+    color: colors.white,
   },
 
   separator: {
