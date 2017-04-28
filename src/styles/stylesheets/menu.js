@@ -8,7 +8,8 @@ export default StyleSheet => StyleSheet.extend({
     left: 0,
     top: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
+    padding: 5,
   },
 
   style: {
@@ -34,7 +35,8 @@ export default StyleSheet => StyleSheet.extend({
     backgroundColor: colors.black,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 20
+    padding: 2,
+    paddingTop: 20,
   },
 
   items: {
