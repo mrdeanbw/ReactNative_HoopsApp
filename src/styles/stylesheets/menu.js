@@ -39,6 +39,10 @@ export default StyleSheet => StyleSheet.extend({
 
   items: {
     paddingTop: 15,
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
 
   avatarImage: {
@@ -60,7 +64,7 @@ export default StyleSheet => StyleSheet.extend({
   itemContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 15,
+    paddingVertical: 10,
   },
 
   icon: {

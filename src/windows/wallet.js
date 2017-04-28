@@ -4,6 +4,7 @@ import {ScrollView, View, Text} from 'react-native'
 import _ from '../i18n'
 import {Header, LoadingAlert} from '../components'
 import StyleSheet from '../styles'
+import Icon from '../components//icon'
 
 class Wallet extends Component {
 
@@ -11,6 +12,7 @@ class Wallet extends Component {
     const account = this.props.account
     const titleStyle = StyleSheet.profile.editLabel
     const detailStyle = StyleSheet.payments.accountDataText
+    const infoContainer = StyleSheet.profile.infoContainer
 
     return (
 
@@ -20,6 +22,13 @@ class Wallet extends Component {
 
         <View style={StyleSheet.padding}>
           <LoadingAlert visible={this.props.isLoading} />
+
+          <View style={infoContainer}>
+              <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
+                Money will be paid out on a weekly basis
+              </Text>
+              <Icon name="info" />
+          </View>
 
           {account && account.accountNumber ? (
             <ScrollView>

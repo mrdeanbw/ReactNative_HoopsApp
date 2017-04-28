@@ -134,7 +134,7 @@ export default StyleSheet => StyleSheet.extend({
     fontSize: 14,
     lineHeight: 14,
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
   },
 
   eventInfoTextHighlight: {

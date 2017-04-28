@@ -245,4 +245,10 @@ export default StyleSheet => StyleSheet.extend({
     width: 32,
     borderRadius: 16,
   },
+
+  infoContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+  }
 })

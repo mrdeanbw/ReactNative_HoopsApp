@@ -26,7 +26,7 @@ export default class Menu extends Component {
             </View>
           </TouchableHighlight>
 
-          <ScrollView style={StyleSheet.menu.items}>
+          <View style={StyleSheet.menu.items}>
             <MenuItem
               active={this.props.currentTab === 'settings'}
               icon="settings"
@@ -72,7 +72,7 @@ export default class Menu extends Component {
               text={_('friends')}
               onPress={() => this.props.onTabPress('friends')}
             />
-          </ScrollView>
+          </View>
         </Animated.View>
 
       </View>

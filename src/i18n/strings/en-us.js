@@ -176,7 +176,7 @@ export const ageGroup = 'Age Group'
 export const under16 = 'Under 16'
 export const _16to18 = '16-18'
 export const adults = 'Adults'
-export const unrestricted = 'Unrestricted'
+export const noLimit = 'No Limit'
 
 export const maleOnly = 'Male Only'
 export const femaleOnly = 'Female Only'
