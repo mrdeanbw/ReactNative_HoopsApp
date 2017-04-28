@@ -70,32 +70,32 @@ class DateInput extends Component {
     }
 
     return (
-    <View>
-      <DatePicker
-        mode={mode}
-        format={format}
-        placeholder={this.props.placeholder}
-        confirmBtnText="Confirm"
-        cancelBtnText="Cancel"
-        date={date}
-        minDate={this.props.minDate}
-        maxDate={this.props.maxDate}
-        onDateChange={(newDate) => {
-          const dttm = parseInt(moment(newDate, format).format('x'))
-          this.props.onChange(dttm)
-        }}
-        style={{
-          width: null,
-          borderStyle: 'solid',
-          borderBottomWidth: StyleSheet.hairlineWidth,
-          borderBottomColor: StyleSheet.colors.grey,
-        }}
-        customStyles={dateStyleSheet}
-        iconSource={iconSrc}
-        showIcon={!!icon}
-      />
-      {<View style={[defaultTextInput.barStyle, textInput.barStyle, barStyle ]}>{rightBar}</View>}
-    </View>
+      <View>
+        <DatePicker
+          mode={mode}
+          format={format}
+          placeholder={this.props.placeholder}
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          date={date}
+          minDate={this.props.minDate}
+          maxDate={this.props.maxDate}
+          onDateChange={(newDate) => {
+            const dttm = parseInt(moment(newDate, format).format('x'))
+            this.props.onChange(dttm)
+          }}
+          style={{
+            width: null,
+            borderStyle: 'solid',
+            borderBottomWidth: StyleSheet.hairlineWidth,
+            borderBottomColor: StyleSheet.colors.grey,
+          }}
+          customStyles={dateStyleSheet}
+          iconSource={iconSrc}
+          showIcon={!!icon}
+        />
+        {<View style={[defaultTextInput.barStyle, textInput.barStyle, barStyle ]}>{rightBar}</View>}
+      </View>
     )
   }
 }

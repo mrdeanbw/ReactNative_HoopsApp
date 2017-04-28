@@ -283,7 +283,8 @@ SignUp.propTypes = {
 export default SignUp
 
 
-class DobInfoPopup extends React.Component {
+class DobInfoPopup extends Component {
+
   render() {
     return (
       <Popup visible={this.props.visible}>
@@ -316,7 +317,8 @@ class DobInfoPopup extends React.Component {
   }
 }
 
-class GenderInfoPopup extends React.Component {
+class GenderInfoPopup extends Component {
+
   render() {
     return (
       <Popup visible={this.props.visible}>
