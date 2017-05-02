@@ -5,6 +5,7 @@ const doublePadding = singlePadding * 2
 const halfMargin = 5
 const singleMargin = 15
 const doubleMargin = singleMargin * 2
+const tripleMargin = singleMargin * 3
 
 export default StyleSheet => StyleSheet.extend({
   application: StyleSheet.extend({
@@ -133,6 +134,14 @@ export default StyleSheet => StyleSheet.extend({
 
   whiteText: {
     color: colors.white,
+  },
+
+  tripleMarginBottom: {
+    marginBottom: tripleMargin,
+  },
+
+  singlePaddingTopMinus: {
+    paddingTop: singlePadding - 5,
   },
 
 })

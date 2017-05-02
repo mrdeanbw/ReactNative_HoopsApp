@@ -1,13 +1,13 @@
-import React from 'react'
-import {View} from 'react-native'
+import React, { Component } from 'react'
+import {View, Text, Platform} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import {AddressInput, Button, TextInput, DateInput, Header, Form, AvatarEdit} from '../components'
+import { AddressInput, Button, TextInput, DateInput, Header, Form, AvatarEdit, Popup,  } from '../components'
 
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
-class SignUpFacebookExtra extends React.Component {
+class SignUpFacebookExtra extends Component {
 
   constructor(props) {
     super(props)
@@ -101,7 +101,14 @@ class SignUpFacebookExtra extends React.Component {
 
         {/*<LoadingAlert visible={this.props.isLoading} />*/}
 
-        <Form style={StyleSheet.signup.style}>
+        <Form style={[StyleSheet.signup.style]}>
+
+          <AvatarEdit
+            onChange={(image) => this.setState({image})}
+            imageUrl={this.state.image || this.state.imageUrl || this.state.facebookImageSrc}
+            style={StyleSheet.singleMarginBottom}
+          />
+
           <TextInput
             value={this.state.name}
             onChangeText={(name) => this.setState({name})}
@@ -135,6 +142,7 @@ class SignUpFacebookExtra extends React.Component {
             icon="email"
           />
 
+
           <DateInput
             ref="dob"
             placeholder={_('dob')}
@@ -144,13 +152,19 @@ class SignUpFacebookExtra extends React.Component {
             minDate={new Date("1900-01-01")}
             value={this.state.dob}
             onChange={(dob) => this.setState({dob})}
+            rightBar={<Button
+              style={StyleSheet.signup.eye, StyleSheet.singlePaddingTopMinus}
+              type="disclosure"
+              icon="info"
+              onPress={() => this.setState({showDobInfoPopup: true})}
+            />}
           />
 
-          <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMargin]}>
-            <Button type="image" icon="male" active={this.state.gender === 'male'} onPress={this.onPressMale}/>
-            <View style={StyleSheet.buttons.separator} />
-            <Button type="image" icon="female" active={this.state.gender === 'female'} onPress={this.onPressFemale}/>
-          </View>
+
+          <DobInfoPopup
+            visible={this.state.showDobInfoPopup}
+            onPressOk={() => this.setState({showDobInfoPopup: false})}
+          />
 
           <AddressInput
             icon
@@ -180,19 +194,34 @@ class SignUpFacebookExtra extends React.Component {
             />
           </View>
 
-          <AvatarEdit
-            onChange={(image) => this.setState({image})}
-            imageUrl={this.state.image || this.state.imageUrl || this.state.facebookImageSrc}
-            style={StyleSheet.singleMarginTop}
+          <GenderInfoPopup
+            visible={this.state.showGenderInfoPopup}
+            onPressOk={() => this.setState({showGenderInfoPopup: false})}
           />
+
+          <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
+            <View style={StyleSheet.signup.genderLabelContainer}>
+              <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
+              <Button
+                style={StyleSheet.signup.genderInfoIcon}
+                type="disclosure"
+                icon="info"
+                onPress={() => this.setState({showGenderInfoPopup: true})}/>
+            </View>
+            <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
+             <Button type="image" icon="male" active={this.state.gender === 'male'} onPress={this.onPressMale}/>
+               <View style={StyleSheet.buttons.separator} />
+              <Button type="image" icon="female" active={this.state.gender === 'female'} onPress={this.onPressFemale}/>
+            </View>
+          </View>
 
           <Button
             type={this.validate() ? "roundedDefault" : "roundedGrey"}
             text={_('submit')}
             onPress={this.validate() ? this.onPressContinue : undefined}
-            style={StyleSheet.doubleMarginTop}
+            style={[StyleSheet.doubleMarginTop, StyleSheet.tripleMarginBottom]}
           />
-          <KeyboardSpacer/>
+        <KeyboardSpacer/>
         </Form>
       </View>
     )
@@ -203,3 +232,68 @@ SignUpFacebookExtra.propTypes = {
 }
 
 export default SignUpFacebookExtra
+
+class DobInfoPopup extends Component {
+
+  render() {
+    return (
+      <Popup visible={this.props.visible}>
+        <View style={[StyleSheet.dialog.alertContentStyle]}>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
+            {_('dobPopupTitle')}
+          </Text>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
+            {_('dobPopupContent1')}
+          </Text>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
+            {_('dobPopupContent2')}
+          </Text>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
+            {_('dobPopupContent3')}
+          </Text>
+        </View>
+
+        <View style={StyleSheet.buttons.bar}>
+          <Button
+            style={[StyleSheet.buttons.okPopup]}
+            textStyle={StyleSheet.whiteText}
+            type="alertDefault"
+            text={_('ok')}
+            onPress={this.props.onPressOk}
+          />
+        </View>
+      </Popup>
+    )
+  }
+}
+
+class GenderInfoPopup extends Component {
+
+  render() {
+    return (
+      <Popup visible={this.props.visible}>
+        <View style={[StyleSheet.dialog.alertContentStyle]}>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
+            {_('genderPopupTitle')}
+          </Text>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
+            {_('genderPopupContent1')}
+          </Text>
+          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
+            {_('genderPopupContent2')}
+          </Text>
+        </View>
+
+        <View style={StyleSheet.buttons.bar}>
+          <Button
+            style={[StyleSheet.buttons.okPopup]}
+            textStyle={StyleSheet.whiteText}
+            type="alertDefault"
+            text={_('ok')}
+            onPress={this.props.onPressOk}
+          />
+        </View>
+      </Popup>
+    )
+  }
+}
