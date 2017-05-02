@@ -387,7 +387,7 @@ class EventInfo extends React.Component {
         <Text style={[StyleSheet.text, StyleSheet.eventDetails.eventInfoKey]}>
           {this.props.label}
         </Text>
-        <Text numberOfLines={1} style={[StyleSheet.text, StyleSheet.eventDetails.eventInfoText]}>
+        <Text style={[StyleSheet.text, StyleSheet.eventDetails.eventInfoText]}>
           {this.props.children}
         </Text>
       </View>
