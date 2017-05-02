@@ -10,36 +10,6 @@ import actionTypes, {
 import {getPlace} from '../data/google-places'
 
 
-/**
- * @param promises {Object} object of promises
- * @returns {Promise}
- *
- * Promise that returns an object of responses, or null in the case of an error
- */
-const allPromises = (promises) => {
-  let keys = Object.keys(promises)
-  promises = keys.map((key) => {
-    let promise = promises[key]
-    return new Promise((resolve, reject) => {
-      promise.then((result) => {
-        resolve(result)
-      }).catch((err) => {
-        resolve(null)
-      })
-    })
-  })
-
-  return Promise.all(promises).then((results) => {
-    //convert from results array to keyed object
-    let obj = {}
-    results.map((result, i) => {
-      let key = keys[i]
-      obj[key] = result
-    })
-    return obj
-  })
-}
-
 export const load = (id) => {
   return (dispatch, getState) => {
     // Is the event already in the store?
@@ -363,5 +333,22 @@ export const getAll = () => {
         resolve()
       })
     })
+  }
+}
+
+export const registerWithStore = () => {
+  return (dispatch, getState) => {
+    const cb = snapshot => {
+      const id = snapshot.key
+      const event = snapshot.val()
+
+      dispatch({
+        type: actionTypes.EVENTS_LOADED,
+        events: {[id] : event}
+      })
+    }
+
+    firebaseDb.child(`events`).limitToLast(1).on('child_added', cb)
+    firebaseDb.child(`events`).on('child_changed', cb)
   }
 }
