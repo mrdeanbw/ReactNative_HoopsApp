@@ -153,7 +153,7 @@ class SignUpFacebookExtra extends Component {
             value={this.state.dob}
             onChange={(dob) => this.setState({dob})}
             rightBar={<Button
-              style={StyleSheet.signup.eye, StyleSheet.singlePaddingTopMinus}
+              style={[StyleSheet.signup.eye, StyleSheet.singlePaddingTopMinus]}
               type="disclosure"
               icon="info"
               onPress={() => this.setState({showDobInfoPopup: true})}
