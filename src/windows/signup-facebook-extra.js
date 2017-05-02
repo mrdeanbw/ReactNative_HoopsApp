@@ -14,6 +14,8 @@ class SignUpFacebookExtra extends React.Component {
     this.state = {
       showPassword: false,
       showDobInfo: false,
+      showDobInfoPopup: false,
+      showGenderInfoPopup: false,
       name: props.name,
       email: props.email,
       dob: isNaN(new Date(props.dob).getTime()) ? null : new Date(props.dob),
