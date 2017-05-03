@@ -72,7 +72,7 @@ export default class Interests extends React.Component {
 
           {this.props.interests.map((interest, i) =>
             <CheckButton key={interest.name} text={interest.name}
-                   icon="plus" checkIcon="check"
+                   icon="plus" checkIcon="checkActive"
                    checked={this.state.selected[interest.id]}
                    onChange={checked => this.onChangeInterest(interest, checked)}
                    style={StyleSheet.interests.checkButtonGradient[i]}

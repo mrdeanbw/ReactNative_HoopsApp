@@ -58,10 +58,16 @@ export default class CheckButton extends React.Component {
             {textTransform(text)}
           </Text>}
           {children}
-          <View style={ [defaultButton.checkedIconContainerStyle]} >
+          {!checked ?
+          (<View style={ [defaultButton.checkedIconContainerStyle]} >
             {!checked && icon && <Icon name={icon} style={[defaultButton.iconStyle, button.iconStyle, iconStyle]}/>}
-            {checked && checkIcon && <Icon name={checkIcon} style={[defaultButton.iconStyle, defaultButton.checkedIconStyle, button.iconStyle, button.checkedIconStyle, iconStyle, checkedIconStyle]}/>}
-          </View>
+            {checked && checkIcon && <Icon name={checkIcon} style={[defaultButton.iconStyle, defaultButton.checkedIconStyle, button.iconStyle, button.checkedIconStyle, iconStyle,]}/>}
+          </View>) :
+          (<View style={ [defaultButton.checkedIconContainerStyle, checkedIconStyle]} >
+            {!checked && icon && <Icon name={icon} style={[defaultButton.iconStyle, button.iconStyle, iconStyle]}/>}
+            {checked && checkIcon && <Icon name={checkIcon} style={[defaultButton.iconStyle, defaultButton.checkedIconStyle, button.iconStyle, button.checkedIconStyle, iconStyle,]}/>}
+          </View>)
+          }
         </View>
       </TouchableHighlight>
     )
