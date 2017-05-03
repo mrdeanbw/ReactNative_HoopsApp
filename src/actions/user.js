@@ -66,7 +66,7 @@ export const signUp = (email, password, extraData) => {
       await emailAuth.signUp(email, password)
       await savePersonalData({
         ...extraData,
-        dob: new Date(extraData.dob).valueOf(), //convert date to epoch timestamp
+        dob: new Date(extraData.dob),
         email,
       })
       dispatch(signUpSuccess('email'))
