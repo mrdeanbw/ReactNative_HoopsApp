@@ -2,14 +2,14 @@ import React from 'react'
 import ReactNative, {View, Text, Image, TouchableHighlight, TextInput as TextInputRN, Platform} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import {AddressInput, Form, Button, Header, Wizard, TextInput, ListInput, DateInput, Icon, CheckButton} from '../components'
+import {
+  AddressInput, Form, Button, Header, Wizard, TextInput,
+  ListInput, DateInput, Icon, CheckButton, KeyboardHandler,
+} from '../components'
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
 import _ from '../i18n'
 import {showImagePicker} from '../utils/'
-
-
-import KeyboardHandler from '../components/KeyboardHandler'
 
 export default class CreateEvent extends React.Component {
 
@@ -192,7 +192,7 @@ export default class CreateEvent extends React.Component {
         >
           <Wizard.Step disabled={!this.validate(1)}>
             <Form extraKeyboardPadding={25} focusNode={this.state.focus['scrollView1']} contentContainerStyle={StyleSheet.padding}>
-              <KeyboardHandler ref='kh' offset={50} keyboardShouldPersistTaps={false}>
+              <KeyboardHandler ref='kh' offset={50} keyboardShouldPersistTaps={'never'}>
                 <View>
                   <TextInput
                     ref="eventName"

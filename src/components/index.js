@@ -14,6 +14,7 @@ import _HighlightText from './highlight-text'
 import _HorizontalRule from './horizontal-rule'
 import _Icon from './icon'
 import _Image from './image'
+import _KeyboardHandler from './keyboard-handler'
 import _ListInput from './list-input'
 import _ListSelect from './list-select'
 import _LoadingAlert from './loading-alert'
@@ -47,6 +48,7 @@ export const HighlightText = _HighlightText
 export const HorizontalRule = _HorizontalRule
 export const Icon = _Icon
 export const Image = _Image
+export const KeyboardHandler = _KeyboardHandler
 export const LoadingAlert = _LoadingAlert
 export const ListInput = _ListInput
 export const ListSelect = _ListSelect
