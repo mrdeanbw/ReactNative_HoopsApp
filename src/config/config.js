@@ -49,4 +49,4 @@ const prod = Object.assign({}, common, {
   BUGSNAG_API_KEY: '25983a784e900e85ae661a2e5685d61a',
 })
 
-export default __DEV__ ? prod : prod
+export default __DEV__ ? dev : prod
