@@ -78,6 +78,9 @@ class Home extends React.Component {
           contentContainerStyle={StyleSheet.home.container}
           onLayout={(e) => this.setState({scrollHeight: e.nativeEvent.layout.height})}
         >
+          {!this.isOrganizing() && !this.state.showMap ?
+             (<Text style={StyleSheet.noResults}>{_('noEventsNearby')}</Text>) : null
+           }
           {this.isOrganizing() && (
             <View style={{minHeight: (this.state.scrollHeight - 300)}}>
               {this.renderEvents()}
@@ -100,6 +103,9 @@ class Home extends React.Component {
             }}
           />
         )}
+
+
+
       </View>
     )
   }
