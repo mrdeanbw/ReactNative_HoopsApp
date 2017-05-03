@@ -57,3 +57,7 @@ ios/assets/
 android/app/hoops.keystore
 
 yarn.lock
+
+android/.project
+
+android/app/.project
