@@ -47,4 +47,11 @@ export default handleActions({
     }
   },
 
+  [actionTypes.USER_LOGGED_OUT]: (state, action) => {
+    return {
+      ...state,
+      UImode: null,
+    }
+  },
+
 }, initialState)
