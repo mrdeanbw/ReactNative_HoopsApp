@@ -78,7 +78,6 @@ class Home extends React.Component {
           contentContainerStyle={StyleSheet.home.container}
           onLayout={(e) => this.setState({scrollHeight: e.nativeEvent.layout.height})}
         >
-
           {this.isOrganizing() && (
             <View style={{minHeight: (this.state.scrollHeight - 300)}}>
               {this.renderEvents()}

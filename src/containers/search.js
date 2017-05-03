@@ -29,7 +29,6 @@ class Search extends React.Component {
     let users = userIds.map(id => {
       return this.props.users.usersById[id]
     }).filter(user => !!user)
-
     return (
       <_Search
         onClose={this.props.onNavigateBack}

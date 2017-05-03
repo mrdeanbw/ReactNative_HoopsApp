@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, ScrollView} from 'react-native'
+import {View, ScrollView, Text} from 'react-native'
 
 import {EventListItem, UserListItem, Header, MapView} from '../components'
 import StyleSheet from '../styles'
@@ -26,6 +26,11 @@ export default class SearchResults extends React.Component {
             this.setState({showMap: !this.state.showMap})
           }}
         />
+
+        {this.props.events.length === 0 ? (
+          <Text style={StyleSheet.noResults}>{_('noEventsNearby')}</Text>
+          ) : null
+        }
 
         {this.state.showMap ? (
           <MapView
