@@ -166,7 +166,7 @@ class MultilineTextInputDialog extends React.Component {
           <HorizontalRule style={{width: null, alignSelf: 'stretch'}} />
           <TextInput
             type="multiline"
-            autoFocus={true}
+            autoFocus
             multiline={true}
             placeholder={modalPlaceholder}
             value={'value' in this.state ? this.state.value : this.props.value}
