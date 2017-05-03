@@ -188,7 +188,7 @@ class CancelEventPopup extends Component {
             style={StyleSheet.singleMarginTop}
             ref="input"
             placeholder={_('cancelEventPrompt')}
-            autoFocus={true}
+            autoFocus
             autoCapitalize="none"
             autoCorrect={true}
             returnKeyType="send"

@@ -7,6 +7,14 @@ import {eventActions, navigationActions} from '../actions'
 
 class EventDashboard extends React.Component {
 
+  constructor(props) {
+    super()
+
+    this.state = {
+      event: props.events.eventsById[props.id]
+    }
+  }
+
   onCancel(message) {
     this.props.onCancel(this.props.id, message)
     this.props.onNavigateBack()
@@ -21,7 +29,7 @@ class EventDashboard extends React.Component {
   }
 
   onPressMessages() {
-    this.props.onNavigate('chat', {id: this.props.id}, false, 'horizontal')
+    this.props.onNavigate('chat', {id: this.state.event.chatId}, false, 'horizontal')
   }
 
   onPressGallery() {
@@ -37,7 +45,7 @@ class EventDashboard extends React.Component {
   }
 
   render() {
-    const event = this.props.events.eventsById[this.props.id]
+    const event = this.state.event
 
     const user = inflateUser(this.props.user, {
       invites: this.props.invites.invitesById,

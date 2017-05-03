@@ -118,7 +118,7 @@ class SignUpFacebookExtra extends Component {
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}
-            autoFocus={true}
+            autoFocus
             returnKeyType="next"
             selectTextOnFocus={true}
             enablesReturnKeyAutomatically={true}

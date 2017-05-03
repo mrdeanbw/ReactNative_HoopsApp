@@ -53,20 +53,28 @@ export const remove = (id) => {
 
 const preSave = (eventData, eventKey, uid) => {
   let chain = []
-  if(eventData.image) {
-    //upload images first:
+
+  if (!eventData['chatId']) {
+    const chatRef = firebaseDb.child('chat').push()
+    eventData['chatId'] = chatRef.key
+  }
+
+  if (eventData.image) {
+    // upload images first
     chain.push(uploadImage(eventData.image, `events/${eventKey}/main.jpeg`))
   } else {
+    // Keep position for response array
     chain.push(null)
   }
 
-  if(eventData.addressGooglePlaceId) {
+  if (eventData.addressGooglePlaceId) {
     chain.push(
       getPlace(eventData.addressGooglePlaceId).then(result => {
         return result.result && result.result.geometry
       })
     )
-  }else{
+  } else {
+    // Keep position for response array
     chain.push(null)
   }
 
@@ -76,7 +84,7 @@ const preSave = (eventData, eventKey, uid) => {
 
     eventData = {
       ...eventData,
-      //Replace the original eventData.image with our firebase reference
+      // Replace the original eventData.image with our firebase reference
       image: image,
       organizer: uid,
       id: eventKey,
@@ -95,7 +103,8 @@ const preSave = (eventData, eventKey, uid) => {
 
 export const create = (eventData) => {
   return (dispatch, getState) => {
-    let ref = firebaseDb.child('events').push()
+    const ref = firebaseDb.child('events').push()
+
     let newKey = ref.key
     let uid = getState().user.uid
 
