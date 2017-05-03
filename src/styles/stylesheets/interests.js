@@ -39,7 +39,8 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   checkButtonCheckedIconStyle: {
-    backgroundColor: colors.white
+    backgroundColor: "transparent",
+    borderWidth: 2
   },
 
   footer: {
@@ -52,10 +53,6 @@ export default StyleSheet => StyleSheet.extend({
     marginTop: 17,
     marginBottom: 17
   },
-
-
-
-
 
   selectModeStyle: {
     flex: 1,

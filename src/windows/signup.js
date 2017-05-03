@@ -256,8 +256,8 @@ class SignUp extends Component {
                 onPress={() => this.setState({showGenderInfoPopup: true})}/>
             </View>
             <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
-             <Button type="image" icon="male" active={this.state.gender === 'male'} onPress={this.onPressMale}/>
-               <View style={StyleSheet.buttons.separator} />
+              <Button type="image" icon="male" active={this.state.gender === 'male'} onPress={this.onPressMale}/>
+              <View style={StyleSheet.buttons.separator} />
               <Button type="image" icon="female" active={this.state.gender === 'female'} onPress={this.onPressFemale}/>
             </View>
           </View>
