@@ -72,7 +72,7 @@ export default class Interests extends React.Component {
 
           {this.props.interests.map((interest, i) =>
             <CheckButton key={interest.name} text={interest.name}
-                   icon="plus" checkIcon="checkActive"
+                   icon="plus" checkIcon="check"
                    checked={this.state.selected[interest.id]}
                    onChange={checked => this.onChangeInterest(interest, checked)}
                    style={StyleSheet.interests.checkButtonGradient[i]}
@@ -80,7 +80,7 @@ export default class Interests extends React.Component {
                    underlayColor={StyleSheet.interests.checkButtonHighlightGradient[i]}
                    textStyle={StyleSheet.interests.checkButtonTextStyle}
                    iconStyle={StyleSheet.interests.checkButtonIconStyle}
-                   checkedIconStyle={StyleSheet.interests.checkButtonCheckedIconStyle}/>)}
+                   checkedIconStyle={[StyleSheet.interests.checkButtonCheckedIconStyle]}/>)}
 
 
           <View style={StyleSheet.interests.footer}>

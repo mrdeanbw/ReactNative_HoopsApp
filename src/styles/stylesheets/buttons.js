@@ -313,7 +313,7 @@ export default StyleSheet => StyleSheet.extend({
       height: 30,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 15,
+      borderRadius: 50,
       borderWidth: StyleSheet.hairlineWidth,
       borderColor: colors.pink,
       backgroundColor: colors.transparent
@@ -323,7 +323,7 @@ export default StyleSheet => StyleSheet.extend({
       height: 30,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 15,
+      borderRadius: 50,
       borderWidth: StyleSheet.hairlineWidth,
       borderColor: colors.pink,
       backgroundColor: colors.transparent
