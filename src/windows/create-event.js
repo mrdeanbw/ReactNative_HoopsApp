@@ -192,7 +192,7 @@ export default class CreateEvent extends React.Component {
         >
           <Wizard.Step disabled={!this.validate(1)}>
             <Form extraKeyboardPadding={25} focusNode={this.state.focus['scrollView1']} contentContainerStyle={StyleSheet.padding}>
-              <KeyboardHandler ref='kh' offset={50} keyboardShouldPersistTaps={'never'}>
+              <KeyboardHandler ref="kh" offset={50} keyboardShouldPersistTaps={'never'}>
                 <View>
                   <TextInput
                     ref="eventName"

@@ -11,7 +11,7 @@ export default StyleSheet => StyleSheet.extend({
 
   style: {
     flex: 1,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
 
   bannerText: {

@@ -80,7 +80,7 @@ class DateInput extends Component {
           minDate={this.props.minDate}
           maxDate={this.props.maxDate}
           onDateChange={(newDate) => {
-            const dttm = parseInt(moment(newDate, format).format('x'))
+            const dttm = moment(newDate, format).toDate()
             this.props.onChange(dttm)
           }}
           style={{
