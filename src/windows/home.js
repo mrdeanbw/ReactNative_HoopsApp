@@ -80,7 +80,7 @@ class Home extends React.Component {
         >
           {!this.isOrganizing() && !this.state.showMap ?
              (<Text style={StyleSheet.noResults}>{_('noEventsNearby')}</Text>) : null
-           }
+          }
 
           {this.isOrganizing() && (
             <View style={{minHeight: (this.state.scrollHeight - 300)}}>
