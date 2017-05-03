@@ -388,3 +388,5 @@ export const genderPopupContent1 = "Telling us your gender helps filter the even
 export const genderPopupContent2 = "We’re all for blokes playing netball, but unfortunately that’s in the hands of event organisers..."
 
 export const ok = "OK"
+
+export const noEventsNearby = "No Events Nearby"

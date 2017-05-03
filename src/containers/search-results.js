@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import{ Text, View} from 'react-native'
 
 import {SearchResults as _SearchResults} from '../windows'
 import {navigationActions} from '../actions'
@@ -24,8 +25,8 @@ class SearchResults extends React.Component {
     let users = userIds.map(userId => {
       return this.props.users.usersById[userId]
     }).filter(user => !!user)
-
     return (
+
       <_SearchResults
         events={events}
         users={users}
