@@ -504,7 +504,7 @@ export default class CreateEvent extends React.Component {
                     placeholder={_('eventDescription')}
                     onChangeText={(description) => this.setEventData({description})}
                     underlineColorAndroid="transparent"
-                    autoFocus="true"
+                    autoFocus
                     multiline
                     blurOnSubmit={true}
                     style={[

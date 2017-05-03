@@ -74,7 +74,7 @@ class PaymentsBankSetup extends Component {
             </Text>
           )}
           <TextInput
-            autoFocus="true"
+            autoFocus
             type="flat"
             value={this.state.firstName}
             placeholder={this.state.firstNamePlaceholder || _('firstName')}
