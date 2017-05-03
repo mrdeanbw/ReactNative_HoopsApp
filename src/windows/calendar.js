@@ -218,7 +218,7 @@ export default class Calendar extends React.Component {
                 <View style={StyleSheet.calendar.event}>
                   <View style={StyleSheet.calendar.eventTime}>
                     <Text style={StyleSheet.calendar.eventTimeText}>
-                      {moment.unix(event.date).format('HH:mm a')}
+                      {moment(event.date).format('HH:mm a')}
                     </Text>
                   </View>
                   <View style={StyleSheet.calendar.eventDetails}>
