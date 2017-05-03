@@ -14,13 +14,9 @@ class Chat extends Component {
         messages: []
     }
 
-    this.chatRef = firebaseDb.child('chat/' + this.generateChatId())
+    this.chatRef = firebaseDb.child('chat/' + this.props.id)
     this.chatRefData = this.chatRef.orderByChild('order')
     this.onSend = this.onSend.bind(this)
-  }
-
-  generateChatId() {
-    return this.props.id
   }
 
   listenForItems(chatRef) {
