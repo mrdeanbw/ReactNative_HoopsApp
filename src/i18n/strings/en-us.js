@@ -381,7 +381,7 @@ export const dismiss = 'DISMISS'
 
 export const dobPopupTitle = "Why we need this?"
 export const dobPopupContent1 = "You only want to see events you can join, right?"
-export const dobPopupContent2 = "Telling us your date of birth helps us make sure that happens. Oh, and we need it to validate our payment system too. Cheers!"
+export const dobPopupContent2 = "Telling us your date of birth helps us make sure that happens. Oh, and we need it to validate our payment system too."
 export const dobPopupContent3 = "Cheers!"
 export const genderPopupTitle = "Why we need this?"
 export const genderPopupContent1 = "Telling us your gender helps filter the events that you can join."

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Animated, View, Text, ScrollView, TouchableWithoutFeedback, TouchableHighlight, TouchableOpacity} from 'react-native'
+import {Animated, View, Text, TouchableWithoutFeedback, TouchableHighlight, TouchableOpacity} from 'react-native'
 
 import {Avatar, Icon} from './'
 import _ from '../i18n'
