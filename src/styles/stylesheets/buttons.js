@@ -313,15 +313,16 @@ export default StyleSheet => StyleSheet.extend({
       height: 30,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 50,
+      borderRadius: 15,
       borderWidth: StyleSheet.hairlineWidth,
-      borderColor: colors.pink,
       backgroundColor: colors.transparent
     },
+
     checkedIconContainerStyle: {
       width: 30,
       height: 30,
       borderRadius: 15,
+      borderWidth: StyleSheet.hairlineWidth,
       overflow: 'hidden',
     },
 

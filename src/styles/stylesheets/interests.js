@@ -40,7 +40,6 @@ export default StyleSheet => StyleSheet.extend({
 
   checkButtonCheckedIconStyle: {
     backgroundColor: 'transparent',
-    borderWidth: 2
   },
 
   footer: {

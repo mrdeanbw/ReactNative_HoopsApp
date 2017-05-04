@@ -5,6 +5,7 @@ import {ScrollView, View} from 'react-native'
 import StyleSheet from '../styles'
 import {Button, CheckButton, Header, HighlightText, Popup} from '../components'
 import _ from '../i18n'
+import {colors} from '../styles/resources'
 
 export default class Interests extends React.Component {
 
@@ -80,6 +81,9 @@ export default class Interests extends React.Component {
                    underlayColor={StyleSheet.interests.checkButtonHighlightGradient[i]}
                    textStyle={StyleSheet.interests.checkButtonTextStyle}
                    iconStyle={StyleSheet.interests.checkButtonIconStyle}
+                   uncheckedBorderColor={{borderColor: colors.white,}}
+                   checkedBackgroundColor={{backgroundColor: colors.white}}
+                   uncheckedBackgroundColor={{backgroundColor: 'transparent'}}
                    checkedIconStyle={[StyleSheet.interests.checkButtonCheckedIconStyle]}/>)}
 
 

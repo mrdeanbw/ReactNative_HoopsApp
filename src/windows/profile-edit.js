@@ -3,6 +3,7 @@ import {View, ScrollView, Text} from 'react-native'
 
 import {AvatarEdit, Button, Header, TextInput, DateInput, Icon, CheckButton} from '../components'
 import StyleSheet from '../styles'
+import {colors} from '../styles/resources'
 import _ from '../i18n'
 
 export default class ProfileEdit extends React.Component {
@@ -114,6 +115,7 @@ export default class ProfileEdit extends React.Component {
               text={<Text>{interest.name} ({interest.level})</Text>}
               icon="minus"
               onChange={() => this.props.onRemoveInterest(interest.id)}
+              checkedIconStyle={{backgroundColor: colors.pink }}
             />
           )}
           <Button
