@@ -57,13 +57,13 @@ export default class CheckButton extends React.Component {
           ]}>
             {textTransform(text)}
           </Text>}
-
+          {children}
           {!checked ?
           (<View style={ [defaultButton.checkedIconContainerStyle, uncheckedBorderColor, uncheckedBackgroundColor]} >
-            {!checked && icon && <Icon name={icon} style={[defaultButton.iconStyle, button.iconStyle, iconStyle]}/>}
-            {checked && checkIcon && <Icon name={checkIcon} style={[defaultButton.iconStyle, defaultButton.checkedIconStyle, button.iconStyle, button.checkedIconStyle, iconStyle,checkedIconStyle]}/>}
+            {!checked && icon && <Icon name={icon} style={[defaultButton.iconStyle, button.iconStyle, iconStyle, checkedIconStyle, uncheckedBorderColor  ]}/>}
+            {checked && checkIcon && <Icon name={checkIcon} style={[defaultButton.iconStyle, defaultButton.checkedIconStyle, button.iconStyle, button.checkedIconStyle, iconStyle, checkedIconStyle]}/>}
           </View>) :
-          (<View style={ [defaultButton.checkedIconContainerStyle, checkedBackgroundColor]} >
+          (<View style={ [defaultButton.checkedIconContainerStyle, checkedBackgroundColor, ]} >
             {!checked && icon && <Icon name={icon} style={[defaultButton.iconStyle, button.iconStyle, iconStyle]}/>}
             {checked && checkIcon && <Icon name={checkIcon} style={[defaultButton.iconStyle, defaultButton.checkedIconStyle, button.iconStyle, button.checkedIconStyle, iconStyle, checkedIconStyle]}/>}
           </View>)

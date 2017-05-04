@@ -115,7 +115,9 @@ export default class ProfileEdit extends React.Component {
               text={<Text>{interest.name} ({interest.level})</Text>}
               icon="minus"
               onChange={() => this.props.onRemoveInterest(interest.id)}
-              checkedIconStyle={{backgroundColor: colors.pink }}
+              checkedIconStyle={{backgroundColor: 'transparent' }}
+              uncheckedBackgroundColor={{backgroundColor: colors.pink}}
+              uncheckedBorderColor={{borderColor: colors.pink}}
             />
           )}
           <Button
@@ -123,6 +125,7 @@ export default class ProfileEdit extends React.Component {
             text={_('addAnotherActivity')}
             icon="plusGrey"
             onPress={this.onPressAddActivity}
+
           />
         </ScrollView>
 

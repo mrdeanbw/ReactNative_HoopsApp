@@ -322,6 +322,8 @@ export default StyleSheet => StyleSheet.extend({
       width: 30,
       height: 30,
       borderRadius: 15,
+      justifyContent: 'center',
+      alignItems: 'center',
       borderWidth: StyleSheet.hairlineWidth,
       overflow: 'hidden',
     },
