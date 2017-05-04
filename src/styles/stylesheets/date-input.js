@@ -74,7 +74,7 @@ const _dateInputIcon = StyleSheet.create({
   dateInput: {
 
     ...styles.dateInput,
-    marginLeft: Platform.OS === 'ios' ? 40 : 45,
+    marginLeft: Platform.OS === 'ios' ? 40 : 52,
   },
 })
 

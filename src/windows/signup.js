@@ -92,7 +92,7 @@ class SignUp extends Component {
     ].indexOf(errorCode) !== -1
 
     const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
-
+    const crossPlatformLeftPosition = Platform.OS === 'ios' ? StyleSheet.leftSmaller : StyleSheet.leftBigger
     return (
       <View style={{flex: 1}}>
         <Header
@@ -256,7 +256,7 @@ class SignUp extends Component {
             <View style={StyleSheet.signup.genderLabelContainer}>
               <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
               <Button
-                style={StyleSheet.signup.genderInfoIcon}
+                style={[StyleSheet.signup.genderInfoIcon, crossPlatformLeftPosition]}
                 type="disclosure"
                 icon="info"
                 onPress={() => this.setState({showGenderInfoPopup: true})}/>

@@ -73,8 +73,7 @@ export default StyleSheet => StyleSheet.extend({
 
   genderInfoIcon: {
     position: "absolute",
-    left: 50,
-    top: 0,
+    top: 1,
   },
 
   genderLabel: {

@@ -148,12 +148,19 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   singlePlusMarginRight: {
-    marginRight: 20,
+    marginRight: 28,
   },
 
   androidMatchMarginBottom: {
-    marginBottom: -10,
+    marginBottom: -5,
   },
 
+  leftSmaller: {
+    left: 50,
+  },
+
+  leftBigger: {
+    left: 70,
+  }
 
 })
