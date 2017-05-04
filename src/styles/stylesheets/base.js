@@ -119,6 +119,9 @@ export default StyleSheet => StyleSheet.extend({
   androidMatchFontSize: {
     fontSize: 16,
   },
+  androidMatchFontSizeSmall: {
+    fontSize: 15,
+  },
 
   singlePlusPaddingBottom: {
     paddingBottom: singlePadding + 10,
@@ -143,5 +146,14 @@ export default StyleSheet => StyleSheet.extend({
   singlePaddingTopMinus: {
     paddingTop: singlePadding - 5,
   },
+
+  singlePlusMarginRight: {
+    marginRight: 20,
+  },
+
+  androidMatchMarginBottom: {
+    marginBottom: -10,
+  },
+
 
 })

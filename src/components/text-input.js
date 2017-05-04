@@ -32,6 +32,7 @@ export default class TextInput extends React.Component {
     const defaultTextInput = StyleSheet.textInputs.default || {}
     const textInput = type ? StyleSheet.textInputs[type] || defaultTextInput : defaultTextInput
 
+    const androidMatchMarginBottom = Platform.OS ==='ios'? null : StyleSheet.androidMatchMarginBottom
     // Need to break up the styling for find a nicer way of doing this. Aka. Hack
     const flex = type === 'alert' ?  0 : 1
 
@@ -91,7 +92,7 @@ export default class TextInput extends React.Component {
                 >
                   {this.props.value && this.props.value.replace(/\s+/g, ' ') || this.props.placeholder}
                 </Text> ||
-                <View style={{flexDirection: 'row', flex: 1, alignItems: 'center'}}>
+                <View style={[defaultTextInput.textContainerTextInput, androidMatchMarginBottom]}>
                   <Text
                     style={[
                       StyleSheet.text,

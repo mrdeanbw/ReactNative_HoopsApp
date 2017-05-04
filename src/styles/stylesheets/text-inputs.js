@@ -29,7 +29,13 @@ export default StyleSheet => StyleSheet.escape({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'flex-end'
-    }
+    },
+
+    textContainerTextInput: {
+      flexDirection: 'row',
+      flex: 1,
+      alignItems: 'flex-start',
+    },
   }),
 
   rounded: StyleSheet.extend({

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text} from 'react-native'
+import {View, Text, Platform} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 import {AddressInput, Button, HorizontalRule, TextInput, DateInput, Form, Header, LoadingAlert, AvatarEdit, Popup} from '../components'
@@ -91,6 +91,8 @@ class SignUp extends Component {
       'auth/invalid-email',
     ].indexOf(errorCode) !== -1
 
+    const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
+
     return (
       <View style={{flex: 1}}>
         <Header
@@ -125,9 +127,10 @@ class SignUp extends Component {
             type="flat"
             ref="name"
             placeholder={_('name')}
-            style={StyleSheet.halfMarginBottom}
+            style={[StyleSheet.halfMarginBottom ]}
             autoCapitalize="words"
             autoCorrect={false}
+            textStyle={androidMatchFontSize}
             autoFocus
             returnKeyType="next"
             selectTextOnFocus={true}
@@ -150,7 +153,8 @@ class SignUp extends Component {
             ref="email"
             error={emailError}
             placeholder={_('email')}
-            style={StyleSheet.halfMarginBottom}
+            style={[StyleSheet.halfMarginBottom]}
+            textStyle={androidMatchFontSize}
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType="next"
@@ -172,8 +176,9 @@ class SignUp extends Component {
             ref="password"
             error={this.getPasswordValidationError()}
             placeholder={_('password')}
-            style={StyleSheet.halfMarginBottom}
+            style={[StyleSheet.halfMarginBottom]}
             secureTextEntry={!this.state.showPassword}
+            textStyle={androidMatchFontSize}
             returnKeyType="next"
             selectTextOnFocus={false}
             clearTextOnFocus={false}
@@ -232,6 +237,7 @@ class SignUp extends Component {
             type="flat"
             ref="phone"
             placeholder={_('optionalPhone')}
+            textStyle={androidMatchFontSize}
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType="next"

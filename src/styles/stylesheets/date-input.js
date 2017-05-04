@@ -1,4 +1,4 @@
-import {StyleSheet as StyleSheet} from 'react-native'
+import {StyleSheet as StyleSheet, Platform} from 'react-native'
 
 import {colors} from '../resources'
 
@@ -21,7 +21,7 @@ const styles = {
 
   dateIcon: {
     position: 'absolute',
-    left: -2,
+    left: -5,
     top: 0,
     bottom: 0,
     height: 44,
@@ -29,12 +29,14 @@ const styles = {
     resizeMode: 'contain',
   },
 
+
+
   placeholderText: {
     color: colors.placeholderText,
   },
 
   dateText: {
-
+    fontSize: 15,
   },
 
   /* iOS */
@@ -70,8 +72,9 @@ const _dateInput = StyleSheet.create({
 const _dateInputIcon = StyleSheet.create({
   ...styles,
   dateInput: {
+
     ...styles.dateInput,
-    marginLeft: 40,
+    marginLeft: Platform.OS === 'ios' ? 40 : 45,
   },
 })
 
