@@ -96,6 +96,7 @@ export default class ProfileEdit extends React.Component {
             type="flat"
             ref="dob"
             rightBar={<Icon name="listIndicator" />}
+            barStyle={{position: 'absolute', right: 0, bottom: 0}}
             placeholder={_('dob')}
             icon="nappy"
             date={true}
