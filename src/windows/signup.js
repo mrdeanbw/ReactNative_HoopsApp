@@ -95,12 +95,7 @@ class SignUp extends Component {
     const crossPlatformLeftPosition = Platform.OS === 'ios' ? StyleSheet.leftSmaller : StyleSheet.leftBigger
     return (
       <View style={{flex: 1}}>
-        <Header
-          title={_('signup')}
-          hideSwitcher={true}
-          onClose={this.props.onClose}
-          onBack={this.props.onBack}
-        />
+        <Header title={_('signup')} simple />
         <Form style={StyleSheet.signup.style}>
           <LoadingAlert visible={this.props.isLoading} />
           <Button

@@ -181,11 +181,7 @@ export default class CreateEvent extends React.Component {
 
     return (
       <View style={{flex: 1}}>
-        <Header
-          title={this.props.editMode ? _('editEvent') : _('createEvent')}
-          onClose={this.props.onClose}
-          hideSwitcher={true}
-        />
+        <Header title={this.props.editMode ? _('editEvent') : _('createEvent')} simple />
         <Wizard
           completeText={this.props.editMode ? _('save') : _('create')}
           onComplete={this.onComplete}

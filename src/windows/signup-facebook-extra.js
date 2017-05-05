@@ -94,11 +94,7 @@ class SignUpFacebookExtra extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Header
-          title={_('signupFacebook')}
-          hideSwitcher={true}
-        />
-
+        <Header title={_('signupFacebook')} simple />
         {/*<LoadingAlert visible={this.props.isLoading} />*/}
 
         <Form style={[StyleSheet.signup.style]}>

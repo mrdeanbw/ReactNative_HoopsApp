@@ -38,13 +38,7 @@ export default class ProfileEdit extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Header
-          onClose={this.props.onClose}
-          onBack={this.props.onBack}
-          title={_('profile')}
-          hideSwitcher={true}
-        />
-
+        <Header title={_('profile')} simple />
         <ScrollView contentContainerStyle={StyleSheet.padding}>
           <AvatarEdit
             onChange={(image) => this.setState({image})}

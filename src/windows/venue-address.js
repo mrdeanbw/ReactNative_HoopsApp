@@ -28,12 +28,7 @@ class VenueAddress extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Header
-          onClose={this.props.onClose}
-          onBack={this.props.onBack}
-          title={_('venueAddress')}
-          hideSwitcher={true}
-        />
+        <Header title={_('venueAddress')} simple />
         <View style={{flex: 0, height: 50}}>
           <TextInput
             type="search"

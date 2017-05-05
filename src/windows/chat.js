@@ -23,7 +23,7 @@ class Chat extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Header title={_('messages')} onBack={this.props.onBack} />
+        <Header title={_('messages')} simple />
         <GiftedChat
           messages={this.props.messages}
           onSend={this.props.onSend.bind(this)}

@@ -107,11 +107,7 @@ export default class Calendar extends React.Component {
 
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
-        <Header
-          onBack={this.props.onBack}
-          onClose={this.props.onClose}
-          title={_('calendar')}
-        />
+        <Header title={_('calendar')} simple />
         <View style={StyleSheet.calendar.monthSelector}>
           <TouchableHighlight
             underlayColor="transparent"
