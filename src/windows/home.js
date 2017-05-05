@@ -72,6 +72,8 @@ class Home extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Header
+          displayMode="simple"
+          back
           title={this.isOrganizing() ? _('activeEvents') :  _('nearbyEvents')}
         />
         <ScrollView
