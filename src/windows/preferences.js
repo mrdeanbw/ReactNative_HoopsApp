@@ -65,9 +65,9 @@ export default class Preferences extends React.Component {
 
         <ScrollView>
           <View style={[StyleSheet.flex, StyleSheet.doubleMarginBottom]}>
-            <Button type="preference" text={_('notifications')} icon="chevronRight" onPress={this.props.onPressNotifications} />
-            <Button type="preference" text={_('editAccount')} icon="chevronRight" onPress={this.props.onPressEditAccount} />
-            <Button type="preference" text={_('deviceInfo')} icon="chevronRight" onPress={this.props.onPressDeviceInfo} />
+            <Button type="preference" text={_('notifications')} icon="chevronRight" onPress={this.props.onPressNotifications}  iconStyle={StyleSheet.singlePadding}/>
+            <Button type="preference" text={_('editAccount')} icon="chevronRight" onPress={this.props.onPressEditAccount} iconStyle={StyleSheet.singlePadding}/>
+            <Button type="preference" text={_('deviceInfo')} icon="chevronRight" onPress={this.props.onPressDeviceInfo} iconStyle={StyleSheet.singlePadding}/>
             {/* TODO: enable currency switching
             <Button
               type="preference"

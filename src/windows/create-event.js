@@ -554,6 +554,7 @@ export default class CreateEvent extends React.Component {
                 icon="none" checkIcon="check"
                 checkedIconStyle={{backgroundColor: 'transparent'}}
                 uncheckedBorderColor={{borderColor: colors.pink}}
+                checkedBorderColor={{borderColor: colors.pink}}
                 checkedBackgroundColor={{backgroundColor: colors.pink}}
                 checked={this.state.eventDetails.allowContactInfo}
                 onChange={() => {
@@ -569,6 +570,7 @@ export default class CreateEvent extends React.Component {
                 icon="none" checkIcon="minus"
                 checkedIconStyle={{backgroundColor: 'transparent'}}
                 uncheckedBorderColor={{borderColor: colors.pink}}
+                checkedBorderColor={{borderColor: colors.pink}}
                 checkedBackgroundColor={{backgroundColor: colors.pink}}
                 uncheckedBackgroundColor={{backgroundColor: 'transparent'}}
                 checked={!!imageSrc}
