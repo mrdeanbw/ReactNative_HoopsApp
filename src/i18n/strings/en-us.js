@@ -260,7 +260,7 @@ export const postcode = 'Postcode'
 export const noAccount = 'NO ACCOUNT'
 
 export const addCard = 'Add Card'
-export const cardNumber = 'Credit Card Number'
+export const cardNumber = 'Payment Card Number'
 export const expiryMonth = 'MM'
 export const expiryYear = 'YY'
 export const cvc = 'CVC'
