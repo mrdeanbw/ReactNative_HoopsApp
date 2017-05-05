@@ -180,6 +180,9 @@ export default {
   "HILL_WALKING": {
     "name": "Hill Walking"
   },
+   "HOBBY_HORSING": {
+    "name": "Hobby Horsing"
+  },
   "HOCKEY": {
     "name": "Hockey"
   },
