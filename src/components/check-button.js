@@ -21,7 +21,7 @@ export default class CheckButton extends React.Component {
   render() {
     const {type, icon, checkIcon, checked, text, style, checkedStyle, containerStyle, uncheckedBorderColor, uncheckedBackgroundColor, checkedBackgroundColor, checkedBorderColor, checkedContainerStyle, iconStyle, checkedIconStyle, textStyle, checkedTextStyle, children, ...props} = this.props
 
-    const defaultButton = StyleSheet.buttons.check || {}
+    const defaultButton = StyleSheet.checkButtons.check || {}
     const button = type ? StyleSheet.buttons[type] || defaultButton : defaultButton
     const textTransform = button.textTransform || defaultButton.textTransform || (s => s)
 
@@ -61,10 +61,8 @@ export default class CheckButton extends React.Component {
           {!checked ?
           (<View style={ [defaultButton.checkedIconContainerStyle, uncheckedBorderColor, uncheckedBackgroundColor]} >
             {!checked && icon && <Icon name={icon} style={[defaultButton.iconStyle, button.iconStyle, iconStyle, checkedIconStyle, uncheckedBorderColor  ]}/>}
-            {checked && checkIcon && <Icon name={checkIcon} style={[defaultButton.iconStyle, defaultButton.checkedIconStyle, button.iconStyle, button.checkedIconStyle, iconStyle, checkedIconStyle]}/>}
           </View>) :
           (<View style={ [defaultButton.checkedIconContainerStyle, checkedBackgroundColor, checkedBorderColor ]} >
-            {!checked && icon && <Icon name={icon} style={[defaultButton.iconStyle, button.iconStyle, iconStyle]}/>}
             {checked && checkIcon && <Icon name={checkIcon} style={[defaultButton.iconStyle, defaultButton.checkedIconStyle, button.iconStyle, button.checkedIconStyle, iconStyle, checkedIconStyle]}/>}
           </View>)
           }

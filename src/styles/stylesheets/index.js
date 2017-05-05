@@ -3,6 +3,7 @@ export const base = _base
 
 import _actionButton from './action-button'
 import _buttons from './buttons'
+import _checkButtons from './check-buttons'
 import _calendar from './calendar'
 import _chat from './chat'
 import _dialog from './dialog'
@@ -37,6 +38,7 @@ import _window from './window'
 export default {
   actionButton: _actionButton,
   buttons: _buttons,
+  checkButtons: _checkButtons,
   calendar: _calendar,
   chat: _chat,
   deviceInfo: _deviceInfo,
