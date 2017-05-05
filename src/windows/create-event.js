@@ -548,8 +548,10 @@ export default class CreateEvent extends React.Component {
               <CheckButton
                 type="wizardCheck"
                 text={_('allowToSeeYourContactInfo')}
-                icon="none" checkIcon="checkActive"
+                icon="none" checkIcon="check"
                 checkedIconStyle={{backgroundColor: 'transparent'}}
+                uncheckedBorderColor={{borderColor: colors.pink}}
+                checkedBackgroundColor={{backgroundColor: colors.pink}}
                 checked={this.state.eventDetails.allowContactInfo}
                 onChange={() => {
                   this.setEventData({
