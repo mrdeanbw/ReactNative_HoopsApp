@@ -29,7 +29,7 @@ class Header extends Component {
     return (
       <View style={StyleSheet.window.titleBarStyle}>
 
-        {this.props.displayMode !== 'simple' && (
+        {!this.props.simple && (
           <View style={StyleSheet.window.logoBarStyle}>
             <Image source={StyleSheet.images.logo} style={StyleSheet.window.logoStyle} />
             <Button
@@ -45,21 +45,21 @@ class Header extends Component {
           </View>
         )}
 
-        {(this.props.title || this.props.back) && (
+        {this.props.title && (
           <View style={StyleSheet.window.crumbBar}>
-            {this.props.back && (
+
+            {this.props.simple && (
               <View style={[StyleSheet.window.accessoryBarStyle, {width: 32}]}>
                 <Button type="title" icon="back" onPress={this.props.onBack} />
               </View>
             )}
 
-            {this.props.title && (
-              <Text style={[StyleSheet.text, StyleSheet.window.crumbTextStyle]}>
-                {this.props.title.toUpperCase()}
-              </Text>
-            )}
+            <Text style={[StyleSheet.text, StyleSheet.window.crumbTextStyle]}>
+              {this.props.title.toUpperCase()}
+            </Text>
 
-            {this.props.back && (
+            {/*Spacer to match the back button*/}
+            {this.props.simple && (
               <View style={[StyleSheet.window.accessoryBarStyle, {width: 32}]} />
             )}
           </View>
@@ -70,9 +70,8 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  'displayMode': React.PropTypes.string,
   'title': React.PropTypes.string,
-  'displayBackButton': React.PropTypes.bool,
+  'simple': React.PropTypes.bool,
 }
 
 export default connect(
