@@ -64,7 +64,7 @@ class Notifications extends Component {
         )}
 
         <ListView
-          contentContainerStyle={StyleSheet.container}
+          contentContainerStyle={[StyleSheet.container]}
           dataSource={this.state.dataSource}
           enableEmptySections={true}
           renderRow={(rowData, sectionId, rowId) => {

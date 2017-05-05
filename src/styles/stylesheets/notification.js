@@ -74,11 +74,6 @@ export default StyleSheet => StyleSheet.extend({
     color: '#8e8e93',
     lineHeight: 18,
     textAlign: 'right',
-
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    zIndex: 1
   },
 
   freeIcon: {

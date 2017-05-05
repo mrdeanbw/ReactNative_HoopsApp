@@ -367,6 +367,7 @@ export default class CreateEvent extends React.Component {
                 minDate={new Date()}
                 onChange={(endDate) => this.setEventData({endDate})}
               />
+
               <View>
                 <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop, {alignSelf: 'center'}]}>
                   <Button type="roundedGrey" active={this.state.eventDetails.courtType === 'indoor'} text={_('indoor')} onPress={() => this.setEventData({courtType: 'indoor'})} style={{width: 110}}/>
@@ -374,13 +375,14 @@ export default class CreateEvent extends React.Component {
                   <Button type="roundedGrey" active={this.state.eventDetails.courtType === 'outdoor'} text={_('outdoor')} onPress={() => this.setEventData({courtType: 'outdoor'})} style={{width: 110}}/>
                 </View>
               </View>
-              <View>
+
+              {/* <View>
                 <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop, {alignSelf: 'center'}]}>
                   <Button type="roundedGrey" active={this.state.eventDetails.recurring === false} text={_('oneTime')} onPress={() => this.setEventData({recurring: false})} style={{width: 110}}/>
                   <Text style={[StyleSheet.text, StyleSheet.horizontalRule.textStyle, {flex: 1}]}>{_('or').toUpperCase()}</Text>
                   <Button type="roundedGrey" active={this.state.eventDetails.recurring === true} text={_('recurring')} onPress={() => this.setEventData({recurring: true})} style={{width: 110}}/>
                 </View>
-              </View>
+              </View>*/}
 
               {/*{this.state.eventDetails.recurring && (
                 <View style={[StyleSheet.doubleMarginTop, {flex:1, flexDirection: 'row'}]}>
@@ -437,6 +439,7 @@ export default class CreateEvent extends React.Component {
                         entryFee: entryFee === '' ? '' : parseInt(entryFee, 10)
                       })
                     }}
+                    textStyle={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}
                     style={{flex: 1, marginRight: 25}}
                     onFocus={() => {
                       this.scrollToInput('scrollView2', this.refs.costInput)
@@ -544,8 +547,11 @@ export default class CreateEvent extends React.Component {
               <CheckButton
                 type="wizardCheck"
                 text={_('allowToSeeYourContactInfo')}
-                icon="none" checkIcon="checkActive"
+                icon="none" checkIcon="check"
                 checkedIconStyle={{backgroundColor: 'transparent'}}
+                uncheckedBorderColor={{borderColor: colors.pink}}
+                checkedBorderColor={{borderColor: colors.pink}}
+                checkedBackgroundColor={{backgroundColor: colors.pink}}
                 checked={this.state.eventDetails.allowContactInfo}
                 onChange={() => {
                   this.setEventData({
@@ -560,6 +566,7 @@ export default class CreateEvent extends React.Component {
                 icon="none" checkIcon="minus"
                 checkedIconStyle={{backgroundColor: 'transparent'}}
                 uncheckedBorderColor={{borderColor: colors.pink}}
+                checkedBorderColor={{borderColor: colors.pink}}
                 checkedBackgroundColor={{backgroundColor: colors.pink}}
                 uncheckedBackgroundColor={{backgroundColor: 'transparent'}}
                 checked={!!imageSrc}

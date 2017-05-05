@@ -76,7 +76,7 @@ class Home extends React.Component {
           contentContainerStyle={StyleSheet.home.container}
           onLayout={(e) => this.setState({scrollHeight: e.nativeEvent.layout.height})}
         >
-          {!this.isOrganizing() && !this.state.showMap ?
+          {!this.isOrganizing() && !this.state.showMap && this.props.nearby.length === 0 ?
              (<Text style={StyleSheet.noResults}>{_('noEventsNearby')}</Text>) : null
           }
 

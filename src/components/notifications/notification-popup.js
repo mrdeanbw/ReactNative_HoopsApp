@@ -47,10 +47,6 @@ class NotificationPopup extends Component {
             </View>
 
             <View style={StyleSheet.notification.textContainer}>
-              <Text style={[StyleSheet.text, StyleSheet.notification.distance]}>
-                {moment(this.props.date).fromNow()}
-              </Text>
-
               <Text
                 style={[
                   StyleSheet.notification.text,
@@ -72,6 +68,11 @@ class NotificationPopup extends Component {
               >
                 {this.props.description}
               </Text>
+
+              <Text style={[StyleSheet.text, StyleSheet.notification.distance,]}>
+                {moment(this.props.date).fromNow()}
+              </Text>
+
             </View>
           </View>
         </TouchableHighlight>

@@ -390,3 +390,4 @@ export const genderPopupContent2 = "We’re all for blokes playing netball, but 
 export const ok = "OK"
 
 export const noEventsNearby = "No Events Nearby"
+export const noActivitiesSelected = "You have no activities selected"

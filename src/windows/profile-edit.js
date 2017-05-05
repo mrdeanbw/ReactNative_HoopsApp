@@ -102,6 +102,11 @@ export default class ProfileEdit extends React.Component {
           <Text style={[StyleSheet.text, StyleSheet.profile.fieldLabelText]}>
             {_('yourActivities')}
           </Text>
+
+          {this.props.interests.length === 0 ? (
+            <Text style={[StyleSheet.noResults, {backgroundColor: colors.window}]}>{_('noActivitiesSelected')}</Text>
+          ) : null}
+
           {this.props.interests && this.props.interests.map((interest, i) =>
             <CheckButton
               key={i}
@@ -120,6 +125,7 @@ export default class ProfileEdit extends React.Component {
             text={_('addAnotherActivity')}
             icon="plusGrey"
             onPress={this.onPressAddActivity}
+            textStyle={{paddingTop: 5}}
 
           />
         </ScrollView>

@@ -107,6 +107,10 @@ export default StyleSheet => StyleSheet.extend({
     paddingBottom: singlePadding ,
   },
 
+  singlePadding: {
+    padding: singlePadding,
+  },
+
   doublePaddingBottom: {
     paddingBottom: doublePadding,
   },

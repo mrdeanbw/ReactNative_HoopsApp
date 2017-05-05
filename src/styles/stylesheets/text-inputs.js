@@ -32,9 +32,10 @@ export default StyleSheet => StyleSheet.escape({
     },
 
     textContainerTextInput: {
-      flexDirection: 'row',
       flex: 1,
-      alignItems: 'flex-start',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center'
     },
   }),
 
