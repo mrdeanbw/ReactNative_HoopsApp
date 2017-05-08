@@ -38,6 +38,7 @@ export default (rootReducer) => {
   return store
 }
 
+
 /* Rehydration + Reducer Version */
 const updateReducers = (store) => {
   const reducerVersion = config.REDUCER_VERSION
