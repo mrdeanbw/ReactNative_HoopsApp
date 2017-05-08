@@ -1,3 +1,5 @@
+import {Platform} from 'react-native'
+
 import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
@@ -555,7 +557,8 @@ export default StyleSheet => StyleSheet.extend({
       height: 24,
       width: 145,
       flex: 0,
-      paddingBottom: 2,
+      paddingBottom: Platform.OS === 'ios' ? 0 : 2,
+      paddingTop:  Platform.OS === 'ios' ? 2 : 0,
     },
 
     textStyle: {

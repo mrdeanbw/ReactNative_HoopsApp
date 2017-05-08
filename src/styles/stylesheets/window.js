@@ -1,3 +1,5 @@
+import {Platform} from 'react-native'
+
 import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
@@ -22,7 +24,7 @@ export default StyleSheet => StyleSheet.extend({
   titleBarStyle: {
     backgroundColor: colors.black,
     alignItems: 'stretch',
-    paddingTop: 20,
+    paddingTop: Platform.OS === 'ios' ? 20 : 0,
   },
 
   logoBarStyle: {
@@ -35,7 +37,7 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   logoStyle: {
-    height: 32,
+    height: 36,
     width: 80,
     resizeMode: 'contain',
     marginRight: 12,
