@@ -38,7 +38,7 @@ class Header extends Component {
               text={
                 <HighlightText
                   style={[StyleSheet.text, StyleSheet.window.modeTextStyle]}
-                  highlightStyle={StyleSheet.window.modeHighlightTextStyle}
+                  highlightStyle={[StyleSheet.text, StyleSheet.window.modeTextStyle, StyleSheet.window.modeHighlightTextStyle]}
                   highlight={modeTextHighlight}
                   text={modeText} />}
             />

@@ -62,27 +62,16 @@ export default StyleSheet => StyleSheet.extend({
     backgroundColor: colors.pink,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingRight: 4,
   },
 
   modeTextStyle: {
     color: colors.white,
-    lineHeight: 17,
-    fontSize: 13
+    lineHeight: 13,
+    fontSize: 13,
   },
 
   modeHighlightTextStyle: {
     fontWeight: 'bold'
-  },
-
-  modeChevronStyle: {
-    position: 'absolute',
-    top: -4,
-    right: 19,
-    width: 20,
-    height: 20,
-    backgroundColor: colors.pink,
-    transform: [{rotate: '45deg'}],
   },
 
   titleStyle: {

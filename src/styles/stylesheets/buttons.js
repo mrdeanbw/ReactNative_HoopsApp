@@ -555,7 +555,7 @@ export default StyleSheet => StyleSheet.extend({
       height: 24,
       width: 145,
       flex: 0,
-      marginTop: 2,
+      paddingBottom: 2,
     },
 
     textStyle: {
