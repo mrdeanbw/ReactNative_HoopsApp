@@ -77,8 +77,8 @@ export default class Members extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Header
-          onBack={this.props.onBack}
-          onClose={this.props.onClose}
+          simple
+          title={_('members')}
         />
         <MemberOptions
           visible={!!this.state.popupOptionsMember}
