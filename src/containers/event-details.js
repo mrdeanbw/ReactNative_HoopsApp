@@ -115,7 +115,7 @@ class EventDetails extends React.Component {
           this.props.onPressQuit(this.props.id)
         }}
         onPressViewList={() => {
-          this.props.onDeepLinkTab('myEvents', 'myEvents')
+          this.props.onNavigate('eventMembers', {id: this.props.id})
         }}
         onPressInvite={() => {
           this.props.onNavigate('eventInvites', {id: event.id})
