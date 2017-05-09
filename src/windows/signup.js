@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form'  // Field Component and reduxForm 
 
 import {AddressInput, Button, HorizontalRule, TextInput, DateInput, Form, Header, LoadingAlert, AvatarEdit, Popup} from '../components'
 import StyleSheet from '../styles'
+import {colors} from '../styles/resources'
 import _ from '../i18n'
 
 
@@ -43,6 +44,8 @@ const validate = values => {
   if (!values.dob) {
     errors.dob = 'Required'
   }
+
+  console.log('validate function', values)
 
   return errors
 }
@@ -83,14 +86,17 @@ const renderTextInput = ({
       }) => {
   return (
     <View>
-      <TextInput
+      {touched &&  ((error &&
+      <View>
+        <Text style={StyleSheet.signup.errorText}>{error}</Text>
+        <TextInput
             value={value}
             onChangeText={onChange}
             type={type}
             ref={ref}
             error={errors}
             placeholder={placeholder}
-            style={style}
+            style={[style,{borderBottomColor: colors.pink, backgroundColor:}]}
             autoCapitalize={autoCapitalize}
             autoCorrect={autoCorrect}
             textStyle={textStyle}
@@ -106,7 +112,33 @@ const renderTextInput = ({
             rightBar={rightBar}
             keyboardType={keyboardType}
           />
-      {touched && ((error && <Text>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+        </View>) || (warning && <Text>{warning}</Text>))
+      ||
+      <View>
+        <TextInput
+            value={value}
+            onChangeText={onChange}
+            type={type}
+            ref={ref}
+            error={errors}
+            placeholder={placeholder}
+            style={[style, ]}
+            autoCapitalize={autoCapitalize}
+            autoCorrect={autoCorrect}
+            textStyle={textStyle}
+            autoFocus={autoFocus}
+            returnKeyType={returnKeyType}
+            selectTextOnFocus={selectTextOnFocus}
+            enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
+            onSubmitEditing={onSubmitEditing}
+            icon={icon}
+            secureTextEntry={secureTextEntry}
+            clearTextOnFocus={clearTextOnFocus}
+            multiline={multiline}
+            rightBar={rightBar}
+            keyboardType={keyboardType}
+          />
+        </View>}
     </View>
 
   )
@@ -122,17 +154,19 @@ const renderAdressInput = ({
       }) => {
   return (
     <View>
+      {touched && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
       <AddressInput
             icon={icon}
             value={value}
             placeholder={placeholder}
             onSelect={onChange}
            />
-      {touched && ((error && <Text>{error}</Text>) || (warning && <Text>{warning}</Text>))}
     </View>
 
   )
 }
+
+
 //DateInput component for redux Field
 const renderDateInput = ({
         input: { onChange, ...restInput },
@@ -150,6 +184,7 @@ const renderDateInput = ({
       }) => {
   return (
     <View>
+      {touched && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
       <DateInput
           ref={ref}
           placeholder={placeholder}
@@ -163,7 +198,6 @@ const renderDateInput = ({
           barStyle={barStyle}
           rightBar={rightBar}
         />
-      {touched && ((error && <Text>{error}</Text>) || (warning && <Text>{warning}</Text>))}
     </View>
 
   )
@@ -283,7 +317,7 @@ class SignUp extends Component {
             type="flat"
             ref="name"
             placeholder={_('name')}
-            style={[StyleSheet.halfMarginBottom ]}
+            style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}
             textStyle={androidMatchFontSize}

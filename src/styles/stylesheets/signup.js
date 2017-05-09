@@ -16,7 +16,6 @@ export default StyleSheet => StyleSheet.extend({
     paddingTop: 10,
     color: colors.pink,
     fontSize: 12,
-    textAlign: 'center',
   },
 
   separator: {
