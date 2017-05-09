@@ -6,6 +6,7 @@ import _ from '../i18n'
 import {Button,TextInput,DateInput,ListInput,Icon,Header} from '../components'
 import StyleSheet from '../styles'
 import {autocomplete, getPlace} from '../data/google-places'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 export default class Search extends React.Component {
 
@@ -290,7 +291,6 @@ export default class Search extends React.Component {
                 selectTextOnFocus={true}
                 enablesReturnKeyAutomatically={true}
                 icon="city"
-                onSubmitEditing={() => this.onSubmitEditing("phone")}
               />
 
               <Text style={[StyleSheet.text, StyleSheet.search.titleTextStyle]}>{_('searchRadius')}</Text>
@@ -306,6 +306,7 @@ export default class Search extends React.Component {
               </Text>
             </View>
           )}
+          <KeyboardSpacer/>
         </ScrollView>
 
         {this.state.tab === 'events' && (
