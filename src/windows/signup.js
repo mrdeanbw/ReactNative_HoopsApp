@@ -29,8 +29,8 @@ const validate = values => {
   //Password validation
   if (!values.password) {
     errors.password = 'Required'
-  } else if (values.password.length < 8) {
-    errors.password = 'weak password. Must be at least 8 charakters.'
+  } else if (values.password.length < 6) {
+    errors.password = 'Password  must be at least 6 charakters.'
   }
   //phone validation
   if (!values.phone) {
@@ -41,8 +41,17 @@ const validate = values => {
     errors.address = 'Required'
   }
   //dob validation
+  let  today = new Date()
+
   if (!values.dob) {
     errors.dob = 'Required'
+  } else if (values.dob >= today) {
+      errors.dob = 'Invalid date of birth'
+  }
+
+  //address validation
+  if (!values.gender) {
+    errors.gender = 'Required'
   }
 
   console.log('validate function', values)
@@ -60,7 +69,7 @@ const warn = values => {
 }
 //TextInput component for redux Field
 const renderTextInput = ({
-        input: { onChange, ...restInput },
+        input: { onChange, dirty,invalid, active,  ...restInput },
         value,
         onChangeText,
         type,
@@ -86,17 +95,16 @@ const renderTextInput = ({
       }) => {
   return (
     <View>
-      {touched &&  ((error &&
-      <View>
-        <Text style={StyleSheet.signup.errorText}>{error}</Text>
-        <TextInput
+      {touched &&  ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+      {active  &&  ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+      <TextInput
             value={value}
             onChangeText={onChange}
             type={type}
             ref={ref}
             error={errors}
             placeholder={placeholder}
-            style={[style,{borderBottomColor: colors.pink, backgroundColor:}]}
+            style={[style, {invalid }]}
             autoCapitalize={autoCapitalize}
             autoCorrect={autoCorrect}
             textStyle={textStyle}
@@ -112,54 +120,29 @@ const renderTextInput = ({
             rightBar={rightBar}
             keyboardType={keyboardType}
           />
-        </View>) || (warning && <Text>{warning}</Text>))
-      ||
-      <View>
-        <TextInput
-            value={value}
-            onChangeText={onChange}
-            type={type}
-            ref={ref}
-            error={errors}
-            placeholder={placeholder}
-            style={[style, ]}
-            autoCapitalize={autoCapitalize}
-            autoCorrect={autoCorrect}
-            textStyle={textStyle}
-            autoFocus={autoFocus}
-            returnKeyType={returnKeyType}
-            selectTextOnFocus={selectTextOnFocus}
-            enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
-            onSubmitEditing={onSubmitEditing}
-            icon={icon}
-            secureTextEntry={secureTextEntry}
-            clearTextOnFocus={clearTextOnFocus}
-            multiline={multiline}
-            rightBar={rightBar}
-            keyboardType={keyboardType}
-          />
-        </View>}
     </View>
 
   )
 }
 //Address Input component for redux Field
 const renderAdressInput = ({
-        input: { onChange, ...restInput },
+        input: { onChange, value, ...restInput },
         icon,
-        value,
         placeholder,
         onSelect,
+        textStyles,
         meta: { touched, error, warning }
       }) => {
   return (
+
     <View>
       {touched && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
       <AddressInput
             icon={icon}
-            value={value}
             placeholder={placeholder}
+            value={value.description}
             onSelect={onChange}
+            textStyles={textStyles}
            />
     </View>
 
@@ -169,7 +152,7 @@ const renderAdressInput = ({
 
 //DateInput component for redux Field
 const renderDateInput = ({
-        input: { onChange, ...restInput },
+        input: { onChange, value, ...restInput },
           ref,
           placeholder,
           type,
@@ -177,7 +160,6 @@ const renderDateInput = ({
           date,
           time,
           minDate,
-          value,
           barStyle,
           rightBar,
           meta: { touched, error, warning }
@@ -202,6 +184,36 @@ const renderDateInput = ({
 
   )
 }
+
+const GenderInput = ({
+      input: { value, onChange },
+      onPressInfoIcon,
+      crossPlatformLeftPosition,
+      maleActive,
+      femaleActive,
+      meta: { touched, error, warning }
+     }) => {
+    return (
+      <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
+      {touched && ((error && <Text style={[StyleSheet.signup.errorText]}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+        <View style={StyleSheet.signup.genderLabelContainer}>
+          <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
+          <Button
+                style={[StyleSheet.signup.genderInfoIcon, crossPlatformLeftPosition]}
+                type="disclosure"
+                icon="info"
+                onPress={onPressInfoIcon}/>
+        </View>
+        <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
+          <Button type="image" icon="male" active={value === 'male'} onPress={() => onChange('male') }/>
+          <View style={StyleSheet.buttons.separator} />
+          <Button type="image" icon="female" active={value === 'female'} onPress={() => onChange('female')}/>
+        </View>
+
+      </View>
+
+    )
+  }
 
 // -- -- -- -- -- -- redux-form validation staff  << END >>-- -- -- -- -- -- --
 
@@ -405,10 +417,10 @@ class SignUp extends Component {
 
           <Field
             name="address"
-            value={this.value}
             component={renderAdressInput}
             icon
             placeholder={_('city')}
+            textStyles={{color: colors.black}}
            />
 
           <Field
@@ -432,28 +444,15 @@ class SignUp extends Component {
             onPressOk={() => this.setState({showGenderInfoPopup: false})}
           />
 
-          <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
-            <View style={StyleSheet.signup.genderLabelContainer}>
-              <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
-              <Button
-                style={[StyleSheet.signup.genderInfoIcon, crossPlatformLeftPosition]}
-                type="disclosure"
-                icon="info"
-                onPress={() => this.setState({showGenderInfoPopup: true})}/>
-            </View>
-            <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
-              <Button type="image" icon="male" active={this.state.gender === 'male'} onPress={this.onPressMale}/>
-              <View style={StyleSheet.buttons.separator} />
-              <Button type="image" icon="female" active={this.state.gender === 'female'} onPress={this.onPressFemale}/>
-            </View>
-          </View>
+          <Field
+            name="gender"
+            component={GenderInput}
+            crossPlatformLeftPosition={crossPlatformLeftPosition}
+            onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
+          />
 
           <TouchableOpacity disabled={submitting} onPress={handleSubmit(this.submit)}>
             <Text >Submit</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity disabled={pristine || submitting} onPress={reset}>
-            <Text >Clear Values</Text>
           </TouchableOpacity>
 
           <KeyboardSpacer />
