@@ -53,7 +53,7 @@ class PaymentsBankSetup extends Component {
   }
 
   render() {
-    let numberError, monthError, yearError, cvcError
+    let formError, numberError, monthError, yearError, cvcError
 
     if (this.props.error) {
       const errorComponent = (
@@ -75,6 +75,9 @@ class PaymentsBankSetup extends Component {
         case 'cvc':
           cvcError = errorComponent
           break
+        default:
+          formError = errorComponent
+          break
       }
     }
 
@@ -83,6 +86,12 @@ class PaymentsBankSetup extends Component {
         <Header title={_('paymentOptions')} simple />
         <Form style={{flex: 1}}>
           <LoadingAlert visible={this.props.isLoading}/>
+
+          {formError && (
+            <View style={StyleSheet.padding}>
+              {formError}
+            </View>
+          )}
 
           <View style={StyleSheet.padding}>
             {numberError}

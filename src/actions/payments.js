@@ -3,6 +3,7 @@ import qs from 'qs'
 
 import Config from '../config'
 import inflateEvent from '../data/inflaters/event'
+import {getApiError} from '../utils'
 import actionTypes, {navigationActions} from './'
 
 const paymentApi = axios.create({
@@ -126,9 +127,14 @@ export const createCard = (data) => {
 
       dispatch(navigationActions.pop())
     } catch(err) {
+      const error = getApiError(err.response)
+
       dispatch({
         type: actionTypes.PAYMENTS_ADD_CARD_ERROR,
-        err,
+        err: {
+          param: null,
+          message: error,
+        },
       })
     }
   }
