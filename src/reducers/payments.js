@@ -96,6 +96,7 @@ export default handleActions({
         addressLine2: legal.address.line2,
         city: legal.address.city,
         postcode: legal.address.postal_code,
+        verification: legal.verification,
       },
       isFetchingAccount: false,
     }

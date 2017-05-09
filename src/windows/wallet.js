@@ -15,23 +15,29 @@ class Wallet extends Component {
     const infoContainer = StyleSheet.profile.infoContainer
 
     return (
-
-      <View style={{flex: 1,}}>
-
+      <View style={{flex: 1}}>
         <Header title={_('myWallet')} />
-
         <View style={StyleSheet.padding}>
           <LoadingAlert visible={this.props.isLoading} />
 
-          <View style={infoContainer}>
-              <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
-                Money will be paid out on a weekly basis
-              </Text>
-              <Icon name="info" />
-          </View>
-
           {account && account.accountNumber ? (
             <ScrollView>
+              <View style={infoContainer}>
+                <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
+                  Money will be paid out on a weekly basis
+                </Text>
+                <Icon name="info" />
+              </View>
+
+              {account.verification && (
+                <View style={infoContainer}>
+                  <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
+                    {account.verification.details}
+                  </Text>
+                  <Icon name="info" />
+                </View>
+              )}
+
               <Text style={titleStyle}>{_('firstName')}</Text>
               <Text style={detailStyle}>{account.firstName}</Text>
 
@@ -60,10 +66,7 @@ class Wallet extends Component {
             <Text style={StyleSheet.payments.noCardsText}>{_('noAccount')}</Text>
           )}
         </View>
-
       </View>
-
-
     )
   }
 }
