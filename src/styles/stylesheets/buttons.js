@@ -1,3 +1,5 @@
+import {Platform} from 'react-native'
+
 import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
@@ -272,7 +274,7 @@ export default StyleSheet => StyleSheet.extend({
       flex: 0,
       width: null,
       height: null,
-      paddingTop: 10,
+      paddingTop: 14,
       paddingBottom: 10,
       paddingLeft: 5,
       paddingRight: 5
@@ -548,16 +550,21 @@ export default StyleSheet => StyleSheet.extend({
     underlayColor: colors.highlightPink,
 
     style: {
-      position: 'absolute',
-      top: 13,
-      right: 15.5,
-      width: 28,
-      height: 28,
       borderRadius: 14,
       backgroundColor: colors.pink,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      height: 24,
+      width: 145,
+      flex: 0,
+      paddingBottom: Platform.OS === 'ios' ? 0 : 2,
+      paddingTop:  Platform.OS === 'ios' ? 2 : 0,
+    },
+
+    textStyle: {
+      letterSpacing: 0,
     }
+
   }),
 
   headerAction: StyleSheet.extend({

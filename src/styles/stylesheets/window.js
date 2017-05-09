@@ -1,17 +1,14 @@
+import {Platform} from 'react-native'
+
 import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
 
   accessoryBarStyle: {
-    position: 'absolute',
-    zIndex: 1,
-    left: 3,
-    top: 4,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'flex-start',
     flexDirection: 'row',
-    paddingLeft: 5,
-    paddingRight: 5
+    padding: 0,
   },
 
   style: {
@@ -26,69 +23,57 @@ export default StyleSheet => StyleSheet.extend({
 
   titleBarStyle: {
     backgroundColor: colors.black,
-    paddingTop: 20,
-    alignItems: 'stretch'
+    alignItems: 'stretch',
+    paddingTop: Platform.OS === 'ios' ? 20 : 0,
   },
 
   logoBarStyle: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    marginLeft: 16,
+    marginRight: 12,
     alignItems: 'center',
-    height: 55
+    height: 56,
   },
 
   logoStyle: {
-    height: 32,
-    width: 200,
-    resizeMode: 'contain'
+    height: 36,
+    width: 80,
+    resizeMode: 'contain',
+    marginRight: 12,
   },
 
-  mainBar: {
-    height: 32,
-    flexDirection: 'row',
-  },
-  mainPartialBar: {
-    height: 50,
-    flexDirection: 'row',
-  },
   crumbBar: {
-    flex: 1,
+    height: 38,
+    flexDirection: 'row',
+    backgroundColor: '#3B404A',
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingLeft: 4,
+    justifyContent: 'flex-start',
+    paddingHorizontal: 4,
   },
   crumbTextStyle: {
     color: colors.white,
     lineHeight: 17,
     fontSize: 13,
     fontWeight: 'bold',
+    textAlign: 'center',
+    flex: 1,
   },
   modeBarStyle: {
     flex: 1,
     backgroundColor: colors.pink,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingRight: 4,
   },
 
   modeTextStyle: {
     color: colors.white,
-    lineHeight: 17,
-    fontSize: 13
+    lineHeight: 13,
+    fontSize: 13,
   },
 
   modeHighlightTextStyle: {
     fontWeight: 'bold'
-  },
-
-  modeChevronStyle: {
-    position: 'absolute',
-    top: -4,
-    right: 19,
-    width: 20,
-    height: 20,
-    backgroundColor: colors.pink,
-    transform: [{rotate: '45deg'}],
   },
 
   titleStyle: {

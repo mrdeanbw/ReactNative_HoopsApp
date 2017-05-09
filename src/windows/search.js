@@ -164,11 +164,7 @@ export default class Search extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Header
-          onClose={this.props.onClose}
-          title={_('search')}
-          hideSwitcher={true}
-        />
+        <Header title={_('search')} simple />
         <View style={StyleSheet.buttons.bar}>
           <Button type="top" text={_('events')} active={this.state.tab === 'events'} onPress={() => this.setState({ tab: 'events' })} />
           <Button type="top" text={_('general')} active={this.state.tab === 'general'} onPress={() => this.setState({ tab: 'general' })} />

@@ -9,12 +9,7 @@ export default class ActivitiesSelect extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Header
-          onClose={this.props.onClose}
-          onBack={this.props.onBack}
-          title={_('activities')}
-          hideSwitcher={true}
-        />
+        <Header title={_('activities')} simple />
         <ListSelect
           rows={this.props.rows}
           onSelect={this.props.onSelect}

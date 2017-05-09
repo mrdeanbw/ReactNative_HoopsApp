@@ -16,17 +16,7 @@ export default class SearchResults extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Header
-          title={_('searchResults')}
-          onClose={this.props.onClose}
-          onBack={this.props.onBack}
-          actionButtonType="headerAction"
-          actionButton={this.state.showMap ? 'list' : 'pinWhite'}
-          onActionPress={() => {
-            this.setState({showMap: !this.state.showMap})
-          }}
-        />
-
+        <Header title={_('searchResults')} simple />
         {this.props.events.length === 0 ? (
           <Text style={StyleSheet.noResults}>{_('noEventsNearby')}</Text>
           ) : null

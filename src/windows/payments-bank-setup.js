@@ -58,13 +58,7 @@ class PaymentsBankSetup extends Component {
 
     return (
       <View style={{flex: 1}}>
-        <Header
-          onClose={this.props.onClose}
-          onBack={this.props.onBack}
-          title={_('paymentOptions')}
-          hideSwitcher={true}
-          onClose={this.props.onClose}
-        />
+        <Header title={_('paymentOptions')} simple />
         <Form style={[{flex: 1}, StyleSheet.padding]}>
           <LoadingAlert visible={this.props.isLoading}/>
 

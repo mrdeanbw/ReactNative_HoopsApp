@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, Image, ScrollView, Linking} from 'react-native'
+import {View, Text, ScrollView, Linking} from 'react-native'
 import moment from 'moment'
 
 import {Avatar, Header, Popup, Button, EventListItem} from '../components'
@@ -30,10 +30,7 @@ export default class Profile extends React.Component {
 
     return (
       <View style={{flex: 1}}>
-        <Header
-          onClose={this.props.onClose}
-          onBack={this.props.onBack}
-        />
+        <Header title={_('profile')} simple />
         <Popup
           visible={this.state.showContactPopup}
           onClose={() => this.setState({showContactPopup: false})}

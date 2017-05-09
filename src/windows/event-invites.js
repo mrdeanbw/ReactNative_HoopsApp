@@ -52,7 +52,7 @@ export default class EventInvites extends React.Component {
 
     return (
       <View style={{flex: 1}} currentTab="manage">
-        <Header onBack={this.props.onBack} onClose={this.props.onClose} />
+        <Header title={_('invite')} simple />
         <View style={{flex: 0, height: 50}}>
           <TextInput
             type="search"
