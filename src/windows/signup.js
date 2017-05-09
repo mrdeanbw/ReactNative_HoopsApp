@@ -32,10 +32,12 @@ const validate = values => {
   } else if (values.password.length < 6) {
     errors.password = 'Password  must be at least 6 charakters.'
   }
+/*
   //phone validation
   if (!values.phone) {
     errors.phone = 'Required'
   }
+*/
   //address validation
   if (!values.address) {
     errors.address = 'Required'
@@ -93,10 +95,17 @@ const renderTextInput = ({
         keyboardType,
         meta: { touched, error, warning }
       }) => {
+
+let borderStyleOnError = null
+let textStyleOnError = null
+
+touched && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
+touched && error ? textStyleOnError = { color: colors.pink} : null
+
   return (
     <View>
       {touched &&  ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
-      {active  &&  ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+
       <TextInput
             value={value}
             onChangeText={onChange}
@@ -104,10 +113,10 @@ const renderTextInput = ({
             ref={ref}
             error={errors}
             placeholder={placeholder}
-            style={[style, {invalid }]}
+            style={[style, borderStyleOnError]}
             autoCapitalize={autoCapitalize}
             autoCorrect={autoCorrect}
-            textStyle={textStyle}
+            textStyle={[textStyle, textStyleOnError]}
             autoFocus={autoFocus}
             returnKeyType={returnKeyType}
             selectTextOnFocus={selectTextOnFocus}
@@ -126,15 +135,19 @@ const renderTextInput = ({
 }
 //Address Input component for redux Field
 const renderAdressInput = ({
-        input: { onChange, value, ...restInput },
+        input: { onChange, value, dirty, ...restInput },
         icon,
         placeholder,
         onSelect,
         textStyles,
         meta: { touched, error, warning }
       }) => {
-  return (
 
+let setColor = null
+
+!error ? setColor = {color: "black"} : null
+
+  return (
     <View>
       {touched && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
       <AddressInput
@@ -142,13 +155,13 @@ const renderAdressInput = ({
             placeholder={placeholder}
             value={value.description}
             onSelect={onChange}
-            textStyles={textStyles}
+            textStyles={[textStyles]}
+            textColor={setColor}
            />
     </View>
 
   )
 }
-
 
 //DateInput component for redux Field
 const renderDateInput = ({
@@ -164,6 +177,11 @@ const renderDateInput = ({
           rightBar,
           meta: { touched, error, warning }
       }) => {
+let borderStyleOnError = null
+let textStyleOnError = null
+
+touched && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
+touched && error ? textStyleOnError = { color: colors.pink} : null
   return (
     <View>
       {touched && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
@@ -174,6 +192,7 @@ const renderDateInput = ({
           icon={icon}
           date={date}
           time={time}
+          errorStyles={[borderStyleOnError, textStyleOnError]}
           minDate={minDate}
           value={value}
           onChange={onChange}
@@ -293,7 +312,7 @@ class SignUp extends Component {
     const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
     const crossPlatformLeftPosition = Platform.OS === 'ios' ? StyleSheet.leftSmaller : StyleSheet.leftBigger
 
-    const { handleSubmit, pristine, reset, submitting } = this.props    // redux-form functions
+    const { handleSubmit, submitting } = this.props    // redux-form functions
 
     return (
       <View style={{flex: 1}}>
@@ -420,7 +439,7 @@ class SignUp extends Component {
             component={renderAdressInput}
             icon
             placeholder={_('city')}
-            textStyles={{color: colors.black}}
+            textStyles={{color: "black"}}
            />
 
           <Field
