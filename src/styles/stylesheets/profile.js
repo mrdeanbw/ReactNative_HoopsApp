@@ -1,5 +1,6 @@
 
 import {colors} from '../resources'
+import { Platform } from 'react-native'
 
 export default StyleSheet => StyleSheet.extend({
 
@@ -34,7 +35,7 @@ export default StyleSheet => StyleSheet.extend({
 
   nameTextStyle: {
     fontSize: 18,
-    lineHeight: 18,
+    lineHeight: Platform.OS === 'ios' ? 18 : 21,
     fontWeight: 'bold',
     color: colors.black
   },
@@ -50,7 +51,7 @@ export default StyleSheet => StyleSheet.extend({
 
   locationTextStyle: {
     fontSize: 12,
-    lineHeight: 12,
+    lineHeight: Platform.OS === 'ios' ? 12 : 15,
     marginTop: 5,
     marginBottom: 5,
     color: '#8e8e93'
