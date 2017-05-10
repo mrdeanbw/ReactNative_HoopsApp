@@ -41,7 +41,7 @@ export default StyleSheet => StyleSheet.extend({
   titleTextStyle: {
     fontSize: 21,
     fontWeight: 'bold',
-    lineHeight: 23,
+    lineHeight: 26,
     color: colors.white,
     textShadowRadius: 6,
     textShadowOffset: { width: 0, height: 2 },
