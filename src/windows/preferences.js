@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, ScrollView, Linking} from 'react-native'
 
-import {Window, Button, Popup, Header} from '../components'
+import {Window, Button, Popup, Header, Platform} from '../components'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
@@ -91,7 +91,7 @@ export default class Preferences extends React.Component {
 
           <View style={StyleSheet.singleMargin}>
             <Button type="preferenceLink" text={_('sendFeedback')} onPress={this.onPressSendFeedback} />
-            <Button type="preferenceLink" text={_('privacy')} onPress={this.onPressPrivacy} />
+            <Button textStyle={{lineHeight: 18}} type="preferenceLink" text={_('privacy')} onPress={this.onPressPrivacy} />
             {/* TODO: enable deactivate account functionality
             <Button type="preferenceHighlightLink" text={_('deactivateAccount')} onPress={this.onPressDeactivateAccount} />
             */}

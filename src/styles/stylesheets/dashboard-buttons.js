@@ -1,3 +1,5 @@
+import {Platform} from 'react-native'
+
 export default StyleSheet => StyleSheet.extend({
   container: {
     flex: 1,
@@ -35,7 +37,7 @@ export default StyleSheet => StyleSheet.extend({
     color: '#ffffff',
     fontWeight: '500',
     fontSize: 18,
-    lineHeight: 18,
+    lineHeight: Platform.OS === 'ios' ? 18 : 21,
   },
   textTransform: s => s
 })
