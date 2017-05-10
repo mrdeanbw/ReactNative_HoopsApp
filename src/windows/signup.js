@@ -1,77 +1,19 @@
 import React, {Component} from 'react'
 import {View, Text, Platform, TouchableOpacity} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
-import { Field, reduxForm } from 'redux-form'  // Field Component and reduxForm function (instead if connect() function ) need to be imported from redux-form
+import { Field, reduxForm } from 'redux-form'  // Field Component and reduxForm function  need to be imported from redux-form
 
 import {AddressInput, Button, HorizontalRule, TextInput, DateInput, Form, Header, LoadingAlert, AvatarEdit, Popup} from '../components'
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
 import _ from '../i18n'
-
+import {validate, warn} from '../config/validation'
 
 // -- -- -- -- -- -- redux-form validation staff  << BEGIN >>-- -- -- -- -- -- --
 
- // passing values into validation function
-const validate = values => {
-  const errors = {}
-  // Name validation
-  if (!values.name) {
-    errors.name = 'Required'
-  } else if (values.name.length > 15) {
-    errors.name = 'Must be 15 characters or less'
-  }
-  //Email validation
-  if (!values.email) {
-    errors.email = 'Required'
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
-  }
-  //Password validation
-  if (!values.password) {
-    errors.password = 'Required'
-  } else if (values.password.length < 6) {
-    errors.password = 'Password  must be at least 6 charakters.'
-  }
-/*
-  //phone validation
-  if (!values.phone) {
-    errors.phone = 'Required'
-  }
-*/
-  //address validation
-  if (!values.address) {
-    errors.address = 'Required'
-  }
-  //dob validation
-  let  today = new Date()
-
-  if (!values.dob) {
-    errors.dob = 'Required'
-  } else if (values.dob >= today) {
-      errors.dob = 'Invalid date of birth'
-  }
-
-  //address validation
-  if (!values.gender) {
-    errors.gender = 'Required'
-  }
-
-  console.log('validate function', values)
-
-  return errors
-}
-
- // passing values into warning function
-const warn = values => {
-  const warnings = {}
-  if (values.age < 19) {
-    warnings.age = 'Hmm, you seem a bit young...'
-  }
-  return warnings
-}
 //TextInput component for redux Field
 const renderTextInput = ({
-        input: { onChange, dirty,invalid, active,  ...restInput },
+        input: { onChange, ...restInput },
         value,
         onChangeText,
         type,
@@ -93,19 +35,18 @@ const renderTextInput = ({
         multiline,
         rightBar,
         keyboardType,
-        meta: { touched, error, warning }
+        meta: { touched, error, warning, dirty,invalid, }
       }) => {
 
 let borderStyleOnError = null
 let textStyleOnError = null
 
-touched && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
-touched && error ? textStyleOnError = { color: colors.pink} : null
+touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
+touched || dirty ? textStyleOnError = { color: colors.pink} : null
 
   return (
     <View>
-      {touched &&  ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
-
+      {  (touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
       <TextInput
             value={value}
             onChangeText={onChange}
@@ -175,16 +116,16 @@ const renderDateInput = ({
           minDate,
           barStyle,
           rightBar,
-          meta: { touched, error, warning }
+          meta: { touched, error, warning, dirty }
       }) => {
 let borderStyleOnError = null
 let textStyleOnError = null
 
-touched && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
-touched && error ? textStyleOnError = { color: colors.pink} : null
+touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
+touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
   return (
     <View>
-      {touched && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+      {dirty && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
       <DateInput
           ref={ref}
           placeholder={placeholder}
@@ -203,7 +144,20 @@ touched && error ? textStyleOnError = { color: colors.pink} : null
 
   )
 }
-
+//AvatarInput component for redux Field
+const AvatarInput = ({
+      input: { value, onChange },
+      meta: { touched, error, warning }
+     }) => {
+    return (
+      <AvatarEdit
+            onChange={onChange}
+            imageUrl={value}
+            style={StyleSheet.singleMargin}
+        />
+    )
+  }
+//GenderInput component for redux Field
 const GenderInput = ({
       input: { value, onChange },
       onPressInfoIcon,
@@ -228,7 +182,6 @@ const GenderInput = ({
           <View style={StyleSheet.buttons.separator} />
           <Button type="image" icon="female" active={value === 'female'} onPress={() => onChange('female')}/>
         </View>
-
       </View>
 
     )
@@ -256,41 +209,19 @@ class SignUp extends Component {
     }
   }
 
-
   submit = values => {
-    console.log('No Errors form submitted with values: ', values,)
- /* this.props.onSignUp(values.email, values.password, {
+    this.props.onSignUp(values.email, values.password, {
       name: values.name,
       dob: values.dob,
+      gender: values.gender,
       city: values.address.description,
       cityGooglePlaceId: values.address.place_id,
       image: values.image,
-    })*/
-  }
-
-  onPressSignUp = () => {
-    this.props.onSignUp(this.state.email, this.state.password, {
-      name: this.state.name,
-      dob: this.state.dob,
-      gender: this.state.gender,
-      city: this.state.city.description,
-      cityGooglePlaceId: this.state.city.place_id,
-      image: this.state.image,
     })
   }
 
   onPressFacebookConnect = () => {
     this.props.onFacebookSignUp()
-  }
-
-  getPasswordValidationError() {
-    const errorCode = this.props.signUpError && this.props.signUpError.code
-
-    const passwordError = [
-      'auth/weak-password',
-    ].indexOf(errorCode) !== -1
-
-    return passwordError
   }
 
 
@@ -309,7 +240,7 @@ class SignUp extends Component {
     const { handleSubmit, valid, invalid } = this.props    // redux-form meta props
 
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1}} onPress={handleSubmit}>
         <Header
           title={_('signup')}
           hideSwitcher={true}
@@ -324,18 +255,14 @@ class SignUp extends Component {
             text={_('facebookConnect')}
             onPress={this.onPressFacebookConnect}
           />
-
           <HorizontalRule
             text={_('or')}
             style={StyleSheet.doubleMarginTop}
           />
-
-          <AvatarEdit
-            onChange={(image) => this.setState({image})}
-            imageUrl={this.state.image || this.state.imageUrl}
-            style={StyleSheet.singleMargin}
+          <Field
+            name="image"
+            component={AvatarInput}
           />
-
           <Field
             name="name"
             component={renderTextInput}
@@ -352,14 +279,12 @@ class SignUp extends Component {
             enablesReturnKeyAutomatically={true}
             icon="name"
           />
-
           {errorCode === 'auth/email-already-in-use' && (
             <Text style={StyleSheet.signup.errorText}>Email already used</Text>
           )}
           {errorCode === 'auth/invalid-email' && (
             <Text style={StyleSheet.signup.errorText}>Invalid email</Text>
           )}
-
           <Field
             name="email"
             component={renderTextInput}
@@ -377,7 +302,6 @@ class SignUp extends Component {
             keyboardType="email-address"
             icon="email"
           />
-
           <Field
             name="password"
             component={renderTextInput}
@@ -401,7 +325,6 @@ class SignUp extends Component {
               onPress={() => this.setState({showPassword: !this.state.showPassword})}
             />}
           />
-
           <Field
             name="dob"
             component={renderDateInput}
@@ -422,12 +345,10 @@ class SignUp extends Component {
               onPress={() => this.setState({showDobInfoPopup: true})}
             />}
           />
-
           <DobInfoPopup
             visible={this.state.showDobInfoPopup}
             onPressOk={() => this.setState({showDobInfoPopup: false})}
           />
-
           <Field
             name="address"
             component={renderAdressInput}
@@ -435,7 +356,6 @@ class SignUp extends Component {
             placeholder={_('city')}
             textStyles={{color: "black"}}
            />
-
           <Field
             name="phone"
             component={renderTextInput}
@@ -451,23 +371,20 @@ class SignUp extends Component {
             keyboardType="phone-pad"
             icon="phone"
           />
-
           <GenderInfoPopup
             visible={this.state.showGenderInfoPopup}
             onPressOk={() => this.setState({showGenderInfoPopup: false})}
           />
-
           <Field
             name="gender"
             component={GenderInput}
             crossPlatformLeftPosition={crossPlatformLeftPosition}
             onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
           />
-
           <Button
             type={valid ? "roundedDefault" : "roundedGrey"}
             text={_('signup')}
-            disabled={invalid} onPress={handleSubmit(this.submit)}
+            onPress={handleSubmit(this.submit)}
             style={[StyleSheet.doubleMarginTop, StyleSheet.singleMarginBottom]}
           />
 
