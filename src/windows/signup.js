@@ -264,14 +264,8 @@ class SignUp extends Component {
       dob: values.dob,
       city: values.address.description,
       cityGooglePlaceId: values.address.place_id,
+      image: values.image,
     })*/
-  }
-  onPressMale = () => {
-    this.setState({gender: 'male'})
-  }
-
-  onPressFemale = () => {
-    this.setState({gender: 'female'})
   }
 
   onPressSignUp = () => {
@@ -312,7 +306,7 @@ class SignUp extends Component {
     const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
     const crossPlatformLeftPosition = Platform.OS === 'ios' ? StyleSheet.leftSmaller : StyleSheet.leftBigger
 
-    const { handleSubmit, submitting } = this.props    // redux-form functions
+    const { handleSubmit, valid, invalid } = this.props    // redux-form meta props
 
     return (
       <View style={{flex: 1}}>
@@ -470,9 +464,12 @@ class SignUp extends Component {
             onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
           />
 
-          <TouchableOpacity disabled={submitting} onPress={handleSubmit(this.submit)}>
-            <Text >Submit</Text>
-          </TouchableOpacity>
+          <Button
+            type={valid ? "roundedDefault" : "roundedGrey"}
+            text={_('signup')}
+            disabled={invalid} onPress={handleSubmit(this.submit)}
+            style={[StyleSheet.doubleMarginTop, StyleSheet.singleMarginBottom]}
+          />
 
           <KeyboardSpacer />
         </Form>
