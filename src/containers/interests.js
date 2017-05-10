@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {Interests as _Interests} from '../windows'
 import {userActions, navigationActions} from '../actions'
 
-class InterestsAll extends React.Component {
+class Interests extends Component {
 
   render() {
     let interests = Object.keys(this.props.interests).map(id => {
@@ -26,6 +26,7 @@ class InterestsAll extends React.Component {
           })
         }}
         onInterestsChange={this.props.onInterestsChange}
+        user={this.props.user}
       />
     )
   }
@@ -40,4 +41,4 @@ export default connect(
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
     onInterestsChange: (interests) => dispatch(userActions.setInterests(interests)),
   }),
-)(InterestsAll)
+)(Interests)
