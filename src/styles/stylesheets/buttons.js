@@ -555,7 +555,7 @@ export default StyleSheet => StyleSheet.extend({
       alignItems: 'center',
       justifyContent: 'center',
       height: 24,
-      width: 145,
+      width: Platform.OS === 'ios' ? 145 : 155,
       flex: 0,
       paddingBottom: Platform.OS === 'ios' ? 0 : 2,
       paddingTop:  Platform.OS === 'ios' ? 2 : 0,
