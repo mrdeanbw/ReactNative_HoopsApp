@@ -125,7 +125,7 @@ export default class ProfileEdit extends React.Component {
             text={_('addAnotherActivity')}
             icon="plusGrey"
             onPress={this.onPressAddActivity}
-            textStyle={{paddingTop: 5}}
+            textStyle={{lineHeight: 20}}
 
           />
         </ScrollView>

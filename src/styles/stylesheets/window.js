@@ -68,8 +68,8 @@ export default StyleSheet => StyleSheet.extend({
 
   modeTextStyle: {
     color: colors.white,
-    lineHeight: 13,
-    fontSize: 13,
+    lineHeight: 12,
+    fontSize: 12,
   },
 
   modeHighlightTextStyle: {
