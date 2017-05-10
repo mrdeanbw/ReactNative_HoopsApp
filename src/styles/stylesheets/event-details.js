@@ -1,4 +1,5 @@
 import {colors} from '../resources'
+import {Platform} from 'react-native'
 
 export default StyleSheet => StyleSheet.extend({
 
@@ -92,7 +93,7 @@ export default StyleSheet => StyleSheet.extend({
   avatarNameStyle: {
     fontSize: 16,
     fontWeight: 'bold',
-    lineHeight: 16,
+    lineHeight: 19,
     color: colors.black,
     marginTop: 10
   },
@@ -100,7 +101,7 @@ export default StyleSheet => StyleSheet.extend({
   avatarOccupationStyle: {
     marginTop: 6,
     fontSize: 12,
-    lineHeight: 12,
+    lineHeight: 15,
     fontWeight: '400',
     color: colors.pink
   },
@@ -132,7 +133,7 @@ export default StyleSheet => StyleSheet.extend({
   eventInfoText: {
     color: colors.black,
     fontSize: 14,
-    lineHeight: 14,
+    lineHeight: Platform.OS === 'ios' ? 14 : 17,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -147,7 +148,7 @@ export default StyleSheet => StyleSheet.extend({
 
   eventInfoKey: {
     fontSize: 12,
-    lineHeight: 12,
+    lineHeight: Platform.OS === 'ios' ? 12 : 15,
     fontWeight: '400',
     color: colors.grey,
     textAlign: 'center',
