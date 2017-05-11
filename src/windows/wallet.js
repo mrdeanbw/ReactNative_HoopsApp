@@ -80,19 +80,19 @@ class Wallet extends Component {
                 </View>
               )}
 
-                {account.city && (
-                  <View>
-                    <Text style={titleStyle}>{_('city')}</Text>
-                    <Text style={detailStyle}>{account.city}</Text>
-                  </View>
-                )}
+              {account.city && (
+                <View>
+                  <Text style={titleStyle}>{_('city')}</Text>
+                  <Text style={detailStyle}>{account.city}</Text>
+                </View>
+              )}
 
-                {account.postcode && (
-                  <View>
-                    <Text style={titleStyle}>{_('postcode')}</Text>
-                    <Text style={detailStyle}>{account.postcode}</Text>
-                  </View>
-                )}
+              {account.postcode && (
+                <View>
+                  <Text style={titleStyle}>{_('postcode')}</Text>
+                  <Text style={detailStyle}>{account.postcode}</Text>
+                </View>
+              )}
             </ScrollView>
           ) : (
             <Text style={StyleSheet.payments.noCardsText}>{_('noAccount')}</Text>
