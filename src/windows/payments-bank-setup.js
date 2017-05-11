@@ -34,7 +34,7 @@ class PaymentsBankSetup extends Component {
       lastName: this.state.lastName,
       accountNumber: this.state.accountNumber,
       sortCode: sortCode,
-      addressLine1: this.state.addressLin1,
+      addressLine1: this.state.addressLine1,
       addressLine2: this.state.addressLine2,
       city: this.state.city,
       postcode: this.state.postcode,
