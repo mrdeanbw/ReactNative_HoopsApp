@@ -221,7 +221,10 @@ export default class EventDetails extends React.Component {
           visible={this.state.showJoinedConfirmation}
           onClose={() => this.setState({showJoinedConfirmation: false})}
           entryFee={this.props.event.entryFee}
-          onPressViewList={this.props.onPressViewList}
+          onPressViewList={() => {
+            this.setState({showJoinedConfirmation: false})
+            this.props.onPressViewList()
+          }}
         />
         <EventQuitPopup
           visible={this.state.showQuitPopup}

@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, ListView, Text, TouchableHighlight} from 'react-native'
 
 import {Header, TextInput, Button, Popup, SuggestEvent} from '../components'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
-export default class InterestsAll extends React.Component {
+class InterestsAll extends Component {
 
   constructor(props) {
     super(props)
@@ -58,7 +58,7 @@ export default class InterestsAll extends React.Component {
       }
     }
     return false
-  };
+  }
 
   setSelected = (id, level) => {
     let selected = {
@@ -71,10 +71,9 @@ export default class InterestsAll extends React.Component {
     })
 
     this.props.onInterestsChange(selected)
-  };
+  }
 
   render() {
-
     let searchString = this.state.search.toLowerCase()
     let interests = this.props.interests.filter(interest => {
       return interest.name.toLowerCase().search(searchString) !== -1
@@ -84,12 +83,7 @@ export default class InterestsAll extends React.Component {
 
     return (
       <View style={StyleSheet.profile.interests}>
-        <Header
-          onClose={this.props.onClose}
-          onBack={this.props.onBack}
-          title={_('interests')}
-          hideSwitcher={true}
-        />
+        <Header title={_('interests')} simple />
         <View style={{flex: 0, height: 50}}>
           <TextInput
             type="search"
@@ -203,3 +197,5 @@ export default class InterestsAll extends React.Component {
     )
   }
 }
+
+export default InterestsAll

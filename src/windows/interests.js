@@ -24,7 +24,7 @@ export default class Interests extends React.Component {
     }else{
       this.onSelectLevel(interest, null)
     }
-  };
+  }
 
   onSelectLevel = (interest, level) => {
     let selected = {
@@ -37,20 +37,15 @@ export default class Interests extends React.Component {
     })
 
     this.props.onInterestsChange(selected)
-  };
+  }
 
   onPressViewAll = () => {
     this.props.onPressViewAll(this.state.selected)
-  };
+  }
 
   doneButtonEnabled = () => {
-    for(let id in this.state.selected) {
-      if(this.state.selected[id]) {
-        return true
-      }
-    }
-    return false
-  };
+    return Object.keys(this.props.user.interests).length > 0
+  }
 
   render() {
     return (
@@ -64,7 +59,7 @@ export default class Interests extends React.Component {
           }}
         />
 
-        <Header title={_('interests')} hideSwitcher={true} />
+        <Header title={_('interests')} />
         <ScrollView>
           <HighlightText highlight={_('sports')} text={_('interestsBanner')}
                    style={[StyleSheet.text, StyleSheet.interests.bannerText]}
