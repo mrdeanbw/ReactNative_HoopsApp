@@ -59,7 +59,7 @@ export default class Interests extends React.Component {
           }}
         />
 
-        <Header title={_('interests')} hideSwitcher={true} />
+        <Header title={_('interests')} />
         <ScrollView>
           <HighlightText highlight={_('sports')} text={_('interestsBanner')}
                    style={[StyleSheet.text, StyleSheet.interests.bannerText]}
