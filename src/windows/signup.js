@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, Platform, TouchableOpacity} from 'react-native'
+import {View, Text, Platform} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 import { Field, reduxForm } from 'redux-form'  // Field Component and reduxForm function  need to be imported from redux-form
 
@@ -272,6 +272,7 @@ class SignUp extends Component {
     this.props.onSignUp(values.email, values.password, {
       name: values.name,
       dob: values.dob,
+      email: values.email,
       gender: values.gender,
       city: values.address.description,
       cityGooglePlaceId: values.address.place_id,
@@ -296,7 +297,7 @@ class SignUp extends Component {
     const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
     const crossPlatformLeftPosition = Platform.OS === 'ios' ? StyleSheet.leftSmaller : StyleSheet.leftBigger
 
-    const { handleSubmit, valid, invalid } = this.props    // redux-form meta props
+    const { handleSubmit, valid } = this.props    // redux-form meta props
 
     return (
       <View style={{flex: 1}} onPress={handleSubmit}>
