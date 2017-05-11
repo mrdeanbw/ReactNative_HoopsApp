@@ -92,6 +92,10 @@ class SignUpFacebookExtra extends Component {
   };
 
   render() {
+
+
+    const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
+    const crossPlatformLeftPosition = Platform.OS === 'ios' ? StyleSheet.leftSmaller : StyleSheet.leftBigger
     return (
       <View style={{flex: 1}}>
         <Header title={_('signupFacebook')} simple />
@@ -114,6 +118,7 @@ class SignUpFacebookExtra extends Component {
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}
+            textStyle={androidMatchFontSize}
             autoFocus
             returnKeyType="next"
             selectTextOnFocus={true}
@@ -131,6 +136,7 @@ class SignUpFacebookExtra extends Component {
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="none"
             autoCorrect={false}
+            textStyle={androidMatchFontSize}
             returnKeyType="next"
             selectTextOnFocus={true}
             enablesReturnKeyAutomatically={true}
@@ -182,6 +188,7 @@ class SignUpFacebookExtra extends Component {
               placeholder={_('optionalPhone')}
               autoCapitalize="none"
               autoCorrect={false}
+              textStyle={androidMatchFontSize}
               returnKeyType="next"
               selectTextOnFocus={true}
               enablesReturnKeyAutomatically={true}
@@ -199,7 +206,6 @@ class SignUpFacebookExtra extends Component {
             <View style={StyleSheet.signup.genderLabelContainer}>
               <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
               <Button
-                style={StyleSheet.signup.genderInfoIcon}
                 type="disclosure"
                 icon="info"
                 onPress={() => this.setState({showGenderInfoPopup: true})}/>

@@ -102,7 +102,7 @@ export default StyleSheet => StyleSheet.escape({
       borderStyle: 'solid',
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.grey,
-      height: 32,
+      height: 44,
     },
 
     iconStyle: {
