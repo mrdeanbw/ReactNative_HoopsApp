@@ -8,6 +8,9 @@ import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
 import _ from '../i18n'
 
+
+// -- -- -- -- -- -- redux-form validation staff  << BEGIN >>-- -- -- -- -- -- --
+ // import validation library
 const validation = require('../config/validation')
 
 // -- -- -- -- -- -- redux-form validation staff  << BEGIN >>-- -- -- -- -- -- --
@@ -57,11 +60,12 @@ const validate = values => {
 
   return errors
 }
-
  // passing values into warning function
 const warn = values => {
   const warnings = {}
-
+  if (values.age < 19) {
+    warnings.age = 'Hmm, you seem a bit young...'
+  }
   return warnings
 }
 
@@ -98,7 +102,6 @@ let borderStyleOnError = null
 let textStyleOnError = null
 
 touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
-touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
 
   return (
     <View>
