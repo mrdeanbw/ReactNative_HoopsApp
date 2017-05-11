@@ -38,29 +38,61 @@ class Wallet extends Component {
                 </View>
               )}
 
-              <Text style={titleStyle}>{_('firstName')}</Text>
-              <Text style={detailStyle}>{account.firstName}</Text>
+              {account.firstName && (
+                <View>
+                  <Text style={titleStyle}>{_('firstName')}</Text>
+                  <Text style={detailStyle}>{account.firstName}</Text>
+                </View>
+              )}
 
-              <Text style={titleStyle}>{_('lastName')}</Text>
-              <Text style={detailStyle}>{account.lastName}</Text>
+              {account.lastName && (
+                <View>
+                  <Text style={titleStyle}>{_('lastName')}</Text>
+                  <Text style={detailStyle}>{account.lastName}</Text>
+                </View>
+              )}
 
-              <Text style={titleStyle}>{_('accountNumber')}</Text>
-              <Text style={detailStyle}>{account.accountNumber}</Text>
+              {account.accountNumber && (
+                <View>
+                  <Text style={titleStyle}>{_('accountNumber')}</Text>
+                  <Text style={detailStyle}>{account.accountNumber}</Text>
+                </View>
+              )}
 
-              <Text style={titleStyle}>{_('sortCode')}</Text>
-              <Text style={detailStyle}>{account.sortCode}</Text>
+              {account.sortCode && (
+                <View>
+                  <Text style={titleStyle}>{_('sortCode')}</Text>
+                  <Text style={detailStyle}>{account.sortCode}</Text>
+                </View>
+              )}
 
-              <Text style={titleStyle}>{_('addressLine1')}</Text>
-              <Text style={detailStyle}>{account.addressLine1}</Text>
+              {account.addressLine1 && (
+                <View>
+                  <Text style={titleStyle}>{_('addressLine1')}</Text>
+                  <Text style={detailStyle}>{account.addressLine1}</Text>
+                </View>
+              )}
 
-              <Text style={titleStyle}>{_('addressLine2')}</Text>
-              <Text style={detailStyle}>{account.addressLine2}</Text>
+              {account.addressLine2 && (
+                <View>
+                  <Text style={titleStyle}>{_('addressLine2')}</Text>
+                  <Text style={detailStyle}>{account.addressLine2}</Text>
+                </View>
+              )}
 
-              <Text style={titleStyle}>{_('city')}</Text>
-              <Text style={detailStyle}>{account.city}</Text>
+                {account.city && (
+                  <View>
+                    <Text style={titleStyle}>{_('city')}</Text>
+                    <Text style={detailStyle}>{account.city}</Text>
+                  </View>
+                )}
 
-              <Text style={titleStyle}>{_('postcode')}</Text>
-              <Text style={detailStyle}>{account.postcode}</Text>
+                {account.postcode && (
+                  <View>
+                    <Text style={titleStyle}>{_('postcode')}</Text>
+                    <Text style={detailStyle}>{account.postcode}</Text>
+                  </View>
+                )}
             </ScrollView>
           ) : (
             <Text style={StyleSheet.payments.noCardsText}>{_('noAccount')}</Text>
