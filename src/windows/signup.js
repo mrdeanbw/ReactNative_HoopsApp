@@ -7,28 +7,29 @@ import {AddressInput, Button, HorizontalRule, TextInput, DateInput, Form, Header
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
 import _ from '../i18n'
-import {validate, warn} from '../config/validation'
+
+const validation = require('../config/validation')
 
 // -- -- -- -- -- -- redux-form validation staff  << BEGIN >>-- -- -- -- -- -- --
  // passing values into validation function
 const validate = values => {
   const errors = {}
   // Name validation
-  if (!values.name) {
+  if (validation.Required(values.name)) {
     errors.name = 'Required'
-  } else if (values.name.length > 15) {
+  } else if (validation.StringIsShorterOrEqual(values.name, 15)) {
     errors.name = 'Must be 15 characters or less'
   }
   //Email validation
-  if (!values.email) {
+  if (validation.Required(values.email)) {
     errors.email = 'Required'
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+  } else if (validation.EmailIsValid(values.email)) {
     errors.email = 'Invalid email address'
   }
   //Password validation
-  if (!values.password) {
+  if (validation.Required(values.password)) {
     errors.password = 'Required'
-  } else if (values.password.length < 6) {
+  } else if (validation.StringIsLongerOrEqual(values.password, 6)) {
     errors.password = 'Password  must be at least 6 charakters.'
   }
 /*
@@ -38,22 +39,21 @@ const validate = values => {
   }
 */
   //address validation
-  if (!values.address) {
+  if (validation.Required(values.address)) {
     errors.address = 'Required'
   }
   //dob validation
-  let  today = new Date()
-
-  if (!values.dob) {
+  if (validation.Required(values.dob)) {
     errors.dob = 'Required'
-  } else if (values.dob >= today) {
+  } else if (validation.noFutureDates(values.dob)) {
       errors.dob = 'Invalid date of birth'
   }
 
   //address validation
-  if (!values.gender) {
+  if (validation.Required(values.gender)) {
     errors.gender = 'Required'
   }
+
 
   return errors
 }
@@ -61,9 +61,7 @@ const validate = values => {
  // passing values into warning function
 const warn = values => {
   const warnings = {}
-  if (values.age < 19) {
-    warnings.age = 'Hmm, you seem a bit young...'
-  }
+
   return warnings
 }
 
@@ -100,7 +98,7 @@ let borderStyleOnError = null
 let textStyleOnError = null
 
 touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
-touched || dirty ? textStyleOnError = { color: colors.pink} : null
+touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
 
   return (
     <View>
