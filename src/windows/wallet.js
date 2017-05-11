@@ -8,11 +8,47 @@ import Icon from '../components//icon'
 
 class Wallet extends Component {
 
+  getStripeDisplayError() {
+    if (!this.props.account || !this.props.account.verification) {
+      return
+    }
+
+    const verification = this.props.account.verification
+    let error
+
+    switch(verification.disabled_reason) {
+      case 'rejected.fraud':
+        error = 'This account is rejected due to suspected fraud or illegal activity.'
+        break
+      case 'rejected.terms_of_service':
+        error = 'This account is rejected due to suspected terms of service violations.'
+        break
+      case 'rejected.listed':
+        error = 'This account is rejected due to a match on a third party prohibited persons or companies list (such as financial services provider or government).'
+        break
+      case 'rejected.other':
+        error = 'This account is rejected.'
+        break
+      case 'fields_needed':
+        error = 'Additional verification information is required in order to enable payout or charge capabilities on this account.'
+        break
+      case 'listed':
+        error = 'This account might be a match on a prohibited persons or companies list. We will investigate and either reject or reinstate the account appropriately.'
+        break
+      case 'other':
+        error = 'This account is not rejected but disabled for other reasons.'
+        break
+    }
+
+    return error
+  }
+
   render() {
     const account = this.props.account
     const titleStyle = StyleSheet.profile.editLabel
     const detailStyle = StyleSheet.payments.accountDataText
     const infoContainer = StyleSheet.profile.infoContainer
+    const stripeError = this.getStripeDisplayError()
 
     return (
       <View style={{flex: 1}}>
@@ -29,10 +65,10 @@ class Wallet extends Component {
                 <Icon name="info" />
               </View>
 
-              {account.verification && (
+              {stripeError && (
                 <View style={infoContainer}>
                   <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
-                    {account.verification.details}
+                    {stripeError}
                   </Text>
                   <Icon name="info" />
                 </View>

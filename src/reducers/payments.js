@@ -84,6 +84,7 @@ export default handleActions({
   [actionTypes.PAYMENTS_GET_ACCOUNT_SUCCESS]: (state, action) => {
     const account = action.response.external_accounts.data[0]
     const legal = action.response.legal_entity
+    const verification = action.response.verification
 
     return {
       ...state,
@@ -96,7 +97,7 @@ export default handleActions({
         addressLine2: legal.address.line2,
         city: legal.address.city,
         postcode: legal.address.postal_code,
-        verification: legal.verification,
+        verification: verification,
       },
       isFetchingAccount: false,
     }
