@@ -1,58 +1,18 @@
- // passing values into validation function
-export const validate = values => {
-  const errors = {}
-  // Name validation
-  if (!values.name) {
-    errors.name = 'Required'
-  } else if (values.name.length > 15) {
-    errors.name = 'Must be 15 characters or less'
-  }
-  //Email validation
-  if (!values.email) {
-    errors.email = 'Required'
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
-  }
-  //Password validation
-  if (!values.password) {
-    errors.password = 'Required'
-  } else if (values.password.length < 6) {
-    errors.password = 'Password  must be at least 6 charakters.'
-  }
-/*
-  //phone validation
-  if (!values.phone) {
-    errors.phone = 'Required'
-  }
-*/
-  //address validation
-  if (!values.address) {
-    errors.address = 'Required'
-  }
-  //dob validation
-  let  today = new Date()
 
-  if (!values.dob) {
-    errors.dob = 'Required'
-  } else if (values.dob >= today) {
-      errors.dob = 'Invalid date of birth'
-  }
+// Validation library
 
-  //address validation
-  if (!values.gender) {
-    errors.gender = 'Required'
-  }
+  Require = ( value ) => !value ? false : true
+  StringIsLonger = ( value , number) => !(value.lenght > number) ? true : false
+  StringIsLongerOrEqual = ( value , number) => !(value.lenght >= number) ? true : false
+  StringIsShorter = ( value , number) => !(value.lenght < number) ? true : false
+  StringIsShorterOrEqual = ( value , number) => !(value.lenght <= number) ? true : false
+  EmailIsValid = ( email ) => (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) ? false : true
+  UkMobileIsValid = ( phone ) =>  (!/^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$/i.test(phone)) ? false : true
+  NumberIsSmaller = ( value, number ) => !(value < number) ? true : false
+  NumberIsBigger = ( value, number ) => !(value > number) ? true : false
+  NumberIsBiggerOrEqual = ( value, number ) => !(value >= number) ? true : false
+  NumberIsSmallerOrEqual = ( value, number ) =>!(value >= number) ? true : false
 
-  return errors
-}
 
- // passing values into warning function
-export const warn = values => {
-  const warnings = {}
-  if (values.age < 19) {
-    warnings.age = 'Hmm, you seem a bit young...'
-  }
-  return warnings
-}
-
+export*
 
