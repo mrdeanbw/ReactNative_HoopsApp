@@ -29,8 +29,6 @@ const styles = {
     resizeMode: 'contain',
   },
 
-
-
   placeholderText: {
     color: colors.placeholderText,
     paddingLeft: Platform.OS === 'ios' ? 0 : 5,
