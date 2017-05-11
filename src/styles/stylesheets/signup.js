@@ -68,12 +68,7 @@ export default StyleSheet => StyleSheet.extend({
   genderLabelContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    position: "relative",
-  },
-
-  genderInfoIcon: {
-    position: "absolute",
-    top: 1,
+    textAlign: "center"
   },
 
   genderLabel: {

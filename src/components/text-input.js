@@ -70,12 +70,12 @@ export default class TextInput extends React.Component {
                 textInput.style,
                 style,
                 this.props.error ? StyleSheet.textInputs.error : null,
-                {flex: 1}
+                {flex: 1, marginBottom: 0}
               ]}
             >
               {icon && <Icon name={icon} active={active} style={[defaultTextInput.iconStyle, textInput.iconStyle, iconStyle]}/>}
               {view &&
-                <Text style={[defaultTextInput.textStyle, textInput.textStyle, textStyle]}>
+                <Text style={[defaultTextInput.textStyle, textInput.textStyle, textStyle,]}>
                   {view}
                 </Text> || (multiline === 'popup') &&
                 <Text
@@ -92,7 +92,7 @@ export default class TextInput extends React.Component {
                 >
                   {this.props.value && this.props.value.replace(/\s+/g, ' ') || this.props.placeholder}
                 </Text> ||
-                <View style={[defaultTextInput.textContainerTextInput, androidMatchMarginBottom]}>
+                <View style={[defaultTextInput.textContainerTextInput]}>
                   <Text
                     style={[
                       StyleSheet.text,

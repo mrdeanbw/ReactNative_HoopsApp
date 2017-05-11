@@ -33,10 +33,12 @@ const styles = {
 
   placeholderText: {
     color: colors.placeholderText,
+    paddingLeft: Platform.OS === 'ios' ? 0 : 5,
   },
 
   dateText: {
     fontSize: 15,
+    paddingLeft: Platform.OS === 'ios' ? 0 : 5,
   },
 
   /* iOS */
@@ -74,7 +76,7 @@ const _dateInputIcon = StyleSheet.create({
   dateInput: {
 
     ...styles.dateInput,
-    marginLeft: Platform.OS === 'ios' ? 40 : 52,
+    marginLeft: 40,
   },
 })
 
