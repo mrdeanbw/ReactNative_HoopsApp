@@ -83,8 +83,8 @@ export const searchResults = 'Search Results'
 export const searchCity = 'Search City'
 
 export const organizerMode = 'Switch to PARTICIPANT'
-export const organizer = 'ORGANIZER'
-export const participantMode = 'Switch to ORGANIZER'
+export const organizer = 'ORGANISER'
+export const participantMode = 'Switch to ORGANISER'
 export const participant = 'PARTICIPANT'
 
 export const upcomingEvents = 'Your Upcoming Events'
