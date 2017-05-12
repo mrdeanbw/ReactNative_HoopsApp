@@ -19,11 +19,28 @@ export default class CheckButton extends React.Component {
   }
 
   render() {
-    const {type, icon, checkIcon, checked, text, style, checkedStyle, containerStyle, uncheckedBorderColor, uncheckedBackgroundColor, checkedBackgroundColor, checkedBorderColor, checkedContainerStyle, iconStyle, checkedIconStyle, textStyle, checkedTextStyle, children, ...props} = this.props
+    const {type, colorMode, icon, checkIcon, checked, text, style, checkedStyle, containerStyle, uncheckedBorderColor,  checkedContainerStyle, iconStyle, checkedIconStyle, textStyle, checkedTextStyle, children, ...props} = this.props
 
     const defaultButton = StyleSheet.checkButtons.check || {}
     const button = type ? StyleSheet.buttons[type] || defaultButton : defaultButton
     const textTransform = button.textTransform || defaultButton.textTransform || (s => s)
+
+    let unCheckedMode = null
+    let checkedMode = null
+
+    if (this.props.colorMode === 'white') {
+      unCheckedMode = StyleSheet.checkButtons.colorMode.white.unCheckedStyle
+      checkedMode = StyleSheet.checkButtons.colorMode.white.checkedStyle
+    } else if (colorMode === 'pink'){
+      unCheckedMode = StyleSheet.checkButtons.colorMode.pink.unCheckedStyle
+      checkedMode = StyleSheet.checkButtons.colorMode.pink.checkedStyle
+    } else if (colorMode === 'whitePinkBorder'){
+      unCheckedMode = StyleSheet.checkButtons.colorMode.whitePinkBorder.unCheckedStyle
+      checkedMode = StyleSheet.checkButtons.colorMode.whitePinkBorder.checkedStyle
+    } else if (colorMode === 'transparentWhiteBorder'){
+      unCheckedMode = StyleSheet.checkButtons.colorMode.transparentWhiteBorder.unCheckedStyle
+      checkedMode = StyleSheet.checkButtons.colorMode.transparentWhiteBorder.checkedStyle
+    }
 
     return (
       <TouchableHighlight style={[
@@ -59,10 +76,10 @@ export default class CheckButton extends React.Component {
           </Text>}
           {children}
           {!checked ?
-          (<View style={ [defaultButton.checkedIconContainerStyle, uncheckedBorderColor, uncheckedBackgroundColor]} >
-            {!checked && icon && <Icon name={icon} style={[defaultButton.iconStyle, button.iconStyle, iconStyle, checkedIconStyle, uncheckedBorderColor  ]}/>}
+          (<View style={ [defaultButton.checkedIconContainerStyle, unCheckedMode]} >
+            {!checked && icon && <Icon name={icon} style={[defaultButton.iconStyle, button.iconStyle, iconStyle, checkedIconStyle, unCheckedMode ]}/>}
           </View>) :
-          (<View style={ [defaultButton.checkedIconContainerStyle, checkedBackgroundColor, checkedBorderColor ]} >
+          (<View style={ [defaultButton.checkedIconContainerStyle, checkedMode ]} >
             {checked && checkIcon && <Icon name={checkIcon} style={[defaultButton.iconStyle, defaultButton.checkedIconStyle, button.iconStyle, button.checkedIconStyle, iconStyle, checkedIconStyle]}/>}
           </View>)
           }

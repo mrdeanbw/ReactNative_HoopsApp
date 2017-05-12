@@ -116,8 +116,7 @@ export default class ProfileEdit extends React.Component {
               icon="minus"
               onChange={() => this.props.onRemoveInterest(interest.id)}
               checkedIconStyle={{backgroundColor: 'transparent' }}
-              uncheckedBackgroundColor={{backgroundColor: colors.pink}}
-              uncheckedBorderColor={{borderColor: colors.pink}}
+              colorMode="pink"
             />
           )}
           <Button

@@ -76,10 +76,7 @@ export default class Interests extends React.Component {
                    underlayColor={StyleSheet.interests.checkButtonHighlightGradient[i]}
                    textStyle={StyleSheet.interests.checkButtonTextStyle}
                    iconStyle={StyleSheet.interests.checkButtonIconStyle}
-                   uncheckedBorderColor={{borderColor: colors.white,}}
-                   checkedBorderColor={{borderColor: colors.white}}
-                   checkedBackgroundColor={{backgroundColor: colors.white}}
-                   uncheckedBackgroundColor={{backgroundColor: 'transparent'}}
+                   colorMode="transparentWhiteBorder"
                    checkedIconStyle={[StyleSheet.interests.checkButtonCheckedIconStyle]}/>)}
 
 
