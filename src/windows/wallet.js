@@ -38,9 +38,6 @@ class Wallet extends Component {
       case 'other':
         error = 'This account is not rejected but disabled for other reasons.'
         break
-      default:
-        error = 'This account might be a match on a prohibited persons or companies list. We will investigate and either reject or reinstate the account appropriately.'
-        break
     }
 
     return error
