@@ -185,7 +185,7 @@ touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pin
 touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
   return (
     <View>
-      {dirty && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+         {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
       <DateInput
           ref={ref}
           placeholder={placeholder}
