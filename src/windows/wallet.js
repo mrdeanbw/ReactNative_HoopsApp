@@ -74,7 +74,7 @@ class Wallet extends Component {
               {stripeError && (
                 <View style={[infoContainer ,{padding: 15}]}>
                   <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
-                    {stripeError} (!)
+                    {stripeError}
                   </Text>
                 </View>
               )}
