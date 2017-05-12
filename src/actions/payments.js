@@ -59,12 +59,13 @@ export const updateAccount = (data) => {
       firstName: data.firstName,
       lastName: data.lastName,
       addressLine1: data.addressLine1,
+      addressLine26159: data.addressLine2,
       postcode: data.postcode,
       city: data.city
     }
 
     try {
-      const response = await paymentApi.post('stripeCreateAccount', qs.stringify(postData))
+      const response = await paymentApi.post('stripeCreateAccount', postData)
 
       dispatch({
         type: actionTypes.PAYMENTS_UPDATE_ACCOUNT_SUCCESS,
@@ -73,9 +74,11 @@ export const updateAccount = (data) => {
 
       dispatch(navigationActions.pop())
     } catch(err) {
+      const error = getApiError(err.response)
+
       dispatch({
         type: actionTypes.PAYMENTS_UPDATE_ACCOUNT_ERROR,
-        err,
+        err: error,
       })
     }
   }
