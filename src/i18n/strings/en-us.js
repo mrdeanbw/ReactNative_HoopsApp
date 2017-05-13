@@ -385,7 +385,7 @@ export const dobPopupContent2 = "Telling us your date of birth helps us make sur
 export const dobPopupContent3 = "Cheers!"
 export const genderPopupTitle = "Why we need this?"
 export const genderPopupContent1 = "Telling us your gender helps filter the events that you can join."
-export const genderPopupContent2 = "Weâ€™re all for blokes playing netball, but unfortunately thatâ€™s in the hands of event organisers..."
+export const genderPopupContent2 = "We’re all for blokes playing netball, but unfortunately that’s in the hands of event organisers..."
 
 export const ok = "OK"
 
