@@ -34,7 +34,7 @@ const validate = values => {
   if (validation.Required(values.password)) {
     errors.password = 'Required'
   } else if (validation.StringIsLongerOrEqual(values.password, 6)) {
-    errors.password = 'Password  must be at least 6 charakters.'
+    errors.password = 'Password  must be at least 6 characters.'
   }
 /*
   //phone validation
