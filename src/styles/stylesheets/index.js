@@ -33,6 +33,7 @@ import _switchButton from './switch-button'
 import _textInputs from './text-inputs'
 import _userListItem from './user-list-item'
 import _walkthrough from './walkthrough'
+import _wallet from './wallet'
 import _window from './window'
 
 export default {
@@ -68,5 +69,6 @@ export default {
   textInputs: _textInputs,
   userListItem: _userListItem,
   walkthrough: _walkthrough,
+  wallet: _wallet,
   window: _window
 }

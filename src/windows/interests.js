@@ -5,7 +5,6 @@ import {ScrollView, View} from 'react-native'
 import StyleSheet from '../styles'
 import {Button, CheckButton, Header, HighlightText, Popup} from '../components'
 import _ from '../i18n'
-import {colors} from '../styles/resources'
 
 export default class Interests extends React.Component {
 

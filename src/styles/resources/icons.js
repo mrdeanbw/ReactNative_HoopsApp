@@ -11,6 +11,7 @@ export default {
   "actionBack": require('./icons/action-back.png'),
   "actionCheck": require('./icons/action-check.png'),
   "actionEdit": require('./icons/action-edit.png'),
+  "actionEdit2x": require('./icons/action-edit@2x.png'),
   "actionRemove": require('./icons/action-remove.png'),
   "actionSearch": require('./icons/action-search.png'),
   "actionSend": require('./icons/action-send.png'),

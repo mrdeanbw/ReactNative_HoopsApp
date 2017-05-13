@@ -92,7 +92,7 @@ class SignUp extends Component {
     ].indexOf(errorCode) !== -1
 
     const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
-    const crossPlatformLeftPosition = Platform.OS === 'ios' ? [StyleSheet.leftSmaller] : [StyleSheet.leftBigger]
+
     return (
       <View style={{flex: 1}}>
         <Header title={_('signup')} simple />

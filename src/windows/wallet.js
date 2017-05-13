@@ -5,6 +5,44 @@ import _ from '../i18n'
 import {Header, LoadingAlert} from '../components'
 import StyleSheet from '../styles'
 import Icon from '../components//icon'
+import {colors} from '../styles/resources'
+
+
+class BankInfoCard extends Component {
+  constructor(props){
+    super(props)
+  }
+
+  render(){
+    const { name, city, accountNumber, sortCode, balance} = this.props
+
+
+
+    return(
+<View style={[StyleSheet.wallet.bankInfoBox.container]}>
+    <View style={[StyleSheet.wallet.bankInfoBox.top]}>
+        <View style={[StyleSheet.wallet.bankInfoBox.detailsContainer,]}>
+            <View style={[StyleSheet.wallet.bankInfoBox.nameContainer]}>
+              <Text style={[StyleSheet.text, {color: colors.white, paddingTop: 15, paddingLeft: 15, fontWeight: "bold" }]}>URBONAS J</Text>
+            </View>
+            <View style={[StyleSheet.wallet.bankInfoBox.bankDetails]}>
+              <Text style={[StyleSheet.text, {color: colors.white, fontSize: 12, paddingLeft: 15, paddingBottom: 15, }]}>NETWEST | 1234567 | 20-30-40</Text>
+            </View>
+        </View>
+        <View style={[StyleSheet.wallet.bankInfoBox.iconContainer]}>
+            <View style={{borderRadius: 30, borderColor: colors.white, borderWidth: 1, padding: 3}}>
+              <Icon  name="actionEdit2x"/>
+            </View>
+        </View>
+    </View>
+    <View style={[StyleSheet.wallet.bankInfoBox.bottom]}>
+          <Text style={[{color: colors.black}]}>Current balance</Text>
+          <Text style={[{color: colors.green, fontWeight: "bold"}]}>£86.90</Text>
+    </View>
+</View>
+    )
+  }
+}
 
 class Wallet extends Component {
 
@@ -55,7 +93,10 @@ class Wallet extends Component {
         <Header title={_('myWallet')} />
         <View style={StyleSheet.padding}>
           <LoadingAlert visible={this.props.isLoading} />
-
+          <View style={{ alignItems: "center"}}>
+            <BankInfoCard
+            />
+          </View>
           {account && account.accountNumber ? (
             <ScrollView>
               <View style={{flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
@@ -74,7 +115,7 @@ class Wallet extends Component {
               {stripeError && (
                 <View style={[infoContainer ,{padding: 15}]}>
                   <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
-                    {stripeError}
+                    {stripeError}§
                   </Text>
                 </View>
               )}
