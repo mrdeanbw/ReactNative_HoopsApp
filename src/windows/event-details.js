@@ -353,7 +353,7 @@ export default class EventDetails extends React.Component {
               {this.props.event.courtType === 'outdoor' ? _('outdoor') : _('indoor')}
             </EventInfo>
             <EventInfo
-              icon="ageAll"
+              icon="ageIcon"
               label={_('ageGroup')}
             >{ageText}</EventInfo>
             {this.props.event.privacy === 'public' && <EventInfo icon="globe" label={_('privacy')}>{_('_public')}</EventInfo>}

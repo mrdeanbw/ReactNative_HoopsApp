@@ -549,9 +549,7 @@ export default class CreateEvent extends React.Component {
                 text={_('allowToSeeYourContactInfo')}
                 icon="none" checkIcon="check"
                 checkedIconStyle={{backgroundColor: 'transparent'}}
-                uncheckedBorderColor={{borderColor: colors.pink}}
-                checkedBorderColor={{borderColor: colors.pink}}
-                checkedBackgroundColor={{backgroundColor: colors.pink}}
+                colorMode="whitePinkBorder"
                 checked={this.state.eventDetails.allowContactInfo}
                 onChange={() => {
                   this.setEventData({

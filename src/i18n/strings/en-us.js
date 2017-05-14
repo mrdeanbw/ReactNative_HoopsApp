@@ -215,8 +215,8 @@ export const publicEvent = 'Public Event'
 export const casual = 'Casual'
 export const competitive = 'Competitive'
 export const open = 'Open'
-export const maxPlayers = 'Max Pleople'
-export const minPlayers = 'Min Pleople'
+export const maxPlayers = 'Max People'
+export const minPlayers = 'Min People'
 export const unlimited = 'Unlimited'
 
 export const dateTime = 'Date / Time'
@@ -385,9 +385,14 @@ export const dobPopupContent2 = "Telling us your date of birth helps us make sur
 export const dobPopupContent3 = "Cheers!"
 export const genderPopupTitle = "Why we need this?"
 export const genderPopupContent1 = "Telling us your gender helps filter the events that you can join."
-export const genderPopupContent2 = "Weâ€™re all for blokes playing netball, but unfortunately thatâ€™s in the hands of event organisers..."
+export const genderPopupContent2 = "We’re all for blokes playing netball, but unfortunately that’s in the hands of event organisers..."
 
 export const ok = "OK"
 
 export const noEventsNearby = "No Events Nearby"
 export const noActivitiesSelected = "You have no activities selected"
+
+//wallet screen
+export const walletInfo1 = "Money will be paid out"
+export const walletInfo2 = "on a weekly basis "
+

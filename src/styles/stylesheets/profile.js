@@ -250,6 +250,6 @@ export default StyleSheet => StyleSheet.extend({
   infoContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-between"
   }
 })

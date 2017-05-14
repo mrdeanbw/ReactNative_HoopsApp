@@ -1,4 +1,5 @@
 export default {
+  "ageIcon": require('./icons/age-icon.png'),
   "ageUnder16": require('./icons/age-under-16.png'),
   "age16to17": require('./icons/age-16-17.png'),
   "ageAdult": require('./icons/age-adult.png'),
@@ -164,5 +165,4 @@ export default {
   "dashboard-finances": require('./icons/dashboard-finances.png'),
   "dashboard-requests": require('./icons/dashboard-requests.png'),
 
-  "info": require('./icons/info@3x.png'),
 }

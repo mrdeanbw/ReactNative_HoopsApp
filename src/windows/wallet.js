@@ -58,21 +58,27 @@ class Wallet extends Component {
 
           {account && account.accountNumber ? (
             <ScrollView>
-              <View style={infoContainer}>
+              <View style={{flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
                 <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
-                  Money will be paid out on a weekly basis
+                  {_('walletInfo1')}
                 </Text>
-                <Icon name="info" />
-              </View>
-
-              {stripeError && (
-                <View style={infoContainer}>
+                <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
                   <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
-                    {stripeError}
+                    {_('walletInfo2')}
                   </Text>
                   <Icon name="info" />
                 </View>
+
+              </View>
+
+              {stripeError && (
+                <View style={[infoContainer ,{padding: 15}]}>
+                  <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
+                    {stripeError}
+                  </Text>
+                </View>
               )}
+
 
               {account.firstName && (
                 <View>
