@@ -108,7 +108,10 @@ class Home extends React.Component {
         event,
         distance: item.sort,
       }
-    }).filter(item => !!item.event)
+    })
+    .filter(item => !!item.event)
+    .filter(item => item.event.privacy === 'public')
+    .filter(item => !item.event.cancelled)
 
     return (
       <_Home
