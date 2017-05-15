@@ -19,7 +19,7 @@ class BankInfoCard extends Component {
 
 
     return(
-<View style={[StyleSheet.wallet.bankInfoBox.container]}>
+<View elevation={5} style={[StyleSheet.wallet.bankInfoBox.container]}>
     <View style={[StyleSheet.wallet.bankInfoBox.top]}>
         <View style={[StyleSheet.wallet.bankInfoBox.detailsContainer,]}>
             <View style={[StyleSheet.wallet.bankInfoBox.nameContainer]}>
@@ -94,9 +94,11 @@ class Wallet extends Component {
         <View style={StyleSheet.padding}>
           <LoadingAlert visible={this.props.isLoading} />
           <View style={{ alignItems: "center"}}>
-            <BankInfoCard
-            />
+            <BankInfoCard/>
           </View>
+        </View>
+        <View style={{flex:1}}>
+          <Header title={_('myWallet')} simple noIconBack/>
           {account && account.accountNumber ? (
             <ScrollView>
               <View style={{flexDirection: "column", alignItems: "center", justifyContent: "center"}}>

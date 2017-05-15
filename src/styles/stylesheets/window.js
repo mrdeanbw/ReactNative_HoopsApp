@@ -59,6 +59,9 @@ export default StyleSheet => StyleSheet.extend({
     textAlign: 'center',
     flex: 1,
   },
+  noIconBackStyle: {
+    justifyContent: 'center',
+  },
   modeBarStyle: {
     flex: 1,
     backgroundColor: colors.pink,
