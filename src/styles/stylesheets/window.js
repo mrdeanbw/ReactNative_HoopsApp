@@ -37,14 +37,14 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   logoStyle: {
-    height: 36,
+    height: 40,
     width: 80,
     resizeMode: 'contain',
     marginRight: 12,
   },
 
   crumbBar: {
-    height: 38,
+    height: 40,
     flexDirection: 'row',
     backgroundColor: '#3B404A',
     alignItems: 'center',
