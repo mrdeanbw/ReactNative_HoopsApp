@@ -1,6 +1,4 @@
-
 // Validation library
-
   const Required = ( value ) => !value ? true : false
   const StringIsLonger = ( value , number) => !(value.length < number) ? false : true
   const StringIsLongerOrEqual = ( value , number) => !(value.length <= number) ? false : true
@@ -13,8 +11,6 @@
   const NumberIsBiggerOrEqualThan = ( value, number ) => !(value <= number) ? true : false
   const NumberIsSmallerOrEqualThan = ( value, number ) =>!(value >= number) ? true : false
   const noFutureDates = ( date, today = new Date() ) => (date >= today) ? true : false
-
-
 
 module.exports = {
   Required,
