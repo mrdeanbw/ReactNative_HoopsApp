@@ -25,8 +25,6 @@ class Header extends Component {
 
   render() {
     const {modeText, modeTextHighlight} = this.getMode()
-    let  noIconBackStyle = null
-    this.props.noIconBack ? noIconBackStyle = StyleSheet.window.noIconBackStyle :  noIconBackStyle = null
     return (
       <View style={StyleSheet.window.titleBarStyle}>
 
@@ -47,9 +45,9 @@ class Header extends Component {
         )}
 
         {this.props.title && (
-          <View style={[StyleSheet.window.crumbBar, noIconBackStyle]}>
+          <View style={[StyleSheet.window.crumbBar]}>
 
-            {this.props.simple && !this.props.noIconBack && (
+            {this.props.simple && (
               <View style={[StyleSheet.window.accessoryBarStyle, {width: 32}]}>
                 <Button type="title" icon="back" onPress={this.props.onBack} />
               </View>
@@ -60,7 +58,7 @@ class Header extends Component {
             </Text>
 
             {/*Spacer to match the back button*/}
-            {this.props.simple &&  !this.props.noIconBack && (
+            {this.props.simple &&  (
               <View style={[StyleSheet.window.accessoryBarStyle, {width: 32}]} />
             )}
           </View>
@@ -73,7 +71,6 @@ class Header extends Component {
 Header.propTypes = {
   'title': React.PropTypes.string,
   'simple': React.PropTypes.bool,
-  'iconBack': React.PropTypes.bool,
 }
 
 export default connect(
