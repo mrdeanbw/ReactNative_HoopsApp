@@ -115,6 +115,10 @@ class Invitations extends Component {
       <Text>{_('accept')} £{invite.event.entryFee}(+50p)</Text>
     )
 
+    if (invite.event.cancelled) {
+      return null
+    }
+
     return (
       <Popup
         visible={!!invite}
