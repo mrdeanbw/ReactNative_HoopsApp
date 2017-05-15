@@ -1,16 +1,12 @@
-import React from 'react'
+import React, {Component} from 'react'
 import moment from 'moment'
 import {View, ScrollView, Text} from 'react-native'
 
 import StyleSheet from '../styles'
-import EventListItem from '../components/event-list-item'
-import Button from '../components/button'
-import Window from '../components/window'
-import Header from '../components/header'
-import Popup from '../components/popup'
+import {EventListItem, Button, Window, Header, Popup} from '../components'
 import _ from '../i18n'
 
-export default class Invitations extends React.Component {
+class Invitations extends Component {
 
   static getTest(close) {
     return {
@@ -36,7 +32,7 @@ export default class Invitations extends React.Component {
       receivedPopupInvite: null,
       sentPopupInvite: null,
     })
-  };
+  }
 
   onPressInvite = (invite) => {
     if(moment(invite.event.date).isBefore()){
@@ -48,49 +44,49 @@ export default class Invitations extends React.Component {
     } else {
       this.showSentPopup(invite)
     }
-  };
+  }
 
   onPressAccept = (invite) => {
     this.hidePopups()
     this.props.onPressAccept(invite)
-  };
+  }
 
   onPressDecline = (invite) => {
     this.hidePopups()
     this.props.onPressDecline(invite)
-  };
+  }
 
   onPressEventDetails = (event) => {
     this.hidePopups()
     this.props.onPressEventDetails(event)
-  };
+  }
 
   onPressUserDetails = (user) => {
     this.hidePopups()
     this.props.onPressUser(user)
-  };
+  }
 
   onPressBlock = (user) => {
     this.hidePopups()
     this.onPressBlock(user)
-  };
+  }
 
   onPressRemove = (invite) => {
     this.hidePopups()
     this.props.onPressRemove(invite)
-  };
+  }
 
   showReceivedPopup = (invite) => {
     this.setState({
       receivedPopupInvite: invite,
     })
-  };
+  }
 
   showSentPopup = (invite) => {
     this.setState({
       sentPopupInvite: invite,
     })
-  };
+  }
 
   renderSentPopup() {
     let invite = this.state.sentPopupInvite
@@ -138,9 +134,7 @@ export default class Invitations extends React.Component {
     let invites = this.state.tab === 'received' ? this.props.received : this.props.sent
     return (
       <View style={{flex: 1}}>
-        <Header
-          title={_('invitations')}
-        />
+        <Header title={_('invitations')} />
 
         <View style={StyleSheet.buttons.bar}>
           <Button type="top" text={_('received')} active={this.state.tab === 'received'} onPress={() => this.setState({ tab: 'received' })} />
@@ -167,3 +161,5 @@ export default class Invitations extends React.Component {
     )
   }
 }
+
+export default Invitations
