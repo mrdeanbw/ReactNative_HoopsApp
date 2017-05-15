@@ -231,7 +231,7 @@ const GenderInput = ({
         <View style={StyleSheet.signup.genderLabelContainer}>
           <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
           <Button
-                style={[StyleSheet.signup.genderInfoIcon, crossPlatformLeftPosition]}
+                style={[StyleSheet.signup.genderInfoIcon]}
                 type="disclosure"
                 icon="info"
                 onPress={onPressInfoIcon}/>
@@ -247,7 +247,6 @@ const GenderInput = ({
   }
 
 // -- -- -- -- -- -- redux-form validation staff  << END >>-- -- -- -- -- -- --
-
 /**
  * Window/Signup Component
  */
@@ -284,7 +283,6 @@ class SignUp extends Component {
     this.props.onFacebookSignUp()
   }
 
-
   render() {
 
     const errorCode = this.props.signUpError && this.props.signUpError.code
@@ -293,15 +291,7 @@ class SignUp extends Component {
       'auth/email-already-in-use',
       'auth/invalid-email',
     ].indexOf(errorCode) !== -1
-
     const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
-<<<<<<< HEAD
-    const crossPlatformLeftPosition = Platform.OS === 'ios' ? [StyleSheet.leftSmaller] : [StyleSheet.leftBigger]
-    return (
-      <View style={{flex: 1}}>
-        <Header title={_('signup')} simple />
-=======
-    const crossPlatformLeftPosition = Platform.OS === 'ios' ? StyleSheet.leftSmaller : StyleSheet.leftBigger
 
     const { handleSubmit, valid } = this.props    // redux-form meta props
 
@@ -313,7 +303,6 @@ class SignUp extends Component {
           onClose={this.props.onClose}
           onBack={this.props.onBack}
         />
->>>>>>> facebookExtraValidation
         <Form style={StyleSheet.signup.style}>
           <LoadingAlert visible={this.props.isLoading} />
           <Button
@@ -336,11 +325,7 @@ class SignUp extends Component {
             type="flat"
             ref="name"
             placeholder={_('name')}
-<<<<<<< HEAD
-
-=======
             style={StyleSheet.halfMarginBottom}
->>>>>>> facebookExtraValidation
             autoCapitalize="words"
             autoCorrect={false}
             textStyle={androidMatchFontSize}
@@ -446,31 +431,12 @@ class SignUp extends Component {
             visible={this.state.showGenderInfoPopup}
             onPressOk={() => this.setState({showGenderInfoPopup: false})}
           />
-<<<<<<< HEAD
-
-          <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
-            <View style={StyleSheet.signup.genderLabelContainer}>
-              <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
-              <Button
-                type="disclosure"
-                icon="info"
-                onPress={() => this.setState({showGenderInfoPopup: true})}/>
-            </View>
-            <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
-              <Button type="image" icon="male" active={this.state.gender === 'male'} onPress={this.onPressMale}/>
-              <View style={StyleSheet.buttons.separator} />
-              <Button type="image" icon="female" active={this.state.gender === 'female'} onPress={this.onPressFemale}/>
-            </View>
-          </View>
-
-=======
           <Field
             name="gender"
             component={GenderInput}
-            crossPlatformLeftPosition={crossPlatformLeftPosition}
             onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
           />
->>>>>>> facebookExtraValidation
+
           <Button
             type={valid ? "roundedDefault" : "roundedGrey"}
             text={_('signup')}

@@ -201,7 +201,6 @@ touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
           rightBar={rightBar}
         />
     </View>
-
   )
 }
 //AvatarInput component for redux Field
@@ -232,7 +231,7 @@ const GenderInput = ({
         <View style={StyleSheet.signup.genderLabelContainer}>
           <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
           <Button
-                style={[StyleSheet.signup.genderInfoIcon, crossPlatformLeftPosition]}
+                style={[StyleSheet.signup.genderInfoIcon]}
                 type="disclosure"
                 icon="info"
                 onPress={onPressInfoIcon}/>
@@ -300,12 +299,7 @@ class SignUpFacebookExtra extends Component {
 
 
   render() {
-<<<<<<< HEAD
 
-
-    const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
-    const crossPlatformLeftPosition = Platform.OS === 'ios' ? StyleSheet.leftSmaller : StyleSheet.leftBigger
-=======
    const errorCode = this.props.signUpError && this.props.signUpError.code
 
     const emailError = [
@@ -314,10 +308,8 @@ class SignUpFacebookExtra extends Component {
     ].indexOf(errorCode) !== -1
 
     const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
-    const crossPlatformLeftPosition = Platform.OS === 'ios' ? StyleSheet.leftSmaller : StyleSheet.leftBigger
 
     const { handleSubmit, valid } = this.props    // redux-form meta props
->>>>>>> facebookExtraValidation
     return (
       <View style={{flex: 1}}>
         <Header title={_('signupFacebook')} simple />
@@ -401,32 +393,13 @@ class SignUpFacebookExtra extends Component {
             component={renderAdressInput}
             icon
             placeholder={_('city')}
-<<<<<<< HEAD
             onSelect={(venueAddress) => {
               this.setState({
                 cityText: venueAddress.description,
                 city: venueAddress,
               })
-            }} />
+            }}
 
-          <View>
-            <TextInput
-              value={this.state.phone}
-              onChangeText={(phone) => this.setState({phone})}
-              type="flat"
-              ref="phone"
-              placeholder={_('optionalPhone')}
-              autoCapitalize="none"
-              autoCorrect={false}
-              textStyle={androidMatchFontSize}
-              returnKeyType="next"
-              selectTextOnFocus={true}
-              enablesReturnKeyAutomatically={true}
-              keyboardType="phone-pad"
-              icon="phone"
-            />
-          </View>
-=======
             textStyles={{color: "black"}}
            />
           <Field
@@ -444,37 +417,17 @@ class SignUpFacebookExtra extends Component {
             keyboardType="phone-pad"
             icon="phone"
           />
->>>>>>> facebookExtraValidation
+
 
           <GenderInfoPopup
             visible={this.state.showGenderInfoPopup}
             onPressOk={() => this.setState({showGenderInfoPopup: false})}
           />
-
-<<<<<<< HEAD
-          <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
-            <View style={StyleSheet.signup.genderLabelContainer}>
-              <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
-              <Button
-                type="disclosure"
-                icon="info"
-                onPress={() => this.setState({showGenderInfoPopup: true})}/>
-            </View>
-            <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
-             <Button type="image" icon="male" active={this.state.gender === 'male'} onPress={this.onPressMale}/>
-               <View style={StyleSheet.buttons.separator} />
-              <Button type="image" icon="female" active={this.state.gender === 'female'} onPress={this.onPressFemale}/>
-            </View>
-          </View>
-
-=======
           <Field
             name="gender"
             component={GenderInput}
-            crossPlatformLeftPosition={crossPlatformLeftPosition}
             onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
           />
->>>>>>> facebookExtraValidation
           <Button
             type={valid ? "roundedDefault" : "roundedGrey"}
             text={_('signup')}
