@@ -77,7 +77,7 @@ export default class CheckButton extends React.Component {
           {children}
           {!checked ?
           (<View style={ [defaultButton.checkedIconContainerStyle, unCheckedMode]} >
-            {!checked && icon && <Icon name={icon} style={[defaultButton.iconStyle, button.iconStyle, iconStyle, checkedIconStyle, unCheckedMode ]}/>}
+            {!checked && icon && <Icon name={icon} style={[defaultButton.iconStyle, button.iconStyle, iconStyle,  unCheckedMode ,checkedIconStyle]}/>}
           </View>) :
           (<View style={ [defaultButton.checkedIconContainerStyle, checkedMode ]} >
             {checked && checkIcon && <Icon name={checkIcon} style={[defaultButton.iconStyle, defaultButton.checkedIconStyle, button.iconStyle, button.checkedIconStyle, iconStyle, checkedIconStyle]}/>}

@@ -3,8 +3,6 @@ import {colors} from '../resources'
 export default StyleSheet => StyleSheet.extend({
   bankInfoBox: StyleSheet.extend({
     container:{
-      marginTop: 10,
-      marginBottom: 20,
       flexDirection: "column",
       borderRadius: 15,
       minWidth: 285,
