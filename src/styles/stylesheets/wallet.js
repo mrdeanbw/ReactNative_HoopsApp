@@ -28,6 +28,7 @@ export default StyleSheet => StyleSheet.extend({
       borderBottomLeftRadius: 15,
       borderBottomRightRadius: 15,
       padding: 12,
+      paddingRight: 20,
     },
     detailsContainer:{
 
@@ -70,7 +71,7 @@ export default StyleSheet => StyleSheet.extend({
       fontWeight: "bold",
     },
     balanceLabel:{
-      color: colors.grey
+      color: colors.black
     }
   })
 })

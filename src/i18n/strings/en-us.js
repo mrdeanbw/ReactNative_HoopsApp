@@ -395,4 +395,5 @@ export const noActivitiesSelected = "You have no activities selected"
 //wallet screen
 export const walletInfo1 = "Money will be paid out"
 export const walletInfo2 = "on a weekly basis "
+export const vieAll = "VIEW ALL"
 

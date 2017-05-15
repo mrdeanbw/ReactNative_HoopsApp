@@ -2,10 +2,12 @@ import React, {Component} from 'react'
 import {ScrollView, View, Text} from 'react-native'
 
 import _ from '../i18n'
-import {Header, LoadingAlert, Title} from '../components'
+import {Header, LoadingAlert, Title, Button} from '../components'
 import StyleSheet from '../styles'
 import Icon from '../components//icon'
 import {colors} from '../styles/resources'
+
+
 
 
 class BankInfoCard extends Component {
@@ -13,16 +15,20 @@ class BankInfoCard extends Component {
     super(props)
   }
   render(){
-    const { name, city, accountNumber, sortCode, balance} = this.props
+    const { firstName, surname, bankName, accountNumber, sortCode, balance} = this.props
+
+    let firstCharOfName = firstName.charAt(0)
+    let surnameCaption = surname.toUpperCase()
+    let bankNameCaption = bankName.toUpperCase()
     return(
       <View elevation={5} style={[StyleSheet.wallet.bankInfoBox.container]}>
         <View style={[StyleSheet.wallet.bankInfoBox.top]}>
           <View style={[StyleSheet.wallet.bankInfoBox.detailsContainer,]}>
             <View style={[StyleSheet.wallet.bankInfoBox.nameContainer]}>
-              <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.name]}>URBONAS J</Text>
+              <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.name]}>{surnameCaption + ' ' + firstCharOfName}</Text>
             </View>
             <View style={[StyleSheet.wallet.bankInfoBox.bankDetails]}>
-              <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.bankDetailsText]}>NETWEST | 1234567 | 20-30-40</Text>
+              <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.bankDetailsText]}>{bankNameCaption + ' | ' + accountNumber + ' | ' +  sortCode}</Text>
             </View>
           </View>
           <View style={[StyleSheet.wallet.bankInfoBox.iconContainer]}>
@@ -32,8 +38,8 @@ class BankInfoCard extends Component {
           </View>
         </View>
         <View style={[StyleSheet.wallet.bankInfoBox.bottom]}>
-          <Text style={StyleSheet.wallet.bankInfoBox.balanceLabel}>Current balance</Text>
-          <Text style={StyleSheet.wallet.bankInfoBox.balance}>£86.90</Text>
+          <Text style={StyleSheet.wallet.bankInfoBox.balanceLabel}>Current Balance</Text>
+          <Text style={StyleSheet.wallet.bankInfoBox.balance}>£{balance}</Text>
         </View>
       </View>
     )
@@ -90,12 +96,34 @@ class Wallet extends Component {
         <View style={StyleSheet.padding}>
           <LoadingAlert visible={this.props.isLoading} />
           <View style={{ alignItems: "center"}}>
-            <BankInfoCard/>
+            <BankInfoCard
+              firstName="Rafal"
+              surname="Kaczynski"
+              bankName="Loyds"
+              accountNumber="00012345"
+              sortCode="20-55-34"
+              balance={99}
+            />
           </View>
         </View>
         <View style={{flex:1}}>
           <Title text={'RECENT TRANSATIONS'}/>
-          {account && account.accountNumber ? (
+
+          <Button
+            type="roundedDefault"
+            text={_('viewAll')}
+            style={[StyleSheet.singleMargin, StyleSheet.tripleMarginBottom]}
+          />
+        </View>
+      </View>
+    )
+  }
+}
+
+export default Wallet
+
+
+         {/* {account && account.accountNumber ? (
             <ScrollView>
               <View style={{flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
                 <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
@@ -177,11 +205,4 @@ class Wallet extends Component {
             </ScrollView>
           ) : (
             <Text style={StyleSheet.payments.noCardsText}>{_('noAccount')}</Text>
-          )}
-        </View>
-      </View>
-    )
-  }
-}
-
-export default Wallet
+          )}*/
