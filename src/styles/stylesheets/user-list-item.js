@@ -93,7 +93,7 @@ export default StyleSheet => StyleSheet.extend({
   statuses: StyleSheet.escape({
 
     confirmed: {
-      backgroundColor: colors.pink
+      backgroundColor: colors.green
     },
 
     pending: {
