@@ -2,12 +2,46 @@ import React, {Component} from 'react'
 import {ScrollView, View, Text} from 'react-native'
 
 import _ from '../i18n'
-import {Header, LoadingAlert, Title, Button} from '../components'
+import {Header, LoadingAlert, Title, Button, Avatar} from '../components'
 import StyleSheet from '../styles'
 import Icon from '../components//icon'
 import {colors} from '../styles/resources'
 
+class UserListOnWallet extends Component {
+  constructor(props){
+    super(props)
+  }
 
+  render(){
+    let user = this.props.user
+    return(
+          <View style={StyleSheet.userListItem.detail}>
+            <View style={StyleSheet.userListItem.imageContainer}>
+              <Avatar user={user} avatarStyle={StyleSheet.userListItem.avatar} />
+            </View>
+
+            <View style={StyleSheet.userListItem.textContainer}>
+              <Text style={[StyleSheet.text, StyleSheet.userListItem.textStyle, StyleSheet.userListItem.titleTextStyle]} numberOfLines={1} ellipsizeMode="tail">
+                {user.name}
+                {this.props.paymentMethod === 'app' && (
+                  <Text style={StyleSheet.userListItem.paidText}> ({_('paid')})</Text>
+                )}
+                {this.props.paymentMethod === 'cash' && (
+                  <Text style={StyleSheet.userListItem.cashText}> ({_('cash')})</Text>
+                )}
+              </Text>
+              <Text style={[StyleSheet.text, StyleSheet.userListItem.textStyle]} numberOfLines={1} ellipsizeMode="tail">
+                <Text>{user.city}</Text>
+                <Text>{'\u00a0\u00a0|\u00a0\u00a0'}</Text>
+                {!!age && (
+                  <Text>{_('age')}: {age}</Text>
+                )}
+              </Text>
+            </View>
+          </View>
+    )
+  }
+}
 
 
 class BankInfoCard extends Component {
@@ -205,4 +239,4 @@ export default Wallet
             </ScrollView>
           ) : (
             <Text style={StyleSheet.payments.noCardsText}>{_('noAccount')}</Text>
-          )}*/
+          )}*/}
