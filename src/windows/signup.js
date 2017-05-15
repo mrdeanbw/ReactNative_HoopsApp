@@ -1,15 +1,13 @@
 import React, {Component} from 'react'
-import {View, Text, Platform} from 'react-native'
+import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
-import { Field, reduxForm } from 'redux-form'  // Field Component and reduxForm function  need to be imported from redux-form
+import { Field, reduxForm } from 'redux-form'
 
 import {AddressInput, Button, HorizontalRule, TextInput, DateInput, Form, Header, LoadingAlert, AvatarEdit, Popup} from '../components'
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
 import _ from '../i18n'
 
-
-// -- -- -- -- -- -- redux-form validation staff  << BEGIN >>-- -- -- -- -- -- --
  // import validation library
 const validation = require('../config/validation')
 
@@ -51,13 +49,10 @@ const validate = values => {
   } else if (validation.noFutureDates(values.dob)) {
       errors.dob = 'Invalid date of birth'
   }
-
   //address validation
   if (validation.Required(values.gender)) {
     errors.gender = 'Required'
   }
-
-
   return errors
 }
  // passing values into warning function
@@ -68,9 +63,6 @@ const warn = values => {
   }
   return warnings
 }
-
-
-
 //TextInput component for redux Field
 const renderTextInput = ({
         input: { onChange, ...restInput },
@@ -130,7 +122,6 @@ touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pin
             keyboardType={keyboardType}
           />
     </View>
-
   )
 }
 //Address Input component for redux Field
@@ -159,7 +150,6 @@ let setColor = null
             textColor={setColor}
            />
     </View>
-
   )
 }
 
@@ -200,7 +190,6 @@ touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
           rightBar={rightBar}
         />
     </View>
-
   )
 }
 //AvatarInput component for redux Field
@@ -242,7 +231,6 @@ const GenderInput = ({
           <Button type="image" icon="female" active={value === 'female'} onPress={() => onChange('female')}/>
         </View>
       </View>
-
     )
   }
 
@@ -291,7 +279,6 @@ class SignUp extends Component {
       'auth/email-already-in-use',
       'auth/invalid-email',
     ].indexOf(errorCode) !== -1
-    const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
 
     const { handleSubmit, valid } = this.props    // redux-form meta props
 
@@ -328,7 +315,6 @@ class SignUp extends Component {
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}
-            textStyle={androidMatchFontSize}
             autoFocus
             returnKeyType="next"
             selectTextOnFocus={true}
@@ -348,8 +334,6 @@ class SignUp extends Component {
             ref="email"
             error={emailError}
             placeholder={_('email')}
-
-            textStyle={androidMatchFontSize}
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType="next"
@@ -366,7 +350,6 @@ class SignUp extends Component {
             placeholder={_('password')}
             style={[StyleSheet.halfMarginBottom]}
             secureTextEntry={!this.state.showPassword}
-            textStyle={androidMatchFontSize}
             returnKeyType="next"
             selectTextOnFocus={false}
             clearTextOnFocus={false}
@@ -418,7 +401,6 @@ class SignUp extends Component {
             type="flat"
             ref="phone"
             placeholder={_('optionalPhone')}
-            textStyle={androidMatchFontSize}
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType="next"
@@ -455,7 +437,6 @@ SignUp.propTypes = {
   onSignUp: React.PropTypes.func.isRequired,
 }
 
-
 export default reduxForm({
   form: 'syncValidation',  // a unique identifier for this form
   validate,                // <--- validation function given to redux-form
@@ -481,7 +462,6 @@ class DobInfoPopup extends Component {
             {_('dobPopupContent3')}
           </Text>
         </View>
-
         <View style={StyleSheet.buttons.bar}>
           <Button
             style={[StyleSheet.buttons.okPopup]}
@@ -512,7 +492,6 @@ class GenderInfoPopup extends Component {
             {_('genderPopupContent2')}
           </Text>
         </View>
-
         <View style={StyleSheet.buttons.bar}>
           <Button
             style={[StyleSheet.buttons.okPopup]}

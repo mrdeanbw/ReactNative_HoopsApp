@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
-import {View, Text, Platform} from 'react-native'
+import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
-import { Field, reduxForm } from 'redux-form'  // Field Component and reduxForm function  need to be imported from redux-form
+import { Field, reduxForm } from 'redux-form'
 
 import { AddressInput, Button, TextInput, DateInput, Header, Form, AvatarEdit, Popup,  } from '../components'
-
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
 import _ from '../i18n'
 
-
-// -- -- -- -- -- -- redux-form validation staff  << BEGIN >>-- -- -- -- -- -- --
  // import validation library
 const validation = require('../config/validation')
 
@@ -52,13 +49,10 @@ const validate = values => {
   } else if (validation.noFutureDates(values.dob)) {
       errors.dob = 'Invalid date of birth'
   }
-
   //address validation
   if (validation.Required(values.gender)) {
     errors.gender = 'Required'
   }
-
-
   return errors
 }
  // passing values into warning function
@@ -69,9 +63,6 @@ const warn = values => {
   }
   return warnings
 }
-
-
-
 //TextInput component for redux Field
 const renderTextInput = ({
         input: { onChange, ...restInput },
@@ -160,7 +151,6 @@ let setColor = null
             textColor={setColor}
            />
     </View>
-
   )
 }
 
@@ -180,12 +170,11 @@ const renderDateInput = ({
       }) => {
 let borderStyleOnError = null
 let textStyleOnError = null
-
 touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
 touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
   return (
     <View>
-         {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+      {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
       <DateInput
           ref={ref}
           placeholder={placeholder}
@@ -227,7 +216,7 @@ const GenderInput = ({
      }) => {
     return (
       <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
-      {touched && ((error && <Text style={[StyleSheet.signup.errorText]}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+        {touched && ((error && <Text style={[StyleSheet.signup.errorText]}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
         <View style={StyleSheet.signup.genderLabelContainer}>
           <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
           <Button
@@ -242,7 +231,6 @@ const GenderInput = ({
           <Button type="image" icon="female" active={value === 'female'} onPress={() => onChange('female')}/>
         </View>
       </View>
-
     )
   }
 
@@ -297,7 +285,6 @@ class SignUpFacebookExtra extends Component {
    this.props.onPressContinue(userData)
   }
 
-
   render() {
 
    const errorCode = this.props.signUpError && this.props.signUpError.code
@@ -307,16 +294,12 @@ class SignUpFacebookExtra extends Component {
       'auth/invalid-email',
     ].indexOf(errorCode) !== -1
 
-    const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
-
     const { handleSubmit, valid } = this.props    // redux-form meta props
     return (
       <View style={{flex: 1}}>
         <Header title={_('signupFacebook')} simple />
         {/*<LoadingAlert visible={this.props.isLoading} />*/}
-
         <Form style={[StyleSheet.signup.style]}>
-
           <Field
             name="image"
             component={AvatarInput}
@@ -330,7 +313,6 @@ class SignUpFacebookExtra extends Component {
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}
-            textStyle={androidMatchFontSize}
             autoFocus
             returnKeyType="next"
             selectTextOnFocus={true}
@@ -351,18 +333,15 @@ class SignUpFacebookExtra extends Component {
             error={emailError}
             placeholder={_('email')}
             style={[StyleSheet.halfMarginBottom]}
-            textStyle={androidMatchFontSize}
             autoCapitalize="none"
             autoCorrect={false}
-            textStyle={androidMatchFontSize}
             returnKeyType="next"
             selectTextOnFocus={true}
             enablesReturnKeyAutomatically={true}
             keyboardType="email-address"
             icon="email"
           />
-
-        <Field
+          <Field
             name="dob"
             component={renderDateInput}
             ref="dob"
@@ -388,7 +367,7 @@ class SignUpFacebookExtra extends Component {
             onPressOk={() => this.setState({showDobInfoPopup: false})}
           />
 
-         <Field
+          <Field
             name="address"
             component={renderAdressInput}
             icon
@@ -399,7 +378,6 @@ class SignUpFacebookExtra extends Component {
                 city: venueAddress,
               })
             }}
-
             textStyles={{color: "black"}}
            />
           <Field
@@ -408,7 +386,6 @@ class SignUpFacebookExtra extends Component {
             type="flat"
             ref="phone"
             placeholder={_('optionalPhone')}
-            textStyle={androidMatchFontSize}
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType="next"
@@ -417,8 +394,6 @@ class SignUpFacebookExtra extends Component {
             keyboardType="phone-pad"
             icon="phone"
           />
-
-
           <GenderInfoPopup
             visible={this.state.showGenderInfoPopup}
             onPressOk={() => this.setState({showGenderInfoPopup: false})}
@@ -439,9 +414,6 @@ class SignUpFacebookExtra extends Component {
       </View>
     )
   }
-}
-
-SignUpFacebookExtra.propTypes = {
 }
 
 export default reduxForm({
@@ -469,7 +441,6 @@ class DobInfoPopup extends Component {
             {_('dobPopupContent3')}
           </Text>
         </View>
-
         <View style={StyleSheet.buttons.bar}>
           <Button
             style={[StyleSheet.buttons.okPopup]}
@@ -500,7 +471,6 @@ class GenderInfoPopup extends Component {
             {_('genderPopupContent2')}
           </Text>
         </View>
-
         <View style={StyleSheet.buttons.bar}>
           <Button
             style={[StyleSheet.buttons.okPopup]}
