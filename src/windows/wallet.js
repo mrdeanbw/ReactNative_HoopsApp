@@ -7,7 +7,7 @@ import StyleSheet from '../styles'
 import Icon from '../components//icon'
 import {colors} from '../styles/resources'
 
-class UserListOnWallet extends Component {
+class UserListInWallet extends Component {
   constructor(props){
     super(props)
   }
