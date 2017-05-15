@@ -118,11 +118,29 @@ class Wallet extends Component {
   }
 
   render() {
+/*
     const account = this.props.account
     const titleStyle = StyleSheet.profile.editLabel
     const detailStyle = StyleSheet.payments.accountDataText
     const infoContainer = StyleSheet.profile.infoContainer
     const stripeError = this.getStripeDisplayError()
+*/
+
+// temprorary staff needs to be replaced with backend
+var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+var now = new Date('01/12/2013')
+
+for ( let i = 0  i <= 20  i++) {
+  let users = {
+    id: i,
+    firstName: 'John',
+    secondName: 'Johnson',
+    activity: 'swimming lesson',
+    price: Math.floor((Math.random() * 10) + 1),
+    image:'../styles/resources/images/logo.png',
+    date: months[now.getMonth()] + ' ' + (now.getDay()+i) +' ' + now.getFullYear(),
+  }
+}
 
     return (
       <View style={{flex: 1}}>
