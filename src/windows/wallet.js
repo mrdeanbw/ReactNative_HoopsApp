@@ -19,21 +19,21 @@ class BankInfoCard extends Component {
         <View style={[StyleSheet.wallet.bankInfoBox.top]}>
           <View style={[StyleSheet.wallet.bankInfoBox.detailsContainer,]}>
             <View style={[StyleSheet.wallet.bankInfoBox.nameContainer]}>
-              <Text style={[StyleSheet.text, {color: colors.white, paddingTop: 15, paddingLeft: 15, fontWeight: "bold" }]}>URBONAS J</Text>
+              <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.name]}>URBONAS J</Text>
             </View>
             <View style={[StyleSheet.wallet.bankInfoBox.bankDetails]}>
-              <Text style={[StyleSheet.text, {color: colors.white, fontSize: 12, paddingLeft: 15, paddingBottom: 15, }]}>NETWEST | 1234567 | 20-30-40</Text>
+              <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.bankDetailsText]}>NETWEST | 1234567 | 20-30-40</Text>
             </View>
           </View>
           <View style={[StyleSheet.wallet.bankInfoBox.iconContainer]}>
-            <View style={{borderRadius: 30, borderColor: colors.white, borderWidth: 1, padding: 3}}>
+            <View style={StyleSheet.wallet.bankInfoBox.iconCircle}>
               <Icon  name="actionEdit2x"/>
             </View>
           </View>
         </View>
         <View style={[StyleSheet.wallet.bankInfoBox.bottom]}>
-          <Text style={[{color: colors.black}]}>Current balance</Text>
-          <Text style={[{color: colors.green, fontWeight: "bold"}]}>£86.90</Text>
+          <Text style={StyleSheet.wallet.bankInfoBox.balanceLabel}>Current balance</Text>
+          <Text style={StyleSheet.wallet.bankInfoBox.balance}>£86.90</Text>
         </View>
       </View>
     )

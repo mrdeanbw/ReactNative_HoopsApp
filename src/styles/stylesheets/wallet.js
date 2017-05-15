@@ -47,5 +47,30 @@ export default StyleSheet => StyleSheet.extend({
       paddingLeft: 24,
       paddingRight:24,
     },
+    name: {
+      color: colors.white,
+      paddingTop: 15,
+      paddingLeft: 15,
+      fontWeight: "bold"
+    },
+    bankDetailsText:{
+      color: colors.white,
+      fontSize: 12,
+      paddingLeft: 15,
+      paddingBottom: 15,
+    },
+    iconCircle:{
+      borderRadius: 30,
+      borderColor: colors.white,
+      borderWidth: 1,
+      padding: 3,
+    },
+    balance: {
+      color: colors.green,
+      fontWeight: "bold",
+    },
+    balanceLabel:{
+      color: colors.grey
+    }
   })
 })
