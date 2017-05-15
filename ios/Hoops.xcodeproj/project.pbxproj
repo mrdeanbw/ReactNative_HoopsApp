@@ -62,7 +62,7 @@
 		C0BC335571624ED0B3F4A415 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F23B1E0DB56D41199F67F4FA /* libAirMaps.a */; };
 		C6EDD0399F6244A98794587E /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 354872BBCA0E4B78AFFCF849 /* libRNFIRMessaging.a */; };
 		D20003C68BE04F31AA01A1A9 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE3B951D9714698BCAB8756 /* libRNDeviceInfo.a */; };
-		E7FF0860C1CF4F458FE99B4F /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E4494564083491AA550DDBE /* SourceSansPro-Regular.ttf */; };
+		E7FF0860C1CF4F458FE99B4F /* SourceSansPro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E4494564083491AA550DDBE /* SourceSansPro.ttf */; };
 		EC9A9411178F44B6AC9086EA /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA473FC041148EDBD5C6773 /* libRNImagePicker.a */; };
 		F5530B4363D74FD289FEE1A6 /* SourceSansPro-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 033E7AE95FAF4D259A761CE2 /* SourceSansPro-Semibold.ttf */; };
 		FE7925DEE15E49818BED245A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 758CC36D5BDE43CA9D92B29A /* libz.tbd */; };
@@ -626,7 +626,7 @@
 			isa = PBXGroup;
 			children = (
 				C1E3578B3B2243B3872707AB /* SourceSansPro-Bold.ttf */,
-				1E4494564083491AA550DDBE /* SourceSansPro-Regular.ttf */,
+				1E4494564083491AA550DDBE /* SourceSansPro.ttf */,
 				033E7AE95FAF4D259A761CE2 /* SourceSansPro-Semibold.ttf */,
 			);
 			name = Resources;
@@ -1368,7 +1368,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				5C40A4044FCA44519C8AE820 /* SourceSansPro-Bold.ttf in Resources */,
-				E7FF0860C1CF4F458FE99B4F /* SourceSansPro-Regular.ttf in Resources */,
+				E7FF0860C1CF4F458FE99B4F /* SourceSansPro.ttf in Resources */,
 				F5530B4363D74FD289FEE1A6 /* SourceSansPro-Semibold.ttf in Resources */,
 				27EDFB171DD377DF00B06E0A /* GoogleService-Info.plist in Resources */,
 			);
