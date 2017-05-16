@@ -58,6 +58,8 @@ export const searchEvents = (params) => {
 
       return true
     })
+    .filter(event => event.privacy === 'public')
+    .filter(event => !event.cancelled)
 
     //We use this format because it is what elasticsearch will return
     let results = {
@@ -93,15 +95,15 @@ export const searchGeneral = (params) => {
     const searchString = params.text ? params.text.toLowerCase() : ''
 
     let events = Object.keys(allEvents).map(eventId => {
-      return {
-        ...allEvents[eventId],
-        id: eventId,
-      }
-    }).filter(event => {
-      return event.title.toLowerCase().startsWith(searchString)
-    }).filter(event => {
-      return moment(event.date).isAfter()
-    })
+        return {
+          ...allEvents[eventId],
+          id: eventId,
+        }
+      })
+      .filter(event => event.title.toLowerCase().startsWith(searchString))
+      .filter(event => moment(event.date).isAfter())
+      .filter(event => event.privacy === 'public')
+      .filter(event => !event.cancelled)
 
     let users = Object.keys(allUsers).map(userId => {
       return {
