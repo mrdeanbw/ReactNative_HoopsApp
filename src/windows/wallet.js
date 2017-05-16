@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Text} from 'react-native'
+import {ScrollView, View, Text, Image} from 'react-native'
 
 import _ from '../i18n'
 import {Header, LoadingAlert, Title, Button, Avatar} from '../components'
 import StyleSheet from '../styles'
 import Icon from '../components//icon'
-import {colors} from '../styles/resources'
+import {colors, images} from '../styles/resources'
+
+
 
 class UserListInWallet extends Component {
   constructor(props){
@@ -14,44 +16,42 @@ class UserListInWallet extends Component {
 
   render(){
     let user = this.props.user
-    return(
-          <View style={StyleSheet.userListItem.detail}>
-            <View style={StyleSheet.userListItem.imageContainer}>
-              <Avatar user={user} avatarStyle={StyleSheet.userListItem.avatar} />
-            </View>
 
-            <View style={StyleSheet.userListItem.textContainer}>
-              <Text style={[StyleSheet.text, StyleSheet.userListItem.textStyle, StyleSheet.userListItem.titleTextStyle]} numberOfLines={1} ellipsizeMode="tail">
-                {user.name}
-                {this.props.paymentMethod === 'app' && (
-                  <Text style={StyleSheet.userListItem.paidText}> ({_('paid')})</Text>
-                )}
-                {this.props.paymentMethod === 'cash' && (
-                  <Text style={StyleSheet.userListItem.cashText}> ({_('cash')})</Text>
-                )}
-              </Text>
-              <Text style={[StyleSheet.text, StyleSheet.userListItem.textStyle]} numberOfLines={1} ellipsizeMode="tail">
-                <Text>{user.city}</Text>
-                <Text>{'\u00a0\u00a0|\u00a0\u00a0'}</Text>
-                {!!age && (
-                  <Text>{_('age')}: {age}</Text>
-                )}
-              </Text>
-            </View>
+
+    return(
+      <View style={{flexDirection: 'column', flexJustify: 'flex-start', alignItems: 'flex-start',}}>
+        <View style={{paddingLeft: 15,}}>
+          <Text style={[StyleSheet.text, {color: colors.pink, fontSize: 12, fontWeight: 'bold'}]}>{this.props.displayDate}</Text>
+        </View>
+        <View style={[StyleSheet.userListItem.detail, {borderBottomWidth: 1, borderBottomColor: colors.grey}]}>
+          <View style={StyleSheet.userListItem.imageContainer}>
+            <Avatar user={user} avatarStyle={StyleSheet.userListItem.avatar} />
           </View>
+          <View style={StyleSheet.userListItem.textContainer}>
+            <Text style={[StyleSheet.text, StyleSheet.userListItem.textStyle, StyleSheet.userListItem.titleTextStyle, {color: colors.grey}]} numberOfLines={1} ellipsizeMode="tail">
+              {user.name + ' ' + user.secondName}
+            </Text>
+            <Text style={[StyleSheet.text, StyleSheet.userListItem.textStyle, {color: colors.grey, fontStyle: 'italic'}]} numberOfLines={1} ellipsizeMode="tail">
+              {user.activity}
+            </Text>
+          </View>
+          <View style={{paddingRight: 15}}>
+            <Text style={[StyleSheet.text, {color: colors.green, fontWeight: 'bold'}]}>+£{user.price}</Text>
+          </View>
+        </View>
+      </View>
     )
   }
 }
-
 
 class BankInfoCard extends Component {
   constructor(props){
     super(props)
   }
   render(){
-    const { firstName, surname, bankName, accountNumber, sortCode, balance} = this.props
+    const { name, surname, bankName, accountNumber, sortCode, balance} = this.props
 
-    let firstCharOfName = firstName.charAt(0)
+    let firstCharOfName = name.charAt(0)
     let surnameCaption = surname.toUpperCase()
     let bankNameCaption = bankName.toUpperCase()
     return(
@@ -116,6 +116,25 @@ class Wallet extends Component {
 
     return error
   }
+//to be replaced with backend
+createFakeUsers() {
+  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  var now = new Date('01/12/2013')
+  var users = []
+  for ( let i = 0;  i <= 20;  i++) {
+    let user = {
+      id: i,
+      name: 'John',
+      secondName: 'Johnson',
+      activity: 'Swimming Lesson',
+      price: Math.floor((Math.random() * 10) + 1),
+      imageSrc: 'https://facebook.github.io/react/img/logo_og.png',
+      date: months[now.getMonth()].toUpperCase() + ' ' + (now.getDay() + i) + ' ' + now.getFullYear(),
+    }
+    users.push(user)
+  }
+  return users
+}
 
   render() {
 /*
@@ -124,24 +143,11 @@ class Wallet extends Component {
     const detailStyle = StyleSheet.payments.accountDataText
     const infoContainer = StyleSheet.profile.infoContainer
     const stripeError = this.getStripeDisplayError()
-*/
-
-// temprorary staff needs to be replaced with backend
-var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-var now = new Date('01/12/2013')
-
-for ( let i = 0  i <= 20  i++) {
-  let users = {
-    id: i,
-    firstName: 'John',
-    secondName: 'Johnson',
-    activity: 'swimming lesson',
-    price: Math.floor((Math.random() * 10) + 1),
-    image:'../styles/resources/images/logo.png',
-    date: months[now.getMonth()] + ' ' + (now.getDay()+i) +' ' + now.getFullYear(),
-  }
-}
-
+*/  const users = this.createFakeUsers()
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    let now = new Date('01/12/2013')
+    let today = months[now.getMonth()].toUpperCase() + ' ' + (now.getDay()) + ' ' + now.getFullYear()
+    let dateIndex = 0
     return (
       <View style={{flex: 1}}>
         <Header title={_('myWallet')} />
@@ -149,7 +155,7 @@ for ( let i = 0  i <= 20  i++) {
           <LoadingAlert visible={this.props.isLoading} />
           <View style={{ alignItems: "center"}}>
             <BankInfoCard
-              firstName="Rafal"
+              name="Rafal"
               surname="Kaczynski"
               bankName="Loyds"
               accountNumber="00012345"
@@ -160,12 +166,43 @@ for ( let i = 0  i <= 20  i++) {
         </View>
         <View style={{flex:1}}>
           <Title text={'RECENT TRANSATIONS'}/>
+          <ScrollView>
+          {users.map((user, i) => {
+              let dateIndex = 0
+              let displayDate
+              let dateChecker = []
 
-          <Button
-            type="roundedDefault"
-            text={_('viewAll')}
-            style={[StyleSheet.singleMargin, StyleSheet.tripleMarginBottom]}
-          />
+              if ((user.date === today) && (dateIndex === 0)) {
+                displayDate = 'TODAY'
+               } else if ((user.date !== today) && (dateIndex === 0)) {
+                displayDate = user.date
+               }
+
+              dateChecker[i] = displayDate
+
+              if ((i !== 0) && (dateChecker[i] === dateChecker[ i - 1 ])) {
+                displayDate = ''
+                dateIndex++
+              } else {
+                dateIndex = 0
+              }
+
+              return(
+                <UserListInWallet
+                  user={user}
+                  displayDate={displayDate}
+                />
+              )
+            })}
+          </ScrollView>
+          <View style={{paddingLeft:20, paddingRight: 20}}>
+            <Button
+              type="roundedDefault"
+              text={_('viewAll')}
+              style={[StyleSheet.singleMargin,]}
+            />
+          </View>
+
         </View>
       </View>
     )
