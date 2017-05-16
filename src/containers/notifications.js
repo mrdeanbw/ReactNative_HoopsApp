@@ -1,11 +1,49 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {Notifications as _Notifications} from '../windows'
 import {navigationActions, notificationActions, requestActions, inviteActions} from '../actions'
 import inflateNotification from '../data/inflaters/notification'
 
-class Notifications extends React.Component {
+class Notifications extends Component {
+
+  constructor() {
+    super()
+    this.state = {
+      awaitingCardForInvite: null,
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // If the first card has been added and we are waiting for one.
+    // Use it to pay for the current event
+    if(
+      this.state.awaitingCardForInvite &&
+      this.props.payments.cards.length === 0 &&
+      nextProps.payments.cards.length === 1
+    ) {
+      this.props.onAcceptEventInvite(this.state.awaitingCardForInvite)
+    }
+  }
+
+  onAcceptEventInvite = (notification) => {
+    notification = inflateNotification(
+      notification, {
+        events: this.props.events.eventsById,
+        invites: this.props.invites.invitesById,
+      }
+    )
+
+    const invite = notification.invite
+    if (invite.event.entryFee === 0 || invite.event.paymentMethod !== 'app') {
+      this.props.onAcceptEventInvite(notification)
+    } else if (this.props.payments.cards.length > 0) {
+      this.props.onAcceptEventInvite(notification)
+    } else {
+      this.setState({awaitingCardForInvite: invite})
+      this.props.onNavigate('addCard', {}, false)
+    }
+  }
 
   render() {
     let ids = Object.keys(this.props.notifications.notificationsById)
@@ -44,7 +82,7 @@ class Notifications extends React.Component {
         onPressEvent={(event) => this.props.onNavigate('eventDetails', {id: event.id})}
         onAcceptEventRequest={this.props.onAcceptEventRequest}
         onDeclineEventRequest={this.props.onDeclineEventRequest}
-        onAcceptEventInvite={this.props.onAcceptEventInvite}
+        onAcceptEventInvite={this.onAcceptEventInvite}
         onDeclineEventInvite={this.props.onDeclineEventInvite}
       />
     )
@@ -59,9 +97,10 @@ export default connect(
     requests: state.requests,
     invites: state.invites,
     events: state.events,
+    payments: state.payments,
   }),
   (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
+    onNavigate: (key, props, subTab) => dispatch(navigationActions.push({key, props}, subTab)),
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onMarkRead: (id) => dispatch(notificationActions.markRead(id)),
     onMarkUnead: (id) => dispatch(notificationActions.markUnread(id)),
