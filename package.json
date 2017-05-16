@@ -58,7 +58,6 @@
     "eslint": "^3.4.0",
     "eslint-plugin-react": "^6.2.0",
     "react-native-debugger-open": "^0.3.2",
-    "redux-form": "^6.6.3",
     "remote-redux-devtools": "^0.5.7"
   }
 }

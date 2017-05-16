@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
-import { Field, reduxForm } from 'redux-form'
+import {Field, reduxForm} from 'redux-form'
 
-import { AddressInput, Button, TextInput, DateInput, Header, Form, AvatarEdit, Popup,  } from '../components'
+import {AddressInput, Button, TextInput, DateInput, Header, Form, AvatarEdit, Popup} from '../components'
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
 import _ from '../i18n'
-
- // import validation library
-const validation = require('../config/validation')
+import * as validation from '../config/validation'
 
 // -- -- -- -- -- -- redux-form validation staff  << BEGIN >>-- -- -- -- -- -- --
  // passing values into validation function
@@ -65,7 +63,7 @@ const warn = values => {
 }
 //TextInput component for redux Field
 const renderTextInput = ({
-        input: { onChange, ...restInput },
+        input: {onChange, ...restInput},
         value,
         onChangeText,
         type,
@@ -87,7 +85,7 @@ const renderTextInput = ({
         multiline,
         rightBar,
         keyboardType,
-        meta: { touched, error, warning, dirty,invalid, }
+        meta: {touched, error, warning, dirty,invalid,}
       }) => {
 
 let borderStyleOnError = null
@@ -97,7 +95,7 @@ touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pin
 
   return (
     <View>
-      {  (touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+      {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
       <TextInput
             value={value}
             onChangeText={onChange}
@@ -122,7 +120,6 @@ touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pin
             keyboardType={keyboardType}
           />
     </View>
-
   )
 }
 //Address Input component for redux Field
@@ -153,7 +150,6 @@ let setColor = null
     </View>
   )
 }
-
 //DateInput component for redux Field
 const renderDateInput = ({
         input: { onChange, value, ...restInput },
@@ -194,8 +190,8 @@ touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
 }
 //AvatarInput component for redux Field
 const AvatarInput = ({
-      input: { value, onChange },
-      meta: { touched, error, warning }
+      input: {value, onChange},
+      meta: {touched, error, warning}
      }) => {
     return (
       <AvatarEdit
@@ -212,7 +208,7 @@ const GenderInput = ({
       crossPlatformLeftPosition,
       maleActive,
       femaleActive,
-      meta: { touched, error, warning }
+      meta: {touched, error, warning}
      }) => {
     return (
       <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
@@ -236,7 +232,6 @@ const GenderInput = ({
 
 // -- -- -- -- -- -- redux-form validation staff  << END >>-- -- -- -- -- -- --
 class SignUpFacebookExtra extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -268,6 +263,7 @@ class SignUpFacebookExtra extends Component {
       })
     }
   }
+
   submit = values => {
     let userData = {
       name: values.name,
@@ -287,14 +283,14 @@ class SignUpFacebookExtra extends Component {
 
   render() {
 
-   const errorCode = this.props.signUpError && this.props.signUpError.code
+    const errorCode = this.props.signUpError && this.props.signUpError.code
 
     const emailError = [
       'auth/email-already-in-use',
       'auth/invalid-email',
     ].indexOf(errorCode) !== -1
 
-    const { handleSubmit, valid } = this.props    // redux-form meta props
+    const {handleSubmit, valid} = this.props    // redux-form meta props
     return (
       <View style={{flex: 1}}>
         <Header title={_('signupFacebook')} simple />
@@ -361,12 +357,10 @@ class SignUpFacebookExtra extends Component {
               onPress={() => this.setState({showDobInfoPopup: true})}
             />}
           />
-
           <DobInfoPopup
             visible={this.state.showDobInfoPopup}
             onPressOk={() => this.setState({showDobInfoPopup: false})}
           />
-
           <Field
             name="address"
             component={renderAdressInput}
@@ -409,7 +403,7 @@ class SignUpFacebookExtra extends Component {
             onPress={handleSubmit(this.submit)}
             style={[StyleSheet.doubleMarginTop, StyleSheet.singleMarginBottom]}
           />
-        <KeyboardSpacer/>
+          <KeyboardSpacer/>
         </Form>
       </View>
     )

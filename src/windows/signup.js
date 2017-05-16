@@ -1,15 +1,13 @@
 import React, {Component} from 'react'
 import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
-import { Field, reduxForm } from 'redux-form'
+import {Field, reduxForm} from 'redux-form'
 
 import {AddressInput, Button, HorizontalRule, TextInput, DateInput, Form, Header, LoadingAlert, AvatarEdit, Popup} from '../components'
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
 import _ from '../i18n'
-
- // import validation library
-const validation = require('../config/validation')
+import * as validation from '../config/validation'
 
 // -- -- -- -- -- -- redux-form validation staff  << BEGIN >>-- -- -- -- -- -- --
  // passing values into validation function
@@ -65,7 +63,7 @@ const warn = values => {
 }
 //TextInput component for redux Field
 const renderTextInput = ({
-        input: { onChange, ...restInput },
+        input: {onChange, ...restInput},
         value,
         onChangeText,
         type,
@@ -87,7 +85,7 @@ const renderTextInput = ({
         multiline,
         rightBar,
         keyboardType,
-        meta: { touched, error, warning, dirty,invalid, }
+        meta: {touched, error, warning, dirty,invalid,}
       }) => {
 
 let borderStyleOnError = null
@@ -97,7 +95,7 @@ touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pin
 
   return (
     <View>
-      {  (touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+      {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
       <TextInput
             value={value}
             onChangeText={onChange}
@@ -152,10 +150,9 @@ let setColor = null
     </View>
   )
 }
-
 //DateInput component for redux Field
 const renderDateInput = ({
-        input: { onChange, value, ...restInput },
+        input: {onChange, value, ...restInput},
           ref,
           placeholder,
           type,
@@ -165,7 +162,7 @@ const renderDateInput = ({
           minDate,
           barStyle,
           rightBar,
-          meta: { touched, error, warning, dirty }
+          meta: {touched, error, warning, dirty}
       }) => {
 let borderStyleOnError = null
 let textStyleOnError = null
@@ -194,8 +191,8 @@ touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
 }
 //AvatarInput component for redux Field
 const AvatarInput = ({
-      input: { value, onChange },
-      meta: { touched, error, warning }
+      input: {value, onChange},
+      meta: {touched, error, warning}
      }) => {
     return (
       <AvatarEdit
@@ -207,12 +204,12 @@ const AvatarInput = ({
   }
 //GenderInput component for redux Field
 const GenderInput = ({
-      input: { value, onChange },
+      input: {value, onChange},
       onPressInfoIcon,
       crossPlatformLeftPosition,
       maleActive,
       femaleActive,
-      meta: { touched, error, warning }
+      meta: {touched, error, warning}
      }) => {
     return (
       <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
@@ -280,7 +277,7 @@ class SignUp extends Component {
       'auth/invalid-email',
     ].indexOf(errorCode) !== -1
 
-    const { handleSubmit, valid } = this.props    // redux-form meta props
+    const {handleSubmit, valid} = this.props    // redux-form meta props
 
     return (
       <View style={{flex: 1}} onPress={handleSubmit}>
@@ -418,14 +415,12 @@ class SignUp extends Component {
             component={GenderInput}
             onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
           />
-
           <Button
             type={valid ? "roundedDefault" : "roundedGrey"}
             text={_('signup')}
             onPress={handleSubmit(this.submit)}
             style={[StyleSheet.doubleMarginTop, StyleSheet.singleMarginBottom]}
           />
-
           <KeyboardSpacer />
         </Form>
       </View>
