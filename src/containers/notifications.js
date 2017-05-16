@@ -35,12 +35,13 @@ class Notifications extends Component {
     )
 
     const invite = notification.invite
+
     if (invite.event.entryFee === 0 || invite.event.paymentMethod !== 'app') {
       this.props.onAcceptEventInvite(notification)
     } else if (this.props.payments.cards.length > 0) {
       this.props.onAcceptEventInvite(notification)
     } else {
-      this.setState({awaitingCardForInvite: invite})
+      this.setState({awaitingCardForInvite: notification})
       this.props.onNavigate('addCard', {}, false)
     }
   }
