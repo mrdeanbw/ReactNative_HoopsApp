@@ -380,12 +380,9 @@ export const connectionWarning = 'You are not connected to the network. Please c
 export const dismiss = 'DISMISS'
 
 export const dobPopupTitle = "Why we need this?"
-export const dobPopupContent1 = "You only want to see events you can join, right?"
-export const dobPopupContent2 = "Telling us your date of birth helps us make sure that happens. Oh, and we need it to validate our payment system too."
-export const dobPopupContent3 = "Cheers!"
+export const dobPopupContent = "You only want to see events you can join, right?\n\nTelling us your date of birth helps us make sure that happens. Oh, and we need it to validate our payment system too.\n\nCheers!"
 export const genderPopupTitle = "Why we need this?"
-export const genderPopupContent1 = "Telling us your gender helps filter the events that you can join."
-export const genderPopupContent2 = "We’re all for blokes playing netball, but unfortunately that’s in the hands of event organisers..."
+export const genderPopupContent = "Telling us your gender helps filter the events that you can join.\n\nWeï¿½re all for blokes playing netball, but unfortunately thatï¿½s in the hands of event organisers..."
 
 export const ok = "OK"
 

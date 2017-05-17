@@ -426,13 +426,7 @@ class DobInfoPopup extends Component {
             {_('dobPopupTitle')}
           </Text>
           <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('dobPopupContent1')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('dobPopupContent2')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('dobPopupContent3')}
+            {_('dobPopupContent')}
           </Text>
         </View>
         <View style={StyleSheet.buttons.bar}>
@@ -459,10 +453,7 @@ class GenderInfoPopup extends Component {
             {_('genderPopupTitle')}
           </Text>
           <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('genderPopupContent1')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('genderPopupContent2')}
+            {_('genderPopupContent')}
           </Text>
         </View>
         <View style={StyleSheet.buttons.bar}>
