@@ -195,7 +195,6 @@ export default class EventDetails extends React.Component {
   render() {
     let event = this.props.event
     let address = event.address
-
     let ageText
     if (this.props.event.minAge && this.props.event.maxAge) {
       ageText = <Text>{this.props.event.minAge} - {this.props.event.maxAge}</Text>
@@ -305,7 +304,11 @@ export default class EventDetails extends React.Component {
             >
               <View style={StyleSheet.eventDetails.avatarStyle}>
                 <View style={StyleSheet.eventDetails.avatarContainerStyle}>
-                  <Avatar user={this.props.organizer} avatarStyle={StyleSheet.eventDetails.avatarImageStyle} />
+                  <Avatar
+                    title={this.props.organizer.name}
+                    imageUrl={this.props.organizer.imageSrc}
+                    avatarStyle={StyleSheet.menu.avatarImage}
+                  />
                 </View>
                 <Text style={[StyleSheet.text, StyleSheet.eventDetails.avatarNameStyle]}>
                   {this.props.organizer.name}

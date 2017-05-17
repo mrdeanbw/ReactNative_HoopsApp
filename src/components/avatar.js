@@ -6,8 +6,8 @@ import {navigationActions} from '../actions'
 
 class Avatar extends Component {
 
-  getAvatarColor() {
-    const userName = this.props.user.name
+  getAvatarColor() {     //was this.props.user.name
+    const userName = this.props.title
     const name = userName.toUpperCase().split(' ')
 
     if (name.length === 1) {
@@ -37,18 +37,22 @@ class Avatar extends Component {
 
     return colors[sumChars % colors.length]
   }
-
   onPress() {
+/*
+ -------------------------
+| onPress needs to be done|
+ -------------------------
     const user = this.props.user
     const id = user.id ? user.id : user.uid
 
     this.props.onNavigate('profile', {id})
     this.props.hideMenu()
+    */
   }
 
   renderAvatar() {
     // imageSrc = Facebook OR uploaded Avatar
-    const uri = this.props.user.imageSrc
+    const uri = this.props.imageUrl
 
     return (
       <Image
@@ -60,7 +64,6 @@ class Avatar extends Component {
       />
     )
   }
-
   renderInitials() {
     return (
       <View style={[
@@ -76,17 +79,13 @@ class Avatar extends Component {
   }
 
   render() {
-    const avatarContent = this.props.user.imageSrc ? this.renderAvatar() : this.renderInitials()
-
-    if (this.props.enableProfileLink) {
+                      //was this.props.user.imageSrc
+    const avatarContent = this.props.imageUrl ? this.renderAvatar() : this.renderInitials()
       return (
-        <TouchableOpacity accessibilityTraits="image" onPress={() => this.onPress()}>
+        <TouchableOpacity accessibilityTraits="image" onPress={() => this.props.link}>
           {avatarContent}
         </TouchableOpacity>
       )
-    } else {
-        return avatarContent
-    }
   }
 }
 
@@ -105,7 +104,7 @@ const defaultStyles = {
     fontWeight: '100',
   },
 }
-
+/* . OLD PROPS - BEFORE REFACTOR
 Avatar.propTypes = {
   enableProfileLink: React.PropTypes.bool,
   user: React.PropTypes.object,
@@ -114,6 +113,14 @@ Avatar.propTypes = {
 Avatar.defaultProps = {
   enableProfileLink: true,
 }
+*/
+
+Avatar.propTypes = {
+  link: React.PropTypes.func,
+  imageUrl: React.PropTypes.string,
+  title: React.PropTypes.string.isRequired
+}
+
 
 export default connect(
   (state) => ({

@@ -60,7 +60,12 @@ export default class UserListItem extends React.Component {
 
           <View style={StyleSheet.userListItem.detail}>
             <View style={StyleSheet.userListItem.imageContainer}>
-              <Avatar user={user} avatarStyle={StyleSheet.userListItem.avatar} />
+              <Avatar
+                title={user.name}
+                imageUrl={user.imageSrc}
+                avatarStyle={StyleSheet.userListItem.avatar}
+                link={alert('Avatar ' + user.name + 'was pressed')}
+              />
             </View>
 
             <View style={StyleSheet.userListItem.textContainer}>
