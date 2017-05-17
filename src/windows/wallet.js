@@ -1,87 +1,12 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Text, Image} from 'react-native'
+import {ScrollView, View, Text} from 'react-native'
 
 import _ from '../i18n'
 import {Header, LoadingAlert, Title, Button, Avatar} from '../components'
 import StyleSheet from '../styles'
 import Icon from '../components//icon'
-import {colors, images} from '../styles/resources'
-
-
-
-class UserListInWallet extends Component {
-  constructor(props){
-    super(props)
-  }
-
-  render(){
-    let user = this.props.user
-
-
-    return(
-      <View style={{flexDirection: 'column', flexJustify: 'flex-start', alignItems: 'flex-start',}}>
-        <View style={{paddingLeft: 15,}}>
-          <Text style={[StyleSheet.text, {color: colors.pink, fontSize: 12, fontWeight: 'bold'}]}>{this.props.displayDate}</Text>
-        </View>
-        <View style={[StyleSheet.userListItem.detail, {borderBottomWidth: 1, borderBottomColor: colors.grey}]}>
-          <View style={StyleSheet.userListItem.imageContainer}>
-            <Avatar user={user} avatarStyle={StyleSheet.userListItem.avatar} />
-          </View>
-          <View style={StyleSheet.userListItem.textContainer}>
-            <Text style={[StyleSheet.text, StyleSheet.userListItem.textStyle, StyleSheet.userListItem.titleTextStyle, {color: colors.grey}]} numberOfLines={1} ellipsizeMode="tail">
-              {user.name + ' ' + user.secondName}
-            </Text>
-            <Text style={[StyleSheet.text, StyleSheet.userListItem.textStyle, {color: colors.grey, fontStyle: 'italic'}]} numberOfLines={1} ellipsizeMode="tail">
-              {user.activity}
-            </Text>
-          </View>
-          <View style={{paddingRight: 15}}>
-            <Text style={[StyleSheet.text, {color: colors.green, fontWeight: 'bold'}]}>+£{user.price}</Text>
-          </View>
-        </View>
-      </View>
-    )
-  }
-}
-
-class BankInfoCard extends Component {
-  constructor(props){
-    super(props)
-  }
-  render(){
-    const { name, surname, bankName, accountNumber, sortCode, balance} = this.props
-
-    let firstCharOfName = name.charAt(0)
-    let surnameCaption = surname.toUpperCase()
-    let bankNameCaption = bankName.toUpperCase()
-    return(
-      <View elevation={5} style={[StyleSheet.wallet.bankInfoBox.container]}>
-        <View style={[StyleSheet.wallet.bankInfoBox.top]}>
-          <View style={[StyleSheet.wallet.bankInfoBox.detailsContainer,]}>
-            <View style={[StyleSheet.wallet.bankInfoBox.nameContainer]}>
-              <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.name]}>{surnameCaption + ' ' + firstCharOfName}</Text>
-            </View>
-            <View style={[StyleSheet.wallet.bankInfoBox.bankDetails]}>
-              <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.bankDetailsText]}>{bankNameCaption + ' | ' + accountNumber + ' | ' +  sortCode}</Text>
-            </View>
-          </View>
-          <View style={[StyleSheet.wallet.bankInfoBox.iconContainer]}>
-            <View style={StyleSheet.wallet.bankInfoBox.iconCircle}>
-              <Icon  name="actionEdit2x"/>
-            </View>
-          </View>
-        </View>
-        <View style={[StyleSheet.wallet.bankInfoBox.bottom]}>
-          <Text style={StyleSheet.wallet.bankInfoBox.balanceLabel}>Current Balance</Text>
-          <Text style={StyleSheet.wallet.bankInfoBox.balance}>£{balance}</Text>
-        </View>
-      </View>
-    )
-  }
-}
 
 class Wallet extends Component {
-
   getStripeDisplayError() {
     if (!this.props.account || !this.props.account.verification) {
       return
@@ -113,7 +38,6 @@ class Wallet extends Component {
         error = 'This account is not rejected but disabled for other reasons.'
         break
     }
-
     return error
   }
 //to be replaced with backend
@@ -129,15 +53,14 @@ createFakeUsers() {
       activity: 'Swimming Lesson',
       price: Math.floor((Math.random() * 10) + 1),
       imageSrc: 'https://facebook.github.io/react/img/logo_og.png',
-      date: months[now.getMonth()].toUpperCase() + ' ' + (now.getDay() + i) + ' ' + now.getFullYear(),
+      date: months[now.getMonth()].toUpperCase() + ' ' + (now.getDay() + i) + ', ' + now.getFullYear(),
     }
     users.push(user)
   }
   return users
 }
-
   render() {
-/*
+/* // CODE BELOW IS KEPT IF YOU NEED IT FOR SOME REASONS IF NOT JUST REMOVE IT
     const account = this.props.account
     const titleStyle = StyleSheet.profile.editLabel
     const detailStyle = StyleSheet.payments.accountDataText
@@ -146,7 +69,7 @@ createFakeUsers() {
 */  const users = this.createFakeUsers()
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     let now = new Date('01/12/2013')
-    let today = months[now.getMonth()].toUpperCase() + ' ' + (now.getDay()) + ' ' + now.getFullYear()
+    let today = months[now.getMonth()].toUpperCase() + ' ' + (now.getDay()) + ', ' + now.getFullYear()
     let dateIndex = 0
     return (
       <View style={{flex: 1}}>
@@ -154,21 +77,22 @@ createFakeUsers() {
         <View style={StyleSheet.padding}>
           <LoadingAlert visible={this.props.isLoading} />
           <View style={{ alignItems: "center"}}>
+            {/* values to be replaced with real ones*/}
             <BankInfoCard
               name="Rafal"
               surname="Kaczynski"
               bankName="Loyds"
               accountNumber="00012345"
               sortCode="20-55-34"
-              balance={99}
+              balance={99.75}
             />
           </View>
         </View>
         <View style={{flex:1}}>
-          <Title text={'RECENT TRANSATIONS'}/>
+          <Title text={'RECENT TRANSACTIONS'}/>
           <ScrollView>
-          {users.map((user, i) => {
-              let dateIndex = 0
+            {users.map((user, i) => {
+
               let displayDate
               let dateChecker = []
 
@@ -180,7 +104,7 @@ createFakeUsers() {
 
               dateChecker[i] = displayDate
 
-              if ((i !== 0) && (dateChecker[i] === dateChecker[ i - 1 ])) {
+              if ((user.i !== 0) && (dateChecker[user.id] === dateChecker[ user.id - 1 ])) {
                 displayDate = ''
                 dateIndex++
               } else {
@@ -195,14 +119,13 @@ createFakeUsers() {
               )
             })}
           </ScrollView>
-          <View style={{paddingLeft:20, paddingRight: 20}}>
+          <View style={StyleSheet.wallet.button}>
             <Button
               type="roundedDefault"
               text={_('viewAll')}
               style={[StyleSheet.singleMargin,]}
             />
           </View>
-
         </View>
       </View>
     )
@@ -211,8 +134,78 @@ createFakeUsers() {
 
 export default Wallet
 
+class UserListInWallet extends Component {
+  constructor(props){
+    super(props)
+  }
+  render(){
+    let user = this.props.user
 
-         {/* {account && account.accountNumber ? (
+    return(
+      <View style={StyleSheet.wallet.UserListInWallet.container}>
+        <View style={StyleSheet.wallet.UserListInWallet.dateContainer}>
+          <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.dateText]}>{this.props.displayDate}</Text>
+        </View>
+        <View style={StyleSheet.wallet.UserListInWallet.mainContentContainer}>
+          <View style={StyleSheet.wallet.UserListInWallet.imageContainer}>
+            <Avatar user={user} avatarStyle={StyleSheet.wallet.UserListInWallet.avatarStyle} />
+          </View>
+          <View style={StyleSheet.wallet.UserListInWallet.textContainer}>
+            <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.textStyle]} numberOfLines={1} ellipsizeMode="tail">
+              {user.name + ' ' + user.secondName}
+            </Text>
+            <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.activityTextStyle]} numberOfLines={1} ellipsizeMode="tail">
+              {user.activity}
+            </Text>
+          </View>
+          <View>
+            <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.price]}>+£{user.price}</Text>
+          </View>
+        </View>
+      </View>
+    )
+  }
+}
+
+class BankInfoCard extends Component {
+  constructor(props){
+    super(props)
+  }
+  render(){
+    const { name, surname, bankName, accountNumber, sortCode, balance} = this.props
+
+    let firstCharOfName = name.charAt(0)
+    let surnameCaption = surname.toUpperCase()
+    let bankNameCaption = bankName.toUpperCase()
+    return(
+      <View elevation={5} style={[StyleSheet.wallet.bankInfoBox.container]}>
+        <View style={[StyleSheet.wallet.bankInfoBox.top]}>
+          <View style={[StyleSheet.wallet.bankInfoBox.detailsContainer,]}>
+            <View style={[StyleSheet.wallet.bankInfoBox.nameContainer]}>
+              <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.name]}>{surnameCaption + ' ' + firstCharOfName}</Text>
+            </View>
+            <View style={[StyleSheet.wallet.bankInfoBox.bankDetails]}>
+              <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.bankDetailsText]}>{bankNameCaption + '   |   ' + accountNumber + '   |   ' +  sortCode}</Text>
+            </View>
+          </View>
+          <View style={[StyleSheet.wallet.bankInfoBox.iconContainer]}>
+            <View style={StyleSheet.wallet.bankInfoBox.iconCircle}>
+              <Icon style={StyleSheet.wallet.bankInfoBox.iconStyle} name="actionEdit"/>
+            </View>
+          </View>
+        </View>
+        <View style={[StyleSheet.wallet.bankInfoBox.bottom]}>
+          <Text style={StyleSheet.wallet.bankInfoBox.balanceLabel}>{_('CurrentBalance')}</Text>
+          <Text style={StyleSheet.wallet.bankInfoBox.balance}>£{balance}</Text>
+        </View>
+      </View>
+    )
+  }
+}
+
+         {/*// CODE BELOW IS KEPT IF YOU NEED IT FOR SOME REASONS IF NOT JUST REMOVE IT
+
+           {account && account.accountNumber ? (
             <ScrollView>
               <View style={{flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
                 <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
@@ -295,3 +288,4 @@ export default Wallet
           ) : (
             <Text style={StyleSheet.payments.noCardsText}>{_('noAccount')}</Text>
           )}*/}
+

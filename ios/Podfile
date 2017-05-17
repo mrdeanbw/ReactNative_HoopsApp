@@ -7,9 +7,6 @@ target 'Hoops' do
 
 	pod 'Firebase'
 	pod 'Firebase/Messaging'
-	pod 'React', :path => '../node_modules/react-native'
-	pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
-
     
     pod 'GoogleMaps'
 

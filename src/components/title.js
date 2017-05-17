@@ -10,7 +10,7 @@ export default class _Title extends React.Component {
   render(){
     return(
       <View style={StyleSheet.title.container}>
-        <Text style={StyleSheet.title.titleText}>
+        <Text style={[StyleSheet.text,StyleSheet.title.titleText]}>
           {this.props.text}
         </Text>
       </View>
