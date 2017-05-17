@@ -1,8 +1,5 @@
 import React, {Component} from 'react'
 import {Image, Text, TouchableOpacity, View} from 'react-native'
-import {connect} from 'react-redux'
-
-import {navigationActions} from '../actions'
 
 class Avatar extends Component {
 
@@ -96,16 +93,9 @@ const defaultStyles = {
 }
 
 Avatar.propTypes = {
-  onPress: React.PropTypes.func.onPress,
+  onPress: React.PropTypes.func,
   imageUrl: React.PropTypes.string,
   title: React.PropTypes.string.isRequired
 }
 
-export default connect(
-  (state) => ({
-  }),
-  (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
-    hideMenu: () => dispatch(navigationActions.hideMenu()),
-  }),
-)(Avatar)
+export default Avatar
