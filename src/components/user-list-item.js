@@ -56,8 +56,6 @@ export default class UserListItem extends React.Component {
           <Animated.View style={[StyleSheet.userListItem.status, {backgroundColor: StyleSheet.colors.pink}, {
             width: this.state.checkedAnimation.interpolate({ inputRange: [0, 1], outputRange: [0, 8] })
           }]}/>
-
-
           <View style={StyleSheet.userListItem.detail}>
             <View style={StyleSheet.userListItem.imageContainer}>
               <Avatar
@@ -66,7 +64,6 @@ export default class UserListItem extends React.Component {
                 avatarStyle={StyleSheet.userListItem.avatar}
               />
             </View>
-
             <View style={StyleSheet.userListItem.textContainer}>
               <Text style={[StyleSheet.text, StyleSheet.userListItem.textStyle, StyleSheet.userListItem.titleTextStyle]} numberOfLines={1} ellipsizeMode="tail">
                 {user.name}
@@ -86,7 +83,6 @@ export default class UserListItem extends React.Component {
               </Text>
             </View>
           </View>
-
           <TouchableHighlight
             onPress={this.props.onPressDisclosure}
             underlayColor={StyleSheet.userListItem.disclosureUnderlayColor}

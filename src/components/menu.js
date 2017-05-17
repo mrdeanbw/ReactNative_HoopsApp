@@ -10,11 +10,9 @@ export default class Menu extends Component {
   render() {
     return (
       <View style={StyleSheet.menu.menuContainer}>
-
         <TouchableWithoutFeedback onPress={this.props.onPressBackground}>
           <Animated.View style={[StyleSheet.menu.menuOverlay, {opacity: this.props.animation}]} />
         </TouchableWithoutFeedback>
-
         <Animated.View style={[StyleSheet.menu.style, {right: this.props.animation.interpolate({ inputRange: [0, 1], outputRange: [-115, 0] }) }]}>
           <TouchableHighlight underlayColor="transparent" onPress={this.props.onPressProfile}>
             <View style={StyleSheet.menu.header}>
@@ -28,7 +26,6 @@ export default class Menu extends Component {
               </Text>
             </View>
           </TouchableHighlight>
-
           <View style={StyleSheet.menu.items}>
             <MenuItem
               active={this.props.currentTab === 'settings'}
@@ -51,7 +48,6 @@ export default class Menu extends Component {
                 onPress={() => this.props.onTabPress('payments')}
               />
             )}
-
             {this.props.mode === 'ORGANIZE' ? (
               <MenuItem
                 active={this.props.currentTab === 'calendar'}
@@ -68,7 +64,6 @@ export default class Menu extends Component {
                 onPress={() => this.props.onTabPress('invitations')}
               />
             )}
-
             <MenuItem
               active={this.props.currentTab === 'friends'}
               icon="friends"
@@ -77,7 +72,6 @@ export default class Menu extends Component {
             />
           </View>
         </Animated.View>
-
       </View>
     )
   }
