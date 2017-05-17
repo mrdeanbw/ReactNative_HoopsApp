@@ -6,7 +6,7 @@ import {navigationActions} from '../actions'
 
 class Avatar extends Component {
 
-  getAvatarColor() {     //was this.props.user.name
+  getAvatarColor() {
     const userName = this.props.title
     const name = userName.toUpperCase().split(' ')
 
@@ -22,7 +22,6 @@ class Avatar extends Component {
     for(let i = 0; i < userName.length; i++) {
       sumChars += userName.charCodeAt(i)
     }
-
     // inspired by https://github.com/wbinnssmith/react-user-avatar
     // colors from https://flatuicolors.com/
     const colors = [
@@ -36,18 +35,6 @@ class Avatar extends Component {
     ]
 
     return colors[sumChars % colors.length]
-  }
-  onPress() {
-/*
- -------------------------
-| onPress needs to be done|
- -------------------------
-    const user = this.props.user
-    const id = user.id ? user.id : user.uid
-
-    this.props.onNavigate('profile', {id})
-    this.props.hideMenu()
-    */
   }
 
   renderAvatar() {
@@ -79,13 +66,16 @@ class Avatar extends Component {
   }
 
   render() {
-                      //was this.props.user.imageSrc
     const avatarContent = this.props.imageUrl ? this.renderAvatar() : this.renderInitials()
+    if (this.props.onPress) {
       return (
-        <TouchableOpacity accessibilityTraits="image" onPress={() => this.props.link}>
+        <TouchableOpacity accessibilityTraits="image" onPress={this.props.onPress}>
           {avatarContent}
         </TouchableOpacity>
       )
+    } else {
+        return avatarContent
+    }
   }
 }
 
@@ -104,23 +94,12 @@ const defaultStyles = {
     fontWeight: '100',
   },
 }
-/* . OLD PROPS - BEFORE REFACTOR
-Avatar.propTypes = {
-  enableProfileLink: React.PropTypes.bool,
-  user: React.PropTypes.object,
-}
-
-Avatar.defaultProps = {
-  enableProfileLink: true,
-}
-*/
 
 Avatar.propTypes = {
-  link: React.PropTypes.func,
+  onPress: React.PropTypes.func.onPress,
   imageUrl: React.PropTypes.string,
   title: React.PropTypes.string.isRequired
 }
-
 
 export default connect(
   (state) => ({
