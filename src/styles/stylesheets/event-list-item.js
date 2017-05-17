@@ -33,6 +33,7 @@ export default StyleSheet => StyleSheet.extend({
     borderRadius: 27.5,
     width: 55,
     height: 55,
+    resizeMode: 'cover',
   },
 
   imageOverlay: {

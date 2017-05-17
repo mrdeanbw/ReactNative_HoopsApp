@@ -16,7 +16,6 @@ export default class Menu extends Component {
         </TouchableWithoutFeedback>
 
         <Animated.View style={[StyleSheet.menu.style, {right: this.props.animation.interpolate({ inputRange: [0, 1], outputRange: [-115, 0] }) }]}>
-
           <TouchableHighlight underlayColor="transparent" onPress={this.props.onPressProfile}>
             <View style={StyleSheet.menu.header}>
               <Avatar

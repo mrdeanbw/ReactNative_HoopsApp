@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import {Image, Text, TouchableOpacity, View} from 'react-native'
 
+import StyleSheet from '../styles'
+import _ from '../i18n'
+
 class Avatar extends Component {
 
   getAvatarColor() {
@@ -64,14 +67,50 @@ class Avatar extends Component {
 
   render() {
     const avatarContent = this.props.imageUrl ? this.renderAvatar() : this.renderInitials()
+    let isEnded
+    let isCancelled
+
+    this.props.overlay = 'ended' ? isEnded = true : isEnded = false
+    this.props.overlay = 'cancelled' ? isCancelled = true : isCancelled = false
+
     if (this.props.onPress) {
       return (
         <TouchableOpacity accessibilityTraits="image" onPress={this.props.onPress}>
           {avatarContent}
+          {this.props.overlay && (isEnded || isCancelled) && (
+              <View
+                style={[
+                  StyleSheet.eventListItem.imageOverlay,
+                  isEnded && StyleSheet.eventListItem.endedImageOverlay,
+                  isCancelled && StyleSheet.eventListItem.cancelledImageOverlay,
+                ]}
+              >
+                <Text style={StyleSheet.eventListItem.disabledImageText}>
+                  {isEnded ? _('ended') : _('cancelled')}
+                </Text>
+              </View>
+            )}
         </TouchableOpacity>
       )
     } else {
-        return avatarContent
+        return (
+          <View>
+            {avatarContent}
+            {this.props.overlay && (isEnded || isCancelled) && (
+              <View
+                style={[
+                  StyleSheet.eventListItem.imageOverlay,
+                  isEnded && StyleSheet.eventListItem.endedImageOverlay,
+                  isCancelled && StyleSheet.eventListItem.cancelledImageOverlay,
+                ]}
+              >
+                <Text style={StyleSheet.eventListItem.disabledImageText}>
+                  {isEnded ? _('ended') : _('cancelled')}
+                </Text>
+              </View>
+            )}
+          </View>
+        )
     }
   }
 }
@@ -95,7 +134,8 @@ const defaultStyles = {
 Avatar.propTypes = {
   onPress: React.PropTypes.func,
   imageUrl: React.PropTypes.string,
-  title: React.PropTypes.string.isRequired
+  title: React.PropTypes.string.isRequired,
+  overlay: React.PropTypes.string,
 }
 
 export default Avatar

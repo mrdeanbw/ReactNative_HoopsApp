@@ -57,6 +57,7 @@ export default class UserListItem extends React.Component {
             width: this.state.checkedAnimation.interpolate({ inputRange: [0, 1], outputRange: [0, 8] })
           }]}/>
 
+
           <View style={StyleSheet.userListItem.detail}>
             <View style={StyleSheet.userListItem.imageContainer}>
               <Avatar
