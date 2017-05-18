@@ -20,7 +20,7 @@ class AddressInput extends Component {
   }
 
   render() {
-    const {icon} = this.props
+    const {icon, textColor} = this.props
 
     const androidMarginFix =  Platform.OS === 'ios' ? null : StyleSheet.singlePlusMarginRight
     const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
@@ -37,7 +37,7 @@ class AddressInput extends Component {
       <TouchableHighlight onPress={this.onPressInput.bind(this)} underlayColor="transparent">
         <View style={StyleSheet.textInputs.flat.style}>
           {icon && (<Icon name="home" style={[iconStyles, androidMarginFix]} />)}
-          <Text style={[textStyles, androidMatchFontSize]}>
+          <Text style={[textStyles, androidMatchFontSize, textColor]}>
             {this.props.value ? this.props.value : this.props.placeholder}
           </Text>
           <Icon name="chevronRightPink"/>

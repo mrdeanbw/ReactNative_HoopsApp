@@ -1,16 +1,259 @@
 import React, {Component} from 'react'
 import {View, Text, Platform} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
+import { Field, reduxForm } from 'redux-form'  // Field Component and reduxForm function  need to be imported from redux-form
 
 import {AddressInput, Button, HorizontalRule, TextInput, DateInput, Form, Header, LoadingAlert, AvatarEdit, Popup} from '../components'
 import StyleSheet from '../styles'
+import {colors} from '../styles/resources'
 import _ from '../i18n'
 
+
+// -- -- -- -- -- -- redux-form validation staff  << BEGIN >>-- -- -- -- -- -- --
+ // import validation library
+const validation = require('../config/validation')
+
+// -- -- -- -- -- -- redux-form validation staff  << BEGIN >>-- -- -- -- -- -- --
+ // passing values into validation function
+const validate = values => {
+  const errors = {}
+  // Name validation
+  if (validation.Required(values.name)) {
+    errors.name = 'Required'
+  } else if (validation.StringIsShorterOrEqual(values.name, 15)) {
+    errors.name = 'Must be 15 characters or less'
+  }
+  //Email validation
+  if (validation.Required(values.email)) {
+    errors.email = 'Required'
+  } else if (validation.EmailIsValid(values.email)) {
+    errors.email = 'Invalid email address'
+  }
+  //Password validation
+  if (validation.Required(values.password)) {
+    errors.password = 'Required'
+  } else if (validation.StringIsLongerOrEqual(values.password, 6)) {
+    errors.password = 'Password  must be at least 6 characters.'
+  }
+/*
+  //phone validation
+  if (!values.phone) {
+    errors.phone = 'Required'
+  }
+*/
+  //address validation
+  if (validation.Required(values.address)) {
+    errors.address = 'Required'
+  }
+  //dob validation
+  if (validation.Required(values.dob)) {
+    errors.dob = 'Required'
+  } else if (validation.noFutureDates(values.dob)) {
+      errors.dob = 'Invalid date of birth'
+  }
+
+  //address validation
+  if (validation.Required(values.gender)) {
+    errors.gender = 'Required'
+  }
+
+
+  return errors
+}
+ // passing values into warning function
+const warn = values => {
+  const warnings = {}
+  if (values.age < 19) {
+    warnings.age = 'Hmm, you seem a bit young...'
+  }
+  return warnings
+}
+
+
+
+//TextInput component for redux Field
+const renderTextInput = ({
+        input: { onChange, ...restInput },
+        value,
+        onChangeText,
+        type,
+        ref,
+        placeholder,
+        style,
+        errors,
+        autoCapitalize,
+        autoCorrect,
+        textStyle,
+        autoFocus,
+        returnKeyType,
+        selectTextOnFocus,
+        enablesReturnKeyAutomatically,
+        onSubmitEditing,
+        icon,
+        secureTextEntry,
+        clearTextOnFocus,
+        multiline,
+        rightBar,
+        keyboardType,
+        meta: { touched, error, warning, dirty,invalid, }
+      }) => {
+
+let borderStyleOnError = null
+let textStyleOnError = null
+
+touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
+
+  return (
+    <View>
+      {  (touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+      <TextInput
+            value={value}
+            onChangeText={onChange}
+            type={type}
+            ref={ref}
+            error={errors}
+            placeholder={placeholder}
+            style={[style, borderStyleOnError]}
+            autoCapitalize={autoCapitalize}
+            autoCorrect={autoCorrect}
+            textStyle={[textStyle, textStyleOnError]}
+            autoFocus={autoFocus}
+            returnKeyType={returnKeyType}
+            selectTextOnFocus={selectTextOnFocus}
+            enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
+            onSubmitEditing={onSubmitEditing}
+            icon={icon}
+            secureTextEntry={secureTextEntry}
+            clearTextOnFocus={clearTextOnFocus}
+            multiline={multiline}
+            rightBar={rightBar}
+            keyboardType={keyboardType}
+          />
+    </View>
+
+  )
+}
+//Address Input component for redux Field
+const renderAdressInput = ({
+        input: { onChange, value, dirty, ...restInput },
+        icon,
+        placeholder,
+        onSelect,
+        textStyles,
+        meta: { touched, error, warning }
+      }) => {
+
+let setColor = null
+
+!error ? setColor = {color: "black"} : null
+
+  return (
+    <View>
+      {touched && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+      <AddressInput
+            icon={icon}
+            placeholder={placeholder}
+            value={value.description}
+            onSelect={onChange}
+            textStyles={[textStyles]}
+            textColor={setColor}
+           />
+    </View>
+
+  )
+}
+
+//DateInput component for redux Field
+const renderDateInput = ({
+        input: { onChange, value, ...restInput },
+          ref,
+          placeholder,
+          type,
+          icon,
+          date,
+          time,
+          minDate,
+          barStyle,
+          rightBar,
+          meta: { touched, error, warning, dirty }
+      }) => {
+let borderStyleOnError = null
+let textStyleOnError = null
+
+touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
+touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
+  return (
+    <View>
+        {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+      <DateInput
+          ref={ref}
+          placeholder={placeholder}
+          type={type}
+          icon={icon}
+          date={date}
+          time={time}
+          errorStyles={[borderStyleOnError, textStyleOnError]}
+          minDate={minDate}
+          value={value}
+          onChange={onChange}
+          barStyle={barStyle}
+          rightBar={rightBar}
+        />
+    </View>
+
+  )
+}
+//AvatarInput component for redux Field
+const AvatarInput = ({
+      input: { value, onChange },
+      meta: { touched, error, warning }
+     }) => {
+    return (
+      <AvatarEdit
+            onChange={onChange}
+            imageUrl={value}
+            style={StyleSheet.singleMargin}
+        />
+    )
+  }
+//GenderInput component for redux Field
+const GenderInput = ({
+      input: { value, onChange },
+      onPressInfoIcon,
+      crossPlatformLeftPosition,
+      maleActive,
+      femaleActive,
+      meta: { touched, error, warning }
+     }) => {
+    return (
+      <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
+      {touched && ((error && <Text style={[StyleSheet.signup.errorText]}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+        <View style={StyleSheet.signup.genderLabelContainer}>
+          <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
+          <Button
+                style={[StyleSheet.signup.genderInfoIcon]}
+                type="disclosure"
+                icon="info"
+                onPress={onPressInfoIcon}/>
+        </View>
+        <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
+          <Button type="image" icon="male" active={value === 'male'} onPress={() => onChange('male') }/>
+          <View style={StyleSheet.buttons.separator} />
+          <Button type="image" icon="female" active={value === 'female'} onPress={() => onChange('female')}/>
+        </View>
+      </View>
+
+    )
+  }
+
+// -- -- -- -- -- -- redux-form validation staff  << END >>-- -- -- -- -- -- --
+/**
+ * Window/Signup Component
+ */
 class SignUp extends Component {
 
   constructor(props) {
     super(props)
-
     this.state = {
       showPassword: false,
       showDobInfo: false,
@@ -24,38 +267,15 @@ class SignUp extends Component {
     }
   }
 
-  validate() {
-    const {name, email, password, dob, gender, city, cityText} = this.state
-    return !!(
-      name &&
-      email &&
-      password && password.length >= 8 &&
-      dob &&
-      gender &&
-      city && cityText
-    )
-  }
-
-  onSubmitEditing = (nextField) => {
-    this.refs[nextField].focus()
-  }
-
-  onPressMale = () => {
-    this.setState({gender: 'male'})
-  }
-
-  onPressFemale = () => {
-    this.setState({gender: 'female'})
-  }
-
-  onPressSignUp = () => {
-    this.props.onSignUp(this.state.email, this.state.password, {
-      name: this.state.name,
-      dob: this.state.dob,
-      gender: this.state.gender,
-      city: this.state.city.description,
-      cityGooglePlaceId: this.state.city.place_id,
-      image: this.state.image,
+  submit = values => {
+    this.props.onSignUp(values.email, values.password, {
+      name: values.name,
+      dob: values.dob,
+      email: values.email,
+      gender: values.gender,
+      city: values.address.description,
+      cityGooglePlaceId: values.address.place_id,
+      image: values.image,
     })
   }
 
@@ -63,39 +283,26 @@ class SignUp extends Component {
     this.props.onFacebookSignUp()
   }
 
-  getPasswordValidationError() {
-    const {password} = this.state
-    const errorCode = this.props.signUpError && this.props.signUpError.code
-
-    // No password, do not validate
-    if (!password) {
-      return
-    }
-
-    if (password.length < 8) {
-      return 'Password is less than 8 characters'
-    }
-
-    const passwordError = [
-      'auth/weak-password',
-    ].indexOf(errorCode) !== -1
-
-    return passwordError
-  }
-
-
   render() {
+
     const errorCode = this.props.signUpError && this.props.signUpError.code
+
     const emailError = [
       'auth/email-already-in-use',
       'auth/invalid-email',
     ].indexOf(errorCode) !== -1
-
     const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
-    const crossPlatformLeftPosition = Platform.OS === 'ios' ? [StyleSheet.leftSmaller] : [StyleSheet.leftBigger]
+
+    const { handleSubmit, valid } = this.props    // redux-form meta props
+
     return (
-      <View style={{flex: 1}}>
-        <Header title={_('signup')} simple />
+      <View style={{flex: 1}} onPress={handleSubmit}>
+        <Header
+          title={_('signup')}
+          hideSwitcher={true}
+          onClose={this.props.onClose}
+          onBack={this.props.onBack}
+        />
         <Form style={StyleSheet.signup.style}>
           <LoadingAlert visible={this.props.isLoading} />
           <Button
@@ -104,25 +311,21 @@ class SignUp extends Component {
             text={_('facebookConnect')}
             onPress={this.onPressFacebookConnect}
           />
-
           <HorizontalRule
             text={_('or')}
             style={StyleSheet.doubleMarginTop}
           />
-
-          <AvatarEdit
-            onChange={(image) => this.setState({image})}
-            imageUrl={this.state.image || this.state.imageUrl}
-            style={StyleSheet.singleMargin}
+          <Field
+            name="image"
+            component={AvatarInput}
           />
-
-          <TextInput
-            value={this.state.name}
-            onChangeText={(name) => this.setState({name})}
+          <Field
+            name="name"
+            component={renderTextInput}
             type="flat"
             ref="name"
             placeholder={_('name')}
-
+            style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}
             textStyle={androidMatchFontSize}
@@ -130,20 +333,17 @@ class SignUp extends Component {
             returnKeyType="next"
             selectTextOnFocus={true}
             enablesReturnKeyAutomatically={true}
-            onSubmitEditing={() => this.onSubmitEditing("email")}
             icon="name"
           />
-
           {errorCode === 'auth/email-already-in-use' && (
             <Text style={StyleSheet.signup.errorText}>Email already used</Text>
           )}
           {errorCode === 'auth/invalid-email' && (
             <Text style={StyleSheet.signup.errorText}>Invalid email</Text>
           )}
-
-          <TextInput
-            value={this.state.email}
-            onChangeText={(email) => this.setState({email})}
+          <Field
+            name="email"
+            component={renderTextInput}
             type="flat"
             ref="email"
             error={emailError}
@@ -156,20 +356,13 @@ class SignUp extends Component {
             selectTextOnFocus={true}
             enablesReturnKeyAutomatically={true}
             keyboardType="email-address"
-            onSubmitEditing={() => this.onSubmitEditing("password")}
             icon="email"
           />
-
-          {errorCode === 'auth/weak-password' && (
-            <Text style={StyleSheet.signup.errorText}>Invalid email</Text>
-          )}
-
-          <TextInput
-            value={this.state.password}
-            onChangeText={(password) => this.setState({password})}
+          <Field
+            name="password"
+            component={renderTextInput}
             type="flat"
             ref="password"
-            error={this.getPasswordValidationError()}
             placeholder={_('password')}
             style={[StyleSheet.halfMarginBottom]}
             secureTextEntry={!this.state.showPassword}
@@ -188,8 +381,9 @@ class SignUp extends Component {
               onPress={() => this.setState({showPassword: !this.state.showPassword})}
             />}
           />
-
-          <DateInput
+          <Field
+            name="dob"
+            component={renderDateInput}
             ref="dob"
             placeholder={_('dob')}
             type="flat"
@@ -197,8 +391,6 @@ class SignUp extends Component {
             date={true}
             time={false}
             minDate={new Date("1900-01-01")}
-            value={this.state.dob}
-            onChange={(dob) => this.setState({dob})}
             barStyle={{
               padding: 3,
             }}
@@ -209,26 +401,20 @@ class SignUp extends Component {
               onPress={() => this.setState({showDobInfoPopup: true})}
             />}
           />
-
           <DobInfoPopup
             visible={this.state.showDobInfoPopup}
             onPressOk={() => this.setState({showDobInfoPopup: false})}
           />
-
-          <AddressInput
+          <Field
+            name="address"
+            component={renderAdressInput}
             icon
-            value={this.state.cityText}
             placeholder={_('city')}
-            onSelect={(venueAddress) => {
-              this.setState({
-                cityText: venueAddress.description,
-                city: venueAddress,
-              })
-            }} />
-
-          <TextInput
-            value={this.state.phone}
-            onChangeText={(phone) => this.setState({phone})}
+            textStyles={{color: "black"}}
+           />
+          <Field
+            name="phone"
+            component={renderTextInput}
             type="flat"
             ref="phone"
             placeholder={_('optionalPhone')}
@@ -241,32 +427,21 @@ class SignUp extends Component {
             keyboardType="phone-pad"
             icon="phone"
           />
-
           <GenderInfoPopup
             visible={this.state.showGenderInfoPopup}
             onPressOk={() => this.setState({showGenderInfoPopup: false})}
           />
-
-          <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
-            <View style={StyleSheet.signup.genderLabelContainer}>
-              <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
-              <Button
-                type="disclosure"
-                icon="info"
-                onPress={() => this.setState({showGenderInfoPopup: true})}/>
-            </View>
-            <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
-              <Button type="image" icon="male" active={this.state.gender === 'male'} onPress={this.onPressMale}/>
-              <View style={StyleSheet.buttons.separator} />
-              <Button type="image" icon="female" active={this.state.gender === 'female'} onPress={this.onPressFemale}/>
-            </View>
-          </View>
+          <Field
+            name="gender"
+            component={GenderInput}
+            onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
+          />
 
           <Button
-            type={this.validate() ? "roundedDefault" : "roundedGrey"}
+            type={valid ? "roundedDefault" : "roundedGrey"}
             text={_('signup')}
-            onPress={this.validate() ? this.onPressSignUp : undefined}
-            style={[StyleSheet.singleMargin, StyleSheet.tripleMarginBottom]}
+            onPress={handleSubmit(this.submit)}
+            style={[StyleSheet.doubleMarginTop, StyleSheet.singleMarginBottom]}
           />
 
           <KeyboardSpacer />
@@ -280,8 +455,12 @@ SignUp.propTypes = {
   onSignUp: React.PropTypes.func.isRequired,
 }
 
-export default SignUp
 
+export default reduxForm({
+  form: 'syncValidation',  // a unique identifier for this form
+  validate,                // <--- validation function given to redux-form
+  warn                     // <--- warning function given to redux-form
+})(SignUp)
 
 class DobInfoPopup extends Component {
 
