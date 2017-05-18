@@ -45,7 +45,19 @@ createFakeUsers() {
   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   var now = new Date('01/12/2013')
   var users = []
-  for ( let i = 0;  i <= 20;  i++) {
+  for ( let i = 0;  i < 4;  i++) {
+    var userX = {
+      id: i,
+      name: 'John',
+      secondName: 'Johnson',
+      activity: 'Swimming Lesson',
+      price: Math.floor((Math.random() * 10) + 1),
+      imageSrc: 'https://facebook.github.io/react/img/logo_og.png',
+      date: months[now.getMonth()].toUpperCase() + ' ' + (now.getDay()) + ', ' + now.getFullYear(),
+    }
+    users.push(userX)
+  }
+  for ( let i = 4;  i <= 20;  i++) {
     let user = {
       id: i,
       name: 'John',
@@ -70,7 +82,11 @@ createFakeUsers() {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     let now = new Date('01/12/2013')
     let today = months[now.getMonth()].toUpperCase() + ' ' + (now.getDay()) + ', ' + now.getFullYear()
-    let dateIndex = 0
+    let dateChecker = []
+    let displayDate
+    let display
+    let displayStyle
+
     return (
       <View style={{flex: 1}}>
         <Header title={_('myWallet')} />
@@ -92,29 +108,29 @@ createFakeUsers() {
           <Title text={'RECENT TRANSACTIONS'}/>
           <ScrollView>
             {users.map((user, i) => {
-
-              let displayDate
-              let dateChecker = []
-
-              if ((user.date === today) && (dateIndex === 0)) {
-                displayDate = 'TODAY'
-               } else if ((user.date !== today) && (dateIndex === 0)) {
-                displayDate = user.date
-               }
-
-              dateChecker[i] = displayDate
-
-              if ((user.i !== 0) && (dateChecker[user.id] === dateChecker[ user.id - 1 ])) {
-                displayDate = ''
-                dateIndex++
-              } else {
-                dateIndex = 0
-              }
+                dateChecker.push(user.date)
+                if (user.date !== dateChecker[ i - 1 ]){
+                  if ((user.date === today)) {
+                    displayDate = 'TODAY'
+                    display = true
+                    displayStyle = null
+                  } else if (user.date !== today) {
+                      displayDate = user.date
+                      display = true
+                      displayStyle = null
+                  }
+                }else {
+                  displayDate = null
+                  display = false
+                  displayStyle = {paddingTop: 3}
+                }
 
               return(
                 <UserListInWallet
                   user={user}
                   displayDate={displayDate}
+                  display={display}
+                  displayStyle={displayStyle}
                 />
               )
             })}
@@ -140,12 +156,16 @@ class UserListInWallet extends Component {
   }
   render(){
     let user = this.props.user
+    let display = this.props.display
+    let  displayStyle = this.props.displayStyle
 
     return(
-      <View style={StyleSheet.wallet.UserListInWallet.container}>
-        <View style={StyleSheet.wallet.UserListInWallet.dateContainer}>
+      <View style={[StyleSheet.wallet.UserListInWallet.container, displayStyle]}>
+        {display && (
+        <View style={[StyleSheet.wallet.UserListInWallet.dateContainer]}>
           <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.dateText]}>{this.props.displayDate}</Text>
         </View>
+        )}
         <View style={StyleSheet.wallet.UserListInWallet.mainContentContainer}>
           <View style={StyleSheet.wallet.UserListInWallet.imageContainer}>
             <Avatar user={user} avatarStyle={StyleSheet.wallet.UserListInWallet.avatarStyle} />

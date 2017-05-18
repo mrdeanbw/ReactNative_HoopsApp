@@ -30,7 +30,6 @@ export default class Button extends React.Component {
         {...props}>
 
         <View style={[defaultButton.containerStyle, button.containerStyle, containerStyle]}>
-
           {icon &&
             <View style={[
                 defaultButton.iconStyle,
@@ -43,8 +42,6 @@ export default class Button extends React.Component {
                   <Icon name={icon} active={active}/>
             </View>
           }
-
-
           {text && <Text style={[
             StyleSheet.text,
             defaultButton.textStyle,
