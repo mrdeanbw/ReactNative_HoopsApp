@@ -13,13 +13,6 @@ import {colors} from '../styles/resources'
 import _ from '../i18n'
 import * as validation from '../config/validation'
 
-
-const required =  value => value ? undefined : 'Required'
-const email =  value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined
-const maxChars15 = (value) => !(value.length >= 15) ? undefined : 'Must be 15 characters or less'
-const minChars6 = (value) => !(value.length <= 6) ? undefined : 'Password  must be at least 6 characters.'
-const noFutureDates = (date, today = new Date()) => (date >= today) ? 'Invalid date of birth' : false
-
 const renderTextInput = ({
         input: {onChange, ...restInput},
         value,
@@ -255,7 +248,7 @@ class SignUp extends Component {
             type="flat"
             ref="name"
             placeholder={_('name')}
-            validate={[required, maxChars15]}
+            validate={[validation.required, validation.maxChars15]}
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}
@@ -278,7 +271,7 @@ class SignUp extends Component {
             ref="email"
             error={emailError}
             placeholder={_('email')}
-            validate={[required, email]}
+            validate={[validation.required, validation.email]}
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType="next"
@@ -293,7 +286,7 @@ class SignUp extends Component {
             type="flat"
             ref="password"
             placeholder={_('password')}
-            validate={[required, minChars6]}
+            validate={[validation.required, validation.minChars6]}
             style={[StyleSheet.halfMarginBottom]}
             secureTextEntry={!this.state.showPassword}
             returnKeyType="next"
@@ -319,7 +312,7 @@ class SignUp extends Component {
             icon="nappy"
             date={true}
             time={false}
-            validate={[required, noFutureDates]}
+            validate={[validation.required, validation.noFutureDates]}
             minDate={new Date("1900-01-01")}
             barStyle={{
               padding: 3,
@@ -338,7 +331,7 @@ class SignUp extends Component {
           <Field
             name="address"
             component={renderAdressInput}
-            validate={required}
+            validate={validation.required}
             icon
             placeholder={_('city')}
             textStyles={{color: "black"}}
@@ -364,7 +357,7 @@ class SignUp extends Component {
           <Field
             name="gender"
             component={GenderInput}
-            validate={required}
+            validate={validation.required}
             onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
           />
           <Button

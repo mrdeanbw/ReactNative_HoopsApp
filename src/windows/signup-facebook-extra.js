@@ -13,11 +13,6 @@ import {colors} from '../styles/resources'
 import _ from '../i18n'
 import * as validation from '../config/validation'
 
-const required =  value => value ? undefined : 'Required'
-const email =  value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined
-const maxChars15 = (value) => !(value.length >= 15) ? undefined : 'Must be 15 characters or less'
-const noFutureDates = (date, today = new Date()) => (date >= today) ? 'Invalid date of birth' : false
-
 const renderTextInput = ({
         input: {onChange, ...restInput},
         value,
@@ -283,7 +278,7 @@ class SignUpFacebookExtra extends Component {
             ref="email"
             error={emailError}
             placeholder={_('email')}
-            validate={[required, email]}
+            validate={[validation.required, validation.email]}
             style={[StyleSheet.halfMarginBottom]}
             autoCapitalize="none"
             autoCorrect={false}
@@ -298,7 +293,7 @@ class SignUpFacebookExtra extends Component {
             component={renderDateInput}
             ref="dob"
             placeholder={_('dob')}
-            validate={[required, noFutureDates]}
+            validate={[validation.required, validation.oFutureDates]}
             type="flat"
             icon="nappy"
             date={true}
@@ -323,7 +318,7 @@ class SignUpFacebookExtra extends Component {
             component={renderAdressInput}
             icon
             placeholder={_('city')}
-            validate={required}
+            validate={validation.required}
             onSelect={(venueAddress) => {
               this.setState({
                 cityText: venueAddress.description,
@@ -353,7 +348,7 @@ class SignUpFacebookExtra extends Component {
           <Field
             name="gender"
             component={GenderInput}
-            validate={required}
+            validate={validation.required}
             onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
           />
           <Button
