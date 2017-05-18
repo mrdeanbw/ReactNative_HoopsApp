@@ -13,36 +13,12 @@ import {colors} from '../styles/resources'
 import _ from '../i18n'
 import * as validation from '../config/validation'
 
-const validate = values => {
-  const errors = {}
-  if (validation.Required(values.name)) {
-    errors.name = 'Required'
-  } else if (validation.StringIsShorterOrEqual(values.name, 15)) {
-    errors.name = 'Must be 15 characters or less'
-  }
-  if (validation.Required(values.email)) {
-    errors.email = 'Required'
-  } else if (validation.EmailIsValid(values.email)) {
-    errors.email = 'Invalid email address'
-  }
-  if (validation.Required(values.password)) {
-    errors.password = 'Required'
-  } else if (validation.StringIsLongerOrEqual(values.password, 6)) {
-    errors.password = 'Password  must be at least 6 characters.'
-  }
-  if (validation.Required(values.address)) {
-    errors.address = 'Required'
-  }
-  if (validation.Required(values.dob)) {
-    errors.dob = 'Required'
-  } else if (validation.noFutureDates(values.dob)) {
-      errors.dob = 'Invalid date of birth'
-  }
-  if (validation.Required(values.gender)) {
-    errors.gender = 'Required'
-  }
-  return errors
-}
+
+const required =  value => value ? undefined : 'Required'
+const email =  value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined
+const maxChars15 = (value) => !(value.length >= 15) ? undefined : 'Must be 15 characters or less'
+const minChars6 = (value) => !(value.length <= 6) ? undefined : 'Password  must be at least 6 characters.'
+const noFutureDates = (date, today = new Date()) => (date >= today) ? 'Invalid date of birth' : false
 
 const renderTextInput = ({
         input: {onChange, ...restInput},
@@ -279,6 +255,7 @@ class SignUp extends Component {
             type="flat"
             ref="name"
             placeholder={_('name')}
+            validate={[required, maxChars15]}
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}
@@ -301,6 +278,7 @@ class SignUp extends Component {
             ref="email"
             error={emailError}
             placeholder={_('email')}
+            validate={[required, email]}
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType="next"
@@ -315,6 +293,7 @@ class SignUp extends Component {
             type="flat"
             ref="password"
             placeholder={_('password')}
+            validate={[required, minChars6]}
             style={[StyleSheet.halfMarginBottom]}
             secureTextEntry={!this.state.showPassword}
             returnKeyType="next"
@@ -340,6 +319,7 @@ class SignUp extends Component {
             icon="nappy"
             date={true}
             time={false}
+            validate={[required, noFutureDates]}
             minDate={new Date("1900-01-01")}
             barStyle={{
               padding: 3,
@@ -358,6 +338,7 @@ class SignUp extends Component {
           <Field
             name="address"
             component={renderAdressInput}
+            validate={required}
             icon
             placeholder={_('city')}
             textStyles={{color: "black"}}
@@ -383,6 +364,7 @@ class SignUp extends Component {
           <Field
             name="gender"
             component={GenderInput}
+            validate={required}
             onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
           />
           <Button
@@ -404,5 +386,4 @@ SignUp.propTypes = {
 
 export default reduxForm({
   form: 'syncValidation',
-  validate,
 })(SignUp)

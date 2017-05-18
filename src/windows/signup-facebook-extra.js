@@ -13,36 +13,10 @@ import {colors} from '../styles/resources'
 import _ from '../i18n'
 import * as validation from '../config/validation'
 
-const validate = values => {
-  const errors = {}
-  if (validation.Required(values.name)) {
-    errors.name = 'Required'
-  } else if (validation.StringIsShorterOrEqual(values.name, 15)) {
-    errors.name = 'Must be 15 characters or less'
-  }
-  if (validation.Required(values.email)) {
-    errors.email = 'Required'
-  } else if (validation.EmailIsValid(values.email)) {
-    errors.email = 'Invalid email address'
-  }
-  if (validation.Required(values.password)) {
-    errors.password = 'Required'
-  } else if (validation.StringIsLongerOrEqual(values.password, 6)) {
-    errors.password = 'Password  must be at least 6 characters.'
-  }
-  if (validation.Required(values.address)) {
-    errors.address = 'Required'
-  }
-  if (validation.Required(values.dob)) {
-    errors.dob = 'Required'
-  } else if (validation.noFutureDates(values.dob)) {
-      errors.dob = 'Invalid date of birth'
-  }
-  if (validation.Required(values.gender)) {
-    errors.gender = 'Required'
-  }
-  return errors
-}
+const required =  value => value ? undefined : 'Required'
+const email =  value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined
+const maxChars15 = (value) => !(value.length >= 15) ? undefined : 'Must be 15 characters or less'
+const noFutureDates = (date, today = new Date()) => (date >= today) ? 'Invalid date of birth' : false
 
 const renderTextInput = ({
         input: {onChange, ...restInput},
@@ -286,6 +260,7 @@ class SignUpFacebookExtra extends Component {
             type="flat"
             ref="name"
             placeholder={_('name')}
+            validate={[required, maxChars15]}
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}
@@ -308,6 +283,7 @@ class SignUpFacebookExtra extends Component {
             ref="email"
             error={emailError}
             placeholder={_('email')}
+            validate={[required, email]}
             style={[StyleSheet.halfMarginBottom]}
             autoCapitalize="none"
             autoCorrect={false}
@@ -322,6 +298,7 @@ class SignUpFacebookExtra extends Component {
             component={renderDateInput}
             ref="dob"
             placeholder={_('dob')}
+            validate={[required, noFutureDates]}
             type="flat"
             icon="nappy"
             date={true}
@@ -346,6 +323,7 @@ class SignUpFacebookExtra extends Component {
             component={renderAdressInput}
             icon
             placeholder={_('city')}
+            validate={required}
             onSelect={(venueAddress) => {
               this.setState({
                 cityText: venueAddress.description,
@@ -375,6 +353,7 @@ class SignUpFacebookExtra extends Component {
           <Field
             name="gender"
             component={GenderInput}
+            validate={required}
             onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
           />
           <Button
@@ -392,5 +371,4 @@ class SignUpFacebookExtra extends Component {
 
 export default reduxForm({
   form: 'syncValidation',
-  validate,
 })(SignUpFacebookExtra)
