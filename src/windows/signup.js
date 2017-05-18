@@ -9,51 +9,37 @@ import {colors} from '../styles/resources'
 import _ from '../i18n'
 import * as validation from '../config/validation'
 
-// -- -- -- -- -- -- redux-form validation staff  << BEGIN >>-- -- -- -- -- -- --
- // passing values into validation function
 const validate = values => {
   const errors = {}
-  // Name validation
   if (validation.Required(values.name)) {
     errors.name = 'Required'
   } else if (validation.StringIsShorterOrEqual(values.name, 15)) {
     errors.name = 'Must be 15 characters or less'
   }
-  //Email validation
   if (validation.Required(values.email)) {
     errors.email = 'Required'
   } else if (validation.EmailIsValid(values.email)) {
     errors.email = 'Invalid email address'
   }
-  //Password validation
   if (validation.Required(values.password)) {
     errors.password = 'Required'
   } else if (validation.StringIsLongerOrEqual(values.password, 6)) {
     errors.password = 'Password  must be at least 6 characters.'
   }
-/*
-  //phone validation
-  if (!values.phone) {
-    errors.phone = 'Required'
-  }
-*/
-  //address validation
   if (validation.Required(values.address)) {
     errors.address = 'Required'
   }
-  //dob validation
   if (validation.Required(values.dob)) {
     errors.dob = 'Required'
   } else if (validation.noFutureDates(values.dob)) {
       errors.dob = 'Invalid date of birth'
   }
-  //address validation
   if (validation.Required(values.gender)) {
     errors.gender = 'Required'
   }
   return errors
 }
- // passing values into warning function
+
 const warn = values => {
   const warnings = {}
   if (values.age < 19) {
@@ -61,7 +47,6 @@ const warn = values => {
   }
   return warnings
 }
-//TextInput component for redux Field
 const renderTextInput = ({
         input: {onChange, ...restInput},
         value,
@@ -122,7 +107,6 @@ touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pin
     </View>
   )
 }
-//Address Input component for redux Field
 const renderAdressInput = ({
         input: { onChange, value, dirty, ...restInput },
         icon,
@@ -150,7 +134,6 @@ let setColor = null
     </View>
   )
 }
-//DateInput component for redux Field
 const renderDateInput = ({
         input: {onChange, value, ...restInput},
           ref,
@@ -171,7 +154,7 @@ touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pin
 touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
   return (
     <View>
-        {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+      {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
       <DateInput
           ref={ref}
           placeholder={placeholder}
@@ -189,7 +172,7 @@ touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
     </View>
   )
 }
-//AvatarInput component for redux Field
+
 const AvatarInput = ({
       input: {value, onChange},
       meta: {touched, error, warning}
@@ -202,7 +185,7 @@ const AvatarInput = ({
         />
     )
   }
-//GenderInput component for redux Field
+
 const GenderInput = ({
       input: {value, onChange},
       onPressInfoIcon,
@@ -213,7 +196,7 @@ const GenderInput = ({
      }) => {
     return (
       <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
-      {touched && ((error && <Text style={[StyleSheet.signup.errorText]}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+        {touched && ((error && <Text style={[StyleSheet.signup.errorText]}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
         <View style={StyleSheet.signup.genderLabelContainer}>
           <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
           <Button
@@ -231,12 +214,7 @@ const GenderInput = ({
     )
   }
 
-// -- -- -- -- -- -- redux-form validation staff  << END >>-- -- -- -- -- -- --
-/**
- * Window/Signup Component
- */
 class SignUp extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -277,7 +255,7 @@ class SignUp extends Component {
       'auth/invalid-email',
     ].indexOf(errorCode) !== -1
 
-    const {handleSubmit, valid} = this.props    // redux-form meta props
+    const {handleSubmit, valid} = this.props
 
     return (
       <View style={{flex: 1}} onPress={handleSubmit}>
@@ -433,9 +411,9 @@ SignUp.propTypes = {
 }
 
 export default reduxForm({
-  form: 'syncValidation',  // a unique identifier for this form
-  validate,                // <--- validation function given to redux-form
-  warn                     // <--- warning function given to redux-form
+  form: 'syncValidation',
+  validate,
+  warn
 })(SignUp)
 
 class DobInfoPopup extends Component {
