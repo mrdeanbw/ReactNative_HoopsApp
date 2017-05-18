@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {View, Text} from 'react-native'
 
-import {Button, Popup} from '../components'
-import StyleSheet from '../styles'
-import _ from '../i18n'
+import {Button, Popup} from '../'
+import StyleSheet from '../../styles'
+import _ from '../../i18n'
 
 class DobInfoPopup extends Component {
 
