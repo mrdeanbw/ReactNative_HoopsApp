@@ -285,12 +285,7 @@ class SignUp extends Component {
 
     return (
       <View style={{flex: 1}} onPress={handleSubmit}>
-        <Header
-          title={_('signup')}
-          hideSwitcher={true}
-          onClose={this.props.onClose}
-          onBack={this.props.onBack}
-        />
+        <Header title={_('signup')} simple />
         <Form style={StyleSheet.signup.style}>
           <LoadingAlert visible={this.props.isLoading} />
           <Button
