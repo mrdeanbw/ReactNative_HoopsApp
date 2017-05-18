@@ -11,7 +11,7 @@ import {DobInfoPopup, GenderInfoPopup} from '../components/signup'
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
 import _ from '../i18n'
-import * as validation from '../config/validation'
+import validation from '../config/validation'
 
 const renderTextInput = ({
         input: {onChange, ...restInput},
