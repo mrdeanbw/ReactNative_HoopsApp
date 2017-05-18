@@ -3,7 +3,11 @@ import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 import {Field, reduxForm} from 'redux-form'
 
-import {AddressInput, Button, TextInput, DateInput, Header, Form, AvatarEdit, Popup} from '../components'
+import {
+  AddressInput, Button, TextInput,
+  DateInput, Form, Header, AvatarEdit
+} from '../components'
+import {DobInfoPopup, GenderInfoPopup} from '../components/signup'
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
 import _ from '../i18n'
@@ -397,57 +401,3 @@ export default reduxForm({
   validate,
   warn
 })(SignUpFacebookExtra)
-
-class DobInfoPopup extends Component {
-
-  render() {
-    return (
-      <Popup visible={this.props.visible}>
-        <View style={[StyleSheet.dialog.alertContentStyle]}>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
-            {_('dobPopupTitle')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('dobPopupContent')}
-          </Text>
-        </View>
-        <View style={StyleSheet.buttons.bar}>
-          <Button
-            style={[StyleSheet.buttons.okPopup]}
-            textStyle={StyleSheet.whiteText}
-            type="alertDefault"
-            text={_('ok')}
-            onPress={this.props.onPressOk}
-          />
-        </View>
-      </Popup>
-    )
-  }
-}
-
-class GenderInfoPopup extends Component {
-
-  render() {
-    return (
-      <Popup visible={this.props.visible}>
-        <View style={[StyleSheet.dialog.alertContentStyle]}>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
-            {_('genderPopupTitle')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('genderPopupContent')}
-          </Text>
-        </View>
-        <View style={StyleSheet.buttons.bar}>
-          <Button
-            style={[StyleSheet.buttons.okPopup]}
-            textStyle={StyleSheet.whiteText}
-            type="alertDefault"
-            text={_('ok')}
-            onPress={this.props.onPressOk}
-          />
-        </View>
-      </Popup>
-    )
-  }
-}

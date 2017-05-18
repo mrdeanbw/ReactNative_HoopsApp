@@ -9,46 +9,14 @@ import {NotificationPopup} from './'
 
 class EventInviteNotification extends Component {
 
-  render() {
-    let user = this.props.notification.invite.from
-    let event = this.props.notification.invite.event
-    let status = this.props.notification.invite.status
+  getDescription(event, status) {
+    let description
 
-    if(!user || !event || !status) {
-      return null
-    }
-
-    let description = replaceText(
-      _('eventCancelledDescription'),
-      <Text style={StyleSheet.notification.highlight}>{event.title}</Text>
-    )
-
-    let options = [{
-      type: "alertVertical",
-      text: _('eventDetails'),
-      onPress: () => {
-        this.props.onPressEvent(event)
-      }
-    }]
-
-    if(status === 'pending') {
+    if (status === 'pending') {
       description = replaceText(
         _('eventInvitePendingDescription'),
         <Text style={StyleSheet.notification.highlight}>{event.title}</Text>
       )
-      options = options.concat([{
-        type: "alertVerticalGreen",
-        text: _('accept'),
-        onPress: () => {
-          this.props.onAcceptEventInvite(this.props.notification)
-        },
-      },{
-        type: "alertVerticalDefault",
-        text: _('decline'),
-        onPress: () => {
-          this.props.onDeclineEventInvite(this.props.notification)
-        },
-      }])
     } else if(status === 'declined') {
       description = replaceText(
         _('eventInviteDeclinedDescription'),
@@ -59,10 +27,49 @@ class EventInviteNotification extends Component {
         _('eventInviteConfirmedDescription'),
         <Text style={StyleSheet.notification.highlight}>{event.title}</Text>,
       )
-    } else {
-      //The status could be 'cancelled'. In which case we just render nothing
+    }
+
+    return description
+  }
+
+  getOptions(user, event, status) {
+    let options = [{
+      type: 'alertVertical',
+      text: _('eventDetails'),
+      onPress: () => {
+        this.props.onPressEvent(event)
+      }
+    }]
+
+    if (status === 'pending') {
+      const acceptText = event.entryFee === 0 ? _('accept') : `${_('accept')} £${event.entryFee} (+50p)`
+
+      options = options.concat([{
+        type: 'alertVerticalGreen',
+        text: acceptText,
+        onPress: () => this.props.onAcceptEventInvite(this.props.notification)
+      },{
+        type: 'alertVerticalDefault',
+        text: _('decline'),
+        onPress: () => this.props.onDeclineEventInvite(this.props.notification)
+      }])
+    }
+
+    return options
+  }
+
+  render() {
+    const notification = this.props.notification
+    let user = notification.invite.from
+    let event = notification.invite.event
+    let status = notification.invite.status
+
+    if (!user || !event || !status) {
       return null
     }
+
+    const options = this.getOptions(user, event, status)
+    const description = this.getDescription(event, status)
 
     return (
       <NotificationPopup
