@@ -1,5 +1,6 @@
 export default {
   "ageIcon": require('./icons/age-icon.png'),
+  "ageIcon2x": require('./icons/age-icon-2x.png'),
   "ageUnder16": require('./icons/age-under-16.png'),
   "age16to17": require('./icons/age-16-17.png'),
   "ageAdult": require('./icons/age-adult.png'),
