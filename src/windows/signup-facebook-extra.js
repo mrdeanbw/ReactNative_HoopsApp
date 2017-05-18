@@ -13,6 +13,43 @@ import {colors} from '../styles/resources'
 import _ from '../i18n'
 import * as validation from '../config/validation'
 
+const validate = values => {
+  const errors = {}
+  if (validation.Required(values.name)) {
+    errors.name = 'Required'
+  } else if (validation.StringIsShorterOrEqual(values.name, 15)) {
+    errors.name = 'Must be 15 characters or less'
+  }
+  if (validation.Required(values.email)) {
+    errors.email = 'Required'
+  } else if (validation.EmailIsValid(values.email)) {
+    errors.email = 'Invalid email address'
+  }
+  if (validation.Required(values.password)) {
+    errors.password = 'Required'
+  } else if (validation.StringIsLongerOrEqual(values.password, 6)) {
+    errors.password = 'Password  must be at least 6 characters.'
+  }
+  if (validation.Required(values.address)) {
+    errors.address = 'Required'
+  }
+  if (validation.Required(values.dob)) {
+    errors.dob = 'Required'
+  } else if (validation.noFutureDates(values.dob)) {
+      errors.dob = 'Invalid date of birth'
+  }
+  if (validation.Required(values.gender)) {
+    errors.gender = 'Required'
+  }
+  return errors
+}
+const warn = values => {
+  const warnings = {}
+  if (values.age < 19) {
+    warnings.age = 'Hmm, you seem a bit young...'
+  }
+  return warnings
+}
 const renderTextInput = ({
         input: {onChange, ...restInput},
         value,
@@ -42,7 +79,7 @@ const renderTextInput = ({
 let borderStyleOnError = null
 let textStyleOnError = null
 
-touched || dirty && error ? borderStyleOnError = {borderBottomColor: colors.pink} : null
+touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
 
   return (
     <View>
@@ -75,12 +112,12 @@ touched || dirty && error ? borderStyleOnError = {borderBottomColor: colors.pink
 }
 
 const renderAdressInput = ({
-        input: {onChange, value, dirty, ...restInput},
+        input: { onChange, value, dirty, ...restInput },
         icon,
         placeholder,
         onSelect,
         textStyles,
-        meta: {touched, error, warning}
+        meta: { touched, error, warning }
       }) => {
 
 let setColor = null
@@ -103,7 +140,7 @@ let setColor = null
 }
 
 const renderDateInput = ({
-        input: {onChange, value, ...restInput},
+        input: { onChange, value, ...restInput },
           ref,
           placeholder,
           type,
@@ -113,12 +150,12 @@ const renderDateInput = ({
           minDate,
           barStyle,
           rightBar,
-          meta: {touched, error, warning, dirty}
+          meta: { touched, error, warning, dirty }
       }) => {
 let borderStyleOnError = null
 let textStyleOnError = null
-touched || dirty && error ? borderStyleOnError = {borderBottomColor: colors.pink} : null
-touched || dirty && error ? textStyleOnError = {color: colors.pink} : null
+touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
+touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
   return (
     <View>
       {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
@@ -154,7 +191,7 @@ const AvatarInput = ({
   }
 
 const GenderInput = ({
-      input: {value, onChange},
+      input: { value, onChange },
       onPressInfoIcon,
       crossPlatformLeftPosition,
       maleActive,
@@ -173,7 +210,7 @@ const GenderInput = ({
                 onPress={onPressInfoIcon}/>
         </View>
         <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
-          <Button type="image" icon="male" active={value === 'male'} onPress={() => onChange('male')}/>
+          <Button type="image" icon="male" active={value === 'male'} onPress={() => onChange('male') }/>
           <View style={StyleSheet.buttons.separator} />
           <Button type="image" icon="female" active={value === 'female'} onPress={() => onChange('female')}/>
         </View>
@@ -255,7 +292,6 @@ class SignUpFacebookExtra extends Component {
             type="flat"
             ref="name"
             placeholder={_('name')}
-            validate={[required, maxChars15]}
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}
@@ -278,7 +314,6 @@ class SignUpFacebookExtra extends Component {
             ref="email"
             error={emailError}
             placeholder={_('email')}
-            validate={[validation.required, validation.email]}
             style={[StyleSheet.halfMarginBottom]}
             autoCapitalize="none"
             autoCorrect={false}
@@ -293,7 +328,6 @@ class SignUpFacebookExtra extends Component {
             component={renderDateInput}
             ref="dob"
             placeholder={_('dob')}
-            validate={[validation.required, validation.oFutureDates]}
             type="flat"
             icon="nappy"
             date={true}
@@ -318,7 +352,6 @@ class SignUpFacebookExtra extends Component {
             component={renderAdressInput}
             icon
             placeholder={_('city')}
-            validate={validation.required}
             onSelect={(venueAddress) => {
               this.setState({
                 cityText: venueAddress.description,
@@ -348,7 +381,6 @@ class SignUpFacebookExtra extends Component {
           <Field
             name="gender"
             component={GenderInput}
-            validate={validation.required}
             onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
           />
           <Button
@@ -366,4 +398,6 @@ class SignUpFacebookExtra extends Component {
 
 export default reduxForm({
   form: 'syncValidation',
+  validate,
+  warn
 })(SignUpFacebookExtra)

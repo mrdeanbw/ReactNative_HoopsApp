@@ -36,17 +36,19 @@ const renderTextInput = ({
         multiline,
         rightBar,
         keyboardType,
-        meta: {touched, error, warning, dirty,invalid,}
+        meta: {touched, error, warning}
       }) => {
 
 let borderStyleOnError = null
 let textStyleOnError = null
+let errorOutput = null
 
-touched || dirty && error ? borderStyleOnError = {borderBottomColor: colors.pink} : null
+touched  && error ? borderStyleOnError = {borderBottomColor: colors.pink} : null
+touched && error ? errorOutput = (<Text style={StyleSheet.signup.errorText}>{error}</Text>) : null
 
   return (
     <View>
-      {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+      {errorOutput}
       <TextInput
             value={value}
             onChangeText={onChange}
@@ -58,7 +60,7 @@ touched || dirty && error ? borderStyleOnError = {borderBottomColor: colors.pink
             autoCapitalize={autoCapitalize}
             autoCorrect={autoCorrect}
             textStyle={[textStyle, textStyleOnError]}
-            autoFocus={autoFocus}
+            autoFocus
             returnKeyType={returnKeyType}
             selectTextOnFocus={selectTextOnFocus}
             enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
@@ -79,7 +81,7 @@ const renderAdressInput = ({
         placeholder,
         onSelect,
         textStyles,
-        meta: {touched, error, warning}
+        meta: {touched, error}
       }) => {
 
 let setColor = null
@@ -88,7 +90,7 @@ let setColor = null
 
   return (
     <View>
-      {touched && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+      {touched && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>))}
       <AddressInput
             icon={icon}
             placeholder={placeholder}
@@ -111,7 +113,7 @@ const renderDateInput = ({
           minDate,
           barStyle,
           rightBar,
-          meta: {touched, error, warning, dirty}
+          meta: {touched, error, dirty}
       }) => {
 let borderStyleOnError = null
 let textStyleOnError = null
@@ -120,7 +122,7 @@ touched || dirty && error ? borderStyleOnError = {borderBottomColor: colors.pink
 touched || dirty && error ? textStyleOnError = {color: colors.pink} : null
   return (
     <View>
-      {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+      {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>))}
       <DateInput
           ref={ref}
           placeholder={placeholder}
@@ -141,7 +143,7 @@ touched || dirty && error ? textStyleOnError = {color: colors.pink} : null
 
 const AvatarInput = ({
       input: {value, onChange},
-      meta: {touched, error, warning}
+      meta: {touched, error}
      }) => {
     return (
       <AvatarEdit
@@ -162,7 +164,7 @@ const GenderInput = ({
      }) => {
     return (
       <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
-        {touched && ((error && <Text style={[StyleSheet.signup.errorText]}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+        {touched && ((error && <Text style={[StyleSheet.signup.errorText]}>{error}</Text>))}
         <View style={StyleSheet.signup.genderLabelContainer}>
           <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
           <Button
@@ -252,7 +254,6 @@ class SignUp extends Component {
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}
-            autoFocus
             returnKeyType="next"
             selectTextOnFocus={true}
             enablesReturnKeyAutomatically={true}
@@ -274,6 +275,7 @@ class SignUp extends Component {
             validate={[validation.required, validation.email]}
             autoCapitalize="none"
             autoCorrect={false}
+            onFocus
             returnKeyType="next"
             selectTextOnFocus={true}
             enablesReturnKeyAutomatically={true}
@@ -292,6 +294,7 @@ class SignUp extends Component {
             returnKeyType="next"
             selectTextOnFocus={false}
             clearTextOnFocus={false}
+            onFocus
             enablesReturnKeyAutomatically={true}
             icon="password"
             multiline={false}
