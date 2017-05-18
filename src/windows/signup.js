@@ -44,13 +44,6 @@ const validate = values => {
   return errors
 }
 
-const warn = values => {
-  const warnings = {}
-  if (values.age < 19) {
-    warnings.age = 'Hmm, you seem a bit young...'
-  }
-  return warnings
-}
 const renderTextInput = ({
         input: {onChange, ...restInput},
         value,
@@ -80,7 +73,7 @@ const renderTextInput = ({
 let borderStyleOnError = null
 let textStyleOnError = null
 
-touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
+touched || dirty && error ? borderStyleOnError = {borderBottomColor: colors.pink} : null
 
   return (
     <View>
@@ -112,12 +105,12 @@ touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pin
   )
 }
 const renderAdressInput = ({
-        input: { onChange, value, dirty, ...restInput },
+        input: {onChange, value, dirty, ...restInput},
         icon,
         placeholder,
         onSelect,
         textStyles,
-        meta: { touched, error, warning }
+        meta: {touched, error, warning}
       }) => {
 
 let setColor = null
@@ -154,8 +147,8 @@ const renderDateInput = ({
 let borderStyleOnError = null
 let textStyleOnError = null
 
-touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
-touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
+touched || dirty && error ? borderStyleOnError = {borderBottomColor: colors.pink} : null
+touched || dirty && error ? textStyleOnError = {color: colors.pink} : null
   return (
     <View>
       {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
@@ -210,7 +203,7 @@ const GenderInput = ({
                 onPress={onPressInfoIcon}/>
         </View>
         <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
-          <Button type="image" icon="male" active={value === 'male'} onPress={() => onChange('male') }/>
+          <Button type="image" icon="male" active={value === 'male'} onPress={() => onChange('male')}/>
           <View style={StyleSheet.buttons.separator} />
           <Button type="image" icon="female" active={value === 'female'} onPress={() => onChange('female')}/>
         </View>
@@ -412,5 +405,4 @@ SignUp.propTypes = {
 export default reduxForm({
   form: 'syncValidation',
   validate,
-  warn
 })(SignUp)
