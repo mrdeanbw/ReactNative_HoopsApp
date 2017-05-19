@@ -174,9 +174,9 @@ const GenderInput = ({
                 onPress={onPressInfoIcon}/>
         </View>
         <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
-          <Button type="image" icon="male" active={value === 'male'} onPress={() => onChange('male') }/>
+          <Button type="image" icon="male" value={value} active={value === 'male'} onPress={() => onChange('male') }/>
           <View style={StyleSheet.buttons.separator} />
-          <Button type="image" icon="female" active={value === 'female'} onPress={() => onChange('female')}/>
+          <Button type="image" icon="female" value={value} active={value === 'female'} onPress={() => onChange('female')}/>
         </View>
       </View>
     )
@@ -247,9 +247,11 @@ class SignUpFacebookExtra extends Component {
           <Field
             name="image"
             component={AvatarInput}
+            value={this.state.facebookImageSrc}
           />
           <Field
             name="name"
+            value={this.state.name}
             component={renderTextInput}
             type="flat"
             ref="name"
@@ -273,6 +275,7 @@ class SignUpFacebookExtra extends Component {
           <Field
             name="email"
             component={renderTextInput}
+            value={this.state.email}
             type="flat"
             ref="email"
             error={emailError}
@@ -290,6 +293,7 @@ class SignUpFacebookExtra extends Component {
           <Field
             name="dob"
             component={renderDateInput}
+            value={this.state.dob}
             ref="dob"
             placeholder={_('dob')}
             validate={[validation.required, validation.noFutureDates]}
@@ -329,6 +333,7 @@ class SignUpFacebookExtra extends Component {
           <Field
             name="phone"
             component={renderTextInput}
+            value={this.state.phone}
             type="flat"
             ref="phone"
             placeholder={_('optionalPhone')}
@@ -347,6 +352,7 @@ class SignUpFacebookExtra extends Component {
           <Field
             name="gender"
             component={GenderInput}
+            value={this.state.gender}
             validate={validation.required}
             onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
           />
