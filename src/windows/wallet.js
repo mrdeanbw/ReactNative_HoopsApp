@@ -6,12 +6,18 @@ import {Header, LoadingAlert, Title, Button, Avatar} from '../components'
 import StyleSheet from '../styles'
 import Icon from '../components//icon'
 
+
+// const months and lets now, today are needed just create fake dates of payment - needs to be removed
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+let now = new Date('01/12/2013')
+let today = months[now.getMonth()].toUpperCase() + ' ' + (now.getDay()) + ', ' + now.getFullYear()
+let dateChecker = []  //DO NOT REMOVE dateChecker , is needed to compare dates
+
 class Wallet extends Component {
   getStripeDisplayError() {
     if (!this.props.account || !this.props.account.verification) {
       return
     }
-
     const verification = this.props.account.verification
     let error
 
@@ -40,10 +46,8 @@ class Wallet extends Component {
     }
     return error
   }
-//to be replaced with backend
+//to be replaced/removed as this funcion just creating fake users data for testing
 createFakeUsers() {
-  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-  var now = new Date('01/12/2013')
   var users = []
   for ( let i = 0;  i < 4;  i++) {
     var userX = {
@@ -71,6 +75,35 @@ createFakeUsers() {
   }
   return users
 }
+
+calculateDisplayData(user, i){
+
+let displayData = []
+let displayDate
+let display
+let displayStyle
+
+  dateChecker.push(user.date)
+  if (user.date !== dateChecker[ i - 1 ]){
+    if ((user.date === today)) {
+      displayDate = 'TODAY'
+      display = true
+      displayStyle = null
+    } else if (user.date !== today) {
+        displayDate = user.date
+        display = true
+        displayStyle = null
+    }
+  }else {
+    displayDate = null
+    display = false
+    displayStyle = {paddingTop: 3}
+  }
+displayData = {displayDate, display, displayStyle }
+
+return displayData
+}
+
   render() {
 /* // CODE BELOW IS KEPT IF YOU NEED IT FOR SOME REASONS IF NOT JUST REMOVE IT
     const account = this.props.account
@@ -78,14 +111,7 @@ createFakeUsers() {
     const detailStyle = StyleSheet.payments.accountDataText
     const infoContainer = StyleSheet.profile.infoContainer
     const stripeError = this.getStripeDisplayError()
-*/  const users = this.createFakeUsers()
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    let now = new Date('01/12/2013')
-    let today = months[now.getMonth()].toUpperCase() + ' ' + (now.getDay()) + ', ' + now.getFullYear()
-    let dateChecker = []
-    let displayDate
-    let display
-    let displayStyle
+*/  const users = this.createFakeUsers() // to be replaced
 
     return (
       <View style={{flex: 1}}>
@@ -108,29 +134,13 @@ createFakeUsers() {
           <Title text={'RECENT TRANSACTIONS'}/>
           <ScrollView>
             {users.map((user, i) => {
-                dateChecker.push(user.date)
-                if (user.date !== dateChecker[ i - 1 ]){
-                  if ((user.date === today)) {
-                    displayDate = 'TODAY'
-                    display = true
-                    displayStyle = null
-                  } else if (user.date !== today) {
-                      displayDate = user.date
-                      display = true
-                      displayStyle = null
-                  }
-                }else {
-                  displayDate = null
-                  display = false
-                  displayStyle = {paddingTop: 3}
-                }
-
-              return(
+              let displayData = this.calculateDisplayData(user, i)
+              return (
                 <UserListInWallet
                   user={user}
-                  displayDate={displayDate}
-                  display={display}
-                  displayStyle={displayStyle}
+                  displayDate={displayData.displayDate}
+                  display={displayData.display}
+                  displayStyle={displayData.displayStyle}
                 />
               )
             })}
