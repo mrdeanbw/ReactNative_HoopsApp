@@ -232,6 +232,7 @@ class SignUpFacebookExtra extends Component {
   }
 
   render() {
+
     const errorCode = this.props.signUpError && this.props.signUpError.code
     const emailError = [
       'auth/email-already-in-use',
@@ -239,7 +240,16 @@ class SignUpFacebookExtra extends Component {
     ].indexOf(errorCode) !== -1
     const {handleSubmit, valid} = this.props
 
+    this.props.change('name', this.state.name)
+    this.props.change('email', this.state.email)
+    this.props.change('gender', this.state.gender)
+    this.props.change('dob', this.state.dob)
+    this.props.change('phone', this.state.phone)
+    this.props.change('image', this.state.facebookImageSrc)
+
+
     return (
+
       <View style={{flex: 1}}>
         <Header title={_('signupFacebook')} simple />
         {/*<LoadingAlert visible={this.props.isLoading} />*/}
@@ -251,7 +261,6 @@ class SignUpFacebookExtra extends Component {
           />
           <Field
             name="name"
-            value={this.state.name}
             component={renderTextInput}
             type="flat"
             ref="name"
@@ -275,7 +284,6 @@ class SignUpFacebookExtra extends Component {
           <Field
             name="email"
             component={renderTextInput}
-            value={this.state.email}
             type="flat"
             ref="email"
             error={emailError}
@@ -293,7 +301,6 @@ class SignUpFacebookExtra extends Component {
           <Field
             name="dob"
             component={renderDateInput}
-            value={this.state.dob}
             ref="dob"
             placeholder={_('dob')}
             validate={[validation.required, validation.noFutureDates]}
