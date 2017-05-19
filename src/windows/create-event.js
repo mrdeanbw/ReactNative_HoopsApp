@@ -163,7 +163,6 @@ export default class CreateEvent extends React.Component {
       case 3:
         return !!(description)
     }
-
   }
 
   render() {
@@ -200,41 +199,41 @@ export default class CreateEvent extends React.Component {
                     blurOnSubmit={true}
                     onFocus={()=>this.refs.kh.inputFocused(this,'eventName')}
                   />
-                 {/* TODO: refactor into it's own component */}
+                  {/* TODO: refactor into it's own component */}
 
                   <TouchableHighlight
                     onPress={this.props.onPressActivity}
                     underlayColor="transparent"
                   >
-                   <View style={StyleSheet.textInputs.flat.style}>
-                     <Text
-                       style={[
-                          StyleSheet.textInputs.flat.textStyle, androidMatchFontSize,
-                         {color: this.props.activity ? undefined : StyleSheet.textInputs.flat.placeholderTextColor},
-                        ]}
-                     >
+                    <View style={StyleSheet.textInputs.flat.style}>
+                      <Text
+                        style={[
+                           StyleSheet.textInputs.flat.textStyle, androidMatchFontSize,
+                          {color: this.props.activity ? undefined : StyleSheet.textInputs.flat.placeholderTextColor},
+                         ]}
+                       >
                         {this.props.activity ? this.props.activity.name : _('activity')}
-                    </Text>
-                    <Icon name="chevronRightPink"/>
+                      </Text>
+                      <Icon name="chevronRightPink"/>
+                    </View>
+                  </TouchableHighlight>
+
+                  <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMargin, {alignSelf: 'center'}]}>
+                    <Button type="image" icon="male" active={this.state.eventDetails.gender === 'male'} onPress={() => this.setEventData({gender: 'male'})}/>
+                    <View style={[StyleSheet.buttons.separator, {marginLeft: 10, marginRight: 10}]} />
+                    <Button type="image" icon="female" active={this.state.eventDetails.gender === 'female'} onPress={() => this.setEventData({gender: 'female'})}/>
+                    <View style={[StyleSheet.buttons.separator, {marginLeft: 10, marginRight: 10}]} />
+                    <Button type="image" icon="mixed" active={this.state.eventDetails.gender === 'mixed'} onPress={() => this.setEventData({gender: 'mixed'})}/>
                   </View>
-                 </TouchableHighlight>
 
-                <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMargin, {alignSelf: 'center'}]}>
-                  <Button type="image" icon="male" active={this.state.eventDetails.gender === 'male'} onPress={() => this.setEventData({gender: 'male'})}/>
-                <View style={[StyleSheet.buttons.separator, {marginLeft: 10, marginRight: 10}]} />
-                <Button type="image" icon="female" active={this.state.eventDetails.gender === 'female'} onPress={() => this.setEventData({gender: 'female'})}/>
-                <View style={[StyleSheet.buttons.separator, {marginLeft: 10, marginRight: 10}]} />
-                  <Button type="image" icon="mixed" active={this.state.eventDetails.gender === 'mixed'} onPress={() => this.setEventData({gender: 'mixed'})}/>
-                </View>
-
-                 <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
-                   <TextInput
-                    ref="minAgeInput"
-                    type="flat"
-                    keyboardType="numeric"
-                    placeholder={_('minAge')}
-                    value={this.getNumericLabel(this.state.eventDetails.minAge)}
-                    onChangeText={minAge => {
+                  <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
+                    <TextInput
+                     ref="minAgeInput"
+                     type="flat"
+                     keyboardType="numeric"
+                     placeholder={_('minAge')}
+                     value={this.getNumericLabel(this.state.eventDetails.minAge)}
+                     onChangeText={minAge => {
                       this.setEventData({
                         minAge: minAge === '' ? '' : parseInt(minAge, 10)
                       })
@@ -242,113 +241,111 @@ export default class CreateEvent extends React.Component {
                     style={[androidJustifyToleft , {flex: 1, marginRight: 25}]}
                     onFocus={()=>this.refs.kh.inputFocused(this,'minAgeInput')}
                   />
-                  <Button
-                   type="roundedGrey"
-                   active={!this.state.eventDetails.minAge}
-                   text={_('unlimited')}
-                   onPress={() => this.setEventData({minAge: 0})}
-                    style={{width: 110}}
-                  />
-               </View>
-                <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
-                  <TextInput
-                   ref="maxAgeInput"
-                   type="flat"
-                   keyboardType="numeric"
-                   placeholder={_('maxAge')}
-                   value={this.getNumericLabel(this.state.eventDetails.maxAge)}
-                   onChangeText={maxAge => {
-                     this.setEventData({
+                    <Button
+                      type="roundedGrey"
+                      active={!this.state.eventDetails.minAge}
+                      text={_('unlimited')}
+                      onPress={() => this.setEventData({minAge: 0})}
+                      style={{width: 110}}
+                    />
+                  </View>
+                  <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop]}>
+                    <TextInput
+                      ref="maxAgeInput"
+                      type="flat"
+                      keyboardType="numeric"
+                      placeholder={_('maxAge')}
+                      value={this.getNumericLabel(this.state.eventDetails.maxAge)}
+                      onChangeText={maxAge => {
+                      this.setEventData({
                         maxAge: maxAge === '' ? '' : parseInt(maxAge, 10)
                       })
-                   }}
-                   style={[androidJustifyToleft ,  {flex: 1, marginRight: 25}]}
-                   onFocus={()=>this.refs.kh.inputFocused(this,'maxAgeInput')}
-                  />
-
-
-                  <Button
-                  type="roundedGrey"
-                  active={!this.state.eventDetails.maxAge}
-                  text={_('unlimited')}
-                  onPress={() => this.setEventData({maxAge: 0})}
-                  style={{width: 110}}
-                  />
-                </View>
-
-                <ListInput
-                  type="flat"
-                  style={[StyleSheet.halfMarginTop , androidSinglePlusPaddingBottom]}
-                  disabled={this.props.editMode}
-                  placeholder={_('privacy')}
-                  value={this.state.eventDetails.privacy}
-                  onChange={(privacy) => this.setEventData({privacy})}
-                >
-                  <ListInput.Item text={_('publicEvent')} value="public" />
-                  <ListInput.Item text={_('privateEvent')} value="private" />
-                </ListInput>
-
-                <ListInput
-                  type="flat"
-                  style={[StyleSheet.halfMarginTop,  androidSinglePlusPaddingBottom]}
-                  placeholder={_('level')}
-                  value={this.state.eventDetails.level}
-                  onChange={(level) => this.setEventData({level})}
-                >
-                  <ListInput.Item text={_('casual')} value="casual" />
-                  <ListInput.Item text={_('competitive')} value="competitive" />
-                  <ListInput.Item text={_('open')} value="open" />
-                </ListInput>
-
-                <View style={[StyleSheet.buttons.bar, StyleSheet.singleMarginTop]}>
-                  <TextInput
-                   ref="minPlayersInput"
-                   type="flat"
-                   keyboardType="numeric"
-                   placeholder={_('minPlayers')}
-                   value={this.getNumericLabel(this.state.eventDetails.minPlayers)}
-                   onChangeText={minPlayers => {
-                     this.setEventData({
-                      minPlayers: minPlayers === '' ? '' : parseInt(minPlayers, 10)
-                     })
-                   }}
-                   style={[androidJustifyToleft , {flex: 1, marginRight: 25}]}
-                    onFocus={()=>this.refs.kh.inputFocused(this,'minPlayersInput')}
-                  />
-                  <Button
-                   type="roundedGrey"
-                    active={!this.state.eventDetails.minPlayers}
-                    text={_('unlimited')}
-                    onPress={() => this.setEventData({minPlayers: 0})}
-                    style={{width: 110}}
-                  />
-                </View>
-                <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop ]}>
-                  <TextInput
-                    ref="maxPlayersInput"
-                    type="flat"
-                    keyboardType="numeric"
-                    placeholder={_('maxPlayers')}
-                    value={this.getNumericLabel(this.state.eventDetails.maxPlayers)}
-                    onChangeText={maxPlayers => {
-                    this.setEventData({
-                      maxPlayers: maxPlayers === '' ? '' : parseInt(maxPlayers, 10)
-                      })
-                     }}
+                    }}
                     style={[androidJustifyToleft ,  {flex: 1, marginRight: 25}]}
-                    onFocus={()=>this.refs.kh.inputFocused(this,'maxPlayersInput')}
-                   />
-                  <Button
-                    type="roundedGrey"
-                    active={!this.state.eventDetails.maxPlayers}
-                    text={_('unlimited')}
-                    onPress={() => this.setEventData({maxPlayers: 0})}
-                    style={{width: 110}}
-                  />
+                    onFocus={()=>this.refs.kh.inputFocused(this,'maxAgeInput')}
+                    />
+                    <Button
+                      type="roundedGrey"
+                      active={!this.state.eventDetails.maxAge}
+                      text={_('unlimited')}
+                      onPress={() => this.setEventData({maxAge: 0})}
+                      style={{width: 110}}
+                    />
+                  </View>
+
+                  <ListInput
+                    type="flat"
+                    style={[StyleSheet.halfMarginTop , androidSinglePlusPaddingBottom]}
+                    disabled={this.props.editMode}
+                    placeholder={_('privacy')}
+                    value={this.state.eventDetails.privacy}
+                    onChange={(privacy) => this.setEventData({privacy})}
+                  >
+                    <ListInput.Item text={_('publicEvent')} value="public" />
+                    <ListInput.Item text={_('privateEvent')} value="private" />
+                  </ListInput>
+
+                  <ListInput
+                    type="flat"
+                    style={[StyleSheet.halfMarginTop,  androidSinglePlusPaddingBottom]}
+                    placeholder={_('level')}
+                    value={this.state.eventDetails.level}
+                    onChange={(level) => this.setEventData({level})}
+                  >
+                    <ListInput.Item text={_('casual')} value="casual" />
+                    <ListInput.Item text={_('competitive')} value="competitive" />
+                    <ListInput.Item text={_('open')} value="open" />
+                  </ListInput>
+
+                  <View style={[StyleSheet.buttons.bar, StyleSheet.singleMarginTop]}>
+                    <TextInput
+                      ref="minPlayersInput"
+                      type="flat"
+                      keyboardType="numeric"
+                      placeholder={_('minPlayers')}
+                      value={this.getNumericLabel(this.state.eventDetails.minPlayers)}
+                      onChangeText={minPlayers => {
+                      this.setEventData({
+                        minPlayers: minPlayers === '' ? '' : parseInt(minPlayers, 10)
+                      })
+                    }}
+                    style={[androidJustifyToleft , {flex: 1, marginRight: 25}]}
+                    onFocus={()=>this.refs.kh.inputFocused(this,'minPlayersInput')}
+                    />
+                    <Button
+                      type="roundedGrey"
+                      active={!this.state.eventDetails.minPlayers}
+                      text={_('unlimited')}
+                      onPress={() => this.setEventData({minPlayers: 0})}
+                      style={{width: 110}}
+                    />
+                  </View>
+                  <View style={[StyleSheet.buttons.bar, StyleSheet.halfMarginTop ]}>
+                    <TextInput
+                      ref="maxPlayersInput"
+                      type="flat"
+                      keyboardType="numeric"
+                      placeholder={_('maxPlayers')}
+                      value={this.getNumericLabel(this.state.eventDetails.maxPlayers)}
+                      onChangeText={maxPlayers => {
+                      this.setEventData({
+                        maxPlayers: maxPlayers === '' ? '' : parseInt(maxPlayers, 10)
+                        })
+                      }}
+                      style={[androidJustifyToleft ,  {flex: 1, marginRight: 25}]}
+                      onFocus={()=>this.refs.kh.inputFocused(this,'maxPlayersInput')}
+                    />
+                    <Button
+                      type="roundedGrey"
+                      active={!this.state.eventDetails.maxPlayers}
+                      text={_('unlimited')}
+                      onPress={() => this.setEventData({maxPlayers: 0})}
+                      style={{width: 110}}
+                    />
+                  </View>
                 </View>
-              </View>
-            </KeyboardHandler>
-           </Form>
+              </KeyboardHandler>
+            </Form>
           </Wizard.Step>
 
           <Wizard.Step disabled={!this.validate(2)}>
@@ -453,7 +450,6 @@ export default class CreateEvent extends React.Component {
                       onPress={this.props.editMode ? undefined : () => this.setEventData({entryFee: 0})}
                       style={{width: 110}}
                     />
-
                   </View>
                 </View>
 
@@ -543,41 +539,36 @@ export default class CreateEvent extends React.Component {
                   />
                 </View>
               </View>
-
               <CheckButton
-                type="wizardCheck"
-                text={_('allowToSeeYourContactInfo')}
-                icon="none" checkIcon="check"
-                checkedIconStyle={{backgroundColor: 'transparent'}}
-                colorMode="whitePinkBorder"
-                checked={this.state.eventDetails.allowContactInfo}
-                onChange={() => {
-                  this.setEventData({
-                    allowContactInfo: !this.state.eventDetails.allowContactInfo,
-                  })
-                }}
+                  type="wizardCheck"
+                  text={_('allowToSeeYourContactInfo')}
+                  icon="none" checkIcon="check"
+                  checkedIconStyle={{backgroundColor: 'transparent'}}
+                  colorMode="whitePinkBorder"
+                  checked={this.state.eventDetails.allowContactInfo}
+                  onChange={() => {
+                    this.setEventData({
+                      allowContactInfo: !this.state.eventDetails.allowContactInfo,
+                    })
+                  }}
               />
-
               <CheckButton
                 type="wizardCheck"
                 text={_('eventPicture')}
-                icon="none" checkIcon="minus"
+                icon="plusActive" checkIcon="minus"
                 checkedIconStyle={{backgroundColor: 'transparent'}}
-                uncheckedBorderColor={{borderColor: colors.pink}}
-                checkedBorderColor={{borderColor: colors.pink}}
-                checkedBackgroundColor={{backgroundColor: colors.pink}}
-                uncheckedBackgroundColor={{backgroundColor: 'transparent'}}
+                colorMode="whitePinkBorder"
                 checked={!!imageSrc}
                 onChange={(value) => {
                   if(value) {
                     showImagePicker((image) => this.setState({image}))}
+                    else {this.setState({image: undefined})}
                 }}
               />
               <Image
                 source={{uri: imageSrc}}
                 style={{ resizeMode: 'cover', height: 180, width: null }}
               />
-
             </Form>
           </Wizard.Step>
         </Wizard>
