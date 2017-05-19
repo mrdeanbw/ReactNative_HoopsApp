@@ -247,7 +247,6 @@ class SignUpFacebookExtra extends Component {
     this.props.change('phone', this.state.phone)
     this.props.change('image', this.state.facebookImageSrc)
 
-
     return (
 
       <View style={{flex: 1}}>
