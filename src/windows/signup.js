@@ -36,7 +36,7 @@ const renderTextInput = ({
         multiline,
         rightBar,
         keyboardType,
-        meta: {touched, error, warning}
+        meta: {touched, error}
       }) => {
 
 let borderStyleOnError = null
@@ -83,7 +83,6 @@ const renderAdressInput = ({
         textStyles,
         meta: {touched, error}
       }) => {
-
 let setColor = null
 
 !error ? setColor = {color: "black"} : null
@@ -215,14 +214,11 @@ class SignUp extends Component {
   }
 
   render() {
-
     const errorCode = this.props.signUpError && this.props.signUpError.code
-
     const emailError = [
       'auth/email-already-in-use',
       'auth/invalid-email',
     ].indexOf(errorCode) !== -1
-
     const {handleSubmit, valid} = this.props
 
     return (
