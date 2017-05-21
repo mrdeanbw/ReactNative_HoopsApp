@@ -14,8 +14,7 @@ import _ from '../i18n'
 import validation from '../config/validation'
 
 const renderTextInput = ({
-        input: {onChange, ...restInput},
-        value,
+        input: {onChange, value, ...restInput},
         onChangeText,
         type,
         ref,
@@ -204,6 +203,11 @@ class SignUpFacebookExtra extends Component {
 
   componentWillReceiveProps(nextProps) {
     if(this.props.isLoading && !nextProps.isLoading) {
+      this.props.change('name', nextProps.name)
+      this.props.change('email', nextProps.email)
+      this.props.change('gender', nextProps.gender)
+      this.props.change('phone', nextProps.phone)
+      this.props.change('image', nextProps.facebookImageSrc)
       this.setState({
         name: nextProps.name,
         email: nextProps.email,
@@ -232,7 +236,6 @@ class SignUpFacebookExtra extends Component {
   }
 
   render() {
-
     const errorCode = this.props.signUpError && this.props.signUpError.code
     const emailError = [
       'auth/email-already-in-use',
@@ -240,15 +243,7 @@ class SignUpFacebookExtra extends Component {
     ].indexOf(errorCode) !== -1
     const {handleSubmit, valid} = this.props
 
-    this.props.change('name', this.state.name)
-    this.props.change('email', this.state.email)
-    this.props.change('gender', this.state.gender)
-    this.props.change('dob', this.state.dob)
-    this.props.change('phone', this.state.phone)
-    this.props.change('image', this.state.facebookImageSrc)
-
     return (
-
       <View style={{flex: 1}}>
         <Header title={_('signupFacebook')} simple />
         {/*<LoadingAlert visible={this.props.isLoading} />*/}
@@ -256,7 +251,7 @@ class SignUpFacebookExtra extends Component {
           <Field
             name="image"
             component={AvatarInput}
-            value={this.state.facebookImageSrc}
+            value={this.props.facebookImageSrc}
           />
           <Field
             name="name"
@@ -264,7 +259,7 @@ class SignUpFacebookExtra extends Component {
             type="flat"
             ref="name"
             placeholder={_('name')}
-            validate={[validation.required, validation.maxChars15]}
+            validate={[validation.required, validation.maxChars20]}
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}

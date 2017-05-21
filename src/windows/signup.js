@@ -246,7 +246,7 @@ class SignUp extends Component {
             type="flat"
             ref="name"
             placeholder={_('name')}
-            validate={[validation.required, validation.maxChars15]}
+            validate={[validation.required, validation.maxChars20]}
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}
