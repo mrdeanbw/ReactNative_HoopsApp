@@ -245,10 +245,10 @@ class SignUpFacebookExtra extends Component {
             icon="name"
           />
           {errorCode === 'auth/email-already-in-use' && (
-            <Text style={StyleSheet.signup.errorText}>Email already used</Text>
+          <Text style={StyleSheet.signup.errorText}>Email already used</Text>
           )}
           {errorCode === 'auth/invalid-email' && (
-            <Text style={StyleSheet.signup.errorText}>Invalid email</Text>
+          <Text style={StyleSheet.signup.errorText}>Invalid email</Text>
           )}
           <Field
             name="email"
@@ -346,5 +346,5 @@ class SignUpFacebookExtra extends Component {
 }
 
 export default reduxForm({
-  form: 'syncValidation',
+  form: 'FacebookExtraValidation',
 })(SignUpFacebookExtra)

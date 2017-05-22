@@ -175,7 +175,7 @@ const GenderInput = ({
         <Button type="image" icon="female" active={value === 'female'} onPress={() => onChange('female')}/>
       </View>
     </View>
-  )a}
+  )}
 
 class SignUp extends Component {
   constructor(props) {
@@ -221,7 +221,7 @@ class SignUp extends Component {
       <View style={{flex: 1}} onPress={handleSubmit}>
         <Header title={_('signup')} simple />
         <Form style={StyleSheet.signup.style}>
-          <LoadingAlert visible={this.props.isLoading} />
+          <LoadingAlert visible={this.props.isLoading}/>
           <Button
             type="facebook"
             icon="facebook"
@@ -361,7 +361,7 @@ class SignUp extends Component {
             onPress={handleSubmit(this.submit)}
             style={[StyleSheet.doubleMarginTop, StyleSheet.singleMarginBottom]}
           />
-          <KeyboardSpacer />
+          <KeyboardSpacer/>
         </Form>
       </View>
     )
@@ -373,5 +373,5 @@ SignUp.propTypes = {
 }
 
 export default reduxForm({
-  form: 'syncValidation',
+  form: 'SignUpValidation',
 })(SignUp)
