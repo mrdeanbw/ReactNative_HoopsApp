@@ -16,7 +16,6 @@ class SignUpFacebookExtra extends Component {
     super(props)
     this.state = {
       showPassword: false,
-      showDobInfo: false,
       showDobInfoPopup: false,
       showGenderInfoPopup: false,
     }
