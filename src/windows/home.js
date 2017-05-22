@@ -73,7 +73,7 @@ class Home extends React.Component {
       <View style={{flex: 1}}>
         <Header title={this.isOrganizing() ? _('activeEvents') :  _('nearbyEvents')} />
         <ScrollView
-          contentContainerStyle={StyleSheet.home.container}
+          style={{flex: 1}}
           onLayout={(e) => this.setState({scrollHeight: e.nativeEvent.layout.height})}
         >
           {!this.isOrganizing() && !this.state.showMap && this.props.nearby.length === 0 ?
