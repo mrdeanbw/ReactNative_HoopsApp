@@ -3,6 +3,7 @@ import React from 'react'
 import _ from '../i18n'
 
 import StyleSheet from '../styles'
+
 import {View, Animated, Text} from 'react-native'
 import {ActionButton, Button, Menu} from './'
 
@@ -69,7 +70,6 @@ export default class TabBar extends React.Component {
             <Button type="tab" icon="home" text={_('home')}
               active={this.props.currentTab === "home"}
               onPress={() => this.props.onTabPress('home')}
-              style={{backgroundColor: 'blue'}}
             />
           </View>
           <View style={StyleSheet.window.tabItem}>
@@ -85,7 +85,8 @@ export default class TabBar extends React.Component {
               />
             )}
           </View>
-          <View style={StyleSheet.window.tabItem}/> {/* Spacer for the abs pos Action button */}
+          {/* Spacer for the abs pos Action button */}
+          <View style={StyleSheet.window.tabItem}/>
           <View style={StyleSheet.window.tabItem}>
             <Button
               type="tab"
@@ -93,6 +94,7 @@ export default class TabBar extends React.Component {
               text={_('notifications')}
               active={this.props.currentTab === "notifications"}
               onPress={() => this.props.onTabPress('notifications')}
+              style={{paddingLeft: 14}}
             />
             {!!this.props.notificationBadge && (
               <View style={StyleSheet.menu.badgeContainer}>
@@ -131,6 +133,7 @@ TabBar.propTypes = {
   actionIcon: React.PropTypes.string,
   actionTextLarge: React.PropTypes.string,
   actionType: React.PropTypes.string,
+
   onTabPress: React.PropTypes.func.isRequired,
 }
 

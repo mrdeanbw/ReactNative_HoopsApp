@@ -94,7 +94,6 @@ export default StyleSheet => StyleSheet.extend({
 
     textTransform: s => s
   }),
-
   dialog: StyleSheet.extend({
     containerStyle: {
       height: 50
