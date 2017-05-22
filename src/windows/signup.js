@@ -3,182 +3,15 @@ import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 import {Field, reduxForm} from 'redux-form'
 
-import {AddressInput, Button, HorizontalRule, TextInput, DateInput, Form, Header, LoadingAlert, AvatarEdit} from '../components'
+import {Button, HorizontalRule, Form, Header, LoadingAlert} from '../components'
+import {AddressInput, AvatarInput, DateInput, GenderInput, TextInput} from '../components/forms'
 import {DobInfoPopup, GenderInfoPopup} from '../components/signup'
 import StyleSheet from '../styles'
-import {colors} from '../styles/resources'
 import _ from '../i18n'
 import validation from '../config/validation'
 
-const renderTextInput = ({
-        input: {onChange, ...restInput},
-        value,
-        onChangeText,
-        type,
-        ref,
-        placeholder,
-        style,
-        errors,
-        autoCapitalize,
-        autoCorrect,
-        textStyle,
-        autoFocus,
-        returnKeyType,
-        selectTextOnFocus,
-        enablesReturnKeyAutomatically,
-        onSubmitEditing,
-        icon,
-        secureTextEntry,
-        clearTextOnFocus,
-        multiline,
-        rightBar,
-        keyboardType,
-        meta: {touched, error}
-      }) => {
-
-let borderStyleOnError = null
-let textStyleOnError = null
-let errorOutput = null
-
-touched  && error ? borderStyleOnError = {borderBottomColor: colors.pink} : null
-touched && error ? errorOutput = (<Text style={StyleSheet.signup.errorText}>{error}</Text>) : null
-
-  return (
-    <View>
-      {errorOutput}
-      <TextInput
-        value={value}
-        onChangeText={onChange}
-        type={type}
-        ref={ref}
-        error={errors}
-        placeholder={placeholder}
-        style={[style, borderStyleOnError]}
-        autoCapitalize={autoCapitalize}
-        autoCorrect={autoCorrect}
-        textStyle={[textStyle, textStyleOnError]}
-        autoFocus
-        returnKeyType={returnKeyType}
-        selectTextOnFocus={selectTextOnFocus}
-        enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
-        onSubmitEditing={onSubmitEditing}
-        icon={icon}
-        secureTextEntry={secureTextEntry}
-        clearTextOnFocus={clearTextOnFocus}
-        multiline={multiline}
-        rightBar={rightBar}
-        keyboardType={keyboardType}
-      />
-    </View>
-  )
-}
-const renderAdressInput = ({
-        input: {onChange, value, dirty, ...restInput},
-        icon,
-        placeholder,
-        onSelect,
-        textStyles,
-        meta: {touched, error}
-      }) => {
-let setColor = null
-
-!error ? setColor = {color: "black"} : null
-
-  return (
-    <View>
-      {touched && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>))}
-      <AddressInput
-        icon={icon}
-        placeholder={placeholder}
-        value={value.description}
-        onSelect={onChange}
-        textStyles={[textStyles]}
-        textColor={setColor}
-      />
-    </View>
-  )
-}
-const renderDateInput = ({
-        input: {onChange, value, ...restInput},
-          ref,
-          placeholder,
-          type,
-          icon,
-          date,
-          time,
-          minDate,
-          barStyle,
-          rightBar,
-          meta: {touched, error, dirty}
-      }) => {
-let borderStyleOnError = null
-let textStyleOnError = null
-
-touched || dirty && error ? borderStyleOnError = {borderBottomColor: colors.pink} : null
-touched || dirty && error ? textStyleOnError = {color: colors.pink} : null
-  return (
-    <View>
-      {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>))}
-      <DateInput
-        ref={ref}
-        placeholder={placeholder}
-        type={type}
-        icon={icon}
-        date={date}
-        time={time}
-        errorStyles={[borderStyleOnError, textStyleOnError]}
-        minDate={minDate}
-        value={value}
-        onChange={onChange}
-        barStyle={barStyle}
-        rightBar={rightBar}
-      />
-    </View>
-  )
-}
-
-const AvatarInput = ({
-      input: {value, onChange},
-      meta: {touched, error}
-     }) => {
-    return (
-      <AvatarEdit
-        onChange={onChange}
-        imageUrl={value}
-        style={StyleSheet.singleMargin}
-      />
-    )
-  }
-
-const GenderInput = ({
-      input: {value, onChange},
-      onPressInfoIcon,
-      crossPlatformLeftPosition,
-      maleActive,
-      femaleActive,
-      meta: {touched, error, warning}
-     }) => {
-    return (
-      <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
-        {touched && ((error && <Text style={[StyleSheet.signup.errorText]}>{error}</Text>))}
-        <View style={StyleSheet.signup.genderLabelContainer}>
-          <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
-          <Button
-            style={[StyleSheet.signup.genderInfoIcon]}
-            type="disclosure"
-            icon="info"
-            onPress={onPressInfoIcon}/>
-        </View>
-        <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
-          <Button type="image" icon="male" active={value === 'male'} onPress={() => onChange('male')}/>
-          <View style={StyleSheet.buttons.separator} />
-          <Button type="image" icon="female" active={value === 'female'} onPress={() => onChange('female')}/>
-        </View>
-      </View>
-    )
-  }
-
 class SignUp extends Component {
+
   constructor(props) {
     super(props)
     this.state = {
@@ -239,7 +72,7 @@ class SignUp extends Component {
           />
           <Field
             name="name"
-            component={renderTextInput}
+            component={TextInput}
             type="flat"
             ref="name"
             placeholder={_('name')}
@@ -260,7 +93,7 @@ class SignUp extends Component {
           )}
           <Field
             name="email"
-            component={renderTextInput}
+            component={TextInput}
             type="flat"
             ref="email"
             error={emailError}
@@ -277,7 +110,7 @@ class SignUp extends Component {
           />
           <Field
             name="password"
-            component={renderTextInput}
+            component={TextInput}
             type="flat"
             ref="password"
             placeholder={_('password')}
@@ -301,7 +134,7 @@ class SignUp extends Component {
           />
           <Field
             name="dob"
-            component={renderDateInput}
+            component={DateInput}
             ref="dob"
             placeholder={_('dob')}
             type="flat"
@@ -326,7 +159,7 @@ class SignUp extends Component {
           />
           <Field
             name="address"
-            component={renderAdressInput}
+            component={AddressInput}
             validate={validation.required}
             icon
             placeholder={_('city')}
@@ -334,7 +167,7 @@ class SignUp extends Component {
            />
           <Field
             name="phone"
-            component={renderTextInput}
+            component={TextInput}
             type="flat"
             ref="phone"
             placeholder={_('optionalPhone')}

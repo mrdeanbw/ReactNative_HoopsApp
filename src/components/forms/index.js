@@ -1,0 +1,5 @@
+export {default as AddressInput} from './AddressInput'
+export {default as AvatarInput} from './AvatarInput'
+export {default as DateInput} from './DateInput'
+export {default as GenderInput} from './GenderInput'
+export {default as TextInput} from './TextInput'
