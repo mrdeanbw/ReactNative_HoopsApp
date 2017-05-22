@@ -3,10 +3,7 @@ import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 import {Field, reduxForm} from 'redux-form'
 
-import {
-  AddressInput, Button, TextInput,
-  DateInput, Form, Header, AvatarEdit
-} from '../components'
+import {AddressInput, Button, TextInput,DateInput, Form, Header, AvatarEdit} from '../components'
 import {DobInfoPopup, GenderInfoPopup} from '../components/signup'
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
@@ -49,28 +46,28 @@ touched && error ? errorOutput = (<Text style={StyleSheet.signup.errorText}>{err
     <View>
       {errorOutput}
       <TextInput
-            value={value}
-            onChangeText={onChange}
-            type={type}
-            ref={ref}
-            error={errors}
-            placeholder={placeholder}
-            style={[style, borderStyleOnError]}
-            autoCapitalize={autoCapitalize}
-            autoCorrect={autoCorrect}
-            textStyle={[textStyle, textStyleOnError]}
-            autoFocus={autoFocus}
-            returnKeyType={returnKeyType}
-            selectTextOnFocus={selectTextOnFocus}
-            enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
-            onSubmitEditing={onSubmitEditing}
-            icon={icon}
-            secureTextEntry={secureTextEntry}
-            clearTextOnFocus={clearTextOnFocus}
-            multiline={multiline}
-            rightBar={rightBar}
-            keyboardType={keyboardType}
-          />
+        value={value}
+        onChangeText={onChange}
+        type={type}
+        ref={ref}
+        error={errors}
+        placeholder={placeholder}
+        style={[style, borderStyleOnError]}
+        autoCapitalize={autoCapitalize}
+        autoCorrect={autoCorrect}
+        textStyle={[textStyle, textStyleOnError]}
+        autoFocus={autoFocus}
+        returnKeyType={returnKeyType}
+        selectTextOnFocus={selectTextOnFocus}
+        enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
+        onSubmitEditing={onSubmitEditing}
+        icon={icon}
+        secureTextEntry={secureTextEntry}
+        clearTextOnFocus={clearTextOnFocus}
+        multiline={multiline}
+        rightBar={rightBar}
+        keyboardType={keyboardType}
+      />
     </View>
   )
 }
@@ -91,13 +88,13 @@ let setColor = null
     <View>
       {touched && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
       <AddressInput
-            icon={icon}
-            placeholder={placeholder}
-            value={value.description}
-            onSelect={onChange}
-            textStyles={[textStyles]}
-            textColor={setColor}
-           />
+        icon={icon}
+        placeholder={placeholder}
+        value={value.description}
+        onSelect={onChange}
+        textStyles={[textStyles]}
+        textColor={setColor}
+        />
     </View>
   )
 }
@@ -123,19 +120,19 @@ touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
     <View>
       {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
       <DateInput
-          ref={ref}
-          placeholder={placeholder}
-          type={type}
-          icon={icon}
-          date={date}
-          time={time}
-          errorStyles={[borderStyleOnError, textStyleOnError]}
-          minDate={minDate}
-          value={value}
-          onChange={onChange}
-          barStyle={barStyle}
-          rightBar={rightBar}
-        />
+        ref={ref}
+        placeholder={placeholder}
+        type={type}
+        icon={icon}
+        date={date}
+        time={time}
+        errorStyles={[borderStyleOnError, textStyleOnError]}
+        minDate={minDate}
+        value={value}
+        onChange={onChange}
+        barStyle={barStyle}
+        rightBar={rightBar}
+      />
     </View>
   )
 }
@@ -146,10 +143,10 @@ const AvatarInput = ({
      }) => {
     return (
       <AvatarEdit
-            onChange={onChange}
-            imageUrl={value}
-            style={StyleSheet.singleMargin}
-        />
+        onChange={onChange}
+        imageUrl={value}
+        style={StyleSheet.singleMargin}
+      />
     )
   }
 
@@ -167,10 +164,10 @@ const GenderInput = ({
         <View style={StyleSheet.signup.genderLabelContainer}>
           <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
           <Button
-                style={[StyleSheet.signup.genderInfoIcon]}
-                type="disclosure"
-                icon="info"
-                onPress={onPressInfoIcon}/>
+            style={[StyleSheet.signup.genderInfoIcon]}
+            type="disclosure"
+            icon="info"
+            onPress={onPressInfoIcon}/>
         </View>
         <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
           <Button type="image" icon="male" value={value} active={value === 'male'} onPress={() => onChange('male') }/>
@@ -189,15 +186,6 @@ class SignUpFacebookExtra extends Component {
       showDobInfo: false,
       showDobInfoPopup: false,
       showGenderInfoPopup: false,
-      name: props.name,
-      email: props.email,
-      dob: isNaN(new Date(props.dob).getTime()) ? null : new Date(props.dob),
-      gender: props.gender,
-      cityText: '',
-      city: {},
-      phone: props.phone,
-      image: undefined,
-      facebookImageSrc: props.facebookImageSrc,
     }
   }
 
@@ -208,14 +196,6 @@ class SignUpFacebookExtra extends Component {
       this.props.change('gender', nextProps.gender)
       this.props.change('phone', nextProps.phone)
       this.props.change('image', nextProps.facebookImageSrc)
-      this.setState({
-        name: nextProps.name,
-        email: nextProps.email,
-        dob: isNaN(new Date(nextProps.dob).getTime()) ? null : new Date(nextProps.dob),
-        gender: nextProps.gender,
-        phone: nextProps.phone,
-        facebookImageSrc: nextProps.facebookImageSrc,
-      })
     }
   }
 

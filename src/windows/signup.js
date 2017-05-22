@@ -3,10 +3,7 @@ import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 import {Field, reduxForm} from 'redux-form'
 
-import {
-  AddressInput, Button, HorizontalRule, TextInput,
-  DateInput, Form, Header, LoadingAlert, AvatarEdit
-} from '../components'
+import {AddressInput, Button, HorizontalRule, TextInput, DateInput, Form, Header, LoadingAlert, AvatarEdit} from '../components'
 import {DobInfoPopup, GenderInfoPopup} from '../components/signup'
 import StyleSheet from '../styles'
 import {colors} from '../styles/resources'
@@ -50,28 +47,28 @@ touched && error ? errorOutput = (<Text style={StyleSheet.signup.errorText}>{err
     <View>
       {errorOutput}
       <TextInput
-            value={value}
-            onChangeText={onChange}
-            type={type}
-            ref={ref}
-            error={errors}
-            placeholder={placeholder}
-            style={[style, borderStyleOnError]}
-            autoCapitalize={autoCapitalize}
-            autoCorrect={autoCorrect}
-            textStyle={[textStyle, textStyleOnError]}
-            autoFocus
-            returnKeyType={returnKeyType}
-            selectTextOnFocus={selectTextOnFocus}
-            enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
-            onSubmitEditing={onSubmitEditing}
-            icon={icon}
-            secureTextEntry={secureTextEntry}
-            clearTextOnFocus={clearTextOnFocus}
-            multiline={multiline}
-            rightBar={rightBar}
-            keyboardType={keyboardType}
-          />
+        value={value}
+        onChangeText={onChange}
+        type={type}
+        ref={ref}
+        error={errors}
+        placeholder={placeholder}
+        style={[style, borderStyleOnError]}
+        autoCapitalize={autoCapitalize}
+        autoCorrect={autoCorrect}
+        textStyle={[textStyle, textStyleOnError]}
+        autoFocus
+        returnKeyType={returnKeyType}
+        selectTextOnFocus={selectTextOnFocus}
+        enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
+        onSubmitEditing={onSubmitEditing}
+        icon={icon}
+        secureTextEntry={secureTextEntry}
+        clearTextOnFocus={clearTextOnFocus}
+        multiline={multiline}
+        rightBar={rightBar}
+        keyboardType={keyboardType}
+      />
     </View>
   )
 }
@@ -91,13 +88,13 @@ let setColor = null
     <View>
       {touched && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>))}
       <AddressInput
-            icon={icon}
-            placeholder={placeholder}
-            value={value.description}
-            onSelect={onChange}
-            textStyles={[textStyles]}
-            textColor={setColor}
-           />
+        icon={icon}
+        placeholder={placeholder}
+        value={value.description}
+        onSelect={onChange}
+        textStyles={[textStyles]}
+        textColor={setColor}
+      />
     </View>
   )
 }
@@ -123,19 +120,19 @@ touched || dirty && error ? textStyleOnError = {color: colors.pink} : null
     <View>
       {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>))}
       <DateInput
-          ref={ref}
-          placeholder={placeholder}
-          type={type}
-          icon={icon}
-          date={date}
-          time={time}
-          errorStyles={[borderStyleOnError, textStyleOnError]}
-          minDate={minDate}
-          value={value}
-          onChange={onChange}
-          barStyle={barStyle}
-          rightBar={rightBar}
-        />
+        ref={ref}
+        placeholder={placeholder}
+        type={type}
+        icon={icon}
+        date={date}
+        time={time}
+        errorStyles={[borderStyleOnError, textStyleOnError]}
+        minDate={minDate}
+        value={value}
+        onChange={onChange}
+        barStyle={barStyle}
+        rightBar={rightBar}
+      />
     </View>
   )
 }
@@ -146,10 +143,10 @@ const AvatarInput = ({
      }) => {
     return (
       <AvatarEdit
-            onChange={onChange}
-            imageUrl={value}
-            style={StyleSheet.singleMargin}
-        />
+        onChange={onChange}
+        imageUrl={value}
+        style={StyleSheet.singleMargin}
+      />
     )
   }
 
@@ -167,10 +164,10 @@ const GenderInput = ({
         <View style={StyleSheet.signup.genderLabelContainer}>
           <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
           <Button
-                style={[StyleSheet.signup.genderInfoIcon]}
-                type="disclosure"
-                icon="info"
-                onPress={onPressInfoIcon}/>
+            style={[StyleSheet.signup.genderInfoIcon]}
+            type="disclosure"
+            icon="info"
+            onPress={onPressInfoIcon}/>
         </View>
         <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
           <Button type="image" icon="male" active={value === 'male'} onPress={() => onChange('male')}/>
