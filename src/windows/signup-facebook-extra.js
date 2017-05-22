@@ -28,7 +28,8 @@ class SignUpFacebookExtra extends Component {
       this.props.change('dob', nextProps.dob)
       this.props.change('gender', nextProps.gender)
       this.props.change('phone', nextProps.phone)
-      this.props.change('image', nextProps.facebookImageSrc)
+      this.props.change('image', nextProps.image)
+      this.props.change('facebookImageSrc', nextProps.facebookImageSrc)
     }
   }
 
@@ -41,13 +42,14 @@ class SignUpFacebookExtra extends Component {
       city: values.address.description,
       cityGooglePlaceId: values.address.place_id,
       image: values.image,
+      facebookImageSrc: values.facebookImageSrc,
     }
 
     if (!values.image && this.state.facebookImageSrc) {
       userData.facebookImageSrc = this.state.facebookImageSrc
     }
 
-   this.props.onPressContinue(userData)
+    this.props.onPressContinue(userData)
   }
 
   render() {
@@ -61,7 +63,6 @@ class SignUpFacebookExtra extends Component {
     return (
       <View style={{flex: 1}}>
         <Header title={_('signupFacebook')} simple />
-        {/*<LoadingAlert visible={this.props.isLoading} />*/}
         <Form style={[StyleSheet.signup.style]}>
           <Field
             name="image"
