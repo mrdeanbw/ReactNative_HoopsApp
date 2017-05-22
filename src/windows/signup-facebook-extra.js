@@ -25,6 +25,7 @@ class SignUpFacebookExtra extends Component {
     if (this.props.isLoading && !nextProps.isLoading) {
       this.props.change('name', nextProps.name)
       this.props.change('email', nextProps.email)
+      this.props.change('dob', nextProps.dob)
       this.props.change('gender', nextProps.gender)
       this.props.change('phone', nextProps.phone)
       this.props.change('image', nextProps.facebookImageSrc)
