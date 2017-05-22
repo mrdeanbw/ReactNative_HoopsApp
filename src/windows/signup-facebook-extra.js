@@ -11,36 +11,36 @@ import _ from '../i18n'
 import validation from '../config/validation'
 
 const renderTextInput = ({
-        input: {onChange, value, ...restInput},
-        onChangeText,
-        type,
-        ref,
-        placeholder,
-        style,
-        errors,
-        autoCapitalize,
-        autoCorrect,
-        textStyle,
-        autoFocus,
-        returnKeyType,
-        selectTextOnFocus,
-        enablesReturnKeyAutomatically,
-        onSubmitEditing,
-        icon,
-        secureTextEntry,
-        clearTextOnFocus,
-        multiline,
-        rightBar,
-        keyboardType,
-        meta: {touched, error, warning, dirty,invalid,}
-      }) => {
+  input: {onChange, value, ...restInput},
+  onChangeText,
+  type,
+  ref,
+  placeholder,
+  style,
+  errors,
+  autoCapitalize,
+  autoCorrect,
+  textStyle,
+  autoFocus,
+  returnKeyType,
+  selectTextOnFocus,
+  enablesReturnKeyAutomatically,
+  onSubmitEditing,
+  icon,
+  secureTextEntry,
+  clearTextOnFocus,
+  multiline,
+  rightBar,
+  keyboardType,
+  meta: {touched, error, warning, dirty,invalid,}
+}) => {
 
-let borderStyleOnError = null
-let textStyleOnError = null
-let errorOutput = null
+  let borderStyleOnError = null
+  let textStyleOnError = null
+  let errorOutput = null
 
-touched  && error ? borderStyleOnError = {borderBottomColor: colors.pink} : null
-touched && error ? errorOutput = (<Text style={StyleSheet.signup.errorText}>{error}</Text>) : null
+  touched  && error ? borderStyleOnError = {borderBottomColor: colors.pink} : null
+  touched && error ? errorOutput = (<Text style={StyleSheet.signup.errorText}>{error}</Text>) : null
 
   return (
     <View>
@@ -69,20 +69,19 @@ touched && error ? errorOutput = (<Text style={StyleSheet.signup.errorText}>{err
         keyboardType={keyboardType}
       />
     </View>
-  )
-}
+  )}
 
 const renderAdressInput = ({
-        input: { onChange, value, dirty, ...restInput },
-        icon,
-        placeholder,
-        onSelect,
-        textStyles,
-        meta: { touched, error, warning }
-      }) => {
-let setColor = null
+  input: { onChange, value, dirty, ...restInput },
+  icon,
+  placeholder,
+  onSelect,
+  textStyles,
+  meta: { touched, error, warning }
+}) => {
+  let setColor = null
 
-!error ? setColor = {color: "black"} : null
+  !error ? setColor = {color: "black"} : null
 
   return (
     <View>
@@ -96,26 +95,25 @@ let setColor = null
         textColor={setColor}
         />
     </View>
-  )
-}
+  )}
 
 const renderDateInput = ({
-        input: { onChange, value, ...restInput },
-          ref,
-          placeholder,
-          type,
-          icon,
-          date,
-          time,
-          minDate,
-          barStyle,
-          rightBar,
-          meta: { touched, error, warning, dirty }
-      }) => {
-let borderStyleOnError = null
-let textStyleOnError = null
-touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
-touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
+  input: { onChange, value, ...restInput },
+  ref,
+  placeholder,
+  type,
+  icon,
+  date,
+  time,
+  minDate,
+  barStyle,
+  rightBar,
+  meta: { touched, error, warning, dirty }
+}) => {
+  let borderStyleOnError = null
+  let textStyleOnError = null
+  touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
+  touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
   return (
     <View>
       {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
@@ -134,49 +132,47 @@ touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
         rightBar={rightBar}
       />
     </View>
-  )
-}
+  )}
 
 const AvatarInput = ({
-      input: {value, onChange},
-      meta: {touched, error, warning}
-     }) => {
-    return (
-      <AvatarEdit
-        onChange={onChange}
-        imageUrl={value}
-        style={StyleSheet.singleMargin}
-      />
-    )
-  }
+  input: {value, onChange},
+  meta: {touched, error, warning}
+}) => {
+  return (
+    <AvatarEdit
+      onChange={onChange}
+      imageUrl={value}
+      style={StyleSheet.singleMargin}
+    />
+  )}
 
 const GenderInput = ({
-      input: { value, onChange },
-      onPressInfoIcon,
-      crossPlatformLeftPosition,
-      maleActive,
-      femaleActive,
-      meta: {touched, error, warning}
-     }) => {
-    return (
-      <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
-        {touched && ((error && <Text style={[StyleSheet.signup.errorText]}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
-        <View style={StyleSheet.signup.genderLabelContainer}>
-          <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
-          <Button
-            style={[StyleSheet.signup.genderInfoIcon]}
-            type="disclosure"
-            icon="info"
-            onPress={onPressInfoIcon}/>
-        </View>
-        <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
-          <Button type="image" icon="male" value={value} active={value === 'male'} onPress={() => onChange('male') }/>
-          <View style={StyleSheet.buttons.separator} />
-          <Button type="image" icon="female" value={value} active={value === 'female'} onPress={() => onChange('female')}/>
-        </View>
+  input: { value, onChange },
+  onPressInfoIcon,
+  crossPlatformLeftPosition,
+  maleActive,
+  femaleActive,
+  meta: {touched, error, warning}
+}) => {
+  return (
+    <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
+      {touched && ((error && <Text style={[StyleSheet.signup.errorText]}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
+      <View style={StyleSheet.signup.genderLabelContainer}>
+        <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
+        <Button
+          style={[StyleSheet.signup.genderInfoIcon]}
+          type="disclosure"
+          icon="info"
+          onPress={onPressInfoIcon}/>
       </View>
-    )
-  }
+      <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
+        <Button type="image" icon="male" value={value} active={value === 'male'} onPress={() => onChange('male') }/>
+        <View style={StyleSheet.buttons.separator} />
+        <Button type="image" icon="female" value={value} active={value === 'female'} onPress={() => onChange('female')}/>
+      </View>
+    </View>
+  )
+}
 
 class SignUpFacebookExtra extends Component {
   constructor(props) {
