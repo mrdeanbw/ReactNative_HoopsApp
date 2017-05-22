@@ -175,7 +175,7 @@ const GenderInput = ({
         <Button type="image" icon="female" active={value === 'female'} onPress={() => onChange('female')}/>
       </View>
     </View>
-  )}
+  )a}
 
 class SignUp extends Component {
   constructor(props) {

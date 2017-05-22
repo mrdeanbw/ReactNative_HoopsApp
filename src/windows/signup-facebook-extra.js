@@ -72,12 +72,12 @@ const renderTextInput = ({
   )}
 
 const renderAdressInput = ({
-  input: { onChange, value, dirty, ...restInput },
+  input: {onChange, value, dirty, ...restInput},
   icon,
   placeholder,
   onSelect,
   textStyles,
-  meta: { touched, error, warning }
+  meta: {touched, error, warning}
 }) => {
   let setColor = null
 
@@ -98,7 +98,7 @@ const renderAdressInput = ({
   )}
 
 const renderDateInput = ({
-  input: { onChange, value, ...restInput },
+  input: {onChange, value, ...restInput},
   ref,
   placeholder,
   type,
@@ -108,7 +108,7 @@ const renderDateInput = ({
   minDate,
   barStyle,
   rightBar,
-  meta: { touched, error, warning, dirty }
+  meta: {touched, error, warning, dirty}
 }) => {
   let borderStyleOnError = null
   let textStyleOnError = null
@@ -171,8 +171,7 @@ const GenderInput = ({
         <Button type="image" icon="female" value={value} active={value === 'female'} onPress={() => onChange('female')}/>
       </View>
     </View>
-  )
-}
+  )}
 
 class SignUpFacebookExtra extends Component {
   constructor(props) {
