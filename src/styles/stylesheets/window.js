@@ -101,8 +101,6 @@ export default StyleSheet => StyleSheet.extend({
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: '#e6eaeb',
     backgroundColor: colors.white,
-    paddingLeft: 8,
-    paddingRight: 8,
   },
 
   tabItem: {

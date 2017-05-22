@@ -21,7 +21,6 @@ export default class SearchResults extends React.Component {
           <Text style={StyleSheet.noResults}>{_('noEventsNearby')}</Text>
           ) : null
         }
-
         {this.state.showMap ? (
           <MapView
             events={this.props.events}
@@ -49,7 +48,6 @@ export default class SearchResults extends React.Component {
             )}
           </ScrollView>
         )}
-
       </View>
     )
   }

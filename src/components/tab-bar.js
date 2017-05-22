@@ -44,7 +44,6 @@ export default class TabBar extends React.Component {
         <View style={{flex: 1}}>
           {this.props.children}
         </View>
-
         {this.state.menuVisible && (
           <Menu
             animation={this.state.menuAnimation}
@@ -57,7 +56,6 @@ export default class TabBar extends React.Component {
             invitationsBadge={this.props.invitationsBadge}
           />
         )}
-
         <ActionButton
           type={this.props.actionType}
           icon={actionIcon}
@@ -94,7 +92,6 @@ export default class TabBar extends React.Component {
               text={_('notifications')}
               active={this.props.currentTab === "notifications"}
               onPress={() => this.props.onTabPress('notifications')}
-              style={{paddingLeft: 14}}
             />
             {!!this.props.notificationBadge && (
               <View style={StyleSheet.menu.badgeContainer}>
