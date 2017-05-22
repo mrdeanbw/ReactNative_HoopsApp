@@ -527,12 +527,11 @@ class EventJoinedConfirmation extends React.Component {
             {_('congrats').toUpperCase()}{'\n'}
             <Text style={{color: StyleSheet.colors.pink}}>{_('youreIn').toUpperCase()}!</Text>
           </Text>
-
           <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop]}>
-            {_('joinConfirmedText').replace('$1', '£' + this.props.entryFee)}
+            {this.props.entry !== 0 ? _('joinConfirmedText').replace('$1', '£' + this.props.entryFee) :
+                _('joinConfirmedText').replace('Your payment of $1 has been confirmed and y', 'Y')}
           </Text>
         </View>
-
         <View style={StyleSheet.buttons.bar}>
           <Button type="alert" text={_('close')} onPress={this.props.onClose} />
           <Button type="alertDefault"
