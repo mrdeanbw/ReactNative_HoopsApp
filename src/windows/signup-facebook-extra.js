@@ -1,285 +1,38 @@
-import React, { Component } from 'react'
-import {View, Text, Platform} from 'react-native'
+import React, {Component} from 'react'
+import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
-import { Field, reduxForm } from 'redux-form'  // Field Component and reduxForm function  need to be imported from redux-form
+import {Field, reduxForm} from 'redux-form'
 
-import { AddressInput, Button, TextInput, DateInput, Header, Form, AvatarEdit, Popup,  } from '../components'
-
+import {Button, Form, Header} from '../components'
+import {AddressInput, AvatarInput, DateInput, GenderInput, TextInput} from '../components/forms'
+import {DobInfoPopup, GenderInfoPopup} from '../components/signup'
 import StyleSheet from '../styles'
-import {colors} from '../styles/resources'
 import _ from '../i18n'
+import validation from '../config/validation'
 
-
-// -- -- -- -- -- -- redux-form validation staff  << BEGIN >>-- -- -- -- -- -- --
- // import validation library
-const validation = require('../config/validation')
-
-// -- -- -- -- -- -- redux-form validation staff  << BEGIN >>-- -- -- -- -- -- --
- // passing values into validation function
-const validate = values => {
-  const errors = {}
-  // Name validation
-  if (validation.Required(values.name)) {
-    errors.name = 'Required'
-  } else if (validation.StringIsShorterOrEqual(values.name, 15)) {
-    errors.name = 'Must be 15 characters or less'
-  }
-  //Email validation
-  if (validation.Required(values.email)) {
-    errors.email = 'Required'
-  } else if (validation.EmailIsValid(values.email)) {
-    errors.email = 'Invalid email address'
-  }
-  //Password validation
-  if (validation.Required(values.password)) {
-    errors.password = 'Required'
-  } else if (validation.StringIsLongerOrEqual(values.password, 6)) {
-    errors.password = 'Password  must be at least 6 characters.'
-  }
-/*
-  //phone validation
-  if (!values.phone) {
-    errors.phone = 'Required'
-  }
-*/
-  //address validation
-  if (validation.Required(values.address)) {
-    errors.address = 'Required'
-  }
-  //dob validation
-  if (validation.Required(values.dob)) {
-    errors.dob = 'Required'
-  } else if (validation.noFutureDates(values.dob)) {
-      errors.dob = 'Invalid date of birth'
-  }
-
-  //address validation
-  if (validation.Required(values.gender)) {
-    errors.gender = 'Required'
-  }
-
-
-  return errors
-}
- // passing values into warning function
-const warn = values => {
-  const warnings = {}
-  if (values.age < 19) {
-    warnings.age = 'Hmm, you seem a bit young...'
-  }
-  return warnings
-}
-
-
-
-//TextInput component for redux Field
-const renderTextInput = ({
-        input: { onChange, ...restInput },
-        value,
-        onChangeText,
-        type,
-        ref,
-        placeholder,
-        style,
-        errors,
-        autoCapitalize,
-        autoCorrect,
-        textStyle,
-        autoFocus,
-        returnKeyType,
-        selectTextOnFocus,
-        enablesReturnKeyAutomatically,
-        onSubmitEditing,
-        icon,
-        secureTextEntry,
-        clearTextOnFocus,
-        multiline,
-        rightBar,
-        keyboardType,
-        meta: { touched, error, warning, dirty,invalid, }
-      }) => {
-
-let borderStyleOnError = null
-let textStyleOnError = null
-
-touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
-
-  return (
-    <View>
-      {  (touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
-      <TextInput
-            value={value}
-            onChangeText={onChange}
-            type={type}
-            ref={ref}
-            error={errors}
-            placeholder={placeholder}
-            style={[style, borderStyleOnError]}
-            autoCapitalize={autoCapitalize}
-            autoCorrect={autoCorrect}
-            textStyle={[textStyle, textStyleOnError]}
-            autoFocus={autoFocus}
-            returnKeyType={returnKeyType}
-            selectTextOnFocus={selectTextOnFocus}
-            enablesReturnKeyAutomatically={enablesReturnKeyAutomatically}
-            onSubmitEditing={onSubmitEditing}
-            icon={icon}
-            secureTextEntry={secureTextEntry}
-            clearTextOnFocus={clearTextOnFocus}
-            multiline={multiline}
-            rightBar={rightBar}
-            keyboardType={keyboardType}
-          />
-    </View>
-
-  )
-}
-//Address Input component for redux Field
-const renderAdressInput = ({
-        input: { onChange, value, dirty, ...restInput },
-        icon,
-        placeholder,
-        onSelect,
-        textStyles,
-        meta: { touched, error, warning }
-      }) => {
-
-let setColor = null
-
-!error ? setColor = {color: "black"} : null
-
-  return (
-    <View>
-      {touched && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
-      <AddressInput
-            icon={icon}
-            placeholder={placeholder}
-            value={value.description}
-            onSelect={onChange}
-            textStyles={[textStyles]}
-            textColor={setColor}
-           />
-    </View>
-
-  )
-}
-
-//DateInput component for redux Field
-const renderDateInput = ({
-        input: { onChange, value, ...restInput },
-          ref,
-          placeholder,
-          type,
-          icon,
-          date,
-          time,
-          minDate,
-          barStyle,
-          rightBar,
-          meta: { touched, error, warning, dirty }
-      }) => {
-let borderStyleOnError = null
-let textStyleOnError = null
-
-touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
-touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
-  return (
-    <View>
-         {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
-      <DateInput
-          ref={ref}
-          placeholder={placeholder}
-          type={type}
-          icon={icon}
-          date={date}
-          time={time}
-          errorStyles={[borderStyleOnError, textStyleOnError]}
-          minDate={minDate}
-          value={value}
-          onChange={onChange}
-          barStyle={barStyle}
-          rightBar={rightBar}
-        />
-    </View>
-  )
-}
-//AvatarInput component for redux Field
-const AvatarInput = ({
-      input: { value, onChange },
-      meta: { touched, error, warning }
-     }) => {
-    return (
-      <AvatarEdit
-            onChange={onChange}
-            imageUrl={value}
-            style={StyleSheet.singleMargin}
-        />
-    )
-  }
-//GenderInput component for redux Field
-const GenderInput = ({
-      input: { value, onChange },
-      onPressInfoIcon,
-      crossPlatformLeftPosition,
-      maleActive,
-      femaleActive,
-      meta: { touched, error, warning }
-     }) => {
-    return (
-      <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
-      {touched && ((error && <Text style={[StyleSheet.signup.errorText]}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
-        <View style={StyleSheet.signup.genderLabelContainer}>
-          <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
-          <Button
-                style={[StyleSheet.signup.genderInfoIcon]}
-                type="disclosure"
-                icon="info"
-                onPress={onPressInfoIcon}/>
-        </View>
-        <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
-          <Button type="image" icon="male" active={value === 'male'} onPress={() => onChange('male') }/>
-          <View style={StyleSheet.buttons.separator} />
-          <Button type="image" icon="female" active={value === 'female'} onPress={() => onChange('female')}/>
-        </View>
-      </View>
-
-    )
-  }
-
-// -- -- -- -- -- -- redux-form validation staff  << END >>-- -- -- -- -- -- --
 class SignUpFacebookExtra extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
       showPassword: false,
-      showDobInfo: false,
       showDobInfoPopup: false,
       showGenderInfoPopup: false,
-      name: props.name,
-      email: props.email,
-      dob: isNaN(new Date(props.dob).getTime()) ? null : new Date(props.dob),
-      gender: props.gender,
-      cityText: '',
-      city: {},
-      phone: props.phone,
-      image: undefined,
-      facebookImageSrc: props.facebookImageSrc,
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.isLoading && !nextProps.isLoading) {
-      this.setState({
-        name: nextProps.name,
-        email: nextProps.email,
-        dob: isNaN(new Date(nextProps.dob).getTime()) ? null : new Date(nextProps.dob),
-        gender: nextProps.gender,
-        phone: nextProps.phone,
-        facebookImageSrc: nextProps.facebookImageSrc,
-      })
+    if (this.props.isLoading && !nextProps.isLoading) {
+      this.props.change('name', nextProps.name)
+      this.props.change('email', nextProps.email)
+      this.props.change('dob', nextProps.dob)
+      this.props.change('gender', nextProps.gender)
+      this.props.change('phone', nextProps.phone)
+      this.props.change('image', nextProps.image)
+      this.props.change('facebookImageSrc', nextProps.facebookImageSrc)
     }
   }
+
   submit = values => {
     let userData = {
       name: values.name,
@@ -289,48 +42,43 @@ class SignUpFacebookExtra extends Component {
       city: values.address.description,
       cityGooglePlaceId: values.address.place_id,
       image: values.image,
+      facebookImageSrc: values.facebookImageSrc,
     }
-    //If there was no custom image set, use the facebook one instead.
-    if(!values.image && this.state.facebookImageSrc) {
+
+    if (!values.image && this.state.facebookImageSrc) {
       userData.facebookImageSrc = this.state.facebookImageSrc
     }
-   this.props.onPressContinue(userData)
+
+    this.props.onPressContinue(userData)
   }
 
-
   render() {
-
-   const errorCode = this.props.signUpError && this.props.signUpError.code
-
+    const errorCode = this.props.signUpError && this.props.signUpError.code
     const emailError = [
       'auth/email-already-in-use',
       'auth/invalid-email',
     ].indexOf(errorCode) !== -1
+    const {handleSubmit, valid} = this.props
 
-    const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
-
-    const { handleSubmit, valid } = this.props    // redux-form meta props
     return (
       <View style={{flex: 1}}>
         <Header title={_('signupFacebook')} simple />
-        {/*<LoadingAlert visible={this.props.isLoading} />*/}
-
         <Form style={[StyleSheet.signup.style]}>
-
           <Field
             name="image"
             component={AvatarInput}
+            value={this.props.facebookImageSrc}
           />
           <Field
             name="name"
-            component={renderTextInput}
+            component={TextInput}
             type="flat"
             ref="name"
             placeholder={_('name')}
+            validate={[validation.required, validation.maxChars20]}
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}
-            textStyle={androidMatchFontSize}
             autoFocus
             returnKeyType="next"
             selectTextOnFocus={true}
@@ -338,35 +86,34 @@ class SignUpFacebookExtra extends Component {
             icon="name"
           />
           {errorCode === 'auth/email-already-in-use' && (
-            <Text style={StyleSheet.signup.errorText}>Email already used</Text>
+          <Text style={StyleSheet.signup.errorText}>Email already used</Text>
           )}
           {errorCode === 'auth/invalid-email' && (
-            <Text style={StyleSheet.signup.errorText}>Invalid email</Text>
+          <Text style={StyleSheet.signup.errorText}>Invalid email</Text>
           )}
           <Field
             name="email"
-            component={renderTextInput}
+            component={TextInput}
             type="flat"
             ref="email"
             error={emailError}
             placeholder={_('email')}
+            validate={[validation.required, validation.email]}
             style={[StyleSheet.halfMarginBottom]}
-            textStyle={androidMatchFontSize}
             autoCapitalize="none"
             autoCorrect={false}
-            textStyle={androidMatchFontSize}
             returnKeyType="next"
             selectTextOnFocus={true}
             enablesReturnKeyAutomatically={true}
             keyboardType="email-address"
             icon="email"
           />
-
-        <Field
+          <Field
             name="dob"
-            component={renderDateInput}
+            component={DateInput}
             ref="dob"
             placeholder={_('dob')}
+            validate={[validation.required, validation.noFutureDates]}
             type="flat"
             icon="nappy"
             date={true}
@@ -382,33 +129,31 @@ class SignUpFacebookExtra extends Component {
               onPress={() => this.setState({showDobInfoPopup: true})}
             />}
           />
-
           <DobInfoPopup
             visible={this.state.showDobInfoPopup}
             onPressOk={() => this.setState({showDobInfoPopup: false})}
           />
-
-         <Field
+          <Field
             name="address"
-            component={renderAdressInput}
+            component={AddressInput}
             icon
             placeholder={_('city')}
+            validate={validation.required}
             onSelect={(venueAddress) => {
               this.setState({
                 cityText: venueAddress.description,
                 city: venueAddress,
               })
             }}
-
-            textStyles={{color: "black"}}
+            textStyles={{color: 'black'}}
            />
           <Field
             name="phone"
-            component={renderTextInput}
+            component={TextInput}
+            value={this.state.phone}
             type="flat"
             ref="phone"
             placeholder={_('optionalPhone')}
-            textStyle={androidMatchFontSize}
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType="next"
@@ -417,8 +162,6 @@ class SignUpFacebookExtra extends Component {
             keyboardType="phone-pad"
             icon="phone"
           />
-
-
           <GenderInfoPopup
             visible={this.state.showGenderInfoPopup}
             onPressOk={() => this.setState({showGenderInfoPopup: false})}
@@ -426,91 +169,23 @@ class SignUpFacebookExtra extends Component {
           <Field
             name="gender"
             component={GenderInput}
+            value={this.state.gender}
+            validate={validation.required}
             onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
           />
           <Button
-            type={valid ? "roundedDefault" : "roundedGrey"}
+            type={valid ? 'roundedDefault' : 'roundedGrey'}
             text={_('signup')}
             onPress={handleSubmit(this.submit)}
             style={[StyleSheet.doubleMarginTop, StyleSheet.singleMarginBottom]}
           />
-        <KeyboardSpacer/>
+          <KeyboardSpacer/>
         </Form>
       </View>
     )
   }
 }
 
-SignUpFacebookExtra.propTypes = {
-}
-
 export default reduxForm({
-  form: 'syncValidation',  // a unique identifier for this form
-  validate,                // <--- validation function given to redux-form
-  warn                     // <--- warning function given to redux-form
+  form: 'FacebookExtraValidation',
 })(SignUpFacebookExtra)
-
-class DobInfoPopup extends Component {
-
-  render() {
-    return (
-      <Popup visible={this.props.visible}>
-        <View style={[StyleSheet.dialog.alertContentStyle]}>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
-            {_('dobPopupTitle')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('dobPopupContent1')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('dobPopupContent2')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('dobPopupContent3')}
-          </Text>
-        </View>
-
-        <View style={StyleSheet.buttons.bar}>
-          <Button
-            style={[StyleSheet.buttons.okPopup]}
-            textStyle={StyleSheet.whiteText}
-            type="alertDefault"
-            text={_('ok')}
-            onPress={this.props.onPressOk}
-          />
-        </View>
-      </Popup>
-    )
-  }
-}
-
-class GenderInfoPopup extends Component {
-
-  render() {
-    return (
-      <Popup visible={this.props.visible}>
-        <View style={[StyleSheet.dialog.alertContentStyle]}>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
-            {_('genderPopupTitle')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('genderPopupContent1')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('genderPopupContent2')}
-          </Text>
-        </View>
-
-        <View style={StyleSheet.buttons.bar}>
-          <Button
-            style={[StyleSheet.buttons.okPopup]}
-            textStyle={StyleSheet.whiteText}
-            type="alertDefault"
-            text={_('ok')}
-            onPress={this.props.onPressOk}
-          />
-        </View>
-      </Popup>
-    )
-  }
-}

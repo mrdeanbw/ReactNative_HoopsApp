@@ -44,7 +44,6 @@ export default class Button extends React.Component {
             </View>
           }
 
-
           {text && <Text style={[
             StyleSheet.text,
             defaultButton.textStyle,

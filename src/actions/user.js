@@ -163,7 +163,7 @@ export const facebookSaveExtra = (extraData) => {
   return dispatch => {
     savePersonalData({
       ...extraData,
-      dob: new Date(extraData.dob).valueOf(),
+      dob: new Date(extraData.dob),
     }, (err) => {
       if(err) {
         dispatch({
