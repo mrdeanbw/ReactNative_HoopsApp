@@ -112,8 +112,8 @@ const renderDateInput = ({
 }) => {
   let borderStyleOnError = null
   let textStyleOnError = null
-  touched || dirty && error ? borderStyleOnError = { borderBottomColor: colors.pink} : null
-  touched || dirty && error ? textStyleOnError = { color: colors.pink} : null
+  touched || dirty && error ? borderStyleOnError = {borderBottomColor: colors.pink} : null
+  touched || dirty && error ? textStyleOnError = {color: colors.pink} : null
   return (
     <View>
       {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
@@ -147,7 +147,7 @@ const AvatarInput = ({
   )}
 
 const GenderInput = ({
-  input: { value, onChange },
+  input: {value, onChange},
   onPressInfoIcon,
   crossPlatformLeftPosition,
   maleActive,
@@ -166,7 +166,7 @@ const GenderInput = ({
           onPress={onPressInfoIcon}/>
       </View>
       <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
-        <Button type="image" icon="male" value={value} active={value === 'male'} onPress={() => onChange('male') }/>
+        <Button type="image" icon="male" value={value} active={value === 'male'} onPress={() => onChange('male')}/>
         <View style={StyleSheet.buttons.separator} />
         <Button type="image" icon="female" value={value} active={value === 'female'} onPress={() => onChange('female')}/>
       </View>
