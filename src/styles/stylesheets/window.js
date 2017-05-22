@@ -95,16 +95,17 @@ export default StyleSheet => StyleSheet.extend({
 
   tabBarStyle: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
     height: 52,
     borderStyle: 'solid',
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: '#e6eaeb',
     backgroundColor: colors.white,
-    paddingLeft: 8,
-    paddingRight: 8,
+    paddingLeft: 0,
+    paddingRight: 0,
   },
-
+  tabItem: {
+    flex: 0.2,
+  },
   menuIcon: {
     overflow: 'visible'
   },
