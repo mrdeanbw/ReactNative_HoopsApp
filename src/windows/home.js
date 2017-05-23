@@ -57,14 +57,16 @@ class Home extends React.Component {
 
   renderList() {
     return (
-      this.props.nearby.map(item => (
-        <EventListItem
-          key={item.event.id}
-          onPress={() => this.props.onPressEvent(item.event)}
-          event={item.event}
-          showDistance={true}
-        />
-      ))
+      <ScrollView>
+        {this.props.nearby.map(item => (
+          <EventListItem
+            key={item.event.id}
+            onPress={() => this.props.onPressEvent(item.event)}
+            event={item.event}
+            showDistance={true}
+          />
+        ))}
+      </ScrollView>
     )
   }
 
@@ -72,10 +74,7 @@ class Home extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Header title={this.isOrganizing() ? _('activeEvents') :  _('nearbyEvents')} />
-        <ScrollView
-          style={{flex: 1}}
-          onLayout={(e) => this.setState({scrollHeight: e.nativeEvent.layout.height})}
-        >
+        <View style={{flex: 1}}>
           {!this.isOrganizing() && !this.state.showMap && this.props.nearby.length === 0 ?
              (<Text style={StyleSheet.noResults}>{_('noEventsNearby')}</Text>) : null
           }
@@ -86,12 +85,8 @@ class Home extends React.Component {
             </View>
           )}
 
-          {!this.isOrganizing() && (
-            <View style={StyleSheet.home.nearbyContainer}>
-              {this.state.showMap ? this.renderMap() : this.renderList()}
-            </View>
-          )}
-        </ScrollView>
+          {!this.isOrganizing() && this.state.showMap ? this.renderMap() : this.renderList()}
+        </View>
 
         {!this.isOrganizing() && (
           <Button
