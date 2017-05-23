@@ -108,8 +108,8 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   tabItemCenter: {
-    paddingLeft: 7,
-    paddingRight: 7,
+    marginLeft: 6,
+    marginRight: 6,
   },
 
   menuIcon: {
