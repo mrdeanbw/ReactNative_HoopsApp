@@ -78,18 +78,18 @@ class Avatar extends Component {
         <TouchableOpacity accessibilityTraits="image" onPress={this.props.onPress}>
           {avatarContent}
           {this.props.overlay && (isEnded || isCancelled) && (
-              <View
-                style={[
-                  StyleSheet.eventListItem.imageOverlay,
-                  isEnded && StyleSheet.eventListItem.endedImageOverlay,
-                  isCancelled && StyleSheet.eventListItem.cancelledImageOverlay,
-                ]}
-              >
-                <Text style={StyleSheet.eventListItem.disabledImageText}>
-                  {isEnded ? _('ended') : _('cancelled')}
-                </Text>
-              </View>
-            )}
+            <View
+              style={[
+                StyleSheet.eventListItem.imageOverlay,
+                isEnded && StyleSheet.eventListItem.endedImageOverlay,
+                isCancelled && StyleSheet.eventListItem.cancelledImageOverlay,
+              ]}
+            >
+              <Text style={StyleSheet.eventListItem.disabledImageText}>
+                {isEnded ? _('ended') : _('cancelled')}
+              </Text>
+            </View>
+          )}
         </TouchableOpacity>
       )
     } else {

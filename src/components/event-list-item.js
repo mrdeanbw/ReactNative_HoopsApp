@@ -22,7 +22,6 @@ export default class EventListItem extends React.Component {
     let isEnded = moment(event.date).isBefore()
     let isCancelled = event.cancelled
     let isDisabled = isEnded || isCancelled
-
     let overlay
 
     if (isEnded)     {overlay = 'ended'}
@@ -41,18 +40,20 @@ export default class EventListItem extends React.Component {
       >
         <View style={StyleSheet.eventListItem.wrapper}>
           <View style={StyleSheet.eventListItem.imageContainer}>
-            {event.image ? (
+            {event && event.image === undefined ?
               <Avatar
-                title={event.name}
-                imageUrl={event.image}
+                title={event.title}
                 avatarStyle={[StyleSheet.eventListItem.image]}
                 overlay={overlay}
               />
-            ) : (
-              <View style={[StyleSheet.eventListItem.image]} />
-            )}
+              : <Avatar
+                  title={event.title}
+                  imageUrl={event.image}
+                  avatarStyle={[StyleSheet.eventListItem.image]}
+                 overlay={overlay}
+                />
+             }
           </View>
-
           <View style={StyleSheet.eventListItem.textContainer}>
             {this.props.showDistance && event.distance && (
               <Text
@@ -120,7 +121,6 @@ export default class EventListItem extends React.Component {
               </View>
             </View>
           </View>
-
           {!this.props.hideDisclosure && (
             <TouchableHighlight
               underlayColor={StyleSheet.colors.transparent}
