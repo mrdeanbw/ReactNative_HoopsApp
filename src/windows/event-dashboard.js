@@ -61,7 +61,7 @@ class EventDashboard extends Component {
 
     return (
       <View style={{flex: 1}}>
-        <Header title={_('theDashboard')} onBack={this.props.onBack} />
+        <Header title={_('theDashboard')} simple />
         <CancelEventPopup
           visible={this.state.showCancelPopup}
           onClose={() => this.setState({showCancelPopup: false})}
