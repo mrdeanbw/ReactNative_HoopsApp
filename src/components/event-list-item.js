@@ -2,6 +2,7 @@ import React from 'react'
 import {View, Image, Text, TouchableHighlight} from 'react-native'
 import moment from 'moment'
 
+import {Avatar} from '../components'
 import _ from '../i18n'
 import StyleSheet from '../styles'
 
@@ -22,6 +23,11 @@ export default class EventListItem extends React.Component {
     let isCancelled = event.cancelled
     let isDisabled = isEnded || isCancelled
 
+    let overlay
+
+    if (isEnded)     {overlay = 'ended'}
+    if (isCancelled) {overlay = 'cancelled'}
+
     let textColorStyle = (!this.props.ignoreDisabled && isDisabled) ?
       StyleSheet.eventListItem.disabledText :
       null
@@ -36,23 +42,14 @@ export default class EventListItem extends React.Component {
         <View style={StyleSheet.eventListItem.wrapper}>
           <View style={StyleSheet.eventListItem.imageContainer}>
             {event.image ? (
-              <Image source={{uri: event.image}} style={[StyleSheet.eventListItem.image, {resizeMode: 'cover'}]} />
+              <Avatar
+                title={event.name}
+                imageUrl={event.image}
+                avatarStyle={[StyleSheet.eventListItem.image]}
+                overlay={overlay}
+              />
             ) : (
               <View style={[StyleSheet.eventListItem.image]} />
-            )}
-
-            {!this.props.ignoreDisabled && (isEnded || isCancelled) && (
-              <View
-                style={[
-                  StyleSheet.eventListItem.imageOverlay,
-                  isEnded && StyleSheet.eventListItem.endedImageOverlay,
-                  isCancelled && StyleSheet.eventListItem.cancelledImageOverlay,
-                ]}
-              >
-                <Text style={StyleSheet.eventListItem.disabledImageText}>
-                  {isEnded ? _('ended') : _('cancelled')}
-                </Text>
-              </View>
             )}
           </View>
 

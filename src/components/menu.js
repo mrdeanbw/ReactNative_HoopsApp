@@ -10,22 +10,22 @@ export default class Menu extends Component {
   render() {
     return (
       <View style={StyleSheet.menu.menuContainer}>
-
         <TouchableWithoutFeedback onPress={this.props.onPressBackground}>
           <Animated.View style={[StyleSheet.menu.menuOverlay, {opacity: this.props.animation}]} />
         </TouchableWithoutFeedback>
-
         <Animated.View style={[StyleSheet.menu.style, {right: this.props.animation.interpolate({ inputRange: [0, 1], outputRange: [-115, 0] }) }]}>
-
           <TouchableHighlight underlayColor="transparent" onPress={this.props.onPressProfile}>
             <View style={StyleSheet.menu.header}>
-              <Avatar user={this.props.user} avatarStyle={StyleSheet.menu.avatarImage} />
+              <Avatar
+                title={this.props.user.name}
+                imageUrl={this.props.user.imageSrc}
+                avatarStyle={StyleSheet.menu.avatarImage}
+              />
               <Text style={[StyleSheet.text, StyleSheet.menu.avatarText]}>
                 <Text>{this.props.user.name.toUpperCase()}</Text>
               </Text>
             </View>
           </TouchableHighlight>
-
           <View style={StyleSheet.menu.items}>
             <MenuItem
               active={this.props.currentTab === 'settings'}
@@ -48,7 +48,6 @@ export default class Menu extends Component {
                 onPress={() => this.props.onTabPress('payments')}
               />
             )}
-
             {this.props.mode === 'ORGANIZE' ? (
               <MenuItem
                 active={this.props.currentTab === 'calendar'}
@@ -65,7 +64,6 @@ export default class Menu extends Component {
                 onPress={() => this.props.onTabPress('invitations')}
               />
             )}
-
             <MenuItem
               active={this.props.currentTab === 'friends'}
               icon="friends"
@@ -74,7 +72,6 @@ export default class Menu extends Component {
             />
           </View>
         </Animated.View>
-
       </View>
     )
   }
