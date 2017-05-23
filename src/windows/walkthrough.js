@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Image} from 'react-native'
+import {View, Image, Dimensions} from 'react-native'
 import Swiper from 'react-native-swiper'
 
 import StyleSheet from '../styles'
@@ -19,36 +19,37 @@ export default class Walkthrough extends React.Component {
   render() {
     return (
       <Image source={StyleSheet.images.walkthrough} style={StyleSheet.walkthrough.backgroundImage}>
-        <View style={StyleSheet.walkthrough.logoContainer}>
-          <Image source={StyleSheet.images.logo} style={StyleSheet.walkthrough.logo} />
-        </View>
-        <Swiper
-          autoplay={false}
-          style={StyleSheet.walkthrough.swiper}
-          paginationStyle={StyleSheet.walkthrough.paginator}
-          dot={<View style={StyleSheet.walkthrough.dot}/>}
-          loop={false}
-          activeDot={<View style={StyleSheet.walkthrough.activeDot}/>}
-        >
-          <WalkthroughPage image={StyleSheet.images.screengrab1} text={_('walkthrough1')} />
-          <WalkthroughPage image={StyleSheet.images.screengrab2} text={_('walkthrough2')} />
-          <WalkthroughPage image={StyleSheet.images.screengrab3} text={_('walkthrough3')} />
-          <WalkthroughPage image={StyleSheet.images.screengrab4} text={_('walkthrough4')} />
-        </Swiper>
-        <View style={StyleSheet.walkthrough.buttonBar}>
-          <Button
-            type="dialog"
-            text={_('login')}
-            onPress={this.props.onPressLogIn}
-          />
-
-          <Button
-            type="dialogDefault"
-            text={_('signup')}
-            onPress={() => {
-              this.props.onPressSignUp()
-            }}
-          />
+        <View style={StyleSheet.walkthrough.swiperContainer}>
+          <View style={StyleSheet.walkthrough.logoContainer}>
+            <Image source={StyleSheet.images.logo} style={StyleSheet.walkthrough.logo} />
+          </View>
+          <View style={[StyleSheet.walkthrough.swiper]}>
+            <Swiper
+              autoplay={false}
+              paginationStyle={StyleSheet.walkthrough.paginator}
+              dot={<View style={StyleSheet.walkthrough.dot}/>}
+              activeDot={<View style={StyleSheet.walkthrough.activeDot}/>}
+            >
+              <WalkthroughPage image={StyleSheet.images.screengrab1} text={_('walkthrough1')} />
+              <WalkthroughPage image={StyleSheet.images.screengrab2} text={_('walkthrough2')} />
+              <WalkthroughPage image={StyleSheet.images.screengrab3} text={_('walkthrough3')} />
+              <WalkthroughPage image={StyleSheet.images.screengrab4} text={_('walkthrough4')} />
+            </Swiper>
+          </View>
+          <View style={StyleSheet.walkthrough.buttonBar}>
+            <Button
+              type="dialog"
+              text={_('login')}
+              onPress={this.props.onPressLogIn}
+            />
+            <Button
+              type="dialogDefault"
+              text={_('signup')}
+              onPress={() => {
+                this.props.onPressSignUp()
+              }}
+            />
+          </View>
         </View>
       </Image>
     )

@@ -15,6 +15,7 @@ export default StyleSheet => StyleSheet.extend({
     marginTop: (Platform.OS === 'ios') ? 64 : 54,
     marginBottom: 10,
     alignItems: 'center',
+    flex: 1
   },
 
   logo: {},
@@ -61,6 +62,11 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   swiper: {
+    flex: Dimensions.get('window').height > 800 ? 5 : 7,
+  },
+
+  swiperContainer: {
+    flex: 1
   },
 
   page: {
@@ -82,7 +88,8 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   pageImage: {
-    width: Dimensions.get('window').width - 20,
+    width: Dimensions.get('window').width * 0.8,
+    height: Dimensions.get('window').height * 0.6,
     resizeMode: 'contain',
     position: 'absolute',
     top: 125,
