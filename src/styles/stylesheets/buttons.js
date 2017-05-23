@@ -1,5 +1,4 @@
-import {Platform} from 'react-native'
-
+import {Platform, Dimensions} from 'react-native'
 import {colors} from '../resources'
 
 export default StyleSheet => StyleSheet.extend({
@@ -82,7 +81,7 @@ export default StyleSheet => StyleSheet.extend({
 
     textStyle: {
       letterSpacing: 0,
-      fontSize: 12,
+      fontSize: Dimensions.get('window').width > 350 ? 12 : 11,
       fontWeight: '400',
       lineHeight: 15,
       color: colors.grey

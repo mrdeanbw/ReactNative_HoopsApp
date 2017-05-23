@@ -1,8 +1,9 @@
 
 import React from 'react'
+import {View, Animated, Text} from 'react-native'
+
 import _ from '../i18n'
 import StyleSheet from '../styles'
-import {View, Animated, Text} from 'react-native'
 import {ActionButton, Button, Menu} from './'
 
 export default class TabBar extends React.Component {
