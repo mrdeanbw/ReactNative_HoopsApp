@@ -62,8 +62,11 @@ export default class Profile extends React.Component {
         </Popup>
         <ScrollView>
           <View style={StyleSheet.profile.headlineBarStyle}>
-            <Avatar user={profile} avatarStyle={StyleSheet.profile.avatarImageStyle} enableProfileLink={false} />
-
+            <Avatar
+                title={this.props.profile.name}
+                imageUrl={this.props.profile.imageSrc}
+                avatarStyle={StyleSheet.profile.avatarImageStyle}
+            />
             <View style={StyleSheet.profile.headlineDetailStyle}>
               <View style={StyleSheet.profile.nameTextContainerStyle}>
                 <View style={[StyleSheet.profile.availableIndicator, !profile.availability && {backgroundColor: StyleSheet.colors.grey}]}/>

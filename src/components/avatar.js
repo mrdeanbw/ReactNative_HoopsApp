@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import {Image, Text, TouchableOpacity, View} from 'react-native'
-import {connect} from 'react-redux'
 
-import {navigationActions} from '../actions'
+import StyleSheet from '../styles'
+import _ from '../i18n'
 
 class Avatar extends Component {
 
   getAvatarColor() {
-    const userName = this.props.user.name
+    const userName = this.props.title
     const name = userName.toUpperCase().split(' ')
 
     if (name.length === 1) {
@@ -22,7 +22,6 @@ class Avatar extends Component {
     for(let i = 0; i < userName.length; i++) {
       sumChars += userName.charCodeAt(i)
     }
-
     // inspired by https://github.com/wbinnssmith/react-user-avatar
     // colors from https://flatuicolors.com/
     const colors = [
@@ -38,17 +37,9 @@ class Avatar extends Component {
     return colors[sumChars % colors.length]
   }
 
-  onPress() {
-    const user = this.props.user
-    const id = user.id ? user.id : user.uid
-
-    this.props.onNavigate('profile', {id})
-    this.props.hideMenu()
-  }
-
   renderAvatar() {
     // imageSrc = Facebook OR uploaded Avatar
-    const uri = this.props.user.imageSrc
+    const uri = this.props.imageUrl
 
     return (
       <Image
@@ -60,7 +51,6 @@ class Avatar extends Component {
       />
     )
   }
-
   renderInitials() {
     return (
       <View style={[
@@ -76,16 +66,51 @@ class Avatar extends Component {
   }
 
   render() {
-    const avatarContent = this.props.user.imageSrc ? this.renderAvatar() : this.renderInitials()
+    const avatarContent = this.props.imageUrl ? this.renderAvatar() : this.renderInitials()
+    let isEnded
+    let isCancelled
 
-    if (this.props.enableProfileLink) {
+    this.props.overlay = 'ended' ? isEnded = true : isEnded = false
+    this.props.overlay = 'cancelled' ? isCancelled = true : isCancelled = false
+
+    if (this.props.onPress) {
       return (
-        <TouchableOpacity accessibilityTraits="image" onPress={() => this.onPress()}>
+        <TouchableOpacity accessibilityTraits="image" onPress={this.props.onPress}>
           {avatarContent}
+          {this.props.overlay && (isEnded || isCancelled) && (
+              <View
+                style={[
+                  StyleSheet.eventListItem.imageOverlay,
+                  isEnded && StyleSheet.eventListItem.endedImageOverlay,
+                  isCancelled && StyleSheet.eventListItem.cancelledImageOverlay,
+                ]}
+              >
+                <Text style={StyleSheet.eventListItem.disabledImageText}>
+                  {isEnded ? _('ended') : _('cancelled')}
+                </Text>
+              </View>
+            )}
         </TouchableOpacity>
       )
     } else {
-        return avatarContent
+        return (
+          <View>
+            {avatarContent}
+            {this.props.overlay && (isEnded || isCancelled) && (
+              <View
+                style={[
+                  StyleSheet.eventListItem.imageOverlay,
+                  isEnded && StyleSheet.eventListItem.endedImageOverlay,
+                  isCancelled && StyleSheet.eventListItem.cancelledImageOverlay,
+                ]}
+              >
+                <Text style={StyleSheet.eventListItem.disabledImageText}>
+                  {isEnded ? _('ended') : _('cancelled')}
+                </Text>
+              </View>
+            )}
+          </View>
+        )
     }
   }
 }
@@ -107,19 +132,10 @@ const defaultStyles = {
 }
 
 Avatar.propTypes = {
-  enableProfileLink: React.PropTypes.bool,
-  user: React.PropTypes.object,
+  onPress: React.PropTypes.func,
+  imageUrl: React.PropTypes.string,
+  title: React.PropTypes.string.isRequired,
+  overlay: React.PropTypes.string,
 }
 
-Avatar.defaultProps = {
-  enableProfileLink: true,
-}
-
-export default connect(
-  (state) => ({
-  }),
-  (dispatch) => ({
-    onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),
-    hideMenu: () => dispatch(navigationActions.hideMenu()),
-  }),
-)(Avatar)
+export default Avatar
