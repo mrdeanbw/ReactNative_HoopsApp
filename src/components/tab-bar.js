@@ -1,9 +1,7 @@
 
 import React from 'react'
 import _ from '../i18n'
-
 import StyleSheet from '../styles'
-
 import {View, Animated, Text} from 'react-native'
 import {ActionButton, Button, Menu} from './'
 
@@ -84,7 +82,7 @@ export default class TabBar extends React.Component {
             )}
           </View>
           {/* Spacer for the abs pos Action button */}
-          <View style={StyleSheet.window.tabItem}/>
+          <View style={[StyleSheet.window.tabItem, StyleSheet.window.tabItemCenter]}/>
           <View style={StyleSheet.window.tabItem}>
             <Button
               type="tab"

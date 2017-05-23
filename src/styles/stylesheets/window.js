@@ -107,6 +107,11 @@ export default StyleSheet => StyleSheet.extend({
     flex: 0.2,
   },
 
+  tabItemCenter: {
+    paddingLeft: 7,
+    paddingRight: 7,
+  },
+
   menuIcon: {
     overflow: 'visible'
   },
