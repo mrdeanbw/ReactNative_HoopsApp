@@ -196,6 +196,7 @@ export const congrats = 'Congrats'
 export const youreIn = 'You\'re In'
 
 export const joinConfirmedText = 'Your payment of $1 has been confirmed and your place has been reserved. Have fun!'
+export const joinConfirmedTextForFree = 'Everything is sorted and your place has now been reserved. Just turn up and have fun!'
 export const close = 'Close'
 export const viewList = 'View List'
 export const twitter = 'Twitter'
