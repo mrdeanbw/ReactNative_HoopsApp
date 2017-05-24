@@ -24,6 +24,8 @@ const renderDateInput = ({
   touched || dirty && error ? borderStyleOnError = {borderBottomColor: colors.pink} : null
   touched || dirty && error ? textStyleOnError = {color: colors.pink} : null
 
+  const valueChecker = value.toString()
+
   return (
     <View>
       {(touched || dirty) && ((error && <Text style={StyleSheet.signup.errorText}>{error}</Text>) || (warning && <Text>{warning}</Text>))}
@@ -36,7 +38,7 @@ const renderDateInput = ({
         time={time}
         errorStyles={[borderStyleOnError, textStyleOnError]}
         minDate={minDate}
-        value={value}
+        value={valueChecker === 'Invalid date' ? value : null}
         onChange={onChange}
         barStyle={barStyle}
         rightBar={rightBar}
