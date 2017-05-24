@@ -3,7 +3,7 @@ import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 import {Field, reduxForm} from 'redux-form'
 
-import {Button, Form, Header} from '../components'
+import {Button, Form, Header, LoadingAlert} from '../components'
 import {AddressInput, AvatarInput, DateInput, GenderInput, TextInput} from '../components/forms'
 import {DobInfoPopup, GenderInfoPopup} from '../components/signup'
 import StyleSheet from '../styles'
@@ -23,11 +23,11 @@ class SignUpFacebookExtra extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.isLoading && !nextProps.isLoading) {
-      this.props.change('name', nextProps.name)
-      this.props.change('email', nextProps.email)
-      this.props.change('dob', nextProps.dob)
-      this.props.change('gender', nextProps.gender)
-      this.props.change('phone', nextProps.phone)
+      this.props.change('name', nextProps.facebookName)
+      this.props.change('email', nextProps.facebookEmail)
+      this.props.change('dob', nextProps.facebookDob)
+      this.props.change('gender', nextProps.facebookGender)
+      this.props.change('phone', nextProps.facebookPhone)
       this.props.change('image', nextProps.image)
       this.props.change('facebookImageSrc', nextProps.facebookImageSrc)
     }
@@ -53,6 +53,15 @@ class SignUpFacebookExtra extends Component {
   }
 
   render() {
+    if (this.props.isLoading) {
+      return (
+        <View style={{flex: 1}}>
+          <Header title={_('signupFacebook')} simple />
+          <LoadingAlert visible={this.props.isLoading} />
+        </View>
+      )
+    }
+
     const errorCode = this.props.signUpError && this.props.signUpError.code
     const emailError = [
       'auth/email-already-in-use',
