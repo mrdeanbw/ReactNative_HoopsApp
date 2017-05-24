@@ -67,7 +67,6 @@ export default StyleSheet => StyleSheet.extend({
   genderLabelContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    textAlign: "center"
   },
 
   genderLabel: {

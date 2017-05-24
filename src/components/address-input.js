@@ -50,7 +50,7 @@ class AddressInput extends Component {
 AddressInput.propTypes = {
   placeholder: React.PropTypes.string,
   onSelect: React.PropTypes.func.isRequired,
-  value: React.PropTypes.string.isRequired,
+  value: React.PropTypes.string
 }
 
 export default connect(

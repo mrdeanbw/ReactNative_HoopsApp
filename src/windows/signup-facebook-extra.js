@@ -22,14 +22,14 @@ class SignUpFacebookExtra extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const dobChecker = nextProps.dob.toString()
     if (this.props.isLoading && !nextProps.isLoading) {
       this.props.change('name', nextProps.name)
       this.props.change('email', nextProps.email)
-      this.props.change('dob', nextProps.dob)
       this.props.change('gender', nextProps.gender)
       this.props.change('phone', nextProps.phone)
-      this.props.change('image', nextProps.image)
-      this.props.change('facebookImageSrc', nextProps.facebookImageSrc)
+      this.props.change('image',  nextProps.facebookImageSrc)
+      dobChecker === 'Invalid date' ? this.props.change('dob', nextProps.dob) : this.props.change('dob', null)
     }
   }
 
@@ -45,8 +45,8 @@ class SignUpFacebookExtra extends Component {
       facebookImageSrc: values.facebookImageSrc,
     }
 
-    if (!values.image && this.state.facebookImageSrc) {
-      userData.facebookImageSrc = this.state.facebookImageSrc
+    if (!values.image && this.props.facebookImageSrc) {
+      userData.facebookImageSrc = this.props.facebookImageSrc
     }
 
     this.props.onPressContinue(userData)
@@ -67,7 +67,6 @@ class SignUpFacebookExtra extends Component {
           <Field
             name="image"
             component={AvatarInput}
-            value={this.props.facebookImageSrc}
           />
           <Field
             name="name"

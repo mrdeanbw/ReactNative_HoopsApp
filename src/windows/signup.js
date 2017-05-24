@@ -101,7 +101,6 @@ class SignUp extends Component {
             validate={[validation.required, validation.email]}
             autoCapitalize="none"
             autoCorrect={false}
-            onFocus
             returnKeyType="next"
             selectTextOnFocus={true}
             enablesReturnKeyAutomatically={true}
@@ -120,7 +119,6 @@ class SignUp extends Component {
             returnKeyType="next"
             selectTextOnFocus={false}
             clearTextOnFocus={false}
-            onFocus
             enablesReturnKeyAutomatically={true}
             icon="password"
             multiline={false}
