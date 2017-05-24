@@ -58,7 +58,7 @@ class DateInput extends Component {
 
     const mode = this.getMode()
     const format = this.getFormat()
-    const {icon, value, initialValue, rightBar, type, barStyle, errorStyles} = this.props
+    const {icon, value, initialValue, rightBar, type, barStyle} = this.props
     const iconSrc = StyleSheet.icons[icon]
     const defaultTextInput = StyleSheet.textInputs.default || {}
     const textInput = type ? StyleSheet.textInputs[type] || defaultTextInput : defaultTextInput
@@ -88,7 +88,7 @@ class DateInput extends Component {
             borderStyle: 'solid',
             borderBottomWidth: StyleSheet.hairlineWidth,
             borderBottomColor: StyleSheet.colors.grey,
-          }, errorStyles]}
+          }]}
           customStyles={dateStyleSheet}
           iconSource={iconSrc}
           showIcon={!!icon}
