@@ -12,7 +12,7 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   logoContainer: {
-    marginTop: (Platform.OS === 'ios') ? 64 : 54,
+    marginTop: Dimensions.get('window').width < 350 ? (Platform.OS === 'ios') ? 40 : 30 : (Platform.OS === 'ios') ? 64 : 54,
     marginBottom: 10,
     alignItems: 'center',
     flex: 1
@@ -27,7 +27,7 @@ export default StyleSheet => StyleSheet.extend({
   paginator: {
     position: 'absolute',
     alignItems: 'flex-start',
-    top: 80,
+    top: Dimensions.get('window').width < 350 ? 60 : 80,
     left: 0,
     bottom: 0,
     right: 0,
@@ -83,6 +83,8 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   pageText: {
+    fontSize: Dimensions.get('window').width < 350 ? 12 : null,
+    lineHeight: Dimensions.get('window').width < 350 ? 15 : null,
     textAlign: 'center',
     color: colors.white,
   },
@@ -96,6 +98,6 @@ export default StyleSheet => StyleSheet.extend({
     height: Dimensions.get('window').height * 0.6,
     resizeMode: 'contain',
     position: 'absolute',
-    top: 125,
+    top: Dimensions.get('window').width < 350 ? 105 : 125
   }
 })
