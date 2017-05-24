@@ -18,7 +18,11 @@ export default StyleSheet => StyleSheet.extend({
     flex: 1
   },
 
-  logo: {},
+  logo: {
+    width: Dimensions.get('window').width * 0.74,
+    height: Dimensions.get('window').width * 0.13,
+    resizeMode: 'contain'
+  },
 
   paginator: {
     position: 'absolute',

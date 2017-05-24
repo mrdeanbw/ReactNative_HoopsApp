@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Image, Dimensions} from 'react-native'
+import {View, Image} from 'react-native'
 import Swiper from 'react-native-swiper'
 
 import StyleSheet from '../styles'
@@ -17,6 +17,7 @@ export default class Walkthrough extends React.Component {
   }
 
   render() {
+
     return (
       <Image source={StyleSheet.images.walkthrough} style={StyleSheet.walkthrough.backgroundImage}>
         <View style={StyleSheet.walkthrough.swiperContainer}>
