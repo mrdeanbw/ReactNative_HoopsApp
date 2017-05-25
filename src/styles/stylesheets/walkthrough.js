@@ -83,8 +83,8 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   pageText: {
-    fontSize: Dimensions.get('window').width < 350 ? 12 : null,
-    lineHeight: Dimensions.get('window').width < 350 ? 15 : null,
+    fontSize: Dimensions.get('window').width > 500 ? 16 : Dimensions.get('window').width > 350 ? null : 12,
+    lineHeight: Dimensions.get('window').width > 500 ? 21 : Dimensions.get('window').width > 350 ? null : 15,
     textAlign: 'center',
     color: colors.white,
   },
