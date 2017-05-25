@@ -22,16 +22,7 @@ class SignUpFacebookExtra extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const dobChecker = nextProps.dob.toString()
     if (this.props.isLoading && !nextProps.isLoading) {
-<<<<<<< HEAD
-      this.props.change('name', nextProps.name)
-      this.props.change('email', nextProps.email)
-      this.props.change('gender', nextProps.gender)
-      this.props.change('phone', nextProps.phone)
-      this.props.change('image',  nextProps.facebookImageSrc)
-      dobChecker === 'Invalid date' ? this.props.change('dob', nextProps.dob) : this.props.change('dob', null)
-=======
       this.props.change('name', nextProps.facebookName)
       this.props.change('email', nextProps.facebookEmail)
       this.props.change('dob', nextProps.facebookDob)
@@ -39,7 +30,6 @@ class SignUpFacebookExtra extends Component {
       this.props.change('phone', nextProps.facebookPhone)
       this.props.change('image', nextProps.image)
       this.props.change('facebookImageSrc', nextProps.facebookImageSrc)
->>>>>>> 04cdee9fdf6e7d7d579bd581acdd8b418c699a8f
     }
   }
 
