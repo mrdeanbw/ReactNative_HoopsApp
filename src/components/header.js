@@ -28,7 +28,6 @@ class Header extends Component {
 
     return (
       <View style={StyleSheet.window.titleBarStyle}>
-
         {!this.props.simple && (
           <View style={StyleSheet.window.logoBarStyle}>
             <Image source={StyleSheet.images.logo} style={StyleSheet.window.logoStyle} />
@@ -47,17 +46,14 @@ class Header extends Component {
 
         {this.props.title && (
           <View style={StyleSheet.window.crumbBar}>
-
-            {this.props.simple && (
+            {this.props.simple && !this.props.hideBackButton && (
               <View style={[StyleSheet.window.accessoryBarStyle, {width: 32}]}>
                 <Button type="title" icon="back" onPress={this.props.onBack} />
               </View>
             )}
-
             <Text style={[StyleSheet.text, StyleSheet.window.crumbTextStyle]}>
               {this.props.title.toUpperCase()}
             </Text>
-
             {/*Spacer to match the back button*/}
             {this.props.simple && (
               <View style={[StyleSheet.window.accessoryBarStyle, {width: 32}]} />
@@ -72,6 +68,7 @@ class Header extends Component {
 Header.propTypes = {
   'title': React.PropTypes.string,
   'simple': React.PropTypes.bool,
+  'hideBackButton': React.PropTypes.bool,
 }
 
 export default connect(
