@@ -1,15 +1,16 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
 
-import {Home as _Home} from '../windows'
+import {HomeOrganiser, HomeParticipant} from '../windows'
 import {navigationActions, searchActions} from '../actions'
 import inflateEvent from '../data/inflaters/event'
 
-class Home extends React.Component {
+class Home extends Component {
 
   constructor() {
     super()
+
     this.state = {
       location: {
         lat: undefined,
@@ -60,6 +61,8 @@ class Home extends React.Component {
   }
 
   render() {
+    const Window = this.props.mode === 'ORGANIZE' ? HomeOrganiser : HomeParticipant
+
     let eventIds = []
     if(this.props.mode === 'ORGANIZE') {
       eventIds = Object.keys(this.props.user.organizing)
@@ -76,7 +79,6 @@ class Home extends React.Component {
         return connection.eventId
       })
     }
-
 
     let events = eventIds.map((id) => {
       return this.props.events.eventsById[id]
@@ -114,13 +116,15 @@ class Home extends React.Component {
     .filter(item => !item.event.cancelled)
 
     return (
-      <_Home
+      <Window
         onPressEvent={this.onPressEvent.bind(this)}
         mode={this.props.mode}
         events={events}
         onPressAdd={() => this.props.onNavigate('createEvent')}
         location={this.state.location}
         nearby={nearby}
+        isOrganising={this.props.mode === 'ORGANIZE'}
+        isParticipanting={this.props.mode === 'PARTICIPATE'}
       />
     )
   }

@@ -10,7 +10,8 @@ import _EventRequests from './event-requests'
 import _Friends from './friends'
 import _FriendsInvite from './friends-invite'
 import _Gallery from './gallery'
-import _Home from './home'
+import _HomeParticipant from './home-participant'
+import _HomeOrganiser from './home-organiser'
 import _Interests from './interests'
 import _InterestsAll from './interests-all'
 import _Invitations from './invitations'
@@ -47,7 +48,8 @@ export const EventRequests = _EventRequests
 export const Friends = _Friends
 export const FriendsInvite = _FriendsInvite
 export const Gallery = _Gallery
-export const Home = _Home
+export const HomeOrganiser = _HomeOrganiser
+export const HomeParticipant = _HomeParticipant
 export const Interests = _Interests
 export const InterestsAll = _InterestsAll
 export const Invitations = _Invitations
