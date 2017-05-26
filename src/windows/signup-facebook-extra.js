@@ -14,6 +14,7 @@ class SignUpFacebookExtra extends Component {
 
   constructor(props) {
     super(props)
+
     this.state = {
       showPassword: false,
       showDobInfoPopup: false,
@@ -28,8 +29,18 @@ class SignUpFacebookExtra extends Component {
       this.props.change('dob', nextProps.facebookDob)
       this.props.change('gender', nextProps.facebookGender)
       this.props.change('phone', nextProps.facebookPhone)
-      this.props.change('image', nextProps.image)
-      this.props.change('facebookImageSrc', nextProps.facebookImageSrc)
+
+      // Display an uploaded image or the facebook image
+      let image
+
+      if (nextProps.image) {
+        image = nextProps.image
+      }
+      else if (nextProps.facebookImageSrc) {
+        image = nextProps.facebookImageSrc
+      }
+
+      this.props.change('image', image)
     }
   }
 
@@ -41,12 +52,16 @@ class SignUpFacebookExtra extends Component {
       email: values.email,
       city: values.address.description,
       cityGooglePlaceId: values.address.place_id,
-      image: values.image,
-      facebookImageSrc: values.facebookImageSrc,
     }
 
-    if (!values.image && this.props.facebookImageSrc) {
+    // Image field is used for Facebook and uploaded image.
+    // Hack to include the fb image if it exists
+    if (this.props.facebookImageSrc) {
       userData.facebookImageSrc = this.props.facebookImageSrc
+    }
+
+    if (values.image) {
+      userData.image = this.props.image
     }
 
     this.props.onPressContinue(userData)
