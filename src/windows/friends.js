@@ -35,7 +35,7 @@ export default class Friends extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={{flex: 1}}>
         <Header
           title={_('friends')}
           onBack={this.props.onBack}
@@ -48,11 +48,11 @@ export default class Friends extends React.Component {
           style={StyleSheet.dialog.optionsMenu}
           onClose={() => this.setState({popupUser: null})}
         >
-          <Button
+          {/*<Button
             type="alertVertical"
             text={_('inviteToAnEvent')}
             onPress={() => this.onPressInvite(this.state.popupUser)}
-          />
+          />*/}
           <Button
             type="alertVerticalDefault"
             text={_('remove')}
