@@ -29,7 +29,7 @@
     "react-native": "^0.42.2",
     "react-native-datepicker": "^1.4.4",
     "react-native-device-info": "git+https://github.com/leesolway/react-native-device-info.git",
-    "react-native-fbsdk": "^0.6.0",
+    "react-native-fbsdk": "git+https://github.com/motius/react-native-fbsdk.git#fix-views",
     "react-native-fcm": "^3.0.0",
     "react-native-fetch-blob": "0.10.2",
     "react-native-gifted-chat": "^0.1.1",
