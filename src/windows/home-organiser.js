@@ -14,7 +14,7 @@ class HomeOrganiser extends Component {
       <View style={{flex: 1}}>
         <Header title={_('activeEvents')} />
         <ScrollView>
-          {noEvents && this.isOrganizing() && (
+          {noEvents && (
             <Text style={StyleSheet.noResults}>{_('noActiveEvents')}</Text>
           )}
 
