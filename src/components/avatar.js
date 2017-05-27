@@ -70,8 +70,8 @@ class Avatar extends Component {
     let isEnded
     let isCancelled
 
-    this.props.overlay = 'ended' ? isEnded = true : isEnded = false
-    this.props.overlay = 'cancelled' ? isCancelled = true : isCancelled = false
+    this.props.overlay === 'ended' ? isEnded = true : isEnded = false
+    this.props.overlay === 'cancelled' ? isCancelled = true : isCancelled = false
 
     if (this.props.onPress) {
       return (
