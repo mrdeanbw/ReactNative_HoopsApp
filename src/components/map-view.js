@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, TouchableHighlight, Text, ActivityIndicator, InteractionManager, Dimensions} from 'react-native'
+import {View, TouchableHighlight, Text, ActivityIndicator, InteractionManager} from 'react-native'
 import _MapView from 'react-native-maps'
 
 import StyleSheet from '../styles'
@@ -46,36 +46,12 @@ class MapView extends Component {
   constructor(props) {
     super(props)
 
-    //Calculate the maximum lat/lon delta
-    let location = this.props.location
-    let maxDelta = this.props.events.filter(event => {
-      return event && event.addressCoords
-    }).reduce((prev, event) => {
-      let coords = event.addressCoords
-      let deltaLat = Math.abs(coords.lat - location.lat)
-      let deltaLon = Math.abs(coords.lon - location.lon)
-
-        return {
-          lat: Math.max(deltaLat, prev.lat),
-          lon: Math.max(deltaLon, prev.lon),
-        }
-      }, { lat: 0, lon: 0 })
-
-    const { width, height } = Dimensions.get('window')
-    const ASPECT_RATIO = width / height
-    const LATITUDE = this.props.location.lat
-    const LONGITUDE = this.props.location.lon
-    const LATITUDE_DELTA = maxDelta.lat
-    const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
+    // Marker record of refs
+    this.markers = []
+    this.activeMarker
 
     this.state = {
       renderPlaceholderOnly: true,
-      region: {
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-      },
     }
   }
 
@@ -96,19 +72,6 @@ class MapView extends Component {
     )
   }
 
-  onCalloutPressed (index, marker) {
-    let calloutRef = `callout-${index}`
-    let item = this.refs[calloutRef]
-    this.setState({
-      selectedCalloutIndex: index,
-      region: {
-        latitude: marker.latlng.latitude,
-        longitude: marker.latlng.longitude
-      }
-     })
-    item.showCallout()
-  }
-
   renderMap(region, annotations) {
     return (
       <_MapView
@@ -119,12 +82,16 @@ class MapView extends Component {
       >
         {annotations.map((marker, ind) => (
           <_MapView.Marker
-            onPress={() => this.onCalloutPressed(ind, marker)}
-            ref={`callout-${ind}`}
-            zIndex={this.state.selectedCalloutIndex === ind ? 999 : 0}
             key={ind}
             image={marker.image}
             coordinate={marker.latlng}
+            ref={ref => { this.markers[ind] = ref }}
+            onPress={() => {
+              if (this.activeMarker) {
+                this.activeMarker.closeCallout()
+              }
+              this.markers[ind].showCallout()
+            }}
           >
             <_MapView.Callout style={StyleSheet.mapView.callOut} onPress={marker.rightCalloutView}>
               <TouchableHighlight
@@ -162,7 +129,29 @@ class MapView extends Component {
     //Calculate region size based on events distances
     let region
     if (this.props.location && this.props.location.lat && this.props.location.lon) {
-      region = this.state.region
+      let location = this.props.location
+
+      //Calculate the maximum lat/lon delta
+      let maxDelta = this.props.events.filter(event => {
+        return event && event.addressCoords
+      }).reduce((prev, event) => {
+        let coords = event.addressCoords
+
+        let deltaLat = Math.abs(coords.lat - location.lat)
+        let deltaLon = Math.abs(coords.lon - location.lon)
+
+        return {
+          lat: Math.max(deltaLat, prev.lat),
+          lon: Math.max(deltaLon, prev.lon),
+        }
+      }, { lat: 0, lon: 0 })
+
+      region = {
+        latitude: location.lat,
+        longitude: location.lon,
+        latitudeDelta: maxDelta.lat * 2.5, // Double (for left+right) and add some padding.
+        longitudeDelta: maxDelta.lon * 2.5,
+      }
     } else {
       let minLat, minLon
       let maxLat, maxLon
