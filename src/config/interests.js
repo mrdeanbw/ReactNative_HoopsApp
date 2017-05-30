@@ -228,6 +228,9 @@ export default {
   "KNEE_BOARDING": {
     "name": "Knee Boarding"
   },
+  "KORFBALL": {
+    "name": "Korfball"
+  },
   "LACROSSE": {
     "name": "Lacrosse"
   },
