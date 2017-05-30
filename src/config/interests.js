@@ -150,6 +150,9 @@ export default {
     "important": true,
     "name": "Football"
   },
+  "FREE RUNNING": {
+    "name": "Free Running"
+  },
   "FUTSAL": {
     "name": "Futsal"
   },
@@ -268,6 +271,7 @@ export default {
     "name": "Mountain Biking"
   },
   "NETBALL": {
+    "important": true,
     "name": "Netball"
   },
   "OTHER": {
@@ -481,7 +485,6 @@ export default {
     "name": "Yoga"
   },
   "ZUMBA": {
-    "important": true,
     "name": "Zumba"
   }
 }
