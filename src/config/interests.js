@@ -110,6 +110,9 @@ export default {
   "DECATHLON": {
     "name": "Decathlon"
   },
+  "DISCGOLF": {
+    "name": "Discgolf"
+  },
   "DIVING": {
     "name": "Diving"
   },
@@ -261,6 +264,9 @@ export default {
   "MOUNTAIN_BIKING": {
     "name": "Mountain Biking"
   },
+  "NETBALL": {
+    "name": "Netball"
+  },
   "OTHER": {
     "name": "Other"
   },
@@ -284,6 +290,9 @@ export default {
   },
   "PILATES": {
     "name": "Pilates"
+  },
+  "PILOXING": {
+    "name": "Piloxing"
   },
   "POSING": {
     "name": "Posing"
