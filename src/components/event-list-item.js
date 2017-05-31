@@ -2,7 +2,7 @@ import React from 'react'
 import {View, Image, Text, TouchableHighlight} from 'react-native'
 import moment from 'moment'
 
-import {Avatar} from '../components'
+import {Avatar, Icon} from '../components'
 import _ from '../i18n'
 import StyleSheet from '../styles'
 
@@ -30,7 +30,6 @@ export default class EventListItem extends React.Component {
     let textColorStyle = (!this.props.ignoreDisabled && isDisabled) ?
       StyleSheet.eventListItem.disabledText :
       null
-
     return (
       <TouchableHighlight
         style={[StyleSheet.eventListItem.container, this.props.style]}
@@ -39,6 +38,9 @@ export default class EventListItem extends React.Component {
         underlayColor={StyleSheet.eventListItem.underlayColor}
       >
         <View style={StyleSheet.eventListItem.wrapper}>
+          {this.props.event.entryFee === 0 && (
+            <Icon name="free" style={StyleSheet.eventListItem.freeIcon}/>
+          )}
           <View style={StyleSheet.eventListItem.imageContainer}>
             {event && event.image === undefined ?
               <Avatar
