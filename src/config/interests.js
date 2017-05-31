@@ -411,6 +411,15 @@ export default {
   "TAEKWONDO": {
     "name": "Taekwondo"
   },
+  "TAMBURELLO": {
+    "name": "TamBurello"
+  },
+  "TAMBOURELLI": {
+    "name": "TamBourelli"
+  },
+  "TAMBEACH": {
+    "name": "TamBeach"
+  },
   "TCHOUKBALL": {
     "name": "Tchoukball"
   },
