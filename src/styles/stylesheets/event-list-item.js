@@ -29,11 +29,18 @@ export default StyleSheet => StyleSheet.extend({
     overflow: 'hidden',
     marginRight: 15
   },
+
   image: {
     borderRadius: 27.5,
     width: 55,
     height: 55,
     resizeMode: 'cover',
+  },
+
+  avatarStyle: {
+    borderRadius: 27.5,
+    width: 55,
+    height: 55,
   },
 
   imageOverlay: {
