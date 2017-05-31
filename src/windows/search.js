@@ -101,9 +101,6 @@ export default class Search extends React.Component {
   };
 
   _renderGeneralResults() {
-    if(this.props.results.events.length + this.props.results.users.length === 0) {
-      return
-    }
 
     return (
       <View style={StyleSheet.search.resultsContainer}>
@@ -309,7 +306,7 @@ export default class Search extends React.Component {
           <KeyboardSpacer/>
         </ScrollView>
 
-        {this.state.tab === 'events' && (
+        {this.state.tab && (
           <View style={StyleSheet.buttons.bar}>
             <Button
               type={this.searchButtonEnabled() ? "dialogDefault" : "dialog"}
