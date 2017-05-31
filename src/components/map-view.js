@@ -21,6 +21,7 @@ const iconsMap = {
   CARDS: 'pinCards',
   CHESS: 'pinChess',
   DEFAULT: 'pinDefault',
+  DODGEBALL: 'pinDodgeball',
   FOOTBALL: 'pinFootball',
   FRISBEE: 'pinFrisbee',
   GOLF: 'pinGolf',
@@ -29,6 +30,7 @@ const iconsMap = {
   HOCKEY: 'pinHockey',
   ICE_HOCKEY: 'pinIceHockey',
   ICE_SKATING: 'pinIceSkating',
+  LACROSSE: 'pinLacrosse',
   MOUNTAINEERING: 'pinMountaineering',
   POOL: 'pinPool',
   RUGBY: 'pinRugby',
@@ -39,6 +41,16 @@ const iconsMap = {
   TABLE_TENNIS: 'pinTableTennis',
   TENNIS: 'pinTennis',
   YOGA: 'pinYoga',
+  ZUMBA: 'pinZumba',
+    //below needs to be reorder in alphabetic order
+  DISCGOLF: 'pinDefault',
+  NETBALL: 'activityDefault',
+  PILOXING: 'activityDefault',
+  KORFBALL: 'activityDefault',
+  FREE_RUNNING: 'pinRunning',
+  TAMBURELLO:'activityDefault',
+  TAMBOURELLI:'activityDefault',
+  TAMBEACH:'activityDefault',
 }
 
 class MapView extends Component {

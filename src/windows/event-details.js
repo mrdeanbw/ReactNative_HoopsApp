@@ -22,6 +22,7 @@ const icons = {
   CANOEING: 'activityCanoeing',
   CARDS: 'activityCards',
   CHESS: 'activityChess',
+  DODGEBALL: 'activityDodgeball',
   DEFAULT: 'activityDefault',
   FOOTBALL: 'activityFootball',
   FRISBEE: 'activityFrisbee',
@@ -31,6 +32,7 @@ const icons = {
   HOCKEY: 'activityHockey',
   ICE_HOCKEY: 'activityIceHockey',
   ICE_SKATING: 'activityIceSkating',
+  LACROSSE: 'activityLacrosse',
   MOUNTAINEERING: 'activityMountaineering',
   POOL: 'activityPool',
   RUGBY: 'activityRugby',
@@ -41,6 +43,16 @@ const icons = {
   TABLE_TENNIS: 'activityTableTennis',
   TENNIS: 'activityTennis',
   YOGA: 'activityYoga',
+  ZUMBA:'activityZumba',
+  //below needs to be reorder in alphabetic order
+  DISCGOLF: 'activityDefault',
+  NETBALL: 'activityDefault',
+  PILOXING: 'activityDefault',
+  KORFBALL: 'activityDefault',
+  FREE_RUNNING: 'activityRunning',
+  TAMBURELLO:'activityDefault',
+  TAMBOURELLI:'activityDefault',
+  TAMBEACH:'activityDefault',
 }
 
 export default class EventDetails extends React.Component {
