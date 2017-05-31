@@ -44,12 +44,14 @@ export default class EventListItem extends React.Component {
               <Avatar
                 title={event.title}
                 avatarStyle={[StyleSheet.eventListItem.avatarStyle]}
+                avatarImageStyle={[StyleSheet.eventListItem.avatarImage]}
                 overlay={overlay}
               />
               : <Avatar
                   title={event.title}
                   imageUrl={event.image}
                   avatarStyle={[StyleSheet.eventListItem.avatarStyle]}
+                  avatarImageStyle={[StyleSheet.eventListItem.avatarImage]}
                  overlay={overlay}
                 />
              }

@@ -46,8 +46,7 @@ class Avatar extends Component {
         source={{uri}}
         style={[
           defaultStyles.avatarStyle,
-          this.props.avatarStyle
-        ]}
+          this.props.avatarImageStyle]}
       />
     )
   }
