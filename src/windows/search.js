@@ -101,12 +101,14 @@ export default class Search extends React.Component {
   };
 
   _renderGeneralResults() {
+    let noResults = this.props.results.events.length === 0 && this.props.results.users.length === 0 && this.state.text !== '' ? true : false
+    let results = this.props.results.events.length + this.props.results.users.length === 0 || this.state.text === '' ? true : false
 
     return (
       <View style={StyleSheet.search.resultsContainer}>
         <Text style={StyleSheet.search.resultsTitle}>
-          {this.props.results.events.length === 0 || this.state.text === '' ? null : _('results')}
-          {this.props.results.events.length === 0 && this.state.text !== '' ? _('noResults') : null}
+          {results ? null : _('results')}
+          {noResults ? _('noResults') : null}
         </Text>
         {this.props.results.events.length > 0 && this.state.text !== '' &&  (
           <View>
