@@ -25,6 +25,7 @@ const icons = {
   DODGEBALL: 'activityDodgeball',
   DEFAULT: 'activityDefault',
   DISCGOLF: 'activityGolf',
+  DIVING: 'activityDiving',
   FOOTBALL: 'activityFootball',
   FRISBEE: 'activityFrisbee',
   FREE_RUNNING: 'activityRunning',

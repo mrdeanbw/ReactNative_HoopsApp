@@ -22,6 +22,7 @@ const iconsMap = {
   CHESS: 'pinChess',
   DEFAULT: 'pinDefault',
   DISCGOLF: 'pinGolf',
+  DIVING: 'pinDiving',
   DODGEBALL: 'pinDodgeball',
   FOOTBALL: 'pinFootball',
   FRISBEE: 'pinFrisbee',
