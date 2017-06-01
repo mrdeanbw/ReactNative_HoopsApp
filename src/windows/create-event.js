@@ -178,6 +178,9 @@ export default class CreateEvent extends React.Component {
       imageSrc = this.state.image || undefined //Make sure imageSrc is never null
     }
 
+    console.log(this.state.eventDetails.date)
+    console.log(new Date())
+    console.log(this.state.eventDetails.endDate)
     return (
       <View style={{flex: 1}}>
         <Header title={this.props.editMode ? _('editEvent') : _('createEvent')} simple />
@@ -361,7 +364,7 @@ export default class CreateEvent extends React.Component {
                 placeholder={_('endDateTime')}
                 value={this.state.eventDetails.endDate}
                 date={true} time={true}
-                minDate={new Date()}
+                minDate={this.state.eventDetails.date ? this.state.eventDetails.date : new Date()}
                 onChange={(endDate) => this.setEventData({endDate})}
               />
 
