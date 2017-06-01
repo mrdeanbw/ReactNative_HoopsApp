@@ -394,3 +394,6 @@ export const noActivitiesSelected = "You have no activities selected"
 export const walletInfo1 = "Money will be paid out"
 export const walletInfo2 = "on a weekly basis "
 
+//empty-screen-info
+export const nothingText = ' WE HAVE NOTHING\nTO SHOW HERE...'
+export const createEventText = "You haven't created any event.\n Should we change that now?\nSimply go and create an event now!"

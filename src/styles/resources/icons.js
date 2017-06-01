@@ -146,7 +146,7 @@ export default {
   "plusGrey": require('./icons/plus-grey.png'),
   "plusSmall": require('./icons/plus-small.png'),
   "rejected": require('./icons/rejected.png'),
-  "sad": require('./icons/sad-icon@3x.png'),
+  "sad": require('./icons/sad-icon.png'),
   "search": require('./icons/search.png'),
   "searchGrey": require('./icons/search-grey.png'),
   "settings": require('./icons/settings.png'),
