@@ -283,6 +283,7 @@ export const users = 'Users'
 export const byDistance = 'By Distance'
 export const byName = 'By Name'
 export const results = 'Results'
+export const noResults = 'No results'
 export const seeMore = 'SEE MORE'
 
 export const searchActivity = 'What are you looking for?'

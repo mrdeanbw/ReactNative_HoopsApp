@@ -104,8 +104,11 @@ export default class Search extends React.Component {
 
     return (
       <View style={StyleSheet.search.resultsContainer}>
-        <Text style={StyleSheet.search.resultsTitle}>{_('results')}</Text>
-        {this.props.results.events.length > 0 && (
+        <Text style={StyleSheet.search.resultsTitle}>
+          {this.props.results.events.length === 0 || this.state.text === '' ? null : _('results')}
+          {this.props.results.events.length === 0 && this.state.text !== '' ? _('noResults') : null}
+        </Text>
+        {this.props.results.events.length > 0 && this.state.text !== '' &&  (
           <View>
             <Text style={StyleSheet.search.resultTitle}>
               {_('events').toUpperCase()}
@@ -130,7 +133,7 @@ export default class Search extends React.Component {
             )}
           </View>
         )}
-        {this.props.results.users.length > 0 && (
+        {this.props.results.users.length > 0 && this.state.text !== '' && (
           <View>
             <Text style={StyleSheet.search.resultTitle}>
               {_('users').toUpperCase()}
@@ -306,7 +309,7 @@ export default class Search extends React.Component {
           <KeyboardSpacer/>
         </ScrollView>
 
-        {this.state.tab && (
+        {this.state.tab === 'events' && (
           <View style={StyleSheet.buttons.bar}>
             <Button
               type={this.searchButtonEnabled() ? "dialogDefault" : "dialog"}
