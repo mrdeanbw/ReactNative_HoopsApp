@@ -108,7 +108,7 @@ export default StyleSheet => StyleSheet.extend({
 
   freeIcon: {
     position: 'absolute',
-    left: 0,
+    left: 3,
     top: 0
   },
 
