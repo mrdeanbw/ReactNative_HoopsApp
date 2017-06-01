@@ -143,6 +143,9 @@ export default {
   "FOOTBAG": {
     "name": "Footbag Net"
   },
+  "FOOTGOLF": {
+    "name": "Footgolf"
+  },
   "FOOSBALL": {
     "name": "Foosball"
   },
@@ -215,6 +218,9 @@ export default {
   },
   "JUDO": {
     "name": "Judo"
+  },
+  "JIU_JITSU": {
+    "name": "Jiu Jitsu"
   },
   "KARATE": {
     "name": "Karate"
@@ -366,6 +372,9 @@ export default {
   "SKEET_SHOOTING": {
     "name": "Skeet Shooting"
   },
+  "SNOOKER": {
+    "name": "Snooker"
+  },
   "SNOW_BIKING": {
     "name": "Snow Biking"
   },
@@ -446,6 +455,9 @@ export default {
   },
   "VOLLEYBALL": {
     "name": "Volleyball"
+  },
+  "VX": {
+    "name": "VX"
   },
   "WAKEBOARDING": {
     "name": "Wakeboarding"
