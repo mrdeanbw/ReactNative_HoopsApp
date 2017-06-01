@@ -51,7 +51,6 @@ export default class EventListItem extends React.Component {
                   title={event.title}
                   imageUrl={event.image}
                   avatarStyle={[StyleSheet.eventListItem.avatarStyle]}
-                  avatarImageStyle={[StyleSheet.eventListItem.avatarImage]}
                  overlay={overlay}
                 />
              }

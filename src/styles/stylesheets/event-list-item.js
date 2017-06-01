@@ -30,13 +30,6 @@ export default StyleSheet => StyleSheet.extend({
     marginRight: 15
   },
 
-  avatarImage: {
-    borderRadius: 27.5,
-    width: 55,
-    height: 55,
-    resizeMode: 'cover',
-  },
-
   avatarStyle: {
     borderRadius: 27.5,
     width: 55,
