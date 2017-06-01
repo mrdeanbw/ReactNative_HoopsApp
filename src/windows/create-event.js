@@ -178,9 +178,6 @@ export default class CreateEvent extends React.Component {
       imageSrc = this.state.image || undefined //Make sure imageSrc is never null
     }
 
-    console.log(this.state.eventDetails.date)
-    console.log(new Date())
-    console.log(this.state.eventDetails.endDate)
     return (
       <View style={{flex: 1}}>
         <Header title={this.props.editMode ? _('editEvent') : _('createEvent')} simple />
