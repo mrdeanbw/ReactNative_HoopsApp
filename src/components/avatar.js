@@ -46,7 +46,8 @@ class Avatar extends Component {
         source={{uri}}
         style={[
           defaultStyles.avatarStyle,
-          defaultStyles.avatarImage]}
+          defaultStyles.avatarImage,
+          this.props.avatarStyle]}
       />
     )
   }
@@ -124,9 +125,6 @@ const defaultStyles = {
   },
 
   avatarImage: {
-    borderRadius: 27.5,
-    width: 55,
-    height: 55,
     resizeMode: 'cover'
   },
 
