@@ -361,7 +361,7 @@ export default class CreateEvent extends React.Component {
                 placeholder={_('endDateTime')}
                 value={this.state.eventDetails.endDate}
                 date={true} time={true}
-                minDate={new Date()}
+                minDate={this.state.eventDetails.date ? this.state.eventDetails.date : new Date()}
                 onChange={(endDate) => this.setEventData({endDate})}
               />
 
