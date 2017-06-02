@@ -63,6 +63,9 @@ export default {
   "BOXING": {
     "name": "Boxing"
   },
+  "BIKE_POLO": {
+    "name": "Bike Polo"
+  },
   "BIKRAM_YOGA": {
     "name": "Bikram Yoga"
   },
