@@ -112,7 +112,7 @@ export const searchGeneral = (params) => {
       }
     }).filter(user => {
       if(user.name) {
-        return user.name.toLowerCase().startsWith(searchString.toLowerCase())
+        return user.name.toLowerCase().includes(searchString.toLowerCase())
       }else{
         return false
       }
