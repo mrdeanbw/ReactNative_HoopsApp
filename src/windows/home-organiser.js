@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import {View, ScrollView, Text} from 'react-native'
+import {View, ScrollView} from 'react-native'
 
 import {EventListItem, Header, EmptyScreenInfo} from '../components'
 import _ from '../i18n'
-import StyleSheet from '../styles'
 
 class HomeOrganiser extends Component {
 

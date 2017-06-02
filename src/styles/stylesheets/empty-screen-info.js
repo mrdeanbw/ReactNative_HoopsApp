@@ -1,45 +1,62 @@
+import {Dimensions} from 'react-native'
+
 import {colors} from '../resources'
+
+const _padding = Math.round(Dimensions.get('window').height / 8.34)
+const _marginTop = Math.round(Dimensions.get('window').height / 66.7)
+const _marginBottom = Math.round(Dimensions.get('window').height / 22.23)
+const _iconArrowHeight = Math.round(Dimensions.get('window').height / 22.23)
+const _iconArrowWidth = Math.round(Dimensions.get('window').width / 9.37)
+const _iconSadHeight = Math.round(Dimensions.get('window').height / 19.05)
+const _iconSadWidth = _iconSadHeight
+const _headerFontSize = Math.round(Dimensions.get('window').height / 41.68)
+const _textFontSize = Math.round(Dimensions.get('window').height / 47.64)
+const _lineHeight = Math.round(Dimensions.get('window').height / 30.31)
 
 export default StyleSheet => StyleSheet.extend({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
-  },
-
-  iconContainer: {
-    marginBottom: 15,
+    paddingTop: _padding,
+    paddingBottom: _padding,
   },
 
   headerContainer: {
-    marginBottom: 35,
+    marginBottom: 0,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   headerText: {
     color: colors.grey,
-    fontSize: 16,
+    fontSize: _headerFontSize,
     fontWeight:'bold',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: _marginTop,
+    lineHeight: _lineHeight,
   },
 
   textContainer: {
-    marginBottom: 60,
+    marginBottom: _marginBottom,
   },
 
   textStyle: {
     color: colors.grey,
-    fontSize: 14,
-    textAlign: 'center'
+    fontSize: _textFontSize,
+    textAlign: 'center',
+    lineHeight: _lineHeight,
   },
 
   iconSad: {
-    width: 35,
-    heigth: 35,
+    width: _iconSadHeight,
+    height: _iconSadWidth
   },
 
   iconArrow: {
-    width: 30,
-    height: 40
+    width: _iconArrowHeight,
+    height: _iconArrowWidth
   },
 })
