@@ -5,7 +5,7 @@ import {Icon} from '../components'
 import _ from '../i18n'
 import StyleSheet from '../styles'
 
-export default class EmptyScreenInfo extends Component {
+class EmptyScreenInfo extends Component {
   render() {
 
     return(
@@ -24,3 +24,5 @@ export default class EmptyScreenInfo extends Component {
     )
   }
 }
+
+export default EmptyScreenInfo
