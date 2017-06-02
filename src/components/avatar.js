@@ -127,6 +127,7 @@ const defaultStyles = {
     borderRadius: 27.5,
     width: 55,
     height: 55,
+    resizeMode: 'cover'
   },
 
   textStyle: {
