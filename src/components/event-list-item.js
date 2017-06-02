@@ -45,13 +45,13 @@ export default class EventListItem extends React.Component {
             {event && event.image === undefined ?
               <Avatar
                 title={event.title}
-                avatarStyle={[StyleSheet.eventListItem.image]}
+                avatarStyle={[StyleSheet.eventListItem.avatarStyle]}
                 overlay={overlay}
               />
               : <Avatar
                   title={event.title}
                   imageUrl={event.image}
-                  avatarStyle={[StyleSheet.eventListItem.image]}
+                  avatarStyle={[StyleSheet.eventListItem.avatarStyle]}
                  overlay={overlay}
                 />
              }
