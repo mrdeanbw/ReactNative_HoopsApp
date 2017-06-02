@@ -17,6 +17,7 @@ const icons = {
   BASKETBALL: 'activityBasketball',
   BEACH_VOLLEYBALL: 'activityVolleyball',
   BIKE: 'activityBike',
+  BIKE_POLO: 'activityBike',
   BOWLING: 'activityBowling',
   BOXING: 'activityBoxing',
   CANOEING: 'activityCanoeing',
@@ -27,6 +28,7 @@ const icons = {
   DISCGOLF: 'activityGolf',
   DIVING: 'activityDiving',
   FOOTBALL: 'activityFootball',
+  FOOTGOLF: 'activityGolf',
   FRISBEE: 'activityFrisbee',
   FREE_RUNNING: 'activityRunning',
   GOLF: 'activityGolf',
@@ -35,6 +37,7 @@ const icons = {
   HOCKEY: 'activityHockey',
   ICE_HOCKEY: 'activityIceHockey',
   ICE_SKATING: 'activityIceSkating',
+  JIU_JITSU: 'activityBoxing',
   KORFBALL: 'activityVolleyball',
   LACROSSE: 'activityLacrosse',
   MOUNTAINEERING: 'activityMountaineering',
@@ -51,7 +54,9 @@ const icons = {
   TAMBOURELLI:'activityTennis',
   TAMBEACH:'activityTennis',
   TENNIS: 'activityTennis',
+  SNOOKER: 'sctivityPool',
   YOGA: 'activityYoga',
+  VX: 'activityLacrosse',
   ZUMBA:'activityZumba',
 }
 
