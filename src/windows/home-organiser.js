@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import {View, ScrollView, Text} from 'react-native'
+import {View, ScrollView} from 'react-native'
 
-import {EventListItem, Header} from '../components'
+import {EventListItem, Header, EmptyScreenInfo} from '../components'
 import _ from '../i18n'
-import StyleSheet from '../styles'
 
 class HomeOrganiser extends Component {
 
@@ -13,19 +12,21 @@ class HomeOrganiser extends Component {
     return (
       <View style={{flex: 1}}>
         <Header title={_('activeEvents')} />
-        <ScrollView>
-          {noEvents && (
-            <Text style={StyleSheet.noResults}>{_('noActiveEvents')}</Text>
-          )}
-
-          {this.props.events.map(event =>
-            <EventListItem
-              key={event.id}
-              event={event}
-              onPress={() => this.props.onPressEvent(event)}
-            />
-          )}
-        </ScrollView>
+        {noEvents ? (
+          <View style={{flex: 1}}>
+            <EmptyScreenInfo/>
+          </View>
+        ) : (
+          <ScrollView >
+            {this.props.events.map(event =>
+              <EventListItem
+                key={event.id}
+                event={event}
+                onPress={() => this.props.onPressEvent(event)}
+              />
+           )}
+          </ScrollView>)
+       }
       </View>
     )
   }
