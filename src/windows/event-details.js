@@ -471,6 +471,7 @@ class DateText extends React.Component {
 }
 
 class EventJoinPopup extends React.Component {
+
   render() {
     const formatCharge = (charge) => {
       return (parseFloat(charge) * 100).toFixed(0) + 'p'
@@ -481,13 +482,13 @@ class EventJoinPopup extends React.Component {
 
     return (
       <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>
-        <View style={{ flexGrow: 0 }}>
+        <View style={{ flexGrow: 0}}>
           <View style={[StyleSheet.dialog.alertContentStyle]}>
             <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, { textAlign: 'center' }]}>{_('youAreAboutToJoin').toUpperCase()}</Text>
             <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, {textAlign: 'center', color: StyleSheet.colors.pink}]}>{event.title.toUpperCase()}</Text>
 
-            <EventInfo.Bar style={[StyleSheet.doubleMarginTop, { height: 120, flexDirection: 'column'} ]}>
-              <EventInfo.Summary icon="calendarBig" style={[StyleSheet.singlePaddingBottom]}>
+            <EventInfo.Bar style={[StyleSheet.doubleMarginTop, StyleSheet.dialog.infoBar]}>
+              <EventInfo.Summary icon="calendarBig" style={[StyleSheet.halfPaddingBottom]}>
                 <DateText event={event} />
               </EventInfo.Summary>
               <EventInfo.Summary icon="pin">
@@ -503,10 +504,7 @@ class EventJoinPopup extends React.Component {
               type="alertDefault"
               text={
               <Text>
-                <Text>{_('join').toUpperCase()} £{event.entryFee}</Text>
-                {this.props.charge > 0 && (
-                  <Text>(+{formatCharge(this.props.charge)})</Text>
-                )}
+                <Text>{_('join').toUpperCase()} £{event.entryFee} {this.props.charge > 0 && (<Text>(+{formatCharge(this.props.charge)})</Text>)}</Text>
               </Text>
             }
               onPress={this.props.onPressJoin}
