@@ -13,7 +13,7 @@ export default StyleSheet => StyleSheet.extend({
     marginRight: '5%',
     width: '90%',
     height: '80%',
-    resizeMode: 'stretch'
+    resizeMode: 'contain'
   },
 
   text: {
