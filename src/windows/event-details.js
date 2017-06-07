@@ -2,7 +2,6 @@ import React from 'react'
 import {ScrollView,View,Text, Image, ActionSheetIOS, TouchableHighlight, Linking} from 'react-native'
 import moment from 'moment'
 
-
 import StyleSheet from '../styles'
 import {Avatar, Icon, HorizontalRule, Button, Popup, Header} from '../components'
 import _ from '../i18n'
@@ -151,7 +150,14 @@ export default class EventDetails extends React.Component {
         icon: "actionEdit",
         type: "action",
       })
-    } else {
+    } else if (entryFee === 0) {
+      props.onChangeAction({
+        text: _('join'),
+        textLarge: _('free'),
+        type: "actionDefault",
+      })
+    }
+    else {
       props.onChangeAction({
         text: _('join'),
         textLarge: '£' + entryFee,
