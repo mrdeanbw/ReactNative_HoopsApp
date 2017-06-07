@@ -32,7 +32,7 @@ class _Explainers extends React.Component {
           >
             {this.props.images.map(image => {
               return (
-                <Image source={image} style={StyleSheet.explainers.slide}/>
+                <Image key={image} source={image} style={StyleSheet.explainers.slide} />
               )
             })}
           </Swiper>
