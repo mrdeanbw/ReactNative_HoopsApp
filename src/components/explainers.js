@@ -47,7 +47,7 @@ class Explainers extends Component {
 }
 
 Explainers.propTypes = {
-  images: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  images: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
   visible: React.PropTypes.bool.isRequired,
   onPressButton: React.PropTypes.func.isRequired,
 }
