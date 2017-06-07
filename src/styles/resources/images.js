@@ -7,8 +7,8 @@ export default {
   "screengrab2": require('./images/screengrab-2.png'),
   "screengrab3": require('./images/screengrab-3.png'),
   "screengrab4": require('./images/screengrab-4.png'),
-  "slide1": require('./images/slider1.png'),
-  "slide2": require('./images/slider2.png'),
-  "slide3": require('./images/slider3.png'),
+  "explainerParticipantSlide1": require('./images/explainerParticipantSlide1.png'),
+  "explainerParticipantSlide2": require('./images/explainerParticipantSlide2.png'),
+  "explainerParticipantSlide3": require('./images/explainerParticipantSlide3.png'),
   "walkthrough": require('./images/walkthrough.png'),
 }

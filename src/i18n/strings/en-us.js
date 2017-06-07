@@ -12,14 +12,12 @@ export const walkthrough4 = 'Keep track of all your organised and upcoming sport
 
 export const loginBanner = 'Join ' + productName + ' and start organising\nyour sports events, or just easily\nsearch and join others.'
 
-
 export const username = 'Username'
 export const password = 'Password'
 export const confirmPassword = 'Confirm Password'
 export const signin = 'Sign In'
 export const facebookLogin = 'Login with Facebook'
 export const or = 'or'
-
 
 export const name = 'Name'
 export const email = 'Email'
@@ -56,7 +54,6 @@ export const october = 'Oct'
 export const november = 'Nov'
 export const december = 'Dec'
 
-
 export const interests = 'Interests'
 export const interestsBanner = 'What sports are you interested in?\n(select at least 1)'
 export const sports = 'sports'
@@ -70,7 +67,6 @@ export const participate = 'Participate'
 export const organizeMode = 'I\'m here to\nORGANISE'
 export const participateMode = 'I\'m here to\nPARTICIPATE'
 
-
 export const home = 'Home'
 export const manage = 'Manage'
 export const myEvents = 'My Events'
@@ -81,11 +77,13 @@ export const create = 'Create'
 export const search = 'Search'
 export const searchResults = 'Search Results'
 export const searchCity = 'Search City'
+export const getStarted = 'GET STARTED'
 
 export const organizerMode = 'Switch to PARTICIPANT'
 export const organizer = 'ORGANISER'
 export const participantMode = 'Switch to ORGANISER'
 export const participant = 'PARTICIPANT'
+
 
 export const upcomingEvents = 'Your Upcoming Events'
 export const activeEvents = 'Your Active Events'
@@ -390,10 +388,10 @@ export const ok = "OK"
 export const noEventsNearby = "No Events Nearby"
 export const noActivitiesSelected = "You have no activities selected"
 
-//wallet screen
+// wallet screen
 export const walletInfo1 = "Money will be paid out"
 export const walletInfo2 = "on a weekly basis "
 
-//empty-screen-info
+// empty-screen-info
 export const nothingText = ' WE HAVE NOTHING\nTO SHOW HERE...'
 export const createEventText = "You haven't created any events yet.\n Should we change that now?\nSimply go and create an event now!"

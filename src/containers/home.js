@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import moment from 'moment'
 
 import {HomeOrganiser, HomeParticipant} from '../windows'
-import {navigationActions, searchActions} from '../actions'
+import {navigationActions, searchActions, userActions} from '../actions'
 import inflateEvent from '../data/inflaters/event'
 
 class Home extends Component {
@@ -53,15 +53,16 @@ class Home extends Component {
   }
 
   onPressEvent(event) {
-    if(this.props.mode === 'ORGANIZE') {
+    if (this.props.mode === 'ORGANIZE') {
       this.props.onNavigate('eventDashboard', {id: event.id})
-    }else{
+    } else{
       this.props.onNavigate('eventDetails', {id: event.id})
     }
   }
 
   render() {
     const Window = this.props.mode === 'ORGANIZE' ? HomeOrganiser : HomeParticipant
+    const user = this.props.user
 
     let eventIds = []
     if(this.props.mode === 'ORGANIZE') {
@@ -125,6 +126,8 @@ class Home extends Component {
         nearby={nearby}
         isOrganising={this.props.mode === 'ORGANIZE'}
         isParticipanting={this.props.mode === 'PARTICIPATE'}
+        onPressExplainer={this.props.onPressExplainer}
+        showExplainer={!user.explainers.homeParticipant}
       />
     )
   }
@@ -143,5 +146,6 @@ export default connect(
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
     onSearchNearby: (params) => dispatch(searchActions.nearby(params)),
+    onPressExplainer: () => dispatch(userActions.markExplainerSeen('homeParticipant'))
   }),
 )(Home)

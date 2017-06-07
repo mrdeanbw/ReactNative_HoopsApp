@@ -14,7 +14,32 @@ import actionTypes, {
   navigationActions, paymentActions,
 } from './'
 
+// Utility functions
+const savePersonalData = async function(data, callback) {
+  const uid = firebase.auth().currentUser.uid
+  const profilePath = `users/${uid}`
+  const profileData = {...data}
 
+  // Location
+  const cityResult = await getPlace(data.cityGooglePlaceId)
+  if (cityResult.result && cityResult.result.geometry) {
+    profileData['cityCoords'] = cityResult.result.geometry.location
+  }
+
+  // Image
+  if (data.image) {
+    const imageUrl = await uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`)
+    profileData['image'] = imageUrl
+  } else {
+    profileData['image'] = null
+  }
+
+  // Update Firebase
+  const userRef = firebaseDb.child(profilePath)
+  await userRef.update(profileData, callback)
+}
+
+// Actions
 export const signIn = (email, password) => {
   return async(dispatch) => {
     dispatch({type: actionTypes.USER_SIGN_IN})
@@ -74,30 +99,6 @@ export const signUp = (email, password, extraData) => {
       dispatch(signUpFailure(err))
     }
   }
-}
-
-const savePersonalData = async function(data, callback) {
-  const uid = firebase.auth().currentUser.uid
-  const profilePath = `users/${uid}`
-  const profileData = {...data}
-
-  // Location
-  const cityResult = await getPlace(data.cityGooglePlaceId)
-  if (cityResult.result && cityResult.result.geometry) {
-    profileData['cityCoords'] = cityResult.result.geometry.location
-  }
-
-  // Image
-  if (data.image) {
-    const imageUrl = await uploadImage(data.image, `users/${uid}/${new Date().toISOString()}`)
-    profileData['image'] = imageUrl
-  } else {
-    profileData['image'] = null
-  }
-
-  // Update Firebase
-  const userRef = firebaseDb.child(profilePath)
-  await userRef.update(profileData, callback)
 }
 
 export const signUpSuccess = (method) => {
@@ -192,8 +193,6 @@ export const logOut = () => {
     })
   }
 }
-
-
 
 export const setInterests = (interests) => {
   return dispatch => {
@@ -402,5 +401,16 @@ export const setFCMToken = (token) => {
       let uid = getState().user.uid
       firebaseDb.child(`users/${uid}/FCMToken`).set(token)
     }
+  }
+}
+
+export const markExplainerSeen = (explainerType) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: actionTypes.EXPLAINER_SEEN,
+    })
+
+    const uid = firebase.auth().currentUser.uid
+    firebaseDb.child(`users/${uid}/explainers/${explainerType}`).set(true)
   }
 }

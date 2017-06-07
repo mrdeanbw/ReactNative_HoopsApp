@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, Image, Modal, Text} from 'react-native'
 import Swiper from 'react-native-swiper'
 
@@ -13,14 +13,10 @@ const renderPagination = (index, total, context) => {
   )
 }
 
-class _Explainers extends React.Component {
-  constructor(props){
-    super(props)
-  }
+class Explainers extends Component {
 
-  render(){
-
-    return(
+  render() {
+    return (
       <Modal visible={this.props.visible ? this.props.visible : false} animationType="fade" >
         <View style={StyleSheet.explainers.container}>
           <Swiper
@@ -36,9 +32,10 @@ class _Explainers extends React.Component {
               )
             })}
           </Swiper>
+
           <View style={StyleSheet.explainers.buttonBar}>
             <Button
-              text={"GET STARTED"}
+              text={_('getStarted')}
               style={{backgroundColor: colors.pink}}
               onPress={this.props.onPressButton}
             />
@@ -49,11 +46,10 @@ class _Explainers extends React.Component {
   }
 }
 
-export default _Explainers
-
-/*
-_Explainers.propTypes = {
-  images: React.PropTypes.arrayOf(React.PropTypes.string),
+Explainers.propTypes = {
+  images: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  visible: React.PropTypes.bool.isRequired,
+  onPressButton: React.PropTypes.func.isRequired,
 }
-*/
 
+export default Explainers

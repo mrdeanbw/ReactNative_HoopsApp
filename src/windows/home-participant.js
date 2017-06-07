@@ -46,13 +46,17 @@ class HomeParticipant extends Component {
   }
 
   render() {
-    const slides = [images.slide1, images.slide2, images.slide3]
+    const slides = [
+      images.explainerParticipantSlide1,
+      images.explainerParticipantSlide2,
+      images.explainerParticipantSlide3
+    ]
 
     return (
       <View style={{flex: 1}}>
         <Explainers
-          visible={this.state.modalVisible ? this.state.modalVisible : false}
-          onPressButton={() => this.setState({modalVisible: false})}
+          visible={this.props.showExplainer}
+          onPressButton={() => this.props.onPressExplainer()}
           images={slides}
         />
         <Header title={_('nearbyEvents')} />
