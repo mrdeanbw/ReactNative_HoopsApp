@@ -75,14 +75,14 @@ class Wallet extends Component {
                 />
               )
             })}
+            <View style={StyleSheet.wallet.button}>
+              <Button
+                type="roundedDefault"
+                text={_('viewAll')}
+                style={[StyleSheet.singleMargin,]}
+              />
+            </View>
           </ScrollView>
-          <View style={StyleSheet.wallet.button}>
-            <Button
-              type="roundedDefault"
-              text={_('viewAll')}
-              style={[StyleSheet.singleMargin,]}
-            />
-          </View>
         </View>
       </View>
     )
