@@ -172,7 +172,7 @@ class UserListInWallet extends Component {
         )}
         <View style={StyleSheet.wallet.UserListInWallet.mainContentContainer}>
           <View style={StyleSheet.wallet.UserListInWallet.imageContainer}>
-            <Avatar user={user} avatarStyle={StyleSheet.wallet.UserListInWallet.avatarStyle} />
+           <Avatar title={user.name} avatarStyle={StyleSheet.wallet.UserListInWallet.avatarStyle} />
           </View>
           <View style={StyleSheet.wallet.UserListInWallet.textContainer}>
             <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.textStyle]} numberOfLines={1} ellipsizeMode="tail">
