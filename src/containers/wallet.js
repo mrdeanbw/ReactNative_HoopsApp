@@ -4,11 +4,44 @@ import {connect} from 'react-redux'
 import _Wallet from '../windows/wallet'
 import {navigationActions, paymentActions} from '../actions'
 
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+let now = new Date() // needed for create fake dates of payment
+
 class Wallet extends Component {
 
   componentWillMount() {
     // when this component mounts, fetch account information from Stripe
     this.props.onLoadAccount()
+  }
+
+  //to be replaced/removed as this funcion just creating fake users data for testing
+  createFakeUsers() {
+    var users = []
+    for ( let i = 0;  i < 4;  i++) {
+      var userX = {
+        id: i,
+        name: 'John',
+        secondName: 'Johnson',
+        activity: 'Swimming Lesson',
+        price: Math.floor((Math.random() * 10) + 1),
+        imageSrc: 'https://facebook.github.io/react/img/logo_og.png',
+        date: months[now.getMonth()].toUpperCase() + ' ' + (now.getDay()) + ', ' + now.getFullYear(),
+      }
+      users.push(userX)
+    }
+    for ( let i = 4;  i <= 20;  i++) {
+      let user = {
+        id: i,
+        name: 'John',
+        secondName: 'Johnson',
+        activity: 'Swimming Lesson',
+        price: Math.floor((Math.random() * 10) + 1),
+        imageSrc: 'https://facebook.github.io/react/img/logo_og.png',
+        date: months[now.getMonth()].toUpperCase() + ' ' + (now.getDay() + i) + ', ' + now.getFullYear(),
+      }
+      users.push(user)
+    }
+    return users
   }
 
   render() {
@@ -20,6 +53,7 @@ class Wallet extends Component {
           payments.isFetchingAccount ||
           payments.isUpdatingAccount
         )}
+        users={this.createFakeUsers()}
         account={payments.accountData}
         onChangeAction={this.props.onChangeAction}
         hasAccount={!!payments.accountData}

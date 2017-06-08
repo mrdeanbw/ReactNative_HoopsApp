@@ -1,15 +1,14 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Text} from 'react-native'
+import {ScrollView, View} from 'react-native'
 
 import _ from '../i18n'
-import {Header, LoadingAlert, Title, Button, Avatar} from '../components'
+import {Header, LoadingAlert, Title, Button} from '../components'
+import {UserListInWallet, BankInfoCard} from '../components/wallet'
 import StyleSheet from '../styles'
-import Icon from '../components//icon'
 
 
-// const months and lets now, today are needed just create fake dates of payment - needs to be removed
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-let now = new Date('01/12/2013')
+let now = new Date()
 let today = months[now.getMonth()].toUpperCase() + ' ' + (now.getDay()) + ', ' + now.getFullYear()
 let dateChecker = []  //DO NOT REMOVE dateChecker , is needed to compare dates
 
@@ -46,53 +45,21 @@ class Wallet extends Component {
     }
     return error
   }
-//to be replaced/removed as this funcion just creating fake users data for testing
-createFakeUsers() {
-  var users = []
-  for ( let i = 0;  i < 4;  i++) {
-    var userX = {
-      id: i,
-      name: 'John',
-      secondName: 'Johnson',
-      activity: 'Swimming Lesson',
-      price: Math.floor((Math.random() * 10) + 1),
-      imageSrc: 'https://facebook.github.io/react/img/logo_og.png',
-      date: months[now.getMonth()].toUpperCase() + ' ' + (now.getDay()) + ', ' + now.getFullYear(),
-    }
-    users.push(userX)
-  }
-  for ( let i = 4;  i <= 20;  i++) {
-    let user = {
-      id: i,
-      name: 'John',
-      secondName: 'Johnson',
-      activity: 'Swimming Lesson',
-      price: Math.floor((Math.random() * 10) + 1),
-      imageSrc: 'https://facebook.github.io/react/img/logo_og.png',
-      date: months[now.getMonth()].toUpperCase() + ' ' + (now.getDay() + i) + ', ' + now.getFullYear(),
-    }
-    users.push(user)
-  }
-  return users
-}
 
 calculateDisplayData(user, i){
-
-let displayData = []
-let displayDate
-let display
-let displayStyle
+  let displayData = []
+  let displayDate, display, displayStyle
 
   dateChecker.push(user.date)
   if (user.date !== dateChecker[ i - 1 ]){
-    if ((user.date === today)) {
-      displayDate = 'TODAY'
+  if ((user.date === today)) {
+    displayDate = 'TODAY'
+    display = true
+    displayStyle = null
+  } else if (user.date !== today) {
+      displayDate = user.date
       display = true
       displayStyle = null
-    } else if (user.date !== today) {
-        displayDate = user.date
-        display = true
-        displayStyle = null
     }
   }else {
     displayDate = null
@@ -105,7 +72,7 @@ return displayData
 }
 
   render() {
-  const users = this.createFakeUsers() // to be replaced
+  const users = this.props.users // to be replaced
 
     return (
       <View style={{flex: 1}}>
@@ -153,76 +120,3 @@ return displayData
 }
 
 export default Wallet
-
-class UserListInWallet extends Component {
-  constructor(props){
-    super(props)
-  }
-  render(){
-    let user = this.props.user
-    let display = this.props.display
-    let  displayStyle = this.props.displayStyle
-
-    return(
-      <View style={[StyleSheet.wallet.UserListInWallet.container, displayStyle]}>
-        {display && (
-        <View style={[StyleSheet.wallet.UserListInWallet.dateContainer]}>
-          <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.dateText]}>{this.props.displayDate}</Text>
-        </View>
-        )}
-        <View style={StyleSheet.wallet.UserListInWallet.mainContentContainer}>
-          <View style={StyleSheet.wallet.UserListInWallet.imageContainer}>
-           <Avatar title={user.name} avatarStyle={StyleSheet.wallet.UserListInWallet.avatarStyle} />
-          </View>
-          <View style={StyleSheet.wallet.UserListInWallet.textContainer}>
-            <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.textStyle]} numberOfLines={1} ellipsizeMode="tail">
-              {user.name + ' ' + user.secondName}
-            </Text>
-            <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.activityTextStyle]} numberOfLines={1} ellipsizeMode="tail">
-              {user.activity}
-            </Text>
-          </View>
-          <View>
-            <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.price]}>+£{user.price}</Text>
-          </View>
-        </View>
-      </View>
-    )
-  }
-}
-
-class BankInfoCard extends Component {
-  constructor(props){
-    super(props)
-  }
-  render(){
-    const { name, surname, bankName, accountNumber, sortCode, balance} = this.props
-
-    let firstCharOfName = name.charAt(0)
-    let surnameCaption = surname.toUpperCase()
-    let bankNameCaption = bankName.toUpperCase()
-    return(
-      <View elevation={5} style={[StyleSheet.wallet.bankInfoBox.container]}>
-        <View style={[StyleSheet.wallet.bankInfoBox.top]}>
-          <View style={[StyleSheet.wallet.bankInfoBox.detailsContainer,]}>
-            <View style={[StyleSheet.wallet.bankInfoBox.nameContainer]}>
-              <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.name]}>{surnameCaption + ' ' + firstCharOfName}</Text>
-            </View>
-            <View style={[StyleSheet.wallet.bankInfoBox.bankDetails]}>
-              <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.bankDetailsText]}>{bankNameCaption + '   |   ' + accountNumber + '   |   ' +  sortCode}</Text>
-            </View>
-          </View>
-          <View style={[StyleSheet.wallet.bankInfoBox.iconContainer]}>
-            <View style={StyleSheet.wallet.bankInfoBox.iconCircle}>
-              <Icon style={StyleSheet.wallet.bankInfoBox.iconStyle} name="actionEdit"/>
-            </View>
-          </View>
-        </View>
-        <View style={[StyleSheet.wallet.bankInfoBox.bottom]}>
-          <Text style={StyleSheet.wallet.bankInfoBox.balanceLabel}>{_('CurrentBalance')}</Text>
-          <Text style={StyleSheet.wallet.bankInfoBox.balance}>£{balance}</Text>
-        </View>
-      </View>
-    )
-  }
-}
