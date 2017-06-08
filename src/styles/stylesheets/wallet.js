@@ -118,9 +118,9 @@ export default StyleSheet => StyleSheet.extend({
       marginRight: 8,
     },
     avatarStyle: {
-       width: 30,
-       height: 30,
-       borderRadius: 15
+       width: 35,
+       height: 35,
+       borderRadius: 17.5
     },
     textContainer: {
       flex: 1,
