@@ -84,14 +84,14 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         applicationId "com.hoops.connect"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 43
-        versionName "0.5.73"
+        versionCode 50
+        versionName "0.7.80"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -135,8 +135,8 @@ android {
 }
 
 dependencies {
+    compile project(':lottie-react-native')
     compile project(':react-native-device-info')
-    compile project(':react-native-svg')
     compile(project(':react-native-maps')) {
         exclude group: 'com.google.android.gms', module: 'play-services-base'
         exclude group: 'com.google.android.gms', module: 'play-services-maps'

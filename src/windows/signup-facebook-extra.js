@@ -1,301 +1,214 @@
-import React, { Component } from 'react'
-import {View, Text, Platform} from 'react-native'
+import React, {Component} from 'react'
+import {View, Text} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
+import {Field, reduxForm} from 'redux-form'
 
-import { AddressInput, Button, TextInput, DateInput, Header, Form, AvatarEdit, Popup,  } from '../components'
-
+import {Button, Form, Header, LoadingAlert} from '../components'
+import {AddressInput, AvatarInput, DateInput, GenderInput, TextInput} from '../components/forms'
+import {DobInfoPopup, GenderInfoPopup} from '../components/signup'
 import StyleSheet from '../styles'
 import _ from '../i18n'
+import validation from '../config/validation'
 
 class SignUpFacebookExtra extends Component {
 
   constructor(props) {
     super(props)
+
     this.state = {
       showPassword: false,
-      showDobInfo: false,
       showDobInfoPopup: false,
       showGenderInfoPopup: false,
-      name: props.name,
-      email: props.email,
-      dob: isNaN(new Date(props.dob).getTime()) ? null : new Date(props.dob),
-      gender: props.gender,
-      cityText: '',
-      city: {},
-      phone: props.phone,
-      image: undefined,
-      facebookImageSrc: props.facebookImageSrc,
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.isLoading && !nextProps.isLoading) {
-      this.setState({
-        name: nextProps.name,
-        email: nextProps.email,
-        dob: isNaN(new Date(nextProps.dob).getTime()) ? null : new Date(nextProps.dob),
-        gender: nextProps.gender,
-        phone: nextProps.phone,
-        facebookImageSrc: nextProps.facebookImageSrc,
-      })
+    if (this.props.isLoading && !nextProps.isLoading) {
+      this.props.change('name', nextProps.facebookName)
+      this.props.change('email', nextProps.facebookEmail)
+      this.props.change('dob', nextProps.facebookDob)
+      this.props.change('gender', nextProps.facebookGender)
+      this.props.change('phone', nextProps.facebookPhone)
+
+      // Display an uploaded image or the facebook image
+      let image
+
+      if (nextProps.image) {
+        image = nextProps.image
+      }
+      else if (nextProps.facebookImageSrc) {
+        image = nextProps.facebookImageSrc
+      }
+
+      this.props.change('image', image)
     }
   }
 
-  validate() {
-    let {
-      name,
-      email,
-      dob,
-      gender,
-      city,
-      cityText,
-    } = this.state
-
-    return !!(
-      name &&
-      email &&
-      dob &&
-      gender &&
-      city && cityText
-    )
-  }
-
-  onSubmitEditing = (nextField) => {
-    this.refs[nextField].focus()
-  };
-
-  onPressMale = () => {
-    this.setState({gender: 'male'})
-  };
-
-  onPressFemale = () => {
-    this.setState({gender: 'female'})
-  };
-
-  onPressContinue = () => {
+  submit = values => {
     let userData = {
-      name: this.state.name,
-      dob: this.state.dob,
-      gender: this.state.gender,
-      email: this.state.email,
-      city: this.state.city.description,
-      cityGooglePlaceId: this.state.city.place_id,
-      image: this.state.image,
+      name: values.name,
+      dob: values.dob,
+      gender: values.gender,
+      email: values.email,
+      city: values.address.description,
+      cityGooglePlaceId: values.address.place_id,
     }
 
-    //If there was no custom image set, use the facebook one instead.
-    if(!this.state.image && this.state.facebookImageSrc) {
-      userData.facebookImageSrc = this.state.facebookImageSrc
+    // Image field is used for Facebook and uploaded image.
+    // Hack to include the fb image if it exists
+    if (this.props.facebookImageSrc) {
+      userData.facebookImageSrc = this.props.facebookImageSrc
+    }
+
+    if (values.image) {
+      userData.image = this.props.image
     }
 
     this.props.onPressContinue(userData)
-  };
+  }
 
   render() {
+    if (this.props.isLoading) {
+      return (
+        <View style={{flex: 1}}>
+          <Header title={_('signupFacebook')} simple />
+          <LoadingAlert visible={this.props.isLoading} />
+        </View>
+      )
+    }
 
+    const errorCode = this.props.signUpError && this.props.signUpError.code
+    const emailError = [
+      'auth/email-already-in-use',
+      'auth/invalid-email',
+    ].indexOf(errorCode) !== -1
+    const {handleSubmit, valid} = this.props
 
-    const androidMatchFontSize =  Platform.OS === 'ios' ? null : StyleSheet.androidMatchFontSizeSmall
-    const crossPlatformLeftPosition = Platform.OS === 'ios' ? StyleSheet.leftSmaller : StyleSheet.leftBigger
     return (
       <View style={{flex: 1}}>
         <Header title={_('signupFacebook')} simple />
-        {/*<LoadingAlert visible={this.props.isLoading} />*/}
-
         <Form style={[StyleSheet.signup.style]}>
-
-          <AvatarEdit
-            onChange={(image) => this.setState({image})}
-            imageUrl={this.state.image || this.state.imageUrl || this.state.facebookImageSrc}
-            style={StyleSheet.singleMarginBottom}
+          <Field
+            name="image"
+            component={AvatarInput}
           />
-
-          <TextInput
-            value={this.state.name}
-            onChangeText={(name) => this.setState({name})}
+          <Field
+            name="name"
+            component={TextInput}
             type="flat"
             ref="name"
             placeholder={_('name')}
+            validate={[validation.required, validation.maxChars20]}
             style={StyleSheet.halfMarginBottom}
             autoCapitalize="words"
             autoCorrect={false}
-            textStyle={androidMatchFontSize}
             autoFocus
             returnKeyType="next"
             selectTextOnFocus={true}
             enablesReturnKeyAutomatically={true}
-            onSubmitEditing={() => this.onSubmitEditing("email")}
             icon="name"
           />
-
-          <TextInput
-            value={this.state.email}
-            onChangeText={(email) => this.setState({email})}
+          {errorCode === 'auth/email-already-in-use' && (
+          <Text style={StyleSheet.signup.errorText}>Email already used</Text>
+          )}
+          {errorCode === 'auth/invalid-email' && (
+          <Text style={StyleSheet.signup.errorText}>Invalid email</Text>
+          )}
+          <Field
+            name="email"
+            component={TextInput}
             type="flat"
             ref="email"
+            error={emailError}
             placeholder={_('email')}
-            style={StyleSheet.halfMarginBottom}
+            validate={[validation.required, validation.email]}
+            style={[StyleSheet.halfMarginBottom]}
             autoCapitalize="none"
             autoCorrect={false}
-            textStyle={androidMatchFontSize}
             returnKeyType="next"
             selectTextOnFocus={true}
             enablesReturnKeyAutomatically={true}
             keyboardType="email-address"
             icon="email"
           />
-
-
-          <DateInput
+          <Field
+            name="dob"
+            component={DateInput}
             ref="dob"
             placeholder={_('dob')}
+            validate={[validation.required, validation.noFutureDates]}
+            type="flat"
             icon="nappy"
             date={true}
             time={false}
             minDate={new Date("1900-01-01")}
-            value={this.state.dob}
-            onChange={(dob) => this.setState({dob})}
+            barStyle={{
+              padding: 3,
+            }}
             rightBar={<Button
-              style={[StyleSheet.signup.eye, StyleSheet.singlePaddingTopMinus]}
+              style={StyleSheet.signup.eye}
               type="disclosure"
               icon="info"
               onPress={() => this.setState({showDobInfoPopup: true})}
             />}
           />
-
-
           <DobInfoPopup
             visible={this.state.showDobInfoPopup}
             onPressOk={() => this.setState({showDobInfoPopup: false})}
           />
-
-          <AddressInput
+          <Field
+            name="address"
+            component={AddressInput}
             icon
-            value={this.state.cityText}
             placeholder={_('city')}
+            validate={validation.required}
             onSelect={(venueAddress) => {
               this.setState({
                 cityText: venueAddress.description,
                 city: venueAddress,
               })
-            }} />
-
-          <View>
-            <TextInput
-              value={this.state.phone}
-              onChangeText={(phone) => this.setState({phone})}
-              type="flat"
-              ref="phone"
-              placeholder={_('optionalPhone')}
-              autoCapitalize="none"
-              autoCorrect={false}
-              textStyle={androidMatchFontSize}
-              returnKeyType="next"
-              selectTextOnFocus={true}
-              enablesReturnKeyAutomatically={true}
-              keyboardType="phone-pad"
-              icon="phone"
-            />
-          </View>
-
+            }}
+            textStyles={{color: 'black'}}
+           />
+          <Field
+            name="phone"
+            component={TextInput}
+            value={this.state.phone}
+            type="flat"
+            ref="phone"
+            placeholder={_('optionalPhone')}
+            autoCapitalize="none"
+            autoCorrect={false}
+            returnKeyType="next"
+            selectTextOnFocus={true}
+            enablesReturnKeyAutomatically={true}
+            keyboardType="phone-pad"
+            icon="phone"
+          />
           <GenderInfoPopup
             visible={this.state.showGenderInfoPopup}
             onPressOk={() => this.setState({showGenderInfoPopup: false})}
           />
-
-          <View style={[StyleSheet.singleMarginTop, StyleSheet.signup.genderContainer]}>
-            <View style={StyleSheet.signup.genderLabelContainer}>
-              <Text style={[StyleSheet.text, StyleSheet.signup.genderLabel]}>Gender</Text>
-              <Button
-                type="disclosure"
-                icon="info"
-                onPress={() => this.setState({showGenderInfoPopup: true})}/>
-            </View>
-            <View style={[StyleSheet.buttons.bar, StyleSheet.singleMargin]}>
-             <Button type="image" icon="male" active={this.state.gender === 'male'} onPress={this.onPressMale}/>
-               <View style={StyleSheet.buttons.separator} />
-              <Button type="image" icon="female" active={this.state.gender === 'female'} onPress={this.onPressFemale}/>
-            </View>
-          </View>
-
-          <Button
-            type={this.validate() ? "roundedDefault" : "roundedGrey"}
-            text={_('submit')}
-            onPress={this.validate() ? this.onPressContinue : undefined}
-            style={[StyleSheet.doubleMarginTop, StyleSheet.tripleMarginBottom]}
+          <Field
+            name="gender"
+            component={GenderInput}
+            value={this.state.gender}
+            validate={validation.required}
+            onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
           />
-        <KeyboardSpacer/>
+          <Button
+            type={valid ? 'roundedDefault' : 'roundedGrey'}
+            text={_('signup')}
+            onPress={handleSubmit(this.submit)}
+            style={[StyleSheet.doubleMarginTop, StyleSheet.singleMarginBottom]}
+          />
+          <KeyboardSpacer/>
         </Form>
       </View>
     )
   }
 }
 
-SignUpFacebookExtra.propTypes = {
-}
-
-export default SignUpFacebookExtra
-
-class DobInfoPopup extends Component {
-
-  render() {
-    return (
-      <Popup visible={this.props.visible}>
-        <View style={[StyleSheet.dialog.alertContentStyle]}>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
-            {_('dobPopupTitle')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('dobPopupContent1')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('dobPopupContent2')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('dobPopupContent3')}
-          </Text>
-        </View>
-
-        <View style={StyleSheet.buttons.bar}>
-          <Button
-            style={[StyleSheet.buttons.okPopup]}
-            textStyle={StyleSheet.whiteText}
-            type="alertDefault"
-            text={_('ok')}
-            onPress={this.props.onPressOk}
-          />
-        </View>
-      </Popup>
-    )
-  }
-}
-
-class GenderInfoPopup extends Component {
-
-  render() {
-    return (
-      <Popup visible={this.props.visible}>
-        <View style={[StyleSheet.dialog.alertContentStyle]}>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
-            {_('genderPopupTitle')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('genderPopupContent1')}
-          </Text>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop, StyleSheet.doubleLineHeight]}>
-            {_('genderPopupContent2')}
-          </Text>
-        </View>
-
-        <View style={StyleSheet.buttons.bar}>
-          <Button
-            style={[StyleSheet.buttons.okPopup]}
-            textStyle={StyleSheet.whiteText}
-            type="alertDefault"
-            text={_('ok')}
-            onPress={this.props.onPressOk}
-          />
-        </View>
-      </Popup>
-    )
-  }
-}
+export default reduxForm({
+  form: 'FacebookExtraValidation',
+})(SignUpFacebookExtra)

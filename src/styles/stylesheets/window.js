@@ -37,14 +37,14 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   logoStyle: {
-    height: 36,
+    height: 40,
     width: 80,
     resizeMode: 'contain',
     marginRight: 12,
   },
 
   crumbBar: {
-    height: 38,
+    height: 40,
     flexDirection: 'row',
     backgroundColor: '#3B404A',
     alignItems: 'center',
@@ -104,8 +104,15 @@ export default StyleSheet => StyleSheet.extend({
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: '#e6eaeb',
     backgroundColor: colors.white,
-    paddingLeft: 8,
-    paddingRight: 8,
+  },
+
+  tabItem: {
+    flex: 0.2,
+  },
+
+  tabItemCenter: {
+    marginLeft: 6,
+    marginRight: 6,
   },
 
   menuIcon: {

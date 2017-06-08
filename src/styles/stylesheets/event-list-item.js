@@ -29,7 +29,8 @@ export default StyleSheet => StyleSheet.extend({
     overflow: 'hidden',
     marginRight: 15
   },
-  image: {
+
+  avatarStyle: {
     borderRadius: 27.5,
     width: 55,
     height: 55,
@@ -107,7 +108,7 @@ export default StyleSheet => StyleSheet.extend({
 
   freeIcon: {
     position: 'absolute',
-    left: 0,
+    left: 3,
     top: 0
   },
 

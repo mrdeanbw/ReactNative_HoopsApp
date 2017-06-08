@@ -105,13 +105,7 @@ return displayData
 }
 
   render() {
-/* // CODE BELOW IS KEPT IF YOU NEED IT FOR SOME REASONS IF NOT JUST REMOVE IT
-    const account = this.props.account
-    const titleStyle = StyleSheet.profile.editLabel
-    const detailStyle = StyleSheet.payments.accountDataText
-    const infoContainer = StyleSheet.profile.infoContainer
-    const stripeError = this.getStripeDisplayError()
-*/  const users = this.createFakeUsers() // to be replaced
+  const users = this.createFakeUsers() // to be replaced
 
     return (
       <View style={{flex: 1}}>
@@ -232,90 +226,3 @@ class BankInfoCard extends Component {
     )
   }
 }
-
-         {/*// CODE BELOW IS KEPT IF YOU NEED IT FOR SOME REASONS IF NOT JUST REMOVE IT
-
-           {account && account.accountNumber ? (
-            <ScrollView>
-              <View style={{flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
-                <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
-                  {_('walletInfo1')}
-                </Text>
-                <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
-                  <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
-                    {_('walletInfo2')}
-                  </Text>
-                  <Icon name="info" />
-                </View>
-
-              </View>
-
-              {stripeError && (
-                <View style={[infoContainer ,{padding: 15}]}>
-                  <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
-                    {stripeError}§
-                  </Text>
-                </View>
-              )}
-
-
-              {account.firstName && (
-                <View>
-                  <Text style={titleStyle}>{_('firstName')}</Text>
-                  <Text style={detailStyle}>{account.firstName}</Text>
-                </View>
-              )}
-
-              {account.lastName && (
-                <View>
-                  <Text style={titleStyle}>{_('lastName')}</Text>
-                  <Text style={detailStyle}>{account.lastName}</Text>
-                </View>
-              )}
-
-              {account.accountNumber && (
-                <View>
-                  <Text style={titleStyle}>{_('accountNumber')}</Text>
-                  <Text style={detailStyle}>{account.accountNumber}</Text>
-                </View>
-              )}
-
-              {account.sortCode && (
-                <View>
-                  <Text style={titleStyle}>{_('sortCode')}</Text>
-                  <Text style={detailStyle}>{account.sortCode}</Text>
-                </View>
-              )}
-
-              {account.addressLine1 && (
-                <View>
-                  <Text style={titleStyle}>{_('addressLine1')}</Text>
-                  <Text style={detailStyle}>{account.addressLine1}</Text>
-                </View>
-              )}
-
-              {account.addressLine2 && (
-                <View>
-                  <Text style={titleStyle}>{_('addressLine2')}</Text>
-                  <Text style={detailStyle}>{account.addressLine2}</Text>
-                </View>
-              )}
-
-              {account.city && (
-                <View>
-                  <Text style={titleStyle}>{_('city')}</Text>
-                  <Text style={detailStyle}>{account.city}</Text>
-                </View>
-              )}
-
-              {account.postcode && (
-                <View>
-                  <Text style={titleStyle}>{_('postcode')}</Text>
-                  <Text style={detailStyle}>{account.postcode}</Text>
-                </View>
-              )}
-            </ScrollView>
-          ) : (
-            <Text style={StyleSheet.payments.noCardsText}>{_('noAccount')}</Text>
-          )}*/}
-

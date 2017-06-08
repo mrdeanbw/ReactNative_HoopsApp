@@ -2,6 +2,7 @@ import React from 'react'
 import {View, Image, Text, TouchableHighlight} from 'react-native'
 import moment from 'moment'
 
+import {Avatar, Icon} from '../components'
 import _ from '../i18n'
 import StyleSheet from '../styles'
 
@@ -21,11 +22,14 @@ export default class EventListItem extends React.Component {
     let isEnded = moment(event.date).isBefore()
     let isCancelled = event.cancelled
     let isDisabled = isEnded || isCancelled
+    let overlay
+
+    if (isEnded)     {overlay = 'ended'}
+    if (isCancelled) {overlay = 'cancelled'}
 
     let textColorStyle = (!this.props.ignoreDisabled && isDisabled) ?
       StyleSheet.eventListItem.disabledText :
       null
-
     return (
       <TouchableHighlight
         style={[StyleSheet.eventListItem.container, this.props.style]}
@@ -34,28 +38,24 @@ export default class EventListItem extends React.Component {
         underlayColor={StyleSheet.eventListItem.underlayColor}
       >
         <View style={StyleSheet.eventListItem.wrapper}>
+          {this.props.event.entryFee === 0 && (
+            <Icon name="free" style={StyleSheet.eventListItem.freeIcon}/>
+          )}
           <View style={StyleSheet.eventListItem.imageContainer}>
-            {event.image ? (
-              <Image source={{uri: event.image}} style={[StyleSheet.eventListItem.image, {resizeMode: 'cover'}]} />
-            ) : (
-              <View style={[StyleSheet.eventListItem.image]} />
-            )}
-
-            {!this.props.ignoreDisabled && (isEnded || isCancelled) && (
-              <View
-                style={[
-                  StyleSheet.eventListItem.imageOverlay,
-                  isEnded && StyleSheet.eventListItem.endedImageOverlay,
-                  isCancelled && StyleSheet.eventListItem.cancelledImageOverlay,
-                ]}
-              >
-                <Text style={StyleSheet.eventListItem.disabledImageText}>
-                  {isEnded ? _('ended') : _('cancelled')}
-                </Text>
-              </View>
-            )}
+            {event && event.image === undefined ?
+              <Avatar
+                title={event.title}
+                avatarStyle={[StyleSheet.eventListItem.avatarStyle]}
+                overlay={overlay}
+              />
+              : <Avatar
+                  title={event.title}
+                  imageUrl={event.image}
+                  avatarStyle={[StyleSheet.eventListItem.avatarStyle]}
+                 overlay={overlay}
+                />
+             }
           </View>
-
           <View style={StyleSheet.eventListItem.textContainer}>
             {this.props.showDistance && event.distance && (
               <Text
@@ -123,7 +123,6 @@ export default class EventListItem extends React.Component {
               </View>
             </View>
           </View>
-
           {!this.props.hideDisclosure && (
             <TouchableHighlight
               underlayColor={StyleSheet.colors.transparent}

@@ -33,11 +33,9 @@ export default StyleSheet => StyleSheet.extend({
     width: 70,
     height: 70,
     borderRadius: 70,
-
     position: 'absolute',
     bottom: -10.00,
-    left: (Dimensions.get('window').width / 2) - 42,
-
+    left: (Dimensions.get('window').width / 2) - 35,
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'visible',

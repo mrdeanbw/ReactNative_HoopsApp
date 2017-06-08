@@ -1,10 +1,9 @@
 
 import React from 'react'
-import _ from '../i18n'
-
-import StyleSheet from '../styles'
-
 import {View, Animated, Text} from 'react-native'
+
+import _ from '../i18n'
+import StyleSheet from '../styles'
 import {ActionButton, Button, Menu} from './'
 
 export default class TabBar extends React.Component {
@@ -44,7 +43,6 @@ export default class TabBar extends React.Component {
         <View style={{flex: 1}}>
           {this.props.children}
         </View>
-
         {this.state.menuVisible && (
           <Menu
             animation={this.state.menuAnimation}
@@ -57,7 +55,6 @@ export default class TabBar extends React.Component {
             invitationsBadge={this.props.invitationsBadge}
           />
         )}
-
         <ActionButton
           type={this.props.actionType}
           icon={actionIcon}
@@ -65,34 +62,35 @@ export default class TabBar extends React.Component {
           textLarge={this.props.actionTextLarge}
           onPress={this.props.onActionPress}
         />
-
         <View style={StyleSheet.window.tabBarStyle} needsOffscreenAlphaCompositing>
-          <Button type="tab" icon="home" text={_('home')}
-            active={this.props.currentTab === "home"}
-            onPress={() => this.props.onTabPress('home')}
-          />
-          {this.props.mode === 'ORGANIZE' ? (
-            <Button type="tab" icon="manage" text={_('manage')}
-              active={this.props.currentTab === "manage"}
-              onPress={() => this.props.onTabPress('manage')}
+          <View style={StyleSheet.window.tabItem}>
+            <Button type="tab" icon="home" text={_('home')}
+              active={this.props.currentTab === "home"}
+              onPress={() => this.props.onTabPress('home')}
             />
-          ) : (
-            <Button type="tab" icon="myEvents" text={_('myEvents')}
-              active={this.props.currentTab === "myEvents"}
-              onPress={() => this.props.onTabPress('myEvents')}
-            />
-          )}
-
+          </View>
+          <View style={StyleSheet.window.tabItem}>
+            {this.props.mode === 'ORGANIZE' ? (
+              <Button type="tab" icon="manage" text={_('manage')}
+                active={this.props.currentTab === "manage"}
+                onPress={() => this.props.onTabPress('manage')}
+              />
+            ) : (
+              <Button type="tab" icon="myEvents" text={_('myEvents')}
+                active={this.props.currentTab === "myEvents"}
+                onPress={() => this.props.onTabPress('myEvents')}
+              />
+            )}
+          </View>
           {/* Spacer for the abs pos Action button */}
-          <View style={{width: 72}} />
-          <View>
+          <View style={[StyleSheet.window.tabItem, StyleSheet.window.tabItemCenter]}/>
+          <View style={StyleSheet.window.tabItem}>
             <Button
               type="tab"
               icon="notifications"
               text={_('notifications')}
               active={this.props.currentTab === "notifications"}
               onPress={() => this.props.onTabPress('notifications')}
-              style={{paddingLeft: 14}}
             />
             {!!this.props.notificationBadge && (
               <View style={StyleSheet.menu.badgeContainer}>
@@ -102,22 +100,23 @@ export default class TabBar extends React.Component {
               </View>
             )}
           </View>
-
-          <Button type="tab" icon="more" text={_('more')}
-            active={
-              this.props.menuVisible ||
-              [
-                'help',
-                'settings',
-                'payments',
-                'wallet',
-                'calendar',
-                'invitations',
-                'friends'
-              ].indexOf(this.props.currentTab) !== -1
-            }
-            onPress={this.props.onMenuPress}
-          />
+          <View style={StyleSheet.window.tabItem}>
+            <Button type="tab" icon="more" text={_('more')}
+              active={
+                this.props.menuVisible ||
+                [
+                  'help',
+                  'settings',
+                  'payments',
+                  'wallet',
+                  'calendar',
+                  'invitations',
+                  'friends'
+                ].indexOf(this.props.currentTab) !== -1
+              }
+              onPress={this.props.onMenuPress}
+            />
+          </View>
         </View>
       </View>
     )

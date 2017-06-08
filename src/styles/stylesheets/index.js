@@ -9,9 +9,11 @@ import _chat from './chat'
 import _dialog from './dialog'
 import _dashboardButton from './dashboard-buttons'
 import _deviceInfo from './device-info'
+import _emptyScreenInfo from './empty-screen-info'
 import _eventDashboard from './event-dashboard'
 import _eventDetails from './event-details'
 import _eventListItem from './event-list-item'
+import _explainers from './explainers'
 import _home from './home'
 import _horizontalRule from './horizontal-rule'
 import _interests from './interests'
@@ -48,7 +50,9 @@ export default {
   dashboardButton: _dashboardButton,
   eventDashboard: _eventDashboard,
   eventDetails: _eventDetails,
+  emptyScreenInfo: _emptyScreenInfo,
   eventListItem: _eventListItem,
+  explainers: _explainers,
   home: _home,
   horizontalRule: _horizontalRule,
   interests: _interests,

@@ -12,17 +12,22 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   logoContainer: {
-    marginTop: (Platform.OS === 'ios') ? 64 : 54,
+    marginTop: Dimensions.get('window').width < 350 ? (Platform.OS === 'ios') ? 40 : 30 : (Platform.OS === 'ios') ? 64 : 54,
     marginBottom: 10,
     alignItems: 'center',
+    flex: 1
   },
 
-  logo: {},
+  logo: {
+    width: Dimensions.get('window').width * 0.74,
+    height: Dimensions.get('window').width * 0.13,
+    resizeMode: 'contain'
+  },
 
   paginator: {
     position: 'absolute',
     alignItems: 'flex-start',
-    top: 80,
+    top: Dimensions.get('window').width < 350 ? 60 : 80,
     left: 0,
     bottom: 0,
     right: 0,
@@ -61,6 +66,11 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   swiper: {
+    flex: Dimensions.get('window').height > 800 ? 5 : 7,
+  },
+
+  swiperContainer: {
+    flex: 1
   },
 
   page: {
@@ -73,6 +83,8 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   pageText: {
+    fontSize: Dimensions.get('window').width > 500 ? 16 : Dimensions.get('window').width > 350 ? null : 12,
+    lineHeight: Dimensions.get('window').width > 500 ? 21 : Dimensions.get('window').width > 350 ? null : 15,
     textAlign: 'center',
     color: colors.white,
   },
@@ -82,9 +94,10 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   pageImage: {
-    width: Dimensions.get('window').width - 20,
+    width: Dimensions.get('window').width * 0.8,
+    height: Dimensions.get('window').height * 0.6,
     resizeMode: 'contain',
     position: 'absolute',
-    top: 125,
+    top: Dimensions.get('window').width < 350 ? 105 : 125
   }
 })

@@ -11,7 +11,7 @@ export default class Popup extends React.Component {
   render() {
 
     return (
-      <Modal visible={this.props.visible} transparent={true} animationType="fade">
+      <Modal visible={this.props.visible} transparent={true} animationType="fade" onRequestClose={() => {/* ... */}} >
         <View style={[StyleSheet.dialog.style, StyleSheet.dialog.popupStyle]}>
 
           <View style={[StyleSheet.flex, {flex: 1, justifyContent: 'center'}]}>

@@ -101,14 +101,16 @@ export default class Search extends React.Component {
   };
 
   _renderGeneralResults() {
-    if(this.props.results.events.length + this.props.results.users.length === 0) {
-      return
-    }
+    let noResults = this.props.results.events.length === 0 && this.props.results.users.length === 0 && this.state.text !== '' ? true : false
+    let results = this.props.results.events.length + this.props.results.users.length === 0 || this.state.text === '' ? true : false
 
     return (
       <View style={StyleSheet.search.resultsContainer}>
-        <Text style={StyleSheet.search.resultsTitle}>{_('results')}</Text>
-        {this.props.results.events.length > 0 && (
+        <Text style={StyleSheet.search.resultsTitle}>
+          {results ? null : _('results')}
+          {noResults ? _('noResults') : null}
+        </Text>
+        {this.props.results.events.length > 0 && this.state.text !== '' &&  (
           <View>
             <Text style={StyleSheet.search.resultTitle}>
               {_('events').toUpperCase()}
@@ -133,7 +135,7 @@ export default class Search extends React.Component {
             )}
           </View>
         )}
-        {this.props.results.users.length > 0 && (
+        {this.props.results.users.length > 0 && this.state.text !== '' && (
           <View>
             <Text style={StyleSheet.search.resultTitle}>
               {_('users').toUpperCase()}

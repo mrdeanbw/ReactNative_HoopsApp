@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux'
+import {reducer as formReducer} from 'redux-form'
 
 import configureStore from '../configureStore'
 import app from './app'
@@ -26,6 +27,7 @@ export default () => {
     search,
     notifications,
     payments,
+    form: formReducer,     // <---- Mounted at 'form'
   })
 
   return configureStore(rootReducer)

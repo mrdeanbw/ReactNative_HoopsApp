@@ -41,6 +41,10 @@ export default class EventInvites extends React.Component {
     let users = this.props.users
 
     return users.filter((user) => {
+      if (!user.name) {
+        return false
+      }
+
       let name = user.name.toLowerCase()
       let search = this.state.search.toLowerCase()
       return name.search(search) >= 0

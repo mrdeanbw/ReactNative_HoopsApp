@@ -40,10 +40,12 @@ class NotificationPopup extends Component {
             ]}
           >
             <View style={StyleSheet.notification.imageContainer}>
-              <Image
-                source={this.props.image}
-                style={StyleSheet.notification.image}
-              />
+              {this.props.image && this.props.image.uri && (
+                <Image
+                  source={this.props.image}
+                  style={StyleSheet.notification.image}
+                />
+              )}
             </View>
 
             <View style={StyleSheet.notification.textContainer}>

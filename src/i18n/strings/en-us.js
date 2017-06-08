@@ -12,14 +12,12 @@ export const walkthrough4 = 'Keep track of all your organised and upcoming sport
 
 export const loginBanner = 'Join ' + productName + ' and start organising\nyour sports events, or just easily\nsearch and join others.'
 
-
 export const username = 'Username'
 export const password = 'Password'
 export const confirmPassword = 'Confirm Password'
 export const signin = 'Sign In'
 export const facebookLogin = 'Login with Facebook'
 export const or = 'or'
-
 
 export const name = 'Name'
 export const email = 'Email'
@@ -56,7 +54,6 @@ export const october = 'Oct'
 export const november = 'Nov'
 export const december = 'Dec'
 
-
 export const interests = 'Interests'
 export const interestsBanner = 'What sports are you interested in?\n(select at least 1)'
 export const sports = 'sports'
@@ -70,7 +67,6 @@ export const participate = 'Participate'
 export const organizeMode = 'I\'m here to\nORGANISE'
 export const participateMode = 'I\'m here to\nPARTICIPATE'
 
-
 export const home = 'Home'
 export const manage = 'Manage'
 export const myEvents = 'My Events'
@@ -81,11 +77,13 @@ export const create = 'Create'
 export const search = 'Search'
 export const searchResults = 'Search Results'
 export const searchCity = 'Search City'
+export const getStarted = 'GET STARTED'
 
 export const organizerMode = 'Switch to PARTICIPANT'
 export const organizer = 'ORGANISER'
 export const participantMode = 'Switch to ORGANISER'
 export const participant = 'PARTICIPANT'
+
 
 export const upcomingEvents = 'Your Upcoming Events'
 export const activeEvents = 'Your Active Events'
@@ -196,6 +194,7 @@ export const congrats = 'Congrats'
 export const youreIn = 'You\'re In'
 
 export const joinConfirmedText = 'Your payment of $1 has been confirmed and your place has been reserved. Have fun!'
+export const joinConfirmedTextForFree = 'Everything is sorted and your place has now been reserved. Just turn up and have fun!'
 export const close = 'Close'
 export const viewList = 'View List'
 export const twitter = 'Twitter'
@@ -215,8 +214,8 @@ export const publicEvent = 'Public Event'
 export const casual = 'Casual'
 export const competitive = 'Competitive'
 export const open = 'Open'
-export const maxPlayers = 'Max Pleople'
-export const minPlayers = 'Min Pleople'
+export const maxPlayers = 'Max People'
+export const minPlayers = 'Min People'
 export const unlimited = 'Unlimited'
 
 export const dateTime = 'Date / Time'
@@ -235,7 +234,7 @@ export const venueAddress = 'Venue Address'
 export const searchVenueAddress = 'Search for an Address'
 export const noAddressFound = 'No Address Found'
 export const costPP = 'Cost p/p'
-export const free = 'Free'
+export const free = 'FREE'
 export const paymentMethod = 'Payment Method'
 export const inAppPayment = 'In-App Payment'
 export const cashOnSite = 'Cash On Site'
@@ -282,6 +281,7 @@ export const users = 'Users'
 export const byDistance = 'By Distance'
 export const byName = 'By Name'
 export const results = 'Results'
+export const noResults = 'No results'
 export const seeMore = 'SEE MORE'
 
 export const searchActivity = 'What are you looking for?'
@@ -380,20 +380,21 @@ export const connectionWarning = 'You are not connected to the network. Please c
 export const dismiss = 'DISMISS'
 
 export const dobPopupTitle = "Why we need this?"
-export const dobPopupContent1 = "You only want to see events you can join, right?"
-export const dobPopupContent2 = "Telling us your date of birth helps us make sure that happens. Oh, and we need it to validate our payment system too."
-export const dobPopupContent3 = "Cheers!"
+export const dobPopupContent = "You only want to see events you can join, right?\n\nTelling us your date of birth helps us make sure that happens. Oh, and we need it to validate our payment system too.\n\nCheers!"
 export const genderPopupTitle = "Why we need this?"
-export const genderPopupContent1 = "Telling us your gender helps filter the events that you can join."
-export const genderPopupContent2 = "We’re all for blokes playing netball, but unfortunately that’s in the hands of event organisers..."
+export const genderPopupContent = "Telling us your gender helps filter the events that you can join.\n\nWe are all for blokes playing netball, but unfortunately that is in the hands of event organisers..."
 
 export const ok = "OK"
 
 export const noEventsNearby = "No Events Nearby"
 export const noActivitiesSelected = "You have no activities selected"
 
-//wallet screen
 export const walletInfo1 = "Money will be paid out"
 export const walletInfo2 = "on a weekly basis "
+
 export const vieAll = "VIEW ALL"
 export const CurrentBalance = "Current Balance"
+
+export const nothingText = ' WE HAVE NOTHING\nTO SHOW HERE...'
+export const createEventText = "You haven't created any events yet.\n Should we change that now?\nSimply go and create an event now!"
+

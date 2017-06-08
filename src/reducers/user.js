@@ -16,7 +16,7 @@ export const convertStructure = (data) => {
     savedEvents: {},
     friends: {},
     friendRequests: {},
-
+    explainers: {},
     interests: {},
 
     stripeAccount: null,

@@ -6,15 +6,13 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.react.ReactApplication;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.horcrux.svg.SvgPackage;
 import com.airbnb.android.react.maps.MapsPackage;
+import com.evollu.react.fcm.FIRMessagingPackage;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
-import com.evollu.react.fcm.FIRMessagingPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import com.bugsnag.BugsnagReactNative;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -47,8 +45,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                 new MainReactPackage(),
-            new RNDeviceInfo(),
-                new SvgPackage(),
+                new RNDeviceInfo(),
                 new MapsPackage(),
                 new ReactNativeI18n(),
                 new RNFetchBlobPackage(),

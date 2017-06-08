@@ -37,7 +37,6 @@ class ActionButton extends Component {
           styles.touchContainer,
           buttonTypeStyle.touchContainer,
         ]}>
-
         <View style={styles.containerStyle}>
           {this.renderIcon()}
           <Text style={[

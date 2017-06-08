@@ -63,6 +63,9 @@ export default {
   "BOXING": {
     "name": "Boxing"
   },
+  "BIKE_POLO": {
+    "name": "Bike Polo"
+  },
   "BIKRAM_YOGA": {
     "name": "Bikram Yoga"
   },
@@ -110,6 +113,9 @@ export default {
   "DECATHLON": {
     "name": "Decathlon"
   },
+  "DISCGOLF": {
+    "name": "Discgolf"
+  },
   "DIVING": {
     "name": "Diving"
   },
@@ -140,12 +146,18 @@ export default {
   "FOOTBAG": {
     "name": "Footbag Net"
   },
+  "FOOTGOLF": {
+    "name": "Footgolf"
+  },
   "FOOSBALL": {
     "name": "Foosball"
   },
   "FOOTBALL": {
     "important": true,
     "name": "Football"
+  },
+  "FREE RUNNING": {
+    "name": "Free Running"
   },
   "FUTSAL": {
     "name": "Futsal"
@@ -210,6 +222,9 @@ export default {
   "JUDO": {
     "name": "Judo"
   },
+  "JIU_JITSU": {
+    "name": "Jiu Jitsu"
+  },
   "KARATE": {
     "name": "Karate"
   },
@@ -224,6 +239,9 @@ export default {
   },
   "KNEE_BOARDING": {
     "name": "Knee Boarding"
+  },
+  "KORFBALL": {
+    "name": "Korfball"
   },
   "LACROSSE": {
     "name": "Lacrosse"
@@ -261,6 +279,10 @@ export default {
   "MOUNTAIN_BIKING": {
     "name": "Mountain Biking"
   },
+  "NETBALL": {
+    "important": true,
+    "name": "Netball"
+  },
   "OTHER": {
     "name": "Other"
   },
@@ -284,6 +306,9 @@ export default {
   },
   "PILATES": {
     "name": "Pilates"
+  },
+  "PILOXING": {
+    "name": "Piloxing"
   },
   "POSING": {
     "name": "Posing"
@@ -350,6 +375,9 @@ export default {
   "SKEET_SHOOTING": {
     "name": "Skeet Shooting"
   },
+  "SNOOKER": {
+    "name": "Snooker"
+  },
   "SNOW_BIKING": {
     "name": "Snow Biking"
   },
@@ -395,6 +423,15 @@ export default {
   "TAEKWONDO": {
     "name": "Taekwondo"
   },
+  "TAMBURELLO": {
+    "name": "TamBurello"
+  },
+  "TAMBOURELLI": {
+    "name": "TamBourelli"
+  },
+  "TAMBEACH": {
+    "name": "TamBeach"
+  },
   "TCHOUKBALL": {
     "name": "Tchoukball"
   },
@@ -421,6 +458,9 @@ export default {
   },
   "VOLLEYBALL": {
     "name": "Volleyball"
+  },
+  "VX": {
+    "name": "VX"
   },
   "WAKEBOARDING": {
     "name": "Wakeboarding"
@@ -469,7 +509,6 @@ export default {
     "name": "Yoga"
   },
   "ZUMBA": {
-    "important": true,
     "name": "Zumba"
   }
 }

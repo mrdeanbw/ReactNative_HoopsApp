@@ -2,7 +2,6 @@ import React from 'react'
 import {ScrollView,View,Text, Image, ActionSheetIOS, TouchableHighlight, Linking} from 'react-native'
 import moment from 'moment'
 
-
 import StyleSheet from '../styles'
 import {Avatar, Icon, HorizontalRule, Button, Popup, Header} from '../components'
 import _ from '../i18n'
@@ -17,21 +16,32 @@ const icons = {
   BASKETBALL: 'activityBasketball',
   BEACH_VOLLEYBALL: 'activityVolleyball',
   BIKE: 'activityBike',
+  BIKE_POLO: 'activityBike',
   BOWLING: 'activityBowling',
   BOXING: 'activityBoxing',
   CANOEING: 'activityCanoeing',
   CARDS: 'activityCards',
   CHESS: 'activityChess',
+  DODGEBALL: 'activityDodgeball',
   DEFAULT: 'activityDefault',
+  DISCGOLF: 'activityGolf',
+  DIVING: 'activityDiving',
   FOOTBALL: 'activityFootball',
+  FOOTGOLF: 'activityGolf',
   FRISBEE: 'activityFrisbee',
+  FREE_RUNNING: 'activityRunning',
   GOLF: 'activityGolf',
   GYM: 'activityGym',
   GYMNASTICS: 'activityGymnastics',
   HOCKEY: 'activityHockey',
   ICE_HOCKEY: 'activityIceHockey',
   ICE_SKATING: 'activityIceSkating',
+  JIU_JITSU: 'activityBoxing',
+  KORFBALL: 'activityVolleyball',
+  LACROSSE: 'activityLacrosse',
   MOUNTAINEERING: 'activityMountaineering',
+  NETBALL: 'activityVolleyball',
+  PILOXING: 'activityYoga',
   POOL: 'activityPool',
   RUGBY: 'activityRugby',
   RUNNING: 'activityRunning',
@@ -39,8 +49,14 @@ const icons = {
   SKIING: 'activitySkiing',
   SWIMMING: 'activitySwimming',
   TABLE_TENNIS: 'activityTableTennis',
+  TAMBURELLO:'activityTennis',
+  TAMBOURELLI:'activityTennis',
+  TAMBEACH:'activityTennis',
   TENNIS: 'activityTennis',
+  SNOOKER: 'sctivityPool',
   YOGA: 'activityYoga',
+  VX: 'activityLacrosse',
+  ZUMBA:'activityZumba',
 }
 
 export default class EventDetails extends React.Component {
@@ -134,7 +150,14 @@ export default class EventDetails extends React.Component {
         icon: "actionEdit",
         type: "action",
       })
-    } else {
+    } else if (entryFee === 0) {
+      props.onChangeAction({
+        text: _('join'),
+        textLarge: _('free'),
+        type: "actionDefault",
+      })
+    }
+    else {
       props.onChangeAction({
         text: _('join'),
         textLarge: '£' + entryFee,
@@ -195,7 +218,6 @@ export default class EventDetails extends React.Component {
   render() {
     let event = this.props.event
     let address = event.address
-
     let ageText
     if (this.props.event.minAge && this.props.event.maxAge) {
       ageText = <Text>{this.props.event.minAge} - {this.props.event.maxAge}</Text>
@@ -305,7 +327,11 @@ export default class EventDetails extends React.Component {
             >
               <View style={StyleSheet.eventDetails.avatarStyle}>
                 <View style={StyleSheet.eventDetails.avatarContainerStyle}>
-                  <Avatar user={this.props.organizer} avatarStyle={StyleSheet.eventDetails.avatarImageStyle} />
+                  <Avatar
+                    title={this.props.organizer.name}
+                    imageUrl={this.props.organizer.imageSrc}
+                    avatarStyle={StyleSheet.menu.avatarImage}
+                  />
                 </View>
                 <Text style={[StyleSheet.text, StyleSheet.eventDetails.avatarNameStyle]}>
                   {this.props.organizer.name}
@@ -353,7 +379,7 @@ export default class EventDetails extends React.Component {
               {this.props.event.courtType === 'outdoor' ? _('outdoor') : _('indoor')}
             </EventInfo>
             <EventInfo
-              icon="ageIcon"
+              icon="ageIcon2x"
               label={_('ageGroup')}
             >{ageText}</EventInfo>
             {this.props.event.privacy === 'public' && <EventInfo icon="globe" label={_('privacy')}>{_('_public')}</EventInfo>}
@@ -451,6 +477,7 @@ class DateText extends React.Component {
 }
 
 class EventJoinPopup extends React.Component {
+
   render() {
     const formatCharge = (charge) => {
       return (parseFloat(charge) * 100).toFixed(0) + 'p'
@@ -461,13 +488,13 @@ class EventJoinPopup extends React.Component {
 
     return (
       <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>
-        <View style={{ flexGrow: 0 }}>
+        <View style={{ flexGrow: 0}}>
           <View style={[StyleSheet.dialog.alertContentStyle]}>
             <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, { textAlign: 'center' }]}>{_('youAreAboutToJoin').toUpperCase()}</Text>
             <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle, {textAlign: 'center', color: StyleSheet.colors.pink}]}>{event.title.toUpperCase()}</Text>
 
-            <EventInfo.Bar style={[StyleSheet.doubleMarginTop, { height: 120, flexDirection: 'column'} ]}>
-              <EventInfo.Summary icon="calendarBig" style={[StyleSheet.singlePaddingBottom]}>
+            <EventInfo.Bar style={[StyleSheet.doubleMarginTop, StyleSheet.dialog.infoBar]}>
+              <EventInfo.Summary icon="calendarBig" style={[StyleSheet.halfPaddingBottom]}>
                 <DateText event={event} />
               </EventInfo.Summary>
               <EventInfo.Summary icon="pin">
@@ -483,10 +510,7 @@ class EventJoinPopup extends React.Component {
               type="alertDefault"
               text={
               <Text>
-                <Text>{_('join').toUpperCase()} £{event.entryFee}</Text>
-                {this.props.charge > 0 && (
-                  <Text>(+{formatCharge(this.props.charge)})</Text>
-                )}
+                <Text>{_('join').toUpperCase()} £{event.entryFee} {this.props.charge > 0 && (<Text>(+{formatCharge(this.props.charge)})</Text>)}</Text>
               </Text>
             }
               onPress={this.props.onPressJoin}
@@ -527,12 +551,10 @@ class EventJoinedConfirmation extends React.Component {
             {_('congrats').toUpperCase()}{'\n'}
             <Text style={{color: StyleSheet.colors.pink}}>{_('youreIn').toUpperCase()}!</Text>
           </Text>
-
           <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop]}>
-            {_('joinConfirmedText').replace('$1', '£' + this.props.entryFee)}
+            {this.props.entryFee === 0 ? _('joinConfirmedTextForFree') : _('joinConfirmedText').replace('$1', '£' + this.props.entryFee)}
           </Text>
         </View>
-
         <View style={StyleSheet.buttons.bar}>
           <Button type="alert" text={_('close')} onPress={this.props.onClose} />
           <Button type="alertDefault"

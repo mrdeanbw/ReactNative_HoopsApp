@@ -43,18 +43,19 @@ export default class CheckButton extends React.Component {
     }
 
     return (
-      <TouchableHighlight style={[
-        defaultButton.style,
-        button.style,
-        style,
-        checked ? defaultButton.checkedStyle : null,
-        checked ? button.checkedStyle : null,
-        checked ? checkedStyle : null
-      ]}
-                activeOpacity={'activeOpacity' in button ? button.activeOpacity : defaultButton.activeOpacity}
-                underlayColor={'underlayColor' in button ? button.underlayColor : defaultButton.underlayColor}
-                onPress={this.onPress}
-                {...props}>
+      <TouchableHighlight
+        style={[
+          defaultButton.style,
+          button.style,
+          style,
+          checked ? defaultButton.checkedStyle : null,
+          checked ? button.checkedStyle : null,
+          checked ? checkedStyle : null
+        ]}
+        activeOpacity={'activeOpacity' in button ? button.activeOpacity : defaultButton.activeOpacity}
+        underlayColor={'underlayColor' in button ? button.underlayColor : defaultButton.underlayColor}
+        onPress={this.onPress}
+        {...props}>
         <View style={[
           defaultButton.containerStyle,
           button.containerStyle,
@@ -83,7 +84,6 @@ export default class CheckButton extends React.Component {
             {checked && checkIcon && <Icon name={checkIcon} style={[defaultButton.iconStyle, defaultButton.checkedIconStyle, button.iconStyle, button.checkedIconStyle, iconStyle, checkedIconStyle]}/>}
           </View>)
           }
-
         </View>
       </TouchableHighlight>
     )

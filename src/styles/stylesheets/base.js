@@ -1,5 +1,5 @@
+import {fontMaker, colors} from '../resources'
 
-import {fonts, colors} from '../resources'
 const singlePadding = 15
 const doublePadding = singlePadding * 2
 const halfMargin = 5
@@ -36,8 +36,7 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   text: {
-    fontFamily: fonts.default,
-    fontWeight: 'normal',
+    ...fontMaker(),
     fontSize: 16,
     lineHeight: 22,
     color: colors.black,

@@ -83,12 +83,12 @@ class DateInput extends Component {
             const dttm = moment(newDate, format).toDate()
             this.props.onChange(dttm)
           }}
-          style={{
+          style={[{
             width: null,
             borderStyle: 'solid',
             borderBottomWidth: StyleSheet.hairlineWidth,
             borderBottomColor: StyleSheet.colors.grey,
-          }}
+          }]}
           customStyles={dateStyleSheet}
           iconSource={iconSrc}
           showIcon={!!icon}

@@ -1,8 +1,7 @@
 import React from 'react'
 import {View, ScrollView, Text} from 'react-native'
 
-import {Window, EventListItem, Header} from '../components'
-import StyleSheet from '../styles'
+import {Window, EventListItem, Header, EmptyScreenInfo} from '../components'
 import _ from '../i18n'
 
 export default class Manage extends React.Component {
@@ -16,6 +15,8 @@ export default class Manage extends React.Component {
   }
 
   render() {
+    const noEvents = this.props.events.length === 0
+
     return (
       <View style={{flex: 1}}>
         <Header
@@ -23,18 +24,21 @@ export default class Manage extends React.Component {
           onClose={this.props.onClose}
           title={_('manageYourEvents')}
         />
-        <ScrollView contentContainerStyle={StyleSheet.container}>
-          {this.props.events.length === 0 && (
-            <Text style={StyleSheet.noResults}>{_('noActiveEvents')}</Text>
-          )}
-          {this.props.events.map(event =>
-            <EventListItem
-              key={event.id}
-              event={event}
-              onPress={() => this.props.onPressEvent(event)}
-            />
-          )}
-        </ScrollView>
+        {noEvents ? (
+          <View style={{flex: 1}}>
+            <EmptyScreenInfo/>
+          </View>
+        ) : (
+          <ScrollView >
+            {this.props.events.map(event =>
+              <EventListItem
+                key={event.id}
+                event={event}
+                onPress={() => this.props.onPressEvent(event)}
+              />
+           )}
+          </ScrollView>)
+       }
       </View>
     )
   }
