@@ -4,13 +4,8 @@ import {ScrollView, View} from 'react-native'
 import _ from '../i18n'
 import {Header, LoadingAlert, Title, Button} from '../components'
 import {UserListInWallet, BankInfoCard} from '../components/wallet'
+import {calculateDisplayData} from '../utils'
 import StyleSheet from '../styles'
-
-
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-let now = new Date()
-let today = months[now.getMonth()].toUpperCase() + ' ' + (now.getDay()) + ', ' + now.getFullYear()
-let dateChecker = []  //DO NOT REMOVE dateChecker , is needed to compare dates
 
 class Wallet extends Component {
   getStripeDisplayError() {
@@ -46,31 +41,6 @@ class Wallet extends Component {
     return error
   }
 
-calculateDisplayData(user, i){
-  let displayData = []
-  let displayDate, display, displayStyle
-
-  dateChecker.push(user.date)
-  if (user.date !== dateChecker[ i - 1 ]){
-  if ((user.date === today)) {
-    displayDate = 'TODAY'
-    display = true
-    displayStyle = null
-  } else if (user.date !== today) {
-      displayDate = user.date
-      display = true
-      displayStyle = null
-    }
-  }else {
-    displayDate = null
-    display = false
-    displayStyle = {paddingTop: 3}
-  }
-displayData = {displayDate, display, displayStyle }
-
-return displayData
-}
-
   render() {
   const users = this.props.users // to be replaced
 
@@ -95,7 +65,7 @@ return displayData
           <Title text={'RECENT TRANSACTIONS'}/>
           <ScrollView>
             {users.map((user, i) => {
-              let displayData = this.calculateDisplayData(user, i)
+              let displayData = calculateDisplayData(user, i)
               return (
                 <UserListInWallet
                   user={user}

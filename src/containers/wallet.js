@@ -5,7 +5,7 @@ import _Wallet from '../windows/wallet'
 import {navigationActions, paymentActions} from '../actions'
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-let now = new Date() // needed for create fake dates of payment
+let now = new Date()
 
 class Wallet extends Component {
 
