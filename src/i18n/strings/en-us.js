@@ -195,6 +195,7 @@ export const youreIn = 'You\'re In'
 
 export const joinConfirmedText = 'Your payment of $1 has been confirmed and your place has been reserved. Have fun!'
 export const joinConfirmedTextForFree = 'Everything is sorted and your place has now been reserved. Just turn up and have fun!'
+export const joinConfirmedTextCash = "You're in! Everything is sorted now, all you need to do is turn up and have fun! Just don't forget to bring cash!"
 export const close = 'Close'
 export const viewList = 'View List'
 export const twitter = 'Twitter'

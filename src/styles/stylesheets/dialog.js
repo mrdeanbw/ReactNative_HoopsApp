@@ -133,6 +133,7 @@ export default StyleSheet => StyleSheet.extend({
   alertTitleTextTransform: s => s.toUpperCase(),
 
   alertBodyStyle: {
+    padding: 10,
     color: '#606060',
     textAlign: 'center',
     fontSize: 14,
