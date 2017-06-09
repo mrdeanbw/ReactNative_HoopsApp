@@ -143,7 +143,9 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   lightTextStyle: {
-    fontWeight: '400'
+    fontWeight: '400',
+    lineHeight: 17,
+    color: 'grey'
   },
 
   eventInfoKey: {

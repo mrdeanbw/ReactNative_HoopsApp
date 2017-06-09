@@ -5,6 +5,7 @@ import moment from 'moment'
 import StyleSheet from '../styles'
 import {Avatar, Icon, HorizontalRule, Button, Popup, Header} from '../components'
 import _ from '../i18n'
+import {insert} from '../utils'
 import EventDashboard from './event-dashboard'
 
 const icons = {
@@ -444,16 +445,33 @@ EventInfo.Bar = class EventInfoBar extends React.Component {
 }
 
 class DateText extends React.Component {
+
+  changeDateFormat(start){
+    let day = moment(start).format('llll').replace(/ /g, '\u00a0').substr(0, 11).slice(9, 11) + ' '
+    let dateWithoutDay = moment(start).format('llll').replace(/ /g, '\u00a0').substr(0, 9)
+    let dayChecker = day.includes(',')
+
+    if (dayChecker){
+      day = day.slice(0,1) + ' '
+    }
+
+    return insert(dateWithoutDay, 5, day)
+  }
+
   render() {
     let start = moment(this.props.event.date)
     let end = this.props.event.endDate ? moment(this.props.event.endDate) : null
+    let newFormatStart = this.changeDateFormat(start)
+    let newFormatEnd = this.changeDateFormat(end)
 
     let startComponent = (
       <Text>
         <Text style={StyleSheet.eventDetails.lightTextStyle}>
-          {moment(start).format('D MMM').replace(/ /g, '\u00a0')},&nbsp;
+          {newFormatStart}
         </Text>
-        <Text>{moment(start).format('HH:mm')}</Text>
+        {!end  && (<Text>{'\n'}{moment(start).format('HH:mm')}</Text>)}
+        {end  &&  !moment(end).isSame(start, 'day') && (<Text>{moment(start).format('HH:mm')}{'\n'} </Text>)}
+        {end  &&  moment(end).isSame(start, 'day') && (<Text>{'\n'}{moment(start).format('HH:mm')} - </Text>)}
       </Text>
     )
 
@@ -463,10 +481,9 @@ class DateText extends React.Component {
       return (
         <Text>
           {startComponent}
-          <Text> - </Text>
           {!moment(end).isSame(start, 'day') && (
             <Text style={StyleSheet.eventDetails.lightTextStyle}>
-              {moment(end).format('D MMM').replace(/ /g, '\u00a0')},&nbsp;
+              {newFormatEnd}
             </Text>
           )}
           <Text>{moment(end).format('HH:mm')}</Text>
@@ -503,15 +520,18 @@ class EventJoinPopup extends React.Component {
             </EventInfo.Bar>
           </View>
 
-
           <View style={[StyleSheet.buttons.bar] }>
             <Button type="alert" text={_('cancel')} onPress={this.props.onPressCancel} />
             <Button
               type="alertDefault"
               text={
-              <Text>
-                <Text>{_('join').toUpperCase()} £{event.entryFee} {this.props.charge > 0 && (<Text>(+{formatCharge(this.props.charge)})</Text>)}</Text>
-              </Text>
+                <Text>
+                  <Text>{
+                    _('join').toUpperCase()} £{event.entryFee}
+                    {this.props.charge > 0 && (<Text>(+{formatCharge(this.props.charge)}  )</Text>)}
+                    {event.entryFee > 0 && this.props.charge === 0 && (<Text>{'(' + _('cash').toUpperCase() + ')'}</Text>)}
+                  </Text>
+                </Text>
             }
               onPress={this.props.onPressJoin}
             />

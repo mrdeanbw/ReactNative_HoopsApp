@@ -109,16 +109,15 @@ export default StyleSheet => StyleSheet.extend({
 
 
   alertContentStyle: {
-    padding: 35,
+    paddingTop: 30,
     alignItems: 'center'
   },
 
   infoBar: {
-    height: 180,
-    maxHeight: 250,
-    width: 140,
-    flexDirection: 'column',
-    justifyContent: 'space-around',
+    height: 110,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingBottom: 30,
   },
 

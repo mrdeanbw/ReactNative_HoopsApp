@@ -398,3 +398,4 @@ export const CurrentBalance = "Current Balance"
 export const nothingText = ' WE HAVE NOTHING\nTO SHOW HERE...'
 export const createEventText = "You haven't created any events yet.\n Should we change that now?\nSimply go and create an event now!"
 
+
