@@ -469,8 +469,18 @@ class DateText extends React.Component {
         <Text style={StyleSheet.eventDetails.lightTextStyle}>
           {newFormatStart}
         </Text>
-        {!end  && (<Text>{'\n'}{moment(start).format('HH:mm')}</Text>)}
-        {end  &&  !moment(end).isSame(start, 'day') && (<Text>{moment(start).format('HH:mm')}{'\n'} </Text>)}
+        {!end  && (
+          <Text>
+            {'\n'}
+            <Text style={StyleSheet.eventDetails.hour}>
+              {'HH'}
+            </Text>
+              {moment(start).format('HH:mm')}
+            <Text style={StyleSheet.eventDetails.hour}>
+              {'mm'}
+            </Text>
+          </Text>)}
+        {end  &&  !moment(end).isSame(start, 'day') && (<Text>{moment(start).format('HH:mm')}{'\n'}</Text>)}
         {end  &&  moment(end).isSame(start, 'day') && (<Text>{'\n'}{moment(start).format('HH:mm')} - </Text>)}
       </Text>
     )
