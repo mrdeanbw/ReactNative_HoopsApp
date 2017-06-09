@@ -538,7 +538,7 @@ class EventJoinPopup extends React.Component {
                 <Text>
                   <Text>{
                     _('join').toUpperCase()} £{event.entryFee}
-                    {this.props.charge > 0 && (<Text>(+{formatCharge(this.props.charge)}  )</Text>)}
+                    {this.props.charge > 0 && (<Text> ({formatCharge(this.props.charge)})</Text>)}
                     {event.entryFee > 0 && this.props.charge === 0 && (<Text>{'(' + _('cash').toUpperCase() + ')'}</Text>)}
                   </Text>
                 </Text>

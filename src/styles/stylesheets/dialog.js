@@ -110,6 +110,7 @@ export default StyleSheet => StyleSheet.extend({
 
   alertContentStyle: {
     paddingTop: 30,
+    padding: 20,
     alignItems: 'center'
   },
 
