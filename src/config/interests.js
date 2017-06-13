@@ -72,6 +72,9 @@ export default {
   "CANOEING": {
     "name": "Canoeing"
   },
+  "CAPOEIRA": {
+    "name": "Capoeira"
+  },
   "CARDS": {
     "name": "Cards"
   },
