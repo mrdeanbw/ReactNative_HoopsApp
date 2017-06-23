@@ -545,7 +545,28 @@ export default StyleSheet => StyleSheet.extend({
     },
   }),
 
-  modeSwitch: StyleSheet.extend({
+  modeSwitchOrganiser: StyleSheet.extend({
+    underlayColor: colors.black,
+
+    style: {
+      borderRadius: 14,
+      backgroundColor: colors.black,
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: 24,
+      width: Platform.OS === 'ios' ? 145 : 155,
+      flex: 0,
+      paddingBottom: Platform.OS === 'ios' ? 0 : 2,
+      paddingTop:  Platform.OS === 'ios' ? 2 : 0,
+    },
+
+    textStyle: {
+      letterSpacing: 0,
+    }
+
+  }),
+
+  modeSwitchParticipant: StyleSheet.extend({
     underlayColor: colors.highlightPink,
 
     style: {

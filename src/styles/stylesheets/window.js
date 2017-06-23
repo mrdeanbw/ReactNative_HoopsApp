@@ -27,6 +27,18 @@ export default StyleSheet => StyleSheet.extend({
     paddingTop: Platform.OS === 'ios' ? 20 : 0,
   },
 
+  titleBarStyleOrganiser: {
+    backgroundColor: colors.white,
+    alignItems: 'stretch',
+    paddingTop: Platform.OS === 'ios' ? 20 : 0,
+  },
+
+  titleBarStyleParticipant: {
+    backgroundColor: colors.black,
+    alignItems: 'stretch',
+    paddingTop: Platform.OS === 'ios' ? 20 : 0,
+  },
+
   logoBarStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -44,6 +56,22 @@ export default StyleSheet => StyleSheet.extend({
   },
 
   crumbBar: {
+    height: 40,
+    flexDirection: 'row',
+    backgroundColor: '#3B404A',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingHorizontal: 4,
+  },
+  crumbBarOrganiser: {
+    height: 40,
+    flexDirection: 'row',
+    backgroundColor: '#E8436F',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingHorizontal: 4,
+  },
+  crumbBarParticipant: {
     height: 40,
     flexDirection: 'row',
     backgroundColor: '#3B404A',

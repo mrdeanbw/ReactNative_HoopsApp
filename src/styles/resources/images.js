@@ -1,6 +1,7 @@
 export default {
   "login": require('./images/login.png'),
   "logo": require('./images/logo.png'),
+  "logo_black": require('./images/logo_black.png'),
   "organize": require('./images/organize.png'),
   "participate": require('./images/participate.png'),
   "screengrab1": require('./images/screengrab-1.png'),
