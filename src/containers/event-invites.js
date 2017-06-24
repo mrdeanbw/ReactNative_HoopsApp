@@ -46,6 +46,13 @@ class EventInvites extends Component {
     }).map((friendId) => {
       return this.props.users.usersById[friendId]
     }).filter(user => !!user)
+    .filter(user => {
+      if (!user.interest || !user.interest[this.props.activity]) {
+        return false
+      }
+
+      return true
+    })
 
     return (
       <_EventInvites
