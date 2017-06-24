@@ -14,9 +14,14 @@ class SignUpFacebookExtra extends React.Component {
     const facebookUser = this.props.user.facebookUser || {}
     const picture = facebookUser.picture ? facebookUser.picture.data : undefined
 
-    let facebookImageSrc = null
+    let facebookImageSrc
     if (picture && picture.is_silhouette === false) {
       facebookImageSrc = picture.url
+    }
+
+    let dob
+    if (facebookUser.birthday) {
+      dob = new Date(facebookUser.birthday)
     }
 
     return (
@@ -26,7 +31,7 @@ class SignUpFacebookExtra extends React.Component {
         facebookName={facebookUser.name}
         facebookEmail={facebookUser.email}
         facebookUsername={facebookUser.username}
-        facebookDob={new Date(facebookUser.birthday)}
+        facebookDob={dob}
         facebookGender={facebookUser.gender}
         facebookCity={facebookUser.city}
         facebookPhone={facebookUser.phone}
