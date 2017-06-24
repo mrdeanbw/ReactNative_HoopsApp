@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Image, Text, StatusBar} from 'react-native'
+import {View, Image, Text, StatusBar, BackAndroid} from 'react-native'
 import {connect} from 'react-redux'
 
 import {appActions, navigationActions} from '../actions'
@@ -9,9 +9,22 @@ import {Button, HighlightText} from './'
 
 class Header extends Component {
 
+  componentDidMount() {
+    if (this.props.onBack && !this.props.hideBackButton) {
+      BackAndroid.addEventListener('hardwareBackPress', this.props.onBack)
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.onBack && !this.props.hideBackButton) {
+      BackAndroid.removeEventListener('hardwareBackPress', this.props.onBack)
+    }
+  }
+
   getMode() {
     if (this.props.mode === 'ORGANIZE') {
       StatusBar.setBarStyle('dark-content', true)
+
       return {
         'modeText': _('organizerMode'),
         'modeTextHighlight': _('participant'),
@@ -21,6 +34,7 @@ class Header extends Component {
       }
     } else {
       StatusBar.setBarStyle('light-content', true)
+
       return {
         'modeText': _('participantMode'),
         'modeTextHighlight': _('organizer'),
@@ -33,6 +47,7 @@ class Header extends Component {
 
   render() {
     const {modeText, modeTextHighlight, titleBarStyle, crumbBar, logo} = this.getMode()
+
     return (
       <View style={titleBarStyle}>
         {!this.props.simple && (
