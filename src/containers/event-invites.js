@@ -47,7 +47,7 @@ class EventInvites extends Component {
       return this.props.users.usersById[friendId]
     }).filter(user => !!user)
     .filter(user => {
-      if (!user.interest || !user.interest[this.props.activity]) {
+      if (!user.interests || !user.interests[this.props.activity]) {
         return false
       }
 
