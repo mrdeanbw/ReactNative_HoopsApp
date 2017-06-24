@@ -71,6 +71,11 @@ export const loadFriendRequest = (id) => {
 
     database.addListener(`friendRequests/${id}`, 'value', (snapshot) => {
       let friendRequest = snapshot.val()
+
+      if (!friendRequest) {
+        return
+      }
+
       dispatch({
         type: actionTypes.FRIEND_REQUESTS_LOADED,
         friendRequests: {
@@ -81,7 +86,7 @@ export const loadFriendRequest = (id) => {
         },
       })
 
-      if(friendRequest.fromId === uid) {
+      if (friendRequest.fromId === uid) {
         //Friend request is from me, to a user.
         dispatch(load(friendRequest.toId))
       } else {
