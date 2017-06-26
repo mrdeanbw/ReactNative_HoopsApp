@@ -22,7 +22,7 @@ class Header extends Component {
   }
 
   getMode() {
-    if (this.props.mode === 'ORGANIZE') {
+    if (this.props.mode === 'ORGANIZE' && !this.props.simple) {
       StatusBar.setBarStyle('dark-content', true)
 
       return {
