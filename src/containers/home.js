@@ -17,21 +17,17 @@ class Home extends Component {
         lon: undefined,
       },
     }
+  }
 
-    this._watchId = navigator.geolocation.watchPosition(position => {
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(position => {
       this.setState({
         location: {
           lat: position.coords.latitude,
           lon: position.coords.longitude,
         }
       })
-    }, (err) => {
-      console.warn(err) //eslint-disable-line no-console
     })
-  }
-
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this._watchId)
   }
 
   componentWillUpdate(nextProps, nextState) {
