@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Image, Text, StatusBar, BackAndroid} from 'react-native'
+import {View, Image, Text, StatusBar, BackAndroid, Platform} from 'react-native'
 import {connect} from 'react-redux'
 
 import {appActions, navigationActions} from '../actions'
@@ -23,8 +23,9 @@ class Header extends Component {
 
   getMode() {
     if (this.props.mode === 'ORGANIZE') {
-      StatusBar.setBarStyle('dark-content', true)
-
+      if(Platform.OS === 'ios'){
+        StatusBar.setBarStyle('dark-content', true)
+      }
       return {
         'modeText': _('organizerMode'),
         'modeTextHighlight': _('participant'),
