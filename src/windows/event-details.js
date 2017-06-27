@@ -9,6 +9,7 @@ import EventDashboard from './event-dashboard'
 
 const icons = {
   AMERICAN_FOOTBALL: 'activityAmericanFootball',
+  ANGLING: 'activityAngling',
   ARCHERY: 'activityArchery',
   AUTOMOBILE_RACING: 'activityAutomobileRacing',
   BADMINTON: 'activityBadminton',
@@ -26,6 +27,7 @@ const icons = {
   DEFAULT: 'activityDefault',
   DISCGOLF: 'activityGolf',
   DIVING: 'activityDiving',
+  FISHING: 'activityFishing',
   FOOTBALL: 'activityFootball',
   FOOTGOLF: 'activityGolf',
   FRISBEE: 'activityFrisbee',

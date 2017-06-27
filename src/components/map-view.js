@@ -8,6 +8,7 @@ import Icon from './icon'
 
 const iconsMap = {
   AMERICAN_FOOTBALL: 'pinAmericanFootball',
+  ANGLING: 'pinDefault',
   ARCHERY: 'pinArchery',
   AUTOMOBILE_RACING: 'pinAutomobileRacing',
   BADMINTON: 'pinBadminton',
@@ -25,6 +26,7 @@ const iconsMap = {
   DISCGOLF: 'pinGolf',
   DIVING: 'pinDiving',
   DODGEBALL: 'pinDodgeball',
+  FISHING: 'pinDefault',
   FOOTBALL: 'pinFootball',
   FOOTGOLF: 'pinGolf',
   FRISBEE: 'pinFrisbee',
