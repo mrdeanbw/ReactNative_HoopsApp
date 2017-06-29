@@ -9,10 +9,13 @@ class Wallet extends Component {
   componentWillMount() {
     // when this component mounts, fetch account information from Stripe
     this.props.onLoadAccount()
+    this.props.onGetBalance()
+    this.props.onGetTransactions()
   }
 
   render() {
     const payments = this.props.payments
+    debugger
 
     return (
       <_Wallet
@@ -21,6 +24,8 @@ class Wallet extends Component {
           payments.isUpdatingAccount
         )}
         account={payments.accountData}
+        balance={payments.accountBalance}
+        transactions={payments.accountTransactions}
         onChangeAction={this.props.onChangeAction}
         hasAccount={!!payments.accountData}
       />
@@ -37,5 +42,7 @@ export default connect(
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, false)),
     onCreateAccount: (data) => dispatch(paymentActions.createAccount(data)),
     onLoadAccount: () => dispatch(paymentActions.getAccount()),
+    onGetBalance: () => dispatch(paymentActions.getBalance()),
+    onGetTransactions: () => dispatch(paymentActions.getTransactions())
   }),
 )(Wallet)

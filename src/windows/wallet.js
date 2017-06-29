@@ -45,6 +45,8 @@ class Wallet extends Component {
 
   render() {
     const account = this.props.account
+    const balance = this.props.balance
+    const transactions = this.props.transactions
     const titleStyle = StyleSheet.profile.editLabel
     const detailStyle = StyleSheet.payments.accountDataText
     const infoContainer = StyleSheet.profile.infoContainer
@@ -76,6 +78,20 @@ class Wallet extends Component {
                   <Text style={[StyleSheet.text, StyleSheet.highlightText, StyleSheet.alignCenter]}>
                     {stripeError}
                   </Text>
+                </View>
+              )}
+
+              {balance && (
+                <View>
+                  <Text style={titleStyle}>{_('firstName')}</Text>
+                  <Text style={detailStyle}>{balance}</Text>
+                </View>
+              )}
+
+              {transactions && (
+                <View>
+                  <Text style={titleStyle}>{_('firstName')}</Text>
+                  <Text style={detailStyle}>{transactions}</Text>
                 </View>
               )}
 

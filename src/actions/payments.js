@@ -42,6 +42,50 @@ export const getAccount = () => {
   }
 }
 
+export const getBalance = () => {
+  return async (dispatch, getState) => {
+    dispatch({
+      type: actionTypes.PAYMENTS_GET_BALANCE_START
+    })
+
+    try {
+      const response = await paymentApi.get('stripeGetAccountBalance', {params: {userId: getState().user.uid}})
+
+      dispatch({
+        type: actionTypes.PAYMENTS_GET_BALANCE_SUCCESS,
+        response: response.data,
+      })
+    } catch(err) {
+      dispatch({
+        type: actionTypes.PAYMENTS_GET_BALANCE_ERROR,
+        err,
+      })
+    }
+  }
+}
+
+export const getTransactions = () => {
+  return async (dispatch, getState) => {
+    dispatch({
+      type: actionTypes.PAYMENTS_GET_TRANSACTIONS_START
+    })
+
+    try {
+      const response = await paymentApi.get('stripeGetAccountTransactions', {params: {userId: getState().user.uid}})
+
+      dispatch({
+        type: actionTypes.PAYMENTS_GET_TRANSACTIONS_SUCCESS,
+        response: response.data,
+      })
+    } catch(err) {
+      dispatch({
+        type: actionTypes.PAYMENTS_GET_TRANSACTIONS_ERROR,
+        err,
+      })
+    }
+  }
+}
+
 export const updateAccount = (data) => {
   return async dispatch => {
     dispatch({
@@ -192,30 +236,6 @@ export const deleteCard = (cardToken) => {
         err,
       })
     }
-  }
-}
-
-export const getTransactions = () => {
-  return (dispatch, getState) => {
-    let accountKey = getState().user.stripeAccount
-
-    dispatch({
-      type: actionTypes.PAYMENTS_GET_TRANSACTIONS_START,
-    })
-
-    // get('transactions', {
-    //   accountKey,
-    // }).then(response => {
-    //   dispatch({
-    //     type: actionTypes.PAYMENTS_GET_TRANSACTIONS_SUCCESS,
-    //     response,
-    //   })
-    // }).catch(err => {
-    //   dispatch({
-    //     type: actionTypes.PAYMENTS_GET_TRANSACTIONS_ERROR,
-    //     err,
-    //   })
-    // })
   }
 }
 
