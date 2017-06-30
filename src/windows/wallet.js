@@ -45,8 +45,6 @@ class Wallet extends Component {
 
   render() {
     const account = this.props.account
-    const balance = this.props.balance
-    const transactions = this.props.transactions
     const titleStyle = StyleSheet.profile.editLabel
     const detailStyle = StyleSheet.payments.accountDataText
     const infoContainer = StyleSheet.profile.infoContainer
@@ -81,20 +79,32 @@ class Wallet extends Component {
                 </View>
               )}
 
-              {balance && (
+              {account.balance && (
                 <View>
-                  <Text style={titleStyle}>{_('firstName')}</Text>
-                  <Text style={detailStyle}>{balance}</Text>
+                  <Text style={titleStyle}>{_('balanceAvailable')}</Text>
+                  <Text style={detailStyle}>{account.balance.available[0].amount}</Text>
                 </View>
               )}
 
-              {transactions && (
+              {account.balance && (
                 <View>
-                  <Text style={titleStyle}>{_('firstName')}</Text>
-                  <Text style={detailStyle}>{transactions}</Text>
+                  <Text style={titleStyle}>{_('balancePending')}</Text>
+                  <Text style={detailStyle}>{account.balance.pending[0].amount}</Text>
                 </View>
               )}
 
+              {account.transactions && account.transactions.map((transaction)=>{
+                return(
+                  <View key={transaction.source}>
+                    <Text style={titleStyle}>{_('transaction')}</Text>
+                    <Text style={detailStyle}>{transaction.amount}</Text>
+                    <Text style={detailStyle}>{transaction.status}</Text>
+                    <Text style={detailStyle}>{transaction.type}</Text>
+                    <Text style={detailStyle}>{transaction.currency}</Text>
+                    <Text style={detailStyle}>{transaction.source}</Text>
+                  </View>
+                )
+              })}
 
               {account.firstName && (
                 <View>

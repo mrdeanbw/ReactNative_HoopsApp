@@ -323,6 +323,10 @@ export const lastName = 'Last Name'
 export const yourActivities = 'Your Activities'
 export const addAnotherActivity = 'Add another activity'
 
+export const balanceAvailable = 'Available Balance'
+export const balancePending = 'Pending Balance'
+export const transaction = 'Transaction'
+
 export const unitedKingdom = 'United Kingdom'
 export const belgium = 'Belgium'
 export const france = 'France'

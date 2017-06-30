@@ -15,7 +15,6 @@ class Wallet extends Component {
 
   render() {
     const payments = this.props.payments
-    debugger
 
     return (
       <_Wallet
@@ -23,9 +22,13 @@ class Wallet extends Component {
           payments.isFetchingAccount ||
           payments.isUpdatingAccount
         )}
-        account={payments.accountData}
-        balance={payments.accountBalance}
-        transactions={payments.accountTransactions}
+
+        account={Object.assign(
+          payments.accountData, 
+          {'balance':payments.accountBalance}, 
+          payments.accountTransactions
+        )}
+
         onChangeAction={this.props.onChangeAction}
         hasAccount={!!payments.accountData}
       />
