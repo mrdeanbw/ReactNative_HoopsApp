@@ -240,7 +240,7 @@ export const search = (params) => {
 export const nearby = (params) => {
   return (dispatch, getState) => {
     let allEvents = getState().events.eventsById
-    let size = 10
+    let size = 50
 
     let matches = Object.keys(allEvents).map(eventId => {
       return {
@@ -260,7 +260,6 @@ export const nearby = (params) => {
 
         //Each degree of latitude is approximately 70 miles
         distance = distance * 70
-
         event._distance = distance
       }
 
