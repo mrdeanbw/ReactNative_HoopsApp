@@ -12,6 +12,8 @@ class Wallet extends Component {
   componentWillMount() {
     // when this component mounts, fetch account information from Stripe
     this.props.onLoadAccount()
+    this.props.onGetBalance()
+    this.props.onGetTransactions()
   }
 
   //to be replaced/removed as this funcion just creating fake users data for testing
@@ -54,7 +56,12 @@ class Wallet extends Component {
           payments.isUpdatingAccount
         )}
         users={this.createFakeUsers()}
-        account={payments.accountData}
+        account={Object.assign(
+          payments.accountData, 
+          {'balance':payments.accountBalance}, 
+          payments.accountTransactions
+        )}
+
         onChangeAction={this.props.onChangeAction}
         hasAccount={!!payments.accountData}
       />
@@ -71,5 +78,7 @@ export default connect(
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, false)),
     onCreateAccount: (data) => dispatch(paymentActions.createAccount(data)),
     onLoadAccount: () => dispatch(paymentActions.getAccount()),
+    onGetBalance: () => dispatch(paymentActions.getBalance()),
+    onGetTransactions: () => dispatch(paymentActions.getTransactions())
   }),
 )(Wallet)

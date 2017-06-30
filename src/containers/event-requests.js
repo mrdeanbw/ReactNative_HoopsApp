@@ -1,15 +1,16 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import _EventRequests from '../windows/event-requests'
 import inflateEvent from '../data/inflaters/event'
 import {navigationActions, requestActions} from '../actions'
+import {getEvent} from '../selectors/events'
 
-class EventRequests extends React.Component {
+class EventRequests extends Component {
 
   render() {
     let event = inflateEvent(
-      this.props.events.eventsById[this.props.id],
+      this.props.event,
       {
         requests: this.props.requests.requestsById,
         users: this.props.users.usersById,
@@ -45,10 +46,10 @@ EventRequests.propTypes = {
 }
 
 export default connect(
-  (state) => ({
+  (state, props) => ({
     user: state.user,
     users: state.users,
-    events: state.events,
+    event: getEvent(state, props.id),
     requests: state.requests,
   }),
   (dispatch) => ({

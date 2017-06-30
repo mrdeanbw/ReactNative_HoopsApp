@@ -1,19 +1,12 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import inflateUser from '../data/inflaters/user'
-import _EventDashboard from '../windows/event-dashboard'
 import {eventActions, navigationActions} from '../actions'
+import {getEvent} from '../selectors/events'
+import {EventDashboard as _EventDashboard} from '../windows'
 
-class EventDashboard extends React.Component {
-
-  constructor(props) {
-    super()
-
-    this.state = {
-      event: props.events.eventsById[props.id]
-    }
-  }
+class EventDashboard extends Component {
 
   onCancel(message) {
     this.props.onCancel(this.props.id, message)
@@ -29,7 +22,7 @@ class EventDashboard extends React.Component {
   }
 
   onPressMessages() {
-    this.props.onNavigate('chat', {id: this.state.event.chatId}, false, 'horizontal')
+    this.props.onNavigate('chat', {id: this.props.event.chatId}, false, 'horizontal')
   }
 
   onPressGallery() {
@@ -45,7 +38,7 @@ class EventDashboard extends React.Component {
   }
 
   render() {
-    const event = this.state.event
+    const event = this.props.event
 
     const user = inflateUser(this.props.user, {
       invites: this.props.invites.invitesById,
@@ -81,8 +74,8 @@ EventDashboard.propTypes = {
 }
 
 export default connect(
-  (state) => ({
-    events: state.events,
+  (state, props) => ({
+    event: getEvent(state, props.id),
     invites: state.invites,
     requests: state.requests,
     router: state.router,

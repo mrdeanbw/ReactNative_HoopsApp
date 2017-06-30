@@ -16,6 +16,8 @@ class PaymentsBankSetup extends Component {
         onClose={this.props.onClose}
         onBack={this.props.onBack}
         account={this.props.payments.accountData}
+        balance={this.props.payments.accountBalance}
+        transactions={this.props.payments.accountTransactions}
         error={this.props.payments.updateAccountError}
         isLoading={this.props.payments.isUpdatingAccount}
         onDonePress={(data) => {

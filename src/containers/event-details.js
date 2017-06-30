@@ -2,8 +2,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
 
-import {EventDetails as _EventDetails} from '../windows'
 import {navigationActions, eventActions, requestActions} from '../actions'
+import {EventDetails as _EventDetails} from '../windows'
+import {getEvent} from '../selectors/events'
+
 import inflateEvent from '../data/inflaters/event'
 import inflateUser from '../data/inflaters/user'
 
@@ -11,6 +13,7 @@ class EventDetails extends React.Component {
 
   constructor() {
     super()
+
     this.state = {
       isAwaitingCard: false,
       userPaymentMethod: undefined,
@@ -31,7 +34,7 @@ class EventDetails extends React.Component {
 
   render() {
     let event = inflateEvent(
-      this.props.events.eventsById[this.props.id],
+      this.props.event,
       {
         users: {
           ...this.props.users.usersById,
@@ -133,9 +136,9 @@ EventDetails.propTypes = {
 }
 
 export default connect(
-  (state) => ({
+  (state, props) => ({
     router: state.router,
-    events: state.events,
+    event: getEvent(state, props.id),
     users: state.users,
     user: state.user,
     requests: state.requests,

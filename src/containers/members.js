@@ -34,7 +34,7 @@ class Members extends React.Component {
           this.props.onNavigate('profile', {id: user.id})
         }}
         onPressInviteMore={() => {
-          this.props.onNavigate('eventInvites', {id: event.id, friendsOnly: true})
+          this.props.onNavigate('eventInvites', {id: event.id, activity: event.activity})
         }}
         onPressRemove={(invite) => {
           this.props.removeInvite(invite)

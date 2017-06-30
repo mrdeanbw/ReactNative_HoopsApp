@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Image, Text} from 'react-native'
+import {View, Image, Text, StatusBar, BackAndroid, Platform} from 'react-native'
 import {connect} from 'react-redux'
 
 import {appActions, navigationActions} from '../actions'
@@ -9,30 +9,54 @@ import {Button, HighlightText} from './'
 
 class Header extends Component {
 
+  componentDidMount() {
+    if (this.props.onBack && !this.props.hideBackButton) {
+      BackAndroid.addEventListener('hardwareBackPress', this.props.onBack)
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.onBack && !this.props.hideBackButton) {
+      BackAndroid.removeEventListener('hardwareBackPress', this.props.onBack)
+    }
+  }
+
   getMode() {
-    if (this.props.mode === 'ORGANIZE') {
+    if (this.props.mode === 'ORGANIZE' && !this.props.simple) {
+      if(Platform.OS === 'ios'){
+        StatusBar.setBarStyle('dark-content', true)
+      }
       return {
         'modeText': _('organizerMode'),
         'modeTextHighlight': _('participant'),
+        'titleBarStyle' : StyleSheet.window.titleBarStyleOrganiser,
+        'crumbBar' : StyleSheet.window.crumbBarOrganiser,
+        'logo' : StyleSheet.images.logo_black
       }
     } else {
+      StatusBar.setBarStyle('light-content', true)
+
       return {
         'modeText': _('participantMode'),
         'modeTextHighlight': _('organizer'),
+        'titleBarStyle' : StyleSheet.window.titleBarStyleParticipant,
+        'crumbBar' : StyleSheet.window.crumbBarParticipant,
+        'logo' : StyleSheet.images.logo
       }
     }
   }
 
   render() {
-    const {modeText, modeTextHighlight} = this.getMode()
+    const {modeText, modeTextHighlight, titleBarStyle, crumbBar, logo} = this.getMode()
+
     return (
-      <View style={StyleSheet.window.titleBarStyle}>
+      <View style={titleBarStyle}>
         {!this.props.simple && (
           <View style={StyleSheet.window.logoBarStyle}>
-            <Image source={StyleSheet.images.logo} style={StyleSheet.window.logoStyle} />
+            <Image source={logo} style={StyleSheet.window.logoStyle} />
             <Button
               onPress={this.props.onToggleMode}
-              type="modeSwitch"
+              type={(this.props.mode === 'ORGANIZE') ? "modeSwitchOrganiser" : "modeSwitchParticipant"}
               text={
                 <HighlightText
                   style={[StyleSheet.text, StyleSheet.window.modeTextStyle]}
@@ -44,7 +68,7 @@ class Header extends Component {
         )}
 
         {this.props.title && (
-          <View style={StyleSheet.window.crumbBar}>
+          <View style={crumbBar}>
             {this.props.simple && !this.props.hideBackButton && (
               <View style={[StyleSheet.window.accessoryBarStyle, {width: 32}]}>
                 <Button type="title" icon="back" onPress={this.props.onBack} />

@@ -2,6 +2,9 @@ export default {
   "AMERICAN_FOOTBALL": {
     "name": "American Football"
   },
+  "ANGLING": {
+    "name": "Angling"
+  },
   "AQUATICS": {
     "name": "Aquatics"
   },
@@ -72,6 +75,9 @@ export default {
   "CANOEING": {
     "name": "Canoeing"
   },
+  "CAPOEIRA": {
+    "name": "Capoeira"
+  },
   "CARDS": {
     "name": "Cards"
   },
@@ -139,6 +145,9 @@ export default {
   },
   "FIGURE_SKATING": {
     "name": "Figure Skating"
+  },
+  "FISHING": {
+    "name": "Fishing"
   },
   "FLAG_FOOTBALL": {
     "name": "Flag Football"

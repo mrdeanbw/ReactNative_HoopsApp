@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import _EventInvites from '../windows/event-invites'
+import {getEvent} from '../selectors/events'
 import inflateEvent from '../data/inflaters/event'
 import {navigationActions, eventActions} from '../actions'
 
@@ -9,7 +10,7 @@ class EventInvites extends Component {
 
   render() {
     let event = inflateEvent(
-      this.props.events.eventsById[this.props.id],
+      this.props.event,
       {
         invites: this.props.invites.invitesById,
         requests: this.props.requests.requestsById,
@@ -46,6 +47,13 @@ class EventInvites extends Component {
     }).map((friendId) => {
       return this.props.users.usersById[friendId]
     }).filter(user => !!user)
+    .filter(user => {
+      if (!user.interests || !user.interests[this.props.activity]) {
+        return false
+      }
+
+      return true
+    })
 
     return (
       <_EventInvites
@@ -66,10 +74,10 @@ EventInvites.propTypes = {
 }
 
 export default connect(
-  (state) => ({
+  (state, props) => ({
     user: state.user,
     users: state.users,
-    events: state.events,
+    event: getEvent(state, props.id),
     invites: state.invites,
     requests: state.requests,
   }),
