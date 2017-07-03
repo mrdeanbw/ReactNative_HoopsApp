@@ -10,7 +10,7 @@ class UserListInWallet extends Component {
     super(props)
   }
   render(){
-    let user = this.props.user
+    let transaction = this.props.transaction
     let display = this.props.display
     let  displayStyle = this.props.displayStyle
 
@@ -23,18 +23,18 @@ class UserListInWallet extends Component {
         )}
         <View style={StyleSheet.wallet.UserListInWallet.mainContentContainer}>
           <View style={StyleSheet.wallet.UserListInWallet.imageContainer}>
-           <Avatar title={user.name} avatarStyle={StyleSheet.wallet.UserListInWallet.avatarStyle} />
+           <Avatar title={transaction.status} avatarStyle={StyleSheet.wallet.UserListInWallet.avatarStyle} />
           </View>
           <View style={StyleSheet.wallet.UserListInWallet.textContainer}>
             <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.textStyle]} numberOfLines={1} ellipsizeMode="tail">
-              {user.name + ' ' + user.secondName}
+              {transaction.currency + ' ' + transaction.type}
             </Text>
             <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.activityTextStyle]} numberOfLines={1} ellipsizeMode="tail">
-              {user.activity}
+              {transaction.object}
             </Text>
           </View>
           <View>
-            <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.price]}>+£{user.price}</Text>
+            <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.price]}>+£{transaction.amount}</Text>
           </View>
         </View>
       </View>

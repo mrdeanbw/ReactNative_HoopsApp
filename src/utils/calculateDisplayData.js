@@ -1,20 +1,22 @@
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+import moment from 'moment'
+
 let now = new Date()
 let dateChecker = []
 
-export default (user, i) => {
+export default (transaction, i) => {
   let displayData = []
   let displayDate, display, displayStyle
-  let today = months[now.getMonth()].toUpperCase() + ' ' + (now.getDay()) + ', ' + now.getFullYear()
+  let today = moment(now).format("MMMM DD, YYYY").toUpperCase()
+  let transDate = moment.unix(transaction.created).format("MMMM DD, YYYY").toUpperCase()
 
-  dateChecker.push(user.date)
-  if (user.date !== dateChecker[ i - 1 ]){
-  if ((user.date === today)) {
+  dateChecker.push(transDate)
+  if (transDate !== dateChecker[ i - 1 ]){
+  if ((transDate === today)) {
     displayDate = 'TODAY'
     display = true
     displayStyle = null
-  } else if (user.date !== today) {
-      displayDate = user.date
+  } else if (transDate !== today) {
+      displayDate = transDate
       display = true
       displayStyle = null
     }

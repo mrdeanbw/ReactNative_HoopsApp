@@ -165,6 +165,12 @@ export default StyleSheet => StyleSheet.extend({
       fontSize:  breakPoint ? responsiveStyles.balance.fontSize  : 8,
     },
 
+    pending: {
+      color: colors.yellow,
+      fontWeight: "bold",
+      fontSize:  breakPoint ? responsiveStyles.balance.fontSize  : 8,
+    },
+
     balanceLabel:{
       color: colors.black,
       fontSize: breakPoint ? responsiveStyles.balanceLabel.fontSize  : 8,
@@ -175,7 +181,7 @@ export default StyleSheet => StyleSheet.extend({
     container: {
       paddingTop: 13,
       flexDirection: 'column',
-      flexJustify: 'flex-start',
+      justifyContent: 'flex-start',
       alignItems: 'flex-start',
     },
 

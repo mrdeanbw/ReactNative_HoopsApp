@@ -10,20 +10,25 @@ class BankInfoCard extends Component {
     super(props)
   }
   render(){
-    const { name, surname, bankName, accountNumber, sortCode, balance} = this.props
+    const { accountData } = this.props
 
-    let firstCharOfName = name.charAt(0)
-    let surnameCaption = surname.toUpperCase()
-    let bankNameCaption = bankName.toUpperCase()
+    let firstCharOfName = accountData.firstName && accountData.firstName.charAt(0)
+    let surnameCaption = accountData.lastName && accountData.lastName.toUpperCase()
+
+    //Need to get bank name...
+    let bankNameCaption = 'Lloyds'.toUpperCase()
+
     return(
       <View elevation={5} style={[StyleSheet.wallet.bankInfoBox.container]}>
+
+        {firstCharOfName && surnameCaption && bankNameCaption && (
         <View style={[StyleSheet.wallet.bankInfoBox.top]}>
           <View style={[StyleSheet.wallet.bankInfoBox.detailsContainer,]}>
             <View style={[StyleSheet.wallet.bankInfoBox.nameContainer]}>
               <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.name]}>{surnameCaption + ' ' + firstCharOfName}</Text>
             </View>
             <View style={[StyleSheet.wallet.bankInfoBox.bankDetails]}>
-              <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.bankDetailsText]}>{bankNameCaption + '   |   ' + accountNumber + '   |   ' +  sortCode}</Text>
+              <Text style={[StyleSheet.text, StyleSheet.wallet.bankInfoBox.bankDetailsText]}>{bankNameCaption + '   |   ' + accountData.accountNumber + '   |   ' +  accountData.sortCode}</Text>
             </View>
           </View>
           <View style={[StyleSheet.wallet.bankInfoBox.iconContainer]}>
@@ -32,10 +37,17 @@ class BankInfoCard extends Component {
             </View>
           </View>
         </View>
+        )}
+
+        {accountData.balance.available && accountData.balance.pending && (
         <View style={[StyleSheet.wallet.bankInfoBox.bottom]}>
           <Text style={StyleSheet.wallet.bankInfoBox.balanceLabel}>{_('CurrentBalance')}</Text>
-          <Text style={StyleSheet.wallet.bankInfoBox.balance}>£{balance}</Text>
+          <Text style={StyleSheet.wallet.bankInfoBox.balance}>£ {accountData.balance.available[0].amount}
+            <Text style={StyleSheet.wallet.bankInfoBox.pending}> (£ {accountData.balance.pending[0].amount} pending)</Text>
+          </Text>
         </View>
+        )}
+
       </View>
     )
   }
