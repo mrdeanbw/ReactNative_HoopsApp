@@ -43,7 +43,6 @@ class Wallet extends Component {
 
   render() {
     const account = this.props.account
-    debugger
 
     return (
       <View style={{flex: 1}}>
