@@ -9,6 +9,7 @@ class UserListInWallet extends Component {
   constructor(props){
     super(props)
   }
+
   render(){
     let transaction = this.props.transaction
     let display = this.props.display
@@ -34,7 +35,7 @@ class UserListInWallet extends Component {
             </Text>
           </View>
           <View>
-            <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.price]}>+£{transaction.amount}</Text>
+            <Text style={[StyleSheet.text, StyleSheet.wallet.UserListInWallet.price]}>£ {(transaction.amount / 100).toFixed(2)}</Text>
           </View>
         </View>
       </View>
