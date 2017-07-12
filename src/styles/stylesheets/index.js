@@ -32,9 +32,11 @@ import _search from './search'
 import _signup from './signup'
 import _slider from './slider'
 import _switchButton from './switch-button'
+import _title from './title'
 import _textInputs from './text-inputs'
 import _userListItem from './user-list-item'
 import _walkthrough from './walkthrough'
+import _wallet from './wallet'
 import _window from './window'
 
 export default {
@@ -70,7 +72,9 @@ export default {
   slider: _slider,
   switchButton: _switchButton,
   textInputs: _textInputs,
+  title: _title,
   userListItem: _userListItem,
   walkthrough: _walkthrough,
+  wallet: _wallet,
   window: _window
 }

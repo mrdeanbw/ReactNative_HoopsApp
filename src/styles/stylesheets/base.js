@@ -166,6 +166,9 @@ export default StyleSheet => StyleSheet.extend({
   leftBigger: {
     left: 65,
     top: 2
+  },
+  doublePaddingRight: {
+    paddingRight: 2 * singlePadding,
   }
 
 })

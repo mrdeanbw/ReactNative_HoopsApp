@@ -57,8 +57,12 @@
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",
+    "chai": "4.0.2",
+    "chai-http": "3.0.0",
     "eslint": "^3.4.0",
     "eslint-plugin-react": "^6.2.0",
+    "mocha": "3.4.2",
+    "nock": "9.0.13",
     "react-native-debugger-open": "^0.3.2",
     "remote-redux-devtools": "^0.5.7"
   }

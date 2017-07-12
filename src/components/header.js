@@ -78,7 +78,7 @@ class Header extends Component {
               {this.props.title.toUpperCase()}
             </Text>
             {/*Spacer to match the back button*/}
-            {this.props.simple && (
+            {this.props.simple &&  (
               <View style={[StyleSheet.window.accessoryBarStyle, {width: 32}]} />
             )}
           </View>

@@ -142,8 +142,14 @@ export default StyleSheet => StyleSheet.extend({
     color: colors.pink
   },
 
+  hour: {
+    color: colors.white
+  },
+
   lightTextStyle: {
-    fontWeight: '400'
+    fontWeight: '400',
+    lineHeight: 17,
+    color: 'grey'
   },
 
   eventInfoKey: {

@@ -30,6 +30,7 @@ import _SuggestEvent from './suggest-event'
 import _SwitchButton from './switch-button'
 import _TabBar from './tab-bar'
 import _TextInput from './text-input'
+import _Title from'./title'
 import _UserListItem from './user-list-item'
 import _Window from './window'
 import _Wizard from './wizard'
@@ -66,6 +67,7 @@ export const SuggestEvent = _SuggestEvent
 export const SwitchButton = _SwitchButton
 export const TabBar = _TabBar
 export const TextInput = _TextInput
+export const Title = _Title
 export const UserListItem = _UserListItem
 export const Window = _Window
 export const Wizard = _Wizard

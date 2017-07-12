@@ -146,7 +146,7 @@ export default class CreateEvent extends React.Component {
 
       case 2:
         let isPaymentValid = true
-        if (parseInt(entryFee) > 0) {
+        if (parseFloat(entryFee) > 0) {
           isPaymentValid = !!(
             paymentMethod
           )
@@ -427,13 +427,13 @@ export default class CreateEvent extends React.Component {
                     ref="costInput"
                     disabled={this.props.editMode}
                     type="flat"
-                    keyboardType="numeric"
+                    keyboardType="default"
                     placeholder={_('costPP')}
                     value={this.getEntryFeeLabel()}
                     prefix={this.getEntryFeeLabel() !== '' && '£'}
                     onChangeText={entryFee => {
                       this.setEventData({
-                        entryFee: entryFee === '' ? '' : parseInt(entryFee, 10)
+                        entryFee: entryFee === '' ? '' : parseFloat(entryFee, 10)
                       })
                     }}
                     textStyle={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}
@@ -453,7 +453,7 @@ export default class CreateEvent extends React.Component {
                   </View>
                 </View>
 
-                {parseInt(this.getEntryFeeLabel()) > 0 && (
+                {parseFloat(this.getEntryFeeLabel(), 10) > 0 && (
                   <ListInput
                     type="flat"
                     style={StyleSheet.halfMarginTop}
@@ -473,7 +473,7 @@ export default class CreateEvent extends React.Component {
                   </ListInput>
                 )}
 
-                {parseInt(this.getEntryFeeLabel()) > 0 && (
+                {parseFloat(this.getEntryFeeLabel(), 10) > 0 && (
                   <DateInput
                     placeholder={_('deadline')}
                     value={this.state.eventDetails.deadline}

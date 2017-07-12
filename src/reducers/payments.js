@@ -10,6 +10,8 @@ const initialState = {
   isDeletingCard: false,
 
   accountData: {},
+  accountBalance: {},
+  accountTransactions: {},
 
   updateAccountError: null,
   fetchAccountError: null,
@@ -104,6 +106,63 @@ export default handleActions({
   },
 
   [actionTypes.PAYMENTS_GET_ACCOUNT_ERROR]: (state, action) => {
+    return {
+      ...state,
+      isFetchingAccount: false,
+      fetchAccountError: action.err,
+    }
+  },
+
+    [actionTypes.PAYMENTS_GET_BALANCE_START]: (state, action) => {
+    return {
+      ...state,
+      isFetchingAccount: true,
+      fetchAccountError: null,
+    }
+  },
+
+  [actionTypes.PAYMENTS_GET_BALANCE_SUCCESS]: (state, action) => {
+    const balance = action.response
+
+    return {
+      ...state,
+      accountBalance: {
+        available: balance.available,
+        pending: balance.pending
+      },
+      isFetchingAccount: false,
+    }
+  },
+
+  [actionTypes.PAYMENTS_GET_BALANCE_ERROR]: (state, action) => {
+    return {
+      ...state,
+      isFetchingAccount: false,
+      fetchAccountError: action.err,
+    }
+  },
+
+    [actionTypes.PAYMENTS_GET_TRANSACTIONS_START]: (state, action) => {
+    return {
+      ...state,
+      isFetchingAccount: true,
+      fetchAccountError: null,
+    }
+  },
+
+  [actionTypes.PAYMENTS_GET_TRANSACTIONS_SUCCESS]: (state, action) => {
+    const transactions = action.response.data
+
+    return {
+      ...state,
+      accountTransactions: {
+        transactions: transactions
+      },
+      isFetchingAccount: false,
+    }
+  },
+
+  [actionTypes.PAYMENTS_GET_TRANSACTIONS_ERROR]: (state, action) => {
     return {
       ...state,
       isFetchingAccount: false,

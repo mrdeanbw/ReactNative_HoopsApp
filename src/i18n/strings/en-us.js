@@ -195,6 +195,7 @@ export const youreIn = 'You\'re In'
 
 export const joinConfirmedText = 'Your payment of $1 has been confirmed and your place has been reserved. Have fun!'
 export const joinConfirmedTextForFree = 'Everything is sorted and your place has now been reserved. Just turn up and have fun!'
+export const joinConfirmedTextCash = "You're in! Everything is sorted now, all you need to do is turn up and have fun! Just don't forget to bring cash!"
 export const close = 'Close'
 export const viewList = 'View List'
 export const twitter = 'Twitter'
@@ -323,6 +324,10 @@ export const lastName = 'Last Name'
 export const yourActivities = 'Your Activities'
 export const addAnotherActivity = 'Add another activity'
 
+export const balanceAvailable = 'Available Balance'
+export const balancePending = 'Pending Balance'
+export const transaction = 'Transaction'
+
 export const unitedKingdom = 'United Kingdom'
 export const belgium = 'Belgium'
 export const france = 'France'
@@ -389,10 +394,13 @@ export const ok = "OK"
 export const noEventsNearby = "No Events Nearby"
 export const noActivitiesSelected = "You have no activities selected"
 
-// wallet screen
 export const walletInfo1 = "Money will be paid out"
 export const walletInfo2 = "on a weekly basis "
 
-// empty-screen-info
+export const vieAll = "VIEW ALL"
+export const CurrentBalance = "Current Balance"
+
 export const nothingText = ' WE HAVE NOTHING\nTO SHOW HERE...'
 export const createEventText = "You haven't created any events yet.\n Should we change that now?\nSimply go and create an event now!"
+
+
