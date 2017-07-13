@@ -16,7 +16,7 @@ class BankInfoCard extends Component {
     let surnameCaption = accountData.lastName && accountData.lastName.toUpperCase()
 
     //Need to get bank name...
-    let bankNameCaption = 'Lloyds'.toUpperCase()
+    let bankNameCaption = 'Account'.toUpperCase()
 
     return(
       <View elevation={5} style={[StyleSheet.wallet.bankInfoBox.container]}>
@@ -42,8 +42,8 @@ class BankInfoCard extends Component {
         {accountData.balance.available && accountData.balance.pending && (
         <View style={[StyleSheet.wallet.bankInfoBox.bottom]}>
           <Text style={StyleSheet.wallet.bankInfoBox.balanceLabel}>{_('CurrentBalance')}</Text>
-          <Text style={StyleSheet.wallet.bankInfoBox.balance}>£ {accountData.balance.available[0].amount}
-            <Text style={StyleSheet.wallet.bankInfoBox.pending}> (£ {accountData.balance.pending[0].amount} pending)</Text>
+          <Text style={StyleSheet.wallet.bankInfoBox.balance}>£ {(accountData.balance.available[0].amount / 100).toFixed(2)}
+            <Text style={StyleSheet.wallet.bankInfoBox.pending}> (£ {(accountData.balance.pending[0].amount / 100).toFixed(2)} pending)</Text>
           </Text>
         </View>
         )}
