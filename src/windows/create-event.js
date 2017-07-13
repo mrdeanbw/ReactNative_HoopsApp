@@ -373,15 +373,15 @@ export default class CreateEvent extends React.Component {
                 </View>
               </View>
 
-              {/* <View>
+              <View>
                 <View style={[StyleSheet.buttons.bar, StyleSheet.doubleMarginTop, {alignSelf: 'center'}]}>
                   <Button type="roundedGrey" active={this.state.eventDetails.recurring === false} text={_('oneTime')} onPress={() => this.setEventData({recurring: false})} style={{width: 110}}/>
                   <Text style={[StyleSheet.text, StyleSheet.horizontalRule.textStyle, {flex: 1}]}>{_('or').toUpperCase()}</Text>
                   <Button type="roundedGrey" active={this.state.eventDetails.recurring === true} text={_('recurring')} onPress={() => this.setEventData({recurring: true})} style={{width: 110}}/>
                 </View>
-              </View>*/}
+              </View>
 
-              {/*{this.state.eventDetails.recurring && (
+              {this.state.eventDetails.recurring && (
                 <View style={[StyleSheet.doubleMarginTop, {flex:1, flexDirection: 'row'}]}>
                   <Text style={[{flex: 1, marginTop: 14, marginRight: 25, color: StyleSheet.colors.pink, fontSize: 13}]}>
                     {_('recurEvery').toUpperCase()}
@@ -409,7 +409,7 @@ export default class CreateEvent extends React.Component {
                     <ListInput.Item text={_('weeks')} value="w" />
                   </ListInput>
                 </View>
-              )}*/}
+              )}
 
               <View style={StyleSheet.halfMarginTop}>
                 <AddressInput
