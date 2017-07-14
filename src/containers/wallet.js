@@ -5,6 +5,9 @@ import _Wallet from '../windows/wallet'
 import {navigationActions, paymentActions} from '../actions'
 
 class Wallet extends Component {
+    constructor(props){
+    super(props)
+  }
 
   componentWillMount() {
     // when this component mounts, fetch account information from Stripe
@@ -30,6 +33,7 @@ class Wallet extends Component {
         )}
 
         onChangeAction={this.props.onChangeAction}
+        onNavigate={this.props.onNavigate}
         hasAccount={!!payments.accountData}
       />
     )
