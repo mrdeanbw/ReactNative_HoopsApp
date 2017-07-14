@@ -11,32 +11,8 @@ class BankInfoCard extends Component {
     super(props)
   }
 
-  renderIcon() {
-    // Icon or LargeText
-    const {icon} = this.props
-    const styles = StyleSheet.actionButton
-
-    if (this.props.textLarge) {
-      return (
-        <Text style={[StyleSheet.text, styles.textLargeStyle]}>
-          {this.props.textLarge}
-        </Text>
-      )
-    } else {
-      return (
-        <Icon name={icon} style={styles.iconStyle} />
-      )
-    }
-  }
-
   render(){
     const { accountData } = this.props
-
-    const {type, text} = this.props
-    const styles = StyleSheet.actionButton
-    const buttonTypeStyle = styles[type]
-
-
     let firstCharOfName = accountData.firstName && accountData.firstName.charAt(0)
     let surnameCaption = accountData.lastName && accountData.lastName.toUpperCase()
 
