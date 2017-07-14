@@ -86,8 +86,8 @@ export default StyleSheet => StyleSheet.extend({
     container: {
       flexDirection: "column",
       borderRadius: 7,
-      minWidth: 235,
-      width: width > 641 ? null : '60%',
+      minWidth: 255,
+      width: width > 641 ? null : '70%',
       shadowColor: '#000000',
       shadowOffset: {
         width: 0,
