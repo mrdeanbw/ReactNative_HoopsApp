@@ -1,17 +1,18 @@
 import React, {Component} from 'react'
-import {View, Text} from 'react-native'
+import {View, Text, TouchableHighlight } from 'react-native'
 
 import _ from '../../i18n'
 import StyleSheet from '../../styles'
 import Icon from '../../components//icon'
 
 class BankInfoCard extends Component {
+
   constructor(props){
     super(props)
   }
+
   render(){
     const { accountData } = this.props
-
     let firstCharOfName = accountData.firstName && accountData.firstName.charAt(0)
     let surnameCaption = accountData.lastName && accountData.lastName.toUpperCase()
 
@@ -32,9 +33,13 @@ class BankInfoCard extends Component {
             </View>
           </View>
           <View style={[StyleSheet.wallet.bankInfoBox.iconContainer]}>
-            <View style={StyleSheet.wallet.bankInfoBox.iconCircle}>
-              <Icon style={StyleSheet.wallet.bankInfoBox.iconStyle} name="actionEdit"/>
-            </View>
+            <TouchableHighlight
+              style={{borderRadius:70}}
+              onPress={() => this.props.onNavigate('paymentsBankSetup', {}, false)}>
+              <View style={StyleSheet.wallet.bankInfoBox.iconCircle}>
+                <Icon style={StyleSheet.wallet.bankInfoBox.iconStyle} name="actionEdit" />
+              </View>
+            </TouchableHighlight>
           </View>
         </View>
         )}

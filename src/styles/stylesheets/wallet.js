@@ -35,11 +35,11 @@ const responsiveStyles = {
   },
 
   balance: {
-    fontSize: responsive.Vertical(8),
+    fontSize: responsive.Vertical(9),
   },
 
   balanceLabel: {
-    fontSize: responsive.Vertical(8),
+    fontSize: responsive.Vertical(9),
  },
 
   top: {
@@ -58,8 +58,8 @@ const responsiveStyles = {
 
 iconContainer:{
     padding:  responsive.Vertical(6),
-    paddingLeft: responsive.Horizontal(6),
-    paddingRight: responsive.Horizontal(6),
+    paddingLeft: responsive.Horizontal(20),
+    paddingRight: responsive.Horizontal(20),
   },
 
 detailsContainer: {
@@ -86,8 +86,8 @@ export default StyleSheet => StyleSheet.extend({
     container: {
       flexDirection: "column",
       borderRadius: 7,
-      minWidth: 150,
-      width: width > 641 ? null : '60%',
+      minWidth: 255,
+      width: width > 641 ? null : '70%',
       shadowColor: '#000000',
       shadowOffset: {
         width: 0,
@@ -123,8 +123,8 @@ export default StyleSheet => StyleSheet.extend({
       borderColor: colors.white,
       borderLeftWidth: 1,
       padding:  breakPoint ? responsiveStyles.iconContainer.padding : 6,
-      paddingLeft: breakPoint ? responsiveStyles.iconContainer.paddingLeft : 6,
-      paddingRight: breakPoint ? responsiveStyles.iconContainer.paddingRight : 6,
+      paddingLeft: breakPoint ? responsiveStyles.iconContainer.paddingLeft : 20,
+      paddingRight: breakPoint ? responsiveStyles.iconContainer.paddingRight : 20,
     },
 
     detailsContainer: {
@@ -162,18 +162,18 @@ export default StyleSheet => StyleSheet.extend({
     balance: {
       color: colors.green,
       fontWeight: "bold",
-      fontSize:  breakPoint ? responsiveStyles.balance.fontSize  : 8,
+      fontSize:  breakPoint ? responsiveStyles.balance.fontSize  : 9,
     },
 
     pending: {
       color: colors.yellow,
       fontWeight: "bold",
-      fontSize:  breakPoint ? responsiveStyles.balance.fontSize  : 8,
+      fontSize:  breakPoint ? responsiveStyles.balance.fontSize  : 9,
     },
 
     balanceLabel:{
       color: colors.black,
-      fontSize: breakPoint ? responsiveStyles.balanceLabel.fontSize  : 8,
+      fontSize: breakPoint ? responsiveStyles.balanceLabel.fontSize  : 9,
     }
   }),
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {ScrollView, View} from 'react-native'
 
 import _ from '../i18n'
-import {Header, LoadingAlert, Title, Button} from '../components'
+import {Header, LoadingAlert, Title} from '../components'
 import {UserListInWallet, BankInfoCard} from '../components/wallet'
 import {calculateDisplayData} from '../utils'
 import StyleSheet from '../styles'
@@ -43,6 +43,7 @@ class Wallet extends Component {
 
   render() {
     const account = this.props.account
+    const onNavigate = this.props.onNavigate
 
     return (
       <View style={{flex: 1}}>
@@ -54,6 +55,7 @@ class Wallet extends Component {
           <View style={{ alignItems: "center"}}>
             <BankInfoCard
               accountData={account}
+              onNavigate={onNavigate}
             />
           </View>
         </View>
