@@ -103,7 +103,7 @@ export const updateAccount = (data) => {
       firstName: data.firstName,
       lastName: data.lastName,
       addressLine1: data.addressLine1,
-      addressLine26159: data.addressLine2,
+      addressLine2: data.addressLine2,
       postcode: data.postcode,
       city: data.city
     }
