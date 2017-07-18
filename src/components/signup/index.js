@@ -1,2 +1,2 @@
-export {default as UserListInWallet} from './dob-info-popup'
-export {default as BankInfoCard} from './gender-info-popup'
+export {default as DobInfoPopup} from './dob-info-popup'
+export {default as GenderInfoPopup} from './gender-info-popup'
