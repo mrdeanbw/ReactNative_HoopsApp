@@ -287,8 +287,7 @@ export const pay = (event, invite = null) => {
 }
 
 export const clearPaymentError = () => ({
-    type: actionTypes.PAYMENTS_PAY_END,
-    err: null,
+  type: actionTypes.PAYMENTS_PAY_CLEAR_ERROR,
 })
 
 export const dismissError = () => ({

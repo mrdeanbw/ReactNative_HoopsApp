@@ -67,10 +67,9 @@ export default handleActions({
     }
   },
 
-  [actionTypes.PAYMENTS_PAY_END]: (state, action) => {
+  [actionTypes.PAYMENTS_PAY_CLEAR_ERROR]: (state, action) => {
     return {
       ...state,
-      isPaymentProcessing: false,
       paymentProcessingError: null
     }
   },

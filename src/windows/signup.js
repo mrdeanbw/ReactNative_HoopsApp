@@ -188,7 +188,7 @@ class SignUp extends Component {
             onPressInfoIcon={() => this.setState({showGenderInfoPopup: true})}
           />
           <Button
-            type={valid ? "roundedDefault" : "roundedGrey"}
+            type={valid ? 'roundedDefault' : 'roundedGrey'}
             text={_('signup')}
             onPress={handleSubmit(this.submit)}
             style={[StyleSheet.doubleMarginTop, StyleSheet.singleMarginBottom]}

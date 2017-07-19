@@ -76,7 +76,6 @@ export default class EventDetails extends React.Component {
       showPaymentTypePopup: false,
       paymentMethod: undefined,
       joinRequest: false,
-      hasSeenPaymentErrorPopup: false
     }
   }
 
@@ -177,7 +176,6 @@ export default class EventDetails extends React.Component {
     this.setState({
       showJoinPopup: false,
       joinRequest: true,
-      hasSeenPaymentErrorPopup: false
     })
 
     this.props.onPressJoin(this.state.paymentMethod)
@@ -289,12 +287,8 @@ export default class EventDetails extends React.Component {
           }}
         />
         <ErrorPopup
-          visible={!this.state.hasSeenPaymentErrorPopup && !!this.props.payments.paymentProcessingError}
-          onPressOk={() => {
-            this.setState({hasSeenPaymentErrorPopup: true})
-            this.props.onClearPaymentError()
-            }
-          }
+          visible={!!this.props.payments.paymentProcessingError}
+          onPressOk={this.props.onClearPaymentError}
           text={this.props.payments.paymentProcessingError}
         />
         <ScrollView style={StyleSheet.eventDetails.style}>
