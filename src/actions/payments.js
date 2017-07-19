@@ -280,11 +280,16 @@ export const pay = (event, invite = null) => {
     } catch(err) {
       dispatch({
         type: actionTypes.PAYMENTS_PAY_ERROR,
-        err,
+        err: err.message,
       })
     }
   }
 }
+
+export const clearPaymentError = () => ({
+    type: actionTypes.PAYMENTS_PAY_END,
+    err: null,
+})
 
 export const dismissError = () => ({
   type: actionTypes.PAYMENTS_ERROR_DISMISS,

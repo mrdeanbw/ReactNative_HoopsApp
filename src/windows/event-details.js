@@ -3,7 +3,7 @@ import {ScrollView,View,Text, Image, ActionSheetIOS, TouchableHighlight, Linking
 import moment from 'moment'
 
 import StyleSheet from '../styles'
-import {Avatar, Icon, HorizontalRule, Button, Popup, Header} from '../components'
+import {Avatar, Icon, HorizontalRule, Button, Popup, Header, ErrorPopup} from '../components'
 import _ from '../i18n'
 import {insert} from '../utils'
 import EventDashboard from './event-dashboard'
@@ -75,8 +75,8 @@ export default class EventDetails extends React.Component {
       showCancelRequestPopup: false,
       showPaymentTypePopup: false,
       paymentMethod: undefined,
-
       joinRequest: false,
+      hasSeenPaymentErrorPopup: false
     }
   }
 
@@ -177,6 +177,7 @@ export default class EventDetails extends React.Component {
     this.setState({
       showJoinPopup: false,
       joinRequest: true,
+      hasSeenPaymentErrorPopup: false
     })
 
     this.props.onPressJoin(this.state.paymentMethod)
@@ -231,7 +232,6 @@ export default class EventDetails extends React.Component {
     } else {
       ageText = _('noLimit')
     }
-
     return (
       <View style={{flex: 1}}>
         <Header title={_('eventDetails')} simple />
@@ -287,6 +287,15 @@ export default class EventDetails extends React.Component {
               paymentMethod,
             })
           }}
+        />
+        <ErrorPopup
+          visible={!this.state.hasSeenPaymentErrorPopup && !!this.props.payments.paymentProcessingError}
+          onPressOk={() => {
+            this.setState({hasSeenPaymentErrorPopup: true})
+            this.props.onClearPaymentError()
+            }
+          }
+          text={this.props.payments.paymentProcessingError}
         />
         <ScrollView style={StyleSheet.eventDetails.style}>
           <View style={StyleSheet.eventDetails.titleStyle}>

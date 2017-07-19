@@ -7,6 +7,7 @@ import _CheckButton from './check-button'
 import _DateInput from './date-input'
 import _Dialog from './dialog'
 import _EmptyScreenInfo from './empty-screen-info'
+import _ErrorPopup from './errorPopup'
 import _Explainers from './explainers'
 import _EventListItem from './event-list-item'
 import _DashboardButton from './dashboard-button'
@@ -44,6 +45,7 @@ export const CheckButton = _CheckButton
 export const DashboardButton = _DashboardButton
 export const DateInput = _DateInput
 export const Dialog = _Dialog
+export const ErrorPopup = _ErrorPopup
 export const EmptyScreenInfo = _EmptyScreenInfo
 export const Explainers = _Explainers
 export const EventListItem = _EventListItem
