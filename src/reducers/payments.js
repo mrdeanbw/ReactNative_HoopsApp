@@ -67,6 +67,14 @@ export default handleActions({
     }
   },
 
+  [actionTypes.PAYMENTS_PAY_END]: (state, action) => {
+    return {
+      ...state,
+      isPaymentProcessing: false,
+      paymentProcessingError: null
+    }
+  },
+
   [actionTypes.PAYMENTS_UPDATE_ACCOUNT_START]: (state, action) => {
     return {
       ...state,

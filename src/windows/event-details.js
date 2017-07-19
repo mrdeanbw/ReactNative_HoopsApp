@@ -290,7 +290,11 @@ export default class EventDetails extends React.Component {
         />
         <ErrorPopup
           visible={!this.state.hasSeenPaymentErrorPopup && !!this.props.payments.paymentProcessingError}
-          onPressOk={() => this.setState({hasSeenPaymentErrorPopup: true})}
+          onPressOk={() => {
+            this.setState({hasSeenPaymentErrorPopup: true})
+            this.props.onClearPaymentError()
+            }
+          }
           text={this.props.payments.paymentProcessingError}
         />
         <ScrollView style={StyleSheet.eventDetails.style}>

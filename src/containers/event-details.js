@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
 
-import {navigationActions, eventActions, requestActions} from '../actions'
+import {navigationActions, eventActions, requestActions, paymentActions} from '../actions'
 import {EventDetails as _EventDetails} from '../windows'
 import {getEvent} from '../selectors/events'
 
@@ -127,6 +127,9 @@ class EventDetails extends React.Component {
         onEditEvent={() => {
           this.props.onNavigate('createEvent', {id: event.id}, false)
         }}
+        onClearPaymentError={() => {
+          this.props.onClearPaymentError()
+        }}
       />
     )
   }
@@ -160,5 +163,6 @@ export default connect(
     onPressSave: (eventId) => dispatch(eventActions.save(eventId)),
     onPressUnsave: (eventId) => dispatch(eventActions.unsave(eventId)),
     onCancelRequest: (request) => dispatch(requestActions.cancel(request)),
+    onClearPaymentError: (request) => dispatch(paymentActions.clearPaymentError())
   })
 )(EventDetails)
