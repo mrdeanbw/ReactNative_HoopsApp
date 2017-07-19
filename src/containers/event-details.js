@@ -87,6 +87,7 @@ class EventDetails extends React.Component {
         isSaved={isSaved}
         actionButton={this.props.actionButton}
         onChangeAction={this.props.onChangeAction}
+        payments={this.props.payments}
         onPressOrganizer={(organizer) => {
           this.props.onNavigate('profile', {id: organizer.id})
         }}

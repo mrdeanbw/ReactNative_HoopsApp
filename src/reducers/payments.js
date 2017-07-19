@@ -8,6 +8,7 @@ const initialState = {
   isFetchingCards: false,
   isAddingCard: false,
   isDeletingCard: false,
+  isPaymentProcessing: false,
 
   accountData: {},
   accountBalance: {},
@@ -17,6 +18,7 @@ const initialState = {
   fetchAccountError: null,
   addCardError: null,
   deleteCardError: null,
+  paymentProcessingError: null,
 
   cards: [],
 }
@@ -36,6 +38,32 @@ export default handleActions({
       fetchAccountError: null,
       addCardError: null,
       deleteCardError: null,
+      isPaymentProcessing: false,
+      paymentProcessingError: null
+    }
+  },
+
+  [actionTypes.PAYMENTS_PAY_START]: (state, action) => {
+    return {
+      ...state,
+      isPaymentProcessing: true,
+      paymentProcessingError: null
+    }
+  },
+
+  [actionTypes.PAYMENTS_PAY_SUCCESS]: (state, action) => {
+    return {
+      ...state,
+      isPaymentProcessing: false,
+      paymentProcessingError: null
+    }
+  },
+
+  [actionTypes.PAYMENTS_PAY_ERROR]: (state, action) => {
+    return {
+      ...state,
+      isPaymentProcessing: false,
+      paymentProcessingError: action.err
     }
   },
 
