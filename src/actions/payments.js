@@ -283,12 +283,6 @@ export const pay = (event, invite = null) => {
         err: err.message,
       })
     }
-
-    // dispatch({
-    //   type: actionTypes.PAYMENTS_PAY_END,
-    //   err: null,
-    // })
-
   }
 }
 
