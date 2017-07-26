@@ -68,14 +68,14 @@ class SignUpFacebookExtra extends Component {
   }
 
   render() {
-    if (this.props.isLoading) {
-      return (
-        <View style={{flex: 1}}>
-          <Header title={_('signupFacebook')} simple />
-          <LoadingAlert visible={this.props.isLoading} />
-        </View>
-      )
-    }
+    // if (this.props.isLoading) {
+    //   return (
+    //     <View style={{flex: 1}}>
+    //       <Header title={_('signupFacebook')} simple />
+    //       <LoadingAlert visible={this.props.isLoading} />
+    //     </View>
+    //   )
+    // }
 
     const errorCode = this.props.signUpError && this.props.signUpError.code
     const emailError = [
