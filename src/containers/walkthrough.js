@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {Walkthrough as _Walkthrough} from '../windows'
 import {navigationActions} from '../actions'
 
-class Walkthrough extends React.Component {
+class Walkthrough extends Component {
 
   render() {
     return (

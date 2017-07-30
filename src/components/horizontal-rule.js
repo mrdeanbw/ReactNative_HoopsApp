@@ -1,10 +1,10 @@
 
-import React from 'react'
+import React, {Component} from 'react'
 import {View, Text} from 'react-native'
 
 import StyleSheet from '../styles'
 
-export default class HorizontalRule extends React.Component {
+export default class HorizontalRule extends Component {
 
   render() {
     return (

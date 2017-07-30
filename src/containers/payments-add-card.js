@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import _PaymentsAddCard from '../windows/payments-add-card'
 import {navigationActions, paymentActions} from '../actions'
 
-class PaymentsAddCard extends React.Component {
+class PaymentsAddCard extends Component {
 
   componentWillUnmount() {
     this.props.onDismissError()

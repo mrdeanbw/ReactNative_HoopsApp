@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import _Members from '../windows/members'
 import {navigationActions,inviteActions} from '../actions'
 import inflateEvent from '../data/inflaters/event'
 
-class Members extends React.Component {
+class Members extends Component {
 
   render() {
     let event = inflateEvent(

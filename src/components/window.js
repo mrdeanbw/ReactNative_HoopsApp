@@ -1,7 +1,7 @@
 
 import _ from '../i18n'
 
-import React from 'react'
+import React, {Component} from 'react'
 import {Animated, View, Text, Image, Modal} from 'react-native'
 
 import StyleSheet from '../styles'
@@ -12,7 +12,7 @@ import Button from './button'
 
 import * as windows from '../windows'
 
-export default class Window extends React.Component {
+export default class Window extends Component {
 
   constructor() {
     super()
@@ -131,7 +131,7 @@ export default class Window extends React.Component {
   }
 }
 
-class BaseWindow extends React.Component {
+class BaseWindow extends Component {
 
   constructor() {
     super()

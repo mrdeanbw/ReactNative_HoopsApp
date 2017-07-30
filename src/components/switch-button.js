@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, {Component} from 'react'
 
 import {View, TouchableWithoutFeedback, Animated} from 'react-native'
 
@@ -7,7 +7,7 @@ import StyleSheet from '../styles'
 
 const width = 30, height = 15
 
-export default class SwitchButton extends React.Component {
+export default class SwitchButton extends Component {
   constructor(props) {
     super(props)
     this.state = {

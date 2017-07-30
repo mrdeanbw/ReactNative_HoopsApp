@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import EventEmitter from 'EventEmitter'
 
@@ -8,7 +8,7 @@ import _ from '../i18n'
 
 import {TabBar as _TabBar, Navigator} from '../components'
 
-class TabBar extends React.Component {
+class TabBar extends Component {
 
   constructor(props) {
     super(props)

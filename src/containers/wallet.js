@@ -5,7 +5,8 @@ import _Wallet from '../windows/wallet'
 import {navigationActions, paymentActions} from '../actions'
 
 class Wallet extends Component {
-    constructor(props){
+
+  constructor(props){
     super(props)
   }
 
@@ -27,8 +28,8 @@ class Wallet extends Component {
         )}
 
         account={Object.assign(
-          payments.accountData, 
-          {'balance':payments.accountBalance}, 
+          payments.accountData,
+          {'balance':payments.accountBalance},
           payments.accountTransactions
         )}
 

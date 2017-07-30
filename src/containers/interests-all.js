@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {InterestsAll as _InterestsAll} from '../windows'
 import {userActions, navigationActions} from '../actions'
 
-class InterestsAll extends React.Component {
+class InterestsAll extends Component {
 
   render() {
     let interests = Object.keys(this.props.interests).map(id => {

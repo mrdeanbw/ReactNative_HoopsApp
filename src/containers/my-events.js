@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
 
@@ -6,7 +6,7 @@ import {MyEvents as _MyEvents} from '../windows'
 import {userActions, eventActions, navigationActions} from '../actions'
 import inflateEvent from '../data/inflaters/event'
 
-class MyEvents extends React.Component {
+class MyEvents extends Component {
 
   onPressEvent(event) {
     this.props.onNavigate('eventDashboard', {id: event.id})

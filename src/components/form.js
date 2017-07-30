@@ -1,10 +1,10 @@
 
-import React from 'react'
+import React, {Component} from 'react'
 import {ScrollView, TouchableWithoutFeedback, View} from 'react-native'
 
 import dismissKeyboard from 'dismissKeyboard'
 
-export default class Form extends React.Component {
+export default class Form extends Component {
 
   render() {
     return (

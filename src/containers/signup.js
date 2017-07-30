@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {SignUp as _SignUp} from '../windows'
 import {userActions} from '../actions'
 
-class SignUp extends React.Component {
+class SignUp extends Component {
 
   render() {
     const user = this.props.user

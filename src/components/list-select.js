@@ -1,11 +1,11 @@
 
-import React from 'react'
+import React, {Component} from 'react'
 import {View, Text, ListView, TouchableHighlight} from 'react-native'
 import {TextInput} from './'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
-export default class ListSelect extends React.Component {
+export default class ListSelect extends Component {
   constructor(props) {
     super(props)
 

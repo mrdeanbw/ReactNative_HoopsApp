@@ -1,16 +1,16 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import _FriendsSearch from '../windows/friends-search'
 import {usersActions,navigationActions,searchActions} from '../actions'
 
-class FriendsSearch extends React.Component {
+class FriendsSearch extends Component {
 
   componentWillMount() {
     this.props.onSearch('')
   }
-  render() {
 
+  render() {
     let uid = this.props.user.uid
 
     let pendingUserIds = Object.keys(this.props.user.friendRequests).map(requestId => {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, TextInput as _TextInput, Text, TouchableHighlight, Platform} from 'react-native'
 
 import _ from '../i18n'
@@ -9,7 +9,7 @@ import Popup from './popup'
 import Button from './button'
 
 
-export default class TextInput extends React.Component {
+export default class TextInput extends Component {
 
   constructor() {
     super()
@@ -146,7 +146,7 @@ export default class TextInput extends React.Component {
   }
 }
 
-class MultilineTextInputDialog extends React.Component {
+class MultilineTextInputDialog extends Component {
 
   constructor() {
     super()

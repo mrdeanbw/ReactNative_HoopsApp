@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View} from 'react-native'
 
 import _ from '../i18n'
 import {Header, ListSelect, SuggestEvent} from '../components'
 
-export default class ActivitiesSelect extends React.Component {
+export default class ActivitiesSelect extends Component {
 
   render() {
     return (

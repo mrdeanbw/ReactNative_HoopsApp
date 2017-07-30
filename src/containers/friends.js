@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {Friends as _Friends} from '../windows'
 import {userActions, navigationActions} from '../actions'
 
-class Friends extends React.Component {
+class Friends extends Component {
 
   constructor() {
     super()

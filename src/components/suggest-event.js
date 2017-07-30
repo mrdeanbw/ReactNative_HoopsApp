@@ -1,10 +1,10 @@
 
-import React from 'react'
+import React, {Component} from 'react'
 import {TouchableHighlight, Text, Linking} from 'react-native'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
-export default class SuggestEvent extends React.Component {
+export default class SuggestEvent extends Component {
   render() {
     return (
       <TouchableHighlight

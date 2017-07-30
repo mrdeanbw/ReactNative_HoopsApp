@@ -1,12 +1,12 @@
 
-import React from 'react'
+import React, {Component} from 'react'
 import {View, Animated, Text} from 'react-native'
 
 import _ from '../i18n'
 import StyleSheet from '../styles'
 import {ActionButton, Button, Menu} from './'
 
-export default class TabBar extends React.Component {
+export default class TabBar extends Component {
 
   constructor(props) {
     super(props)

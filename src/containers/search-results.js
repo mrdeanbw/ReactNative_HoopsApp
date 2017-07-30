@@ -1,11 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import{ Text, View} from 'react-native'
 
 import {SearchResults as _SearchResults} from '../windows'
 import {navigationActions} from '../actions'
 
-class SearchResults extends React.Component {
+class SearchResults extends Component {
 
   render() {
     let userIds = []

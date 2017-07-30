@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import _Payments from '../windows/payments'
 import {navigationActions, paymentActions} from '../actions'
 
-class Payments extends React.Component {
+class Payments extends Component {
 
   componentWillMount() {
     //when this component mounts, fetch cards information from Stripe
@@ -12,7 +12,6 @@ class Payments extends React.Component {
   }
 
   render() {
-
     return (
       <_Payments
         cards={this.props.payments.cards}

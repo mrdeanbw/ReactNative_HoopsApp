@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, {Component} from 'react'
 import dismissKeyboard from 'dismissKeyboard'
 import StyleSheet from '../styles'
 import { View, Text, TouchableHighlight} from 'react-native'
@@ -9,7 +9,7 @@ import TextInput from './text-input'
 import Popup from './popup'
 import Icon from './icon'
 
-export default class ListInput extends React.Component {
+export default class ListInput extends Component {
 
   constructor() {
     super()
@@ -96,7 +96,7 @@ ListInput.propTypes = {
   placeholderTextColor: React.PropTypes.string,
 }
 
-ListInput.Item = class ListInputItem extends React.Component {
+ListInput.Item = class ListInputItem extends Component {
   render() {
     return (
       <Button type="alertVertical" text={this.props.text} onPress={this.props.onPress} textStyle={{lineHeight: 24}} />

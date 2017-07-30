@@ -1,12 +1,12 @@
 
-import React from 'react'
+import React, {Component} from 'react'
 
 import {View, Text, TouchableHighlight} from 'react-native'
 
 import Icon from './icon'
 import StyleSheet from '../styles'
 
-export default class CheckButton extends React.Component {
+export default class CheckButton extends Component {
 
   onPress = (...args) => {
     if(this.props.onPress) {

@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {Notifications as _Notifications} from '../windows'
 import {navigationActions} from '../actions'
 
-class Notifications extends React.Component {
+class Notifications extends Component {
 
   render() {
     return (

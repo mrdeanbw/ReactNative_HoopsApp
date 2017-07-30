@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
 
-import {Calendar as _Calendar} from '../windows'
 import {navigationActions} from '../actions'
+import {Calendar as _Calendar} from '../windows'
 
-class Calendar extends React.Component {
+class Calendar extends Component {
 
   constructor() {
     super()

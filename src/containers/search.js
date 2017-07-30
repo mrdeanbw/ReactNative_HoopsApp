@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {Search as _Search} from '../windows'
 import {navigationActions, searchActions} from '../actions'
 import inflateEvent from '../data/inflaters/event'
 
-class Search extends React.Component {
+class Search extends Component {
 
   constructor() {
     super()

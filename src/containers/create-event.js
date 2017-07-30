@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {CreateEvent as _CreateEvent} from '../windows'
 import {navigationActions, eventActions} from '../actions'
 
-class CreateEvent extends React.Component {
+class CreateEvent extends Component {
 
   constructor(props) {
     super(props)

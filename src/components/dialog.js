@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { View, Text, Modal, ScrollView, TouchableWithoutFeedback } from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
@@ -6,7 +6,7 @@ import _ from '../i18n'
 import StyleSheet from '../styles'
 import Button from './button'
 
-export default class Dialog extends React.Component {
+export default class Dialog extends Component {
   constructor() {
     super()
     this.state = {}

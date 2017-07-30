@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {userActions} from '../actions'
 import {SignUpFacebookExtra as _SignUpFacebookExtra} from '../windows'
 
-class SignUpFacebookExtra extends React.Component {
+class SignUpFacebookExtra extends Component {
 
   componentDidMount() {
     this.props.loadFacebookData()

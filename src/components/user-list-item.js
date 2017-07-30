@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import moment from 'moment'
 import {View, Image, Text, TouchableHighlight, Animated} from 'react-native'
 
@@ -6,7 +6,7 @@ import StyleSheet from '../styles'
 import {Avatar, Button, Icon} from './'
 import _ from '../i18n'
 
-export default class UserListItem extends React.Component {
+export default class UserListItem extends Component {
 
   constructor(props) {
     super(props)

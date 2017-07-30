@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {Manage as _Manage} from '../windows'
 import {navigationActions} from '../actions'
 import inflateEvent from '../data/inflaters/event'
 
-class Manage extends React.Component {
+class Manage extends Component {
 
   onPressEvent(event) {
     if(this.props.mode === 'ORGANIZE') {

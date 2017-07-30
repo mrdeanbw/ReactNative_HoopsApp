@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import ReactNative, {View, Text, Image, TouchableHighlight, TextInput as TextInputRN, Platform} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
@@ -11,7 +11,7 @@ import {colors} from '../styles/resources'
 import _ from '../i18n'
 import {showImagePicker} from '../utils/'
 
-export default class CreateEvent extends React.Component {
+export default class CreateEvent extends Component {
 
   constructor(props) {
     super(props)

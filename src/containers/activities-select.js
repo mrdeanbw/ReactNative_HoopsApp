@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {Component} from 'react'
 
 import {ActivitiesSelect as _ActivitiesSelect} from '../windows'
 
-export default class ActivitiesSelect extends React.Component {
+class ActivitiesSelect extends Component {
 
   render() {
     return (
@@ -23,3 +23,5 @@ export default class ActivitiesSelect extends React.Component {
     )
   }
 }
+
+export default ActivitiesSelect

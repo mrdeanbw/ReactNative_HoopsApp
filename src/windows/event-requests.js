@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {ScrollView,View} from 'react-native'
 
 import {Button,UserListItem,Header} from '../components'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
-export default class EventRequests extends React.Component {
+export default class EventRequests extends Component {
 
   constructor() {
     super()

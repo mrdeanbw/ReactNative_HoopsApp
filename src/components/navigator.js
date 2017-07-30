@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, NavigationExperimental, StatusBar} from 'react-native'
 const {CardStack} = NavigationExperimental
 
 import StyleSheet from '../styles'
 
-export default class Navigator extends React.Component {
+export default class Navigator extends Component {
 
   constructor(props) {
     super(props)

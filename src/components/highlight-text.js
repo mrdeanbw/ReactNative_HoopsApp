@@ -1,10 +1,10 @@
 
 
-import React from 'react'
+import React, {Component} from 'react'
 import { Text } from 'react-native'
 
 
-export default class HighlightText extends React.Component {
+export default class HighlightText extends Component {
   render() {
     var re = new RegExp(this.props.highlight, 'igm'), s = this.props.text
     let m, n = 0, c = []

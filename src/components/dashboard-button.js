@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, Text, TouchableHighlight} from 'react-native'
 
 import StyleSheet from '../styles'
 import Icon from './icon'
 
-class EventDashboardButton extends React.Component {
+class EventDashboardButton extends Component {
 
   render() {
     const {backgroundColor, type, icon, active, text, iconStyle} = this.props

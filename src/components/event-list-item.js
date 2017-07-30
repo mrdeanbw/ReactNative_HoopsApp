@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, Image, Text, TouchableHighlight} from 'react-native'
 import moment from 'moment'
 
@@ -6,7 +6,7 @@ import {Avatar, Icon} from '../components'
 import _ from '../i18n'
 import StyleSheet from '../styles'
 
-export default class EventListItem extends React.Component {
+export default class EventListItem extends Component {
 
   render() {
     let event = this.props.event

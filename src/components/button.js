@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, Text, TouchableHighlight} from 'react-native'
 
 import StyleSheet from '../styles'
 import Icon from './icon'
 
-export default class Button extends React.Component {
+export default class Button extends Component {
 
   render() {
     const {

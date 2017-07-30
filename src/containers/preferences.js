@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {Preferences as _Preferences} from '../windows'
 import {navigationActions, userActions} from '../actions'
 
-class Preferences extends React.Component {
+class Preferences extends Component {
 
   render() {
     return (

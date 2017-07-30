@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {SelectMode as _SelectMode} from '../windows'
 import {appActions, navigationActions} from '../actions'
 
-class SelectMode extends React.Component {
+class SelectMode extends Component {
 
   componentWillUpdate(nextProps) {
     if(nextProps.mode) {

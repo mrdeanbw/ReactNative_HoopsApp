@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, {Component} from 'react'
 
 import _ from '../i18n'
 import StyleSheet from '../styles'
@@ -7,7 +7,7 @@ import {Modal, View, TouchableWithoutFeedback} from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 import Button from './button'
 
-export default class Popup extends React.Component {
+export default class Popup extends Component {
   render() {
 
     return (

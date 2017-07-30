@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, Text, TouchableHighlight, ScrollView} from 'react-native'
 import moment from 'moment'
 
@@ -7,7 +7,7 @@ import Icon from '../components/icon'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
-export default class Calendar extends React.Component {
+export default class Calendar extends Component {
 
   constructor(props) {
     super(props)

@@ -216,7 +216,7 @@ CancelEventPopup.propTypes = {
 
 EventDashboard.CancelEventPopup = CancelEventPopup
 
-class EventQuitPopup extends React.Component {
+class EventQuitPopup extends Component {
   render() {
     return (
       <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>

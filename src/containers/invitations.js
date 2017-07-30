@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {Invitations as _Invitations} from '../windows'
@@ -6,7 +6,7 @@ import {navigationActions, inviteActions, requestActions} from '../actions'
 import inflateInvite from '../data/inflaters/invite'
 import inflateRequest from '../data/inflaters/request'
 
-class Invitations extends React.Component {
+class Invitations extends Component {
 
   constructor() {
     super()

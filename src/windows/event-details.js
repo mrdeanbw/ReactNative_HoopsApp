@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {ScrollView,View,Text, Image, ActionSheetIOS, TouchableHighlight, Linking} from 'react-native'
 import moment from 'moment'
 
@@ -62,7 +62,7 @@ const icons = {
   ZUMBA:'activityZumba',
 }
 
-export default class EventDetails extends React.Component {
+export default class EventDetails extends Component {
 
   constructor(props) {
     super(props)
@@ -409,7 +409,7 @@ export default class EventDetails extends React.Component {
   }
 }
 
-class EventInfo extends React.Component {
+class EventInfo extends Component {
   render() {
     return (
       <View style={[StyleSheet.eventDetails.eventInfoStyle, this.props.style]}>
@@ -425,7 +425,7 @@ class EventInfo extends React.Component {
   }
 }
 
-EventInfo.Summary = class EventSummaryInfo extends React.Component {
+EventInfo.Summary = class EventSummaryInfo extends Component {
   render() {
     return (
       <View style={[StyleSheet.eventDetails.eventInfoStyle, this.props.style]}>
@@ -439,7 +439,7 @@ EventInfo.Summary = class EventSummaryInfo extends React.Component {
   }
 }
 
-EventInfo.Bar = class EventInfoBar extends React.Component {
+EventInfo.Bar = class EventInfoBar extends Component {
   render() {
     return (
       <View style={[StyleSheet.eventDetails.eventInfoBarStyle, this.props.style]}>
@@ -449,7 +449,7 @@ EventInfo.Bar = class EventInfoBar extends React.Component {
   }
 }
 
-class DateText extends React.Component {
+class DateText extends Component {
 
   changeDateFormat(start){
     let day = moment(start).format('llll').replace(/ /g, '\u00a0').substr(0, 11).slice(9, 11) + ' '
@@ -508,7 +508,7 @@ class DateText extends React.Component {
   }
 }
 
-class EventJoinPopup extends React.Component {
+class EventJoinPopup extends Component {
 
   render() {
     const formatCharge = (charge) => {
@@ -557,7 +557,7 @@ class EventJoinPopup extends React.Component {
   }
 }
 
-class PaymentTypePopup extends React.Component {
+class PaymentTypePopup extends Component {
   render() {
     return (
       <Popup visible={this.props.visible} onClose={this.props.onClose}>
@@ -576,7 +576,7 @@ class PaymentTypePopup extends React.Component {
   }
 }
 
-class EventJoinedConfirmation extends React.Component {
+class EventJoinedConfirmation extends Component {
   render() {
     return (
       <Popup visible={this.props.visible} onClose={this.props.onClose}>
@@ -602,7 +602,7 @@ class EventJoinedConfirmation extends React.Component {
   }
 }
 
-class EventQuitPopup extends React.Component {
+class EventQuitPopup extends Component {
   render() {
     return (
       <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>
@@ -629,7 +629,7 @@ class EventQuitPopup extends React.Component {
   }
 }
 
-class EventCancelRequestPopup extends React.Component {
+class EventCancelRequestPopup extends Component {
   render() {
     return (
       <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>

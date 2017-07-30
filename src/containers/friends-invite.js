@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
 
@@ -6,7 +6,8 @@ import {FriendsInvite as _FriendsInvite} from '../windows'
 import {eventActions, navigationActions} from '../actions'
 import inflateEvent from '../data/inflaters/event'
 
-class FriendsInvite extends React.Component {
+class FriendsInvite extends Component {
+
   render() {
     let events = Object.keys(this.props.user.organizing).map(eventId => {
       return inflateEvent(this.props.events.eventsById[eventId], {

@@ -1,14 +1,14 @@
 
 import _ from '../i18n'
 
-import React from 'react'
+import React, {Component} from 'react'
 
 import {View, ScrollView} from 'react-native'
 import Button from './button'
 
 import StyleSheet from '../styles'
 
-export default class Wizard extends React.Component {
+export default class Wizard extends Component {
 
   constructor() {
     super()
@@ -79,7 +79,7 @@ export default class Wizard extends React.Component {
   }
 }
 
-Wizard.Step = class WizardStep extends React.Component {
+Wizard.Step = class WizardStep extends Component {
   render() {
     return (
       <View style={{flex: 1}}>

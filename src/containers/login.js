@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import {Login as _Login} from '../windows'
 import {userActions} from '../actions'
 
-class Login extends React.Component {
+class Login extends Component {
 
   render() {
     return (

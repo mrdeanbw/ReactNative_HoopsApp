@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
 
@@ -7,7 +7,7 @@ import {userActions, usersActions, navigationActions} from '../actions'
 import inflateEvent from '../data/inflaters/event'
 import inflateUser from '../data/inflaters/user'
 
-class Profile extends React.Component {
+class Profile extends Component {
 
   render() {
     let profile

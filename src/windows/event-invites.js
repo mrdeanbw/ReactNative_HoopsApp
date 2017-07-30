@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {ScrollView,Text,View} from 'react-native'
 
 import {TextInput,Button,UserListItem,Header,Popup} from '../components'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
-export default class EventInvites extends React.Component {
+export default class EventInvites extends Component {
 
   constructor() {
     super()
@@ -108,7 +108,7 @@ EventInvites.propTypes = {
   users: React.PropTypes.array.isRequired,
 }
 
-class MemberInviteOptions extends React.Component {
+class MemberInviteOptions extends Component {
   render() {
     return (
       <Popup visible={this.props.visible} style={StyleSheet.dialog.optionsMenu} onClose={this.props.onClose}>
@@ -129,7 +129,7 @@ class MemberInviteOptions extends React.Component {
   onPressImportGoogle={() => {}}
 />*/}
 
-class ImportContacts extends React.Component {
+class ImportContacts extends Component {
   render() {
     return (
       <Popup visible={this.props.visible} style={StyleSheet.dialog.optionsMenu} onClose={this.props.onClose}>
