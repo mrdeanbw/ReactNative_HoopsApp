@@ -98,6 +98,15 @@ class MapView extends Component {
         showsPointsOfInterest={true}
         region={region}
         {...this.props}
+        onPress={() => {
+          for(let i = 0; i < this.markers.length; i++){
+            if(this.markers[i].activeMarker){
+              delete this.markers[i].activeMarker
+              this.markers[i].hideCallout()
+              return
+            }
+          }
+        }}
       >
         {annotations.map((marker, ind) => (
           <_MapView.Marker
@@ -105,10 +114,10 @@ class MapView extends Component {
             image={marker.image}
             coordinate={marker.latlng}
             ref={ref => { this.markers[ind] = ref }}
-            onPress={() => {
-              if (this.activeMarker) {
-                this.activeMarker.closeCallout()
-              }
+
+            onPress={(e) => {
+              e.stopPropagation()
+              this.markers[ind].activeMarker = true
               this.markers[ind].showCallout()
             }}
           >
