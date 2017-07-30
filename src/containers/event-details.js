@@ -1,15 +1,15 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
 
 import {navigationActions, eventActions, requestActions, paymentActions} from '../actions'
 import {EventDetails as _EventDetails} from '../windows'
-import {getEvent} from '../selectors/events'
+import {getEventFactory} from '../selectors/events'
 
 import inflateEvent from '../data/inflaters/event'
 import inflateUser from '../data/inflaters/user'
 
-class EventDetails extends React.Component {
+class EventDetails extends Component {
 
   constructor() {
     super()
@@ -139,19 +139,27 @@ EventDetails.propTypes = {
   id: React.PropTypes.string.isRequired,
 }
 
-export default connect(
-  (state, props) => ({
-    router: state.router,
-    event: getEvent(state, props.id),
-    users: state.users,
-    user: state.user,
-    requests: state.requests,
-    invites: state.invites,
-    payments: state.payments,
-    interests: state.interests,
-    navigation: state.navigation,
-  }),
-  (dispatch) => ({
+const makeMapStateToProps = () => {
+  const getEvent = getEventFactory()
+  const mapStateToProps = (state, props) => {
+    return {
+      router: state.router,
+      event: getEvent(state, props.id),
+      users: state.users,
+      user: state.user,
+      requests: state.requests,
+      invites: state.invites,
+      payments: state.payments,
+      interests: state.interests,
+      navigation: state.navigation,
+    }
+  }
+
+  return mapStateToProps
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
     onNavigate: (key, props, subTab) => dispatch(navigationActions.push({key, props}, subTab)),
     onDeepLinkTab: (key, tabKey, props) => {
       dispatch(navigationActions.deepLinkTab(null, tabKey))
@@ -164,5 +172,10 @@ export default connect(
     onPressUnsave: (eventId) => dispatch(eventActions.unsave(eventId)),
     onCancelRequest: (request) => dispatch(requestActions.cancel(request)),
     onClearPaymentError: (request) => dispatch(paymentActions.clearPaymentError())
-  })
+  }
+}
+
+export default connect(
+  makeMapStateToProps,
+  mapDispatchToProps,
 )(EventDetails)

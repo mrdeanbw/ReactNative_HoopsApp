@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import _EventInvites from '../windows/event-invites'
-import {getEvent} from '../selectors/events'
+import {getEventFactory} from '../selectors/events'
 import inflateEvent from '../data/inflaters/event'
 import {navigationActions, eventActions} from '../actions'
 
@@ -73,17 +73,30 @@ EventInvites.propTypes = {
   id: React.PropTypes.string.isRequired,
 }
 
-export default connect(
-  (state, props) => ({
-    user: state.user,
-    users: state.users,
-    event: getEvent(state, props.id),
-    invites: state.invites,
-    requests: state.requests,
-  }),
-  (dispatch) => ({
+const makeMapStateToProps = () => {
+  const getEvent = getEventFactory()
+  const mapStateToProps = (state, props) => {
+    return {
+      user: state.user,
+      users: state.users,
+      event: getEvent(state, props.id),
+      invites: state.invites,
+      requests: state.requests,
+    }
+  }
+
+  return mapStateToProps
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onSendInvites: (userIds, eventId) => dispatch(eventActions.inviteUsers(userIds, eventId)),
-  }),
+  }
+}
+
+export default connect(
+  makeMapStateToProps,
+  mapDispatchToProps,
 )(EventInvites)

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import inflateUser from '../data/inflaters/user'
 import {eventActions, navigationActions} from '../actions'
-import {getEvent} from '../selectors/events'
+import {getEventFactory} from '../selectors/events'
 import {EventDashboard as _EventDashboard} from '../windows'
 
 class EventDashboard extends Component {
@@ -73,15 +73,23 @@ EventDashboard.propTypes = {
   id: React.PropTypes.string.isRequired,
 }
 
-export default connect(
-  (state, props) => ({
-    event: getEvent(state, props.id),
-    invites: state.invites,
-    requests: state.requests,
-    router: state.router,
-    user: state.user,
-  }),
-  (dispatch) => ({
+const makeMapStateToProps = () => {
+  const getEvent = getEventFactory()
+  const mapStateToProps = (state, props) => {
+    return {
+      event: getEvent(state, props.id),
+      invites: state.invites,
+      requests: state.requests,
+      router: state.router,
+      user: state.user,
+    }
+  }
+
+  return mapStateToProps
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
     onNavigate: (key, props, subTab, direction) => dispatch(navigationActions.push({key, props}, subTab, direction)),
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onCancel: (eventId, message) => dispatch(eventActions.cancel(eventId, message)),
@@ -89,5 +97,10 @@ export default connect(
       dispatch(eventActions.quit(eventId))
       dispatch(navigationActions.changeTab('home'))
     }
-  }),
+  }
+}
+
+export default connect(
+  makeMapStateToProps,
+  mapDispatchToProps,
 )(EventDashboard)
