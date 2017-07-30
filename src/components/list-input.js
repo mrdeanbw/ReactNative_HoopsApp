@@ -9,7 +9,7 @@ import TextInput from './text-input'
 import Popup from './popup'
 import Icon from './icon'
 
-export default class ListInput extends Component {
+class ListInput extends Component {
 
   constructor() {
     super()
@@ -108,3 +108,5 @@ ListInput.Item.propTypes = {
   onPress: React.PropTypes.func,
   text: React.PropTypes.string.isRequired,
 }
+
+export default ListInput

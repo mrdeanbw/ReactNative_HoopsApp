@@ -1,10 +1,11 @@
 
-import React from 'react'
+import React, {Component} from 'react'
 
 import {View, Image as _Image} from 'react-native'
 import StyleSheet from '../styles'
 
-export default class Image extends React.Component {
+class Image extends Component {
+
   render() {
     const {name, style, imageStyle, props} = this.props
     const image = StyleSheet.images[name]
@@ -16,3 +17,5 @@ export default class Image extends React.Component {
     )
   }
 }
+
+export default Image

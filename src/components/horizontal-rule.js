@@ -4,7 +4,7 @@ import {View, Text} from 'react-native'
 
 import StyleSheet from '../styles'
 
-export default class HorizontalRule extends Component {
+class HorizontalRule extends Component {
 
   render() {
     return (
@@ -15,5 +15,6 @@ export default class HorizontalRule extends Component {
       </View>
     )
   }
-
 }
+
+export default HorizontalRule

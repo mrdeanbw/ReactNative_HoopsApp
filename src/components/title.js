@@ -1,13 +1,15 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View,Text} from 'react-native'
 
 import StyleSheet from '../styles'
 
-export default class _Title extends React.Component {
+class Title extends Component {
+
   constructor(props){
     super(props)
   }
-  render(){
+
+  render() {
     return(
       <View style={StyleSheet.title.container}>
         <Text style={[StyleSheet.text,StyleSheet.title.titleText]}>
@@ -17,6 +19,9 @@ export default class _Title extends React.Component {
     )
   }
 }
-_Title.propTypes = {
+
+Title.propTypes = {
   'text': React.PropTypes.string,
 }
+
+export default Title

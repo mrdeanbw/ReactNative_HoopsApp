@@ -6,7 +6,7 @@ import _ from '../i18n'
 import StyleSheet from '../styles'
 import {ActionButton, Button, Menu} from './'
 
-export default class TabBar extends Component {
+class TabBar extends Component {
 
   constructor(props) {
     super(props)
@@ -136,3 +136,5 @@ TabBar.propTypes = {
 TabBar.defaultProps = {
   actionType: "actionDefault",
 }
+
+export default TabBar

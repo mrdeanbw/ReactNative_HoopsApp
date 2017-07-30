@@ -4,7 +4,8 @@ import {TouchableHighlight, Text, Linking} from 'react-native'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
-export default class SuggestEvent extends Component {
+class SuggestEvent extends Component {
+
   render() {
     return (
       <TouchableHighlight
@@ -22,3 +23,5 @@ export default class SuggestEvent extends Component {
     )
   }
 }
+
+export default SuggestEvent

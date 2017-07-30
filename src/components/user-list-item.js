@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import moment from 'moment'
 import {View, Image, Text, TouchableHighlight, Animated} from 'react-native'
+import moment from 'moment'
 
 import StyleSheet from '../styles'
 import {Avatar, Button, Icon} from './'
 import _ from '../i18n'
 
-export default class UserListItem extends Component {
+class UserListItem extends Component {
 
   constructor(props) {
     super(props)
@@ -17,7 +17,7 @@ export default class UserListItem extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.checked !== this.props.checked) {
+    if (nextProps.checked !== this.props.checked) {
       Animated.timing(this.state.checkedAnimation, {
         toValue: nextProps.checked === true ? 1 : 0,
         friction: 1,
@@ -106,3 +106,5 @@ UserListItem.propTypes = {
   user: React.PropTypes.object.isRequired,
   status: React.PropTypes.oneOf(['pending', 'confirmed', 'rejected']),
 }
+
+export default UserListItem

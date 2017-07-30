@@ -8,8 +8,7 @@ import Icon from './icon'
 import Popup from './popup'
 import Button from './button'
 
-
-export default class TextInput extends Component {
+class TextInput extends Component {
 
   constructor() {
     super()
@@ -183,3 +182,5 @@ class MultilineTextInputDialog extends Component {
     )
   }
 }
+
+export default TextInput

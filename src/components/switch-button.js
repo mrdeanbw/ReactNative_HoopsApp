@@ -5,9 +5,10 @@ import {View, TouchableWithoutFeedback, Animated} from 'react-native'
 
 import StyleSheet from '../styles'
 
-const width = 30, height = 15
+const width = 30
+const height = 15
 
-export default class SwitchButton extends Component {
+class SwitchButton extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -42,3 +43,5 @@ export default class SwitchButton extends Component {
     )
   }
 }
+
+export default SwitchButton

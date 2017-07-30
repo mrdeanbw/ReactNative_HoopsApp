@@ -1,10 +1,12 @@
 
-import React from 'react'
-import {View, Text, ActivityIndicator} from 'react-native'
-import {Popup} from './'
-import StyleSheet from '../styles'
+import React, {Component} from 'react'
+import {View, ActivityIndicator} from 'react-native'
 
-export default class LoadingAlert extends React.Component {
+import StyleSheet from '../styles'
+import {Popup} from './'
+
+class LoadingAlert extends Component {
+
   render() {
     return (
       <Popup visible={this.props.visible}>
@@ -15,3 +17,5 @@ export default class LoadingAlert extends React.Component {
     )
   }
 }
+
+export default LoadingAlert

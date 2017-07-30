@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {View, ScrollView, Text} from 'react-native'
 import StyleSheet from '../styles'
 
-export default class Picker extends Component {
+class Picker extends Component {
 
   constructor(props) {
     super(props)
@@ -29,7 +29,7 @@ export default class Picker extends Component {
       this.props.onChange && this.props.onChange(this.props.children[index].props.value)
       this.setState({index})
     }
-  };
+  }
 
   render() {
     return (
@@ -52,6 +52,7 @@ export default class Picker extends Component {
 }
 
 class PickerItem extends Component {
+
   render() {
     return (
       <Text lineBreakMode="tail" numberOfLines={1} style={[StyleSheet.text, StyleSheet.picker.textStyle]}>{this.props.label.toUpperCase()}</Text>
@@ -59,3 +60,5 @@ class PickerItem extends Component {
   }
 }
 Picker.Item = PickerItem
+
+export default Picker

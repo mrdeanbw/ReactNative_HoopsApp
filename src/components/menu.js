@@ -5,7 +5,7 @@ import {Avatar, Icon} from './'
 import _ from '../i18n'
 import StyleSheet from '../styles'
 
-export default class Menu extends Component {
+class Menu extends Component {
 
   render() {
     return (
@@ -78,6 +78,7 @@ export default class Menu extends Component {
 }
 
 class MenuItem extends Component {
+
   render() {
     return (
       <TouchableOpacity
@@ -120,3 +121,5 @@ MenuItem.propTypes = {
 }
 
 Menu.Item = MenuItem
+
+export default Menu

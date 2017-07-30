@@ -6,7 +6,7 @@ import {View, Text, TouchableHighlight} from 'react-native'
 import Icon from './icon'
 import StyleSheet from '../styles'
 
-export default class CheckButton extends Component {
+class CheckButton extends Component {
 
   onPress = (...args) => {
     if(this.props.onPress) {
@@ -90,6 +90,4 @@ export default class CheckButton extends Component {
   }
 }
 
-
-
-
+export default CheckButton

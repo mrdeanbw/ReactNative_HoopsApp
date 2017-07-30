@@ -6,7 +6,7 @@ import {Avatar, Icon} from '../components'
 import _ from '../i18n'
 import StyleSheet from '../styles'
 
-export default class EventListItem extends Component {
+class EventListItem extends Component {
 
   render() {
     let event = this.props.event
@@ -140,3 +140,5 @@ export default class EventListItem extends Component {
     )
   }
 }
+
+export default EventListItem

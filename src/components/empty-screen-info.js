@@ -6,8 +6,8 @@ import _ from '../i18n'
 import StyleSheet from '../styles'
 
 class EmptyScreenInfo extends Component {
-  render() {
 
+  render() {
     return(
       <View style={StyleSheet.emptyScreenInfo.container}>
         <View style={StyleSheet.emptyScreenInfo.headerContainer}>

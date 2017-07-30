@@ -5,7 +5,8 @@ import {TextInput} from './'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
-export default class ListSelect extends Component {
+class ListSelect extends Component {
+
   constructor(props) {
     super(props)
 
@@ -108,3 +109,5 @@ export default class ListSelect extends Component {
     )
   }
 }
+
+export default ListSelect

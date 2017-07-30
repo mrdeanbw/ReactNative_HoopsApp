@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Image} from 'react-native'
 
 import StyleSheet from '../styles'
 
-export default class Icon extends React.Component {
+class Icon extends Component {
+
   render() {
     const {name, active, style, props} = this.props
     const image = StyleSheet.icons[name + (active ? 'Active' : '')]
@@ -13,3 +14,5 @@ export default class Icon extends React.Component {
     )
   }
 }
+
+export default Icon

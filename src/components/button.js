@@ -4,7 +4,7 @@ import {View, Text, TouchableHighlight} from 'react-native'
 import StyleSheet from '../styles'
 import Icon from './icon'
 
-export default class Button extends Component {
+class Button extends Component {
 
   render() {
     const {
@@ -59,3 +59,5 @@ export default class Button extends Component {
     )
   }
 }
+
+export default Button

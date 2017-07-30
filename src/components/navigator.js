@@ -4,7 +4,7 @@ const {CardStack} = NavigationExperimental
 
 import StyleSheet from '../styles'
 
-export default class Navigator extends Component {
+class Navigator extends Component {
 
   constructor(props) {
     super(props)
@@ -81,3 +81,5 @@ export default class Navigator extends Component {
     )
   }
 }
+
+export default Navigator

@@ -4,7 +4,7 @@ import {ScrollView, TouchableWithoutFeedback, View} from 'react-native'
 
 import dismissKeyboard from 'dismissKeyboard'
 
-export default class Form extends Component {
+class Form extends Component {
 
   render() {
     return (
@@ -22,3 +22,5 @@ export default class Form extends Component {
     )
   }
 }
+
+export default Form

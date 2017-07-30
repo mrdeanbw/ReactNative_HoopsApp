@@ -1,12 +1,10 @@
 
-import _ from '../i18n'
-
 import React, {Component} from 'react'
+import {View} from 'react-native'
 
-import {View, ScrollView} from 'react-native'
-import Button from './button'
-
+import _ from '../i18n'
 import StyleSheet from '../styles'
+import Button from './button'
 
 export default class Wizard extends Component {
 
