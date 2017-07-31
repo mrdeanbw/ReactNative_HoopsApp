@@ -291,7 +291,7 @@ export default handleActions({
     }
   },
 
-  [actionTypes.EVENT_ADDED]: (state, action) => {
+  [actionTypes.EVENT_ADD_SUCCESS]: (state, action) => {
     return {
       ...state,
       index: 0,

@@ -4,6 +4,8 @@ import actionTypes from '../actions'
 
 const initialState = {
   isLoading: false,
+  isUpdating: false,
+
   eventsById: {},
 }
 
@@ -55,10 +57,25 @@ export default handleActions({
     }
   },
 
-  [actionTypes.EVENT_ADDED]: (state, action) => {
-    //When we add a new event, get it in the store before firebase can load
+  [actionTypes.EVENT_ADD_START]: (state, action) => {
     return {
       ...state,
+      isUpdating: true,
+    }
+  },
+
+  [actionTypes.EVENT_ADD_ERROR]: (state, action) => {
+    return {
+      ...state,
+      isUpdating: false,
+    }
+  },
+
+  [actionTypes.EVENT_ADD_SUCCESS]: (state, action) => {
+    // When we add a new event, get it in the store before firebase can load
+    return {
+      ...state,
+      isUpdating: false,
       eventsById: {
         ...state.eventsById,
         [action.eventData.id]: action.eventData,

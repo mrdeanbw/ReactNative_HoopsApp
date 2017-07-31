@@ -3,17 +3,14 @@ import {connect} from 'react-redux'
 
 import {CreateEvent as _CreateEvent} from '../windows'
 import {navigationActions, eventActions} from '../actions'
+import {getEventFactory} from '../selectors/events'
 
 class CreateEvent extends Component {
 
   constructor(props) {
     super(props)
 
-    let event
-    if(props.id) {
-      event = props.events.eventsById[props.id]
-    }
-
+    const event = props.events
     this.state = {
       activityKey: (event && event.activity) ? event.activity : null,
       event: event,
@@ -44,6 +41,11 @@ class CreateEvent extends Component {
         onPressActivity={this.onPressActivity.bind(this)}
         activity={this.props.interests[this.state.activityKey]}
         onComplete={(eventData) => {
+          // Don't do anything if the event is already processing
+          if (this.props.eventIsUpdating) {
+            return
+          }
+
           eventData = {
             ...eventData,
             //Replace activity text with it's key (i.e 'BASKETBALL')
@@ -56,7 +58,7 @@ class CreateEvent extends Component {
           }
         }}
         onSelectAppPayments={() => {
-          if(!this.props.user.stripeAccount) {
+          if (!this.props.user.stripeAccount) {
             this.props.onNavigate('paymentsBankSetup')
           }
         }}
@@ -66,17 +68,35 @@ class CreateEvent extends Component {
   }
 }
 
-export default connect(
-  (state) => ({
-    user: state.user,
-    events: state.events,
-    payments: state.payments,
-    interests: state.interests,
-  }),
-  (dispatch) => ({
+const makeMapStateToProps = () => {
+  const getEvent = getEventFactory()
+
+  const mapStateToProps = (state, props) => {
+    const event = props.id ? getEvent(state, props.id) : null
+
+    return {
+      event: event,
+      eventIsUpdating: state.events.isUpdating,
+
+      user: state.user,
+      payments: state.payments,
+      interests: state.interests,
+    }
+  }
+
+  return mapStateToProps
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
     onNavigate: (key, props, subTab) => dispatch(navigationActions.push({key, props}, subTab)),
     onNavigateBack: () => dispatch(navigationActions.pop()),
     onSaveEvent: (eventData) => dispatch(eventActions.create(eventData)),
     onEditEvent: (eventId, eventData) => dispatch(eventActions.edit(eventId, eventData)),
-  }),
+  }
+}
+
+export default connect(
+  makeMapStateToProps,
+  mapDispatchToProps,
 )(CreateEvent)

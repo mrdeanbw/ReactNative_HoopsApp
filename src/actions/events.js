@@ -103,6 +103,10 @@ const preSave = (eventData, eventKey, uid) => {
 
 export const create = (eventData) => {
   return (dispatch, getState) => {
+    dispatch({
+      type: actionTypes.EVENT_ADD_START,
+    })
+
     const ref = firebaseDb.child('events').push()
 
     let newKey = ref.key
@@ -120,7 +124,7 @@ export const create = (eventData) => {
           })
         } else {
           dispatch({
-            type: actionTypes.EVENT_ADDED,
+            type: actionTypes.EVENT_ADD_SUCCESS,
             eventData: data,
           })
           dispatch(notificationActions.scheduleDeadlineAlert({
