@@ -177,8 +177,8 @@ class MapView extends Component {
       region = {
         latitude: location.lat,
         longitude: location.lon,
-        latitudeDelta: maxDelta.lat * 2.5, // Double (for left+right) and add some padding.
-        longitudeDelta: maxDelta.lon * 2.5,
+        latitudeDelta: maxDelta.lat * 0.2, // Double (for left+right) and add some padding.
+        longitudeDelta: maxDelta.lon * 0.2,
       }
     } else {
       let minLat, minLon
