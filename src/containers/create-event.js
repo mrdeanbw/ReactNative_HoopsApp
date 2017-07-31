@@ -10,7 +10,8 @@ class CreateEvent extends Component {
   constructor(props) {
     super(props)
 
-    const event = props.events
+    const event = props.event
+
     this.state = {
       activityKey: (event && event.activity) ? event.activity : null,
       event: event,
@@ -75,7 +76,7 @@ const makeMapStateToProps = () => {
     const event = props.id ? getEvent(state, props.id) : null
 
     return {
-      event: event,
+      event,
       eventIsUpdating: state.events.isUpdating,
 
       user: state.user,

@@ -33,7 +33,7 @@ export default class CreateEvent extends Component {
       recurringValue: 1,
       address: '',
       addressGooglePlaceId: null,
-      entryFee: 0,
+      entryFee: '0',
       paymentMethod: '',
       deadline: null,
 
@@ -44,12 +44,16 @@ export default class CreateEvent extends Component {
     }
 
     let eventDetails = {}
-    if(props.event) {
+    if (props.event) {
       for(let key in blankEvent) {
         if(typeof props.event[key] === 'undefined') {
           eventDetails[key] = blankEvent[key]
         } else {
-          eventDetails[key] = props.event[key]
+          if (key === 'entryFee') {
+            eventDetails[key] = props.event[key].toString()
+          } else {
+            eventDetails[key] = props.event[key]
+          }
         }
       }
     } else {
@@ -72,15 +76,6 @@ export default class CreateEvent extends Component {
     })
   };
 
-  getEntryFeeLabel = () => {
-    let {entryFee} = this.state.eventDetails
-    if(typeof entryFee === 'number' && !isNaN(entryFee)){
-      return entryFee.toString()
-    }else{
-      return ''
-    }
-  };
-
   getNumericLabel = (value) => {
     if(typeof value === 'number' && !isNaN(value) && value !== 0) {
       return value.toString()
@@ -90,10 +85,13 @@ export default class CreateEvent extends Component {
   }
 
   onComplete = () => {
-    if(this.props.onComplete) {
+    if (this.props.onComplete) {
       let data = this.state.eventDetails
       data.activity = this.props.activity
-      if(typeof this.state.image !== 'undefined') {
+
+      data['entryFee'] = parseFloat(data['entryFee'])
+
+      if (typeof this.state.image !== 'undefined') {
         //image could have been set to null, meaning delete the image
         data.image = this.state.image
       }
@@ -146,17 +144,21 @@ export default class CreateEvent extends Component {
 
       case 2:
         let isPaymentValid = true
-        if (parseFloat(entryFee) > 0) {
+        const entryFeeFloat = parseFloat(entryFee)
+
+        if (entryFeeFloat > 0) {
           isPaymentValid = !!(
             paymentMethod
           )
         }
 
+        console.log(entryFeeFloat, isPaymentValid)
+
         return !!(
           date &&
           courtType &&
           typeof recurring !== 'undefined' && //`recurring` is boolean
-          Number.isFinite(entryFee) && //`entryFee` could be 0
+          Number.isFinite(entryFeeFloat) && //`entryFee` could be 0
           isPaymentValid
         )
 
@@ -429,11 +431,11 @@ export default class CreateEvent extends Component {
                     type="flat"
                     keyboardType="default"
                     placeholder={_('costPP')}
-                    value={this.getEntryFeeLabel()}
-                    prefix={this.getEntryFeeLabel() !== '' && '£'}
+                    value={this.state.eventDetails.entryFee}
+                    prefix="£"
                     onChangeText={entryFee => {
                       this.setEventData({
-                        entryFee: entryFee === '' ? '' : parseFloat(entryFee, 10)
+                        entryFee: entryFee.replace(/[^0-9.]/g, '')
                       })
                     }}
                     textStyle={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}
@@ -445,15 +447,15 @@ export default class CreateEvent extends Component {
                   <View>
                     <Button
                       type="roundedGrey"
-                      active={!this.props.editMode && this.state.eventDetails.entryFee === 0}
+                      active={!this.props.editMode && parseFloat(this.state.eventDetails.entryFee) === 0}
                       text={_('free')}
-                      onPress={this.props.editMode ? undefined : () => this.setEventData({entryFee: 0})}
+                      onPress={this.props.editMode ? undefined : () => this.setEventData({entryFee: '0'})}
                       style={{width: 110}}
                     />
                   </View>
                 </View>
 
-                {parseFloat(this.getEntryFeeLabel(), 10) > 0 && (
+                {parseFloat(this.state.eventDetails.entryFee) > 0 && (
                   <ListInput
                     type="flat"
                     style={StyleSheet.halfMarginTop}
@@ -473,7 +475,7 @@ export default class CreateEvent extends Component {
                   </ListInput>
                 )}
 
-                {parseFloat(this.getEntryFeeLabel(), 10) > 0 && (
+                {parseFloat(this.state.eventDetails.entryFee) > 0 && (
                   <DateInput
                     placeholder={_('deadline')}
                     value={this.state.eventDetails.deadline}
