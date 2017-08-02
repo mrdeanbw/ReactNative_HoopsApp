@@ -210,7 +210,7 @@ export const join = (eventId, userPaymentMethod) => {
 
 export const requestJoin = (event) => {
   return (dispatch, getState) => {
-    if(event.entryFee !== 0 && event.paymentMethod === 'app') {
+    if (event.entryFee !== 0 && event.paymentMethod === 'app') {
       throw new Error('App cannot create a request to join a paid event. The payment server must do this')
     }
 
@@ -226,12 +226,12 @@ export const requestJoin = (event) => {
       [`requests/${requestKey}`]: {
         eventId: event.id,
         userId: uid,
-        status: event.privacy === 'public' ? 'confirmed' : 'pending',
+        status: 'confirmed',
         date: new Date(),
         paymentMethod: event.entryFee === 0 ? null : 'cash',
       }
     }, (err) => {
-      if(err) {
+      if (err) {
         dispatch({
           type: actionTypes.EVENT_JOIN_ERROR,
           err,
@@ -258,11 +258,6 @@ export const quit = (eventId) => {
       return state.requests.requestsById[requestId]
     }).find(requestObj => requestObj.eventId === eventId)
 
-    //Look for invites matching this event
-    let invite = Object.keys(state.user.invites).map(inviteId => {
-      return state.invites.invitesById[inviteId]
-    }).find(inviteObj => inviteObj.eventId === eventId)
-
     let resultHandler = (err) => {
       if(err) {
         dispatch({
@@ -277,22 +272,13 @@ export const quit = (eventId) => {
       }
     }
 
-    if(request) {
-
+    if (request) {
       //Delete the request, N.B we will have no record of it ever existing
       firebaseDb.update({
         [`requests/${request.id}`]: null,
         [`users/${uid}/requests/${request.id}`]: null,
         [`events/${eventId}/requests/${request.id}`]: null,
       }).then(resultHandler)
-
-    } else if (invite) {
-
-      //Set the invite status to 'rejected'
-      firebaseDb.update({
-        [`invites/${invite.id}/status`]: 'rejected',
-      }).then(resultHandler)
-
     } else {
       throw new Error(`User ${uid} has no requests or invites for event ${eventId}`)
     }

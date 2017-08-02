@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import _EventInvites from '../windows/event-invites'
-import {getEventFactory} from '../selectors/events'
+import {eventSelector} from '../selectors/events'
 import inflateEvent from '../data/inflaters/event'
 import {navigationActions, eventActions} from '../actions'
 
@@ -74,12 +74,11 @@ EventInvites.propTypes = {
 }
 
 const makeMapStateToProps = () => {
-  const getEvent = getEventFactory()
   const mapStateToProps = (state, props) => {
     return {
       user: state.user,
       users: state.users,
-      event: getEvent(state, props.id),
+      event: eventSelector(state, props.id),
       invites: state.invites,
       requests: state.requests,
     }

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import {CreateEvent as _CreateEvent} from '../windows'
 import {navigationActions, eventActions} from '../actions'
-import {getEventFactory} from '../selectors/events'
+import {eventSelector} from '../selectors/events'
 
 class CreateEvent extends Component {
 
@@ -70,10 +70,8 @@ class CreateEvent extends Component {
 }
 
 const makeMapStateToProps = () => {
-  const getEvent = getEventFactory()
-
   const mapStateToProps = (state, props) => {
-    const event = props.id ? getEvent(state, props.id) : null
+    const event = props.id ? eventSelector(state, props.id) : null
 
     return {
       event,

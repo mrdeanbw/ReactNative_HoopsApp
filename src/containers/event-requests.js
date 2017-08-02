@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import _EventRequests from '../windows/event-requests'
 import inflateEvent from '../data/inflaters/event'
 import {navigationActions, requestActions} from '../actions'
-import {getEventFactory} from '../selectors/events'
+import {eventSelector} from '../selectors/events'
 
 class EventRequests extends Component {
 
@@ -46,12 +46,11 @@ EventRequests.propTypes = {
 }
 
 const makeMapStateToProps = () => {
-  const getEvent = getEventFactory()
   const mapStateToProps = (state, props) => {
     return {
       user: state.user,
       users: state.users,
-      event: getEvent(state, props.id),
+      event: eventSelector(state, props.id),
       requests: state.requests,
     }
   }

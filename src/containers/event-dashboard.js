@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import inflateUser from '../data/inflaters/user'
 import {eventActions, navigationActions} from '../actions'
-import {getEventFactory} from '../selectors/events'
+import {eventSelector} from '../selectors/events'
 import {EventDashboard as _EventDashboard} from '../windows'
 
 class EventDashboard extends Component {
@@ -33,10 +33,6 @@ class EventDashboard extends Component {
     //this.props.onNavigate('eventFinances', {id: this.props.id});
   }
 
-  onPressRequests() {
-    this.props.onNavigate('eventRequests', {id: this.props.id}, false)
-  }
-
   render() {
     const event = this.props.event
 
@@ -58,7 +54,6 @@ class EventDashboard extends Component {
         onPressMessages={this.onPressMessages.bind(this)}
         onPressGallery={this.onPressGallery.bind(this)}
         onPressFinances={this.onPressFinances.bind(this)}
-        onPressRequests={this.onPressRequests.bind(this)}
         actionButton={this.props.actionButton}
         onBack={this.props.onNavigateBack}
         isMember={isMember}
@@ -74,10 +69,9 @@ EventDashboard.propTypes = {
 }
 
 const makeMapStateToProps = () => {
-  const getEvent = getEventFactory()
   const mapStateToProps = (state, props) => {
     return {
-      event: getEvent(state, props.id),
+      event: eventSelector(state, props.id),
       invites: state.invites,
       requests: state.requests,
       router: state.router,

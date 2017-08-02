@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Text, ScrollView, View} from 'react-native'
 
 import {Window, Button, Popup, UserListItem, Header} from '../components'
@@ -7,7 +7,7 @@ import _ from '../i18n'
 import Manage from './manage'
 import MyEvents from './my-events'
 
-export default class Members extends React.Component {
+export default class Members extends Component {
 
   constructor() {
     super()
@@ -76,26 +76,22 @@ export default class Members extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Header
-          simple
-          title={_('members')}
-        />
+        <Header simple title={_('members')} />
         <MemberOptions
           visible={!!this.state.popupOptionsMember}
           onClose={() => this.setState({popupOptionsMember: null})}
           onPressViewProfile={this.onPressViewProfile.bind(this)}
           onPressRemove={this.onPressRemove.bind(this)}
         />
+
         <ScrollView contentContainerStyle={StyleSheet.container}>
           {this.props.requests.length === 0 && this.props.invites.length === 0 && (
             <Text style={StyleSheet.noResults}>{_('noMembers')}</Text>
           )}
 
           {this.props.requests.map((request) => {
-            let user = request.user
-            if(request.status !== 'confirmed'){
-              return null
-            }
+            const user = request.user
+
             return (
               <UserListItem
                 key={user.id}
@@ -107,8 +103,10 @@ export default class Members extends React.Component {
               />
             )
           })}
+
           {this.props.invites.map((invite) => {
-            let user = invite.user
+            const user = invite.user
+
             return (
               <UserListItem
                 key={user.id}
@@ -126,7 +124,8 @@ export default class Members extends React.Component {
   }
 }
 
-class MemberOptions extends React.Component {
+class MemberOptions extends Component {
+
   render() {
     return (
       <Popup visible={this.props.visible} style={StyleSheet.dialog.optionsMenu} onClose={this.props.onClose}>

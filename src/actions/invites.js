@@ -1,6 +1,6 @@
 import {firebaseDb} from '../data/firebase'
 import DBHelper from '../data/database-helper'
-import actionTypes from './'
+import actionTypes, {requestActions} from './'
 
 const database = DBHelper('invites')
 
@@ -66,10 +66,10 @@ export const load = (id) => {
        * TODO: what if we have the event in local storage,
        * but it's not being listened to with firebaseDb.on() ?
        */
-      if(invite.eventId) {
+      if (invite.eventId) {
         dispatch(eventActions.load(invite.eventId))
       }
-      if(invite.userId) {
+      if (invite.userId) {
         dispatch(usersActions.load(invite.userId))
       }
 
@@ -132,13 +132,11 @@ export const registerWithStore = () => {
   }
 }
 
-
 export const accept = (invite) => {
   return (dispatch, getState) => {
-    if(invite.event.entryFee === 0 || invite.event.paymentMethod !== 'app') {
-      firebaseDb.update({
-        [`invites/${invite.id}/status`]: 'confirmed',
-      })
+    if (invite.event.entryFee === 0 || invite.event.paymentMethod !== 'app') {
+      dispatch(removeInvite(invite))
+      dispatch(requestActions.create(invite.event.id))
     } else {
       dispatch(paymentActions.pay(invite.event, invite))
     }

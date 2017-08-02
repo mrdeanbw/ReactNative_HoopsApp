@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ScrollView,View,Text, Image, ActionSheetIOS, TouchableHighlight, Linking} from 'react-native'
+import {ScrollView,View,Text, Image, TouchableHighlight} from 'react-native'
 import moment from 'moment'
 
 import StyleSheet from '../styles'
@@ -85,8 +85,6 @@ export default class EventDetails extends Component {
         this.props.onBack()
       } else if (this.props.isMember) {
         this.setState({ showQuitPopup: true })
-      } else if (this.props.isPendingRequest) {
-        this.setState({ showCancelRequestPopup: true })
       } else if (this.props.isOrganizer) {
         this.props.onEditEvent()
       } else {
@@ -108,7 +106,6 @@ export default class EventDetails extends Component {
 
     if (
       nextProps.isMember !== this.props.isMember ||
-      nextProps.isPendingRequest !== this.props.isPendingRequest ||
       nextProps.isOrganizer !== this.props.isOrganizer ||
       (nextProps.navKey !== this.props.navKey && nextProps.navKey === 'eventDetails')
     ) {
@@ -140,7 +137,7 @@ export default class EventDetails extends Component {
         icon: "back",
         type: "action",
       })
-    } else if (props.isMember || props.isPendingRequest) {
+    } else if (props.isMember) {
       props.onChangeAction({
         text: _('quit'),
         icon: "actionRemove",
@@ -183,34 +180,6 @@ export default class EventDetails extends Component {
 
   onPressInvite = () => {
     this.props.onPressInvite()
-  };
-
-  onPressShare = () => {
-    ActionSheetIOS.showShareActionSheetWithOptions({
-      //TODO figure out a deep link url
-      url: `hoops://events/${this.props.event.id}`,
-      message: 'Check out this event, want to join?',
-      subject: 'Join this event',
-    }, (err) => {
-      console.warn(err) //eslint-disable-line no-console
-    }, (success, method) => {
-      //This callback does nothing but is required by ActionSheetIOS
-    })
-  };
-
-  onPressAddress = (address) => {
-    ActionSheetIOS.showActionSheetWithOptions({
-      options: [
-        _('openWithAppleMaps'),
-        _('cancel'),
-      ],
-      cancelButtonIndex: 1,
-    }, (index) => {
-      if (index === 0) {
-        let url = `http://maps.apple.com/?daddr=${address}`
-        Linking.openURL(url).catch(err => console.warn(err)) //eslint-disable-line no-console
-      }
-    })
   };
 
   getIcon(activityKey) {
@@ -256,15 +225,6 @@ export default class EventDetails extends Component {
           onPressQuit={() => {
             this.setState({showQuitPopup: false})
             this.props.onPressQuit()
-          }}
-        />
-        <EventCancelRequestPopup
-          visible={this.state.showCancelRequestPopup}
-          event={this.props.event}
-          onPressCancel={() => this.setState({showCancelRequestPopup: false})}
-          onPressConfirm={() => {
-            this.setState({showCancelRequestPopup: false})
-            this.props.onCancelRequest()
           }}
         />
         <EventDashboard.CancelEventPopup
@@ -316,7 +276,6 @@ export default class EventDetails extends Component {
             </Text>
             <TouchableHighlight
               underlayColor="transparent"
-              onPress={() => this.onPressAddress(address)}
               hitSlop={{top: 10, bottom: 10}}
             >
               <Text style={[StyleSheet.text, StyleSheet.eventDetails.subtitleTextStyle]}>
@@ -352,7 +311,7 @@ export default class EventDetails extends Component {
           <EventInfo.Bar>
             <EventInfo icon="attendees" label={_('attendees')}>
               <Text style={StyleSheet.eventDetails.eventInfoTextHighlight}>
-                {this.props.event.players.length}
+                {this.props.event.meta.memberCount}
               </Text>
               {!!this.props.event.maxPlayers && (
                 <Text>
@@ -558,6 +517,7 @@ class EventJoinPopup extends Component {
 }
 
 class PaymentTypePopup extends Component {
+
   render() {
     return (
       <Popup visible={this.props.visible} onClose={this.props.onClose}>
@@ -577,6 +537,7 @@ class PaymentTypePopup extends Component {
 }
 
 class EventJoinedConfirmation extends Component {
+
   render() {
     return (
       <Popup visible={this.props.visible} onClose={this.props.onClose}>
@@ -603,6 +564,7 @@ class EventJoinedConfirmation extends Component {
 }
 
 class EventQuitPopup extends Component {
+
   render() {
     return (
       <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>
@@ -622,33 +584,6 @@ class EventQuitPopup extends Component {
             type="alertDefault"
             text={_('quit')}
             onPress={this.props.onPressQuit}
-          />
-        </View>
-      </Popup>
-    )
-  }
-}
-
-class EventCancelRequestPopup extends Component {
-  render() {
-    return (
-      <Popup visible={this.props.visible} onClose={this.props.onPressCancel}>
-        <View style={[StyleSheet.dialog.alertContentStyle]}>
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertTitleStyle]}>
-            {_('cancelRequestConfirmationTitle')}
-          </Text>
-
-          <Text style={[StyleSheet.text, StyleSheet.dialog.alertBodyStyle, StyleSheet.singleMarginTop]}>
-            {_('cancelRequestConfirmation')}
-          </Text>
-        </View>
-
-        <View style={StyleSheet.buttons.bar}>
-          <Button type="alert" text={_('cancel')} onPress={this.props.onPressCancel} />
-          <Button
-            type="alertDefault"
-            text={_('quit')}
-            onPress={this.props.onPressConfirm}
           />
         </View>
       </Popup>

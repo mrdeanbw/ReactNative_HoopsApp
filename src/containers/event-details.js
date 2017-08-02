@@ -4,7 +4,7 @@ import moment from 'moment'
 
 import {navigationActions, eventActions, requestActions, paymentActions} from '../actions'
 import {EventDetails as _EventDetails} from '../windows'
-import {getEventFactory} from '../selectors/events'
+import {eventWithMemberCount} from '../selectors/events'
 
 import inflateEvent from '../data/inflaters/event'
 import inflateUser from '../data/inflaters/user'
@@ -140,11 +140,10 @@ EventDetails.propTypes = {
 }
 
 const makeMapStateToProps = () => {
-  const getEvent = getEventFactory()
   const mapStateToProps = (state, props) => {
     return {
       router: state.router,
-      event: getEvent(state, props.id),
+      event: eventWithMemberCount(state, props.id),
       users: state.users,
       user: state.user,
       requests: state.requests,

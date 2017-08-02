@@ -130,15 +130,6 @@ class EventDashboard extends Component {
             backgroundColor={gradient[4]}
             underlayColor={highlightGradient[4]}
             onPress={this.props.onPressFinances} />*/}
-          {event.privacy === 'private' && (
-            <DashboardButton
-              type="dashboard"
-              text={_('requests')}
-              icon="dashboard-requests"
-              backgroundColor={gradient[5]}
-              underlayColor={highlightGradient[5]}
-              onPress={this.props.onPressRequests} />
-          )}
         </View>
       </View>
     )
@@ -153,7 +144,6 @@ EventDashboard.propTypes = {
   onPressMessages: React.PropTypes.func.isRequired,
   onPressGallery: React.PropTypes.func.isRequired,
   onPressFinances: React.PropTypes.func.isRequired,
-  onPressRequests: React.PropTypes.func.isRequired,
 }
 
 class CancelEventPopup extends Component {

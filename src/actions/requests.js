@@ -13,7 +13,7 @@ export const create = (eventId) => {
     let requestData =  {
       userId: uid,
       eventId,
-      status: "pending",
+      status: 'confirmed',
       date: new Date(),
     }
 
@@ -22,7 +22,7 @@ export const create = (eventId) => {
       [`events/${eventId}/requests/${requestKey}`]: true,
       [`users/${uid}/requests/${requestKey}`]: true,
     }, (err) => {
-      if(err) {
+      if (err) {
         dispatch({
           type: actionTypes.REQUEST_ADD_ERROR,
           err,
@@ -73,30 +73,6 @@ export const load = (id) => {
           },
         },
       })
-    })
-  }
-}
-
-export const allow = (request) => {
-  return (dispatch, getState) => {
-    firebaseDb.update({
-      [`requests/${request.id}/status`]: 'confirmed',
-    })
-  }
-}
-
-export const decline = (request) => {
-  return (dispatch, getState) => {
-    firebaseDb.update({
-      [`requests/${request.id}/status`]: 'declined',
-    })
-  }
-}
-
-export const cancel = (request) => {
-  return (dispatch, getState) => {
-    firebaseDb.update({
-      [`requests/${request.id}/status`]: 'cancelled',
     })
   }
 }
