@@ -1,4 +1,5 @@
 import {createSelector} from 'reselect'
+import moment from 'moment'
 
 import inflateEvent from '../data/inflaters/event'
 import {eventsSelector} from './events'
@@ -16,6 +17,16 @@ export const userOrganisedEventsSelector = createSelector(
   getUserOrganisedEvents
 )
 
+const formatEvents = (userOrganisedEventsById, eventsById, requestsById, invitesById, usersById) => {
+  return Object.keys(userOrganisedEventsById).map(eventId =>
+    inflateEvent(eventsById[eventId], {
+      requests: requestsById,
+      invites: invitesById,
+      users: usersById,
+    })
+  ).filter(event => !!event)
+}
+
 export const formattedEventsSelector = createSelector(
   [
     userOrganisedEventsSelector,
@@ -24,15 +35,12 @@ export const formattedEventsSelector = createSelector(
     invitesSelector,
     usersSelector,
   ],
-  (userOrganisedEventsById, eventsById, requestsById, invitesById, usersById) => {
-    return Object.keys(userOrganisedEventsById).map(eventId =>
-      inflateEvent(eventsById[eventId], {
-        requests: requestsById,
-        invites: invitesById,
-        users: usersById,
-      })
-    ).filter(event => !!event)
-  }
+  formatEvents
+)
+
+export const activeEventsSelector = createSelector(
+  [formattedEventsSelector],
+  (events) => events.filter((event) => moment(event.date).isAfter())
 )
 
 // const selectedFilterSelector = 'cancelled'
