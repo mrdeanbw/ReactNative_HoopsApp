@@ -3,34 +3,21 @@ import {connect} from 'react-redux'
 
 import {Manage as _Manage} from '../windows'
 import {navigationActions} from '../actions'
-import inflateEvent from '../data/inflaters/event'
+import {formattedEventsSelector} from '../selectors/manage'
 
 class Manage extends Component {
 
-  onPressEvent(event) {
-    if(this.props.mode === 'ORGANIZE') {
-      this.props.onNavigate('eventDashboard', {id: event.id})
-    }else{
-      this.props.onNavigate('eventDetails', {id: event.id})
-    }
+  onPressEvent = (event) => {
+    this.props.onNavigate('eventDashboard', {id: event.id})
   }
 
   render() {
-    let events = Object.keys(this.props.user.organizing).map(eventId => {
-      return inflateEvent(this.props.events.eventsById[eventId], {
-        requests: this.props.requests.requestsById,
-        invites: this.props.invites.invitesById,
-        users: this.props.users.usersById,
-      })
-    }).filter(event => !!event)
-
     return (
       <_Manage
         onBack={this.props.onBack}
         onClose={this.props.onClose}
-        onPressEvent={this.onPressEvent.bind(this)}
-        events={events}
-        onPressCreate={() => {}}
+        onPressEvent={this.onPressEvent}
+        events={this.props.events}
       />
     )
   }
@@ -38,12 +25,7 @@ class Manage extends Component {
 
 export default connect(
   (state) => ({
-    mode: state.app.mode,
-    user: state.user,
-    users: state.users,
-    events: state.events,
-    requests: state.requests,
-    invites: state.invites,
+    events: formattedEventsSelector(state),
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),

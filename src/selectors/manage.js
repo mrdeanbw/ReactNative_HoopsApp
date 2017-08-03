@@ -1,7 +1,7 @@
 import {createSelector} from 'reselect'
 
 import inflateEvent from '../data/inflaters/event'
-import { eventsSelector } from './events'
+import {eventsSelector} from './events'
 
 export const userSelector = (state) => state.user
 export const usersSelector = (state) => state.users.usersById
@@ -35,8 +35,8 @@ export const formattedEventsSelector = createSelector(
   }
 )
 
-const selectedFilterSelector = 'cancelled'
-export const filteredEventsSelector = createSelector(
-  [formattedEventsSelector, selectedFilterSelector],
-  (events, filter) => events.filter(event => event.status !== filter)
-)
+// const selectedFilterSelector = 'cancelled'
+// export const filteredEventsSelector = createSelector(
+//   [formattedEventsSelector, selectedFilterSelector],
+//   (events, filter) => events.filter(event => event.status !== filter)
+// )
