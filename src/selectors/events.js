@@ -1,6 +1,6 @@
 import {createSelector} from 'reselect'
 
-const eventsSelector = (state) => state.events.eventsById
+export const eventsSelector = (state) => state.events.eventsById
 const userSelector = (state) => state.user
 const usersSelector = (state) => state.users.usersById
 
