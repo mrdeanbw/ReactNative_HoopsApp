@@ -40,6 +40,7 @@ class Members extends Component {
           this.props.removeInvite(invite)
         }}
         actionButton={this.props.actionButton}
+        user={this.props.user}
       />
     )
   }

@@ -82,6 +82,8 @@ export default class Members extends Component {
           onClose={() => this.setState({popupOptionsMember: null})}
           onPressViewProfile={this.onPressViewProfile.bind(this)}
           onPressRemove={this.onPressRemove.bind(this)}
+
+          isEventOrganzier={this.props.user.uid === this.props.event.organizer.id}
         />
 
         <ScrollView contentContainerStyle={StyleSheet.container}>
@@ -127,11 +129,15 @@ export default class Members extends Component {
 class MemberOptions extends Component {
 
   render() {
+    console.log(this.props.isEventOrganzier, "hmm")
+
     return (
       <Popup visible={this.props.visible} style={StyleSheet.dialog.optionsMenu} onClose={this.props.onClose}>
         <Button type="alertVertical" text={_('viewProfile')} onPress={this.props.onPressViewProfile} />
         {/*<Button type="alertVertical" text={_('message')} onPress={this.props.onPressMessage} />*/}
-        <Button type="alertVertical" text={_('remove')} onPress={this.props.onPressRemove} />
+        {this.props.isEventOrganzier && (
+          <Button type="alertVertical" text={_('remove')} onPress={this.props.onPressRemove} />
+        )}
       </Popup>
     )
   }
