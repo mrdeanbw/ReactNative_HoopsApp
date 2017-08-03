@@ -15,7 +15,7 @@ class MyEvents extends Component {
   render() {
     let requests = Object.keys(this.props.user.requests).map(requestId => {
       return this.props.requests.requestsById[requestId]
-    }).filter(request => request && request.status === 'confirmed')
+    })
 
     let invites = Object.keys(this.props.user.invites).map(inviteId => {
       return this.props.invites.invitesById[inviteId]

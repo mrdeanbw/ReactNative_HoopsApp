@@ -54,8 +54,8 @@ class EventDetails extends Component {
       requests: this.props.requests.requestsById,
     })
 
-    let isMember = !!user.requests.concat(user.invites).find(connection => {
-      return connection.eventId === event.id && connection.status === 'confirmed'
+    let isMember = !!user.requests.find(connection => {
+      return connection.eventId === event.id
     })
 
     let request = user.requests.find(connection => {

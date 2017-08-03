@@ -226,7 +226,6 @@ export const requestJoin = (event) => {
       [`requests/${requestKey}`]: {
         eventId: event.id,
         userId: uid,
-        status: 'confirmed',
         date: new Date(),
         paymentMethod: event.entryFee === 0 ? null : 'cash',
       }

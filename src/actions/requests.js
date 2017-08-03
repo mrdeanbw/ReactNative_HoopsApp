@@ -13,7 +13,6 @@ export const create = (eventId) => {
     let requestData =  {
       userId: uid,
       eventId,
-      status: 'confirmed',
       date: new Date(),
     }
 

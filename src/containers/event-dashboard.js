@@ -41,8 +41,8 @@ class EventDashboard extends Component {
       requests: this.props.requests.requestsById,
     })
 
-    const isMember = !!user.requests.concat(user.invites).find(connection => {
-      return connection.eventId === event.id && connection.status === 'confirmed'
+    const isMember = !!user.requests.find(connection => {
+      return connection.eventId === event.id
     })
 
     return (

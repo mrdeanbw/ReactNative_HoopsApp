@@ -11,6 +11,7 @@ class Profile extends Component {
 
   render() {
     let profile
+
     if(this.props.id === this.props.user.uid) {
       profile = this.props.user
       profile.id = this.props.user.uid //Profile needs an id rather than a uid!
@@ -23,9 +24,7 @@ class Profile extends Component {
       requests: this.props.requests.requestsById,
     })
 
-    let numParticipated = profile.invites.concat(profile.requests).filter(connection => {
-      return connection && connection.status === 'confirmed'
-    }).length
+    let numParticipated = profile.requests.length
 
     let eventIds = Object.keys(profile.organizing)
     let events = eventIds.map((eventId) => {

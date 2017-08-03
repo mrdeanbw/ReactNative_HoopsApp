@@ -1,4 +1,3 @@
-
 import inflateInvite from './invite'
 import inflateRequest from './request'
 
@@ -14,18 +13,20 @@ import inflateRequest from './request'
  * @param extra {Object} - data to inflate into the event
  * @param extra.invites {Object} - Invites to inflate into the event
  */
+
 export default (event, extra) => {
   if(typeof event !== 'object') {
     return event
   }
-  event = {...event} //clone
 
-  if(extra.invites) {
+  event = {...event} // clone
+
+  if (extra.invites) {
     event.invites = Object.keys(event.invites || {}).map(inviteId => {
 
       let invite = extra.invites[inviteId]
-      if(extra.users){
-        //If users are defined, inflate the invite
+      if(extra.users) {
+        // If users are defined, inflate the invite
         invite = inflateInvite(invite, {users: extra.users})
       }
       return invite
@@ -33,7 +34,7 @@ export default (event, extra) => {
     })
   }
 
-  if(extra.requests) {
+  if (extra.requests) {
     event.requests = Object.keys(event.requests || {}).map(requestId => {
       let request = extra.requests[requestId]
       if(extra.users){
@@ -43,18 +44,16 @@ export default (event, extra) => {
     })
   }
 
-  if(extra.users) {
+  if (extra.users) {
     event.organizer = extra.users[event.organizer]
   }
 
-  if(extra.interests) {
+  if (extra.interests) {
     event.activity = extra.interests[event.activity]
   }
 
-  if(extra.requests && extra.invites && extra.users) {
-    event.players = event.requests.concat(event.invites).filter(connection => {
-      return connection && connection.status === 'confirmed'
-    }).map(connection => {
+  if (extra.requests && extra.invites && extra.users) {
+    event.players = event.requests.map(connection => {
       return connection.user
     })
   }
