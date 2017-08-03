@@ -12,10 +12,10 @@ class Profile extends Component {
   render() {
     let profile
 
-    if(this.props.id === this.props.user.uid) {
+    if (this.props.id === this.props.user.uid) {
       profile = this.props.user
       profile.id = this.props.user.uid //Profile needs an id rather than a uid!
-    }else{
+    } else {
       profile = this.props.users.usersById[this.props.id]
     }
 
