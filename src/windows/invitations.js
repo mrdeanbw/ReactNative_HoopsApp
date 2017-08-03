@@ -112,7 +112,7 @@ class Invitations extends Component {
 
     let name = invite.event.organizer.name
     let acceptText = invite.event.entryFee === 0 ? _('accept') : (
-      <Text>{_('accept')} £{invite.event.entryFee}(+50p)</Text>
+      <Text>{_('accept')} £{invite.event.entryFee}(+0.25p)</Text>
     )
 
     if (invite.event.cancelled) {
