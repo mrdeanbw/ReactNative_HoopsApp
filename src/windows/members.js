@@ -129,8 +129,6 @@ export default class Members extends Component {
 class MemberOptions extends Component {
 
   render() {
-    console.log(this.props.isEventOrganzier, "hmm")
-
     return (
       <Popup visible={this.props.visible} style={StyleSheet.dialog.optionsMenu} onClose={this.props.onClose}>
         <Button type="alertVertical" text={_('viewProfile')} onPress={this.props.onPressViewProfile} />
