@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {View, Text, ScrollView, Linking} from 'react-native'
 import moment from 'moment'
 
@@ -6,10 +6,11 @@ import {Avatar, Header, Popup, Button, EventListItem} from '../components'
 import StyleSheet from '../styles'
 import _ from '../i18n'
 
-export default class Profile extends React.Component {
+class Profile extends Component {
 
   constructor() {
     super()
+
     this.state = {
       showContactPopup: false,
     }
@@ -163,3 +164,5 @@ export default class Profile extends React.Component {
     )
   }
 }
+
+export default Profile
