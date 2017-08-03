@@ -9,24 +9,19 @@ import {usersSelector} from './users'
 
 import {
   formatEvents, sortEventsByDate,
-  formatSearchEvents, getUserOrganisedEvents
+  formatSearchEvents, getUserOrganisedEvents,
+  getEventMeta,
 } from './utils'
 
 export const eventsSelector = (state) => state.events.eventsById
 
 export const eventSelector = createSelector(
   [eventsSelector, (state, eventId) => eventId],
-  (events, eventId) => events[eventId]
-)
-
-export const eventWithMemberCountSelector = createSelector(
-  [eventSelector],
-  (event) => {
+  (events, eventId) => {
+    const event = events[eventId]
     return {
       ...event,
-      meta: {
-        'memberCount': event.requests ? Object.keys(event.requests).length : 0
-      }
+      meta: getEventMeta(event),
     }
   }
 )

@@ -99,8 +99,8 @@ class MapView extends Component {
         region={region}
         {...this.props}
         onPress={() => {
-          for(let i = 0; i < this.markers.length; i++){
-            if(this.markers[i].activeMarker){
+          for (let i = 0; i < this.markers.length; i++){
+            if (this.markers[i].activeMarker) {
               delete this.markers[i].activeMarker
               this.markers[i].hideCallout()
               return

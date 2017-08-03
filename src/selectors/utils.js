@@ -3,13 +3,24 @@ import inflateEvent from '../data/inflaters/event'
 export const getUserOrganisedEvents = (user) => (user && user.organizing) || {}
 
 export const formatEvents = (eventIds, events, requests, invites, users) => {
-  return eventIds.map(eventId =>
-    inflateEvent(events[eventId], {
+  return eventIds.map(eventId => {
+    const event = inflateEvent(events[eventId], {
       requests,
       invites,
       users,
     })
-  ).filter(event => !!event)
+
+    return {
+      ...event,
+      meta: getEventMeta(event)
+    }
+  }).filter(event => !!event)
+}
+
+export const getEventMeta = (event) => {
+  return {
+    memberCount: event.requests ? Object.keys(event.requests).length : 0
+  }
 }
 
 export const sortEventsByDate = (events) => {

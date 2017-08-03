@@ -48,7 +48,7 @@ export default handleActions({
   },
 
   [actionTypes.EVENT_REMOVED]: (state, action) => {
-    let eventsById = state.eventsById
+    const eventsById = {...state.eventsById}
     delete eventsById[action.id]
 
     return {

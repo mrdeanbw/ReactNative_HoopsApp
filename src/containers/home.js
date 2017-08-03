@@ -63,8 +63,6 @@ class Home extends Component {
     const Window = this.props.mode === 'ORGANIZE' ? HomeOrganiser : HomeParticipant
     const user = this.props.user
 
-    console.log(this.props.eventsNearby)
-
     return (
       <Window
         onPressEvent={this.onPressEvent.bind(this)}
