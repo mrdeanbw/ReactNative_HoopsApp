@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import {Manage as _Manage} from '../windows'
 import {navigationActions} from '../actions'
-import {formattedEventsSelector} from '../selectors/manage'
+import {organisedEventsSelector} from '../selectors/events'
 
 class Manage extends Component {
 
@@ -25,7 +25,7 @@ class Manage extends Component {
 
 export default connect(
   (state) => ({
-    events: formattedEventsSelector(state),
+    events: organisedEventsSelector(state),
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),

@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import moment from 'moment'
 
 import {HomeOrganiser, HomeParticipant} from '../windows'
 import {navigationActions, searchActions, userActions} from '../actions'
-import inflateEvent from '../data/inflaters/event'
+
+import {
+  activeOrganisedEventsSortedSelector,
+  activeNearbySearchEventsSelector,
+} from '../selectors/events'
 
 class Home extends Component {
 
@@ -60,66 +63,16 @@ class Home extends Component {
     const Window = this.props.mode === 'ORGANIZE' ? HomeOrganiser : HomeParticipant
     const user = this.props.user
 
-    let eventIds = []
-    if(this.props.mode === 'ORGANIZE') {
-      eventIds = Object.keys(this.props.user.organizing)
-    } else {
-      let requests = Object.keys(this.props.user.requests).map(requestId => {
-        return this.props.requests.requestsById[requestId]
-      })
-
-      let invites = Object.keys(this.props.user.invites).map(inviteId => {
-        return this.props.invites.invitesById[inviteId]
-      }).filter(invite => invite && invite.status === 'confirmed')
-
-      eventIds = requests.concat(invites).map(connection => {
-        return connection.eventId
-      })
-    }
-
-    let events = eventIds.map((id) => {
-      return this.props.events.eventsById[id]
-    }).filter(event => {
-      return !!event && event.id
-    }).filter(event => {
-      //Filter out past events
-      return moment(event.date).isAfter()
-    }).map(event => {
-      return inflateEvent(event, {
-        requests: this.props.requests.requestsById,
-        invites: this.props.invites.invitesById,
-        users: this.props.users.usersById,
-      })
-    })
-
-    events = events.sort((a, b) => {
-      return a.date > b.date ? 1 : -1
-    })
-
-    let nearby = this.props.search.nearby.map(item => {
-      let event = inflateEvent(this.props.events.eventsById[item.id], {
-        requests: this.props.requests.requestsById,
-        invites: this.props.invites.invitesById,
-        users: this.props.users.usersById,
-      })
-
-      return {
-        event,
-        distance: item.sort,
-      }
-    })
-    .filter(item => !!item.event)
-    .filter(item => item.event.privacy === 'public')
-    .filter(item => !item.event.cancelled)
+    console.log(this.props.eventsNearby)
 
     return (
       <Window
         onPressEvent={this.onPressEvent.bind(this)}
         mode={this.props.mode}
-        events={events}
+        events={this.props.eventsOrganized}
         onPressAdd={() => this.props.onNavigate('createEvent')}
         location={this.state.location}
-        nearby={nearby}
+        nearby={this.props.eventsNearby}
         isOrganising={this.props.mode === 'ORGANIZE'}
         isParticipanting={this.props.mode === 'PARTICIPATE'}
         onPressExplainer={this.props.onPressExplainer}
@@ -138,6 +91,9 @@ export default connect(
     requests: state.requests,
     invites: state.invites,
     search: state.search,
+
+    eventsOrganized: activeOrganisedEventsSortedSelector(state),
+    eventsNearby: activeNearbySearchEventsSelector(state),
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),

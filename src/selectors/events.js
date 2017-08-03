@@ -1,15 +1,25 @@
 import {createSelector} from 'reselect'
+import moment from 'moment'
+
+import {invitesSelector} from './invites'
+import {requestsSelector} from './requests'
+import {searchNearbyEventsSelector} from './search'
+import {userSelector} from './user'
+import {usersSelector} from './users'
+
+import {
+  formatEvents, sortEventsByDate,
+  formatSearchEvents, getUserOrganisedEvents
+} from './utils'
 
 export const eventsSelector = (state) => state.events.eventsById
-const userSelector = (state) => state.user
-const usersSelector = (state) => state.users.usersById
 
 export const eventSelector = createSelector(
   [eventsSelector, (state, eventId) => eventId],
   (events, eventId) => events[eventId]
 )
 
-export const eventWithMemberCount = createSelector(
+export const eventWithMemberCountSelector = createSelector(
   [eventSelector],
   (event) => {
     return {
@@ -21,44 +31,52 @@ export const eventWithMemberCount = createSelector(
   }
 )
 
-export const isEventMember = createSelector(
-  [userSelector, eventSelector],
-  (user, event) => {
-    const userRequests = Object.keys(user.requests || {})
-    const eventRequests = Object.keys(event.requests || {})
-
-    const intersection = userRequests.filter(x => eventRequests.indexOf(x) > -1)
-    return intersection.length > 0
+export const userOrganisedEventsSelector = createSelector(
+  [userSelector],
+  (user) => {
+    const events = getUserOrganisedEvents(user)
+    return Object.keys(events)
   }
 )
 
-export const isEventSaved = createSelector(
-  [userSelector, (state, eventId) => eventId],
-  (user, eventId) => {
-    try {
-      return !!user.savedEvents[eventId]
-    } catch(err) {
-      return true
-    }
-  }
-)
-
-export const eventOrganizer = createSelector(
-  [eventSelector, usersSelector],
-  (event, users) => {
-    return users[event.organizer]
-  }
-)
-
-export const isEventOrganizer = createSelector(
-  [userSelector, (state, eventId) => eventId],
-  (user, eventId) => {
-    try {
-      return !!user.organizing[eventId]
-    } catch(err) {
-      return true
-    }
-  }
+export const organisedEventsSelector = createSelector(
+  [
+    userOrganisedEventsSelector,
+    eventsSelector,
+    requestsSelector,
+    invitesSelector,
+    usersSelector,
+  ],
+  formatEvents
 )
 
 
+export const activeOrganisedEventsSelector = createSelector(
+  [organisedEventsSelector],
+  (events) => events
+    .filter((event) => !event.cancelled)
+    .filter((event) => moment(event.date).isAfter())
+)
+
+export const activeOrganisedEventsSortedSelector = createSelector(
+  [activeOrganisedEventsSelector],
+  sortEventsByDate,
+)
+
+export const nearbySearchEventsSelector = createSelector(
+  [
+    searchNearbyEventsSelector,
+    eventsSelector,
+    requestsSelector,
+    invitesSelector,
+    usersSelector,
+  ],
+  formatSearchEvents
+)
+
+export const activeNearbySearchEventsSelector = createSelector(
+  [nearbySearchEventsSelector],
+  (events) => events
+    .filter(item => item.event.privacy === 'public')
+    .filter(item => !item.event.cancelled)
+)
