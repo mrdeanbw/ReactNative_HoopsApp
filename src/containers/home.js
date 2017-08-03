@@ -3,11 +3,9 @@ import {connect} from 'react-redux'
 
 import {HomeOrganiser, HomeParticipant} from '../windows'
 import {navigationActions, searchActions, userActions} from '../actions'
-
-import {
-  activeOrganisedEventsSortedSelector,
-  activeNearbySearchEventsSelector,
-} from '../selectors/events'
+import {modeSelector} from '../selectors/app'
+import {activeOrganisedEventsSortedSelector, activeNearbySearchEventsSelector} from '../selectors/events'
+import {userSelector} from '../selectors/user'
 
 class Home extends Component {
 
@@ -34,14 +32,10 @@ class Home extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    //If location gets set for the first time, or gender changes, or new events added
-    if(
+    // If location gets set for the first time, or gender changes
+    if (
       !this.state.location.lat && nextState.location.lat ||
-      this.props.user.gender !== nextProps.user.gender ||
-      (
-        Object.keys(this.props.events.eventsById).length !==
-        Object.keys(nextProps.events.eventsById).length
-      )
+      this.props.user.gender !== nextProps.user.gender
     ) {
       this.props.onSearchNearby({
         lat: nextState.location.lat,
@@ -82,16 +76,10 @@ class Home extends Component {
 
 export default connect(
   (state) => ({
-    mode: state.app.mode,
-    user: state.user,
-    users: state.users,
-    events: state.events,
-    requests: state.requests,
-    invites: state.invites,
-    search: state.search,
-
     eventsOrganized: activeOrganisedEventsSortedSelector(state),
     eventsNearby: activeNearbySearchEventsSelector(state),
+    mode: modeSelector(state),
+    user: userSelector(state),
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props}, true)),
