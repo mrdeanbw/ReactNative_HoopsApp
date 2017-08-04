@@ -1,31 +1,33 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import {SearchResults as _SearchResults} from '../windows'
 import {navigationActions} from '../actions'
+import {generalSearchEventsSelector, searchEventsIdSelector} from '../selectors/events'
+import {searchGeneralUsersSelector} from '../selectors/search'
+import {userSelector} from '../selectors/user'
+import {usersSelector} from '../selectors/users'
+
+import {SearchResults as _SearchResults} from '../windows'
 
 class SearchResults extends Component {
 
   render() {
     let userIds = []
-    let eventIds = []
-    if(this.props.generalSearch === 'users') {
-      userIds = this.props.search.general.userIds
+    let events = []
+
+    if (this.props.generalSearch === 'users') {
+      userIds = this.props.searchGeneralUsers
     } else if(this.props.generalSearch === 'events') {
-      eventIds = this.props.search.general.eventIds
+      events = this.props.searchGeneralEvents
     } else {
-      eventIds = this.props.search.eventIds
+      events = this.props.searchEventsId
     }
 
-    let events = eventIds.map(id => {
-      return this.props.events.eventsById[id]
-    }).filter(event => !!event)
-
     let users = userIds.map(userId => {
-      return this.props.users.usersById[userId]
+      return this.props.users[userId]
     }).filter(user => !!user)
-    return (
 
+    return (
       <_SearchResults
         events={events}
         users={users}
@@ -44,10 +46,11 @@ class SearchResults extends Component {
 
 export default connect(
   (state) => ({
-    user: state.user,
-    users: state.users,
-    events: state.events,
-    search: state.search,
+    searchGeneralEvents: generalSearchEventsSelector(state),
+    searchEventsId: searchEventsIdSelector(state),
+    searchGeneralUsers: searchGeneralUsersSelector(state),
+    user: userSelector(state),
+    users: usersSelector(state),
   }),
   (dispatch) => ({
     onNavigate: (key, props) => dispatch(navigationActions.push({key, props})),

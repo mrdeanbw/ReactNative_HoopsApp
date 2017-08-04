@@ -3,7 +3,7 @@ import moment from 'moment'
 
 import {invitesSelector} from './invites'
 import {requestsSelector} from './requests'
-import {searchNearbyEventsSelector} from './search'
+import {searchNearbyEventsSelector, searchGeneralEventsSelector, searchEventsSelector} from './search'
 import {userSelector} from './user'
 import {usersSelector} from './users'
 
@@ -74,6 +74,28 @@ export const activeNearbySearchEventsSelector = createSelector(
   (events) => events
     .filter(item => item.event.privacy === 'public')
     .filter(item => !item.event.cancelled)
+)
+
+export const generalSearchEventsSelector = createSelector(
+  [
+    searchGeneralEventsSelector,
+    eventsSelector,
+    requestsSelector,
+    invitesSelector,
+    usersSelector,
+  ],
+  formatEvents
+)
+
+export const searchEventsIdSelector = createSelector(
+  [
+    searchEventsSelector,
+    eventsSelector,
+    requestsSelector,
+    invitesSelector,
+    usersSelector,
+  ],
+  formatEvents
 )
 
 export const userRequestEventsSelector = createSelector(

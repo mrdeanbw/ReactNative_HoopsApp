@@ -1,14 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import {Search as _Search} from '../windows'
 import {navigationActions, searchActions} from '../actions'
-import inflateEvent from '../data/inflaters/event'
+import {generalSearchEventsSelector} from '../selectors/events'
+import {Search as _Search} from '../windows'
 
 class Search extends Component {
 
   constructor() {
     super()
+
     this.state = {
       activityKey: null,
       location: null,
@@ -16,16 +17,9 @@ class Search extends Component {
   }
 
   render() {
-    let eventIds = this.props.search.general.eventIds
+    const events = this.props.searchGeneralEvents
     let userIds = this.props.search.general.userIds
 
-    let events = eventIds.map(id => {
-      return inflateEvent(this.props.events.eventsById[id], {
-        users: this.props.users.usersById,
-        invites: this.props.invites.invitesById,
-        requests: this.props.requests.requestsById,
-      })
-    }).filter(event => !!event)
     let users = userIds.map(id => {
       return this.props.users.usersById[id]
     }).filter(user => !!user)
@@ -83,12 +77,13 @@ class Search extends Component {
 export default connect(
   (state) => ({
     user: state.user,
-    events: state.events,
     search: state.search,
     interests: state.interests,
     users: state.users,
     invites: state.invites,
     requests: state.requests,
+
+    searchGeneralEvents: generalSearchEventsSelector(state),
   }),
   (dispatch) => ({
     onNavigate: (key, props, subTab) => dispatch(navigationActions.push({key, props}, subTab)),
