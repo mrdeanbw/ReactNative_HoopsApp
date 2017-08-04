@@ -1,6 +1,11 @@
 import inflateEvent from '../data/inflaters/event'
+import inflateRequest from '../data/inflaters/event'
 
 export const getUserOrganisedEvents = (user) => (user && user.organizing) || {}
+
+export const getUserRequests = (user) => (user && user.requests) || {}
+
+export const getUserSavedEvents = (user) => (user && user.savedEvents) || {}
 
 export const formatEvents = (eventIds, events, requests, invites, users) => {
   return eventIds.map(eventId => {
