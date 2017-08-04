@@ -15,10 +15,6 @@ export default class MyEvents extends React.Component {
     }
   }
 
-  onChangeSwitch(switchValue) {
-    this.props.onChangeAvailability(switchValue)
-  }
-
   onPressEvent(event) {
     this.props.onPressEvent(event)
   }
