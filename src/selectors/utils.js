@@ -1,5 +1,6 @@
+import moment from 'moment'
+
 import inflateEvent from '../data/inflaters/event'
-import inflateRequest from '../data/inflaters/event'
 
 export const getUserOrganisedEvents = (user) => (user && user.organizing) || {}
 
@@ -23,8 +24,16 @@ export const formatEvents = (eventIds, events, requests, invites, users) => {
 }
 
 export const getEventMeta = (event) => {
+  const isEnded = moment(event.date).isBefore()
+  const isCancelled = event.cancelled || false
+  const isDisabled = (isEnded || isCancelled)
+  const memberCount = event.requests ? Object.keys(event.requests).length : 0
+
   return {
-    memberCount: event.requests ? Object.keys(event.requests).length : 0
+    isEnded,
+    isCancelled,
+    isDisabled,
+    memberCount,
   }
 }
 
@@ -35,12 +44,19 @@ export const sortEventsByDate = (events) => {
 }
 
 export const formatSearchEvents = (eventSearchObjects, events, requests, invites, users) => {
-  return eventSearchObjects.map(({id, sort}) => ({
-    event: inflateEvent(events[id], {
+  return eventSearchObjects.map(({id, sort}) => {
+    const event = inflateEvent(events[id], {
       requests,
       invites,
       users,
-    }),
-    distance: sort
-  })).filter(item => !!item.event)
+    })
+
+    return {
+      event: {
+        ...event,
+        meta: getEventMeta(event),
+      },
+      distance: sort
+    }
+  }).filter(item => !!item.event)
 }

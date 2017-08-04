@@ -19,15 +19,12 @@ class EventListItem extends Component {
       nextDay: "[Tomorrow], HH:mm",
     })
 
-    let isEnded = moment(event.date).isBefore()
-    let isCancelled = event.cancelled
-    let isDisabled = isEnded || isCancelled
     let overlay
 
-    if (isEnded)     {overlay = 'ended'}
-    if (isCancelled) {overlay = 'cancelled'}
+    if (event.meta.isEnded) { overlay = 'ended' }
+    if (event.meta.isCancelled) { overlay = 'cancelled' }
 
-    let textColorStyle = (!this.props.ignoreDisabled && isDisabled) ?
+    let textColorStyle = (!this.props.ignoreDisabled && event.meta.isDisabled) ?
       StyleSheet.eventListItem.disabledText :
       null
     return (
@@ -90,7 +87,7 @@ class EventListItem extends Component {
             >
               {_('players')}&nbsp;
               <Text style={[StyleSheet.eventListItem.highlight, textColorStyle]}>
-                <Text>{event.players ? event.players.length : ''}</Text>
+                <Text>{event.meta.memberCount}</Text>
                 {!!event.maxPlayers && <Text>/{event.maxPlayers}</Text>}
               </Text>
               {'\u00a0\u00a0|\u00a0\u00a0'}

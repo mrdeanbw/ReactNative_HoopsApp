@@ -152,8 +152,6 @@ export default class CreateEvent extends Component {
           )
         }
 
-        console.log(entryFeeFloat, isPaymentValid)
-
         return !!(
           date &&
           courtType &&
