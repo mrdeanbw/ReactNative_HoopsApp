@@ -11,6 +11,7 @@ export const searchEvents = (params) => {
 
   return (dispatch, getState) => {
     let allEvents = getState().events.eventsById
+    console.log("_____all events", allEvents);
 
     let matches = Object.keys(allEvents).map(id => {
       return {
@@ -91,9 +92,14 @@ export const searchEvents = (params) => {
 export const searchGeneral = (params) => {
   return (dispatch, getState) => {
     const allEvents = getState().events.eventsById
-    const allUsers = getState().users.usersById
-    const searchString = params.text ? params.text.toLowerCase() : ''
+    console.log("__allEvents", allEvents);
 
+    const allUsers = getState().users.usersById
+
+    console.log("__allUsers", allUsers);
+    const searchString = params.text ? params.text.toLowerCase() : ''
+    console.log("searchString", searchString);
+    
     let events = Object.keys(allEvents).map(eventId => {
         return {
           ...allEvents[eventId],
