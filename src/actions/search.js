@@ -6,8 +6,69 @@
 import moment from 'moment'
 
 import actionTypes, {eventActions, navigationActions, usersActions} from './'
+import axios from 'axios';
+
+// ---------
 
 export const searchEvents = (params) => {
+  const searchString = params.text ? params.text.toLowerCase() : ''
+  //console.log("searchString", searchString);
+  console.log("params", params);
+  return (dispatch, getState) => {
+    var events;
+    var users;
+    var matches;
+    
+    axios.get('https://us-central1-hoops-21a72.cloudfunctions.net/searchEvents', {
+        params: {
+          searchkey: params
+        }
+      })
+      .then(function (response) {
+        if (response.data){
+          console.log("response in searchGeneral1", response.data);
+
+          matches = Object.keys(response.data).map(eventId => {
+            return {
+              ...response.data[eventId],
+              id : response.data[eventId].objectID
+            }
+          })
+
+          console.log("matches", matches);
+          //We use this format because it is what elasticsearch will return
+          let results = {
+            hits: {
+              total: matches.length,
+              hits: matches.map(event => ({
+                _id: event.id,
+              })),
+            },
+          }
+
+          dispatch({
+            type: actionTypes.SEARCH_END,
+            results,
+          })
+          //If we got some results, load the event objects from database
+          if(results.hits && results.hits.hits) {
+            results.hits.hits.forEach(hit => {
+              dispatch(eventActions.load(hit._id))
+            })
+          }
+          //Navigate to the results page
+          dispatch(navigationActions.push({key: 'searchResults'}))
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+}
+
+// -------
+export const searchEvents1 = (params) => {
+  console.log("params", params);
 
   return (dispatch, getState) => {
     let allEvents = getState().events.eventsById
@@ -88,54 +149,123 @@ export const searchEvents = (params) => {
     dispatch(navigationActions.push({key: 'searchResults'}))
   }
 }
+// --------------
+// export const searchGeneral = (params) => {
+//   return (dispatch, getState) => {
+//     const allEvents = getState().events.eventsById
+//     console.log("__allEvents", allEvents);
+
+//     const allUsers = getState().users.usersById
+
+//     console.log("__allUsers", allUsers);
+//     const searchString = params.text ? params.text.toLowerCase() : ''
+//     console.log("searchString", searchString);
+    
+//     let events = Object.keys(allEvents).map(eventId => {
+//         return {
+//           ...allEvents[eventId],
+//           id: eventId,
+//         }
+//       })
+//       .filter(event => event.title.toLowerCase().startsWith(searchString))
+//       .filter(event => moment(event.date).isAfter())
+//       .filter(event => event.privacy === 'public')
+//       .filter(event => !event.cancelled)
+
+//     let users = Object.keys(allUsers).map(userId => {
+//       return {
+//         ...allUsers[userId],
+//         id: userId,
+//       }
+//     }).filter(user => {
+//       if(user.name) {
+//         return user.name.toLowerCase().includes(searchString.toLowerCase())
+//       }else{
+//         return false
+//       }
+//     })
+
+//     events.forEach(event => dispatch(eventActions.load(event.id)))
+//     users.forEach(user => dispatch(usersActions.load(user.id)))
+//     console.log("123", events, users);
+//     dispatch({
+//       type: actionTypes.SEARCH_GENERAL,
+//       events,
+//       users
+//     })
+//   }
+// }
+
+// ---------
 
 export const searchGeneral = (params) => {
+  const searchString = params.text ? params.text.toLowerCase() : ''
+  //console.log("searchString", searchString);
   return (dispatch, getState) => {
-    const allEvents = getState().events.eventsById
-    console.log("__allEvents", allEvents);
-
-    const allUsers = getState().users.usersById
-
-    console.log("__allUsers", allUsers);
-    const searchString = params.text ? params.text.toLowerCase() : ''
-    console.log("searchString", searchString);
+    var events;
+    var users;
     
-    let events = Object.keys(allEvents).map(eventId => {
-        return {
-          ...allEvents[eventId],
-          id: eventId,
+    axios.get('https://us-central1-hoops-21a72.cloudfunctions.net/searchQueryUser', {
+        params: {
+          searchkey: searchString
         }
       })
-      .filter(event => event.title.toLowerCase().startsWith(searchString))
-      .filter(event => moment(event.date).isAfter())
-      .filter(event => event.privacy === 'public')
-      .filter(event => !event.cancelled)
+      .then(function (response) {
+        
+        if (response.data != undefined){
+          console.log("response in user", response.data);
+          users = Object.keys(response.data).map(userId => {
+            return {
+              ...response.data[userId],
+              id : response.data[userId].objectID
+            }
+          })
+          // events.forEach(event => dispatch(eventActions.load(event.id)))
+          // users.forEach(user => dispatch(usersActions.load(user.id)))
+          
+          dispatch({
+            type: actionTypes.SEARCH_GENERAL,
+            events,
+            users
+          })
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+    });
+      
+    axios.get('https://us-central1-hoops-21a72.cloudfunctions.net/searchQueryEvent', {
+        params: {
+          searchkey: searchString
+        }
+      })
+      .then(function (response) {
+        if (response.data != undefined){
+          console.log("response in event", response.data);
+          events = Object.keys(response.data).map(eventId => {
+            return {
+              ...response.data[eventId],
+              id : response.data[eventId].objectID
+            }
+          })
+          // events.forEach(event => dispatch(eventActions.load(event.id)))
+          // users.forEach(user => dispatch(usersActions.load(user.id)))
+          console.log("123", events, users);
+          dispatch({
+            type: actionTypes.SEARCH_GENERAL,
+            events,
+            users
+          })
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+    });
+    //--
 
-    let users = Object.keys(allUsers).map(userId => {
-      return {
-        ...allUsers[userId],
-        id: userId,
-      }
-    }).filter(user => {
-      if(user.name) {
-        return user.name.toLowerCase().includes(searchString.toLowerCase())
-      }else{
-        return false
-      }
-    })
-
-    events.forEach(event => dispatch(eventActions.load(event.id)))
-    users.forEach(user => dispatch(usersActions.load(user.id)))
-
-    dispatch({
-      type: actionTypes.SEARCH_GENERAL,
-      events,
-      users
-    })
   }
 }
-
-
+// --------
 /* For now, we do local searching only
 export const search = (params) => {
   return dispatch => {
