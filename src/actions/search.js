@@ -200,41 +200,57 @@ export const searchEvents1 = (params) => {
 
 export const searchGeneral = (params) => {
   const searchString = params.text ? params.text.toLowerCase() : ''
-  //console.log("searchString", searchString);
+  
+  let timeout1
+  let timeout2
+  const autocompleteDelay = 1000 //ms
+
   return (dispatch, getState) => {
     var events;
     var users;
     
-    axios.get('https://us-central1-hoops-21a72.cloudfunctions.net/searchQueryUser', {
-        params: {
-          searchkey: searchString
-        }
-      })
-      .then(function (response) {
-        
-        if (response.data != undefined){
-          console.log("response in user", response.data);
-          users = Object.keys(response.data).map(userId => {
-            return {
-              ...response.data[userId],
-              id : response.data[userId].objectID
-            }
-          })
-          // events.forEach(event => dispatch(eventActions.load(event.id)))
-          // users.forEach(user => dispatch(usersActions.load(user.id)))
+    
+    //cancel previous autocomplete request and start a new one
+    clearTimeout(timeout1)
+    timeout1 = setTimeout(() => {
+      // resolve(
+        // fetch(url)
+        //   .then(result => result.json())
+        //   .catch(err => console.warn(err)) //eslint-disable-line no-console
+
+        axios.get('https://us-central1-hoops-21a72.cloudfunctions.net/searchQueryUser', {
+          params: {
+            searchkey: searchString
+          }
+        })
+        .then(function (response) {
           
-          dispatch({
-            type: actionTypes.SEARCH_GENERAL,
-            events,
-            users
-          })
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-    });
-      
-    axios.get('https://us-central1-hoops-21a72.cloudfunctions.net/searchQueryEvent', {
+          if (response.data != undefined){
+            users = Object.keys(response.data).map(userId => {
+              return {
+                ...response.data[userId],
+                id : response.data[userId].objectID
+              }
+            })
+            dispatch({
+              //type: actionTypes.SEARCH_GENERAL_USER,
+              type: actionTypes.SEARCH_GENERAL,
+              events,
+              users
+            })
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+
+      // )
+    }, autocompleteDelay)
+    
+
+    clearTimeout(timeout2)
+    timeout2 = setTimeout(()=>{
+      axios.get('https://us-central1-hoops-21a72.cloudfunctions.net/searchQueryEvent', {
         params: {
           searchkey: searchString
         }
@@ -248,10 +264,8 @@ export const searchGeneral = (params) => {
               id : response.data[eventId].objectID
             }
           })
-          // events.forEach(event => dispatch(eventActions.load(event.id)))
-          // users.forEach(user => dispatch(usersActions.load(user.id)))
-          console.log("123", events, users);
           dispatch({
+            // type: actionTypes.SEARCH_GENERAL_EVENT,
             type: actionTypes.SEARCH_GENERAL,
             events,
             users
@@ -260,113 +274,10 @@ export const searchGeneral = (params) => {
       })
       .catch(function (error) {
         console.log(error);
-    });
-    //--
-
+      })
+    }, autocompleteDelay)
   }
 }
-// --------
-/* For now, we do local searching only
-export const search = (params) => {
-  return dispatch => {
-    dispatch({
-      type: 'SEARCH_START',
-      params,
-    });
-
-    let query = {
-      bool: {
-        must: [],
-        filter: [],
-      },
-    };
-
-    if(params.text) {
-      query.bool.must.push({
-        match: {
-          title: params.text,
-        },
-      });
-    }
-    if(params.gender) {
-      query.bool.must.push({
-        match: {
-          gender: params.gender,
-        },
-      });
-    }
-    if(params.level) {
-      query.bool.must.push({
-        match: {
-          level: params.level,
-        },
-      });
-    }
-    if(params.courtType && params.courtType !== 'both') {
-      query.bool.must.push({
-        match: {
-          courtType: params.courtType,
-        },
-      });
-    }
-
-    if(params.date) {
-      query.bool.filter.push({
-        range: {
-          date: {
-            gt: params.date,
-          },
-        },
-      });
-    } else {
-      //If date filter is not specified, show all events after "now"
-      query.bool.filter.push({
-        range: {
-          date: {
-            gt: "now",
-          },
-        },
-      });
-    }
-
-    if(params.geospatial && params.geospatial.radius) {
-      query.bool.filter.push({
-        geo_distance: {
-          distance: params.geospatial.radius + 'mi',
-          addressCoords: {
-            lat: params.geospatial.coords.latitude,
-            lon: params.geospatial.coords.longitude,
-          },
-        }
-      });
-    }
-
-    client.search('test/events', {query}).then((results) => {
-      dispatch({
-        type: 'SEARCH_END',
-        results
-      });
-
-      //If we got some results, load the event objects from database
-      if(results.hits && results.hits.hits) {
-        results.hits.hits.forEach(hit => {
-          dispatch(eventActions.load(hit._id));
-        });
-      }
-
-      //Navigate to the results page
-      dispatch(navigationActions.push({key: 'searchResults'}));
-
-    }).catch((err) => {
-      dispatch({
-        type: 'SEARCH_ERROR',
-        err,
-      });
-    });
-
-  };
-};
-*/
 
 /*
  * params.location.lat {Number}

@@ -48,7 +48,27 @@ export default handleActions({
       },
     }
   },
+///Leon
 
+  [actionTypes.SEARCH_GENERAL_USER]: (state, action) => {
+    return {
+      ...state,
+      general: {
+        ...state,
+        userIds: action.users.map(user => user.id)
+      },
+    }
+  },
+  [actionTypes.SEARCH_GENERAL_EVENT]: (state, action) => {
+    return {
+      ...state,
+      general: {
+        ...state,
+        eventIds: action.events.map(event => event.id)
+      },
+    }
+  },
+///----
   [actionTypes.SEARCH_NEARBY_START]: (state, action) => {
     return state
   },
