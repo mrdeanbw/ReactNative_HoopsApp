@@ -79,7 +79,7 @@ export default handleActions({
     }
     return {
       ...state,
-      nearby: action.results.hits.hits.map(hit => ({id: hit._id, sort: hit.sort[0]})),
+      nearby: action.results.hits.hits.map(hit => ({id: hit._id/*, sort: hit.sort[0]*/})),
       error: null,
     }
   },

@@ -22,6 +22,8 @@ class Home extends Component {
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(position => {
+      console.log("position.coords.latitude : ", position.coords.latitude);
+      console.log("position.coords.latitude : ", position.coords.longitude);
       this.setState({
         location: {
           lat: position.coords.latitude,

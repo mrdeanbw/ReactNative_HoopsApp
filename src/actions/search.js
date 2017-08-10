@@ -8,12 +8,8 @@ import moment from 'moment'
 import actionTypes, {eventActions, navigationActions, usersActions} from './'
 import axios from 'axios';
 
-// ---------
-
 export const searchEvents = (params) => {
   const searchString = params.text ? params.text.toLowerCase() : ''
-  //console.log("searchString", searchString);
-  console.log("params", params);
   return (dispatch, getState) => {
     var events;
     var users;
@@ -26,8 +22,6 @@ export const searchEvents = (params) => {
       })
       .then(function (response) {
         if (response.data){
-          console.log("response in searchGeneral1", response.data);
-
           matches = Object.keys(response.data).map(eventId => {
             return {
               ...response.data[eventId],
@@ -35,7 +29,6 @@ export const searchEvents = (params) => {
             }
           })
 
-          console.log("matches", matches);
           //We use this format because it is what elasticsearch will return
           let results = {
             hits: {
@@ -66,14 +59,9 @@ export const searchEvents = (params) => {
   }
 }
 
-// -------
 export const searchEvents1 = (params) => {
-  console.log("params", params);
-
   return (dispatch, getState) => {
     let allEvents = getState().events.eventsById
-    console.log("_____all events", allEvents);
-
     let matches = Object.keys(allEvents).map(id => {
       return {
         ...allEvents[id],
@@ -213,11 +201,6 @@ export const searchGeneral = (params) => {
     //cancel previous autocomplete request and start a new one
     clearTimeout(timeout1)
     timeout1 = setTimeout(() => {
-      // resolve(
-        // fetch(url)
-        //   .then(result => result.json())
-        //   .catch(err => console.warn(err)) //eslint-disable-line no-console
-
         axios.get('https://us-central1-hoops-21a72.cloudfunctions.net/searchQueryUser', {
           params: {
             searchkey: searchString
@@ -243,8 +226,6 @@ export const searchGeneral = (params) => {
         .catch(function (error) {
           console.log(error);
         })
-
-      // )
     }, autocompleteDelay)
     
 
@@ -256,8 +237,7 @@ export const searchGeneral = (params) => {
         }
       })
       .then(function (response) {
-        if (response.data != undefined){
-          console.log("response in event", response.data);
+        if (response.data != 'undefined'){
           events = Object.keys(response.data).map(eventId => {
             return {
               ...response.data[eventId],
@@ -272,9 +252,9 @@ export const searchGeneral = (params) => {
           })
         }
       })
-      .catch(function (error) {
-        console.log(error);
-      })
+      // .catch(function (error) {
+      //   console.log(error);
+      // })
     }, autocompleteDelay)
   }
 }
@@ -284,7 +264,102 @@ export const searchGeneral = (params) => {
  * params.location.lon {Number}
  * params.limit {Number}
  */
-export const nearby = (params) => {
+
+ export const nearby = (params) => {
+  return (dispatch, getState) => {
+    var events;
+    var matches;
+    axios.get('https://us-central1-hoops-21a72.cloudfunctions.net/geoSearch', {
+      params : {
+        searchkey : params
+      }
+    })
+    .then(function(response){
+      if (response.data){
+        matches = Object.keys(response.data).map(eventId => {
+          return {
+            ...response.data[eventId],
+            id : response.data[eventId].objectID
+          }
+        })
+        let results = {
+          hits: {
+            total: matches.length,
+            hits: matches.map(event => ({
+              _id: event.id
+              // sort: [event._distance],
+            })),
+          },
+        }
+        //If we got some results, load the event objects from database
+        if(results.hits && results.hits.hits) {
+          results.hits.hits.forEach(hit => {
+            dispatch(eventActions.load(hit._id))
+          })
+        }
+        dispatch({
+          type: actionTypes.SEARCH_NEARBY_END,
+          results,
+        })
+      }
+
+    })
+    // let matches = Object.keys(allEvents).map(eventId => {
+    //   return {
+    //     ...allEvents[eventId],
+    //     id: eventId,
+    //   }
+    // }).filter(event => {
+    //   return moment(event.date).isAfter()
+    // }).filter(event => {
+    //   return params.gender === event.gender || event.gender === 'mixed'
+    // }).map(event => {
+    //   if(params.lat && params.lon && event.addressCoords) {
+    //     //Very simple approximate radius calculation (pythagoras)
+    //     let dLat = params.lat - event.addressCoords.lat
+    //     let dLon = params.lon - event.addressCoords.lon
+    //     let distance = Math.sqrt(Math.pow(dLat, 2) + Math.pow(dLon, 2))
+
+    //     //Each degree of latitude is approximately 70 miles
+    //     distance = distance * 70
+    //     event._distance = distance
+    //   }
+
+    //   return event
+    // }).filter(event => {
+    //   return typeof event._distance !== 'undefined'
+    // }).sort((a, b) => {
+    //   return a._distance > b._distance ? 1 : -1
+    // }).slice(0, size)
+
+    //We use this format because it is what elasticsearch will return
+    // let results = {
+    //   hits: {
+    //     total: matches.length,
+    //     hits: matches.map(event => ({
+    //       _id: event.id,
+    //       sort: [event._distance],
+    //     })),
+    //   },
+    // }
+
+    // //If we got some results, load the event objects from database
+    // if(results.hits && results.hits.hits) {
+    //   results.hits.hits.forEach(hit => {
+    //     dispatch(eventActions.load(hit._id))
+    //   })
+    // }
+
+    // dispatch({
+    //   type: actionTypes.SEARCH_NEARBY_END,
+    //   results,
+    // })
+
+  }
+}
+
+ 
+export const nearby1 = (params) => {
   return (dispatch, getState) => {
     let allEvents = getState().events.eventsById
     let size = 50
@@ -342,6 +417,7 @@ export const nearby = (params) => {
 
   }
 }
+
 /* For now, we do local searching only
 export const nearby = (params) => {
   return dispatch => {
