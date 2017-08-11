@@ -38,7 +38,7 @@ export const searchEvents = (params) => {
               })),
             },
           }
-
+          //console.log("results", results);
           dispatch({
             type: actionTypes.SEARCH_END,
             results,
@@ -191,7 +191,7 @@ export const searchGeneral = (params) => {
   
   let timeout1
   let timeout2
-  const autocompleteDelay = 1000 //ms
+  const autocompleteDelay = 500 //ms
 
   return (dispatch, getState) => {
     var events;

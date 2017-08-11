@@ -961,7 +961,7 @@
 						DevelopmentTeam = 56X44JC869;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 56X44JC869;
+						DevelopmentTeam = G4WTQ8DV64;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1601,7 +1601,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Hoops/Hoops.entitlements;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 56X44JC869;
+				DEVELOPMENT_TEAM = G4WTQ8DV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1624,14 +1624,14 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 				);
 				INFOPLIST_FILE = Hoops/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.hoopsapp.app.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = co.hoopsapp.app.iosdsfds;
 				PRODUCT_NAME = Hoops;
 			};
 			name = Debug;
@@ -1642,7 +1642,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Hoops/Hoops.entitlements;
-				DEVELOPMENT_TEAM = 56X44JC869;
+				DEVELOPMENT_TEAM = G4WTQ8DV64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1665,14 +1665,14 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 				);
 				INFOPLIST_FILE = Hoops/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.hoopsapp.app.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = co.hoopsapp.app.iosdsfds;
 				PRODUCT_NAME = Hoops;
 			};
 			name = Release;
